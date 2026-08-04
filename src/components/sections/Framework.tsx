@@ -155,7 +155,7 @@ const FRAME_GRADIENTS = [
 export default function Framework({ steps }: FrameworkProps) {
   return (
     <section className="border-t border-bronze/45 bg-ivory px-7 pt-[104px] pb-[112px]">
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
         {steps.map((step, i) => {
           const Motif = MOTIFS[i];
           return (
