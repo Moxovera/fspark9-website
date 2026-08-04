@@ -101,7 +101,7 @@ export default function Hero({ content }: HeroProps) {
           {scrollLabel}
         </span>
         <span
-          className="block h-[46px] w-px"
+          className="block h-[46px] w-px origin-top animate-[fs-cue-line_2.2s_ease-in-out_infinite] motion-reduce:animate-none"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--bronze) 85%, transparent))",
@@ -116,7 +116,7 @@ export default function Hero({ content }: HeroProps) {
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-bronze"
+          className="animate-[fs-cue-bob_2.2s_ease-in-out_infinite] text-bronze motion-reduce:animate-none"
         >
           <polyline points="6 10 12 16 18 10" />
         </svg>

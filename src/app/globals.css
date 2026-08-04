@@ -53,3 +53,28 @@ body {
     transition: none;
   }
 }
+
+/* Hero scroll göstergesi döngüsü — dc.html: fs-cue-line / fs-cue-bob */
+@keyframes fs-cue-line {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fs-cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
