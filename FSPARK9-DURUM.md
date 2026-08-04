@@ -64,7 +64,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Site bölümü | Geçiş A · Yapı | Geçiş B · Stil doğrulama | Geçiş C · Animasyon |
 |---|:---:|:---:|:---:|
 | Hero | [x] | [x] | [x] |
-| Framework | [ ] | [ ] | [ ] |
+| Framework | [x] | [x] | [x] |
 | ProofStrip | [ ] | [ ] | [ ] |
 | Familiar | [ ] | [ ] | [ ] |
 | CaseStudies | [ ] | [ ] | [ ] |
