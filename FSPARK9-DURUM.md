@@ -79,6 +79,12 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Faq | [ ] | [ ] | [ ] |
 | ClosingCta | [ ] | [ ] | [ ] |
 
+## Bilinçli tasarım sapmaları
+
+dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır: ne, neden.
+
+- Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
+
 ## Bugün alınan içerik kararları
 
 - `content.ts`'e dc.html'de olup karşılığı olmayan üç bölüm için yeni tipler eklendi: `FamiliarSection`/`FamiliarPoint` (sticky kart yığını), `TestimonialSection`/`Testimonial` (testimonial slider), `MediaSection`/`MediaItem` (basın/medya).

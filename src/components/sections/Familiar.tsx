@@ -27,7 +27,10 @@ export default function Familiar({ content }: FamiliarProps) {
                   "0 26px 70px color-mix(in srgb, color-mix(in srgb, var(--navy) 35%, black) 50%, transparent)",
               }}
             >
-              <div className="grid grid-cols-[132px_1fr] items-start gap-7 px-10 pt-9.5 pb-10">
+              {/* Sayı sütunu mobilde 132px yerine 85px — dc.html'de bu ayrım
+                  yok (sabit 132px), bilinçli mobil sapma: metne daha çok
+                  yer açmak için. sm: ve üstü dc.html ile birebir aynı. */}
+              <div className="grid grid-cols-[85px_1fr] items-start gap-7 px-10 pt-9.5 pb-10 sm:grid-cols-[132px_1fr]">
                 <span className="font-display text-[clamp(2.6rem,4.4vw,3.6rem)] leading-[0.9] font-semibold tracking-[-0.02em] text-bronze">
                   {String(point.order).padStart(2, "0")}
                 </span>
