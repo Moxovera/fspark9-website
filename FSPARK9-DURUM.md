@@ -1,6 +1,6 @@
 # FSPARK9 · Proje Durumu
 
-Bu dosya, projeye yeni başlayan (veya araya giren) birinin hızlıca bağlam kazanması için tutuluyor. Kalıcı kurallar için `CLAUDE.md`'ye, alt sayfa route planı için `_design/route-haritasi.md`'ye, bölüm×geçiş ilerlemesi için `_design/devir-notu.md`'ye bakılır.
+Bu dosya, projeye yeni başlayan (veya araya giren) birinin hızlıca bağlam kazanması için tutuluyor. Tek durum kaynağı burasıdır. Kalıcı kurallar için `CLAUDE.md`'ye, alt sayfa route planı için `_design/route-haritasi.md`'ye bakılır. Bölüm × geçiş ilerlemesi aşağıda "Bölüm C detay takibi" bölümünde.
 
 Son güncelleme: 2026-08-04
 
@@ -33,7 +33,6 @@ Son güncelleme: 2026-08-04
 | `_design/fspark9 Site.dc.html` | Tasarım kaynağı — DCLogic tabanlı, tek doğru referans |
 | `_design/content.ts` | Onaylı içerik tipi referansı — değişiklikler önce burada yapılır |
 | `_design/route-haritasi.md` | Alt sayfa route/dosya/bileşen planı — henüz uygulanmadı, referans olarak duruyor |
-| `_design/devir-notu.md` | Bölüm × geçiş (A/B/C) ilerleme checklist'i |
 | `src/types/content.ts` | Çalışan kopya — `_design/content.ts`'ten kopyalanır; tek fark `PostListItem` (lint için `interface extends {}` yerine `type = Pick<...>`) |
 | `src/content/en.ts`, `src/content/tr.ts` | Faz 2 içerik verisi — şu an sadece `hero` dolu, geri kalanı tip hatası vermeyecek placeholder |
 | `src/components/sections/Hero.tsx` | Tamamlanan tek bölüm |
@@ -54,24 +53,31 @@ Son güncelleme: 2026-08-04
 - Kontrol Noktası 1 doğrulandı (build temiz, ilk commit + push başarılı, `git remote -v` / `git log` ile teyit edildi).
 - **Açık:** custom domain henüz Vercel'e bağlanmadı.
 
-**Bölüm C — Bölüm bölüm inşa:**
-- [x] Hero (Geçiş A + B + C tamamlandı — yapı, mobil düzeltme, scroll reveal, scroll gösterge döngüsü)
-- [ ] Framework — başlıyor
-- [ ] ProofStrip
-- [ ] Familiar
-- [ ] CaseStudies
-- [ ] Services
-- [ ] Comparison
-- [ ] Approach
-- [ ] Testimonials
-- [ ] Audience
-- [ ] Story
-- [ ] Process
-- [ ] Media
-- [ ] Faq
-- [ ] ClosingCta
+**Bölüm C — Bölüm bölüm inşa:** Hero bitti, Framework'e başlanıyor. Site bölümü bazında Geçiş A/B/C detayı aşağıda.
 
-*(Not: buradaki "Bölüm A/B/C" proje fazlarını ifade ediyor — CLAUDE.md'deki her site bölümü için uygulanan "Geçiş A/B/C" ile karıştırılmamalı. Site bölümü bazında geçiş takibi `_design/devir-notu.md`'de.)*
+*(Not: buradaki "Bölüm A/B/C" proje fazlarını ifade ediyor — CLAUDE.md'deki her site bölümü için uygulanan "Geçiş A/B/C" ile karıştırılmamalı, aşağıdaki tablo o ikinci anlamı takip ediyor.)*
+
+### Bölüm C detay takibi
+
+Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yapı, Geçiş B · Stil doğrulama, Geçiş C · Animasyon) göre ilerleme. Sıra `src/types/content.ts` içindeki `HomePage` arayüzüyle aynı (dc.html'deki gerçek sıra).
+
+| Site bölümü | Geçiş A · Yapı | Geçiş B · Stil doğrulama | Geçiş C · Animasyon |
+|---|:---:|:---:|:---:|
+| Hero | [x] | [x] | [x] |
+| Framework | [ ] | [ ] | [ ] |
+| ProofStrip | [ ] | [ ] | [ ] |
+| Familiar | [ ] | [ ] | [ ] |
+| CaseStudies | [ ] | [ ] | [ ] |
+| Services | [ ] | [ ] | [ ] |
+| Comparison | [ ] | [ ] | [ ] |
+| Approach | [ ] | [ ] | [ ] |
+| Testimonials | [ ] | [ ] | [ ] |
+| Audience | [ ] | [ ] | [ ] |
+| Story | [ ] | [ ] | [ ] |
+| Process | [ ] | [ ] | [ ] |
+| Media | [ ] | [ ] | [ ] |
+| Faq | [ ] | [ ] | [ ] |
+| ClosingCta | [ ] | [ ] | [ ] |
 
 ## Bugün alınan içerik kararları
 
