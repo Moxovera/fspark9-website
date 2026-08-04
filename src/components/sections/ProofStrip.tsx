@@ -23,7 +23,7 @@ export default function ProofStrip({ content }: ProofStripProps) {
       <div
         className="overflow-hidden py-[34px]"
         style={{
-          background: "color-mix(in srgb, var(--bronze) 15%, var(--ivory))",
+          background: "color-mix(in srgb, var(--bronze) 7%, var(--ivory))",
           borderTop: "1px solid color-mix(in srgb, var(--bronze) 22%, transparent)",
           borderBottom: "1px solid color-mix(in srgb, var(--bronze) 22%, transparent)",
           maskImage:
