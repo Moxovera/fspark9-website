@@ -66,7 +66,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Hero | [x] | [x] | [x] |
 | Framework | [x] | [x] | [x] |
 | ProofStrip | [x] | [x] | [x] |
-| Familiar | [ ] | [ ] | [ ] |
+| Familiar | [x] | [x] | [ ] |
 | CaseStudies | [ ] | [ ] | [ ] |
 | Services | [ ] | [ ] | [ ] |
 | Comparison | [ ] | [ ] | [ ] |
