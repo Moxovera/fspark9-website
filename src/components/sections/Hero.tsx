@@ -86,7 +86,12 @@ export default function Hero({ content }: HeroProps) {
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-[26px] z-[2] flex flex-col items-center gap-2.5">
+      {/* Masaüstünde section'ın altına absolute sabitlenir (dc.html'deki gibi).
+          dc.html'de bunun için ayrı bir mobil davranış tanımlı değil, ama
+          genişletilmiş Hero içeriğiyle absolute+bottom-26px dar ekranlarda
+          CTA bloğunun üzerine biniyor — bu yüzden md: altında normal akışa
+          dönüp CTA bloğunun altına iniyor. */}
+      <div className="mt-12 flex flex-col items-center gap-2.5 md:absolute md:inset-x-0 md:bottom-[26px] md:z-[2] md:mt-0">
         <span className="font-mono text-[10.5px] tracking-[0.2em] text-ivory/45 uppercase">
           {scrollLabel}
         </span>
