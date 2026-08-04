@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import Reveal from "@/components/ui/Reveal";
 import type { Hero as HeroContent } from "@/types/content";
 
 interface HeroProps {
@@ -40,17 +41,21 @@ export default function Hero({ content }: HeroProps) {
       />
 
       <div className="relative mx-auto w-full max-w-[1280px]">
-        <p className="mb-5 font-mono text-[13px] tracking-[0.16em] text-bronze uppercase">
-          {eyebrow}
-        </p>
+        <Reveal>
+          <p className="mb-5 font-mono text-[13px] tracking-[0.16em] text-bronze uppercase">
+            {eyebrow}
+          </p>
+        </Reveal>
 
-        <h1 className="max-w-[17ch] text-balance font-display text-[clamp(2.7rem,6.4vw,5.6rem)] leading-[1.04] font-semibold tracking-[-0.015em] text-ivory">
-          {headlinePrimary}
-          <br />
-          <span className="text-bronze">{headlineAccent}</span>
-        </h1>
+        <Reveal>
+          <h1 className="max-w-[17ch] text-balance font-display text-[clamp(2.7rem,6.4vw,5.6rem)] leading-[1.04] font-semibold tracking-[-0.015em] text-ivory">
+            {headlinePrimary}
+            <br />
+            <span className="text-bronze">{headlineAccent}</span>
+          </h1>
+        </Reveal>
 
-        <div className="mt-9 flex max-w-[56ch] flex-col gap-[22px]">
+        <Reveal className="mt-9 flex max-w-[56ch] flex-col gap-[22px]">
           <ul className="m-0 flex list-none flex-col items-start gap-[13px] p-0">
             {bullets.map((bullet) => (
               <li
@@ -71,9 +76,9 @@ export default function Hero({ content }: HeroProps) {
           <p className="text-[clamp(1.05rem,1.4vw,1.3rem)] leading-[1.5] font-medium text-ivory">
             {closingLine}
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mt-10 flex flex-col items-start gap-3.5">
+        <Reveal className="mt-10 flex flex-col items-start gap-3.5">
           <Link
             href={ctaHref}
             className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory"
@@ -83,7 +88,7 @@ export default function Hero({ content }: HeroProps) {
           <p className="max-w-[46ch] text-sm leading-[1.55] text-ivory/50">
             {ctaNote}
           </p>
-        </div>
+        </Reveal>
       </div>
 
       {/* Masaüstünde section'ın altına absolute sabitlenir (dc.html'deki gibi).
