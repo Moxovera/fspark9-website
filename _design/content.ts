@@ -64,11 +64,15 @@ export interface PageSeo {
 // ─────────────────────────────────────────────
 
 export interface Hero {
-  headline: string        // "Decide it. Set it up. Ship it."
-  subheadline: string
-  ctaLabel: string        // "Book a free 30 minute call"
-  ctaHref: string
-  ctaNote: string         // butonun altındaki satır
+  eyebrow: string          // başlığın üstündeki kicker satırı — dc.html: t.hero.eyebrow
+  headlinePrimary: string  // başlığın ilk satırı, ivory — dc.html: t.hero.h1a
+  headlineAccent: string   // başlığın ikinci satırı, bronz, <br> ile ayrılır — dc.html: t.hero.h1b
+  bullets: string[]        // ikonlu 3 kısa madde — dc.html: t.hero.bullets
+  closingLine: string      // madde listesinden sonraki vurgu cümlesi — dc.html: t.hero.subLast
+  ctaLabel: string         // "Book a free 30 minute call" — dc.html: t.hero.cta
+  ctaHref: string          // dc.html'de yok, gerçek routing için eklendi
+  ctaNote: string          // butonun altındaki satır — dc.html: t.hero.note
+  scrollLabel: string      // scroll ipucunun üstündeki küçük etiket — dc.html: t.hero.scroll
 }
 
 // ─────────────────────────────────────────────

@@ -1,11 +1,18 @@
-import { useTranslations } from "next-intl";
+import Hero from "@/components/sections/Hero";
+import { en } from "@/content/en";
+import { tr } from "@/content/tr";
 
-export default function Home() {
-  const t = useTranslations("Home");
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const content = locale === "tr" ? tr : en;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-ivory text-charcoal">
-      <p className="font-mono text-sm tracking-wide">{t("placeholder")}</p>
+    <main>
+      <Hero content={content.hero} />
     </main>
   );
 }
