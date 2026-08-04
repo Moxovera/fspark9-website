@@ -186,6 +186,19 @@ Faz 3'te aynı veri Sanity'den gelir.
 - Her bölüm ayrı commit. Mesaj: `feat(section): hero`
 - Push sonrası Vercel preview linkinde kontrol edilir.
 
+## Bölüm tamamlama kontrol listesi
+
+Her bölüm (Geçiş A, B, C hepsi dahil) "bitti" denmeden önce şunlar kontrol edilir:
+
+1. 375px (mobil), 768px (tablet), 1440px (masaüstü) genişliklerde görsel kontrol yapılır
+2. Hiçbir eleman başka bir elemanın üzerine binmiyor, taşmıyor, kesilmiyor
+3. absolute/fixed konumlanmış her eleman (scroll göstergesi, dekoratif ikon, sabit buton vb.) üç genişlikte de ayrı ayrı kontrol edilir, çünkü masaüstünde doğru duran bir absolute eleman mobilde en sık kırılan yerdir
+4. `npm run build` ve `npm run lint` hatasız geçer
+5. dc.html ile yan yana karşılaştırılır, kasıtsız bir sapma yoksa devam edilir
+6. Bu beş madde geçmeden commit atılmaz
+
+Bu kontrol listesini uygulamadan bir bölümü "tamamlandı" olarak raporlama.
+
 ## Yapılmayacaklar
 
 - Harici animasyon kütüphanesi kurmak (framer-motion, GSAP, AOS)
