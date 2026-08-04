@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 0 64 100" width="64" height="100">
+  <defs><clipPath id="s"><polygon points="50,32 18.2,-18.88 50,-28 81.79,-18.88"></polygon></clipPath></defs>
+  <path fill="#F7F4EC" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+  <path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+  <path fill="#A67C3D" fill-rule="evenodd" clip-path="url(#s)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+</svg>
