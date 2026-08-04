@@ -1,13 +1,46 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import type { ProofStrip as ProofStripContent } from "@/types/content";
+import Marquee from "@/components/effects/Marquee";
+import type { ProofItem, ProofStrip as ProofStripContent } from "@/types/content";
 
 interface ProofStripProps {
   content: ProofStripContent;
 }
 
+function ProofCard({ item }: { item: ProofItem }) {
+  return (
+    <div
+      className="w-[340px] shrink-0 px-[34px]"
+      style={{
+        borderLeft: "1px solid color-mix(in srgb, var(--bronze) 35%, transparent)",
+      }}
+    >
+      {item.logo ? (
+        <Image
+          src={item.logo.url}
+          alt={item.logo.alt || item.name}
+          width={item.logo.width}
+          height={item.logo.height}
+          className="mb-2.5 h-8 w-auto"
+        />
+      ) : (
+        <p className="mb-2.5 font-display text-[1.6rem] font-semibold text-navy">
+          {item.name}
+        </p>
+      )}
+      <p className="text-[13.5px] leading-[1.55] text-charcoal/66">
+        {item.line}
+      </p>
+    </div>
+  );
+}
+
 export default function ProofStrip({ content }: ProofStripProps) {
   const { kicker, roles, items, link } = content;
+  // Kesintisiz döngü için liste iki kez basılıyor — dc.html: credLoop =
+  // t.cred.items.concat(t.cred.items). Marquee, track genişliğinin
+  // yarısı kadar kayınca başa sarıyor, bu yüzden döngü görünmez.
+  const loopedItems = [...items, ...items];
 
   return (
     <section className="border-t border-charcoal/8 bg-ivory pt-[76px] pb-[84px]">
@@ -20,7 +53,7 @@ export default function ProofStrip({ content }: ProofStripProps) {
         </p>
       </div>
 
-      <div
+      <Marquee
         className="overflow-hidden py-[34px]"
         style={{
           background: "color-mix(in srgb, var(--bronze) 7%, var(--ivory))",
@@ -32,36 +65,10 @@ export default function ProofStrip({ content }: ProofStripProps) {
             "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
         }}
       >
-        <div className="flex w-max">
-          {items.map((item) => (
-            <div
-              key={item.name}
-              className="w-[340px] shrink-0 px-[34px]"
-              style={{
-                borderLeft:
-                  "1px solid color-mix(in srgb, var(--bronze) 35%, transparent)",
-              }}
-            >
-              {item.logo ? (
-                <Image
-                  src={item.logo.url}
-                  alt={item.logo.alt || item.name}
-                  width={item.logo.width}
-                  height={item.logo.height}
-                  className="mb-2.5 h-8 w-auto"
-                />
-              ) : (
-                <p className="mb-2.5 font-display text-[1.6rem] font-semibold text-navy">
-                  {item.name}
-                </p>
-              )}
-              <p className="text-[13.5px] leading-[1.55] text-charcoal/66">
-                {item.line}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+        {loopedItems.map((item, i) => (
+          <ProofCard key={`${item.name}-${i}`} item={item} />
+        ))}
+      </Marquee>
 
       <div className="mx-auto max-w-[1280px] px-7 pt-11">
         <Link
