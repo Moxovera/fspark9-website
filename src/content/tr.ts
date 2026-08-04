@@ -43,7 +43,33 @@ export const tr: HomePage = {
       },
     ],
   },
-  proofStrip: { items: [], closingLine: "" },
+  proofStrip: {
+    kicker: "Bu işi nerede yaptım",
+    roles: "Ürün ve büyüme liderliği · Dijital bankacılık · Pazara giriş",
+    items: [
+      {
+        name: "insha",
+        line: "Avrupa'nın ilk faizsiz dijital bankası. Önerme, BaaS partnerleri, deneyim ve büyüme, sıfırdan.",
+        order: 1,
+      },
+      {
+        name: "RUUT",
+        line: "Bir İşbank şirketi. Para transferi uygulamasından dijital bankaya, oradan İngiltere pazarına.",
+        order: 2,
+      },
+      {
+        name: "Turkcell",
+        line: "Paycell ve Financell, uluslararası pazar açılımı.",
+        order: 3,
+      },
+      {
+        name: "Albaraka",
+        line: "Dijital strateji ve rekabet araştırmaları.",
+        order: 4,
+      },
+    ],
+    link: { label: "Gerçekte ne kurulduğunu görün →", href: "/work" },
+  },
   familiar: { heading: "", points: [], closingLine: "" },
   caseStudies: { items: [], pairingNote: "" },
   services: {

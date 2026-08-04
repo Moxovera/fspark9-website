@@ -95,15 +95,16 @@ export interface Framework {
 
 export interface ProofItem {
   name: string            // "insha"
-  qualifier?: string      // "an İşbank company"
-  logo: SanityImage
+  logo?: SanityImage       // dc.html'de görsel yok, sadece isim — Sanity'de eklenince otomatik kullanılacak
   line: string
   order: number
 }
 
 export interface ProofStrip {
+  kicker: string           // "Where I did the work"
+  roles: string            // "Product & growth leadership · Digital banking · Market entry"
   items: ProofItem[]
-  closingLine: string
+  link: Link                // "See what was actually built →" — /work'e gider
 }
 
 // ─────────────────────────────────────────────

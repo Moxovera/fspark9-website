@@ -44,7 +44,33 @@ export const en: HomePage = {
       },
     ],
   },
-  proofStrip: { items: [], closingLine: "" },
+  proofStrip: {
+    kicker: "Where I did the work",
+    roles: "Product & growth leadership · Digital banking · Market entry",
+    items: [
+      {
+        name: "insha",
+        line: "Europe's first interest free digital bank. Proposition, BaaS partners, experience and growth, built from zero.",
+        order: 1,
+      },
+      {
+        name: "RUUT",
+        line: "An İşbank company. A money transfer app turned into a digital bank, and taken into the UK.",
+        order: 2,
+      },
+      {
+        name: "Turkcell",
+        line: "Paycell and Financell, international market expansion.",
+        order: 3,
+      },
+      {
+        name: "Albaraka",
+        line: "Digital strategy and competitive research.",
+        order: 4,
+      },
+    ],
+    link: { label: "See what was actually built →", href: "/work" },
+  },
   familiar: { heading: "", points: [], closingLine: "" },
   caseStudies: { items: [], pairingNote: "" },
   services: {
