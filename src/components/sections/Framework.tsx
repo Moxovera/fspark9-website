@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import Reveal from "@/components/ui/Reveal";
 import type { FrameworkStep } from "@/types/content";
 
 interface FrameworkProps {
@@ -7,7 +8,9 @@ interface FrameworkProps {
 
 // Kartların dekoratif "art" grafikleri veri kaynaklı değil — dc.html'de
 // her kart için sabit, index'e bağlı şekiller (bkz. FSPARK9-DURUM.md).
-// Hover'da tetiklenen scale/rotate/glow Geçiş C'ye bırakıldı, burada statik.
+// Hover'daki scale/rotate/glow saf CSS ile (.framework-card:hover
+// .framework-motif, globals.css) — JS state gerekmiyor, bu yüzden
+// bileşen server component olarak kalıyor.
 
 function StrategyMotif() {
   return (
@@ -159,43 +162,44 @@ export default function Framework({ steps }: FrameworkProps) {
         {steps.map((step, i) => {
           const Motif = MOTIFS[i];
           return (
-            <Link
-              key={step.id}
-              href="/services"
-              className="block rounded-[20px] p-3.5 backdrop-blur-lg"
-              style={{
-                border: "1px solid color-mix(in srgb, var(--navy) 14%, transparent)",
-                background:
-                  "linear-gradient(160deg, color-mix(in srgb, var(--ivory) 96%, transparent), color-mix(in srgb, var(--ivory) 70%, transparent))",
-                boxShadow: "0 20px 50px color-mix(in srgb, var(--navy) 10%, transparent)",
-              }}
-            >
-              <div
-                className="relative h-[232px] overflow-hidden rounded-[14px]"
+            <Reveal key={step.id}>
+              <Link
+                href="/services"
+                className="framework-card block rounded-[20px] p-3.5 backdrop-blur-lg"
                 style={{
-                  border: "1px solid color-mix(in srgb, var(--navy) 16%, transparent)",
-                  background: `radial-gradient(120% 90% at ${FRAME_GRADIENTS[i].position}, color-mix(in srgb, var(--bronze) ${FRAME_GRADIENTS[i].bronzeOpacity}%, transparent), transparent ${FRAME_GRADIENTS[i].transparentStop}%), var(--navy)`,
+                  border: "1px solid color-mix(in srgb, var(--navy) 14%, transparent)",
+                  background:
+                    "linear-gradient(160deg, color-mix(in srgb, var(--ivory) 96%, transparent), color-mix(in srgb, var(--ivory) 70%, transparent))",
+                  boxShadow: "0 20px 50px color-mix(in srgb, var(--navy) 10%, transparent)",
                 }}
               >
-                <span className="absolute top-4 left-[18px] font-mono text-[15px] tracking-[0.08em] text-ivory/90">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="absolute top-[14px] right-[18px] text-lg text-ivory/55">
-                  ↗
-                </span>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Motif />
+                <div
+                  className="relative h-[232px] overflow-hidden rounded-[14px]"
+                  style={{
+                    border: "1px solid color-mix(in srgb, var(--navy) 16%, transparent)",
+                    background: `radial-gradient(120% 90% at ${FRAME_GRADIENTS[i].position}, color-mix(in srgb, var(--bronze) ${FRAME_GRADIENTS[i].bronzeOpacity}%, transparent), transparent ${FRAME_GRADIENTS[i].transparentStop}%), var(--navy)`,
+                  }}
+                >
+                  <span className="absolute top-4 left-[18px] font-mono text-[15px] tracking-[0.08em] text-ivory/90">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="absolute top-[14px] right-[18px] text-lg text-ivory/55">
+                    ↗
+                  </span>
+                  <div className="framework-motif absolute inset-0 flex items-center justify-center">
+                    <Motif />
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col gap-2.5 px-3 pt-6 pb-2.5">
-                <h3 className="font-display text-[1.6rem] font-semibold text-navy">
-                  {step.label}
-                </h3>
-                <p className="text-[15px] leading-[1.6] text-muted">
-                  {step.description}
-                </p>
-              </div>
-            </Link>
+                <div className="flex flex-col gap-2.5 px-3 pt-6 pb-2.5">
+                  <h3 className="font-display text-[1.6rem] font-semibold text-navy">
+                    {step.label}
+                  </h3>
+                  <p className="text-[15px] leading-[1.6] text-muted">
+                    {step.description}
+                  </p>
+                </div>
+              </Link>
+            </Reveal>
           );
         })}
       </div>

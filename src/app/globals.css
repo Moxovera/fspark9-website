@@ -80,3 +80,21 @@ body {
     opacity: 1;
   }
 }
+
+/* Framework kart hover motifi — dc.html: art0/art1/art2 (setupSpine'daki
+   art() yardımcı fonksiyonu). Kartın herhangi bir yerinde hover, o kartın
+   motifine scale+rotate+bronz glow uygular. */
+.framework-motif {
+  transform: scale(1) rotate(0deg);
+  filter: drop-shadow(0 0 0 transparent);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.5s ease;
+}
+
+.framework-card:hover .framework-motif {
+  transform: scale(1.07) rotate(-4deg);
+  filter: drop-shadow(
+    0 0 34px color-mix(in srgb, var(--bronze) 60%, transparent)
+  );
+}
