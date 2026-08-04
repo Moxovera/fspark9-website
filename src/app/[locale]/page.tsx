@@ -1,6 +1,7 @@
 import Hero from "@/components/sections/Hero";
 import Framework from "@/components/sections/Framework";
 import ProofStrip from "@/components/sections/ProofStrip";
+import Familiar from "@/components/sections/Familiar";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -17,6 +18,7 @@ export default async function Home({
       <Hero content={content.hero} />
       <Framework steps={content.framework.steps} />
       <ProofStrip content={content.proofStrip} />
+      <Familiar content={content.familiar} />
     </main>
   );
 }

@@ -71,7 +71,49 @@ export const en: HomePage = {
     ],
     link: { label: "See what was actually built →", href: "/work" },
   },
-  familiar: { heading: "", points: [], closingLine: "" },
+  familiar: {
+    heading: "Any of this sound familiar?",
+    points: [
+      {
+        text: "The launch date moves out by a month, every month.",
+        order: 1,
+      },
+      {
+        text: "The business case is a spreadsheet somebody filled with assumptions, and the one assumption that decides whether this makes money has never been tested.",
+        order: 2,
+      },
+      {
+        text: "There are three product ideas on the table and no honest way, from the inside, to tell which one earns at your real volume.",
+        order: 3,
+      },
+      {
+        text: "Three providers sent proposals. On paper they look identical, the prices are far apart, nobody explains why, and you still cannot tell which one will hurt you in year two.",
+        order: 4,
+      },
+      {
+        text: "The board has asked which country is next and nobody in the room can answer it with numbers.",
+        order: 5,
+      },
+      {
+        text: "You took the product that works here into the new market. In month four somebody worked out it cannot legally operate in the shape it was built.",
+        order: 6,
+      },
+      {
+        text: "The app looks good and people still start opening an account and never finish.",
+        order: 7,
+      },
+      {
+        text: "The designer's flow came back from legal with changes nobody understands. It got redrawn. It came back again.",
+        order: 8,
+      },
+      {
+        text: "The strategy deck was excellent. Six months later nobody in the building knows how to turn it into a live product.",
+        order: 9,
+      },
+    ],
+    closingLine:
+      "None of this means the idea is wrong. Usually it means one early decision was made by somebody who had never made it before.",
+  },
   caseStudies: { items: [], pairingNote: "" },
   services: {
     heading: "",
