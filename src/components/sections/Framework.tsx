@@ -167,10 +167,8 @@ export default function Framework({ steps }: FrameworkProps) {
                 href="/services"
                 className="framework-card block rounded-[20px] p-3.5 backdrop-blur-lg"
                 style={{
-                  border: "1px solid color-mix(in srgb, var(--navy) 14%, transparent)",
                   background:
                     "linear-gradient(160deg, color-mix(in srgb, var(--ivory) 96%, transparent), color-mix(in srgb, var(--ivory) 70%, transparent))",
-                  boxShadow: "0 20px 50px color-mix(in srgb, var(--navy) 10%, transparent)",
                 }}
               >
                 <div

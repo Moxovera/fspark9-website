@@ -81,6 +81,24 @@ body {
   }
 }
 
+/* Framework kart hover'ı — dc.html: kartın kendi style/style-hover'ı.
+   border ve box-shadow burada tanımlı (JSX'te değil), çünkü inline style
+   :hover'dan her zaman kazanır — CSS'e taşımadan hover override çalışmaz. */
+.framework-card {
+  border: 1px solid color-mix(in srgb, var(--navy) 14%, transparent);
+  box-shadow: 0 20px 50px color-mix(in srgb, var(--navy) 10%, transparent);
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.framework-card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--bronze) 60%, transparent);
+  box-shadow: 0 30px 70px color-mix(in srgb, var(--navy) 16%, transparent);
+}
+
 /* Framework kart hover motifi — dc.html: art0/art1/art2 (setupSpine'daki
    art() yardımcı fonksiyonu). Kartın herhangi bir yerinde hover, o kartın
    motifine scale+rotate+bronz glow uygular. */
