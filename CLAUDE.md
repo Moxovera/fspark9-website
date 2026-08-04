@@ -47,6 +47,8 @@ Bir bölümü tek seferde bitirmeye çalışma. Her bölüm için sırayla:
 **Geçiş B · Stil doğrulama**
 Orijinal `.dc.html` dosyasını tarayıcıda yan sekmede aç, karşılaştır. 375px, 768px, 1440px. Fark varsa burada düzelt.
 
+Mümkün olduğunda dc.html'i gerçek bir tarayıcıda (yerel statik sunucu + Playwright) çalıştırıp `getComputedStyle` ile piksel/hesaplanmış-stil karşılaştırması yap, sadece kaynak kodu okumakla yetinme. Bu yöntem artık standart, ilk kez ProofStrip bölümünde kullanıldı.
+
 **Geçiş C · Animasyon ve etkileşim**
 Aşağıdaki animasyon kurallarına göre ekle. Tek tek, biri bittikten sonra diğeri.
 
