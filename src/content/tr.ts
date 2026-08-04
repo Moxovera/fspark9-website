@@ -21,7 +21,28 @@ export const tr: HomePage = {
       "İlk görüşme ücretsiz. Doğru kişi değilsem bunu görüşmede açıkça söylerim.",
     scrollLabel: "Kaydır",
   },
-  framework: { steps: [], closingLine: "" },
+  framework: {
+    steps: [
+      {
+        id: "decide",
+        label: "Strateji",
+        description:
+          "Gerçek gelir kaynaklarını belirlemek ve önce neyin kurulacağını netleştirmek.",
+      },
+      {
+        id: "setup",
+        label: "Altyapı",
+        description:
+          "Partner ağı, regülasyon uyumu ve lisans mimarisinin kurgulanması.",
+      },
+      {
+        id: "ship",
+        label: "Ürün",
+        description:
+          "Arayüzler, canlı işlem akışları ve baştan sona kayıt deneyiminin inşası.",
+      },
+    ],
+  },
   proofStrip: { items: [], closingLine: "" },
   familiar: { heading: "", points: [], closingLine: "" },
   caseStudies: { items: [], pairingNote: "" },

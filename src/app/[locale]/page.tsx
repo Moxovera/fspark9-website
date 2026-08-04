@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import Framework from "@/components/sections/Framework";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -13,6 +14,7 @@ export default async function Home({
   return (
     <main>
       <Hero content={content.hero} />
+      <Framework steps={content.framework.steps} />
     </main>
   );
 }

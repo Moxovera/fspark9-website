@@ -123,8 +123,10 @@ const CanvasField = dynamic(() => import('./CanvasField'), { ssr: false })
 Sabit hex kodu **yasak**. Tüm renkler `globals.css` içindeki CSS değişkenlerinden, Tailwind config üzerinden.
 
 ```
---navy · --bronze · --ivory · --charcoal
+--navy · --bronze · --ivory · --charcoal · --muted
 ```
+
+`--muted`, dc.html'deki ikincil/muted metin rengi (`#6B7280`) için — kart açıklaması, alt metin gibi birincil olmayan gövde metinlerinde kullanılır.
 
 Fontlar `next/font/google` ile: Playfair Display (başlık), Inter (gövde), IBM Plex Mono (numara ve etiket). CDN link'i kullanılmayacak.
 

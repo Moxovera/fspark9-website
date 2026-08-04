@@ -22,7 +22,28 @@ export const en: HomePage = {
       "The first call is free. If I am not the right person for this, I will say so on the call.",
     scrollLabel: "Scroll",
   },
-  framework: { steps: [], closingLine: "" },
+  framework: {
+    steps: [
+      {
+        id: "decide",
+        label: "Strategy",
+        description:
+          "Identifying true revenue drivers and defining what to build first.",
+      },
+      {
+        id: "setup",
+        label: "Infrastructure",
+        description:
+          "Structuring partner networks, regulatory compliance, and licensing architecture.",
+      },
+      {
+        id: "ship",
+        label: "Product",
+        description:
+          "Crafting user interfaces, live transactional flows, and complete onboarding experiences.",
+      },
+    ],
+  },
   proofStrip: { items: [], closingLine: "" },
   familiar: { heading: "", points: [], closingLine: "" },
   caseStudies: { items: [], pairingNote: "" },

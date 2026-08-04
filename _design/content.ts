@@ -87,7 +87,6 @@ export interface FrameworkStep {
 
 export interface Framework {
   steps: FrameworkStep[]  // her zaman 3 adet
-  closingLine: string     // "Most companies buy these from three different places..."
 }
 
 // ─────────────────────────────────────────────
