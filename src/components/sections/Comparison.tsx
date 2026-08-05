@@ -102,7 +102,10 @@ export default function Comparison({ content }: ComparisonProps) {
         )}
 
         <div className="overflow-x-auto border border-navy/[0.14]">
-          <div className="min-w-[620px]">
+          {/* 842px = section içeriği 900px viewport'ta kapladığı genişlik (900 - 2*28px padding - 2px border).
+              scrollHint de min-[900px]:hidden ile aynı eşikte kayboluyor, ikisi böylece hep birlikte değişir:
+              kaydırma gerektiği her an ipucu görünür, gerekmediği an kaybolur. */}
+          <div className="min-w-[842px]">
             <div className="grid grid-cols-[1.5fr_1fr_1fr_1.3fr] bg-navy">
               <div className="px-5 py-[18px] font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase" />
               <div className="px-5 py-[18px] text-center font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase">

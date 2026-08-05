@@ -46,7 +46,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         {/* CLAUDE.md: scroll reveal — JS açıksa .js sınıfı eklenir,
             CSS bu sınıfa göre gizleme/animasyon uygular. Bloklayıcı
