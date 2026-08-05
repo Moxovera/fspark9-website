@@ -69,7 +69,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Familiar | [x] | [x] | [x] |
 | CaseStudies | [ ] | [ ] | [ ] |
 | Services | [ ] | [ ] | [ ] |
-| Comparison | [ ] | [ ] | [ ] |
+| Comparison | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
 | Approach | [ ] | [ ] | [ ] |
 | Testimonials | [ ] | [ ] | [ ] |
 | Audience | [x] | [x] | [x] |
