@@ -35,16 +35,30 @@ const SAFETY_REMEASURES = 3; // aktivasyondan sonra ek güvenlik ölçümü say�
  * p (örtüşme oranı) formülü ve kozmetik geçişler (scale/brightness/
  * opacity/box-shadow/border-color) dc.html'deki değerlerle birebir aynı.
  *
- * BUG DÜZELTMESİ (bkz. commit "fix(familiar): resolve sticky stack race
- * condition and z-index ghosting"): measure() önceden sadece position'ı
- * sıfırlayıp transform'u sıfırlamıyordu. ResizeObserver, .observe()
- * çağrıldıktan hemen sonra gerçek bir boyut değişikliği olmasa bile GARANTİ
- * bir ilk callback tetikler (spec gereği). Bu ilk callback, IntersectionObserver
- * aktivasyonundan (ve computeAndApply()'ın kartlara transform uygulamasından)
- * SONRA gelirse, measure() kartların ZATEN dönüştürülmüş kutusunu ölçüp bu
- * bozuk geometriyi kalıcı olarak önbelleğe alıyordu — "bazen doğru yığılıyor,
- * bazen neredeyse hiç yığılmıyor" tutarsızlığının kök nedeni buydu. Artık
- * measure() hem position hem transform'u sıfırlıyor.
+ * KONUMLANDIRMA — KRİTİK: Kartların konumunu YALNIZCA CSS `position: sticky`
+ * belirler. JS asla translateY yazmaz.
+ *
+ * Bu bir bug düzeltmesinin sonucu: JS önceden `translateY(tops[i] -
+ * viewportTops[i])` yazıyordu. dc.html'in setupStack()'i geometriyi ölçerken
+ * sadece transform'u sıfırlar, `position: sticky`'yi AÇIK bırakır — yani
+ * oradaki `f.top` zaten PİNLENMİŞ konumdur ve `tops[i] - f.top` pratikte ≈0,
+ * etkisiz bir düzeltmedir. Buradaki measure() ise position'ı da `static`
+ * yapıp GERÇEK doğal konumu ölçüyor; dolayısıyla `tops[i] - viewportTops[i]`
+ * TAM sticky ofseti oluyordu ve CSS'in zaten yaptığı işi ikinci kez
+ * uyguluyordu. Ölçüm: +900px scroll'da CSS kartı top=90'a pinliyor, JS
+ * translateY(456.6) ile onu top=547'ye geri itiyordu — sticky etkisi görsel
+ * olarak iptal oluyor ("kartlar yığılmıyor, normal akışta kayıp gidiyor") ve
+ * kartlar yanlış konumlara itildiği için metinler üst üste biniyordu
+ * ("hayalet/çift metin"). Hata scroll derinliğiyle büyüdüğü için "bazen
+ * çalışıyor" gibi görünüyordu.
+ *
+ * Artık JS `tops[i]`'yi yalnızca p'yi (örtüşme oranı) türetmek için hesaplar
+ * ve sadece kozmetik yazar: scale / brightness / opacity / box-shadow /
+ * border-color. Konumlandırma tamamen CSS'e ait.
+ *
+ * Ayrıca measure() hem position hem transform'u sıfırlar: ResizeObserver
+ * spec gereği .observe() sonrası garanti bir ilk callback tetikler; bu,
+ * kartlara stil uygulandıktan sonra gelirse dönüştürülmüş kutuyu ölçerdi.
  */
 export default function StickyStack({
   className,
@@ -102,6 +116,10 @@ export default function StickyStack({
       const wrapBottomViewport =
         wrapGeometryRef.current.docTop + wrapGeometryRef.current.height - scrollY;
 
+      // tops[i] = tarayıcının CSS sticky ile kartı ZATEN render ettiği konum.
+      // Bunu yeniden uygulamıyoruz (bkz. yukarıdaki KONUMLANDIRMA notu);
+      // sadece p'yi (bir sonraki kartın bu kartı ne kadar örttüğü) türetmek
+      // için hesaplıyoruz.
       const viewportTops = geometry.map((g) => g.naturalTop - scrollY);
       const tops = viewportTops.map((top, i) =>
         Math.max(top, Math.min(base + i * STEP, wrapBottomViewport - geometry[i].height)),
@@ -114,7 +132,7 @@ export default function StickyStack({
         if (i + 1 < cards.length) {
           p = Math.max(0, Math.min(1, (tops[i] + h - tops[i + 1]) / Math.max(h, 1)));
         }
-        card.style.transform = `translateY(${tops[i] - viewportTops[i]}px) scale(${1 - 0.05 * p})`;
+        card.style.transform = `scale(${1 - 0.05 * p})`;
         card.style.filter = `brightness(${1 - 0.22 * p})`;
         card.style.opacity = String(1 - 0.2 * p);
         card.style.boxShadow = `0 ${26 - 12 * p}px ${70 - 26 * p}px color-mix(in srgb, color-mix(in srgb, var(--navy) 35%, black) ${(0.5 - 0.16 * p) * 100}%, transparent)`;
