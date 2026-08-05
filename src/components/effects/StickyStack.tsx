@@ -11,20 +11,21 @@ interface StickyStackProps {
 }
 
 interface CardGeometry {
-  naturalTop: number; // scrollY + rect.top ölçülürken sticky geçici olarak kapatılır
+  naturalTop: number; // scrollY + rect.top ölçülürken sticky VE transform geçici olarak kapatılır
   height: number;
 }
 
 const BASE_RATIO = 0.1; // dc.html: base = window.innerHeight * 0.1
 const STEP = 30; // dc.html: step = 30
+const SAFETY_REMEASURES = 3; // aktivasyondan sonra ek güvenlik ölçümü sayısı
 
 /**
  * dc.html: setupStack() (support.js / DCLogic script) davranışının React'e
  * göre yeniden kurulmuş hali — birebir port değil. Farklar:
  *  - setInterval(tick,16) yerine: IntersectionObserver ile aktif/pasif
  *    kapısı + { passive: true } scroll dinleyicisi + rAF'la kısılmış tek tetik.
- *  - Kart geometrisi (doğal top/height) her karede değil, mount +
- *    ResizeObserver'da BİR KEZ ölçülür; her scroll karesinde sadece
+ *  - Kart geometrisi (doğal top/height) her karede değil, aktivasyonda
+ *    (+ ResizeObserver'da) ölçülür; her scroll karesinde sadece
  *    window.scrollY ile aritmetik hesap yapılır, DOM okuması yok.
  *  - document.getElementById/querySelectorAll yerine ref dizisi.
  *  - Sticky pozisyonlanan, ref'lenen kart div'i burada (client) oluşturuluyor
@@ -33,6 +34,17 @@ const STEP = 30; // dc.html: step = 30
  *    cloneElement ile ref eklemek güvenilir çalışmıyor).
  * p (örtüşme oranı) formülü ve kozmetik geçişler (scale/brightness/
  * opacity/box-shadow/border-color) dc.html'deki değerlerle birebir aynı.
+ *
+ * BUG DÜZELTMESİ (bkz. commit "fix(familiar): resolve sticky stack race
+ * condition and z-index ghosting"): measure() önceden sadece position'ı
+ * sıfırlayıp transform'u sıfırlamıyordu. ResizeObserver, .observe()
+ * çağrıldıktan hemen sonra gerçek bir boyut değişikliği olmasa bile GARANTİ
+ * bir ilk callback tetikler (spec gereği). Bu ilk callback, IntersectionObserver
+ * aktivasyonundan (ve computeAndApply()'ın kartlara transform uygulamasından)
+ * SONRA gelirse, measure() kartların ZATEN dönüştürülmüş kutusunu ölçüp bu
+ * bozuk geometriyi kalıcı olarak önbelleğe alıyordu — "bazen doğru yığılıyor,
+ * bazen neredeyse hiç yığılmıyor" tutarsızlığının kök nedeni buydu. Artık
+ * measure() hem position hem transform'u sıfırlıyor.
  */
 export default function StickyStack({
   className,
@@ -57,15 +69,19 @@ export default function StickyStack({
     let dirty = true;
     let tickScheduled = false;
     let rafId: number | null = null;
+    let activationToken = 0;
 
     function measure() {
       const cards = cardRefs.current.filter((c): c is HTMLDivElement => !!c);
       const scrollY = window.scrollY;
       geometryRef.current = cards.map((card) => {
         const prevPosition = card.style.position;
+        const prevTransform = card.style.transform;
         card.style.position = "static";
+        card.style.transform = "none";
         const rect = card.getBoundingClientRect();
         card.style.position = prevPosition;
+        card.style.transform = prevTransform;
         return { naturalTop: rect.top + scrollY, height: rect.height };
       });
       const wrapRect = wrap!.getBoundingClientRect();
@@ -123,7 +139,54 @@ export default function StickyStack({
       scheduleTick();
     };
 
+    function startLoop() {
+      window.addEventListener("scroll", onScrollOrResize, { passive: true });
+      window.addEventListener("resize", onScrollOrResize, { passive: true });
+      scheduleTick();
+    }
+
+    function stopLoop() {
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      tickScheduled = false;
+    }
+
+    function activate() {
+      active = true;
+      const token = ++activationToken;
+      const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+      fontsReady.then(() => {
+        if (token !== activationToken || !active) return;
+        requestAnimationFrame(() => {
+          if (token !== activationToken || !active) return;
+          measure();
+          startLoop();
+          // Fontlar "ready" olsa bile geç bir layout yerleşmesi ihtimaline
+          // karşı birkaç kare daha yeniden ölç — artık measure() transform'u
+          // da sıfırladığı için bunu tekrar tekrar çağırmak güvenli.
+          let safetyChecks = 0;
+          const safetyTick = () => {
+            if (token !== activationToken || !active) return;
+            safetyChecks++;
+            measure();
+            scheduleTick();
+            if (safetyChecks < SAFETY_REMEASURES) {
+              requestAnimationFrame(safetyTick);
+            }
+          };
+          requestAnimationFrame(safetyTick);
+        });
+      });
+    }
+
+    // ResizeObserver spec'i gereği .observe() sonrası boyut değişmese bile
+    // garanti bir "ilk" callback gelir — bunu, activate() zaten kendi
+    // ölçümünü yaptığı için görmezden geliyoruz (gereksiz tekrar).
+    let resizeCallCount = 0;
     const resizeObserver = new ResizeObserver(() => {
+      resizeCallCount++;
+      if (resizeCallCount === 1) return;
       measure();
       scheduleTick();
     });
@@ -133,19 +196,11 @@ export default function StickyStack({
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          if (!active) {
-            active = true;
-            measure();
-            window.addEventListener("scroll", onScrollOrResize, { passive: true });
-            window.addEventListener("resize", onScrollOrResize, { passive: true });
-            scheduleTick();
-          }
+          if (!active) activate();
         } else if (active) {
           active = false;
-          window.removeEventListener("scroll", onScrollOrResize);
-          window.removeEventListener("resize", onScrollOrResize);
-          if (rafId !== null) cancelAnimationFrame(rafId);
-          tickScheduled = false;
+          activationToken++;
+          stopLoop();
         }
       },
       { rootMargin: "200px 0px 200px 0px", threshold: 0 },
@@ -155,9 +210,9 @@ export default function StickyStack({
     return () => {
       intersectionObserver.disconnect();
       resizeObserver.disconnect();
-      window.removeEventListener("scroll", onScrollOrResize);
-      window.removeEventListener("resize", onScrollOrResize);
-      if (rafId !== null) cancelAnimationFrame(rafId);
+      active = false;
+      activationToken++;
+      stopLoop();
     };
   }, []);
 
@@ -173,6 +228,7 @@ export default function StickyStack({
           style={{
             position: "sticky",
             top: `calc(10vh + ${i * 30}px)`,
+            zIndex: i + 1,
             transformOrigin: "50% 0%",
             willChange: "transform",
             transition: "box-shadow .4s ease, border-color .4s ease",
