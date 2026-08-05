@@ -66,7 +66,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Hero | [x] | [x] | [x] |
 | Framework | [x] | [x] | [x] |
 | ProofStrip | [x] | [x] | [x] |
-| Familiar | [x] | [x] | [ ] |
+| Familiar | [x] | [x] | [x] |
 | CaseStudies | [ ] | [ ] | [ ] |
 | Services | [ ] | [ ] | [ ] |
 | Comparison | [ ] | [ ] | [ ] |
@@ -84,6 +84,10 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır: ne, neden.
 
 - Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
+
+## Çözülen kritik hatalar
+
+- Familiar sticky stack — JS'in CSS position:sticky'nin üstüne ayrıca translateY uygulaması, kartların yanlış konuma itilmesine sebep oluyordu. Opus ile kök neden bulunup translateY kaldırıldı, konumlandırma tamamen CSS'e bırakıldı.
 
 ## Bugün alınan içerik kararları
 
