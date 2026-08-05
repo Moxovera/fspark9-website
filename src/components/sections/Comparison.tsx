@@ -42,7 +42,7 @@ function DashIcon() {
 function Cell({ value, align }: { value: ComparisonValue; align: "left" | "center" }) {
   return (
     <div
-      className={`flex items-center gap-2.5 px-5 py-[18px] text-sm leading-[1.45] ${
+      className={`flex items-center gap-2.5 px-3 py-[18px] text-[13px] leading-[1.45] ${
         align === "center" ? "justify-center text-center" : "justify-start text-left"
       }`}
     >
@@ -71,8 +71,8 @@ function Row({ row }: { row: ComparisonRow }) {
       }
     >
       <div
-        className={`flex items-center px-5 py-5 text-navy ${
-          row.isUs ? "text-[15.5px] font-bold" : "text-[15px] font-semibold"
+        className={`flex items-center px-3 py-5 text-navy ${
+          row.isUs ? "text-[14px] font-bold" : "text-[13.5px] font-semibold"
         }`}
       >
         {row.label}
@@ -102,19 +102,21 @@ export default function Comparison({ content }: ComparisonProps) {
         )}
 
         <div className="overflow-x-auto border border-navy/[0.14]">
-          {/* 842px = section içeriği 900px viewport'ta kapladığı genişlik (900 - 2*28px padding - 2px border).
-              scrollHint de min-[900px]:hidden ile aynı eşikte kayboluyor, ikisi böylece hep birlikte değişir:
-              kaydırma gerektiği her an ipucu görünür, gerekmediği an kaybolur. */}
-          <div className="min-w-[842px]">
+          {/* 480px = tasarımcı QA notu (640px'ten daraltıldı): isim + Decide sütunu
+              375-430px telefon genişliklerinde kaydırmadan görünsün diye.
+              scrollHint'in min-[538px]:hidden eşiği bu değere bağlı: 538px = 480 + 2*28px
+              section padding + 2px border, yani "içerik artık min-width'e sığıyor" viewport'u.
+              İkisi birlikte değişir: kaydırma gerektiği her an ipucu görünür, gerekmediği an kaybolur. */}
+          <div className="min-w-[480px]">
             <div className="grid grid-cols-[1.5fr_1fr_1fr_1.3fr] bg-navy">
-              <div className="px-5 py-[18px] font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase" />
-              <div className="px-5 py-[18px] text-center font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase">
+              <div className="px-3 py-[18px] font-mono text-[11px] tracking-[0.1em] text-ivory/85 uppercase" />
+              <div className="px-3 py-[18px] text-center font-mono text-[11px] tracking-[0.1em] text-ivory/85 uppercase">
                 {columnLabels.decide}
               </div>
-              <div className="px-5 py-[18px] text-center font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase">
+              <div className="px-3 py-[18px] text-center font-mono text-[11px] tracking-[0.1em] text-ivory/85 uppercase">
                 {columnLabels.setup}
               </div>
-              <div className="px-5 py-[18px] font-mono text-xs tracking-[0.1em] text-ivory/85 uppercase">
+              <div className="px-3 py-[18px] font-mono text-[11px] tracking-[0.1em] text-ivory/85 uppercase">
                 {columnLabels.ship}
               </div>
             </div>
@@ -125,7 +127,7 @@ export default function Comparison({ content }: ComparisonProps) {
           </div>
         </div>
 
-        <p className="mt-3 text-center font-mono text-xs tracking-[0.1em] text-muted uppercase min-[900px]:hidden">
+        <p className="mt-3 text-center font-mono text-xs tracking-[0.1em] text-muted uppercase min-[538px]:hidden">
           {scrollHint}
         </p>
       </div>

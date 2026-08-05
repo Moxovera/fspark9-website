@@ -85,6 +85,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 
 - Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
 - Off-brand renkler #fffdf7→ivory+%40beyaz, #F5F0E6→ivory+%10bronz olarak paletten türetildi, tasarımcı onayıyla. Kullanıldığı diğer yerler ileriki bölümlerde tekrar karşımıza çıkabilir, aynı color-mix değerleri kullanılacak.
+- Comparison tablosu mobil genişliği daraltıldı (640px→480px, padding 20px→12-14px), tasarımcı QA notuyla, gereksiz mobil scroll'u azaltmak için.
 
 ## Çözülen kritik hatalar
 
