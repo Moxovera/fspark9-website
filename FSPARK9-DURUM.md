@@ -72,7 +72,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Comparison | [ ] | [ ] | [ ] |
 | Approach | [ ] | [ ] | [ ] |
 | Testimonials | [ ] | [ ] | [ ] |
-| Audience | [x] | [x] | [ ] |
+| Audience | [x] | [x] | [x] |
 | Story | [ ] | [ ] | [ ] |
 | Process | [ ] | [ ] | [ ] |
 | Media | [ ] | [ ] | [ ] |
