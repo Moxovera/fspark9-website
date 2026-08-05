@@ -2,6 +2,7 @@ import Hero from "@/components/sections/Hero";
 import Framework from "@/components/sections/Framework";
 import ProofStrip from "@/components/sections/ProofStrip";
 import Familiar from "@/components/sections/Familiar";
+import Audience from "@/components/sections/Audience";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -19,6 +20,7 @@ export default async function Home({
       <Framework steps={content.framework.steps} />
       <ProofStrip content={content.proofStrip} />
       <Familiar content={content.familiar} />
+      <Audience content={content.audience} />
     </main>
   );
 }

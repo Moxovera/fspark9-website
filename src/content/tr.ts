@@ -127,9 +127,34 @@ export const tr: HomePage = {
   approach: { blocks: [] },
   testimonials: { items: [] },
   audience: {
-    heading: "",
-    labels: { problem: "", do: "", result: "" },
-    cards: [],
+    heading: "Bu tarif size benziyorsa doğru yerdesiniz.",
+    labels: { problem: "Dert", do: "Ne yaparım", result: "Sonuç" },
+    cards: [
+      {
+        title: "Bankacılık tarafını devretmek isteyen fintechler",
+        problem:
+          "Ekibinizin haftası partner görüşmelerine, uyum sorularına ve entegrasyon detaylarına gidiyor. Pazarlamaya ve operasyona ayıracak vakit kalmıyor. Lansman tarihi her ay biraz daha ileri kayıyor, ve dürüst cevap şu: odada bunu daha önce yapmış kimse yok.",
+        do: "Bankacılık ürün tarafını bana devredersiniz. Rotayı ben belirlerim, partneri ben bulurum, şartları ben müzakere ederim, süreci ben yürütürüm. İsterseniz ürünün kendisini ekibim çıkarır.",
+        result:
+          "Ekibiniz kendi işine döner. Ürün gecikmeyi bırakır, ay sonunda nerede olduğunuzu tek sayfada görürsünüz.",
+      },
+      {
+        title: "Kendi müşterisine finansal ürün sunmak isteyen şirketler",
+        problem:
+          "Elinizde müşteri kitlesi de var, marka da. Bunu yeni bir gelir kalemine çevirmek istiyorsunuz. Kulağa basit geliyor, değil. Bankacılık tecrübesi yoksa yanlış partner ve yanlış iş modeli projeyi ilk aylarda bitirir.",
+        do: "Hangi ürünün müşterinize gerçekten yakıştığını, hangi iş modelinin gerçek hacminizde para kazandırdığını ve hangi partnerin size uyduğunu birlikte netleştiririz. Sonrasında planı ekibinize teslim ederim ya da kurulumu ben yaparım.",
+        result:
+          "Elinizdeki müşteriden yeni bir gelir kalemi. Doğru zeminde başladığınız için ikinci yılda her şeyi baştan kurmak zorunda kalmazsınız.",
+      },
+      {
+        title: "Kendi uyum yüküne sıkışmış bankalar",
+        problem:
+          "İstek var. Yeni ürün de konuşuluyor, fintech işbirlikleri de. Ama enerji rapora, denetime ve uyum sorularına gidiyor, kaynak bir türlü yeni işe ulaşmıyor. Fikirler rafta bekliyor, rakip önce çıkıyor.",
+        do: "Regülasyonun nerede bittiğini, esnekliğin nerede başladığını bildiğim için fikri en baştan sağlam kurgularım. Partneri bulurum, hukuk ile iç ekibiniz arasındaki işi ben taşırım.",
+        result:
+          "Rafta bekleyen fikirler hayata geçer. Yeni işbirlikleri ve yeni gelir kanalları, kimsenin yüküne yük katmadan açılır.",
+      },
+    ],
   },
   story: { heading: "", paragraphs: [] },
   process: { heading: "", steps: [] },
