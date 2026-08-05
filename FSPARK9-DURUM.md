@@ -84,6 +84,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır: ne, neden.
 
 - Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
+- Off-brand renkler #fffdf7→ivory+%40beyaz, #F5F0E6→ivory+%10bronz olarak paletten türetildi, tasarımcı onayıyla. Kullanıldığı diğer yerler ileriki bölümlerde tekrar karşımıza çıkabilir, aynı color-mix değerleri kullanılacak.
 
 ## Çözülen kritik hatalar
 

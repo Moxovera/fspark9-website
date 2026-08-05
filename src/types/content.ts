@@ -188,16 +188,16 @@ export interface ComparisonRow {
   decide: ComparisonValue
   setup: ComparisonValue
   ship: ComparisonValue
-  staysUntilLive: ComparisonValue
 }
 
 export interface ComparisonTable {
-  heading?: string
+  heading?: string         // dc.html: t.builds.title
+  intro?: string             // dc.html: t.builds.intro
+  scrollHint: string         // mobilde yatay kaydırmalı tabloda görünen ipucu metni, ör. "Scroll" / "Kaydırın" — dc.html'de karşılığı yok, QA güncellemesiyle eklendi
   columnLabels: {
     decide: string
     setup: string
     ship: string
-    staysUntilLive: string
   }
   rows: ComparisonRow[]
 }

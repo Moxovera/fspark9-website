@@ -122,8 +122,38 @@ export const en: HomePage = {
     fullEngagementBody: "",
   },
   comparison: {
-    columnLabels: { decide: "", setup: "", ship: "", staysUntilLive: "" },
-    rows: [],
+    heading: "The side that builds it.",
+    intro:
+      "Four kinds of supplier sit around this problem. Here is what each one actually hands you.",
+    scrollHint: "Scroll to compare",
+    columnLabels: { decide: "Decide", setup: "Set up", ship: "Ship" },
+    rows: [
+      {
+        label: "Strategy firms",
+        decide: { state: "yes" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "A concept deck" },
+      },
+      {
+        label: "Design agencies",
+        decide: { state: "no" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "Screens that fail compliance review" },
+      },
+      {
+        label: "Build shops",
+        decide: { state: "no" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "Only what you specify" },
+      },
+      {
+        label: "fspark9",
+        isUs: true,
+        decide: { state: "yes" },
+        setup: { state: "yes" },
+        ship: { state: "yes" },
+      },
+    ],
   },
   approach: { blocks: [] },
   testimonials: { items: [] },

@@ -11,6 +11,24 @@
   --foreground: var(--charcoal);
 }
 
+/*
+ * Off-brand renkler → palet türevi karşılıkları (tasarımcı onaylı).
+ * Yeni token DEĞİL — ihtiyaç duyan her bileşen bu color-mix() ifadesini
+ * birebir kopyalar, aşağıya yeni bir --var eklenmez.
+ *
+ *   #fffdf7 (kart/panel zemini, dc.html genelinde ~10 yer)
+ *     → color-mix(in srgb, var(--ivory) 50%, white 50%)
+ *
+ *   #F5F0E6 (vurgulanmış satır/blok zemini, dc.html'de ~2 yer)
+ *     → color-mix(in srgb, var(--bronze) 10%, var(--ivory) 90%)
+ *
+ * Kullanıldığı yer: Comparison.tsx (satır zemini + fspark9 satırı).
+ * dc.html'de aynı iki renk "The side that builds it" testimonial
+ * slider'ında, "Selected work" ve medya kartlarında, "How I work"
+ * tab'larında ve "Four ways to start" kartlarında da geçiyor — bu
+ * bölümler React'e taşınırken aynı iki color-mix() ifadesi kullanılacak.
+ */
+
 @theme inline {
   --color-navy: var(--navy);
   --color-bronze: var(--bronze);

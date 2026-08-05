@@ -121,8 +121,38 @@ export const tr: HomePage = {
     fullEngagementBody: "",
   },
   comparison: {
-    columnLabels: { decide: "", setup: "", ship: "", staysUntilLive: "" },
-    rows: [],
+    heading: "Anlatan değil, kuran taraf.",
+    intro:
+      "Bu problemin etrafında dört tip tedarikçi var. Her birinin size gerçekte ne teslim ettiği aşağıda.",
+    scrollHint: "Kaydırarak karşılaştırın",
+    columnLabels: { decide: "Karar", setup: "Kurulum", ship: "Ürün" },
+    rows: [
+      {
+        label: "Strateji firmaları",
+        decide: { state: "yes" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "Konsept sunumu" },
+      },
+      {
+        label: "Tasarım ajansları",
+        decide: { state: "no" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "Uyumdan geçmeyen ekranlar" },
+      },
+      {
+        label: "Yazılım şirketleri",
+        decide: { state: "no" },
+        setup: { state: "no" },
+        ship: { state: "partial", note: "Sadece sizin yazdırdığınız" },
+      },
+      {
+        label: "fspark9",
+        isUs: true,
+        decide: { state: "yes" },
+        setup: { state: "yes" },
+        ship: { state: "yes" },
+      },
+    ],
   },
   approach: { blocks: [] },
   testimonials: { items: [] },
