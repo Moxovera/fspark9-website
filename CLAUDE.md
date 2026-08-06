@@ -198,8 +198,9 @@ Her bölüm (Geçiş A, B, C hepsi dahil) "bitti" denmeden önce şunlar kontrol
 2. Hiçbir eleman başka bir elemanın üzerine binmiyor, taşmıyor, kesilmiyor
 3. absolute/fixed konumlanmış her eleman (scroll göstergesi, dekoratif ikon, sabit buton vb.) üç genişlikte de ayrı ayrı kontrol edilir, çünkü masaüstünde doğru duran bir absolute eleman mobilde en sık kırılan yerdir
 4. `npm run build` ve `npm run lint` hatasız geçer
-5. dc.html ile yan yana karşılaştırılır, kasıtsız bir sapma yoksa devam edilir
-6. Bu beş madde geçmeden commit atılmaz
+5. Görsel/medya içeren bölümlerde (next/image kullanımı varsa) npm run build && npm run start ile GERÇEK production build test edilir, sadece npm run dev ile yetinilmez. Next.js'in optimizer davranışı dev ve production'da farklılaşabilir (örneğin yerel SVG'ler dev'de çalışıp production'da sessizce kırılabilir) — bu fark sadece production build'de ortaya çıkar.
+6. dc.html ile yan yana karşılaştırılır, kasıtsız bir sapma yoksa devam edilir
+7. Bu altı madde geçmeden commit atılmaz
 
 Bu kontrol listesini uygulamadan bir bölümü "tamamlandı" olarak raporlama.
 
