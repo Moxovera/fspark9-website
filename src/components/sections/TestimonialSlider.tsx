@@ -62,6 +62,17 @@ function NextIcon() {
 // atılmış oluyor. pendingFocusRef + effect bunu telafi ediyor: hangi
 // kontrolün tetiklendiğini hatırlayıp yeni aktif slaytın karşılık gelen
 // kontrolüne fokusu geri taşıyor.
+//
+// KRİTİK: focus() çağrısı { preventScroll: true } OLMADAN yapılırsa,
+// tarayıcı odaklanan elemanı "görünür kılmak" için en yakın scroll
+// container'ı (Reveal'in overflow-hidden div'i — overflow:hidden'lı
+// elemanlar da scrollLeft'i programatik olarak ayarlanabilen gerçek
+// scroll container'lardır) kendiliğinden kaydırıyor. Bu, bizim track'i
+// kaydırmak için kullandığımız transform: translateX()'in ÜZERİNE
+// ekleniyor — aynı anda hem transform hem scrollLeft kayıyor, her
+// tıklamada sürüklenme birikip birkaç next tıklamasından sonra buton
+// görünür alanın tamamen dışına çıkıyor ve tıklanamaz hale geliyordu
+// (bkz. git log: "fix(testimonials): resolve next-button lockup").
 export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const pendingFocusRef = useRef<PendingFocus>(null);
@@ -73,9 +84,10 @@ export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
     const pending = pendingFocusRef.current;
     pendingFocusRef.current = null;
     if (!pending) return;
-    if (pending === "prev") prevBtnRefs.current[activeIndex]?.focus();
-    else if (pending === "next") nextBtnRefs.current[activeIndex]?.focus();
-    else dotBtnRefs.current[activeIndex]?.[activeIndex]?.focus();
+    const opts = { preventScroll: true };
+    if (pending === "prev") prevBtnRefs.current[activeIndex]?.focus(opts);
+    else if (pending === "next") nextBtnRefs.current[activeIndex]?.focus(opts);
+    else dotBtnRefs.current[activeIndex]?.[activeIndex]?.focus(opts);
   }, [activeIndex]);
 
   if (slides.length === 0) return null;
