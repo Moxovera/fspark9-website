@@ -449,7 +449,60 @@ export const tr: HomePage = {
     ctaLabel: "Görüşmeyi ayarlayın →",
     ctaHref: "/book",
   },
-  media: { heading: "", intro: "", items: [] },
+  media: {
+    heading: "fspark9 medyada",
+    intro: "Bu işi anlattığım ve başkalarının bu iş hakkında yazdığı yerler.",
+    items: [
+      {
+        source: "Konuşma kaydı",
+        headline: "Building neo banks across three markets",
+        description:
+          "Üç ülkede, üç ayrı regülatör altında dijital banka kurmanın çıkardığı dersler.",
+        note: "Video",
+        href: "https://www.youtube.com/watch?v=sZvavBuMzLg",
+        isVideo: true,
+        order: 1,
+      },
+      {
+        source: "The Fintech Magazine, FF News",
+        headline: "Money and Morals",
+        description:
+          "Avrupa'nın ilk faizsiz dijital bankasını kurma süreci ve etik bir önermenin farklı yapması gerekenler üzerine bir röportaj.",
+        note: "İngilizce",
+        href: "https://ffnews.com/thought-leadership/exclusive-money-and-morals-mehmet-burak-dikmen-insha-in-the-fintech-magazine",
+        order: 2,
+      },
+      {
+        source: "Fintech Istanbul",
+        headline: "Uzaktan müşteri tanıma süreçlerine dair bir analiz: Bank Ident",
+        description:
+          "Uzaktan kimlik doğrulamanın pratikte nasıl işlediği ve sürtünmenin gerçekte nerede olduğu üzerine.",
+        note: "",
+        href: "https://fintechistanbul.org/2022/01/09/uzaktan-musteri-tanima-sureclerine-dair-bir-analiz-bank-ident/",
+        order: 3,
+      },
+      {
+        source: "Panel kaydı",
+        headline: "Dijital bankacılıkta büyüme ve ürün",
+        description:
+          "Bir dijital bankada büyüme ve ürün kararları gerçekte nasıl alınıyor.",
+        note: "Video · İngilizce",
+        href: "https://www.youtube.com/watch?v=nTPafclEZ7c",
+        isVideo: true,
+        order: 4,
+      },
+      {
+        source: "Konferans konuşması",
+        headline: "Yeni Nesil Dijital Bankacılık",
+        description:
+          "Yeni nesil dijital bankacılığın gerçekte neye ihtiyacı olduğu üzerine bir konuşma.",
+        note: "Video",
+        href: "https://www.youtube.com/watch?v=wxjHsjcIgws",
+        isVideo: true,
+        order: 5,
+      },
+    ],
+  },
   faq: { heading: "", items: [] },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
 };

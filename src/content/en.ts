@@ -452,7 +452,61 @@ export const en: HomePage = {
     ctaLabel: "Book the call →",
     ctaHref: "/book",
   },
-  media: { heading: "", intro: "", items: [] },
+  media: {
+    heading: "fspark9 in the media",
+    intro:
+      "Where I have talked about this work, and where other people have written about it.",
+    items: [
+      {
+        source: "Recorded talk",
+        headline: "Building neo banks across three markets",
+        description:
+          "Lessons from building digital banks in three countries under three regulators.",
+        note: "Video",
+        href: "https://www.youtube.com/watch?v=sZvavBuMzLg",
+        isVideo: true,
+        order: 1,
+      },
+      {
+        source: "The Fintech Magazine, FF News",
+        headline: "Money and Morals",
+        description:
+          "An interview on building Europe's first interest free digital bank, and what an ethical proposition has to do differently.",
+        note: "",
+        href: "https://ffnews.com/thought-leadership/exclusive-money-and-morals-mehmet-burak-dikmen-insha-in-the-fintech-magazine",
+        order: 2,
+      },
+      {
+        source: "Fintech Istanbul",
+        headline: "An analysis of remote customer onboarding: Bank Ident",
+        description:
+          "On how remote identification works in practice, and where the friction actually sits.",
+        note: "In Turkish",
+        href: "https://fintechistanbul.org/2022/01/09/uzaktan-musteri-tanima-sureclerine-dair-bir-analiz-bank-ident/",
+        order: 3,
+      },
+      {
+        source: "Panel, recorded",
+        headline: "Growth and product in digital banking",
+        description:
+          "How growth and product decisions actually get made inside a digital bank.",
+        note: "Video",
+        href: "https://www.youtube.com/watch?v=nTPafclEZ7c",
+        isVideo: true,
+        order: 4,
+      },
+      {
+        source: "Conference talk, recorded",
+        headline: "Next generation digital banking",
+        description:
+          "A conference talk on what the next generation of digital banking actually requires.",
+        note: "Video · In Turkish",
+        href: "https://www.youtube.com/watch?v=wxjHsjcIgws",
+        isVideo: true,
+        order: 5,
+      },
+    ],
+  },
   faq: { heading: "", items: [] },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
 };

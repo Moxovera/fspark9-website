@@ -337,6 +337,26 @@ body {
   }
 }
 
+/* Media slider prev/next okları — dc.html: style-hover (aynı sebepten
+   gerçek :hover class'ı). dc.html'de SVG stroke'u sabit navy (#0B1F3A) —
+   testimonial-nav-btn'deki aynı kusur burada da var, aynı çözüm: stroke
+   currentColor'a bağlandı, hover'da color ivory'ye dönünce ikon görünür
+   kalıyor. */
+.media-nav-btn {
+  border: 1px solid color-mix(in srgb, var(--navy) 22%, transparent);
+  color: var(--navy);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.media-nav-btn:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--ivory);
+}
+
 /* Case study kartı hover'ı — dc.html: style-hover (aynı sebepten gerçek
    :hover class'ı, inline style hover'ı ezer). */
 .case-study-card {
