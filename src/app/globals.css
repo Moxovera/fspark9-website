@@ -135,6 +135,110 @@ body {
   );
 }
 
+/* Approach ("What I do differently") hover-accordion — dc.html: st.handHov
+   JS state'i (on/dim/neutral). Burada JS state yerine saf CSS :has() ile
+   çözüldü: satırda herhangi bir panel hover'dayken diğerleri :not(:hover)
+   ile "dim" olur, hover edilen panelin kendi :hover kuralı çakışmadan
+   kazanır (specificity çatışması yok, çünkü ikisi asla aynı elemanda
+   uygulanmıyor). Sadece masaüstünde (≥900px) — mobilde hover kavramı yok,
+   gövde metni Approach.tsx'te hep açık kalıyor.
+   Tüm responsive yerleşim (grid↔flex, margin, padding, background) bilerek
+   burada, tek yerde toplandı — Tailwind utility class'larıyla aynı özelliğe
+   (ör. margin-bottom, background) aynı anda yazmak, iki katman arasında CSS
+   enjeksiyon sırasına bağlı belirsiz bir kazanan yaratırdı.
+   Numaranın margin-bottom: auto'su dc.html'e özgü bir detay: flex-column
+   içinde numarayı üstte sabitleyip başlık+gövde grubunu kutunun ALTINA
+   iter (bkz. dc.html handBlocks — n'in margin'i her zaman '0 0 auto').
+   Renkler — dc.html #F5F0E6 (nötr/dim) ve #EFE7D6 (aktif) palette dışı ham
+   hex. Comparison'daki off-brand renk düzeltmesiyle aynı yöntemle paletten
+   türetildi: #F5F0E6 ≈ color-mix(bronze 3%, ivory 97%) → (245,240,231),
+   #EFE7D6 ≈ color-mix(bronze 11%, ivory 89%) → (238,231,217). */
+.approach-row {
+  display: grid;
+  gap: 30px;
+  margin-top: 56px;
+}
+
+.approach-panel {
+  background: color-mix(in srgb, var(--bronze) 3%, var(--ivory) 97%);
+  padding: 26px;
+}
+
+.approach-panel-number {
+  margin-bottom: 12px;
+}
+
+.approach-panel-body {
+  margin-top: 12px;
+}
+
+@media (min-width: 900px) {
+  .approach-row {
+    display: flex;
+    gap: 10px;
+    height: 380px;
+    margin-top: 34px;
+    border-top: 1px solid color-mix(in srgb, var(--navy) 14%, transparent);
+  }
+
+  .approach-panel {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 26px 34px;
+    border-top: 2px solid transparent;
+    transition:
+      flex 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+      background 0.4s ease,
+      box-shadow 0.4s ease,
+      padding 0.5s ease,
+      border-color 0.4s ease;
+  }
+
+  .approach-row:has(.approach-panel:hover) .approach-panel:not(:hover) {
+    flex: 0.8 1 0;
+  }
+
+  .approach-panel:hover {
+    flex: 2.6 1 0;
+    padding: 30px 34px 34px;
+    background: color-mix(in srgb, var(--bronze) 11%, var(--ivory) 89%);
+    box-shadow: 0 20px 44px -18px color-mix(in srgb, var(--navy) 42%, transparent);
+    border-top-color: var(--bronze);
+  }
+
+  .approach-panel-number {
+    margin-bottom: auto;
+  }
+
+  .approach-panel-title {
+    transition: font-size 0.45s ease;
+  }
+
+  .approach-panel:hover .approach-panel-title {
+    font-size: 1.5rem;
+  }
+
+  .approach-panel-body {
+    overflow: hidden;
+    max-height: 0px;
+    opacity: 0;
+    margin-top: 0px;
+    transition:
+      max-height 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.4s ease 0.1s,
+      margin-top 0.5s ease;
+  }
+
+  .approach-panel:hover .approach-panel-body {
+    max-height: 220px;
+    opacity: 1;
+    margin-top: 16px;
+  }
+}
+
 /* Audience accordion kapatma butonu — dc.html: style-hover (gerçek CSS
    değil, DCLogic'e özgü). Framework kartındaki aynı sebepten (inline style
    :hover'ı ezer) burada da gerçek :hover class'ı olarak yazıldı. */
