@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import Reveal from "@/components/ui/Reveal";
 import type { StorySection } from "@/types/content";
 
 interface StoryProps {
@@ -13,7 +14,7 @@ export default function Story({ content }: StoryProps) {
   return (
     <section className="border-t border-ivory/[0.08] bg-navy px-7 py-[104px]">
       <div className="mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-16">
-        <div>
+        <Reveal>
           <h2 className="mb-[30px] font-display text-[clamp(2rem,3.4vw,3.1rem)] leading-[1.12] font-medium text-ivory">
             {heading}
           </h2>
@@ -33,9 +34,9 @@ export default function Story({ content }: StoryProps) {
           >
             {link.label}
           </Link>
-        </div>
+        </Reveal>
 
-        <div>
+        <Reveal>
           <div className="relative aspect-[4/5] overflow-hidden border border-ivory/12">
             {image ? (
               <Image
@@ -64,7 +65,7 @@ export default function Story({ content }: StoryProps) {
               {media.caption}
             </p>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
