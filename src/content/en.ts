@@ -247,7 +247,26 @@ export const en: HomePage = {
       },
     ],
   },
-  story: { heading: "", paragraphs: [] },
+  story: {
+    heading: "Why I do this",
+    lead: "Money can't be sold like chocolate. It's earned through trust.",
+    paragraphs: [
+      "I learned that building a bank from scratch in a new country. We had no name and no history behind us. So we went to the ground. We met people face to face, we grilled with them, we went to their weddings. Because before anyone hands over their money, they want to know there is a real person on the other side.",
+      "Fintechs sometimes underestimate this. Banks do something else. They built their whole system on trust, then let comfort and the regulation trap stop them from developing it any further.",
+      "I started fspark9 to take what I learned in the field, the hard way, and turn it into something that saves you the same pain.",
+      "That is where the name comes from too. Nine is the last step, the point right before something is finished. Most projects stall exactly there. Spark is what gets it moving again.",
+    ],
+    link: { label: "Read the whole story →", href: "/story" },
+    media: {
+      type: "image",
+      image: {
+        url: "/assets/portrait.jpg",
+        alt: "Portrait of Mehmet Burak Dikmen, founder of fspark9",
+        width: 2829,
+        height: 4241,
+      },
+    },
+  },
   process: { heading: "", steps: [] },
   media: { heading: "", intro: "", items: [] },
   faq: { heading: "", items: [] },

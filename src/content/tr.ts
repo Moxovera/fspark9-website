@@ -245,7 +245,26 @@ export const tr: HomePage = {
       },
     ],
   },
-  story: { heading: "", paragraphs: [] },
+  story: {
+    heading: "Bunu neden yapıyorum",
+    lead: "Para, çikolata gibi satılmaz. Güvenle kazanılır.",
+    paragraphs: [
+      "Bunu yeni bir ülkede sıfırdan banka kurarken öğrendim. Adımız yoktu, geçmişimiz yoktu. Sahaya indik. İnsanlarla yüz yüze görüştük, mangal yaptık, düğünlerine gittik. Çünkü insanlar paralarını emanet etmeden önce karşısındakinin gerçek bir insan olduğunu bilmek istiyor.",
+      "Fintechler bunu bazen küçümsüyor. Bankalar ise başka bir şey yapıyor. Bütün sistemi güvenin üzerine kurdular, sonra konfor ve regülasyon tuzağına düşüp geliştirmeyi bıraktılar.",
+      "fspark9'u, sahada zor yoldan öğrendiklerimi damıtıp aynı acıyı size çektirmemek için kurdum.",
+      "İsim de oradan geliyor. 9, son adımdır. Bir işin tamamlanmadan hemen önceki hali. Çoğu proje tam orada kalıyor. Spark ise onu yeniden harekete geçiren kıvılcım.",
+    ],
+    link: { label: "Hikayenin tamamını okuyun →", href: "/story" },
+    media: {
+      type: "image",
+      image: {
+        url: "/assets/portrait.jpg",
+        alt: "fspark9 kurucusu Mehmet Burak Dikmen'in portresi",
+        width: 2829,
+        height: 4241,
+      },
+    },
+  },
   process: { heading: "", steps: [] },
   media: { heading: "", intro: "", items: [] },
   faq: { heading: "", items: [] },

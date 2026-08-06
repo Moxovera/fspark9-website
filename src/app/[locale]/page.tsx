@@ -6,6 +6,7 @@ import Audience from "@/components/sections/Audience";
 import Comparison from "@/components/sections/Comparison";
 import Approach from "@/components/sections/Approach";
 import Testimonials from "@/components/sections/Testimonials";
+import Story from "@/components/sections/Story";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -27,6 +28,7 @@ export default async function Home({
       <Comparison content={content.comparison} />
       <Approach content={content.approach} />
       <Testimonials content={content.testimonials} />
+      <Story content={content.story} />
     </main>
   );
 }

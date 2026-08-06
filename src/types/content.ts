@@ -250,11 +250,29 @@ export interface AudienceSection {
 // dc.html'de "Why I do this" başlığı altında görünür (portre foto/video +
 // hikaye paragrafları). KARIŞTIRMA: ApproachSection ile aynı değil —
 // o, "The side that builds it" içindeki "What I do differently" bloğudur.
+//
+// dc.html'de medya (foto/video) bir runtime toggle DEĞİL — editor-time
+// bir prop (portraitMedia: 'photo' | 'video'), tıklama işlevsiz bir
+// no-op (playVideo: () => {}). Video şimdilik gerçek değil, ileride
+// YouTube embed olarak eklenecek (dosya olarak gömülmeyecek, performans
+// için). Video-moddaki "slot" placeholder etiketi (dc.html: t.why.slot,
+// "[ portrait / 2 min video ]") kasıtlı olarak buraya taşınmadı —
+// dc.html'e özgü bir tasarımcı notu, gerçek bir YouTube embed'inin
+// (kendi thumbnail/play butonuyla gelir) karşılığı yok.
+
+export interface StoryMedia {
+  type: 'image' | 'youtube'
+  image?: SanityImage    // type: 'image' iken zorunlu (runtime'da kontrol edilir)
+  youtubeId?: string      // type: 'youtube' iken zorunlu (runtime'da kontrol edilir) — henüz kullanılmıyor
+  caption?: string          // dc.html: video modunda t.why.caption, foto modunda photoCaption (varsayılan boş) — medyayla birlikte taşınıyor
+}
 
 export interface StorySection {
   heading: string
+  lead: string               // eski adı: pullQuote — dc.html: t.why.lead, gövdeden alıntı değil, başlık altı ayrı bir vurgu cümlesi
   paragraphs: string[]    // sitedeki en insani bölüm, çok paragraflı
-  pullQuote?: string
+  link: Link                  // "Read the whole story →"
+  media: StoryMedia
 }
 
 // ─────────────────────────────────────────────
