@@ -75,7 +75,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Audience | [x] | [x] | [x] |
 | Story | [x] | [x] | [x] |
 | Process | [x] | [x] | [x] |
-| Media | [ ] | [ ] | [ ] |
+| Media | [x] | [x] | [x] |
 | Faq | [ ] | [ ] | [ ] |
 | ClosingCta | [ ] | [ ] | [ ] |
 
