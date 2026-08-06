@@ -179,7 +179,42 @@ export const tr: HomePage = {
       },
     ],
   },
-  testimonials: { items: [] },
+  testimonials: {
+    items: [
+      {
+        headline: "Bankacılık tarafı sizin omzunuzdan kalksın mı?",
+        quote:
+          '"Yeni iş fırsatlarını fark etti ve iki tarafın da gerçek sınırları içinde hedeflerimizi ileri taşıyan yaratıcı çözümler üretti. Pazar analizini ve stratejik planlamayı o yürüttü, sonra da iş ortaklığını başkasına devretmek yerine kendisi kurdu ve ayakta tuttu."',
+        attribution: "Dijital Bankacılık Direktörü · Avrupalı BaaS partneri",
+        ctaLabel: "Görüşme ayarla",
+        order: 1,
+      },
+      {
+        headline: "Hangi partnerle ilerleyeceğinize hâlâ karar veremediniz mi?",
+        quote:
+          '"Kısa listeyi daraltmış ve listedeki her isim için bir gerekçeyle geldi. Aylarca etrafında dolaştığımız karar tek bir toplantıda verildi ve o karar tuttu."',
+        attribution: "Kurucu · Ödeme girişimi",
+        ctaLabel: "Görüşme ayarla",
+        order: 2,
+      },
+      {
+        headline: "Akışlarınız uyum incelemesinde mi takıldı?",
+        quote:
+          '"Müşteri kazanım akışları ilk incelemede uyumdan geçti. Buradaki dört yılda bu bir kez bile olmamıştı."',
+        attribution: "Ürün Direktörü · Lisanslı elektronik para kuruluşu",
+        ctaLabel: "Görüşme ayarla",
+        order: 3,
+      },
+      {
+        headline: "Canlıya çıkana kadar kalan biri mi gerekiyor?",
+        quote:
+          '"Birkaç ülkede ekiplerin yer aldığı sınır ötesi bir projede iletişimi ve iş dağılımını o yönetti, üstelik ödemeler tarafında nadiren tek bir kişide görülen bir detay seviyesiyle."',
+        attribution: "Program Direktörü · Sınır ötesi ödemeler",
+        ctaLabel: "Görüşme ayarla",
+        order: 4,
+      },
+    ],
+  },
   audience: {
     heading: "Bu tarif size benziyorsa doğru yerdesiniz.",
     labels: { problem: "Dert", do: "Ne yaparım", result: "Sonuç" },

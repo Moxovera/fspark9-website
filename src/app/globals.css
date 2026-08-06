@@ -27,6 +27,24 @@
  * slider'ında, "Selected work" ve medya kartlarında, "How I work"
  * tab'larında ve "Four ways to start" kartlarında da geçiyor — bu
  * bölümler React'e taşınırken aynı iki color-mix() ifadesi kullanılacak.
+ *
+ * F5F0E6, Approach.tsx'te (bkz. FSPARK9-DURUM.md "Bilinçli tasarım
+ * sapmaları") kasıtlı olarak farklı oranlarla (nötr %3, hover %11)
+ * kullanıldı — yukarıdaki %10 sadece Comparison'ın vurgu satırına özel,
+ * her yerde birebir tekrarlanacak sabit bir değer değil.
+ *
+ *   #1A202C (testimonial slider'ın koyu sol paneli)
+ *     → var(--navy) — ayrı bir color-mix() gerekmedi, G kanalı zaten
+ *       neredeyse birebir örtüşüyor, iki rengin gözle farkı yok denecek
+ *       kadar az. Tasarımcı onaylı (bkz. FSPARK9-DURUM.md).
+ *
+ *   #E7C68A (aynı slider'daki CTA buton metni/border'ı, navy zemin
+ *   üzerinde) → color-mix(in srgb, var(--bronze) 50%, var(--ivory) 50%)
+ *     → var(--bronze) DEĞİL: düz bronz navy zemin üzerinde ~4.4:1
+ *       kontrast veriyor, 14.5px buton metni için WCAG AA'nın (4.5:1)
+ *       az altında kalıyor. Orijinal #E7C68A navy üzerinde ~10:1;
+ *       yukarıdaki türetilmiş ton ~8:1 — ikisi de AA'yı rahatça geçiyor.
+ *       Kullanıldığı yer: Testimonials.tsx.
  */
 
 @theme inline {
@@ -252,4 +270,28 @@ body {
 .audience-close-btn:hover {
   background: color-mix(in srgb, var(--navy) 5%, transparent);
   border-color: var(--bronze);
+}
+
+/* Testimonial CTA butonu — dc.html: style-hover (aynı sebepten gerçek
+   :hover class'ı, inline style hover'ı ezer). Off-brand #E7C68A/#A67C3D
+   çifti: bkz. dosya başındaki off-brand renk yorum bloğu (WCAG kontrast
+   gerekçesiyle). */
+.testimonial-cta {
+  color: color-mix(in srgb, var(--bronze) 50%, var(--ivory) 50%);
+  border: 1px solid
+    color-mix(
+      in srgb,
+      color-mix(in srgb, var(--bronze) 50%, var(--ivory) 50%) 55%,
+      transparent
+    );
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.testimonial-cta:hover {
+  background: var(--bronze);
+  border-color: var(--bronze);
+  color: var(--ivory);
 }

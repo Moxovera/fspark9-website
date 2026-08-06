@@ -180,7 +180,42 @@ export const en: HomePage = {
       },
     ],
   },
-  testimonials: { items: [] },
+  testimonials: {
+    items: [
+      {
+        headline: "Want the banking side taken off your plate?",
+        quote:
+          '"He identified new business opportunities and developed creative solutions that moved our objectives forward, inside the limits both sides actually had. He drove the market analysis and the strategic planning, and then he built and held the partnership itself rather than handing it on."',
+        attribution: "Head of Digital Banking · European BaaS partner",
+        ctaLabel: "Book a call",
+        order: 1,
+      },
+      {
+        headline: "Still deciding which partner to sign?",
+        quote:
+          '"He arrived with the shortlist already narrowed and a reason behind every name on it. A decision we had been circling for months was made in one meeting, and it held."',
+        attribution: "Founder · Payments startup",
+        ctaLabel: "Book a call",
+        order: 2,
+      },
+      {
+        headline: "Flows stuck in compliance review?",
+        quote:
+          '"The onboarding flows cleared compliance on the first review. In four years here, that had not happened once."',
+        attribution: "Chief Product Officer · Licensed e-money institution",
+        ctaLabel: "Book a call",
+        order: 3,
+      },
+      {
+        headline: "Need someone who stays until it is live?",
+        quote:
+          '"On a cross border project with teams in several countries, he drove the communication and the allocation of work, and he did it with a level of detail on the payments side that you rarely find in one person."',
+        attribution: "Programme Director · Cross border payments",
+        ctaLabel: "Book a call",
+        order: 4,
+      },
+    ],
+  },
   audience: {
     heading: "If this sounds like you, you are in the right place.",
     labels: { problem: "The problem", do: "What I do", result: "The result" },
