@@ -113,7 +113,7 @@ export default function AudienceAccordion({ cards, labels }: AudienceAccordionPr
                       type="button"
                       onClick={() => setOpenIndex(-1)}
                       aria-label="Close"
-                      className="audience-close-btn focus-visible:outline-bronze flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-transparent text-[17px] leading-none text-navy focus-visible:outline-2 focus-visible:outline-offset-2"
+                      className="accordion-close-btn focus-visible:outline-bronze flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-transparent text-[17px] leading-none text-navy focus-visible:outline-2 focus-visible:outline-offset-2"
                     >
                       ✕
                     </button>

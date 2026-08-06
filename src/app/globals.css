@@ -257,17 +257,18 @@ body {
   }
 }
 
-/* Audience accordion kapatma butonu — dc.html: style-hover (gerçek CSS
-   değil, DCLogic'e özgü). Framework kartındaki aynı sebepten (inline style
-   :hover'ı ezer) burada da gerçek :hover class'ı olarak yazıldı. */
-.audience-close-btn {
+/* Accordion kapatma butonu — dc.html: style-hover (gerçek CSS değil,
+   DCLogic'e özgü). Framework kartındaki aynı sebepten (inline style
+   :hover'ı ezer) burada da gerçek :hover class'ı olarak yazıldı.
+   AudienceAccordion ve ServicesAccordion ortak kullanıyor — jenerik isim. */
+.accordion-close-btn {
   border: 1px solid color-mix(in srgb, var(--navy) 18%, transparent);
   transition:
     background 0.25s ease,
     border-color 0.25s ease;
 }
 
-.audience-close-btn:hover {
+.accordion-close-btn:hover {
   background: color-mix(in srgb, var(--navy) 5%, transparent);
   border-color: var(--bronze);
 }

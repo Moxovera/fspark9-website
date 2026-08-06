@@ -100,6 +100,15 @@ const ICONS = [BlueprintIcon, HandshakeIcon, GlobeIcon, PhoneIcon];
 // Dört panel de her zaman DOM'da (dc.html: grid-area: 1/1 ile üst üste
 // bindirilmiş), sadece aktif olan opacity/pointer-events/visibility ile
 // görünür — bu, panel içeriğinin crossfade ile geçmesini sağlıyor.
+//
+// zIndex: dc.html'de panelStyle'da hiç z-index yok — Playwright ile kare
+// kare ölçüldüğünde (bkz. commit "fix(services): resolve panel crossfade
+// z-index...") geçiş sırasında ~370ms boyunca iki panel de opacity>0 ve
+// ikisi de visibility:visible; z-index olmadan hangisinin üstte göründüğü
+// DOM/array sırasına bağlı kalıyor, aktif olana değil — bu da metinlerin
+// okunaksız üst üste binmesine yol açıyordu (dc.html'de de aynı kusur var,
+// bizim implementasyona özgü değil). Aktif panel her zaman zIndex:2 ile
+// üstte tutuluyor, solan eski panel zIndex:1 ile altta kalıyor.
 export default function ServicesTabs({ items, labels }: ServicesTabsProps) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -181,6 +190,7 @@ export default function ServicesTabs({ items, labels }: ServicesTabsProps) {
               key={item.slug}
               style={{
                 gridArea: "1 / 1",
+                zIndex: isActive ? 2 : 1,
                 opacity: isActive ? 1 : 0,
                 transform: `translateY(${isActive ? 0 : 16}px)`,
                 pointerEvents: isActive ? "auto" : "none",
