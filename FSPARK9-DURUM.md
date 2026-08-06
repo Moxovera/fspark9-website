@@ -68,7 +68,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | ProofStrip | [x] | [x] | [x] |
 | Familiar | [x] | [x] | [x] |
 | CaseStudies | [ ] | [ ] | [ ] |
-| Services | [ ] | [ ] | [ ] |
+| Services | [x] | [x] | [x] |
 | Comparison | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
 | Approach | [x] | [x] | [x] |
 | Testimonials | [x] | [x] | [x] |
@@ -89,11 +89,13 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 - Approach hover-accordion: dc.html'in `st.handHov` JS state'i yerine saf CSS `:has()` kullanıldı (JS yok, Framework'teki `.framework-card:hover` deseniyle tutarlı). Off-brand `#F5F0E6`/`#EFE7D6` çifti paletten `color-mix(bronze 3%, ivory 97%)` / `color-mix(bronze 11%, ivory 89%)` olarak türetildi. F5F0E6 kaynak rengi iki bölümde farklı oranlarla türetildi (Comparison %10 = vurgu, Approach %3 = nötr/hover'da %11'e çıkıyor) — bu kasıtlı bir kademeli sistem, tutarsızlık değil. Nötr durumlar daha açık, vurgu/etkileşim durumları daha güçlü bronz tonu kullanır.
 - Testimonials koyu sol panel: dc.html'de `#1A202C`, paletten temiz bir color-mix ile türemiyor (navy/charcoal/muted kombinasyonlarının hiçbiri iyi oturmuyor). `var(--navy)` doğrudan kullanılmasına karar verildi — G kanalı zaten neredeyse birebir örtüşüyor, gözle fark edilmeyecek kadar küçük bir sapma. Aynı slider'daki CTA metin/border rengi `#E7C68A` ise `color-mix(bronze 50%, ivory 50%)` ile türetildi — düz `var(--bronze)` navy zemin üzerinde WCAG AA'nın (4.5:1) az altında kaldığı için (~4.4:1), bu türetilmiş ton ~8:1 veriyor. Detay: `globals.css` üstteki off-brand renk yorum bloğu.
 - Testimonial navy panel — mobilde dikey padding azaltıldı, kullanıcı kaydırmadan daha fazla içerik görebilsin diye, dc.html'de bu ayrım yok.
+- Services ve Approach bölümlerinde mobil erişilebilirlik iyileştirmesi — her ikisi de artık mobilde tek-açık accordion deseni kullanıyor (ServicesAccordion, ApproachAccordion), dc.html'de bu ayrım yok, kullanıcı isteğiyle eklendi. Masaüstü davranışları (Services tab+panel, Approach hover) değişmedi.
 
 ## Çözülen kritik hatalar
 
 - Familiar sticky stack — JS'in CSS position:sticky'nin üstüne ayrıca translateY uygulaması, kartların yanlış konuma itilmesine sebep oluyordu. Opus ile kök neden bulunup translateY kaldırıldı, konumlandırma tamamen CSS'e bırakıldı.
 - Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
+- Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
 
 ## Bugün alınan içerik kararları
 
