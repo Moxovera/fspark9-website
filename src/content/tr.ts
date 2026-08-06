@@ -115,10 +115,70 @@ export const tr: HomePage = {
   },
   caseStudies: { items: [], pairingNote: "" },
   services: {
-    heading: "",
-    items: [],
-    fullEngagementHeading: "",
-    fullEngagementBody: "",
+    heading: "Başlamanın dört yolu",
+    intro: "Çoğu kişi bunlardan biriyle başlıyor, gerisini bana bırakıyor.",
+    labels: {
+      problem: "Dert",
+      action: "Ne yaparım",
+      outcome: "Alacaklarınız",
+    },
+    items: [
+      {
+        slug: "proposition-blueprint",
+        number: 1,
+        title: "Önerme ve Ürün Planı",
+        tag: "Karar",
+        problem:
+          "Geliştirmeye ciddi para harcamak üzeresiniz ve arkasındaki iş modeli, birinin varsayımlarını doldurduğu bir tablo. Odada daha önce finansal ürün çıkarmış kimse yok, o yüzden her tahmin farklı bir rakam ve farklı bir tarihle geliyor.",
+        action:
+          "Geliştirme bütçesini bağlamadan önce ticari modeli ve müşteri önermesini baskı altına alırım. Hangi ürün müşterinize gerçekten yakışıyor, hangisi sizin gerçek hacminizde para kazandırıyor, önce ne çıkacak ve ne çıkmayacak.",
+        outcome:
+          "Doğrulanmış bir önerme ve ticari model, arkasındaki gelir mantığı, yanlış olma ihtimali en yüksek varsayım ve ona karşı ne yapılacağı, ve ilk sürümü tanımlanmış bir çıkış sırası.",
+      },
+      {
+        slug: "partner-selection",
+        number: 2,
+        title: "Partner Seçimi",
+        tag: "Kurulum",
+        problem:
+          "Üç sağlayıcı teklif gönderdi. Kağıt üzerinde hepsi aynı, fiyatlar birbirinden çok uzak, kimse nedenini açıklamıyor. İkinci yıl canınızı yakan şey teklifte hiç yazmaz.",
+        action:
+          "API'yi değil, ticari motoru seçerim. Seçim sizin gerçek hacminize, risk iştahınıza ve fiyat listesinde görünmeyen maliyetlere göre yapılır. İsterseniz müzakerede de masada olurum.",
+        outcome:
+          "Her ismin neden orada olduğuyla birlikte bir kısa liste, gerçek şartlar üzerinden karşılaştırma, her partnere sorulacak sorular ve kötü cevabın nasıl duyulduğu, uğruna kavga edilmeye değer maddeler, ve yazılı bir öneri.",
+      },
+      {
+        slug: "market-expansion",
+        number: 3,
+        title: "Yeni Ülkeye Açılma",
+        tag: "Kurulum ve ürün",
+        problem:
+          "Ürün kendi ülkenizde çalışıyor. Yeni ülkede regülatör farklı, partner yapısı farklı, oradaki müşterinin beklentisi farklı. Çoğu açılım şurada tıkanıyor: ekip çalışan ürünü olduğu gibi taşıyor ve dördüncü ayda kurulduğu haliyle yasal olarak çalışamayacağını öğreniyor.",
+        action:
+          "Girişi öyle kurgularım ki, altta regülasyon pozisyonu inşa edilirken marka çalışmaya devam eder. Partner mimarisi, regülasyon rotası ve yerel önerme, sırayla değil birlikte kararlaştırılır.",
+        outcome:
+          "Her aşamadaki regülasyon pozisyonuyla birlikte giriş rotası, bunu taşıyan partner yapısı, ürünün yerelde neyi değiştirmesi gerektiği, ve tam lisans gelmeden çalışmaya başlamanızı sağlayan plan.",
+      },
+      {
+        slug: "experience-build",
+        number: 4,
+        title: "Dijital Deneyim İnşası",
+        tag: "Ürün",
+        problem:
+          "Uygulama güzel görünüyor ama insanlar hesabı yine de açamıyor. Tasarımcınızın akışı hukuktan kimsenin anlamadığı değişikliklerle geri geliyor, yeniden çiziliyor, yine geri geliyor.",
+        action:
+          "Uyum incelemesinden ilk seferde geçen akışlar tasarlarım. Bir yolculuğun hangi kısmının regülasyon gereği orada olduğunu bildiğim için eforu gerçekten tamamlamayı artıran yere harcarız.",
+        outcome:
+          "Müşteriye bakan deneyimin tamamı, ekranlar ve akışlar, geliştiriciye teslim edilmeye hazır halde. Dönüşüm için kurulmuş ve uyumdan tek turda geçecek şekilde tasarlanmış.",
+      },
+    ],
+    fullEngagementHeading: "Ve işin tamamını istediğinizde",
+    fullEngagementBody:
+      "Bu dördü kapı, ev değil. Müşterilerin çoğu birinden giriyor, sonra işin tamamını bana bırakıyor. Partner, lisans rotası, regülasyon yapısı, ürünün kendisi ve lansman. Canlıya çıkana kadar yürütürüm ve ortasını bir ajansa ya da taşerona devretmem. Süreç boyunca ekibinizin içindeyim, iş bitince çıkarım.",
+    link: {
+      label: "Bunların pratikte nasıl işlediğine bakın →",
+      href: "/services",
+    },
   },
   comparison: {
     heading: "Anlatan değil, kuran taraf.",

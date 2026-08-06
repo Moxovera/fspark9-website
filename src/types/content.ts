@@ -142,27 +142,35 @@ export interface CaseStudiesSection {
 // ─────────────────────────────────────────────
 // 5 · Giriş kapıları (hizmetler)
 // ─────────────────────────────────────────────
-
-export type ServicePhase = 'decide' | 'setup' | 'ship' | 'setup+ship'
+// dc.html'de "Four ways to start" — sol dikey tab listesi + sağ panel
+// (masaüstü), her hizmet kendi kartında (mobil). problem/do/get
+// etiketleri (t.ways.labels) section seviyesinde paylaşılıyor, her
+// item'da tekrar etmiyor — AudienceSection.labels ile aynı desen.
+// İkon yok: dc.html'de her tab için sabit, index'e bağlı SVG (bkz.
+// AudienceCard'daki aynı karar) — veri kaynaklı değil, bileşende sabit.
 
 export interface Service {
   slug: string
-  number: number          // 1-4
-  title: string           // "Proposition & Product Blueprint"
-  phase: ServicePhase     // "Decide" etiketi
-  problemHeading: string  // "The problem" / "Dert"
+  number: number       // 1-4
+  title: string          // dc.html: name — "Proposition and Product Blueprint"
+  tag: string             // dc.html: tag — "Decide" / "Set up" / "Set up and ship" / "Ship", düz görüntü metni
   problem: string
-  actionHeading: string   // "What I do" / "Ne yaparım"
-  action: string
-  outcomeHeading: string  // "You get" / "Alacaklarınız"
-  outcome: string
+  action: string           // dc.html: do
+  outcome: string          // dc.html: get
 }
 
 export interface ServicesSection {
-  heading: string         // "Four ways to start"
+  heading: string          // "Four ways to start"
+  intro: string             // "Most people come in through one of these and then hand me the rest."
+  labels: {
+    problem: string        // "The problem"
+    action: string           // "What I do"
+    outcome: string          // "You get"
+  }
   items: Service[]
-  fullEngagementHeading: string
-  fullEngagementBody: string  // "These four are doors, not the house..."
+  fullEngagementHeading: string   // dc.html: wholeTitle
+  fullEngagementBody: string        // dc.html: wholeBody
+  link: Link                          // "See what each of these looks like in practice →"
 }
 
 // ─────────────────────────────────────────────

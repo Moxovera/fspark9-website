@@ -116,10 +116,70 @@ export const en: HomePage = {
   },
   caseStudies: { items: [], pairingNote: "" },
   services: {
-    heading: "",
-    items: [],
-    fullEngagementHeading: "",
-    fullEngagementBody: "",
+    heading: "Four ways to start",
+    intro: "Most people come in through one of these and then hand me the rest.",
+    labels: {
+      problem: "The problem",
+      action: "What I do",
+      outcome: "You get",
+    },
+    items: [
+      {
+        slug: "proposition-blueprint",
+        number: 1,
+        title: "Proposition and Product Blueprint",
+        tag: "Decide",
+        problem:
+          "You are about to spend real money on a build, and the business case behind it is a spreadsheet somebody made assumptions into. Nobody in the room has launched a financial product before, so every estimate comes back with a different number and a different date.",
+        action:
+          "I pressure test the commercial model and the customer proposition before you commit a development budget. Which product genuinely fits your customers, which one earns money at your real volume, what to launch first and what to leave out.",
+        outcome:
+          "A validated proposition and commercial model, the revenue logic behind it, the assumption most likely to be wrong and what to do about it, and a build sequence with the first release defined.",
+      },
+      {
+        slug: "partner-selection",
+        number: 2,
+        title: "Partner Selection",
+        tag: "Set up",
+        problem:
+          "Three providers sent proposals. On paper they look the same, the prices are far apart and nobody explains why. The thing that hurts you in year two is never in the proposal. It is in the exit clause, the volume tiers and the risk appetite mismatch.",
+        action:
+          "I choose the commercial engine, not the API. Selection runs on your real volume, your risk appetite and the costs that do not appear on the rate card. If you want, I sit in the negotiation.",
+        outcome:
+          "A shortlist with the reason each name is on it, a comparison on real terms, the questions to put to each one and what a bad answer sounds like, the clauses worth fighting for, and a written recommendation.",
+      },
+      {
+        slug: "market-expansion",
+        number: 3,
+        title: "New Market Expansion",
+        tag: "Set up and ship",
+        problem:
+          "The product works at home. In the new country the regulator is different, the partner structure is different, and what customers there expect is different. Most expansions stall because the team lifts the working product and finds out in month four that it cannot legally operate in the shape it was built.",
+        action:
+          "I design the entry so the brand can trade while the regulatory position is being built underneath it, instead of waiting for a licence before earning anything. Partner architecture, regulatory route and the local proposition, decided together rather than in sequence.",
+        outcome:
+          "The entry route with the regulatory position at each stage, the partner structure that supports it, what the product has to change locally and what it does not, and the plan that gets you trading before the full licence lands.",
+      },
+      {
+        slug: "experience-build",
+        number: 4,
+        title: "Digital Native Experience Build",
+        tag: "Ship",
+        problem:
+          "The app looks good and people still do not finish opening the account. Your designer’s flow comes back from legal with changes nobody understands, gets redrawn, and comes back again. Two cycles later the launch date has moved.",
+        action:
+          "I design flows that pass compliance review the first time. Because I know which parts of a journey exist because of regulation and which parts are just bad decisions, my team and I spend the effort where it actually lifts completion.",
+        outcome:
+          "The full customer facing experience, screens and flows, production ready and handed to your developers. Built to convert and built to clear compliance in one pass, with the reason behind each design decision written down.",
+      },
+    ],
+    fullEngagementHeading: "And when you want the whole build",
+    fullEngagementBody:
+      "These four are doors, not the house. Most clients come in through one and then hand me the whole build. Partner, licence route, regulatory structure, the product itself and the launch. I run it until it is live, and I do not hand the middle of it to an agency or a subcontractor. I am in your team while it happens, and I leave when it is finished.",
+    link: {
+      label: "See what each of these looks like in practice →",
+      href: "/services",
+    },
   },
   comparison: {
     heading: "The side that builds it.",
