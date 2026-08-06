@@ -105,6 +105,16 @@ export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
     setActiveIndex(i);
   };
 
+  // Mobil-özel bilinçli sapma (dc.html'de yok, bkz. FSPARK9-DURUM.md
+  // "Bilinçli tasarım sapmaları"): dc.html'de her iki panel de
+  // min-height:400px + padding:clamp(40px,4.4vw,...) kullanıyor, bu
+  // clamp 375px'te zaten 40px alt sınırına iniyor ama min-height sabit
+  // kalıyor — auto-fit grid panelleri alt alta dizince telefonda kart
+  // 800px+ yükseklik istiyor, kullanıcı kaydırmadan içeriği göremiyor.
+  // sm: (640px) altında her iki panelde min-height/padding/gap küçültüldü
+  // — bu eşik, grid'in zaten iki sütun ↔ tek sütun geçiş yaptığı nokta
+  // (minmax(320px,1fr) × 2 = 640px). ≥640px'te sm: sınıfları orijinal
+  // dc.html değerlerini birebir geri getiriyor, masaüstü değişmedi.
   return (
     <div
       className="testimonial-track flex w-full"
@@ -118,18 +128,18 @@ export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
           inert={slideIndex !== activeIndex}
           aria-hidden={slideIndex !== activeIndex}
         >
-          <div className="flex min-h-[400px] flex-col items-center justify-center gap-8 bg-navy px-8 py-[clamp(40px,4.4vw,68px)] text-center">
-            <p className="max-w-[22ch] text-pretty font-display text-[clamp(1.5rem,2.3vw,2.05rem)] leading-[1.22] font-medium text-ivory">
+          <div className="flex min-h-[220px] flex-col items-center justify-center gap-5 bg-navy px-8 py-6 text-center sm:min-h-[400px] sm:gap-8 sm:py-[clamp(40px,4.4vw,68px)]">
+            <p className="max-w-[22ch] text-pretty font-display text-[1.3rem] leading-[1.22] font-medium text-ivory sm:text-[clamp(1.5rem,2.3vw,2.05rem)]">
               {slide.headline}
             </p>
             <button
               type="button"
-              className="testimonial-cta rounded-full px-[30px] py-[15px] text-[14.5px] font-medium"
+              className="testimonial-cta rounded-full px-6 py-3 text-[13px] font-medium sm:px-[30px] sm:py-[15px] sm:text-[14.5px]"
             >
               {slide.ctaLabel}
             </button>
           </div>
-          <div className="flex min-h-[400px] flex-col justify-between gap-10 bg-[color-mix(in_srgb,var(--ivory)_50%,white_50%)] px-8 py-[clamp(40px,4.4vw,62px)]">
+          <div className="flex min-h-[220px] flex-col justify-between gap-6 bg-[color-mix(in_srgb,var(--ivory)_50%,white_50%)] px-8 py-6 sm:min-h-[400px] sm:gap-10 sm:py-[clamp(40px,4.4vw,62px)]">
             <div>
               <p className="mb-[26px] text-pretty font-display text-[clamp(1.18rem,1.8vw,1.6rem)] leading-[1.45] font-medium text-navy">
                 {slide.quote}
