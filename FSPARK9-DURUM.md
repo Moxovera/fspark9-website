@@ -67,14 +67,14 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Framework | [x] | [x] | [x] |
 | ProofStrip | [x] | [x] | [x] |
 | Familiar | [x] | [x] | [x] |
-| CaseStudies | [ ] | [ ] | [ ] |
+| CaseStudies | [x] | [x] | [x] |
 | Services | [x] | [x] | [x] |
 | Comparison | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
 | Approach | [x] | [x] | [x] |
 | Testimonials | [x] | [x] | [x] |
 | Audience | [x] | [x] | [x] |
 | Story | [x] | [x] | [x] |
-| Process | [ ] | [ ] | [ ] |
+| Process | [x] | [x] | [x] |
 | Media | [ ] | [ ] | [ ] |
 | Faq | [ ] | [ ] | [ ] |
 | ClosingCta | [ ] | [ ] | [ ] |

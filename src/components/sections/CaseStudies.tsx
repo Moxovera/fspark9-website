@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import Reveal from "@/components/ui/Reveal";
 import type { CaseStudiesSection } from "@/types/content";
 
 interface CaseStudiesProps {
@@ -13,40 +14,45 @@ export default function CaseStudies({ content }: CaseStudiesProps) {
     <section className="bg-ivory px-7 pb-[104px]">
       <div className="mx-auto max-w-[1280px] border-t border-charcoal/[0.08] pt-24">
         {heading && (
-          <h2 className="mb-4 font-display text-[clamp(2rem,3.4vw,3.1rem)] leading-[1.12] font-medium text-navy">
-            {heading}
-          </h2>
+          <Reveal>
+            <h2 className="mb-4 font-display text-[clamp(2rem,3.4vw,3.1rem)] leading-[1.12] font-medium text-navy">
+              {heading}
+            </h2>
+          </Reveal>
         )}
-        <p className="mb-12 max-w-[62ch] text-[1.05rem] leading-[1.6] text-muted">{intro}</p>
+        <Reveal className="mb-12 max-w-[62ch] text-[1.05rem] leading-[1.6] text-muted">
+          <p>{intro}</p>
+        </Reveal>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-[26px]">
           {items.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/work/${item.slug}`}
-              className="block bg-navy text-ivory no-underline"
-            >
-              <div className="relative aspect-[16/10] overflow-hidden bg-navy">
-                <Image
-                  src={item.coverImage.url}
-                  alt={item.coverImage.alt}
-                  fill
-                  sizes="(min-width: 768px) 45vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-[30px]">
-                <h3 className="mb-1.5 font-display text-[1.6rem] font-semibold text-ivory">
-                  {item.name}
-                </h3>
-                <p className="mb-[18px] text-[14.5px] text-bronze">{item.subtitle}</p>
-                <p className="mb-[22px] text-[15px] leading-[1.62] text-ivory/74">{item.body}</p>
-                <p className="mb-[18px] font-mono text-[11.5px] tracking-[0.06em] text-ivory/50">
-                  {item.tags.join(" · ")}
-                </p>
-                <span className="font-mono text-[12.5px] text-bronze">{linkLabel}</span>
-              </div>
-            </Link>
+            <Reveal key={item.slug}>
+              <Link
+                href={`/work/${item.slug}`}
+                className="case-study-card block h-full bg-navy text-ivory no-underline"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-navy">
+                  <Image
+                    src={item.coverImage.url}
+                    alt={item.coverImage.alt}
+                    fill
+                    sizes="(min-width: 768px) 45vw, 90vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-[30px]">
+                  <h3 className="mb-1.5 font-display text-[1.6rem] font-semibold text-ivory">
+                    {item.name}
+                  </h3>
+                  <p className="mb-[18px] text-[14.5px] text-bronze">{item.subtitle}</p>
+                  <p className="mb-[22px] text-[15px] leading-[1.62] text-ivory/74">{item.body}</p>
+                  <p className="mb-[18px] font-mono text-[11.5px] tracking-[0.06em] text-ivory/50">
+                    {item.tags.join(" · ")}
+                  </p>
+                  <span className="font-mono text-[12.5px] text-bronze">{linkLabel}</span>
+                </div>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </div>

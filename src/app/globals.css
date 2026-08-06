@@ -336,3 +336,16 @@ body {
     transition: none;
   }
 }
+
+/* Case study kartı hover'ı — dc.html: style-hover (aynı sebepten gerçek
+   :hover class'ı, inline style hover'ı ezer). */
+.case-study-card {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.case-study-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--navy) 22%, transparent);
+}
