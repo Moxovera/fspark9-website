@@ -84,9 +84,9 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır: ne, neden.
 
 - Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
-- Off-brand renkler #fffdf7→ivory+%40beyaz, #F5F0E6→ivory+%10bronz olarak paletten türetildi, tasarımcı onayıyla. Kullanıldığı diğer yerler ileriki bölümlerde tekrar karşımıza çıkabilir, aynı color-mix değerleri kullanılacak.
+- Off-brand renkler #fffdf7→ivory+%40beyaz, #F5F0E6→ivory+%10bronz (Comparison, vurgu satırı) olarak paletten türetildi, tasarımcı onayıyla. F5F0E6'nın diğer bölümlerdeki kullanımı aynı yüzdeyi tekrarlamak zorunda değil — bkz. aşağıdaki Approach notu, kademeli (nötr/vurgu) bir sistem.
 - Comparison tablosu mobil genişliği daraltıldı (640px→480px, padding 20px→12-14px), tasarımcı QA notuyla, gereksiz mobil scroll'u azaltmak için.
-- Approach hover-accordion: dc.html'in `st.handHov` JS state'i yerine saf CSS `:has()` kullanıldı (JS yok, Framework'teki `.framework-card:hover` deseniyle tutarlı). Off-brand `#F5F0E6`/`#EFE7D6` çifti paletten `color-mix(bronze 3%, ivory 97%)` / `color-mix(bronze 11%, ivory 89%)` olarak türetildi — **NOT: bu, satır 87'de kayıtlı `#F5F0E6→bronze 10%` kararından farklı bir yüzde.** Comparison'daki 10% değeri EFE7D6'ya (aktif/hover rengi) matematiksel olarak daha yakın çıkıyor; F5F0E6'nın (nötr renk) kendisine en yakın değer ~3%. İki bölüm şu an aynı kaynak hex için farklı yüzdeler kullanıyor — kasıtlı bir uyumsuzluk değil, bu turda fark edildi ve kullanıcıya bildirildi. Bir sonraki bölümde tasarımcıyla birlikte tek bir kanonik değerde birleştirilmesi gerekiyor.
+- Approach hover-accordion: dc.html'in `st.handHov` JS state'i yerine saf CSS `:has()` kullanıldı (JS yok, Framework'teki `.framework-card:hover` deseniyle tutarlı). Off-brand `#F5F0E6`/`#EFE7D6` çifti paletten `color-mix(bronze 3%, ivory 97%)` / `color-mix(bronze 11%, ivory 89%)` olarak türetildi. F5F0E6 kaynak rengi iki bölümde farklı oranlarla türetildi (Comparison %10 = vurgu, Approach %3 = nötr/hover'da %11'e çıkıyor) — bu kasıtlı bir kademeli sistem, tutarsızlık değil. Nötr durumlar daha açık, vurgu/etkileşim durumları daha güçlü bronz tonu kullanır.
 
 ## Çözülen kritik hatalar
 
