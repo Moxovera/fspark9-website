@@ -1,5 +1,6 @@
 import type { ApproachSection } from "@/types/content";
 import Reveal from "@/components/ui/Reveal";
+import ApproachAccordion from "@/components/sections/ApproachAccordion";
 
 interface ApproachProps {
   content: ApproachSection;
@@ -19,24 +20,33 @@ export default function Approach({ content }: ApproachProps) {
           </Reveal>
         )}
 
-        <div className="approach-row">
-          {blocks.map((block) => (
-            <Reveal key={block.number} className="approach-panel">
-              <p className="approach-panel-number font-mono text-xs tracking-[0.12em] text-bronze">
-                {String(block.number).padStart(2, "0")}
-              </p>
-              <div>
-                <h4 className="approach-panel-title font-display text-[1.22rem] leading-[1.3] font-semibold text-navy">
-                  {block.title}
-                </h4>
-                <div className="approach-panel-body">
-                  <p className="max-w-[46ch] text-[15px] leading-[1.65] text-charcoal">
-                    {block.body}
-                  </p>
+        {/* Masaüstü (≥900px): hover-accordion, :has() ile sıfır JS —
+            değişmedi, sadece görünürlük koşulu eklendi (SORUN 3). */}
+        <div className="hidden min-[900px]:block">
+          <div className="approach-row">
+            {blocks.map((block) => (
+              <Reveal key={block.number} className="approach-panel">
+                <p className="approach-panel-number font-mono text-xs tracking-[0.12em] text-bronze">
+                  {String(block.number).padStart(2, "0")}
+                </p>
+                <div>
+                  <h4 className="approach-panel-title font-display text-[1.22rem] leading-[1.3] font-semibold text-navy">
+                    {block.title}
+                  </h4>
+                  <div className="approach-panel-body">
+                    <p className="max-w-[46ch] text-[15px] leading-[1.65] text-charcoal">
+                      {block.body}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobil/tablet (<900px): kapalı başlayan accordion, ayrı ağaç. */}
+        <div className="min-[900px]:hidden">
+          <ApproachAccordion blocks={blocks} />
         </div>
       </div>
     </section>

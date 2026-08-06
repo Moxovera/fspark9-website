@@ -158,12 +158,12 @@ body {
    çözüldü: satırda herhangi bir panel hover'dayken diğerleri :not(:hover)
    ile "dim" olur, hover edilen panelin kendi :hover kuralı çakışmadan
    kazanır (specificity çatışması yok, çünkü ikisi asla aynı elemanda
-   uygulanmıyor). Sadece masaüstünde (≥900px) — mobilde hover kavramı yok,
-   gövde metni Approach.tsx'te hep açık kalıyor.
-   Tüm responsive yerleşim (grid↔flex, margin, padding, background) bilerek
-   burada, tek yerde toplandı — Tailwind utility class'larıyla aynı özelliğe
-   (ör. margin-bottom, background) aynı anda yazmak, iki katman arasında CSS
-   enjeksiyon sırasına bağlı belirsiz bir kazanan yaratırdı.
+   uygulanmıyor).
+   Mobilde (<900px) bu ağaç hiç render edilmiyor — ApproachAccordion.tsx
+   (client, tıkla-aç accordion) kullanılıyor, bu yüzden aşağıdaki tüm
+   kurallar artık sadece @media (min-width: 900px) içinde, base/mobil
+   kuralı yok (SORUN 3 düzeltmesiyle taşındı — bkz. commit
+   "feat(approach): mobile accordion for body text visibility").
    Numaranın margin-bottom: auto'su dc.html'e özgü bir detay: flex-column
    içinde numarayı üstte sabitleyip başlık+gövde grubunu kutunun ALTINA
    iter (bkz. dc.html handBlocks — n'in margin'i her zaman '0 0 auto').
@@ -171,25 +171,6 @@ body {
    hex. Comparison'daki off-brand renk düzeltmesiyle aynı yöntemle paletten
    türetildi: #F5F0E6 ≈ color-mix(bronze 3%, ivory 97%) → (245,240,231),
    #EFE7D6 ≈ color-mix(bronze 11%, ivory 89%) → (238,231,217). */
-.approach-row {
-  display: grid;
-  gap: 30px;
-  margin-top: 56px;
-}
-
-.approach-panel {
-  background: color-mix(in srgb, var(--bronze) 3%, var(--ivory) 97%);
-  padding: 26px;
-}
-
-.approach-panel-number {
-  margin-bottom: 12px;
-}
-
-.approach-panel-body {
-  margin-top: 12px;
-}
-
 @media (min-width: 900px) {
   .approach-row {
     display: flex;
@@ -206,6 +187,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 30px 26px 34px;
+    background: color-mix(in srgb, var(--bronze) 3%, var(--ivory) 97%);
     border-top: 2px solid transparent;
     transition:
       flex 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
