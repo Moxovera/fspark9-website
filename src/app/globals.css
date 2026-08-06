@@ -295,3 +295,37 @@ body {
   border-color: var(--bronze);
   color: var(--ivory);
 }
+
+/* Testimonial slider prev/next okları — dc.html: style-hover (aynı
+   sebepten gerçek :hover class'ı). dc.html'de SVG stroke'u sabit navy
+   (#0B1F3A) — hover'da buton zemini de navy dolunca ikon kendi zemininde
+   kayboluyor (prototipte fark edilmemiş bir kusur). Burada stroke
+   currentColor'a bağlandı, .testimonial-nav-btn'in color'ı hover'da
+   ivory'ye dönünce ikon görünür kalıyor — dc.html'den kasıtlı bir sapma. */
+.testimonial-nav-btn {
+  border: 1px solid color-mix(in srgb, var(--navy) 22%, transparent);
+  color: var(--navy);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.testimonial-nav-btn:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--ivory);
+}
+
+/* Testimonial slider track — dc.html: testiTrackStyle (transform
+   dinamik/index'e bağlı olduğu için TestimonialSlider.tsx'te inline
+   style kalıyor, sadece süre/easing burada sabit). */
+.testimonial-track {
+  transition: transform 0.62s cubic-bezier(0.35, 0.9, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track {
+    transition: none;
+  }
+}
