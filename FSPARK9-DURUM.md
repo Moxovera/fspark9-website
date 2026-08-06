@@ -96,6 +96,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 - Familiar sticky stack — JS'in CSS position:sticky'nin üstüne ayrıca translateY uygulaması, kartların yanlış konuma itilmesine sebep oluyordu. Opus ile kök neden bulunup translateY kaldırıldı, konumlandırma tamamen CSS'e bırakıldı.
 - Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
 - Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
+- CaseStudies kapak görselleri (yerel SVG) production build'de boş çıkıyordu — Next.js image optimizer varsayılan olarak SVG'yi reddediyor (`400 image type is not allowed`), `next.config.ts`'te `images.dangerouslyAllowSVG: true` + kısıtlayıcı CSP eksikti. Hata sadece `npm run build && npm run start` ile ortaya çıkıyor, `npm run dev`'de görünmüyordu. Bkz. CLAUDE.md "Bölüm tamamlama kontrol listesi" madde 7.
 
 ## Küçük düzeltmeler / bekleyen işler
 
