@@ -71,7 +71,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Services | [ ] | [ ] | [ ] |
 | Comparison | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
 | Approach | [x] | [x] | [x] |
-| Testimonials | [ ] | [ ] | [ ] |
+| Testimonials | [x] | [x] | [x] |
 | Audience | [x] | [x] | [x] |
 | Story | [ ] | [ ] | [ ] |
 | Process | [ ] | [ ] | [ ] |
@@ -92,6 +92,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 ## Çözülen kritik hatalar
 
 - Familiar sticky stack — JS'in CSS position:sticky'nin üstüne ayrıca translateY uygulaması, kartların yanlış konuma itilmesine sebep oluyordu. Opus ile kök neden bulunup translateY kaldırıldı, konumlandırma tamamen CSS'e bırakıldı.
+- Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
 
 ## Bugün alınan içerik kararları
 
