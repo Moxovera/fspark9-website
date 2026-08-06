@@ -117,10 +117,14 @@ export interface CaseStudyAction {
 }
 
 export interface CaseStudy {
-  slug: string            // "insha" | "ruut"
+  slug: string            // "insha" | "ruut" — /work/${slug} bileşende türetilir, ayrıca href saklanmaz
   name: string
   location?: string       // "Berlin"
   subtitle: string        // "Europe's first interest free, digital only bank"
+  body: string             // dc.html: t.work.cards[].body — ana sayfa özet kartının tek paragrafı.
+                             // KARIŞTIRMA: problem'dan farklı — o, vaka detay sayfasının problem bölümü.
+  coverImage: SanityImage // dc.html: t.work.cards[] kapak görseli (16:10) — screens'ten farklı,
+                             // o detay sayfasının çoklu ekran görüntüleri için
   problemHeading: string
   problem: string
   actionsHeading: string
@@ -128,15 +132,19 @@ export interface CaseStudy {
   deliveredHeading: string
   delivered: string
   tags: string[]          // ["Proposition", "Partner Selection", ...]
-  screens: SanityImage[]  // ürün ekranları
-  logo: SanityImage
+  screens: SanityImage[]  // ürün ekranları (vaka detay sayfası)
+  logo?: SanityImage       // dc.html'de karşılığı yok, şu an kullanılmıyor — ProofStrip.logo?
+                             // kararıyla tutarlı, ileride basın/medya amaçlı kullanılabilir
   order: number
 }
 
 export interface CaseStudiesSection {
   heading?: string
+  intro: string            // eski adı: pairingNote — dc.html: t.work.intro
   items: CaseStudy[]
-  pairingNote: string     // "İkisini yan yana koymanın sebebi" paragrafı
+  linkLabel: string          // dc.html: c.link, "Read the case →" — her kartta aynı, section
+                                // seviyesinde paylaşılıyor (ServicesSection.labels ile aynı desen);
+                                // href her kart için slug'dan türetiliyor, burada saklanmıyor
 }
 
 // ─────────────────────────────────────────────

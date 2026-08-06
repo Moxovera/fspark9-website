@@ -114,7 +114,102 @@ export const en: HomePage = {
     closingLine:
       "None of this means the idea is wrong. Usually it means one early decision was made by somebody who had never made it before.",
   },
-  caseStudies: { items: [], pairingNote: "" },
+  caseStudies: {
+    heading: "Case studies",
+    intro:
+      "One was built from nothing and became a first in Europe. The other was already running, too small, and had to become something else in a market it had never traded in.",
+    linkLabel: "Read the case →",
+    items: [
+      {
+        slug: "insha",
+        name: "insha, Berlin",
+        subtitle: "Europe's first interest free, digital only bank",
+        body: "From an intention with no proposition, no infrastructure and no European partner, to a live bank on a BaFin licensed institution, with account opening a customer could finish on a phone in one sitting.",
+        coverImage: {
+          url: "/assets/case-study-insha.svg",
+          alt: "insha",
+          width: 1600,
+          height: 1000,
+        },
+        tags: ["Proposition", "Partner Selection", "Experience", "Expansion"],
+        problemHeading: "The problem",
+        problem:
+          "Albaraka Türk wanted Europe's Muslim community. What existed was an intention. No proposition, no infrastructure, no European partner, no local trust, and a brand that meant something in Türkiye and nothing in Germany.",
+        actionsHeading: "What I did",
+        actions: [
+          {
+            label: "Proposition.",
+            description:
+              "Defined what the product actually was and who would pay for it, before a line of code was written.",
+          },
+          {
+            label: "Partner.",
+            description:
+              "Selected and negotiated the BaaS and card partners from zero, and put the product under a BaFin licensed institution.",
+          },
+          {
+            label: "Experience.",
+            description:
+              "Designed and ran the end to end digital experience, including account opening a customer could complete on a phone in one sitting.",
+          },
+          {
+            label: "Expansion and growth.",
+            description:
+              "Built the growth engine and took it to the ground, because a bank nobody has heard of cannot buy trust with advertising.",
+          },
+        ],
+        deliveredHeading: "What was delivered",
+        delivered:
+          "Europe's first interest free digital only bank, live in Germany, on solarisBank infrastructure with a Mastercard debit card. Users grew more than 300% through 2020 to over 40,000 in Germany, and the company raised €2.5 million to expand across Europe.",
+        screens: [],
+        order: 1,
+      },
+      {
+        slug: "ruut",
+        name: "RUUT, an İşbank company",
+        subtitle: "From one money transfer product to a digital bank, and into the UK",
+        body: "A single purpose remittance app turned into a full digital banking proposition, rebuilt screen by screen, and taken into a new market on a structure that lets the brand trade while the licence is built underneath it.",
+        coverImage: {
+          url: "/assets/case-study-ruut.svg",
+          alt: "RUUT",
+          width: 1600,
+          height: 1000,
+        },
+        tags: ["Proposition", "Experience", "Partner Selection", "Expansion"],
+        problemHeading: "The problem",
+        problem:
+          "A single purpose remittance app for Turks in Germany and Austria. The board wanted a full digital bank for the diaspora across Europe, and then the UK. That is not a roadmap item. It is a new proposition, a new product set, new partners, a new regulatory position and a new market, all at the same time.",
+        actionsHeading: "What I did",
+        actions: [
+          {
+            label: "Proposition.",
+            description:
+              "Turned a one product transfer app into a digital banking proposition, and worked out which products earned their place.",
+          },
+          {
+            label: "Experience.",
+            description:
+              "Rebuilt the brand and the customer experience end to end, every screen and every flow, shipped rather than presented.",
+          },
+          {
+            label: "Partner.",
+            description:
+              "Selected and managed the partners behind the new products, and held those relationships through delivery.",
+          },
+          {
+            label: "Expansion.",
+            description:
+              "Ran the UK market entry, including the partner and regulatory architecture that lets the brand operate on a distributor position while the full licence is built out underneath it.",
+          },
+        ],
+        deliveredHeading: "What was delivered",
+        delivered:
+          "A digital banking brand with cross border payments open to all EU citizens and residents, and a UK entry aimed at a Turkish community of close to one million people, with retail and business accounts, cards and remittances, on a route to a fully licensed position.",
+        screens: [],
+        order: 2,
+      },
+    ],
+  },
   services: {
     heading: "Four ways to start",
     intro: "Most people come in through one of these and then hand me the rest.",

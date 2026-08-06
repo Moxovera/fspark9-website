@@ -113,7 +113,101 @@ export const tr: HomePage = {
     closingLine:
       "Bunların hiçbiri fikrin yanlış olduğu anlamına gelmez. Çoğu zaman, o kararı daha önce hiç vermemiş birinin verdiği anlamına gelir.",
   },
-  caseStudies: { items: [], pairingNote: "" },
+  caseStudies: {
+    heading: "Vaka İncelemeleri",
+    intro:
+      "Biri sıfırdan kuruldu ve Avrupa'da bir ilk oldu. Diğeri zaten çalışıyordu, küçüktü, ve hiç bulunmadığı bir pazarda başka bir şeye dönüşmesi gerekiyordu.",
+    linkLabel: "Vakayı okuyun →",
+    items: [
+      {
+        slug: "insha",
+        name: "insha, Berlin",
+        subtitle: "Avrupa'nın ilk faizsiz dijital bankası",
+        body: "Önerme yok, altyapı yok, Avrupa'da partner yok, yerel güven yoktu. BaFin lisanslı bir kurum altında canlı bir bankaya, müşterinin telefonda tek oturuşta tamamladığı bir hesap açma akışıyla.",
+        coverImage: {
+          url: "/assets/case-study-insha.svg",
+          alt: "insha",
+          width: 1600,
+          height: 1000,
+        },
+        tags: ["Önerme", "Partner Seçimi", "Deneyim", "Açılım"],
+        problemHeading: "Problem",
+        problem:
+          "Albaraka Türk, Avrupa'daki Müslüman topluluğu hedefliyordu. Ortada olan tek şey niyetti. Önerme yok, altyapı yok, Avrupa'da partner yok, yerel güven yok.",
+        actionsHeading: "Ne yaptım",
+        actions: [
+          {
+            label: "Önerme.",
+            description:
+              "Tek satır kod yazılmadan önce ürünün ne olduğunu ve kimin para ödeyeceğini netleştirdim.",
+          },
+          {
+            label: "Partner.",
+            description:
+              "BaaS ve kart partnerlerini sıfırdan seçip müzakere ettim, ürünü BaFin lisanslı bir kurumun altına oturttum.",
+          },
+          {
+            label: "Deneyim.",
+            description:
+              "Uçtan uca dijital deneyimi tasarladım ve yönettim. Telefonda tek oturuşta tamamlanan hesap açma akışı dahil.",
+          },
+          {
+            label: "Açılım ve büyüme.",
+            description:
+              "Büyüme motorunu kurdum ve sahaya indirdim. Çünkü kimsenin adını duymadığı bir banka güveni reklamla satın alamaz.",
+          },
+        ],
+        deliveredHeading: "Ne teslim edildi",
+        delivered:
+          "Avrupa'nın ilk faizsiz ve sadece dijital bankası, Almanya'da canlıda. solarisBank altyapısı, Mastercard banka kartı. Kullanıcı sayısı 2020 boyunca yüzde 300'ün üzerinde büyüyerek Almanya'da 40.000'i geçti, şirket 2,5 milyon euro yatırım aldı.",
+        screens: [],
+        order: 1,
+      },
+      {
+        slug: "ruut",
+        name: "RUUT, bir İşbank şirketi",
+        subtitle: "Tek bir para transferi ürününden dijital bankaya, oradan İngiltere'ye",
+        body: "Tek işlevli bir transfer uygulamasından tam bir dijital bankacılık önermesine, ekran ekran yeniden kuruldu, ve lisans altta inşa edilirken markanın çalışmaya devam etmesini sağlayan bir yapıyla yeni pazara taşındı.",
+        coverImage: {
+          url: "/assets/case-study-ruut.svg",
+          alt: "RUUT",
+          width: 1600,
+          height: 1000,
+        },
+        tags: ["Önerme", "Deneyim", "Partner Seçimi", "Açılım"],
+        problemHeading: "Problem",
+        problem:
+          "Almanya ve Avusturya'daki Türkler için tek işlevli bir transfer uygulaması. Yönetim ise önce Avrupa'daki diaspora, sonra İngiltere için tam bir dijital banka istiyordu. Yeni önerme, yeni ürün seti, yeni partnerler, yeni bir regülasyon pozisyonu ve yeni bir pazar. Hepsi aynı anda.",
+        actionsHeading: "Ne yaptım",
+        actions: [
+          {
+            label: "Önerme.",
+            description: "Tek ürünlü bir transfer uygulamasını dijital bankacılık önermesine çevirdim.",
+          },
+          {
+            label: "Deneyim.",
+            description:
+              "Markayı ve müşteri deneyimini uçtan uca yeniden kurdum. Her ekran, her akış. Sunulan değil, çıkarılan iş.",
+          },
+          {
+            label: "Partner.",
+            description:
+              "Yeni ürünlerin arkasındaki partnerleri seçtim ve yönettim, ilişkileri teslimata kadar taşıdım.",
+          },
+          {
+            label: "Açılım.",
+            description:
+              "İngiltere pazarına girişi yürüttüm. Tam lisans altta kurulurken markanın dağıtıcı pozisyonuyla çalışmasını sağlayan mimari dahil.",
+          },
+        ],
+        deliveredHeading: "Ne teslim edildi",
+        delivered:
+          "Tüm AB vatandaşlarına açık sınır ötesi ödemeleri olan bir dijital bankacılık markası, ve bir milyona yakın Türk topluluğunu hedefleyen bir İngiltere girişi. Bireysel ve ticari hesaplar, kartlar, para transferi ve tam lisanslı pozisyona giden bir rota.",
+        screens: [],
+        order: 2,
+      },
+    ],
+  },
   services: {
     heading: "Başlamanın dört yolu",
     intro: "Çoğu kişi bunlardan biriyle başlıyor, gerisini bana bırakıyor.",
