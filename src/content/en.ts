@@ -155,7 +155,31 @@ export const en: HomePage = {
       },
     ],
   },
-  approach: { blocks: [] },
+  approach: {
+    heading: "What I do differently",
+    blocks: [
+      {
+        number: 1,
+        title: "I do not leave a deck on the table",
+        body: "Most people in this market deliver a document and go. The document is not the problem. The problem is the six months after it, when nobody in the building knows how to turn it into a live product. I take the work from the decision through to the launch, and the middle of it does not go to an agency or a subcontractor.",
+      },
+      {
+        number: 2,
+        title: "Nine is the bridge",
+        body: "Nine is the last step, the point right before something is finished. The gap between a strategy and a live product, between an idea and a customer using it. Most projects stall exactly there, and that gap is where I work. Spark is what gets it moving again.",
+      },
+      {
+        number: 3,
+        title: "I sit at the partner table, not behind you",
+        body: "Licence conversations, BaaS negotiations, regulator questions, compliance reviews. I have been on both sides of those tables and I go into them with you, not with advice about how to go into them.",
+      },
+      {
+        number: 4,
+        title: "My team ships, I do not just draw",
+        body: "Experience design, UX and UI, delivered by people who do this properly, run by someone who knows what regulation will and will not allow on a screen. Production ready, not a concept.",
+      },
+    ],
+  },
   testimonials: { items: [] },
   audience: {
     heading: "If this sounds like you, you are in the right place.",

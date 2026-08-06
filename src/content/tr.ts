@@ -154,7 +154,31 @@ export const tr: HomePage = {
       },
     ],
   },
-  approach: { blocks: [] },
+  approach: {
+    heading: "Neyi farklı yapıyorum",
+    blocks: [
+      {
+        number: 1,
+        title: "Masaya sunum bırakıp gitmiyorum",
+        body: "Bu piyasadaki çoğu kişi bir doküman teslim eder ve gider. Problem doküman değil. Problem ondan sonraki altı ay, binada onu canlı bir ürüne çevirmeyi bilen kimsenin olmaması. Ben işi karardan lansmana kadar taşıyorum, ve ortası bir ajansa ya da taşerona gitmiyor.",
+      },
+      {
+        number: 2,
+        title: "Dokuz, köprüdür",
+        body: "Dokuz son adımdır. Bir işin tamamlanmadan hemen önceki hali. Strateji ile canlı ürün, fikir ile onu kullanan müşteri arasındaki boşluk. Çoğu proje tam orada takılıyor, ve benim çalıştığım yer o boşluk. Spark ise onu yeniden harekete geçiren şey.",
+      },
+      {
+        number: 3,
+        title: "Partner masasında sizinle otururum, arkanızda durmam",
+        body: "Lisans görüşmeleri, BaaS müzakereleri, regülatör soruları, uyum incelemeleri. Bu masaların iki tarafında da bulundum. Oraya nasıl gireceğinize dair tavsiyeyle değil, sizinle birlikte girerim.",
+      },
+      {
+        number: 4,
+        title: "Ekibim çıkarır, ben sadece çizmem",
+        body: "Deneyim tasarımı, UX ve UI. Bu işi düzgün yapan insanlar tarafından, regülasyonun bir ekranda neye izin verip neye vermeyeceğini bilen biri tarafından yönetilerek. Konsept değil, geliştirmeye hazır iş.",
+      },
+    ],
+  },
   testimonials: { items: [] },
   audience: {
     heading: "Bu tarif size benziyorsa doğru yerdesiniz.",
