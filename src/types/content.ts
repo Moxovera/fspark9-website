@@ -305,6 +305,9 @@ export interface ProcessStep {
 export interface ProcessSection {
   heading: string
   steps: ProcessStep[]    // üç adım
+  ctaLabel: string          // dc.html: t.how.cta, "Book the call →"
+  ctaHref: string             // dc.html'de yok — openBooking() bir overlay açıyor, henüz kurulmadı;
+                                // Hero'daki gibi geçici olarak "/book"a gidiyor (bkz. FSPARK9-DURUM.md)
 }
 
 // ─────────────────────────────────────────────

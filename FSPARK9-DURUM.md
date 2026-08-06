@@ -97,6 +97,10 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 - Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
 - Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
 
+## Küçük düzeltmeler / bekleyen işler
+
+- Booking overlay kurulunca Hero/Process/Testimonials CTA'ları /book linkinden gerçek overlay tetiklemesine çevrilecek.
+
 ## Bugün alınan içerik kararları
 
 - `content.ts`'e dc.html'de olup karşılığı olmayan üç bölüm için yeni tipler eklendi: `FamiliarSection`/`FamiliarPoint` (sticky kart yığını), `TestimonialSection`/`Testimonial` (testimonial slider), `MediaSection`/`MediaItem` (basın/medya).

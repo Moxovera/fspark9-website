@@ -422,7 +422,36 @@ export const en: HomePage = {
       },
     },
   },
-  process: { heading: "", steps: [] },
+  process: {
+    heading: "How I work",
+    steps: [
+      {
+        number: 1,
+        title: "A free 30 minute call",
+        description:
+          "You tell me where things stand. We look at whether I can genuinely add value.",
+        detail:
+          "If I cannot, I will say so plainly and point you to whatever will actually help. No deck, no pitch, no follow up sequence.",
+      },
+      {
+        number: 2,
+        title: "A proposal written for you",
+        description:
+          "After the call I put together the solution, the process, the timeline and the price, and send it over.",
+        detail:
+          "Not a catalogue. A plan written for your situation, with the number on it before you commit to anything.",
+      },
+      {
+        number: 3,
+        title: "If we agree, we start",
+        description: "A clear output and a clear invoice every month.",
+        detail:
+          "You will not have to chase a meeting to find out where we are. You can stop or continue with your eyes open.",
+      },
+    ],
+    ctaLabel: "Book the call →",
+    ctaHref: "/book",
+  },
   media: { heading: "", intro: "", items: [] },
   faq: { heading: "", items: [] },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },

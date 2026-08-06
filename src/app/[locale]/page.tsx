@@ -9,6 +9,7 @@ import Testimonials from "@/components/sections/Testimonials";
 import Story from "@/components/sections/Story";
 import Services from "@/components/sections/Services";
 import CaseStudies from "@/components/sections/CaseStudies";
+import Process from "@/components/sections/Process";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -33,6 +34,7 @@ export default async function Home({
       <Story content={content.story} />
       <Services content={content.services} />
       <CaseStudies content={content.caseStudies} />
+      <Process content={content.process} />
     </main>
   );
 }

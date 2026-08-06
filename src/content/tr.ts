@@ -419,7 +419,36 @@ export const tr: HomePage = {
       },
     },
   },
-  process: { heading: "", steps: [] },
+  process: {
+    heading: "Nasıl çalışırım",
+    steps: [
+      {
+        number: 1,
+        title: "30 dakikalık ücretsiz görüşme",
+        description:
+          "Durumu anlatırsınız. Size gerçekten katma değer sağlayabilir miyim, birlikte bakarız.",
+        detail:
+          "Sağlayamayacaksam bunu açıkça söyler, işinize yarayacak yeri tarif ederim. Sunum yok, satış konuşması yok.",
+      },
+      {
+        number: 2,
+        title: "Size özel teklif",
+        description:
+          "Görüşmeden sonra çözümü, süreci, zaman planını ve fiyatı içeren bir teklif hazırlar gönderirim.",
+        detail:
+          "Genel bir katalog değil, sizin durumunuza yazılmış bir plan. Rakamı hiçbir taahhüt vermeden önce görürsünüz.",
+      },
+      {
+        number: 3,
+        title: "Anlaşırsak başlarız",
+        description: "Her ay net bir çıktı, net bir fatura.",
+        detail:
+          "Nerede olduğumuzu öğrenmek için ayrıca toplantı istemenize gerek kalmaz. Devam etme ya da durma kararını gözünüz açık verirsiniz.",
+      },
+    ],
+    ctaLabel: "Görüşmeyi ayarlayın →",
+    ctaHref: "/book",
+  },
   media: { heading: "", intro: "", items: [] },
   faq: { heading: "", items: [] },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
