@@ -125,10 +125,10 @@ export const tr: HomePage = {
         subtitle: "Avrupa'nın ilk faizsiz dijital bankası",
         body: "Önerme yok, altyapı yok, Avrupa'da partner yok, yerel güven yoktu. BaFin lisanslı bir kurum altında canlı bir bankaya, müşterinin telefonda tek oturuşta tamamladığı bir hesap açma akışıyla.",
         coverImage: {
-          url: "/assets/case-study-insha.svg",
-          alt: "insha",
-          width: 1600,
-          height: 1000,
+          url: "/assets/case-study-insha.jpg",
+          alt: "Elde tutulan insha Mastercard banka kartı",
+          width: 1083,
+          height: 650,
         },
         tags: ["Önerme", "Partner Seçimi", "Deneyim", "Açılım"],
         problemHeading: "Problem",
@@ -160,7 +160,44 @@ export const tr: HomePage = {
         deliveredHeading: "Ne teslim edildi",
         delivered:
           "Avrupa'nın ilk faizsiz ve sadece dijital bankası, Almanya'da canlıda. solarisBank altyapısı, Mastercard banka kartı. Kullanıcı sayısı 2020 boyunca yüzde 300'ün üzerinde büyüyerek Almanya'da 40.000'i geçti, şirket 2,5 milyon euro yatırım aldı.",
-        screens: [],
+        screens: [
+          {
+            url: "/assets/insha-screenshot-1.webp",
+            alt: "insha uygulaması ekranı: Visa banka kartıyla dünya çapında ödeme ve para çekme",
+            width: 810,
+            height: 1440,
+          },
+          {
+            url: "/assets/insha-screenshot-2.webp",
+            alt: "insha uygulaması ana ekranı, bakiye ve son işlemler",
+            width: 810,
+            height: 1440,
+          },
+          {
+            url: "/assets/insha-screenshot-3.webp",
+            alt: "insha uygulaması ödemeler ekranı, yurt içi ve yurt dışı para transferleri",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-4.webp",
+            alt: "insha uygulaması inSave tasarruf hedefleri ekranı",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-5.webp",
+            alt: "insha uygulaması inSight harcama takibi, kategori bazlı bütçe dağılımı",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-6.webp",
+            alt: "insha uygulaması inShare bağış aracı, yardım kuruluşu seçenekleri",
+            width: 750,
+            height: 1334,
+          },
+        ],
         order: 1,
       },
       {
@@ -169,10 +206,10 @@ export const tr: HomePage = {
         subtitle: "Tek bir para transferi ürününden dijital bankaya, oradan İngiltere'ye",
         body: "Tek işlevli bir transfer uygulamasından tam bir dijital bankacılık önermesine, ekran ekran yeniden kuruldu, ve lisans altta inşa edilirken markanın çalışmaya devam etmesini sağlayan bir yapıyla yeni pazara taşındı.",
         coverImage: {
-          url: "/assets/case-study-ruut.svg",
-          alt: "RUUT",
-          width: 1600,
-          height: 1000,
+          url: "/assets/RUUT.avif",
+          alt: "İki telefonda gösterilen RUUT bankacılık uygulaması",
+          width: 1360,
+          height: 1720,
         },
         tags: ["Önerme", "Deneyim", "Partner Seçimi", "Açılım"],
         problemHeading: "Problem",
@@ -203,7 +240,26 @@ export const tr: HomePage = {
         deliveredHeading: "Ne teslim edildi",
         delivered:
           "Tüm AB vatandaşlarına açık sınır ötesi ödemeleri olan bir dijital bankacılık markası, ve bir milyona yakın Türk topluluğunu hedefleyen bir İngiltere girişi. Bireysel ve ticari hesaplar, kartlar, para transferi ve tam lisanslı pozisyona giden bir rota.",
-        screens: [],
+        screens: [
+          {
+            url: "/assets/RUUT2.avif",
+            alt: "RUUT uygulaması ekranlarının kolajı: işlemler, hızlı eylemler, bakiye ve kartlar",
+            width: 2800,
+            height: 2000,
+          },
+          {
+            url: "/assets/RUUT4.avif",
+            alt: "RUUT uygulaması para gönderme işlem detayları ekranı",
+            width: 750,
+            height: 1624,
+          },
+          {
+            url: "/assets/RUUT5.avif",
+            alt: "RUUT uygulaması işlem listesi ve filtre ekranlarının kolajı",
+            width: 2800,
+            height: 1784,
+          },
+        ],
         order: 2,
       },
     ],

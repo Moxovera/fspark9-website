@@ -126,10 +126,10 @@ export const en: HomePage = {
         subtitle: "Europe's first interest free, digital only bank",
         body: "From an intention with no proposition, no infrastructure and no European partner, to a live bank on a BaFin licensed institution, with account opening a customer could finish on a phone in one sitting.",
         coverImage: {
-          url: "/assets/case-study-insha.svg",
-          alt: "insha",
-          width: 1600,
-          height: 1000,
+          url: "/assets/case-study-insha.jpg",
+          alt: "insha Mastercard debit card held in hand",
+          width: 1083,
+          height: 650,
         },
         tags: ["Proposition", "Partner Selection", "Experience", "Expansion"],
         problemHeading: "The problem",
@@ -161,7 +161,44 @@ export const en: HomePage = {
         deliveredHeading: "What was delivered",
         delivered:
           "Europe's first interest free digital only bank, live in Germany, on solarisBank infrastructure with a Mastercard debit card. Users grew more than 300% through 2020 to over 40,000 in Germany, and the company raised €2.5 million to expand across Europe.",
-        screens: [],
+        screens: [
+          {
+            url: "/assets/insha-screenshot-1.webp",
+            alt: "insha app screen: pay and withdraw money worldwide with your Visa debit card",
+            width: 810,
+            height: 1440,
+          },
+          {
+            url: "/assets/insha-screenshot-2.webp",
+            alt: "insha app dashboard showing account balance and recent transactions",
+            width: 810,
+            height: 1440,
+          },
+          {
+            url: "/assets/insha-screenshot-3.webp",
+            alt: "insha app payments screen for local and international money transfers",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-4.webp",
+            alt: "insha app inSave savings goals screen",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-5.webp",
+            alt: "insha app inSight spending tracker with budget breakdown by category",
+            width: 750,
+            height: 1334,
+          },
+          {
+            url: "/assets/insha-screenshot-6.webp",
+            alt: "insha app inShare donation tool showing charity options",
+            width: 750,
+            height: 1334,
+          },
+        ],
         order: 1,
       },
       {
@@ -170,10 +207,10 @@ export const en: HomePage = {
         subtitle: "From one money transfer product to a digital bank, and into the UK",
         body: "A single purpose remittance app turned into a full digital banking proposition, rebuilt screen by screen, and taken into a new market on a structure that lets the brand trade while the licence is built underneath it.",
         coverImage: {
-          url: "/assets/case-study-ruut.svg",
-          alt: "RUUT",
-          width: 1600,
-          height: 1000,
+          url: "/assets/RUUT.avif",
+          alt: "RUUT banking app shown on two phones",
+          width: 1360,
+          height: 1720,
         },
         tags: ["Proposition", "Experience", "Partner Selection", "Expansion"],
         problemHeading: "The problem",
@@ -205,7 +242,26 @@ export const en: HomePage = {
         deliveredHeading: "What was delivered",
         delivered:
           "A digital banking brand with cross border payments open to all EU citizens and residents, and a UK entry aimed at a Turkish community of close to one million people, with retail and business accounts, cards and remittances, on a route to a fully licensed position.",
-        screens: [],
+        screens: [
+          {
+            url: "/assets/RUUT2.avif",
+            alt: "Collage of RUUT app screens: transactions, quick actions, account balance and cards",
+            width: 2800,
+            height: 2000,
+          },
+          {
+            url: "/assets/RUUT4.avif",
+            alt: "RUUT app send money transaction details screen",
+            width: 750,
+            height: 1624,
+          },
+          {
+            url: "/assets/RUUT5.avif",
+            alt: "Collage of RUUT app transaction list and filter screens",
+            width: 2800,
+            height: 1784,
+          },
+        ],
         order: 2,
       },
     ],
