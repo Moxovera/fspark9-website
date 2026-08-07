@@ -76,7 +76,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Story | [x] | [x] | [x] |
 | Process | [x] | [x] | [x] |
 | Media | [x] | [x] | [x] |
-| Faq | [ ] | [ ] | [ ] |
+| Faq | [x] | [x] | [x] |
 | ClosingCta | [ ] | [ ] | [ ] |
 
 ## Bilinçli tasarım sapmaları
