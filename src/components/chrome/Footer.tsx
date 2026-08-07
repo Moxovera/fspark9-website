@@ -14,8 +14,11 @@ interface FooterProps {
 type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
- * dc.html'deki sabit mobil CTA bar'ı (narrow=<900px) ve booking overlay
- * bu bileşenin kapsamında değil — ayrı, sonraki bir iş.
+ * pb-[116px] (<900px): MobileBookingBar.tsx sabit alt bar'ı bu genişlikte
+ * görünüyor (~77.5px, EN/TR ve 320-414px arası ölçüldü, satır kırılmıyor)
+ * ve sayfanın son elemanı bu bileşen olduğu için, ekstra pay olmadan
+ * imza satırı ve copyright kalıcı olarak bar'ın altında kalıyordu —
+ * kullanıcı daha aşağı kaydıramadığı için görünmez oluyordu.
  */
 export default function Footer({ settings, locale }: FooterProps) {
   const { footer } = settings;
@@ -23,7 +26,7 @@ export default function Footer({ settings, locale }: FooterProps) {
     footer;
 
   return (
-    <footer className="bg-[color-mix(in_srgb,var(--navy)_75%,black_25%)] px-7 pt-[76px] pb-[34px]">
+    <footer className="bg-[color-mix(in_srgb,var(--navy)_75%,black_25%)] px-7 pt-[76px] pb-[34px] max-[900px]:pb-[116px]">
       <div className="mx-auto max-w-[1280px]">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-11 pb-[52px]">
           <div>
