@@ -643,6 +643,7 @@ export const siteSettings: SiteSettings = {
     { label: "Media", href: "/#media" },
     { label: "Contact", href: "/book" },
   ],
+  backLabel: "Back",
   ctaLabel: "Book a free 30 minute call",
   ctaHref: "/book",
   booking: {

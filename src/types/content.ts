@@ -37,6 +37,12 @@ export interface Link {
 // Site geneli
 // ─────────────────────────────────────────────
 
+export interface PageHero {
+  eyebrow: string
+  title: string
+  intro: string
+}
+
 export interface BookingSection {
   calLink: string      // dc.html: cal.com/mburakdikmen/quick-chat — @calcom/embed-react'in calLink prop'u
   title: string          // "A free 30 minute call"
@@ -47,6 +53,7 @@ export interface BookingSection {
 
 export interface SiteSettings {
   nav: Link[]
+  backLabel: string      // dc.html: t.nav.back ("Back"/"Geri") — tüm alt sayfa hero'larındaki "geri" pill'i
   ctaLabel: string
   ctaHref: string
   booking: BookingSection

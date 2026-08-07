@@ -638,6 +638,7 @@ export const siteSettings: SiteSettings = {
     { label: "Medya", href: "/#media" },
     { label: "İletişim", href: "/book" },
   ],
+  backLabel: "Geri",
   ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
   ctaHref: "/book",
   booking: {
