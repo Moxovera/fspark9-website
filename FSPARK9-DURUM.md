@@ -102,8 +102,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 
 ## Küçük düzeltmeler / bekleyen işler
 
-- Booking overlay kurulunca Hero/Process/Testimonials CTA'ları /book linkinden gerçek overlay tetiklemesine çevrilecek.
-- Sticky mobil alt CTA bar (dc.html'de <900px'te var) — ayrı bir bileşen (örn. MobileBookingBar.tsx) olarak eklenecek, Header/Footer'ın parçası değil.
+- Sticky mobil alt CTA bar (dc.html'de <900px'te var) — ayrı bir bileşen (örn. MobileBookingBar.tsx) olarak eklenecek, Header/Footer'ın parçası değil. Artık bu bar da booking overlay'e bağlanmalı (`useBooking()`), /book linkine değil.
 
 ## Bugün alınan içerik kararları
 
@@ -116,4 +115,4 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 
 ## Sıradaki adım
 
-**Framework bölümü, Geçiş A (Yapı).** dc.html'deki "Decide / Set up / Ship" (glass folder cards) bölümü okunup `src/components/sections/Framework.tsx` olarak markup + statik Tailwind sınıflarıyla kurulacak, `content.ts`'teki `Framework`/`FrameworkStep` tipine göre.
+Ana sayfanın 14 bölümü + header/footer + booking overlay tamamlandı. Kalan büyük adımlar: sticky mobil alt CTA bar, alt sayfalar (services/work/story/book/legal), Sanity entegrasyonu.
