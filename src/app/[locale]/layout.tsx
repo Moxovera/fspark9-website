@@ -5,6 +5,7 @@ import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
+import MobileBookingBar from "@/components/chrome/MobileBookingBar";
 import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
 import { siteSettings as enSiteSettings } from "@/content/en";
@@ -73,6 +74,7 @@ export default async function LocaleLayout({
             <Header settings={settings} locale={locale} />
             {children}
             <Footer settings={settings} locale={locale} />
+            <MobileBookingBar ctaLabel={settings.ctaLabel} />
             <BookingOverlay content={settings.booking} />
           </BookingProvider>
         </NextIntlClientProvider>
