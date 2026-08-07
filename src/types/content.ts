@@ -59,6 +59,24 @@ export interface LegalPage {
   blocks: LegalBlock[]
 }
 
+// dc.html: t.storyProse / t.legalProse → prose() (satır 2389), sadece
+// 2 varyant (isHead/isBody). LegalBlock'un 7 varyantlı union'ıyla
+// KARIŞTIRILMAMALI — /story ve /thank-you'nun düz makale metni için
+// ayrı, daha basit bir tip.
+export type ProseBlock =
+  | { type: 'head'; text: string }
+  | { type: 'body'; text: string }
+
+// dc.html: page.hasProse + page.hasVideo (satır 949-977) — SubpageHero
+// + medya (StoryMedia, Home'daki StorySection.media ile aynı sözleşme)
+// + prose. Medya render'ı Home'dakiyle aynı BİLEŞEN değil (16:9/tam
+// genişlik vs 4:5/2 kolon), ama aynı veri tipini paylaşır.
+export interface StoryPage {
+  hero: PageHero
+  media: StoryMedia
+  prose: ProseBlock[]
+}
+
 // dc.html: page.book — hero'nun dışında sadece underCal (Cal embed'inin
 // altındaki not metni). calLink SiteSettings.booking'ten reuse ediliyor,
 // burada tekrarlanmıyor.
