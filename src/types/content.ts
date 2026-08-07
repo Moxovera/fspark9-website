@@ -232,6 +232,15 @@ export interface CaseStudiesSection {
                                 // href her kart için slug'dan türetiliyor, burada saklanmıyor
 }
 
+// dc.html: page.hasCaseIndex (satır 796-820) — /work index'in kendi
+// heading/intro'su YOK, SubpageHero'nun eyebrow/title/intro'su yeterli
+// (Home'daki CaseStudiesSection.heading/.intro burada tekrarlanmıyor).
+// Kart grid'i Home'daki HomePage.caseStudies.items + .linkLabel'i AYNEN
+// kullanıyor — page.tsx ikisini birleştirir, ServicesPage'le aynı desen.
+export interface WorkPage {
+  hero: PageHero
+}
+
 // ─────────────────────────────────────────────
 // 5 · Giriş kapıları (hizmetler)
 // ─────────────────────────────────────────────
