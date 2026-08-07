@@ -100,6 +100,8 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 - Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
 - CaseStudies kapak görselleri (yerel SVG) production build'de boş çıkıyordu — Next.js image optimizer varsayılan olarak SVG'yi reddediyor (`400 image type is not allowed`), `next.config.ts`'te `images.dangerouslyAllowSVG: true` + kısıtlayıcı CSP eksikti. Hata sadece `npm run build && npm run start` ile ortaya çıkıyor, `npm run dev`'de görünmüyordu. Bkz. CLAUDE.md "Bölüm tamamlama kontrol listesi" madde 7.
 - Tailwind v4'te `max-[Npx]:` beklenenin aksine `<Npx` (N hariç) olarak derleniyor — `@media not all and (min-width:Npx)`. `MobileBookingBar.tsx`'te dc.html'in `st.w < 900` koşulunu birebir tutturmak için `max-[899px]:` değil `max-[900px]:` kullanmak gerekti. Herhangi bir "max-[Npx]" breakpoint yazılırken N'in dc.html'deki eşiğin kendisi olması gerekiyor, eşik-1 değil.
+- next-intl `pathnames` kurulunca `Link`'in `href`'i taranmış bir union'a dönüyor — content.ts'in genel `Link[]` tipi (`href: string`) bunu 8 dosyada kırdı. `ComponentProps<typeof Link>["href"]` cast'iyle düzeltildi (`any` değil). Gerçek dinamik route'lar (`/work/[slug]`) için cast yerine `{pathname, params}` nesne formu kullanılmalı.
+- `@calcom/embed-react`'in `<Cal>` bileşeni server component içine doğrudan konursa SSR'da "useRef is not a function" ile patlıyor (kendi içinde hook kullanıyor). `BookingOverlay.tsx` zaten tamamen client olduğu için bunu yaşamamıştı; `/book` sayfası server olduğu için `CalEmbed.tsx` adında küçük bir client-leaf gerekti — ikisi de aynı bileşeni paylaşıyor. Ders: herhangi bir üçüncü parti bileşen client-only ise (hook kullanıyorsa), server component'e doğrudan konmadan önce kendi `"use client"` sarmalayıcısına alınmalı.
 
 ## Bugün alınan içerik kararları
 
@@ -112,4 +114,4 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 
 ## Sıradaki adım
 
-Ana sayfanın 14 bölümü + header/footer + booking overlay + sticky mobil alt CTA bar + legal 4'lüsü (impressum/terms/privacy/cookies, next-intl pathnames routing dahil) tamamlandı. Kalan büyük adımlar (route-haritasi.md sıralaması): `/book`, `/story`, `/thank-you`, `/services`, `/work` (index), `/work/[slug]`, sonra Sanity entegrasyonu.
+Ana sayfanın 14 bölümü + header/footer + booking overlay + sticky mobil alt CTA bar + legal 4'lüsü + `/book` (gerçek Cal.com embed'i, hem overlay'de hem bu sayfada `CalEmbed.tsx` paylaşılıyor) tamamlandı. Kalan büyük adımlar (route-haritasi.md sıralaması): `/story`, `/thank-you`, `/services`, `/work` (index), `/work/[slug]`, sonra Sanity entegrasyonu.
