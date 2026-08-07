@@ -653,6 +653,12 @@ export const siteSettings: SiteSettings = {
     meta1: "30 min · Video call",
     meta2: "Europe / Istanbul · timezone detected",
   },
+  subpageCta: {
+    headline: "In your team until it's live.",
+    body: "Not a report, not a retainer, not a subcontractor in the middle. I come in at the decision and I leave when customers are using it. The first call is free. Tell me where things stand and we will see together whether I can help. If I cannot, you will still leave with two or three things worth doing.",
+    ctaLabel: "Book a free 30 minute call",
+    ctaHref: "/book",
+  },
   footer: {
     tagline: "Fintech and digital banking advisory",
     nine: "Nine is the last step. Spark is what lights it.",

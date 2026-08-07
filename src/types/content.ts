@@ -94,6 +94,20 @@ export interface ThankYouPage {
   links: Link[]
 }
 
+// dc.html: page.hasCta (satır 1018-1026) — /services, /work, /work/insha,
+// /work/ruut ve /story'nin paylaştığı kapanış bölümü. t.final.headline/sub
+// + t.hero.cta'dan geliyor, Home'un kendi ClosingCta'sındaki alıntı
+// (quote/quoteAttribution) burada YOK — o yüzden ClosingCta'yı genişletmek
+// yerine ayrı, daha dar bir tip. Sayfa başına tekrarlanmıyor, SiteSettings
+// altında tek kaynak — her sayfa sadece hasCta bayrağıyla gösterip
+// göstermeyeceğine karar verir.
+export interface SubpageCta {
+  headline: string
+  body: string
+  ctaLabel: string
+  ctaHref: string
+}
+
 export interface BookingSection {
   calLink: string      // dc.html: cal.com/mburakdikmen/quick-chat — @calcom/embed-react'in calLink prop'u
   title: string          // "A free 30 minute call"
@@ -108,6 +122,7 @@ export interface SiteSettings {
   ctaLabel: string
   ctaHref: string
   booking: BookingSection
+  subpageCta: SubpageCta
   footer: {
     tagline: string        // "Trust isn't marketed. It's built."
     nine: string            // "Nine is the last step. Spark is what lights it."

@@ -648,6 +648,12 @@ export const siteSettings: SiteSettings = {
     meta1: "30 dk · Görüntülü görüşme",
     meta2: "Avrupa / İstanbul · saat dilimi algılandı",
   },
+  subpageCta: {
+    headline: "Ekibinizin içinde, canlıya çıkana kadar.",
+    body: "Rapor değil, danışmanlık aboneliği değil, ortada taşeron yok. Karar anında giriyorum, müşteri ürünü kullanmaya başlayınca çıkıyorum. İlk görüşme ücretsiz. Durumu anlatın, yardımcı olabilir miyim birlikte görelim. Olamıyorsam da elinizde yapmaya değer iki üç madde ile kalırsınız.",
+    ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
+    ctaHref: "/book",
+  },
   footer: {
     tagline: "Fintech ve dijital bankacılık danışmanlığı",
     nine: "9, son adımdır. Spark, onu ateşleyen şey.",
