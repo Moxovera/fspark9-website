@@ -99,10 +99,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 - Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
 - Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
 - CaseStudies kapak görselleri (yerel SVG) production build'de boş çıkıyordu — Next.js image optimizer varsayılan olarak SVG'yi reddediyor (`400 image type is not allowed`), `next.config.ts`'te `images.dangerouslyAllowSVG: true` + kısıtlayıcı CSP eksikti. Hata sadece `npm run build && npm run start` ile ortaya çıkıyor, `npm run dev`'de görünmüyordu. Bkz. CLAUDE.md "Bölüm tamamlama kontrol listesi" madde 7.
-
-## Küçük düzeltmeler / bekleyen işler
-
-- Sticky mobil alt CTA bar (dc.html'de <900px'te var) — ayrı bir bileşen (örn. MobileBookingBar.tsx) olarak eklenecek, Header/Footer'ın parçası değil. Artık bu bar da booking overlay'e bağlanmalı (`useBooking()`), /book linkine değil.
+- Tailwind v4'te `max-[Npx]:` beklenenin aksine `<Npx` (N hariç) olarak derleniyor — `@media not all and (min-width:Npx)`. `MobileBookingBar.tsx`'te dc.html'in `st.w < 900` koşulunu birebir tutturmak için `max-[899px]:` değil `max-[900px]:` kullanmak gerekti. Herhangi bir "max-[Npx]" breakpoint yazılırken N'in dc.html'deki eşiğin kendisi olması gerekiyor, eşik-1 değil.
 
 ## Bugün alınan içerik kararları
 
