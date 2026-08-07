@@ -59,6 +59,14 @@ export interface LegalPage {
   blocks: LegalBlock[]
 }
 
+// dc.html: page.book — hero'nun dışında sadece underCal (Cal embed'inin
+// altındaki not metni). calLink SiteSettings.booking'ten reuse ediliyor,
+// burada tekrarlanmıyor.
+export interface BookPage {
+  hero: PageHero
+  underCal: string
+}
+
 export interface BookingSection {
   calLink: string      // dc.html: cal.com/mburakdikmen/quick-chat — @calcom/embed-react'in calLink prop'u
   title: string          // "A free 30 minute call"

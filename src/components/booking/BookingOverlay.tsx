@@ -1,6 +1,6 @@
 "use client";
 
-import Cal from "@calcom/embed-react";
+import CalEmbed from "@/components/booking/CalEmbed";
 import { useBooking } from "@/hooks/useBooking";
 import type { BookingSection } from "@/types/content";
 
@@ -60,11 +60,7 @@ export default function BookingOverlay({ content }: BookingOverlayProps) {
             </div>
           </div>
           <div className="h-[480px]">
-            <Cal
-              calLink={calLink}
-              style={{ width: "100%", height: "100%" }}
-              config={{ theme: "light" }}
-            />
+            <CalEmbed calLink={calLink} />
           </div>
         </div>
       </div>
