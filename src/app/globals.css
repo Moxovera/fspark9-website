@@ -45,6 +45,16 @@
  *       az altında kalıyor. Orijinal #E7C68A navy üzerinde ~10:1;
  *       yukarıdaki türetilmiş ton ~8:1 — ikisi de AA'yı rahatça geçiyor.
  *       Kullanıldığı yer: Testimonials.tsx.
+ *
+ *   #071630 (footer arka planı)
+ *     → color-mix(in srgb, var(--navy) 75%, black 25%)
+ *     → navy'nin kasıtlı koyultulmuş hali (footer'ın sayfa altında/daha
+ *       derinde hissettirilmesi için) — F1E7D7 gibi yanlışlıkla oluşmuş
+ *       bir renk değil, bilinçli bir tasarım tonu. #1A202C'nin aksine
+ *       (orada parlaklık navy ile neredeyse birebirdi, sadece ton farklı
+ *       algılanıyordu) burada parlaklık gerçekten daha düşük — bu yüzden
+ *       doğrudan var(--navy) yerine ayrı bir color-mix() gerekti.
+ *       Tasarımcı onaylı. Kullanıldığı yer: Footer.tsx.
  */
 
 @theme inline {

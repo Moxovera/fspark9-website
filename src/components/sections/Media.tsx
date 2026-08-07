@@ -10,7 +10,7 @@ export default function Media({ content }: MediaProps) {
   const { heading, intro, items } = content;
 
   return (
-    <section className="bg-ivory px-7 py-[104px]">
+    <section id="media" className="bg-ivory px-7 py-[104px]">
       <div className="mx-auto max-w-[1280px]">
         <Reveal>
           <h2 className="mb-3.5 font-display text-[clamp(2rem,3.4vw,3.1rem)] leading-[1.12] font-medium text-navy">

@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
+import Header from "@/components/chrome/Header";
+import Footer from "@/components/chrome/Footer";
+import { siteSettings as enSiteSettings } from "@/content/en";
+import { siteSettings as trSiteSettings } from "@/content/tr";
 import "../globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -45,6 +49,8 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const settings = locale === "tr" ? trSiteSettings : enSiteSettings;
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
@@ -60,7 +66,11 @@ export default async function LocaleLayout({
       <body
         className={`${playfairDisplay.variable} ${inter.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Header settings={settings} locale={locale} />
+          {children}
+          <Footer settings={settings} locale={locale} />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

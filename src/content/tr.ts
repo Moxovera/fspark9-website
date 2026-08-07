@@ -1,4 +1,4 @@
-import type { HomePage } from "@/types/content";
+import type { HomePage, SiteSettings } from "@/types/content";
 
 export const tr: HomePage = {
   seo: {
@@ -627,5 +627,45 @@ export const tr: HomePage = {
     ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
     ctaHref: "/book",
     note: "İlk görüşme ücretsiz. Doğru kişi değilsem bunu görüşmede açıkça söylerim.",
+  },
+};
+
+export const siteSettings: SiteSettings = {
+  nav: [
+    { label: "Neden fspark9", href: "/story" },
+    { label: "Hizmetler", href: "/services" },
+    { label: "Vaka İncelemeleri", href: "/work" },
+    { label: "Medya", href: "/#media" },
+    { label: "İletişim", href: "/book" },
+  ],
+  ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
+  ctaHref: "/book",
+  footer: {
+    tagline: "Fintech ve dijital bankacılık danışmanlığı",
+    nine: "9, son adımdır. Spark, onu ateşleyen şey.",
+    signature: "GÜVEN PAZARLANMAZ. KURULUR.",
+    email: "mehmetburakdikmen@gmail.com",
+    linkedin: "https://www.linkedin.com/in/mdikmen/",
+    nav: [
+      { label: "Hizmetler", href: "/services" },
+      { label: "Vaka İncelemeleri", href: "/work" },
+      { label: "Bunu Neden Yapıyorum", href: "/story" },
+      { label: "Görüşme Ayarla", href: "/book" },
+    ],
+    legalLinks: [
+      { label: "Künye", href: "/impressum" },
+      { label: "Gizlilik", href: "/privacy" },
+      { label: "Çerezler", href: "/cookies" },
+      { label: "Kullanım Şartları", href: "/terms" },
+    ],
+    legal:
+      "fspark9 · Mehmet Burak Dikmen, şahıs işletmesi · Beusselstrasse 31, 10553 Berlin, Almanya",
+    copyright: "© 2026 fspark9",
+  },
+  defaultOgImage: {
+    url: "/assets/lockup-reversed.svg",
+    alt: "fspark9",
+    width: 3387,
+    height: 964,
   },
 };

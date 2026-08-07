@@ -1,0 +1,97 @@
+import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import type { SiteSettings } from "@/types/content";
+
+interface FooterProps {
+  settings: SiteSettings;
+  locale: string;
+}
+
+/**
+ * dc.html'deki sabit mobil CTA bar'ı (narrow=<900px) ve booking overlay
+ * bu bileşenin kapsamında değil — ayrı, sonraki bir iş.
+ */
+export default function Footer({ settings, locale }: FooterProps) {
+  const { footer } = settings;
+  const { tagline, nine, signature, email, linkedin, nav, legalLinks, legal, copyright } =
+    footer;
+
+  return (
+    <footer className="bg-[color-mix(in_srgb,var(--navy)_75%,black_25%)] px-7 pt-[76px] pb-[34px]">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-11 pb-[52px]">
+          <div>
+            <Image
+              src="/assets/lockup-reversed.svg"
+              alt="fspark9"
+              width={166}
+              height={47}
+              className="mb-[18px] h-auto w-[166px]"
+            />
+            <p className="mb-[22px] text-[14.5px] text-ivory/60">{tagline}</p>
+            <p className="font-display text-[1.1rem] text-bronze">{nine}</p>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-[14.5px] text-ivory/72"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noopener"
+              className="text-[14.5px] text-ivory/72"
+            >
+              LinkedIn
+            </a>
+            <a href={`mailto:${email}`} className="text-[14.5px] text-ivory/72">
+              {email}
+            </a>
+            <div className="mt-2 flex gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
+              <Link
+                href="/"
+                locale="en"
+                className={locale === "en" ? "text-ivory" : "text-ivory/45"}
+              >
+                EN
+              </Link>
+              <span className="text-ivory/30">|</span>
+              <Link
+                href="/"
+                locale="tr"
+                className={locale === "tr" ? "text-ivory" : "text-ivory/45"}
+              >
+                TR
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {legalLinks.map((item) => (
+              <Link key={item.href} href={item.href} className="text-sm text-ivory/55">
+                {item.label}
+              </Link>
+            ))}
+            <p className="mt-2 text-[13px] leading-[1.6] text-ivory/40">{legal}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap justify-between gap-5 border-t border-bronze/40 pt-[22px]">
+          <p className="font-mono text-[12.5px] tracking-[0.08em] text-bronze">
+            {signature}
+          </p>
+          <p className="text-[12.5px] text-ivory/40">{copyright}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

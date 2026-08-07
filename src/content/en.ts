@@ -1,4 +1,4 @@
-import type { HomePage } from "@/types/content";
+import type { HomePage, SiteSettings } from "@/types/content";
 
 export const en: HomePage = {
   seo: {
@@ -632,5 +632,45 @@ export const en: HomePage = {
     ctaLabel: "Book a free 30 minute call",
     ctaHref: "/book",
     note: "The first call is free. If I am not the right person for this, I will say so on the call.",
+  },
+};
+
+export const siteSettings: SiteSettings = {
+  nav: [
+    { label: "Why fspark9", href: "/story" },
+    { label: "Services", href: "/services" },
+    { label: "Case studies", href: "/work" },
+    { label: "Media", href: "/#media" },
+    { label: "Contact", href: "/book" },
+  ],
+  ctaLabel: "Book a free 30 minute call",
+  ctaHref: "/book",
+  footer: {
+    tagline: "Fintech and digital banking advisory",
+    nine: "Nine is the last step. Spark is what lights it.",
+    signature: "TRUST ISN'T MARKETED. IT'S BUILT.",
+    email: "mehmetburakdikmen@gmail.com",
+    linkedin: "https://www.linkedin.com/in/mdikmen/",
+    nav: [
+      { label: "Services", href: "/services" },
+      { label: "Case studies", href: "/work" },
+      { label: "Why I do this", href: "/story" },
+      { label: "Book a call", href: "/book" },
+    ],
+    legalLinks: [
+      { label: "Impressum", href: "/impressum" },
+      { label: "Privacy", href: "/privacy" },
+      { label: "Cookies", href: "/cookies" },
+      { label: "Terms of use", href: "/terms" },
+    ],
+    legal:
+      "fspark9 · Mehmet Burak Dikmen, sole trader · Beusselstrasse 31, 10553 Berlin, Germany",
+    copyright: "© 2026 fspark9",
+  },
+  defaultOgImage: {
+    url: "/assets/lockup-reversed.svg",
+    alt: "fspark9",
+    width: 3387,
+    height: 964,
   },
 };

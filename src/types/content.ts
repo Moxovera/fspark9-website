@@ -38,15 +38,18 @@ export interface Link {
 // ─────────────────────────────────────────────
 
 export interface SiteSettings {
-  brandName: string
   nav: Link[]
   ctaLabel: string
   ctaHref: string
   footer: {
     tagline: string        // "Trust isn't marketed. It's built."
+    nine: string            // "Nine is the last step. Spark is what lights it."
+    signature: string       // "TRUST ISN'T MARKETED. IT'S BUILT." — alt bar
     email: string
     linkedin: string
-    legalLinks: Link[]     // Imprint, Privacy
+    nav: Link[]              // orta nav sütunu — legalLinks'ten ayrı
+    legalLinks: Link[]       // Impressum, Privacy, Cookies, Terms of use (4 öğe)
+    legal: string            // tam yasal adres satırı, copyright'tan ayrı
     copyright: string
   }
   defaultOgImage: SanityImage
