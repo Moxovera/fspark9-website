@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  // Kök `app/layout.tsx` yok — `[locale]/layout.tsx` kendi <html><body>'sini
+  // kuruyor (top-level dinamik segment). Next.js dokümantasyonu bunu
+  // `global-not-found.js`'in tam olarak var olma sebebi olarak tanımlıyor
+  // ("root layout is defined using top-level dynamic segments"). Bu bayrak
+  // olmadan app/global-not-found.tsx render edilmez.
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     // next/image'ın kendi optimizer route'u (/_next/image) varsayılan
     // olarak SVG dosyalarını reddediyor (XSS riski — bir SVG script
@@ -14,9 +22,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // dc.html: routes tablosunda /legal, /impressum ile aynı sayfaya
-    // gidiyordu (alias).
+    // gidiyordu (alias). next-intl'in locale-prefix'li rotalarını bu
+    // redirects() kuralları otomatik kapsamıyor — /tr/legal için ayrı
+    // bir kural gerekiyor, aksi halde 404 dönüyor.
     return [
       { source: "/legal", destination: "/impressum", permanent: true },
+      { source: "/tr/legal", destination: "/tr/impressum", permanent: true },
     ];
   },
 };

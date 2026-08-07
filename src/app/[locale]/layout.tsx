@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
+import { playfairDisplay, inter, ibmPlexMono } from "@/lib/fonts";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
@@ -11,24 +11,6 @@ import BookingOverlay from "@/components/booking/BookingOverlay";
 import { siteSettings as enSiteSettings } from "@/content/en";
 import { siteSettings as trSiteSettings } from "@/content/tr";
 import "../globals.css";
-
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

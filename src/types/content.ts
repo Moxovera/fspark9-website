@@ -86,6 +86,18 @@ export interface BookPage {
   underCal: string
 }
 
+// dc.html: is404 (satır 1030-1039) — SubpageHero YOK. dc.html'in
+// kendisinde Header/Footer/mobil bar is404'te de render ediliyor
+// (koşulsuz, satır 33/1042/1079); burada bilinçli olarak chrome'suz,
+// bağımsız bir sayfa tercih edildi (app/global-not-found.tsx, [locale]
+// layout'unu bypass ediyor — bkz. o dosyadaki yorum). "Ana sayfaya dön"
+// linkinin href'i her zaman "/" — SubpageHero'daki "Geri" linkiyle aynı
+// gerekçeyle veri olarak taşınmıyor, bileşende sabit.
+export interface NotFoundPage {
+  title: string
+  linkLabel: string
+}
+
 // dc.html: page.hasLinks (satır 1005-1016) — sadece label + href, ok
 // (→) veriden gelmiyor, statik. Genel Link tipiyle birebir örtüştüğü
 // için ayrı bir kart tipi gerekmedi.
