@@ -72,6 +72,12 @@
  *       dizisinin diğer 3 rengi zaten mevcut token'larla birebir örtüşüyor
  *       (bronze, muted, navy) — bu dördüncüsü tek off-brand olan.
  *       Kullanıldığı yer: ServicesDetailTabs.tsx, ServicesDetailAccordion.tsx.
+ *
+ *   #F0EDE4 (dc.html: /work/[slug] ekran görüntüsü galerisinin
+ *   yüklenmeden önceki zemin rengi)
+ *     → color-mix(in srgb, var(--charcoal) 3%, var(--ivory) 97%)
+ *     → ≈ #F0EEE6, hedeften kanal başına en fazla 2 birim sapıyor.
+ *       Kullanıldığı yer: CaseDetail.tsx.
  */
 
 @theme inline {

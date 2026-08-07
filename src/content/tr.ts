@@ -160,6 +160,9 @@ export const tr: HomePage = {
         deliveredHeading: "Ne teslim edildi",
         delivered:
           "Avrupa'nın ilk faizsiz ve sadece dijital bankası, Almanya'da canlıda. solarisBank altyapısı, Mastercard banka kartı. Kullanıcı sayısı 2020 boyunca yüzde 300'ün üzerinde büyüyerek Almanya'da 40.000'i geçti, şirket 2,5 milyon euro yatırım aldı.",
+        detailEyebrow: "Vaka İncelemesi",
+        detailIntro:
+          "Avrupa'nın ilk faizsiz dijital bankası. Ortada sadece bir niyet varken kuruldu: önerme yok, altyapı yok, Avrupa'da partner yok.",
         screens: [
           {
             url: "/assets/insha-screenshot-1.webp",
@@ -240,6 +243,9 @@ export const tr: HomePage = {
         deliveredHeading: "Ne teslim edildi",
         delivered:
           "Tüm AB vatandaşlarına açık sınır ötesi ödemeleri olan bir dijital bankacılık markası, ve bir milyona yakın Türk topluluğunu hedefleyen bir İngiltere girişi. Bireysel ve ticari hesaplar, kartlar, para transferi ve tam lisanslı pozisyona giden bir rota.",
+        detailEyebrow: "Vaka İncelemesi",
+        detailIntro:
+          "Tek bir para transferi ürününden tam bir dijital bankaya, ekran ekran yeniden kurularak ve İngiltere pazarına taşınarak.",
         screens: [
           {
             url: "/assets/RUUT2.avif",

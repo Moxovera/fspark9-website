@@ -218,6 +218,14 @@ export interface CaseStudy {
   delivered: string
   tags: string[]          // ["Proposition", "Partner Selection", ...]
   screens: SanityImage[]  // ürün ekranları (vaka detay sayfası)
+  // dc.html: t.pages.caseInsha/caseRuut (satır 1339-1340) — /work/[slug]
+  // sayfasının SubpageHero'su. title zaten `name` ile birebir aynı,
+  // yeniden kullanılıyor. eyebrow iki vakada da aynı metin ("Case
+  // study"/"Vaka İncelemesi") ama dc.html'in kendi veri modelinde her
+  // sayfaya ayrı yazılmış. detailIntro, `body` (kart özeti) ve `problem`
+  // (detay bölümü) dışında ÜÇÜNCÜ, kısa bir tanıtım metni — karıştırma.
+  detailEyebrow: string
+  detailIntro: string
   logo?: SanityImage       // dc.html'de karşılığı yok, şu an kullanılmıyor — ProofStrip.logo?
                              // kararıyla tutarlı, ileride basın/medya amaçlı kullanılabilir
   order: number

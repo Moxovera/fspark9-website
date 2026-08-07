@@ -161,6 +161,9 @@ export const en: HomePage = {
         deliveredHeading: "What was delivered",
         delivered:
           "Europe's first interest free digital only bank, live in Germany, on solarisBank infrastructure with a Mastercard debit card. Users grew more than 300% through 2020 to over 40,000 in Germany, and the company raised €2.5 million to expand across Europe.",
+        detailEyebrow: "Case study",
+        detailIntro:
+          "Europe's first interest free, digital only bank, built from an intention with no proposition, no infrastructure and no European partner.",
         screens: [
           {
             url: "/assets/insha-screenshot-1.webp",
@@ -242,6 +245,9 @@ export const en: HomePage = {
         deliveredHeading: "What was delivered",
         delivered:
           "A digital banking brand with cross border payments open to all EU citizens and residents, and a UK entry aimed at a Turkish community of close to one million people, with retail and business accounts, cards and remittances, on a route to a fully licensed position.",
+        detailEyebrow: "Case study",
+        detailIntro:
+          "From one money transfer product to a full digital bank, rebuilt screen by screen, and taken into the UK.",
         screens: [
           {
             url: "/assets/RUUT2.avif",
