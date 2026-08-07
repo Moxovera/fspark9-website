@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 import { useBooking } from "@/hooks/useBooking";
 import type { Link as NavLink } from "@/types/content";
@@ -10,6 +10,10 @@ interface MobileNavProps {
   nav: NavLink[];
   ctaLabel: string;
 }
+
+// bkz. Header.tsx — content.ts'in genel Link[] tipi next-intl'in
+// pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
  * dc.html: state.menu (tek boolean), toggleMenu = !menu — Faq'daki gibi
@@ -62,7 +66,7 @@ export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
             {nav.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href as LinkHref}
                 onClick={() => setOpen(false)}
                 className="border-b border-ivory/[0.08] py-3 font-display text-[1.35rem] text-ivory"
               >

@@ -5,11 +5,19 @@ import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import MobileNav from "@/components/chrome/MobileNav";
 import BookingCta from "@/components/booking/BookingCta";
 import type { SiteSettings } from "@/types/content";
+import type { ComponentProps } from "react";
 
 interface HeaderProps {
   settings: SiteSettings;
   locale: string;
 }
+
+// nav öğeleri content.ts'teki genel Link[] tipinden geliyor (href: string)
+// — next-intl'in pathnames'i kurulunca Link'in href'i artık taranmış bir
+// union (route'lar + /#media gibi anchor'lar bu union'ın dışında). Veri
+// bizim kendi content.ts'imizden geldiği (kullanıcı girdisi değil) için
+// bu dönüşüm güvenli.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
  * Server component — logo/nav/CTA/dil değiştirici hiçbiri scroll veya
@@ -43,7 +51,7 @@ export default function Header({ settings, locale }: HeaderProps) {
           {nav.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={item.href as LinkHref}
               className="text-[14.5px] whitespace-nowrap text-ivory/82"
             >
               {item.label}

@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  async redirects() {
+    // dc.html: routes tablosunda /legal, /impressum ile aynı sayfaya
+    // gidiyordu (alias).
+    return [
+      { source: "/legal", destination: "/impressum", permanent: true },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");

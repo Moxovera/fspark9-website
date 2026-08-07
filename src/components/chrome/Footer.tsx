@@ -2,11 +2,16 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import type { SiteSettings } from "@/types/content";
+import type { ComponentProps } from "react";
 
 interface FooterProps {
   settings: SiteSettings;
   locale: string;
 }
+
+// bkz. Header.tsx — aynı gerekçe: content.ts'in genel Link[] tipi
+// (href: string) next-intl'in pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
  * dc.html'deki sabit mobil CTA bar'ı (narrow=<900px) ve booking overlay
@@ -37,7 +42,7 @@ export default function Footer({ settings, locale }: FooterProps) {
             {nav.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href as LinkHref}
                 className="text-[14.5px] text-ivory/72"
               >
                 {item.label}
@@ -64,7 +69,7 @@ export default function Footer({ settings, locale }: FooterProps) {
 
           <div className="flex flex-col gap-3">
             {legalLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="text-sm text-ivory/55">
+              <Link key={item.href} href={item.href as LinkHref} className="text-sm text-ivory/55">
                 {item.label}
               </Link>
             ))}

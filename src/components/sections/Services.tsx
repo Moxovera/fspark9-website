@@ -3,10 +3,15 @@ import Reveal from "@/components/ui/Reveal";
 import ServicesTabs from "@/components/sections/ServicesTabs";
 import ServicesAccordion from "@/components/sections/ServicesAccordion";
 import type { ServicesSection } from "@/types/content";
+import type { ComponentProps } from "react";
 
 interface ServicesProps {
   content: ServicesSection;
 }
+
+// bkz. chrome/Header.tsx — content.ts'in genel Link tipi next-intl'in
+// pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 export default function Services({ content }: ServicesProps) {
   const {
@@ -57,7 +62,7 @@ export default function Services({ content }: ServicesProps) {
         </Reveal>
 
         <Link
-          href={link.href}
+          href={link.href as LinkHref}
           className="mt-9 inline-block border-b border-bronze/40 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy"
         >
           {link.label}

@@ -2,10 +2,15 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Marquee from "@/components/effects/Marquee";
 import type { ProofItem, ProofStrip as ProofStripContent } from "@/types/content";
+import type { ComponentProps } from "react";
 
 interface ProofStripProps {
   content: ProofStripContent;
 }
+
+// bkz. chrome/Header.tsx — content.ts'in genel Link tipi next-intl'in
+// pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 function ProofCard({ item }: { item: ProofItem }) {
   return (
@@ -72,7 +77,7 @@ export default function ProofStrip({ content }: ProofStripProps) {
 
       <div className="mx-auto max-w-[1280px] px-7 pt-11">
         <Link
-          href={link.href}
+          href={link.href as LinkHref}
           className="border-b border-navy/35 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy"
         >
           {link.label}

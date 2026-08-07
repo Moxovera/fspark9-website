@@ -28,7 +28,7 @@ export default function CaseStudies({ content }: CaseStudiesProps) {
           {items.map((item) => (
             <Reveal key={item.slug}>
               <Link
-                href={`/work/${item.slug}`}
+                href={{ pathname: "/work/[slug]", params: { slug: item.slug } }}
                 className="case-study-card block h-full bg-navy text-ivory no-underline"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-navy">

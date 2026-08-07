@@ -43,6 +43,22 @@ export interface PageHero {
   intro: string
 }
 
+// dc.html: legalBlocks() — blk.isDiv/isH/isSh/isB/isField/isUl/isTbl.
+// 'field' → dc.html'deki t:'f' (tek harf yerine okunabilir isim).
+export type LegalBlock =
+  | { type: 'div'; text: string }
+  | { type: 'h'; text: string }
+  | { type: 'sh'; text: string }
+  | { type: 'b'; text: string }
+  | { type: 'field'; label?: string; lines: string[] }
+  | { type: 'ul'; items: string[] }
+  | { type: 'tbl'; head: string[]; rows: string[][] }
+
+export interface LegalPage {
+  hero: PageHero
+  blocks: LegalBlock[]
+}
+
 export interface BookingSection {
   calLink: string      // dc.html: cal.com/mburakdikmen/quick-chat — @calcom/embed-react'in calLink prop'u
   title: string          // "A free 30 minute call"

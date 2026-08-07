@@ -2,10 +2,15 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/ui/Reveal";
 import type { StorySection } from "@/types/content";
+import type { ComponentProps } from "react";
 
 interface StoryProps {
   content: StorySection;
 }
+
+// bkz. chrome/Header.tsx — content.ts'in genel Link tipi next-intl'in
+// pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 export default function Story({ content }: StoryProps) {
   const { heading, lead, paragraphs, link, media } = content;
@@ -29,7 +34,7 @@ export default function Story({ content }: StoryProps) {
             ))}
           </div>
           <Link
-            href={link.href}
+            href={link.href as LinkHref}
             className="mt-[30px] inline-block border-b border-bronze/45 pb-1 font-mono text-[13px] tracking-[0.06em] text-ivory"
           >
             {link.label}

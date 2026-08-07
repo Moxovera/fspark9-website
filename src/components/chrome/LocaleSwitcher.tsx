@@ -1,10 +1,18 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
+import type { ComponentProps } from "react";
 
 interface LocaleSwitcherProps {
   locale: string;
 }
+
+// usePathname()'in dönüş tipi /work/[slug] gibi dinamik route kalıplarını
+// da kapsıyor (henüz o route yok), ama Link'in statik href'i bunu kabul
+// etmiyor (dinamik route'lar için {pathname, params} nesnesi gerekiyor).
+// Dil değiştirici sadece MEVCUT sayfada kalıyor, yeni bir route'a
+// girmiyor — bu cast burada güvenli.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
  * dc.html: EN/TR span'leri `st.lang`'ı flip'liyor, içerik SPA içinde
@@ -23,7 +31,7 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
   return (
     <div className="flex items-center gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
       <Link
-        href={pathname}
+        href={pathname as LinkHref}
         locale="en"
         className={locale === "en" ? "text-ivory" : "text-ivory/45"}
       >
@@ -31,7 +39,7 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
       </Link>
       <span className="text-ivory/30">|</span>
       <Link
-        href={pathname}
+        href={pathname as LinkHref}
         locale="tr"
         className={locale === "tr" ? "text-ivory" : "text-ivory/45"}
       >
