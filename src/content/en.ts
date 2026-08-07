@@ -563,6 +563,65 @@ export const en: HomePage = {
       },
     ],
   },
-  faq: { heading: "", items: [] },
+  faq: {
+    heading: "Questions people ask before we talk",
+    items: [
+      {
+        question: "What does this cost?",
+        answer:
+          "There is no price list, because there is no standard job. After the first call I send you a proposal with the scope, the timeline and the price on it. You see the number before you commit to anything, and it does not move afterwards.",
+        order: 1,
+      },
+      {
+        question: "Do you only advise, or do you do the work too?",
+        answer:
+          "Both, and you choose. Some clients want the decision made properly and take it from there. Others hand me the partner negotiations, the licence route, the integration and the launch, and I run it until it is live. The middle of it does not go to a subcontractor.",
+        order: 2,
+      },
+      {
+        question: "Why one person instead of a firm?",
+        answer:
+          "A firm sends a partner to sell the work and a junior to do it. Here, the person you meet is the person doing the work. That is the whole difference, and it is also why I only take on a few clients at a time. On the delivery side I work with a small team I have shipped with before, and I run them myself.",
+        order: 3,
+      },
+      {
+        question: "Are we too early for this?",
+        answer:
+          "Sometimes, yes. If you are still testing whether anyone wants the product, you do not need me yet and I will tell you that on the call. If you have decided to build and money is about to move, this is exactly the right moment.",
+        order: 4,
+      },
+      {
+        question: "Which markets do you cover?",
+        answer:
+          "I live in Europe and work across Europe and the UK. Turkey and MENA are where I was born, raised and worked, so I know how decisions really get made there. Outside those, I will tell you honestly where my knowledge ends before you pay me anything.",
+        order: 5,
+      },
+      {
+        question: "We already have a team. Where do you fit?",
+        answer:
+          "Beside them, not above them. I am not there to review your people. I take the part nobody in the room has done before and carry it, so your team can get back to what they are good at.",
+        order: 6,
+      },
+      {
+        question: "Our information is sensitive.",
+        answer:
+          "I sign an NDA before we go into any detail. I also do not take on two clients competing for the same customers in the same market at the same time. If there is a conflict, you will hear it on the first call, not later.",
+        order: 7,
+      },
+      {
+        question: "How long does an engagement run?",
+        answer:
+          "It depends on the work. A partner selection can take weeks. A licence and a launch takes months, and that depends more on the regulator than on either of us. Either way you get a clear output and a clear invoice every month.",
+        order: 8,
+      },
+      {
+        question:
+          "We are going into a second country. When should we talk?",
+        answer:
+          "Before the country is chosen, not after. Most of the expensive decisions in a market entry get made in the first three weeks, usually by people who have never made them before. If you have already picked the country, we can still work. We just start with what is still fixable and what is not.",
+        order: 9,
+      },
+    ],
+  },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
 };

@@ -11,6 +11,7 @@ import Services from "@/components/sections/Services";
 import CaseStudies from "@/components/sections/CaseStudies";
 import Process from "@/components/sections/Process";
 import Media from "@/components/sections/Media";
+import Faq from "@/components/sections/Faq";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
 
@@ -37,6 +38,7 @@ export default async function Home({
       <CaseStudies content={content.caseStudies} />
       <Process content={content.process} />
       <Media content={content.media} />
+      <Faq content={content.faq} />
     </main>
   );
 }

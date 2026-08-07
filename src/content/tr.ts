@@ -559,6 +559,64 @@ export const tr: HomePage = {
       },
     ],
   },
-  faq: { heading: "", items: [] },
+  faq: {
+    heading: "Görüşmeden önce en çok sorulanlar",
+    items: [
+      {
+        question: "Bu iş ne kadar tutuyor?",
+        answer:
+          "Fiyat listem yok, çünkü standart bir iş yok. İlk görüşmeden sonra kapsamı, süreci, zaman planını ve fiyatı içeren bir teklif gönderirim. Rakamı hiçbir taahhüt vermeden önce görürsünüz ve sonradan değişmez.",
+        order: 1,
+      },
+      {
+        question: "Sadece yol mu gösteriyorsunuz, işi de yapıyor musunuz?",
+        answer:
+          "İkisi de var, seçim sizin. Bazı müşteriler netliği alıp yoluna kendi devam ediyor. Bazıları partner görüşmelerini, lisans rotasını, entegrasyonu ve lansmanı bana bırakıyor. Ortası bir taşerona gitmiyor.",
+        order: 2,
+      },
+      {
+        question: "Neden bir firma yerine tek kişi?",
+        answer:
+          "Firmalar işi satmaya bir ortak, yapmaya bir junior gönderir. Burada görüştüğünüz kişi işi yapan kişi. Bütün fark bu, aynı anda az sayıda müşteri almamın sebebi de bu.",
+        order: 3,
+      },
+      {
+        question: "Bizim için erken mi?",
+        answer:
+          "Bazen evet. Ürünü isteyen var mı diye hâlâ test ediyorsanız bana ihtiyacınız yok, bunu görüşmede açıkça söylerim. Kurmaya karar verdiyseniz ve para harcanmak üzereyse, tam zamanı.",
+        order: 4,
+      },
+      {
+        question: "Hangi pazarlarda çalışıyorsunuz?",
+        answer:
+          "Avrupa'da yaşıyorum, Avrupa ve İngiltere'de çalışıyorum. Türkiye ve MENA doğduğum, büyüdüğüm ve çalıştığım yerler. Bunların dışında, bana para ödemeden önce bilgimin nerede bittiğini dürüstçe söylerim.",
+        order: 5,
+      },
+      {
+        question: "Bizim ekibimiz var. Siz nerede duruyorsunuz?",
+        answer:
+          "Ekibinizin üstünde değil, yanında. Odada daha önce kimsenin yapmadığı kısmı alıp taşıyorum, ekibiniz de kendi iyi olduğu işe dönüyor.",
+        order: 6,
+      },
+      {
+        question: "Bilgilerimiz hassas.",
+        answer:
+          "Detaya girmeden önce gizlilik sözleşmesi imzalarım. Ayrıca aynı pazarda aynı müşteri için yarışan iki şirketle aynı anda çalışmam. Bir çakışma varsa ilk görüşmede söylerim, sonra değil.",
+        order: 7,
+      },
+      {
+        question: "Çalışma ne kadar sürer?",
+        answer:
+          "İşe göre değişir. Partner seçimi haftalar sürebilir. Lisans ve lansman aylar sürer, bu da ikimizden çok düzenleyiciye bağlıdır. Her durumda her ay net bir çıktı ve net bir fatura olur.",
+        order: 8,
+      },
+      {
+        question: "İkinci ülkeye açılıyoruz. Ne zaman konuşmalıyız?",
+        answer:
+          "Ülke seçilmeden önce, seçildikten sonra değil. Bir pazara girişteki pahalı kararların çoğu ilk üç haftada veriliyor. Ülkeyi çoktan seçtiyseniz de çalışırız, o zaman neyin düzeltilebilir olduğundan başlarız.",
+        order: 9,
+      },
+    ],
+  },
   closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
 };
