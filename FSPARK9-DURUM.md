@@ -103,6 +103,7 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 ## Küçük düzeltmeler / bekleyen işler
 
 - Booking overlay kurulunca Hero/Process/Testimonials CTA'ları /book linkinden gerçek overlay tetiklemesine çevrilecek.
+- Sticky mobil alt CTA bar (dc.html'de <900px'te var) — ayrı bir bileşen (örn. MobileBookingBar.tsx) olarak eklenecek, Header/Footer'ın parçası değil.
 
 ## Bugün alınan içerik kararları
 

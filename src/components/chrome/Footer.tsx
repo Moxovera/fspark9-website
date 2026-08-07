@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import type { SiteSettings } from "@/types/content";
 
 interface FooterProps {
@@ -56,22 +57,8 @@ export default function Footer({ settings, locale }: FooterProps) {
             <a href={`mailto:${email}`} className="text-[14.5px] text-ivory/72">
               {email}
             </a>
-            <div className="mt-2 flex gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
-              <Link
-                href="/"
-                locale="en"
-                className={locale === "en" ? "text-ivory" : "text-ivory/45"}
-              >
-                EN
-              </Link>
-              <span className="text-ivory/30">|</span>
-              <Link
-                href="/"
-                locale="tr"
-                className={locale === "tr" ? "text-ivory" : "text-ivory/45"}
-              >
-                TR
-              </Link>
+            <div className="mt-2">
+              <LocaleSwitcher locale={locale} />
             </div>
           </div>
 

@@ -1,5 +1,8 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import HeaderFrame from "@/components/chrome/HeaderFrame";
+import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
+import MobileNav from "@/components/chrome/MobileNav";
 import type { SiteSettings } from "@/types/content";
 
 interface HeaderProps {
@@ -8,26 +11,22 @@ interface HeaderProps {
 }
 
 /**
- * dc.html: header her zaman `position: fixed`, arka planı `dark` state'ine
- * göre saydam/koyu geçiş yapıyor (`st.scrolled || page !== 'home'`). Bu
- * geçişte header sabit koyu başlıyor — scroll/alt sayfa mantığı Geçiş
- * C'de.
+ * Server component — logo/nav/CTA/dil değiştirici hiçbiri scroll veya
+ * tıklamaya bağlı değil, sadece <header> etiketinin kendisi (scroll
+ * state) ve hamburger (tıklama state) client. Bkz. HeaderFrame.tsx,
+ * MobileNav.tsx, LocaleSwitcher.tsx.
  *
  * Üç kırılım noktasından SADECE 1180px (`compact` eşiği) header'ı
  * ilgilendiriyor — dc.html'de bu JS ile (`st.w < 1180`) hesaplanıyor,
- * burada saf CSS breakpoint'i (`min-[1180px]:`) yeterli, JS/state
- * gerekmiyor. 900px eşiği (`narrow`) sadece footer'ın altındaki sabit
- * mobil CTA bar'ını ilgilendiriyor — o ayrı, bu turun kapsamı dışında.
- *
- * Hamburger ikonu burada kasıtlı olarak <button> değil, düz <div> —
- * henüz hiçbir tıklama/aç-kapa mantığı yok (Geçiş C'de FaqAccordion
- * presedanındaki gibi gerçek erişilebilir <button>'a çevrilecek).
+ * burada saf CSS breakpoint'i (`min-[1180px]:`) yeterli. 900px eşiği
+ * (`narrow`) sadece footer'ın altındaki sabit mobil CTA bar'ını
+ * ilgilendiriyor — o ayrı, bu turun kapsamı dışında (bkz. DURUM.md).
  */
 export default function Header({ settings, locale }: HeaderProps) {
   const { nav, ctaLabel, ctaHref } = settings;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-[95] border-b border-ivory/10 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--navy)_75%,black_25%)_88%,transparent)] backdrop-blur-[14px]">
+    <HeaderFrame>
       <div className="mx-auto flex h-[90px] max-w-[1280px] items-center justify-between gap-[26px] px-7">
         <Link href="/" className="flex shrink-0 items-center">
           <Image
@@ -52,23 +51,7 @@ export default function Header({ settings, locale }: HeaderProps) {
         </nav>
 
         <div className="flex shrink-0 items-center gap-[18px]">
-          <div className="flex items-center gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
-            <Link
-              href="/"
-              locale="en"
-              className={locale === "en" ? "text-ivory" : "text-ivory/45"}
-            >
-              EN
-            </Link>
-            <span className="text-ivory/30">|</span>
-            <Link
-              href="/"
-              locale="tr"
-              className={locale === "tr" ? "text-ivory" : "text-ivory/45"}
-            >
-              TR
-            </Link>
-          </div>
+          <LocaleSwitcher locale={locale} />
 
           <Link
             href={ctaHref}
@@ -77,13 +60,9 @@ export default function Header({ settings, locale }: HeaderProps) {
             {ctaLabel}
           </Link>
 
-          <div className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] min-[1180px]:hidden">
-            <span className="block h-[1.5px] w-6 bg-ivory" />
-            <span className="block h-[1.5px] w-6 bg-ivory" />
-            <span className="block h-[1.5px] w-6 bg-ivory" />
-          </div>
+          <MobileNav nav={nav} ctaLabel={ctaLabel} ctaHref={ctaHref} />
         </div>
       </div>
-    </header>
+    </HeaderFrame>
   );
 }
