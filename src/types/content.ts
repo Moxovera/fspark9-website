@@ -330,6 +330,8 @@ export interface FaqSection {
 // ─────────────────────────────────────────────
 
 export interface ClosingCta {
+  quote: string
+  quoteAttribution: string
   headline: string
   body?: string
   ctaLabel: string

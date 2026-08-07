@@ -618,5 +618,14 @@ export const tr: HomePage = {
       },
     ],
   },
-  closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
+  closingCta: {
+    quote:
+      '"Birkaç ülkede ekiplerin yer aldığı sınır ötesi bir projede iletişimi ve iş dağılımını o yönetti, üstelik ödemeler tarafında nadiren tek bir kişide görülen bir detay seviyesiyle. Projenin oturmasının sebebi de bu kombinasyon."',
+    quoteAttribution: "Program Direktörü · Sınır ötesi ödemeler",
+    headline: "Ekibinizin içinde, canlıya çıkana kadar.",
+    body: "Rapor değil, danışmanlık aboneliği değil, ortada taşeron yok. Karar anında giriyorum, müşteri ürünü kullanmaya başlayınca çıkıyorum. İlk görüşme ücretsiz. Durumu anlatın, yardımcı olabilir miyim birlikte görelim. Olamıyorsam da elinizde yapmaya değer iki üç madde ile kalırsınız.",
+    ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
+    ctaHref: "/book",
+    note: "İlk görüşme ücretsiz. Doğru kişi değilsem bunu görüşmede açıkça söylerim.",
+  },
 };

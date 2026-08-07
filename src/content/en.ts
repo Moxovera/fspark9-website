@@ -623,5 +623,14 @@ export const en: HomePage = {
       },
     ],
   },
-  closingCta: { headline: "", ctaLabel: "", ctaHref: "" },
+  closingCta: {
+    quote:
+      '"On a cross border project with teams in several countries, he drove the communication and the allocation of work, and he did it with a level of detail on the payments side that you rarely get from one person. That combination is why the project landed."',
+    quoteAttribution: "Programme Director · Cross border payments",
+    headline: "In your team until it's live.",
+    body: "Not a report, not a retainer, not a subcontractor in the middle. I come in at the decision and I leave when customers are using it. The first call is free. Tell me where things stand and we will see together whether I can help. If I cannot, you will still leave with two or three things worth doing.",
+    ctaLabel: "Book a free 30 minute call",
+    ctaHref: "/book",
+    note: "The first call is free. If I am not the right person for this, I will say so on the call.",
+  },
 };
