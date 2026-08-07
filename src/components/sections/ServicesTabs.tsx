@@ -29,7 +29,10 @@ function BlueprintIcon({ active }: { active: boolean }) {
   );
 }
 
-function HandshakeIcon({ active }: { active: boolean }) {
+// ServicesDetailTabs/Accordion (/services sayfası) bu ikiyi yeniden
+// kullanıyor — dc.html'de svcTabs.i1/i2 bu ikisiyle birebir aynı path
+// verisine sahip (bkz. o dosyadaki yorum), i0/i3 farklı.
+export function HandshakeIcon({ active }: { active: boolean }) {
   return (
     <svg
       width="19"
@@ -48,7 +51,7 @@ function HandshakeIcon({ active }: { active: boolean }) {
   );
 }
 
-function GlobeIcon({ active }: { active: boolean }) {
+export function GlobeIcon({ active }: { active: boolean }) {
   return (
     <svg
       width="19"

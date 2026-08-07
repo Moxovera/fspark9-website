@@ -250,6 +250,15 @@ export interface Service {
   problem: string
   action: string           // dc.html: do
   outcome: string          // dc.html: get
+  // dc.html: t.servicesBlocks[].rows (satır 1349) — /services sayfasının
+  // (page.hasBlocks) kendi 4 satırı. Home'daki problem/action/outcome'dan
+  // TAMAMEN FARKLI içerik (kalifiye edici metin, satış metni değil), ama
+  // aynı 4 hizmet/aynı sıra — bu yüzden ayrı bir tip yerine Service'e ek
+  // alan olarak eklendi.
+  rightDoor: string       // rows[0].text — "When this is the right door"
+  notRightDoor: string  // rows[1].text — "When it is not"
+  duration: string          // rows[2].text — "How long"
+  runsOn: string             // rows[3].text — "What it runs on"
 }
 
 export interface ServicesSection {
@@ -259,11 +268,23 @@ export interface ServicesSection {
     problem: string        // "The problem"
     action: string           // "What I do"
     outcome: string          // "You get"
+    rightDoor: string
+    notRightDoor: string
+    duration: string
+    runsOn: string
   }
   items: Service[]
   fullEngagementHeading: string   // dc.html: wholeTitle
   fullEngagementBody: string        // dc.html: wholeBody
   link: Link                          // "See what each of these looks like in practice →"
+}
+
+// dc.html: page.hasBlocks (satır 727-793) — /services sayfasının kendi
+// hero'su dışında ek veri taşımaz. Satır/panel içeriği (Service[] +
+// ServicesSection.labels) Home'daki HomePage.services'ten AYNEN
+// tekrar kullanılıyor — burada tekrarlanmıyor, page.tsx ikisini birleştirir.
+export interface ServicesPage {
+  hero: PageHero
 }
 
 // ─────────────────────────────────────────────

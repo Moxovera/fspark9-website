@@ -271,6 +271,10 @@ export const tr: HomePage = {
       problem: "Dert",
       action: "Ne yaparım",
       outcome: "Alacaklarınız",
+      rightDoor: "Ne zaman doğru kapı",
+      notRightDoor: "Ne zaman değil",
+      duration: "Ne kadar sürer",
+      runsOn: "Neye dayanır",
     },
     items: [
       {
@@ -284,6 +288,13 @@ export const tr: HomePage = {
           "Geliştirme bütçesini bağlamadan önce ticari modeli ve müşteri önermesini baskı altına alırım. Hangi ürün müşterinize gerçekten yakışıyor, hangisi sizin gerçek hacminizde para kazandırıyor, önce ne çıkacak ve ne çıkmayacak.",
         outcome:
           "Doğrulanmış bir önerme ve ticari model, arkasındaki gelir mantığı, yanlış olma ihtimali en yüksek varsayım ve ona karşı ne yapılacağı, ve ilk sürümü tanımlanmış bir çıkış sırası.",
+        rightDoor:
+          "Bütçe onayınız var ya da almak üzeresiniz. Masada birden fazla ürün fikri var. Biri bir iş planı hazırladı ve odadaki kimse yılı buna bağlamaya yetecek kadar güvenmiyor.",
+        notRightDoor:
+          "Modeli zaten doğruladıysanız ve partneri imzaladıysanız. O zaman Partner Seçimi ya da Deneyim İnşası'na bakın.",
+        duration: "Genelde dört ile sekiz hafta, kapsama göre netleşir.",
+        runsOn:
+          "Sizin rakamlarınıza, varsa müşteri verinize, ve bu işi gerçekten satacak ve destekleyecek kişilerle yapılan konuşmalara.",
       },
       {
         slug: "partner-selection",
@@ -296,6 +307,13 @@ export const tr: HomePage = {
           "API'yi değil, ticari motoru seçerim. Seçim sizin gerçek hacminize, risk iştahınıza ve fiyat listesinde görünmeyen maliyetlere göre yapılır. İsterseniz müzakerede de masada olurum.",
         outcome:
           "Her ismin neden orada olduğuyla birlikte bir kısa liste, gerçek şartlar üzerinden karşılaştırma, her partnere sorulacak sorular ve kötü cevabın nasıl duyulduğu, uğruna kavga edilmeye değer maddeler, ve yazılı bir öneri.",
+        rightDoor:
+          "Teklifler geldi, ya da piyasaya çıkmak üzeresiniz. Ya da elinizde zaten bir partner var ve uyumun bozuk olduğundan şüpheleniyorsunuz.",
+        notRightDoor:
+          "Ürünün ne olduğuna henüz karar vermediyseniz. Önermeden önce partner seçmek, yaygın ve pahalı bir sıra hatası.",
+        duration: "Genelde dört ile altı hafta, kapsama göre netleşir.",
+        runsOn:
+          "Öngördüğünüz hacimlere, risk iştahınıza, ve mühendislik ekibinizin gerçekte neyi kaldırabileceğine dair dürüst bir okumaya.",
       },
       {
         slug: "market-expansion",
@@ -308,6 +326,14 @@ export const tr: HomePage = {
           "Girişi öyle kurgularım ki, altta regülasyon pozisyonu inşa edilirken marka çalışmaya devam eder. Partner mimarisi, regülasyon rotası ve yerel önerme, sırayla değil birlikte kararlaştırılır.",
         outcome:
           "Her aşamadaki regülasyon pozisyonuyla birlikte giriş rotası, bunu taşıyan partner yapısı, ürünün yerelde neyi değiştirmesi gerektiği, ve tam lisans gelmeden çalışmaya başlamanızı sağlayan plan.",
+        rightDoor:
+          "Yönetim sıradaki ülkeyi sordu. Ya da ülke seçildi ve plan yazılıyor. Ne kadar erken o kadar ucuz, çünkü pahalı kararların çoğu ilk üç haftada alınıyor.",
+        notRightDoor:
+          "Yeni pazarda zaten çalışıyorsanız ve sorun yapı değil büyümeyse. Bu ayrı bir iş, bunu da söylerim.",
+        duration:
+          "Ülkeyi ve rotayı seçmek haftalar sürer. Lisans ve lansman aylar sürer, bu da ikimizden çok düzenleyiciye bağlıdır.",
+        runsOn:
+          "Mevcut regülasyon pozisyonunuza, kendi lisansınızı almaya karşı başkasının altında çalışmaya olan iştahınıza, ve ilk müşteri gelmeden önce ne kadar harcayabileceğinize.",
       },
       {
         slug: "experience-build",
@@ -320,6 +346,13 @@ export const tr: HomePage = {
           "Uyum incelemesinden ilk seferde geçen akışlar tasarlarım. Bir yolculuğun hangi kısmının regülasyon gereği orada olduğunu bildiğim için eforu gerçekten tamamlamayı artıran yere harcarız.",
         outcome:
           "Müşteriye bakan deneyimin tamamı, ekranlar ve akışlar, geliştiriciye teslim edilmeye hazır halde. Dönüşüm için kurulmuş ve uyumdan tek turda geçecek şekilde tasarlanmış.",
+        rightDoor:
+          "Dönüşüm sağlamayan bir akışınız var, ya da yeni tasarlıyorsunuz. Deneyimin sorun olduğunu bilen ama kendi uyum fonksiyonundan bir düzeltme geçiremeyen bir banka için de doğru kapı.",
+        notRightDoor:
+          "Sorun tamamlama değil, edinme ise. İnsanlar akışa hiç ulaşmıyorsa, akışı yeniden tasarlamak bunu çözmez.",
+        duration: "Genelde sekiz ile on iki hafta, kapsama göre netleşir.",
+        runsOn:
+          "Mevcut akışınıza, terk verinize, ve sizin tarafınızda uyumun sahibi kim ise ona erişime. Sonuncusu ilk ikisinden daha önemli.",
       },
     ],
     fullEngagementHeading: "Ve işin tamamını istediğinizde",

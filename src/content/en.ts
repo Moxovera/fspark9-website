@@ -273,6 +273,10 @@ export const en: HomePage = {
       problem: "The problem",
       action: "What I do",
       outcome: "You get",
+      rightDoor: "When this is the right door",
+      notRightDoor: "When it is not",
+      duration: "How long",
+      runsOn: "What it runs on",
     },
     items: [
       {
@@ -286,6 +290,13 @@ export const en: HomePage = {
           "I pressure test the commercial model and the customer proposition before you commit a development budget. Which product genuinely fits your customers, which one earns money at your real volume, what to launch first and what to leave out.",
         outcome:
           "A validated proposition and commercial model, the revenue logic behind it, the assumption most likely to be wrong and what to do about it, and a build sequence with the first release defined.",
+        rightDoor:
+          "You have budget approval or you are about to ask for it. There is more than one product idea on the table. Somebody has produced a business case and nobody in the room is confident enough in it to bet the year on it.",
+        notRightDoor:
+          "You have already validated the model and signed the partner. In that case you want Partner Selection or the Experience Build, not this.",
+        duration: "Typically four to eight weeks, to be confirmed against scope.",
+        runsOn:
+          "Your numbers, your customer data if you have it, and conversations with the people who will actually have to sell and support the thing.",
       },
       {
         slug: "partner-selection",
@@ -298,6 +309,13 @@ export const en: HomePage = {
           "I choose the commercial engine, not the API. Selection runs on your real volume, your risk appetite and the costs that do not appear on the rate card. If you want, I sit in the negotiation.",
         outcome:
           "A shortlist with the reason each name is on it, a comparison on real terms, the questions to put to each one and what a bad answer sounds like, the clauses worth fighting for, and a written recommendation.",
+        rightDoor:
+          "Proposals are in, or you are about to go out to market for them. Or you already have a partner and you are starting to suspect the fit is wrong, which is worth having early rather than at renewal.",
+        notRightDoor:
+          "You have not settled what the product is yet. Choosing a partner before the proposition is a common and expensive order to do things in.",
+        duration: "Typically four to six weeks, to be confirmed against scope.",
+        runsOn:
+          "Your projected volumes, your risk appetite, and an honest read of what your engineering team can absorb.",
       },
       {
         slug: "market-expansion",
@@ -310,6 +328,14 @@ export const en: HomePage = {
           "I design the entry so the brand can trade while the regulatory position is being built underneath it, instead of waiting for a licence before earning anything. Partner architecture, regulatory route and the local proposition, decided together rather than in sequence.",
         outcome:
           "The entry route with the regulatory position at each stage, the partner structure that supports it, what the product has to change locally and what it does not, and the plan that gets you trading before the full licence lands.",
+        rightDoor:
+          "The board has asked which country is next. Or the country has been chosen and the plan is being written. Earlier is better and cheaper, because most of the expensive decisions get made in the first three weeks.",
+        notRightDoor:
+          "You are already trading in the new market and the problem is growth rather than structure. That is a different piece of work and I will say so.",
+        duration:
+          "Choosing the country and the route takes weeks. A licence and a launch takes months, and that depends more on the regulator than on either of us.",
+        runsOn:
+          "Your current regulatory position, your appetite for holding your own licence versus operating under someone else’s, and what you can afford to spend before the first customer arrives.",
       },
       {
         slug: "experience-build",
@@ -322,6 +348,13 @@ export const en: HomePage = {
           "I design flows that pass compliance review the first time. Because I know which parts of a journey exist because of regulation and which parts are just bad decisions, my team and I spend the effort where it actually lifts completion.",
         outcome:
           "The full customer facing experience, screens and flows, production ready and handed to your developers. Built to convert and built to clear compliance in one pass, with the reason behind each design decision written down.",
+        rightDoor:
+          "You have a flow that is not converting, or you are about to design one. This is also the door for a bank that knows the experience is the problem and cannot get a fix through its own compliance function.",
+        notRightDoor:
+          "The problem is acquisition rather than completion. If people are not arriving at the flow at all, redesigning the flow will not fix it, and I will tell you that before you pay for it.",
+        duration: "Typically eight to twelve weeks, to be confirmed against scope.",
+        runsOn:
+          "Your current flow, your drop off data, and access to whoever owns compliance on your side. The last one matters more than the first two.",
       },
     ],
     fullEngagementHeading: "And when you want the whole build",

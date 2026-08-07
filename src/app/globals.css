@@ -33,6 +33,14 @@
  * kullanıldı — yukarıdaki %10 sadece Comparison'ın vurgu satırına özel,
  * her yerde birebir tekrarlanacak sabit bir değer değil.
  *
+ *   #F7F2E7 (dc.html: /services'in 4 satırlık kart grid'inde tek
+ *   satırların zemini, satır index'ine göre çift/tek dönüşümlü)
+ *     → color-mix(in srgb, var(--bronze) 3%, var(--ivory) 97%)
+ *     → Approach.tsx'in nötr zemini (F5F0E6) için kullanılan aynı oranla
+ *       kanal başına en fazla 2 birim sapıyor — ayrı bir oran eklemek
+ *       yerine mevcut "nötr %3" türetmesi tekrar kullanıldı.
+ *       Kullanıldığı yer: ServicesDetailTabs.tsx, ServicesDetailAccordion.tsx.
+ *
  *   #1A202C (testimonial slider'ın koyu sol paneli)
  *     → var(--navy) — ayrı bir color-mix() gerekmedi, G kanalı zaten
  *       neredeyse birebir örtüşüyor, iki rengin gözle farkı yok denecek
@@ -55,6 +63,15 @@
  *       algılanıyordu) burada parlaklık gerçekten daha düşük — bu yüzden
  *       doğrudan var(--navy) yerine ayrı bir color-mix() gerekti.
  *       Tasarımcı onaylı. Kullanıldığı yer: Footer.tsx.
+ *
+ *   #8A6A45 (dc.html: rowAccent[3], /services'in 4 satırlık kart
+ *   grid'inde 4. satırın etiket rengi — "What it runs on")
+ *     → color-mix(in srgb, var(--bronze) 80%, var(--navy) 20%)
+ *     → ≈ #87693C, hedeften kanal başına en fazla 9 birim sapıyor,
+ *       11px mono uppercase etiket için gözle ayırt edilemez. rowAccent
+ *       dizisinin diğer 3 rengi zaten mevcut token'larla birebir örtüşüyor
+ *       (bronze, muted, navy) — bu dördüncüsü tek off-brand olan.
+ *       Kullanıldığı yer: ServicesDetailTabs.tsx, ServicesDetailAccordion.tsx.
  */
 
 @theme inline {
