@@ -112,4 +112,4 @@ dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır
 
 ## Sıradaki adım
 
-Ana sayfanın 14 bölümü + header/footer + booking overlay tamamlandı. Kalan büyük adımlar: sticky mobil alt CTA bar, alt sayfalar (services/work/story/book/legal), Sanity entegrasyonu.
+Ana sayfanın 14 bölümü + header/footer + booking overlay + sticky mobil alt CTA bar + legal 4'lüsü (impressum/terms/privacy/cookies, next-intl pathnames routing dahil) tamamlandı. Kalan büyük adımlar (route-haritasi.md sıralaması): `/book`, `/story`, `/thank-you`, `/services`, `/work` (index), `/work/[slug]`, sonra Sanity entegrasyonu.
