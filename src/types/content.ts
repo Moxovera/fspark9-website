@@ -61,8 +61,9 @@ export interface LegalPage {
 
 // dc.html: t.storyProse / t.legalProse → prose() (satır 2389), sadece
 // 2 varyant (isHead/isBody). LegalBlock'un 7 varyantlı union'ıyla
-// KARIŞTIRILMAMALI — /story ve /thank-you'nun düz makale metni için
-// ayrı, daha basit bir tip.
+// KARIŞTIRILMAMALI — /story'nin düz makale metni için ayrı, daha basit
+// bir tip. /thank-you bunu KULLANMAZ — pageDef'inde hasProse yok
+// (satır 1343), tek paragrafı zaten PageHero.intro karşılıyor.
 export type ProseBlock =
   | { type: 'head'; text: string }
   | { type: 'body'; text: string }
@@ -83,6 +84,14 @@ export interface StoryPage {
 export interface BookPage {
   hero: PageHero
   underCal: string
+}
+
+// dc.html: page.hasLinks (satır 1005-1016) — sadece label + href, ok
+// (→) veriden gelmiyor, statik. Genel Link tipiyle birebir örtüştüğü
+// için ayrı bir kart tipi gerekmedi.
+export interface ThankYouPage {
+  hero: PageHero
+  links: Link[]
 }
 
 export interface BookingSection {
