@@ -45,6 +45,8 @@ Son güncelleme: 2026-08-04
 
 ## Durum tablosu
 
+**ANA SAYFANIN 14 BÖLÜMÜNÜN TÜMÜ TAMAMLANDI (2026-08-06 civarı).** Sıradaki büyük adımlar: header/footer, booking overlay, alt sayfalar (services/work/story/book/legal), Sanity entegrasyonu.
+
 **Bölüm A — Denetim: tamamlandı.** dc.html + content.ts + support.js incelendi, uyuşmazlıklar raporlandı ve çözüldü.
 
 **Bölüm B — Kurulum: tamamlandı.**
@@ -77,7 +79,7 @@ Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yap
 | Process | [x] | [x] | [x] |
 | Media | [x] | [x] | [x] |
 | Faq | [x] | [x] | [x] |
-| ClosingCta | [ ] | [ ] | [ ] |
+| ClosingCta | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
 
 ## Bilinçli tasarım sapmaları
 
