@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/ui/Reveal";
+import BookingCta from "@/components/booking/BookingCta";
 import type { Hero as HeroContent } from "@/types/content";
 
 interface HeroProps {
@@ -15,7 +15,6 @@ export default function Hero({ content }: HeroProps) {
     bullets,
     closingLine,
     ctaLabel,
-    ctaHref,
     ctaNote,
     scrollLabel,
   } = content;
@@ -79,12 +78,9 @@ export default function Hero({ content }: HeroProps) {
         </Reveal>
 
         <Reveal className="mt-10 flex flex-col items-start gap-3.5">
-          <Link
-            href={ctaHref}
-            className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory"
-          >
+          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory">
             {ctaLabel}
-          </Link>
+          </BookingCta>
           <p className="max-w-[46ch] text-sm leading-[1.55] text-ivory/50">
             {ctaNote}
           </p>

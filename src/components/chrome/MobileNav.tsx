@@ -3,12 +3,12 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import { Link } from "@/i18n/navigation";
+import { useBooking } from "@/hooks/useBooking";
 import type { Link as NavLink } from "@/types/content";
 
 interface MobileNavProps {
   nav: NavLink[];
   ctaLabel: string;
-  ctaHref: string;
 }
 
 /**
@@ -22,8 +22,9 @@ interface MobileNavProps {
  * dc.html'deki `compact &&` şartının CSS karşılığı, resize dinleyicisi
  * gerekmiyor (responsive geçiş zaten Geçiş A'da saf CSS'e bağlandı).
  */
-export default function MobileNav({ nav, ctaLabel, ctaHref }: MobileNavProps) {
+export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const { open: openBooking } = useBooking();
 
   const topBarStyle: CSSProperties = {
     transition: "transform .3s ease, opacity .2s ease",
@@ -68,13 +69,16 @@ export default function MobileNav({ nav, ctaLabel, ctaHref }: MobileNavProps) {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href={ctaHref}
-              onClick={() => setOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openBooking();
+              }}
               className="mt-5 block w-full bg-bronze px-[22px] py-4 text-center text-[15px] font-medium text-ivory"
             >
               {ctaLabel}
-            </Link>
+            </button>
           </nav>
         </div>
       )}

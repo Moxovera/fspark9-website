@@ -645,6 +645,13 @@ export const siteSettings: SiteSettings = {
   ],
   ctaLabel: "Book a free 30 minute call",
   ctaHref: "/book",
+  booking: {
+    calLink: "mburakdikmen/quick-chat",
+    title: "A free 30 minute call",
+    body: "Pick a time that works. Before we talk, it helps if you can tell me in two lines where you are and what is stuck.",
+    meta1: "30 min · Video call",
+    meta2: "Europe / Istanbul · timezone detected",
+  },
   footer: {
     tagline: "Fintech and digital banking advisory",
     nine: "Nine is the last step. Spark is what lights it.",

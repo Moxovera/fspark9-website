@@ -5,6 +5,8 @@ import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
+import BookingProvider from "@/components/booking/BookingProvider";
+import BookingOverlay from "@/components/booking/BookingOverlay";
 import { siteSettings as enSiteSettings } from "@/content/en";
 import { siteSettings as trSiteSettings } from "@/content/tr";
 import "../globals.css";
@@ -67,9 +69,12 @@ export default async function LocaleLayout({
         className={`${playfairDisplay.variable} ${inter.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider>
-          <Header settings={settings} locale={locale} />
-          {children}
-          <Footer settings={settings} locale={locale} />
+          <BookingProvider>
+            <Header settings={settings} locale={locale} />
+            {children}
+            <Footer settings={settings} locale={locale} />
+            <BookingOverlay content={settings.booking} />
+          </BookingProvider>
         </NextIntlClientProvider>
       </body>
     </html>

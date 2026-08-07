@@ -640,6 +640,13 @@ export const siteSettings: SiteSettings = {
   ],
   ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
   ctaHref: "/book",
+  booking: {
+    calLink: "mburakdikmen/quick-chat",
+    title: "30 dakikalık ücretsiz görüşme",
+    body: "Size uyan bir saat seçin. Görüşmeden önce nerede olduğunuzu ve neyin takıldığını iki satırla yazarsanız işimiz kolaylaşır.",
+    meta1: "30 dk · Görüntülü görüşme",
+    meta2: "Avrupa / İstanbul · saat dilimi algılandı",
+  },
   footer: {
     tagline: "Fintech ve dijital bankacılık danışmanlığı",
     nine: "9, son adımdır. Spark, onu ateşleyen şey.",

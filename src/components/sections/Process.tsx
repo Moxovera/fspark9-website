@@ -7,7 +7,7 @@ interface ProcessProps {
 }
 
 export default function Process({ content }: ProcessProps) {
-  const { heading, steps, ctaLabel, ctaHref } = content;
+  const { heading, steps, ctaLabel } = content;
 
   return (
     <section className="bg-navy px-7 py-[104px]">
@@ -18,7 +18,7 @@ export default function Process({ content }: ProcessProps) {
           </h2>
         </Reveal>
 
-        <ProcessTabs steps={steps} ctaLabel={ctaLabel} ctaHref={ctaHref} />
+        <ProcessTabs steps={steps} ctaLabel={ctaLabel} />
       </div>
     </section>
   );

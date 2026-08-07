@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useBooking } from "@/hooks/useBooking";
 import type { Testimonial } from "@/types/content";
 
 interface TestimonialSliderProps {
@@ -74,6 +75,7 @@ function NextIcon() {
 // görünür alanın tamamen dışına çıkıyor ve tıklanamaz hale geliyordu
 // (bkz. git log: "fix(testimonials): resolve next-button lockup").
 export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
+  const { open } = useBooking();
   const [activeIndex, setActiveIndex] = useState(0);
   const pendingFocusRef = useRef<PendingFocus>(null);
   const prevBtnRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -134,6 +136,7 @@ export default function TestimonialSlider({ slides }: TestimonialSliderProps) {
             </p>
             <button
               type="button"
+              onClick={open}
               className="testimonial-cta rounded-full px-6 py-3 text-[13px] font-medium sm:px-[30px] sm:py-[15px] sm:text-[14.5px]"
             >
               {slide.ctaLabel}

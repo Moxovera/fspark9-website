@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "@/i18n/navigation";
+import BookingCta from "@/components/booking/BookingCta";
 import type { ProcessStep } from "@/types/content";
 
 interface ProcessTabsProps {
   steps: ProcessStep[];
   ctaLabel: string;
-  ctaHref: string;
 }
 
 // dc.html: state.step (varsayılan 0), tab tıklaması setState({step:i}) ile
@@ -21,7 +20,7 @@ interface ProcessTabsProps {
 // globals.css'teki .fs-fade class'ı ile birleşince aynı davranışı veriyor.
 // Tab'lar dc.html'de <div onClick> — AudienceAccordion'daki aynı
 // erişilebilirlik kararıyla gerçek <button> kullanıldı.
-export default function ProcessTabs({ steps, ctaLabel, ctaHref }: ProcessTabsProps) {
+export default function ProcessTabs({ steps, ctaLabel }: ProcessTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeStep = steps[activeIndex];
 
@@ -68,12 +67,9 @@ export default function ProcessTabs({ steps, ctaLabel, ctaHref }: ProcessTabsPro
         <p className="max-w-[56ch] text-[15px] leading-[1.65] text-ivory/60">
           {activeStep.detail}
         </p>
-        <Link
-          href={ctaHref}
-          className="self-start bg-bronze px-[26px] py-[15px] text-[15px] font-medium text-ivory"
-        >
+        <BookingCta className="self-start bg-bronze px-[26px] py-[15px] text-[15px] font-medium text-ivory">
           {ctaLabel}
-        </Link>
+        </BookingCta>
       </div>
     </div>
   );

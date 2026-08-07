@@ -1,5 +1,5 @@
-import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/ui/Reveal";
+import BookingCta from "@/components/booking/BookingCta";
 import type { ClosingCta as ClosingCtaContent } from "@/types/content";
 
 interface ClosingCtaProps {
@@ -7,8 +7,7 @@ interface ClosingCtaProps {
 }
 
 export default function ClosingCta({ content }: ClosingCtaProps) {
-  const { quote, quoteAttribution, headline, body, ctaLabel, ctaHref, note } =
-    content;
+  const { quote, quoteAttribution, headline, body, ctaLabel, note } = content;
 
   return (
     <section className="flex min-h-[92svh] flex-col justify-center bg-navy px-7 pt-[110px] pb-[120px]">
@@ -35,12 +34,9 @@ export default function ClosingCta({ content }: ClosingCtaProps) {
         )}
 
         <Reveal className="flex flex-col items-start gap-3.5">
-          <Link
-            href={ctaHref}
-            className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory"
-          >
+          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory">
             {ctaLabel}
-          </Link>
+          </BookingCta>
           {note && (
             <p className="max-w-[46ch] text-sm leading-[1.55] text-ivory/50">
               {note}

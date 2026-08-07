@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import HeaderFrame from "@/components/chrome/HeaderFrame";
 import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import MobileNav from "@/components/chrome/MobileNav";
+import BookingCta from "@/components/booking/BookingCta";
 import type { SiteSettings } from "@/types/content";
 
 interface HeaderProps {
@@ -23,7 +24,7 @@ interface HeaderProps {
  * ilgilendiriyor — o ayrı, bu turun kapsamı dışında (bkz. DURUM.md).
  */
 export default function Header({ settings, locale }: HeaderProps) {
-  const { nav, ctaLabel, ctaHref } = settings;
+  const { nav, ctaLabel } = settings;
 
   return (
     <HeaderFrame>
@@ -53,14 +54,11 @@ export default function Header({ settings, locale }: HeaderProps) {
         <div className="flex shrink-0 items-center gap-[18px]">
           <LocaleSwitcher locale={locale} />
 
-          <Link
-            href={ctaHref}
-            className="hidden bg-bronze px-5 py-3 text-sm font-medium whitespace-nowrap text-ivory min-[1180px]:block"
-          >
+          <BookingCta className="hidden bg-bronze px-5 py-3 text-sm font-medium whitespace-nowrap text-ivory min-[1180px]:block">
             {ctaLabel}
-          </Link>
+          </BookingCta>
 
-          <MobileNav nav={nav} ctaLabel={ctaLabel} ctaHref={ctaHref} />
+          <MobileNav nav={nav} ctaLabel={ctaLabel} />
         </div>
       </div>
     </HeaderFrame>

@@ -37,10 +37,19 @@ export interface Link {
 // Site geneli
 // ─────────────────────────────────────────────
 
+export interface BookingSection {
+  calLink: string      // dc.html: cal.com/mburakdikmen/quick-chat — @calcom/embed-react'in calLink prop'u
+  title: string          // "A free 30 minute call"
+  body: string
+  meta1: string          // "30 min · Video call"
+  meta2: string          // "Europe / Istanbul · timezone detected"
+}
+
 export interface SiteSettings {
   nav: Link[]
   ctaLabel: string
   ctaHref: string
+  booking: BookingSection
   footer: {
     tagline: string        // "Trust isn't marketed. It's built."
     nine: string            // "Nine is the last step. Spark is what lights it."
