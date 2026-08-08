@@ -1,3 +1,4 @@
+import HomeScrollMemory from "@/components/ui/HomeScrollMemory";
 import Hero from "@/components/sections/Hero";
 import Framework from "@/components/sections/Framework";
 import ProofStrip from "@/components/sections/ProofStrip";
@@ -26,6 +27,7 @@ export default async function Home({
 
   return (
     <main>
+      <HomeScrollMemory locale={locale} />
       <Hero content={content.hero} />
       <Framework steps={content.framework.steps} />
       <ProofStrip content={content.proofStrip} />

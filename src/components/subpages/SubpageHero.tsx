@@ -1,9 +1,19 @@
 import { Link } from "@/i18n/navigation";
 import type { PageHero } from "@/types/content";
+import type { ComponentProps } from "react";
+
+// bkz. Header.tsx — content.ts'in genel Link tipi next-intl'in
+// pathnames union'ıyla birebir örtüşmüyor.
+type LinkHref = ComponentProps<typeof Link>["href"];
 
 interface SubpageHeroProps {
   hero: PageHero;
   backLabel: string;
+  // dc.html'de her isSub sayfası goBackHome() ile HEP ana sayfaya
+  // dönüyor. Vaka detay sayfaları (/work/[slug]) için bu bir hiyerarşi
+  // atlaması — kullanıcı listeye değil doğrudan ana sayfaya fırlatılıyor.
+  // Varsayılan "/" (dc.html'le aynı davranış), /work/[slug] "/work" geçirir.
+  backHref?: LinkHref;
 }
 
 /**
@@ -14,20 +24,17 @@ interface SubpageHeroProps {
  *
  * "Geri" pill'i dc.html'de goBackHome() ile ana sayfaya dönüp önceki
  * scroll pozisyonunu geri yüklüyor (SPA'nın kendi bellek hack'i) —
- * burada kasıtlı bir sapma: basit <Link href="/">, scroll hafızası
- * taşınmadı (Next.js'in kendi route/scroll davranışı yeterli).
- *
- * Henüz hiçbir route'ta kullanılmıyor — alt sayfalar kurulunca
- * bağlanacak.
+ * burada kasıtlı bir sapma: basit <Link>, scroll hafızası taşınmadı
+ * (Next.js'in kendi route/scroll davranışı yeterli).
  */
-export default function SubpageHero({ hero, backLabel }: SubpageHeroProps) {
+export default function SubpageHero({ hero, backLabel, backHref = "/" }: SubpageHeroProps) {
   const { eyebrow, title, intro } = hero;
 
   return (
     <section className="bg-navy px-7 pt-[182px] pb-24">
       <div className="mx-auto max-w-[1000px]">
         <Link
-          href="/"
+          href={backHref}
           className="mb-7 inline-flex items-center gap-[11px] rounded-full border border-ivory/22 py-2.5 pr-[18px] pl-3"
         >
           <svg

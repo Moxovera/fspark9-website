@@ -37,6 +37,7 @@ export default async function CaseDetailPage({
       <SubpageHero
         hero={{ eyebrow: item.detailEyebrow, title: item.name, intro: item.detailIntro }}
         backLabel={settings.backLabel}
+        backHref="/work"
       />
       <CaseDetail item={item} />
       <SubpageClosingCta content={settings.subpageCta} />
