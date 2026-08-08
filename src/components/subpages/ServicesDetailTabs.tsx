@@ -146,7 +146,14 @@ export default function ServicesDetailTabs({ items, labels }: ServicesDetailTabs
               className="flex h-full flex-col"
               style={{
                 gridArea: "1 / 1",
-                zIndex: isActive ? 2 : 1,
+                // Sabit isActive?2:1 tek geçişte doğruydu ama sekmeler hızlı
+                // art arda tıklanınca (önceki geçiş bitmeden yenisi
+                // başlıyor) iki eski panel aynı anda solarken ikisi de
+                // zIndex:1 paylaşıyordu — aralarındaki sıra belirsiz
+                // kalıyordu (Playwright'la ölçüldü, bkz. ServicesTabs.tsx'
+                // teki aynı düzeltmenin yorumu). Her panel artık sabit,
+                // kendine özgü bir zIndex taşıyor.
+                zIndex: isActive ? items.length + 1 : i + 1,
                 opacity: isActive ? 1 : 0,
                 transform: `translateY(${isActive ? 0 : 16}px)`,
                 pointerEvents: isActive ? "auto" : "none",

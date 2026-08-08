@@ -110,8 +110,18 @@ const ICONS = [BlueprintIcon, HandshakeIcon, GlobeIcon, PhoneIcon];
 // ikisi de visibility:visible; z-index olmadan hangisinin üstte göründüğü
 // DOM/array sırasına bağlı kalıyor, aktif olana değil — bu da metinlerin
 // okunaksız üst üste binmesine yol açıyordu (dc.html'de de aynı kusur var,
-// bizim implementasyona özgü değil). Aktif panel her zaman zIndex:2 ile
-// üstte tutuluyor, solan eski panel zIndex:1 ile altta kalıyor.
+// bizim implementasyona özgü değil).
+//
+// İlk düzeltme (isActive ? 2 : 1) tek bir geçişte doğruydu ama İKİ farklı
+// eski panel aynı anda solarken (kullanıcı sekmeleri hızlı art arda
+// tıkladığında, önceki geçiş bitmeden yenisi başlıyor) ikisi de zIndex:1
+// paylaşıyordu — aralarındaki sıralama yine belirsiz kalıyordu (bkz.
+// Playwright'la ölçülen "AMBIGUOUS z-index" kare, commit "fix(subpages):
+// resolve panel crossfade z-index in services detail"). Şimdi her panel
+// SABİT, birbirinden farklı bir zIndex taşıyor (index+1), aktif olan
+// bunların hepsinden yüksek bir değerle (items.length+1) üste çıkıyor —
+// kaç panel aynı anda kısmen görünür olursa olsun aralarındaki sıralama
+// hep deterministik.
 export default function ServicesTabs({ items, labels }: ServicesTabsProps) {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -193,7 +203,7 @@ export default function ServicesTabs({ items, labels }: ServicesTabsProps) {
               key={item.slug}
               style={{
                 gridArea: "1 / 1",
-                zIndex: isActive ? 2 : 1,
+                zIndex: isActive ? items.length + 1 : i + 1,
                 opacity: isActive ? 1 : 0,
                 transform: `translateY(${isActive ? 0 : 16}px)`,
                 pointerEvents: isActive ? "auto" : "none",
