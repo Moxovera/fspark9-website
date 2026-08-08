@@ -60,7 +60,7 @@ export default function BookingOverlay({ content }: BookingOverlayProps) {
             </div>
           </div>
           <div className="h-[480px]">
-            <CalEmbed calLink={calLink} />
+            <CalEmbed calLink={calLink} redirectTo="/thank-you" onBookingSuccessful={close} />
           </div>
         </div>
       </div>

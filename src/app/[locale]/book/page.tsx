@@ -35,7 +35,7 @@ export default async function BookPage({
               <p className="font-mono text-xs text-bronze">30 min</p>
             </div>
             <div className="min-h-[600px]">
-              <CalEmbed calLink={settings.booking.calLink} />
+              <CalEmbed calLink={settings.booking.calLink} redirectTo="/thank-you" />
             </div>
           </div>
           <p className="mt-6 text-[15px] text-muted">{page.underCal}</p>
