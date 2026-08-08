@@ -2,6 +2,8 @@
 
 Bu dosya, projeye yeni başlayan (veya araya giren) birinin hızlıca bağlam kazanması için tutuluyor. Tek durum kaynağı burasıdır. Kalıcı kurallar için `CLAUDE.md`'ye, alt sayfa route planı için `_design/route-haritasi.md`'ye bakılır. Bölüm × geçiş ilerlemesi aşağıda "Bölüm C detay takibi" bölümünde.
 
+**TÜM BEKLEYEN KÜÇÜK İŞLER TAMAMLANDI (2026-08-06 civarı):** mouse trail canvas efekti, geri butonu üçlüsü, thank-you tetikleme, favicon. Site artık işlevsel olarak tam. Sıradaki büyük faz: Sanity CMS entegrasyonu (Bölüm D).
+
 Son güncelleme: 2026-08-04
 
 ---
