@@ -78,6 +78,13 @@
  *     → color-mix(in srgb, var(--charcoal) 3%, var(--ivory) 97%)
  *     → ≈ #F0EEE6, hedeften kanal başına en fazla 2 birim sapıyor.
  *       Kullanıldığı yer: CaseDetail.tsx.
+ *
+ *   #A67C3D (= var(--bronze)) — CanvasField.tsx'teki mouse trail'in
+ *   ctx.strokeStyle'ı, doğrudan RGB (166,124,61) olarak kullanılıyor.
+ *   Yukarıdaki gibi bir color-mix() istisnası DEĞİL — teknik bir
+ *   zorunluluk: Canvas 2D API'nin strokeStyle'ı CSS custom property
+ *   çözemiyor (var(--bronze) canvas bağlamında geçersiz), düz renk
+ *   string'i istiyor. Kullanıldığı yer: CanvasField.tsx.
  */
 
 @theme inline {
