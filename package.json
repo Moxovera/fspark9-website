@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sanity:schema": "sanity schema extract --enforce-required-fields",
+    "sanity:typegen": "sanity typegen generate",
+    "typegen": "npm run sanity:schema && npm run sanity:typegen"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

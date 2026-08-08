@@ -17,6 +17,9 @@ import Faq from "@/components/sections/Faq";
 import ClosingCta from "@/components/sections/ClosingCta";
 import { en } from "@/content/en";
 import { tr } from "@/content/tr";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { HOME_HERO_QUERY, toHero } from "@/sanity/lib/queries";
+import type { HOME_HERO_QUERYResult } from "@/sanity/types";
 
 export default async function Home({
   params,
@@ -26,11 +29,18 @@ export default async function Home({
   const { locale } = await params;
   const content = locale === "tr" ? tr : en;
 
+  const heroResult = await sanityFetch<HOME_HERO_QUERYResult>({
+    query: HOME_HERO_QUERY,
+    params: { locale },
+    tags: ["homePage"],
+  });
+  const hero = toHero(heroResult);
+
   return (
     <main>
       <HomeScrollMemory locale={locale} />
       <CanvasField />
-      <Hero content={content.hero} />
+      <Hero content={hero} />
       <Framework steps={content.framework.steps} />
       <ProofStrip content={content.proofStrip} />
       <Familiar content={content.familiar} />
