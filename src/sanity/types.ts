@@ -21,6 +21,118 @@ export type HomePage = {
   _rev: string;
   title?: string;
   hero?: Hero;
+  framework?: Framework;
+  proofStrip?: ProofStrip;
+  services?: ServicesSection;
+  comparison?: ComparisonTable;
+  approach?: ApproachSection;
+  audience?: AudienceSection;
+  story?: StorySection;
+  testimonials?: TestimonialSection;
+  media?: MediaSection;
+};
+
+export type MediaSection = {
+  _type: "mediaSection";
+  heading?: LocaleString;
+  intro?: LocaleText;
+  items?: Array<{
+    _key: string;
+  } & MediaItem>;
+};
+
+export type TestimonialSection = {
+  _type: "testimonialSection";
+  heading?: LocaleString;
+  items?: Array<{
+    _key: string;
+  } & Testimonial>;
+};
+
+export type StorySection = {
+  _type: "storySection";
+  heading?: LocaleString;
+  lead?: LocaleText;
+  paragraphs?: {
+    en?: Array<string>;
+    tr?: Array<string>;
+  };
+  link?: Link;
+  media?: StoryMedia;
+};
+
+export type AudienceSection = {
+  _type: "audienceSection";
+  heading?: LocaleString;
+  labels?: {
+    problem?: LocaleString;
+    do?: LocaleString;
+    result?: LocaleString;
+  };
+  cards?: Array<{
+    _key: string;
+  } & AudienceCard>;
+};
+
+export type ApproachSection = {
+  _type: "approachSection";
+  heading?: LocaleString;
+  blocks?: Array<{
+    _key: string;
+  } & ApproachBlock>;
+};
+
+export type ComparisonTable = {
+  _type: "comparisonTable";
+  heading?: LocaleString;
+  intro?: LocaleText;
+  scrollHint?: LocaleString;
+  columnLabels?: {
+    decide?: LocaleString;
+    setup?: LocaleString;
+    ship?: LocaleString;
+  };
+  rows?: Array<{
+    _key: string;
+  } & ComparisonRow>;
+};
+
+export type ServicesSection = {
+  _type: "servicesSection";
+  heading?: LocaleString;
+  intro?: LocaleText;
+  labels?: {
+    problem?: LocaleString;
+    action?: LocaleString;
+    outcome?: LocaleString;
+    rightDoor?: LocaleString;
+    notRightDoor?: LocaleString;
+    duration?: LocaleString;
+    runsOn?: LocaleString;
+  };
+  items?: Array<{
+    _key: string;
+  } & Service>;
+  fullEngagementHeading?: LocaleString;
+  fullEngagementBody?: LocaleText;
+  link?: Link;
+};
+
+export type ProofStrip = {
+  _type: "proofStrip";
+  kicker?: LocaleString;
+  roles?: LocaleString;
+  items?: Array<{
+    _key: string;
+  } & ProofItem>;
+  link?: Link;
+};
+
+export type Framework = {
+  _type: "framework";
+  steps?: Array<{
+    _key: string;
+  } & FrameworkStep>;
 };
 
 export type Hero = {
@@ -46,6 +158,62 @@ export type SiteSettings = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  booking?: BookingSection;
+  subpageCta?: SubpageCta;
+};
+
+export type SubpageCta = {
+  _type: "subpageCta";
+  headline?: LocaleString;
+  body?: LocaleText;
+  ctaLabel?: LocaleString;
+  ctaHref?: string;
+};
+
+export type BookingSection = {
+  _type: "bookingSection";
+  calLink?: string;
+  title?: LocaleString;
+  body?: LocaleText;
+  meta1?: LocaleString;
+  meta2?: LocaleString;
+};
+
+export type LegalBlockTable = {
+  _type: "legalBlockTable";
+  head?: {
+    en?: Array<string>;
+    tr?: Array<string>;
+  };
+  rows?: {
+    en?: Array<{
+      cells?: Array<string>;
+      _type: "row";
+      _key: string;
+    }>;
+    tr?: Array<{
+      cells?: Array<string>;
+      _type: "row";
+      _key: string;
+    }>;
+  };
+};
+
+export type LegalBlockList = {
+  _type: "legalBlockList";
+  items?: {
+    en?: Array<string>;
+    tr?: Array<string>;
+  };
+};
+
+export type LegalBlockField = {
+  _type: "legalBlockField";
+  label?: LocaleString;
+  lines?: {
+    en?: Array<string>;
+    tr?: Array<string>;
+  };
 };
 
 export type LocaleString = {
@@ -54,10 +222,163 @@ export type LocaleString = {
   tr?: string;
 };
 
+export type LegalBlockBold = {
+  _type: "legalBlockBold";
+  text?: LocaleText;
+};
+
 export type LocaleText = {
   _type: "localeText";
   en?: string;
   tr?: string;
+};
+
+export type LegalBlockSubheading = {
+  _type: "legalBlockSubheading";
+  text?: LocaleString;
+};
+
+export type LegalBlockHeading = {
+  _type: "legalBlockHeading";
+  text?: LocaleString;
+};
+
+export type LegalBlockDiv = {
+  _type: "legalBlockDiv";
+  text?: LocaleText;
+};
+
+export type MediaItem = {
+  _type: "mediaItem";
+  source?: string;
+  headline?: LocaleString;
+  description?: LocaleText;
+  note?: LocaleString;
+  href?: string;
+  isVideo?: boolean;
+  order?: number;
+};
+
+export type Testimonial = {
+  _type: "testimonial";
+  headline?: LocaleString;
+  quote?: LocaleText;
+  attribution?: LocaleString;
+  ctaLabel?: LocaleString;
+  order?: number;
+};
+
+export type StoryMedia = {
+  _type: "storyMedia";
+  type: "image" | "youtube";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  youtubeId?: string;
+  caption?: LocaleText;
+};
+
+export type Link = {
+  _type: "link";
+  label?: LocaleString;
+  href?: string;
+  external?: boolean;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
+export type AudienceCard = {
+  _type: "audienceCard";
+  title?: LocaleString;
+  problem?: LocaleText;
+  do?: LocaleText;
+  result?: LocaleText;
+};
+
+export type ApproachBlock = {
+  _type: "approachBlock";
+  number?: number;
+  title?: LocaleString;
+  body?: LocaleText;
+};
+
+export type ComparisonRow = {
+  _type: "comparisonRow";
+  label?: LocaleString;
+  isUs?: boolean;
+  decide?: ComparisonValue;
+  setup?: ComparisonValue;
+  ship?: ComparisonValue;
+};
+
+export type ComparisonValue = {
+  _type: "comparisonValue";
+  state: "yes" | "no" | "partial";
+  note?: LocaleString;
+};
+
+export type Service = {
+  _type: "service";
+  slug?: string;
+  number?: number;
+  title?: LocaleString;
+  tag?: LocaleString;
+  problem?: LocaleText;
+  action?: LocaleText;
+  outcome?: LocaleText;
+  rightDoor?: LocaleText;
+  notRightDoor?: LocaleText;
+  duration?: LocaleText;
+  runsOn?: LocaleText;
+};
+
+export type ProofItem = {
+  _type: "proofItem";
+  name?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  line?: LocaleText;
+  order?: number;
+};
+
+export type FrameworkStep = {
+  _type: "frameworkStep";
+  id: "decide" | "setup" | "ship";
+  label?: LocaleString;
+  description?: LocaleText;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -95,22 +416,6 @@ export type SanityImageMetadata = {
   blurHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
 };
 
 export type SanityFileAsset = {
@@ -178,7 +483,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = HomePage | Hero | SiteSettings | LocaleString | LocaleText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = HomePage | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LocaleString | LegalBlockBold | LocaleText | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | MediaItem | Testimonial | StoryMedia | Link | SanityImageCrop | SanityImageHotspot | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | Service | ProofItem | FrameworkStep | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_HERO_QUERY

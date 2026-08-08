@@ -12,5 +12,7 @@ export default defineType({
       initialValue: "Site Settings",
       readOnly: true,
     }),
+    defineField({ name: "booking", title: "Booking", type: "bookingSection" }),
+    defineField({ name: "subpageCta", title: "Subpage CTA", type: "subpageCta" }),
   ],
 });
