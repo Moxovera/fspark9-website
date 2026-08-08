@@ -12,7 +12,12 @@ export default defineType({
       options: { list: ["image", "youtube"] },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: "image", title: "Image", type: "image" }),
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+    }),
     defineField({ name: "youtubeId", title: "YouTube ID", type: "string" }),
     defineField({ name: "caption", title: "Caption", type: "localeText" }),
   ],

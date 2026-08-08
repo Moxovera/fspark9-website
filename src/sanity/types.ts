@@ -281,6 +281,7 @@ export type StoryMedia = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: "image";
   };
   youtubeId?: string;
@@ -368,6 +369,7 @@ export type ProofItem = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
     _type: "image";
   };
   line?: LocaleText;
@@ -499,11 +501,211 @@ export type HOME_HERO_QUERYResult = {
   ctaNote: string | null;
   scrollLabel: string | null;
 } | null;
+// Variable: HOME_FRAMEWORK_QUERY
+// Query: *[_type == "homePage"][0].framework{    steps[]{      id,      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    }  }
+export type HOME_FRAMEWORK_QUERYResult = {
+  steps: Array<{
+    id: "decide" | "setup" | "ship";
+    label: string | null;
+    description: string | null;
+  }> | null;
+} | null;
+// Variable: HOME_PROOF_STRIP_QUERY
+// Query: *[_type == "homePage"][0].proofStrip{    "kicker": select($locale == "tr" => coalesce(kicker.tr, kicker.en), kicker.en),    "roles": select($locale == "tr" => coalesce(roles.tr, roles.en), roles.en),    "items": items[] | order(order asc) {      name,      "logo": logo{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en),      order    },    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    }  }
+export type HOME_PROOF_STRIP_QUERYResult = {
+  kicker: string | null;
+  roles: string | null;
+  items: Array<{
+    name: string | null;
+    logo: {
+      url: string | null;
+      alt: string | "";
+      width: number | null;
+      height: number | null;
+      lqip: string | null;
+    } | null;
+    line: string | null;
+    order: number | null;
+  }> | null;
+  link: {
+    label: string | null;
+    href: string | null;
+    external: boolean | null;
+  } | null;
+} | null;
+// Variable: HOME_SERVICES_QUERY
+// Query: *[_type == "homePage"][0].services{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "labels": {      "problem": select($locale == "tr" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),      "action": select($locale == "tr" => coalesce(labels.action.tr, labels.action.en), labels.action.en),      "outcome": select($locale == "tr" => coalesce(labels.outcome.tr, labels.outcome.en), labels.outcome.en),      "rightDoor": select($locale == "tr" => coalesce(labels.rightDoor.tr, labels.rightDoor.en), labels.rightDoor.en),      "notRightDoor": select($locale == "tr" => coalesce(labels.notRightDoor.tr, labels.notRightDoor.en), labels.notRightDoor.en),      "duration": select($locale == "tr" => coalesce(labels.duration.tr, labels.duration.en), labels.duration.en),      "runsOn": select($locale == "tr" => coalesce(labels.runsOn.tr, labels.runsOn.en), labels.runsOn.en)    },    "items": items[] | order(number asc) {      slug,      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "tag": select($locale == "tr" => coalesce(tag.tr, tag.en), tag.en),      "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),      "action": select($locale == "tr" => coalesce(action.tr, action.en), action.en),      "outcome": select($locale == "tr" => coalesce(outcome.tr, outcome.en), outcome.en),      "rightDoor": select($locale == "tr" => coalesce(rightDoor.tr, rightDoor.en), rightDoor.en),      "notRightDoor": select($locale == "tr" => coalesce(notRightDoor.tr, notRightDoor.en), notRightDoor.en),      "duration": select($locale == "tr" => coalesce(duration.tr, duration.en), duration.en),      "runsOn": select($locale == "tr" => coalesce(runsOn.tr, runsOn.en), runsOn.en)    },    "fullEngagementHeading": select($locale == "tr" => coalesce(fullEngagementHeading.tr, fullEngagementHeading.en), fullEngagementHeading.en),    "fullEngagementBody": select($locale == "tr" => coalesce(fullEngagementBody.tr, fullEngagementBody.en), fullEngagementBody.en),    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    }  }
+export type HOME_SERVICES_QUERYResult = {
+  heading: string | null;
+  intro: string | null;
+  labels: {
+    problem: string | null;
+    action: string | null;
+    outcome: string | null;
+    rightDoor: string | null;
+    notRightDoor: string | null;
+    duration: string | null;
+    runsOn: string | null;
+  };
+  items: Array<{
+    slug: string | null;
+    number: number | null;
+    title: string | null;
+    tag: string | null;
+    problem: string | null;
+    action: string | null;
+    outcome: string | null;
+    rightDoor: string | null;
+    notRightDoor: string | null;
+    duration: string | null;
+    runsOn: string | null;
+  }> | null;
+  fullEngagementHeading: string | null;
+  fullEngagementBody: string | null;
+  link: {
+    label: string | null;
+    href: string | null;
+    external: boolean | null;
+  } | null;
+} | null;
+// Variable: HOME_COMPARISON_QUERY
+// Query: *[_type == "homePage"][0].comparison{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "scrollHint": select($locale == "tr" => coalesce(scrollHint.tr, scrollHint.en), scrollHint.en),    "columnLabels": {      "decide": select($locale == "tr" => coalesce(columnLabels.decide.tr, columnLabels.decide.en), columnLabels.decide.en),      "setup": select($locale == "tr" => coalesce(columnLabels.setup.tr, columnLabels.setup.en), columnLabels.setup.en),      "ship": select($locale == "tr" => coalesce(columnLabels.ship.tr, columnLabels.ship.en), columnLabels.ship.en)    },    "rows": rows[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      isUs,      "decide": decide{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) },      "setup": setup{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) },      "ship": ship{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) }    }  }
+export type HOME_COMPARISON_QUERYResult = {
+  heading: string | null;
+  intro: string | null;
+  scrollHint: string | null;
+  columnLabels: {
+    decide: string | null;
+    setup: string | null;
+    ship: string | null;
+  };
+  rows: Array<{
+    label: string | null;
+    isUs: boolean | null;
+    decide: {
+      state: "no" | "partial" | "yes";
+      note: string | null;
+    } | null;
+    setup: {
+      state: "no" | "partial" | "yes";
+      note: string | null;
+    } | null;
+    ship: {
+      state: "no" | "partial" | "yes";
+      note: string | null;
+    } | null;
+  }> | null;
+} | null;
+// Variable: HOME_APPROACH_QUERY
+// Query: *[_type == "homePage"][0].approach{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "blocks": blocks[] | order(number asc) {      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    }  }
+export type HOME_APPROACH_QUERYResult = {
+  heading: string | null;
+  blocks: Array<{
+    number: number | null;
+    title: string | null;
+    body: string | null;
+  }> | null;
+} | null;
+// Variable: HOME_AUDIENCE_QUERY
+// Query: *[_type == "homePage"][0].audience{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "labels": {      "problem": select($locale == "tr" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),      "do": select($locale == "tr" => coalesce(labels.do.tr, labels.do.en), labels.do.en),      "result": select($locale == "tr" => coalesce(labels.result.tr, labels.result.en), labels.result.en)    },    "cards": cards[]{      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),      "do": select($locale == "tr" => coalesce(do.tr, do.en), do.en),      "result": select($locale == "tr" => coalesce(result.tr, result.en), result.en)    }  }
+export type HOME_AUDIENCE_QUERYResult = {
+  heading: string | null;
+  labels: {
+    problem: string | null;
+    do: string | null;
+    result: string | null;
+  };
+  cards: Array<{
+    title: string | null;
+    problem: string | null;
+    do: string | null;
+    result: string | null;
+  }> | null;
+} | null;
+// Variable: HOME_STORY_QUERY
+// Query: *[_type == "homePage"][0].story{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "lead": select($locale == "tr" => coalesce(lead.tr, lead.en), lead.en),    "paragraphs": select($locale == "tr" => coalesce(paragraphs.tr, paragraphs.en), paragraphs.en),    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "media": media{      type,      "image": image{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      youtubeId,      "caption": select($locale == "tr" => coalesce(caption.tr, caption.en), caption.en)    }  }
+export type HOME_STORY_QUERYResult = {
+  heading: string | null;
+  lead: string | null;
+  paragraphs: Array<string> | null;
+  link: {
+    label: string | null;
+    href: string | null;
+    external: boolean | null;
+  } | null;
+  media: {
+    type: "image" | "youtube";
+    image: {
+      url: string | null;
+      alt: string | "";
+      width: number | null;
+      height: number | null;
+      lqip: string | null;
+    } | null;
+    youtubeId: string | null;
+    caption: string | null;
+  } | null;
+} | null;
+// Variable: HOME_TESTIMONIALS_QUERY
+// Query: *[_type == "homePage"][0].testimonials{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "items": items[] | order(order asc) {      "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),      "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),      "attribution": select($locale == "tr" => coalesce(attribution.tr, attribution.en), attribution.en),      "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),      order    }  }
+export type HOME_TESTIMONIALS_QUERYResult = {
+  heading: string | null;
+  items: Array<{
+    headline: string | null;
+    quote: string | null;
+    attribution: string | null;
+    ctaLabel: string | null;
+    order: number | null;
+  }> | null;
+} | null;
+// Variable: HOME_MEDIA_QUERY
+// Query: *[_type == "homePage"][0].media{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "items": items[] | order(order asc) {      source,      "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),      "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en),      href,      isVideo,      order    }  }
+export type HOME_MEDIA_QUERYResult = {
+  heading: string | null;
+  intro: string | null;
+  items: Array<{
+    source: string | null;
+    headline: string | null;
+    description: string | null;
+    note: string | null;
+    href: string | null;
+    isVideo: boolean | null;
+    order: number | null;
+  }> | null;
+} | null;
+// Variable: SITE_BOOKING_QUERY
+// Query: *[_type == "siteSettings"][0].booking{    calLink,    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "meta1": select($locale == "tr" => coalesce(meta1.tr, meta1.en), meta1.en),    "meta2": select($locale == "tr" => coalesce(meta2.tr, meta2.en), meta2.en)  }
+export type SITE_BOOKING_QUERYResult = {
+  calLink: string | null;
+  title: string | null;
+  body: string | null;
+  meta1: string | null;
+  meta2: string | null;
+} | null;
+// Variable: SITE_SUBPAGE_CTA_QUERY
+// Query: *[_type == "siteSettings"][0].subpageCta{    "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref  }
+export type SITE_SUBPAGE_CTA_QUERYResult = {
+  headline: string | null;
+  body: string | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"homePage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"headlinePrimary\": select($locale == \"tr\" => coalesce(headlinePrimary.tr, headlinePrimary.en), headlinePrimary.en),\n    \"headlineAccent\": select($locale == \"tr\" => coalesce(headlineAccent.tr, headlineAccent.en), headlineAccent.en),\n    \"bullets\": select($locale == \"tr\" => coalesce(bullets.tr, bullets.en), bullets.en),\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    \"ctaHref\": ctaHref,\n    \"ctaNote\": select($locale == \"tr\" => coalesce(ctaNote.tr, ctaNote.en), ctaNote.en),\n    \"scrollLabel\": select($locale == \"tr\" => coalesce(scrollLabel.tr, scrollLabel.en), scrollLabel.en)\n  }\n": HOME_HERO_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].framework{\n    steps[]{\n      id,\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    }\n  }\n": HOME_FRAMEWORK_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].proofStrip{\n    \"kicker\": select($locale == \"tr\" => coalesce(kicker.tr, kicker.en), kicker.en),\n    \"roles\": select($locale == \"tr\" => coalesce(roles.tr, roles.en), roles.en),\n    \"items\": items[] | order(order asc) {\n      name,\n      \"logo\": logo{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      \"line\": select($locale == \"tr\" => coalesce(line.tr, line.en), line.en),\n      order\n    },\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    }\n  }\n": HOME_PROOF_STRIP_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].services{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"labels\": {\n      \"problem\": select($locale == \"tr\" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),\n      \"action\": select($locale == \"tr\" => coalesce(labels.action.tr, labels.action.en), labels.action.en),\n      \"outcome\": select($locale == \"tr\" => coalesce(labels.outcome.tr, labels.outcome.en), labels.outcome.en),\n      \"rightDoor\": select($locale == \"tr\" => coalesce(labels.rightDoor.tr, labels.rightDoor.en), labels.rightDoor.en),\n      \"notRightDoor\": select($locale == \"tr\" => coalesce(labels.notRightDoor.tr, labels.notRightDoor.en), labels.notRightDoor.en),\n      \"duration\": select($locale == \"tr\" => coalesce(labels.duration.tr, labels.duration.en), labels.duration.en),\n      \"runsOn\": select($locale == \"tr\" => coalesce(labels.runsOn.tr, labels.runsOn.en), labels.runsOn.en)\n    },\n    \"items\": items[] | order(number asc) {\n      slug,\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"tag\": select($locale == \"tr\" => coalesce(tag.tr, tag.en), tag.en),\n      \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n      \"action\": select($locale == \"tr\" => coalesce(action.tr, action.en), action.en),\n      \"outcome\": select($locale == \"tr\" => coalesce(outcome.tr, outcome.en), outcome.en),\n      \"rightDoor\": select($locale == \"tr\" => coalesce(rightDoor.tr, rightDoor.en), rightDoor.en),\n      \"notRightDoor\": select($locale == \"tr\" => coalesce(notRightDoor.tr, notRightDoor.en), notRightDoor.en),\n      \"duration\": select($locale == \"tr\" => coalesce(duration.tr, duration.en), duration.en),\n      \"runsOn\": select($locale == \"tr\" => coalesce(runsOn.tr, runsOn.en), runsOn.en)\n    },\n    \"fullEngagementHeading\": select($locale == \"tr\" => coalesce(fullEngagementHeading.tr, fullEngagementHeading.en), fullEngagementHeading.en),\n    \"fullEngagementBody\": select($locale == \"tr\" => coalesce(fullEngagementBody.tr, fullEngagementBody.en), fullEngagementBody.en),\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    }\n  }\n": HOME_SERVICES_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].comparison{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"scrollHint\": select($locale == \"tr\" => coalesce(scrollHint.tr, scrollHint.en), scrollHint.en),\n    \"columnLabels\": {\n      \"decide\": select($locale == \"tr\" => coalesce(columnLabels.decide.tr, columnLabels.decide.en), columnLabels.decide.en),\n      \"setup\": select($locale == \"tr\" => coalesce(columnLabels.setup.tr, columnLabels.setup.en), columnLabels.setup.en),\n      \"ship\": select($locale == \"tr\" => coalesce(columnLabels.ship.tr, columnLabels.ship.en), columnLabels.ship.en)\n    },\n    \"rows\": rows[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      isUs,\n      \"decide\": decide{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) },\n      \"setup\": setup{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) },\n      \"ship\": ship{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) }\n    }\n  }\n": HOME_COMPARISON_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].approach{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"blocks\": blocks[] | order(number asc) {\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    }\n  }\n": HOME_APPROACH_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].audience{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"labels\": {\n      \"problem\": select($locale == \"tr\" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),\n      \"do\": select($locale == \"tr\" => coalesce(labels.do.tr, labels.do.en), labels.do.en),\n      \"result\": select($locale == \"tr\" => coalesce(labels.result.tr, labels.result.en), labels.result.en)\n    },\n    \"cards\": cards[]{\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n      \"do\": select($locale == \"tr\" => coalesce(do.tr, do.en), do.en),\n      \"result\": select($locale == \"tr\" => coalesce(result.tr, result.en), result.en)\n    }\n  }\n": HOME_AUDIENCE_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].story{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"lead\": select($locale == \"tr\" => coalesce(lead.tr, lead.en), lead.en),\n    \"paragraphs\": select($locale == \"tr\" => coalesce(paragraphs.tr, paragraphs.en), paragraphs.en),\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"media\": media{\n      type,\n      \"image\": image{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      youtubeId,\n      \"caption\": select($locale == \"tr\" => coalesce(caption.tr, caption.en), caption.en)\n    }\n  }\n": HOME_STORY_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].testimonials{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"items\": items[] | order(order asc) {\n      \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n      \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n      \"attribution\": select($locale == \"tr\" => coalesce(attribution.tr, attribution.en), attribution.en),\n      \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n      order\n    }\n  }\n": HOME_TESTIMONIALS_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].media{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"items\": items[] | order(order asc) {\n      source,\n      \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n      \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en),\n      href,\n      isVideo,\n      order\n    }\n  }\n": HOME_MEDIA_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].booking{\n    calLink,\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"meta1\": select($locale == \"tr\" => coalesce(meta1.tr, meta1.en), meta1.en),\n    \"meta2\": select($locale == \"tr\" => coalesce(meta2.tr, meta2.en), meta2.en)\n  }\n": SITE_BOOKING_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].subpageCta{\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref\n  }\n": SITE_SUBPAGE_CTA_QUERYResult;
   }
 }
