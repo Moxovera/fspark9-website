@@ -12,7 +12,10 @@ export default defineType({
       initialValue: "Site Settings",
       readOnly: true,
     }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
+    defineField({ name: "nav", title: "Nav", type: "array", of: [{ type: "link" }] }),
     defineField({ name: "booking", title: "Booking", type: "bookingSection" }),
     defineField({ name: "subpageCta", title: "Subpage CTA", type: "subpageCta" }),
+    defineField({ name: "footer", title: "Footer", type: "footer" }),
   ],
 });

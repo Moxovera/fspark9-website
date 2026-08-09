@@ -3,6 +3,8 @@ import type { SchemaTypeDefinition } from "sanity";
 import localeString from "./objects/localeString";
 import localeText from "./objects/localeText";
 import link from "./objects/link";
+import seo from "./objects/seo";
+import footer from "./objects/footer";
 import hero from "./objects/hero";
 import pageHero from "./objects/pageHero";
 import proseHead from "./objects/proseHead";
@@ -27,6 +29,11 @@ import testimonial from "./objects/testimonial";
 import testimonialSection from "./objects/testimonialSection";
 import mediaItem from "./objects/mediaItem";
 import mediaSection from "./objects/mediaSection";
+import processStep from "./objects/processStep";
+import processSection from "./objects/processSection";
+import faqItem from "./objects/faqItem";
+import faqSection from "./objects/faqSection";
+import closingCta from "./objects/closingCta";
 import bookingSection from "./objects/bookingSection";
 import subpageCta from "./objects/subpageCta";
 import legalBlockDiv from "./objects/legalBlockDiv";
@@ -49,6 +56,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     localeString,
     localeText,
     link,
+    seo,
+    footer,
     hero,
     pageHero,
     proseHead,
@@ -73,6 +82,11 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     testimonialSection,
     mediaItem,
     mediaSection,
+    processStep,
+    processSection,
+    faqItem,
+    faqSection,
+    closingCta,
     bookingSection,
     subpageCta,
     legalBlockDiv,

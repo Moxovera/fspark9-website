@@ -30,6 +30,7 @@ export default defineType({
           return isUnique || "Bu slug başka bir Legal Page dokümanında zaten kullanılıyor.";
         }),
     }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
     defineField({ name: "hero", title: "Hero", type: "pageHero" }),
     defineField({
       name: "blocks",

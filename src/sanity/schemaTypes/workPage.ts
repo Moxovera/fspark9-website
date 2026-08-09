@@ -1,8 +1,8 @@
 import { defineField, defineType } from "sanity";
 
-// content.ts: WorkPage — sadece hero. Vaka analizi kartları (CaseStudy[])
-// bu şemaya taşınmıyor, henüz kendi koleksiyonu yok; work sayfası o
-// koleksiyona referansla listeleyecek (ileride ayrı bir aşamada).
+// content.ts: WorkPage — sadece hero. Vaka analizi kartları ayrı bir
+// koleksiyonda (caseStudy), work sayfası onu referansla listeliyor —
+// bu doküman kart içeriği taşımıyor.
 export default defineType({
   name: "workPage",
   title: "Work Page",
@@ -15,6 +15,7 @@ export default defineType({
       initialValue: "Work Page",
       readOnly: true,
     }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
     defineField({ name: "hero", title: "Hero", type: "pageHero" }),
   ],
 });

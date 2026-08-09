@@ -15,6 +15,7 @@ export default defineType({
       initialValue: "Story Page",
       readOnly: true,
     }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
     defineField({ name: "hero", title: "Hero", type: "pageHero" }),
     defineField({ name: "media", title: "Media", type: "storyMedia" }),
     defineField({

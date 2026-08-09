@@ -15,6 +15,7 @@ export default defineType({
       initialValue: "Services Page",
       readOnly: true,
     }),
+    defineField({ name: "seo", title: "SEO", type: "seo" }),
     defineField({ name: "hero", title: "Hero", type: "pageHero" }),
   ],
 });
