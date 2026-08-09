@@ -4,6 +4,9 @@ import localeString from "./objects/localeString";
 import localeText from "./objects/localeText";
 import link from "./objects/link";
 import hero from "./objects/hero";
+import pageHero from "./objects/pageHero";
+import proseHead from "./objects/proseHead";
+import proseBody from "./objects/proseBody";
 import frameworkStep from "./objects/frameworkStep";
 import framework from "./objects/framework";
 import proofItem from "./objects/proofItem";
@@ -34,6 +37,10 @@ import legalBlockList from "./objects/legalBlockList";
 import legalBlockTable from "./objects/legalBlockTable";
 import siteSettings from "./siteSettings";
 import homePage from "./homePage";
+import workPage from "./workPage";
+import servicesPage from "./servicesPage";
+import storyPage from "./storyPage";
+import legalPage from "./legalPage";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -41,6 +48,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     localeText,
     link,
     hero,
+    pageHero,
+    proseHead,
+    proseBody,
     frameworkStep,
     framework,
     proofItem,
@@ -71,5 +81,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     legalBlockTable,
     siteSettings,
     homePage,
+    workPage,
+    servicesPage,
+    storyPage,
+    legalPage,
   ],
 };

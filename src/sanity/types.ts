@@ -13,6 +13,94 @@
  */
 
 // Source: schema.json
+export type LegalPage = {
+  _id: string;
+  _type: "legalPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug: "terms" | "privacy" | "cookies" | "impressum";
+  hero?: PageHero;
+  blocks?: Array<{
+    _key: string;
+  } & LegalBlockDiv | {
+    _key: string;
+  } & LegalBlockHeading | {
+    _key: string;
+  } & LegalBlockSubheading | {
+    _key: string;
+  } & LegalBlockBold | {
+    _key: string;
+  } & LegalBlockField | {
+    _key: string;
+  } & LegalBlockList | {
+    _key: string;
+  } & LegalBlockTable>;
+};
+
+export type PageHero = {
+  _type: "pageHero";
+  eyebrow?: LocaleString;
+  title?: LocaleString;
+  intro?: LocaleText;
+};
+
+export type StoryPage = {
+  _id: string;
+  _type: "storyPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  hero?: PageHero;
+  media?: StoryMedia;
+  prose?: Array<{
+    _key: string;
+  } & ProseHead | {
+    _key: string;
+  } & ProseBody>;
+};
+
+export type StoryMedia = {
+  _type: "storyMedia";
+  type: "image" | "youtube";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  youtubeId?: string;
+  caption?: LocaleText;
+};
+
+export type ServicesPage = {
+  _id: string;
+  _type: "servicesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  hero?: PageHero;
+};
+
+export type WorkPage = {
+  _id: string;
+  _type: "workPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  hero?: PageHero;
+};
+
 export type HomePage = {
   _id: string;
   _type: "homePage";
@@ -268,26 +356,6 @@ export type Testimonial = {
   order?: number;
 };
 
-export type StoryMedia = {
-  _type: "storyMedia";
-  type: "image" | "youtube";
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  youtubeId?: string;
-  caption?: LocaleText;
-};
-
 export type Link = {
   _type: "link";
   label?: LocaleString;
@@ -381,6 +449,16 @@ export type FrameworkStep = {
   id: "decide" | "setup" | "ship";
   label?: LocaleString;
   description?: LocaleText;
+};
+
+export type ProseBody = {
+  _type: "proseBody";
+  text?: LocaleText;
+};
+
+export type ProseHead = {
+  _type: "proseHead";
+  text?: LocaleString;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -485,7 +563,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = HomePage | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LocaleString | LegalBlockBold | LocaleText | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | MediaItem | Testimonial | StoryMedia | Link | SanityImageCrop | SanityImageHotspot | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | Service | ProofItem | FrameworkStep | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = LegalPage | PageHero | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LocaleString | LegalBlockBold | LocaleText | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | MediaItem | Testimonial | Link | SanityImageCrop | SanityImageHotspot | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | Service | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_HERO_QUERY
