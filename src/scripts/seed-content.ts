@@ -3,14 +3,15 @@
  *
  * content/en.ts + content/tr.ts'teki HomePage/SiteSettings verisini,
  * content/work.ts + services.ts + story.ts'teki WorkPage/ServicesPage/
- * StoryPage verisini, content/legal/*.ts'teki 4 LegalPage dokümanını
- * okuyup Sanity'deki karşılık gelen dokümanlara createOrReplace ile
- * yazar. familiar/caseStudies/process/faq/closingCta.quote,
- * siteSettings.nav/footer/defaultOgImage hâlâ atlanır, çünkü bunların
- * Sanity şeması henüz yok.
+ * StoryPage verisini, content/legal/*.ts'teki 4 LegalPage dokümanını,
+ * content/en.ts + tr.ts'teki HomePage.caseStudies.items'daki insha/RUUT
+ * verisini okuyup Sanity'deki karşılık gelen dokümanlara createOrReplace
+ * ile yazar. CaseStudiesSection'ın kendisi (heading/intro/linkLabel)
+ * hâlâ atlanır — o ayrı bir şema, henüz yok.
  *
- * Görsel alanları (proofItem.logo, story.media.image) bilerek boş
- * bırakılır — Studio'dan elle yüklenecek.
+ * Görsel alanları (proofItem.logo, story.media.image, caseStudy.
+ * coverImage/screens/logo) bilerek boş bırakılır — Studio'dan elle
+ * yüklenecek.
  *
  * Çalıştırma:
  *   SANITY_API_WRITE_TOKEN=... npm run seed
@@ -27,7 +28,7 @@ import { en as enTerms, tr as trTerms } from "../content/legal/terms";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
 import { en as enImpressum, tr as trImpressum } from "../content/legal/impressum";
-import type { LegalBlock, LegalPage } from "../types/content";
+import type { LegalBlock, LegalPage, CaseStudy } from "../types/content";
 import { apiVersion, dataset, projectId } from "../sanity/env";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
@@ -70,10 +71,10 @@ async function existingId(
   return id ?? fallback;
 }
 
-async function existingLegalId(slug: string, fallback: string) {
+async function existingSlugId(type: "legalPage" | "caseStudy", slug: string, fallback: string) {
   const id = await client.fetch<string | null>(
-    `*[_type == "legalPage" && slug == $slug][0]._id`,
-    { slug },
+    `*[_type == $type && slug == $slug][0]._id`,
+    { type, slug },
   );
   return id ?? fallback;
 }
@@ -144,6 +145,36 @@ function toLegalPageDoc(id: string, slug: string, en: LegalPage, tr: LegalPage) 
   };
 }
 
+function toCaseStudyDoc(id: string, en: CaseStudy, tr: CaseStudy) {
+  return {
+    _id: id,
+    _type: "caseStudy",
+    slug: en.slug,
+    name: ls(en.name, tr.name),
+    ...(en.location ? { location: ls(en.location, tr.location ?? "") } : {}),
+    subtitle: ls(en.subtitle, tr.subtitle),
+    body: lt(en.body, tr.body),
+    // coverImage bilerek atlandı — Studio'dan elle yüklenecek.
+    problemHeading: ls(en.problemHeading, tr.problemHeading),
+    problem: lt(en.problem, tr.problem),
+    actionsHeading: ls(en.actionsHeading, tr.actionsHeading),
+    actions: en.actions.map((action, i) => ({
+      _key: key(),
+      _type: "caseStudyAction" as const,
+      label: ls(action.label, tr.actions[i].label),
+      description: lt(action.description, tr.actions[i].description),
+    })),
+    deliveredHeading: ls(en.deliveredHeading, tr.deliveredHeading),
+    delivered: lt(en.delivered, tr.delivered),
+    tags: { en: en.tags, tr: tr.tags },
+    // screens bilerek atlandı — Studio'dan elle yüklenecek.
+    detailEyebrow: ls(en.detailEyebrow, tr.detailEyebrow),
+    detailIntro: lt(en.detailIntro, tr.detailIntro),
+    // logo bilerek atlandı — Studio'dan elle yüklenecek.
+    order: en.order,
+  };
+}
+
 async function main() {
   const [
     homePageId,
@@ -155,16 +186,20 @@ async function main() {
     privacyId,
     cookiesId,
     impressumId,
+    inshaId,
+    ruutId,
   ] = await Promise.all([
     existingId("homePage", "homePage"),
     existingId("siteSettings", "siteSettings"),
     existingId("workPage", "workPage"),
     existingId("servicesPage", "servicesPage"),
     existingId("storyPage", "storyPage"),
-    existingLegalId("terms", "legalPage-terms"),
-    existingLegalId("privacy", "legalPage-privacy"),
-    existingLegalId("cookies", "legalPage-cookies"),
-    existingLegalId("impressum", "legalPage-impressum"),
+    existingSlugId("legalPage", "terms", "legalPage-terms"),
+    existingSlugId("legalPage", "privacy", "legalPage-privacy"),
+    existingSlugId("legalPage", "cookies", "legalPage-cookies"),
+    existingSlugId("legalPage", "impressum", "legalPage-impressum"),
+    existingSlugId("caseStudy", "insha", "caseStudy-insha"),
+    existingSlugId("caseStudy", "ruut", "caseStudy-ruut"),
   ]);
 
   const homePageDoc = {
@@ -428,6 +463,16 @@ async function main() {
   const cookiesDoc = toLegalPageDoc(cookiesId, "cookies", enCookies, trCookies);
   const impressumDoc = toLegalPageDoc(impressumId, "impressum", enImpressum, trImpressum);
 
+  const enInsha = enHome.caseStudies.items.find((item) => item.slug === "insha");
+  const trInsha = trHome.caseStudies.items.find((item) => item.slug === "insha");
+  const enRuut = enHome.caseStudies.items.find((item) => item.slug === "ruut");
+  const trRuut = trHome.caseStudies.items.find((item) => item.slug === "ruut");
+  if (!enInsha || !trInsha || !enRuut || !trRuut) {
+    throw new Error("content/en.ts or content/tr.ts is missing the insha/ruut case study.");
+  }
+  const inshaDoc = toCaseStudyDoc(inshaId, enInsha, trInsha);
+  const ruutDoc = toCaseStudyDoc(ruutId, enRuut, trRuut);
+
   const results = await Promise.all([
     client.createOrReplace(homePageDoc),
     client.createOrReplace(siteSettingsDoc),
@@ -438,6 +483,8 @@ async function main() {
     client.createOrReplace(privacyDoc),
     client.createOrReplace(cookiesDoc),
     client.createOrReplace(impressumDoc),
+    client.createOrReplace(inshaDoc),
+    client.createOrReplace(ruutDoc),
   ]);
 
   for (const result of results) {

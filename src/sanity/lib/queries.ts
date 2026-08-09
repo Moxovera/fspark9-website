@@ -22,6 +22,7 @@ import type {
   StoryPage,
   LegalPage,
   LegalBlock,
+  CaseStudy,
 } from "@/types/content";
 import type {
   HOME_HERO_QUERYResult,
@@ -40,6 +41,8 @@ import type {
   SERVICES_PAGE_QUERYResult,
   STORY_PAGE_QUERYResult,
   LEGAL_PAGE_QUERYResult,
+  CASE_STUDIES_LIST_QUERYResult,
+  CASE_STUDY_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -626,4 +629,141 @@ export function toLegalPage(result: LEGAL_PAGE_QUERYResult): LegalPage {
       })
       .filter((block): block is LegalBlock => block !== null),
   };
+}
+
+// content.ts: CaseStudy — /work index (kart özeti) ve /work/[slug]
+// (detay) AYNI dokümanı okuyor, bu yüzden liste ve detay sorgusu aynı
+// tam projeksiyonu paylaşıyor (kart sadece bir alt kümesini kullansa
+// da CaseCard'ın prop tipi tam CaseStudy).
+export const CASE_STUDIES_LIST_QUERY = defineQuery(`
+  *[_type == "caseStudy"] | order(order asc) {
+    slug,
+    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
+    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),
+    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),
+    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+    "coverImage": coverImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),
+    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),
+    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),
+    "actions": actions[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)
+    },
+    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),
+    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),
+    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),
+    "screens": screens[]{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),
+    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),
+    "logo": logo{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    order
+  }
+`);
+
+export const CASE_STUDY_QUERY = defineQuery(`
+  *[_type == "caseStudy" && slug == $slug][0]{
+    slug,
+    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
+    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),
+    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),
+    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+    "coverImage": coverImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),
+    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),
+    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),
+    "actions": actions[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)
+    },
+    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),
+    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),
+    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),
+    "screens": screens[]{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),
+    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),
+    "logo": logo{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    order
+  }
+`);
+
+export const CASE_STUDY_SLUGS_QUERY = defineQuery(`
+  *[_type == "caseStudy"].slug
+`);
+
+// CASE_STUDIES_LIST_QUERYResult'ın eleman tipiyle CASE_STUDY_QUERYResult
+// (null çıkarılmış) birebir aynı şekli paylaşıyor — liste ve detay aynı
+// projeksiyonu kullandığı için (bkz. CASE_STUDY_QUERY yorumu).
+type CaseStudyItemLike = CASE_STUDIES_LIST_QUERYResult[number];
+
+function toCaseStudy(item: CaseStudyItemLike): CaseStudy {
+  return {
+    slug: item.slug,
+    name: item.name ?? "",
+    location: item.location ?? undefined,
+    subtitle: item.subtitle ?? "",
+    body: item.body ?? "",
+    coverImage: toSanityImage(item.coverImage) ?? { url: "", alt: "", width: 0, height: 0 },
+    problemHeading: item.problemHeading ?? "",
+    problem: item.problem ?? "",
+    actionsHeading: item.actionsHeading ?? "",
+    actions: (item.actions ?? []).map((action) => ({
+      label: action.label ?? "",
+      description: action.description ?? "",
+    })),
+    deliveredHeading: item.deliveredHeading ?? "",
+    delivered: item.delivered ?? "",
+    tags: item.tags ?? [],
+    screens: (item.screens ?? [])
+      .map((screen) => toSanityImage(screen))
+      .filter((screen): screen is NonNullable<typeof screen> => screen !== undefined),
+    detailEyebrow: item.detailEyebrow ?? "",
+    detailIntro: item.detailIntro ?? "",
+    logo: toSanityImage(item.logo),
+    order: item.order ?? 0,
+  };
+}
+
+export function toCaseStudies(result: CASE_STUDIES_LIST_QUERYResult): CaseStudy[] {
+  return result.map(toCaseStudy);
+}
+
+export function toCaseStudyDetail(result: CASE_STUDY_QUERYResult): CaseStudy | null {
+  return result ? toCaseStudy(result) : null;
 }

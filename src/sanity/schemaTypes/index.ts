@@ -13,6 +13,7 @@ import proofItem from "./objects/proofItem";
 import proofStrip from "./objects/proofStrip";
 import service from "./objects/service";
 import servicesSection from "./objects/servicesSection";
+import caseStudyAction from "./objects/caseStudyAction";
 import comparisonValue from "./objects/comparisonValue";
 import comparisonRow from "./objects/comparisonRow";
 import comparisonTable from "./objects/comparisonTable";
@@ -41,6 +42,7 @@ import workPage from "./workPage";
 import servicesPage from "./servicesPage";
 import storyPage from "./storyPage";
 import legalPage from "./legalPage";
+import caseStudy from "./caseStudy";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -57,6 +59,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     proofStrip,
     service,
     servicesSection,
+    caseStudyAction,
     comparisonValue,
     comparisonRow,
     comparisonTable,
@@ -85,5 +88,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicesPage,
     storyPage,
     legalPage,
+    caseStudy,
   ],
 };

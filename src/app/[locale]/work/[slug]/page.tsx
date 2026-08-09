@@ -2,13 +2,22 @@ import { notFound } from "next/navigation";
 import SubpageHero from "@/components/subpages/SubpageHero";
 import CaseDetail from "@/components/subpages/CaseDetail";
 import SubpageClosingCta from "@/components/subpages/SubpageClosingCta";
-import { en as enHome, siteSettings as enSettings } from "@/content/en";
-import { tr as trHome, siteSettings as trSettings } from "@/content/tr";
+import { siteSettings as enSettings } from "@/content/en";
+import { siteSettings as trSettings } from "@/content/tr";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import {
+  CASE_STUDY_SLUGS_QUERY,
+  CASE_STUDY_QUERY,
+  toCaseStudyDetail,
+} from "@/sanity/lib/queries";
+import type { CASE_STUDY_SLUGS_QUERYResult, CASE_STUDY_QUERYResult } from "@/sanity/types";
 
-const SLUGS = ["insha", "ruut"];
-
-export function generateStaticParams() {
-  return SLUGS.map((slug) => ({ slug }));
+export async function generateStaticParams() {
+  const slugs = await sanityFetch<CASE_STUDY_SLUGS_QUERYResult>({
+    query: CASE_STUDY_SLUGS_QUERY,
+    tags: ["caseStudy"],
+  });
+  return slugs.map((slug) => ({ slug }));
 }
 
 /**
@@ -24,9 +33,14 @@ export default async function CaseDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const home = locale === "tr" ? trHome : enHome;
   const settings = locale === "tr" ? trSettings : enSettings;
-  const item = home.caseStudies.items.find((c) => c.slug === slug);
+
+  const result = await sanityFetch<CASE_STUDY_QUERYResult>({
+    query: CASE_STUDY_QUERY,
+    params: { locale, slug },
+    tags: [`caseStudy:${slug}`],
+  });
+  const item = toCaseStudyDetail(result);
 
   if (!item) {
     notFound();

@@ -13,6 +13,102 @@
  */
 
 // Source: schema.json
+export type CaseStudy = {
+  _id: string;
+  _type: "caseStudy";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug: string;
+  name?: LocaleString;
+  location?: LocaleString;
+  subtitle?: LocaleString;
+  body?: LocaleText;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  problemHeading?: LocaleString;
+  problem?: LocaleText;
+  actionsHeading?: LocaleString;
+  actions?: Array<{
+    _key: string;
+  } & CaseStudyAction>;
+  deliveredHeading?: LocaleString;
+  delivered?: LocaleText;
+  tags?: {
+    en?: Array<string>;
+    tr?: Array<string>;
+  };
+  screens?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  detailEyebrow?: LocaleString;
+  detailIntro?: LocaleText;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  order?: number;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
+export type LocaleText = {
+  _type: "localeText";
+  en?: string;
+  tr?: string;
+};
+
+export type LocaleString = {
+  _type: "localeString";
+  en?: string;
+  tr?: string;
+};
+
 export type LegalPage = {
   _id: string;
   _type: "legalPage";
@@ -304,21 +400,9 @@ export type LegalBlockField = {
   };
 };
 
-export type LocaleString = {
-  _type: "localeString";
-  en?: string;
-  tr?: string;
-};
-
 export type LegalBlockBold = {
   _type: "legalBlockBold";
   text?: LocaleText;
-};
-
-export type LocaleText = {
-  _type: "localeText";
-  en?: string;
-  tr?: string;
 };
 
 export type LegalBlockSubheading = {
@@ -363,22 +447,6 @@ export type Link = {
   external?: boolean;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
 export type AudienceCard = {
   _type: "audienceCard";
   title?: LocaleString;
@@ -407,6 +475,12 @@ export type ComparisonValue = {
   _type: "comparisonValue";
   state: "yes" | "no" | "partial";
   note?: LocaleString;
+};
+
+export type CaseStudyAction = {
+  _type: "caseStudyAction";
+  label?: LocaleString;
+  description?: LocaleText;
 };
 
 export type Service = {
@@ -563,7 +637,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = LegalPage | PageHero | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LocaleString | LegalBlockBold | LocaleText | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | MediaItem | Testimonial | Link | SanityImageCrop | SanityImageHotspot | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | Service | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = CaseStudy | SanityImageCrop | SanityImageHotspot | LocaleText | LocaleString | LegalPage | PageHero | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_HERO_QUERY
@@ -880,6 +954,95 @@ export type LEGAL_PAGE_QUERYResult = {
     }> | null;
   }> | null;
 } | null;
+// Variable: CASE_STUDIES_LIST_QUERY
+// Query: *[_type == "caseStudy"] | order(order asc) {    slug,    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "coverImage": coverImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),    "actions": actions[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    },    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),    "screens": screens[]{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),    "logo": logo{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    order  }
+export type CASE_STUDIES_LIST_QUERYResult = Array<{
+  slug: string;
+  name: string | null;
+  location: string | null;
+  subtitle: string | null;
+  body: string | null;
+  coverImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  problemHeading: string | null;
+  problem: string | null;
+  actionsHeading: string | null;
+  actions: Array<{
+    label: string | null;
+    description: string | null;
+  }> | null;
+  deliveredHeading: string | null;
+  delivered: string | null;
+  tags: Array<string> | null;
+  screens: Array<{
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  }> | null;
+  detailEyebrow: string | null;
+  detailIntro: string | null;
+  logo: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  order: number | null;
+}>;
+// Variable: CASE_STUDY_QUERY
+// Query: *[_type == "caseStudy" && slug == $slug][0]{    slug,    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "coverImage": coverImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),    "actions": actions[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    },    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),    "screens": screens[]{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),    "logo": logo{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    order  }
+export type CASE_STUDY_QUERYResult = {
+  slug: string;
+  name: string | null;
+  location: string | null;
+  subtitle: string | null;
+  body: string | null;
+  coverImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  problemHeading: string | null;
+  problem: string | null;
+  actionsHeading: string | null;
+  actions: Array<{
+    label: string | null;
+    description: string | null;
+  }> | null;
+  deliveredHeading: string | null;
+  delivered: string | null;
+  tags: Array<string> | null;
+  screens: Array<{
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  }> | null;
+  detailEyebrow: string | null;
+  detailIntro: string | null;
+  logo: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  order: number | null;
+} | null;
+// Variable: CASE_STUDY_SLUGS_QUERY
+// Query: *[_type == "caseStudy"].slug
+export type CASE_STUDY_SLUGS_QUERYResult = Array<string>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -901,5 +1064,8 @@ declare module "@sanity/client" {
     "\n  *[_type == \"servicesPage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n  }\n": SERVICES_PAGE_QUERYResult;
     "\n  *[_type == \"storyPage\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"media\": media{\n      type,\n      \"image\": image{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      youtubeId,\n      \"caption\": select($locale == \"tr\" => coalesce(caption.tr, caption.en), caption.en)\n    },\n    \"prose\": prose[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en)\n    }\n  }\n": STORY_PAGE_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
+    "\n  *[_type == \"caseStudy\"] | order(order asc) {\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDIES_LIST_QUERYResult;
+    "\n  *[_type == \"caseStudy\" && slug == $slug][0]{\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDY_QUERYResult;
+    "\n  *[_type == \"caseStudy\"].slug\n": CASE_STUDY_SLUGS_QUERYResult;
   }
 }

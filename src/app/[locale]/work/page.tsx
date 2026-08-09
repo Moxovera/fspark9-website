@@ -4,16 +4,21 @@ import CaseCard from "@/components/sections/CaseCard";
 import { en as enHome, siteSettings as enSettings } from "@/content/en";
 import { tr as trHome, siteSettings as trSettings } from "@/content/tr";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { WORK_PAGE_QUERY, toWorkPage } from "@/sanity/lib/queries";
-import type { WORK_PAGE_QUERYResult } from "@/sanity/types";
+import {
+  WORK_PAGE_QUERY,
+  toWorkPage,
+  CASE_STUDIES_LIST_QUERY,
+  toCaseStudies,
+} from "@/sanity/lib/queries";
+import type { WORK_PAGE_QUERYResult, CASE_STUDIES_LIST_QUERYResult } from "@/sanity/types";
 
 /**
  * dc.html: page.hasCaseIndex (satır 796-820). Kendi heading/intro'su
- * yok — SubpageHero yeterli. Kartlar Home'daki HomePage.caseStudies'ten
- * (aynı CaseStudy[] + linkLabel), CaseCard'ı rounded=true ile çağırıyor
- * (bkz. CaseCard.tsx — Home'un köşeli kartından tek farkı bu). Vaka
- * analizlerinin kendisi henüz Sanity'de yok (bkz. seed-content.ts notu),
- * bu yüzden sadece hero Sanity'den geliyor.
+ * yok — SubpageHero yeterli. Kartlar artık caseStudy koleksiyonundan
+ * geliyor, CaseCard'ı rounded=true ile çağırıyor (bkz. CaseCard.tsx —
+ * Home'un köşeli kartından tek farkı bu). linkLabel hâlâ
+ * HomePage.caseStudies'ten (CaseStudiesSection alanı, CaseStudy
+ * dokümanının parçası değil — Sanity şeması henüz yok).
  */
 export default async function WorkPage({
   params,
@@ -23,14 +28,22 @@ export default async function WorkPage({
   const { locale } = await params;
   const home = locale === "tr" ? trHome : enHome;
   const settings = locale === "tr" ? trSettings : enSettings;
-  const { items, linkLabel } = home.caseStudies;
+  const { linkLabel } = home.caseStudies;
 
-  const heroResult = await sanityFetch<WORK_PAGE_QUERYResult>({
-    query: WORK_PAGE_QUERY,
-    params: { locale },
-    tags: ["workPage"],
-  });
+  const [heroResult, caseStudiesResult] = await Promise.all([
+    sanityFetch<WORK_PAGE_QUERYResult>({
+      query: WORK_PAGE_QUERY,
+      params: { locale },
+      tags: ["workPage"],
+    }),
+    sanityFetch<CASE_STUDIES_LIST_QUERYResult>({
+      query: CASE_STUDIES_LIST_QUERY,
+      params: { locale },
+      tags: ["caseStudy"],
+    }),
+  ]);
   const page = toWorkPage(heroResult);
+  const items = toCaseStudies(caseStudiesResult);
 
   return (
     <main>
