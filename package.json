@@ -9,7 +9,8 @@
     "lint": "eslint",
     "sanity:schema": "sanity schema extract --enforce-required-fields",
     "sanity:typegen": "sanity typegen generate",
-    "typegen": "npm run sanity:schema && npm run sanity:typegen"
+    "typegen": "npm run sanity:schema && npm run sanity:typegen",
+    "seed": "tsx --env-file=.env.local src/scripts/seed-content.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -31,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.22",
     "tailwindcss": "^4",
+    "tsx": "^4.23.11",
     "typescript": "^5"
   }
 }
