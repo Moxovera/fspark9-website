@@ -16,7 +16,11 @@ const nextConfig: NextConfig = {
     // içerebilir). Bizim SVG'lerimiz (public/assets/*.svg) kendi
     // yazdığımız statik dosyalar, script içermiyor; yine de Next.js'in
     // önerdiği CSP ile optimizer'dan servis edilirken script çalışmasını
-    // ayrıca engelliyoruz.
+    // ayrıca engelliyoruz. Aynı izin Sanity'nin CDN'inden gelen görseller
+    // (logo, case study kapak/screens, proof item logo vb.) için de
+    // geçerli — onlar da kullanıcı girdisi değil, Studio'dan yüklenen
+    // asset'ler.
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/**" }],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },

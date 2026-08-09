@@ -418,6 +418,19 @@ export type SiteSettings = {
   _rev: string;
   title?: string;
   seo?: Seo;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   nav?: Array<{
     _key: string;
   } & Link>;
@@ -1324,6 +1337,15 @@ export type SITE_FOOTER_QUERYResult = {
   legal: string | null;
   copyright: string | null;
 } | null;
+// Variable: SITE_LOGO_QUERY
+// Query: *[_type == "siteSettings"][0].logo{    "url": asset->url,    "alt": coalesce(alt, ""),    "width": asset->metadata.dimensions.width,    "height": asset->metadata.dimensions.height,    "lqip": asset->metadata.lqip  }
+export type SITE_LOGO_QUERYResult = {
+  url: string | null;
+  alt: string | "";
+  width: number | null;
+  height: number | null;
+  lqip: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1361,5 +1383,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].nav[]{\n    \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n    href,\n    external\n  }\n": SITE_NAV_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
   }
 }

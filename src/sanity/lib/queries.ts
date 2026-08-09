@@ -63,6 +63,7 @@ import type {
   LEGAL_PAGE_SEO_QUERYResult,
   SITE_NAV_QUERYResult,
   SITE_FOOTER_QUERYResult,
+  SITE_LOGO_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -1087,4 +1088,18 @@ export function toFooter(result: SITE_FOOTER_QUERYResult): SiteSettings["footer"
     legal: result?.legal ?? "",
     copyright: result?.copyright ?? "",
   };
+}
+
+export const SITE_LOGO_QUERY = defineQuery(`
+  *[_type == "siteSettings"][0].logo{
+    "url": asset->url,
+    "alt": coalesce(alt, ""),
+    "width": asset->metadata.dimensions.width,
+    "height": asset->metadata.dimensions.height,
+    "lqip": asset->metadata.lqip
+  }
+`);
+
+export function toSiteLogo(result: SITE_LOGO_QUERYResult): SanityImage | undefined {
+  return toSanityImage(result);
 }

@@ -133,6 +133,7 @@ export interface SiteSettings {
   backLabel: string      // dc.html: t.nav.back ("Back"/"Geri") — tüm alt sayfa hero'larındaki "geri" pill'i
   ctaLabel: string
   ctaHref: string
+  logo?: SanityImage      // header/footer lockup — Sanity'de var, boşsa bileşen /assets/lockup-reversed.svg'ye düşer
   booking: BookingSection
   subpageCta: SubpageCta
   footer: {

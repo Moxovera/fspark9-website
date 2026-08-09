@@ -194,6 +194,7 @@ async function main() {
     impressumId,
     inshaId,
     ruutId,
+    existingLogo,
   ] = await Promise.all([
     existingId("homePage", "homePage"),
     existingId("siteSettings", "siteSettings"),
@@ -206,6 +207,11 @@ async function main() {
     existingSlugId("legalPage", "impressum", "legalPage-impressum"),
     existingSlugId("caseStudy", "insha", "caseStudy-insha"),
     existingSlugId("caseStudy", "ruut", "caseStudy-ruut"),
+    // siteSettings.logo bu script tarafından yazılmıyor (upload-logo.ts
+    // ayrı yönetiyor, bkz. o dosya) — createOrReplace tüm dokümanı
+    // değiştirdiği için, var olan logo burada geri eklenmezse her
+    // reseed'de silinir.
+    client.fetch<object | null>(`*[_type == "siteSettings"][0].logo`),
   ]);
 
   const homePageDoc = {
@@ -475,7 +481,11 @@ async function main() {
     _id: siteSettingsId,
     _type: "siteSettings",
     title: "Site Settings",
-    nav: enSiteSettings.nav.map((item, i) => toLink(item, trSiteSettings.nav[i])),
+    ...(existingLogo ? { logo: existingLogo } : {}),
+    nav: enSiteSettings.nav.map((item, i) => ({
+      _key: key(),
+      ...toLink(item, trSiteSettings.nav[i]),
+    })),
     booking: {
       _type: "bookingSection",
       calLink: enSiteSettings.booking.calLink,
@@ -498,12 +508,14 @@ async function main() {
       signature: ls(enSiteSettings.footer.signature, trSiteSettings.footer.signature),
       email: enSiteSettings.footer.email,
       linkedin: enSiteSettings.footer.linkedin,
-      nav: enSiteSettings.footer.nav.map((item, i) =>
-        toLink(item, trSiteSettings.footer.nav[i]),
-      ),
-      legalLinks: enSiteSettings.footer.legalLinks.map((item, i) =>
-        toLink(item, trSiteSettings.footer.legalLinks[i]),
-      ),
+      nav: enSiteSettings.footer.nav.map((item, i) => ({
+        _key: key(),
+        ...toLink(item, trSiteSettings.footer.nav[i]),
+      })),
+      legalLinks: enSiteSettings.footer.legalLinks.map((item, i) => ({
+        _key: key(),
+        ...toLink(item, trSiteSettings.footer.legalLinks[i]),
+      })),
       legal: ls(enSiteSettings.footer.legal, trSiteSettings.footer.legal),
       copyright: ls(enSiteSettings.footer.copyright, trSiteSettings.footer.copyright),
     },

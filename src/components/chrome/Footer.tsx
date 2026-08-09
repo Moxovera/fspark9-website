@@ -21,7 +21,7 @@ type LinkHref = ComponentProps<typeof Link>["href"];
  * kullanıcı daha aşağı kaydıramadığı için görünmez oluyordu.
  */
 export default function Footer({ settings, locale }: FooterProps) {
-  const { footer } = settings;
+  const { footer, logo } = settings;
   const { tagline, nine, signature, email, linkedin, nav, legalLinks, legal, copyright } =
     footer;
 
@@ -31,10 +31,10 @@ export default function Footer({ settings, locale }: FooterProps) {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-11 pb-[52px]">
           <div>
             <Image
-              src="/assets/lockup-reversed.svg"
-              alt="fspark9"
-              width={166}
-              height={47}
+              src={logo?.url || "/assets/lockup-reversed.svg"}
+              alt={logo?.alt || "fspark9"}
+              width={logo?.width || 166}
+              height={logo?.height || 47}
               className="mb-[18px] h-auto w-[166px]"
             />
             <p className="mb-[22px] text-[14.5px] text-ivory/60">{tagline}</p>

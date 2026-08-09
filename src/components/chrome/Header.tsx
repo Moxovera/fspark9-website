@@ -32,17 +32,17 @@ type LinkHref = ComponentProps<typeof Link>["href"];
  * ilgilendiriyor — o ayrı, bu turun kapsamı dışında (bkz. DURUM.md).
  */
 export default function Header({ settings, locale }: HeaderProps) {
-  const { nav, ctaLabel } = settings;
+  const { nav, ctaLabel, logo } = settings;
 
   return (
     <HeaderFrame>
       <div className="mx-auto flex h-[90px] max-w-[1280px] items-center justify-between gap-[26px] px-7">
         <Link href="/" className="flex shrink-0 items-center">
           <Image
-            src="/assets/lockup-reversed.svg"
-            alt="fspark9"
-            width={152}
-            height={43}
+            src={logo?.url || "/assets/lockup-reversed.svg"}
+            alt={logo?.alt || "fspark9"}
+            width={logo?.width || 152}
+            height={logo?.height || 43}
             className="h-auto w-[152px]"
           />
         </Link>

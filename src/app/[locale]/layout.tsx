@@ -16,16 +16,19 @@ import {
   SITE_FOOTER_QUERY,
   SITE_SEO_QUERY,
   SITE_BOOKING_QUERY,
+  SITE_LOGO_QUERY,
   toSiteNav,
   toFooter,
   toSiteSeo,
   toBookingSection,
+  toSiteLogo,
 } from "@/sanity/lib/queries";
 import type {
   SITE_NAV_QUERYResult,
   SITE_FOOTER_QUERYResult,
   SITE_SEO_QUERYResult,
   SITE_BOOKING_QUERYResult,
+  SITE_LOGO_QUERYResult,
 } from "@/sanity/types";
 import "../globals.css";
 
@@ -71,7 +74,7 @@ export default async function LocaleLayout({
 
   const staticSettings = locale === "tr" ? trSiteSettings : enSiteSettings;
 
-  const [navResult, footerResult, bookingResult] = await Promise.all([
+  const [navResult, footerResult, bookingResult, logoResult] = await Promise.all([
     sanityFetch<SITE_NAV_QUERYResult>({
       query: SITE_NAV_QUERY,
       params: { locale },
@@ -87,12 +90,17 @@ export default async function LocaleLayout({
       params: { locale },
       tags: ["siteSettings"],
     }),
+    sanityFetch<SITE_LOGO_QUERYResult>({
+      query: SITE_LOGO_QUERY,
+      tags: ["siteSettings"],
+    }),
   ]);
   const settings = {
     ...staticSettings,
     nav: toSiteNav(navResult),
     footer: toFooter(footerResult),
     booking: toBookingSection(bookingResult),
+    logo: toSiteLogo(logoResult),
   };
 
   return (
