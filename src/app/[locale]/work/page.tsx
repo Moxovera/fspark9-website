@@ -10,14 +10,18 @@ import {
   toWorkPage,
   WORK_PAGE_SEO_QUERY,
   toWorkPageSeo,
+  SITE_SEO_QUERY,
+  toSiteSeo,
   CASE_STUDIES_LIST_QUERY,
   toCaseStudies,
   SITE_SUBPAGE_CTA_QUERY,
   toSubpageCta,
 } from "@/sanity/lib/queries";
+import { toMetadata } from "@/lib/metadata";
 import type {
   WORK_PAGE_QUERYResult,
   WORK_PAGE_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
   CASE_STUDIES_LIST_QUERYResult,
   SITE_SUBPAGE_CTA_QUERYResult,
 } from "@/sanity/types";
@@ -28,21 +32,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const seoResult = await sanityFetch<WORK_PAGE_SEO_QUERYResult>({
-    query: WORK_PAGE_SEO_QUERY,
-    params: { locale },
-    tags: ["workPage"],
-  });
-  const seo = toWorkPageSeo(seoResult);
+  const [seoResult, siteSeoResult] = await Promise.all([
+    sanityFetch<WORK_PAGE_SEO_QUERYResult>({
+      query: WORK_PAGE_SEO_QUERY,
+      params: { locale },
+      tags: ["workPage"],
+    }),
+    sanityFetch<SITE_SEO_QUERYResult>({
+      query: SITE_SEO_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(toWorkPageSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
 /**

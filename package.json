@@ -11,7 +11,8 @@
     "sanity:typegen": "sanity typegen generate",
     "typegen": "npm run sanity:schema && npm run sanity:typegen",
     "seed": "tsx --env-file=.env.local src/scripts/seed-content.ts",
-    "upload-logo": "tsx --env-file=.env.local src/scripts/upload-logo.ts"
+    "upload-logo": "tsx --env-file=.env.local src/scripts/upload-logo.ts",
+    "upload-og-image": "tsx --env-file=.env.local src/scripts/upload-og-image.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

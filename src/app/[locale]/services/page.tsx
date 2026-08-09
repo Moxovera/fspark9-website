@@ -11,12 +11,16 @@ import {
   toServicesPage,
   SERVICES_PAGE_SEO_QUERY,
   toServicesPageSeo,
+  SITE_SEO_QUERY,
+  toSiteSeo,
   SITE_SUBPAGE_CTA_QUERY,
   toSubpageCta,
 } from "@/sanity/lib/queries";
+import { toMetadata } from "@/lib/metadata";
 import type {
   SERVICES_PAGE_QUERYResult,
   SERVICES_PAGE_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
   SITE_SUBPAGE_CTA_QUERYResult,
 } from "@/sanity/types";
 
@@ -26,21 +30,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const seoResult = await sanityFetch<SERVICES_PAGE_SEO_QUERYResult>({
-    query: SERVICES_PAGE_SEO_QUERY,
-    params: { locale },
-    tags: ["servicesPage"],
-  });
-  const seo = toServicesPageSeo(seoResult);
+  const [seoResult, siteSeoResult] = await Promise.all([
+    sanityFetch<SERVICES_PAGE_SEO_QUERYResult>({
+      query: SERVICES_PAGE_SEO_QUERY,
+      params: { locale },
+      tags: ["servicesPage"],
+    }),
+    sanityFetch<SITE_SEO_QUERYResult>({
+      query: SITE_SEO_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(toServicesPageSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
 /**

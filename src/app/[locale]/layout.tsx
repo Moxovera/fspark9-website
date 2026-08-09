@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { playfairDisplay, inter, ibmPlexMono } from "@/lib/fonts";
+import { toMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
@@ -49,14 +50,7 @@ export async function generateMetadata({
   });
   const seo = toSiteSeo(seoResult);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(seo, seo);
 }
 
 export default async function LocaleLayout({

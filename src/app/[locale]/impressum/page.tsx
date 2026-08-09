@@ -9,8 +9,15 @@ import {
   toLegalPage,
   LEGAL_PAGE_SEO_QUERY,
   toLegalPageSeo,
+  SITE_SEO_QUERY,
+  toSiteSeo,
 } from "@/sanity/lib/queries";
-import type { LEGAL_PAGE_QUERYResult, LEGAL_PAGE_SEO_QUERYResult } from "@/sanity/types";
+import { toMetadata } from "@/lib/metadata";
+import type {
+  LEGAL_PAGE_QUERYResult,
+  LEGAL_PAGE_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
+} from "@/sanity/types";
 
 export async function generateMetadata({
   params,
@@ -18,21 +25,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const seoResult = await sanityFetch<LEGAL_PAGE_SEO_QUERYResult>({
-    query: LEGAL_PAGE_SEO_QUERY,
-    params: { locale, slug: "impressum" },
-    tags: ["legalPage:impressum"],
-  });
-  const seo = toLegalPageSeo(seoResult);
+  const [seoResult, siteSeoResult] = await Promise.all([
+    sanityFetch<LEGAL_PAGE_SEO_QUERYResult>({
+      query: LEGAL_PAGE_SEO_QUERY,
+      params: { locale, slug: "impressum" },
+      tags: ["legalPage:impressum"],
+    }),
+    sanityFetch<SITE_SEO_QUERYResult>({
+      query: SITE_SEO_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(toLegalPageSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
 export default async function ImpressumPage({

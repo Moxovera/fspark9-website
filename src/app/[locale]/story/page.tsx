@@ -10,12 +10,16 @@ import {
   toStoryPage,
   STORY_PAGE_SEO_QUERY,
   toStoryPageSeo,
+  SITE_SEO_QUERY,
+  toSiteSeo,
   SITE_SUBPAGE_CTA_QUERY,
   toSubpageCta,
 } from "@/sanity/lib/queries";
+import { toMetadata } from "@/lib/metadata";
 import type {
   STORY_PAGE_QUERYResult,
   STORY_PAGE_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
   SITE_SUBPAGE_CTA_QUERYResult,
 } from "@/sanity/types";
 
@@ -25,21 +29,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const seoResult = await sanityFetch<STORY_PAGE_SEO_QUERYResult>({
-    query: STORY_PAGE_SEO_QUERY,
-    params: { locale },
-    tags: ["storyPage"],
-  });
-  const seo = toStoryPageSeo(seoResult);
+  const [seoResult, siteSeoResult] = await Promise.all([
+    sanityFetch<STORY_PAGE_SEO_QUERYResult>({
+      query: STORY_PAGE_SEO_QUERY,
+      params: { locale },
+      tags: ["storyPage"],
+    }),
+    sanityFetch<SITE_SEO_QUERYResult>({
+      query: SITE_SEO_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(toStoryPageSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
 export default async function StoryPage({

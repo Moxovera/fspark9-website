@@ -35,6 +35,7 @@ import {
   HOME_FAQ_QUERY,
   HOME_CLOSING_CTA_QUERY,
   HOME_SEO_QUERY,
+  SITE_SEO_QUERY,
   toHero,
   toFramework,
   toProofStrip,
@@ -52,7 +53,9 @@ import {
   toFaqSection,
   toClosingCta,
   toHomeSeo,
+  toSiteSeo,
 } from "@/sanity/lib/queries";
+import { toMetadata } from "@/lib/metadata";
 import type {
   HOME_HERO_QUERYResult,
   HOME_FRAMEWORK_QUERYResult,
@@ -71,6 +74,7 @@ import type {
   HOME_FAQ_QUERYResult,
   HOME_CLOSING_CTA_QUERYResult,
   HOME_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
 } from "@/sanity/types";
 
 export async function generateMetadata({
@@ -79,21 +83,20 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const seoResult = await sanityFetch<HOME_SEO_QUERYResult>({
-    query: HOME_SEO_QUERY,
-    params: { locale },
-    tags: ["homePage"],
-  });
-  const seo = toHomeSeo(seoResult);
+  const [seoResult, siteSeoResult] = await Promise.all([
+    sanityFetch<HOME_SEO_QUERYResult>({
+      query: HOME_SEO_QUERY,
+      params: { locale },
+      tags: ["homePage"],
+    }),
+    sanityFetch<SITE_SEO_QUERYResult>({
+      query: SITE_SEO_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
 
-  return {
-    title: seo.title || "fspark9",
-    description: seo.description || "Trust isn't marketed. It's built.",
-    ...(seo.noIndex ? { robots: { index: false } } : {}),
-    ...(seo.ogImage?.url
-      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
-      : {}),
-  };
+  return toMetadata(toHomeSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
 export default async function Home({

@@ -322,6 +322,7 @@ async function main() {
     inshaId,
     ruutId,
     existingLogo,
+    existingSeoOgImage,
   ] = await Promise.all([
     existingId("homePage", "homePage"),
     existingId("siteSettings", "siteSettings"),
@@ -339,6 +340,10 @@ async function main() {
     // değiştirdiği için, var olan logo burada geri eklenmezse her
     // reseed'de silinir.
     client.fetch<object | null>(`*[_type == "siteSettings"][0].logo`),
+    // siteSettings.seo.ogImage de aynı sebeple korunuyor —
+    // upload-og-image.ts ayrı yönetiyor, seo objesi burada toSeo() ile
+    // sıfırdan kuruluyor ve ogImage'ı içermiyor.
+    client.fetch<object | null>(`*[_type == "siteSettings"][0].seo.ogImage`),
   ]);
 
   const homePageDoc = {
@@ -609,7 +614,10 @@ async function main() {
     _id: siteSettingsId,
     _type: "siteSettings",
     title: "Site Settings",
-    seo: toSeo(SEO_COPY.siteSettings),
+    seo: {
+      ...toSeo(SEO_COPY.siteSettings),
+      ...(existingSeoOgImage ? { ogImage: existingSeoOgImage } : {}),
+    },
     ...(existingLogo ? { logo: existingLogo } : {}),
     nav: enSiteSettings.nav.map((item, i) => ({
       _key: key(),
