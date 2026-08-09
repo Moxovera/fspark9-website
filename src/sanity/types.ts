@@ -1240,6 +1240,62 @@ export type SITE_SEO_QUERYResult = {
   } | null;
   noIndex: boolean | null;
 } | null;
+// Variable: WORK_PAGE_SEO_QUERY
+// Query: *[_type == "workPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type WORK_PAGE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: SERVICES_PAGE_SEO_QUERY
+// Query: *[_type == "servicesPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type SERVICES_PAGE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: STORY_PAGE_SEO_QUERY
+// Query: *[_type == "storyPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type STORY_PAGE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: LEGAL_PAGE_SEO_QUERY
+// Query: *[_type == "legalPage" && slug == $slug][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type LEGAL_PAGE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
 // Variable: SITE_NAV_QUERY
 // Query: *[_type == "siteSettings"][0].nav[]{    "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),    href,    external  }
 export type SITE_NAV_QUERYResult = Array<{
@@ -1299,6 +1355,10 @@ declare module "@sanity/client" {
     "\n  *[_type == \"homePage\"][0].closingCta{\n    \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n    \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref,\n    \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en)\n  }\n": HOME_CLOSING_CTA_QUERYResult;
     "\n  *[_type == \"homePage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": HOME_SEO_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
+    "\n  *[_type == \"workPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": WORK_PAGE_SEO_QUERYResult;
+    "\n  *[_type == \"servicesPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SERVICES_PAGE_SEO_QUERYResult;
+    "\n  *[_type == \"storyPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": STORY_PAGE_SEO_QUERYResult;
+    "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].nav[]{\n    \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n    href,\n    external\n  }\n": SITE_NAV_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
   }

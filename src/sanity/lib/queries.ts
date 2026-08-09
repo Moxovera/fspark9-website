@@ -57,6 +57,10 @@ import type {
   HOME_CLOSING_CTA_QUERYResult,
   HOME_SEO_QUERYResult,
   SITE_SEO_QUERYResult,
+  WORK_PAGE_SEO_QUERYResult,
+  SERVICES_PAGE_SEO_QUERYResult,
+  STORY_PAGE_SEO_QUERYResult,
+  LEGAL_PAGE_SEO_QUERYResult,
   SITE_NAV_QUERYResult,
   SITE_FOOTER_QUERYResult,
 } from "@/sanity/types";
@@ -936,7 +940,75 @@ export const SITE_SEO_QUERY = defineQuery(`
   }
 `);
 
-function toPageSeo(result: HOME_SEO_QUERYResult | SITE_SEO_QUERYResult): PageSeo {
+export const WORK_PAGE_SEO_QUERY = defineQuery(`
+  *[_type == "workPage"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export const SERVICES_PAGE_SEO_QUERY = defineQuery(`
+  *[_type == "servicesPage"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export const STORY_PAGE_SEO_QUERY = defineQuery(`
+  *[_type == "storyPage"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export const LEGAL_PAGE_SEO_QUERY = defineQuery(`
+  *[_type == "legalPage" && slug == $slug][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+type PageSeoResult =
+  | HOME_SEO_QUERYResult
+  | SITE_SEO_QUERYResult
+  | WORK_PAGE_SEO_QUERYResult
+  | SERVICES_PAGE_SEO_QUERYResult
+  | STORY_PAGE_SEO_QUERYResult
+  | LEGAL_PAGE_SEO_QUERYResult;
+
+function toPageSeo(result: PageSeoResult): PageSeo {
   return {
     title: result?.title ?? "",
     description: result?.description ?? "",
@@ -950,6 +1022,22 @@ export function toHomeSeo(result: HOME_SEO_QUERYResult): PageSeo {
 }
 
 export function toSiteSeo(result: SITE_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export function toWorkPageSeo(result: WORK_PAGE_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export function toServicesPageSeo(result: SERVICES_PAGE_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export function toStoryPageSeo(result: STORY_PAGE_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export function toLegalPageSeo(result: LEGAL_PAGE_SEO_QUERYResult): PageSeo {
   return toPageSeo(result);
 }
 

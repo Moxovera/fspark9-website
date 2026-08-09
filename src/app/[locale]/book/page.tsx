@@ -3,6 +3,9 @@ import CalEmbed from "@/components/booking/CalEmbed";
 import { en, tr } from "@/content/book";
 import { siteSettings as enSettings } from "@/content/en";
 import { siteSettings as trSettings } from "@/content/tr";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SITE_BOOKING_QUERY, toBookingSection } from "@/sanity/lib/queries";
+import type { SITE_BOOKING_QUERYResult } from "@/sanity/types";
 
 /**
  * dc.html: page.hasBooking (satır 979-1003). Kart çerçevesi (üst bar
@@ -22,6 +25,13 @@ export default async function BookPage({
   const page = locale === "tr" ? tr : en;
   const settings = locale === "tr" ? trSettings : enSettings;
 
+  const bookingResult = await sanityFetch<SITE_BOOKING_QUERYResult>({
+    query: SITE_BOOKING_QUERY,
+    params: { locale },
+    tags: ["siteSettings"],
+  });
+  const booking = toBookingSection(bookingResult);
+
   return (
     <main>
       <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
@@ -35,7 +45,7 @@ export default async function BookPage({
               <p className="font-mono text-xs text-bronze">30 min</p>
             </div>
             <div className="min-h-[600px]">
-              <CalEmbed calLink={settings.booking.calLink} redirectTo="/thank-you" />
+              <CalEmbed calLink={booking.calLink} redirectTo="/thank-you" />
             </div>
           </div>
           <p className="mt-6 text-[15px] text-muted">{page.underCal}</p>

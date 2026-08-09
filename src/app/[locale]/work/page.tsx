@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import SubpageHero from "@/components/subpages/SubpageHero";
 import SubpageClosingCta from "@/components/subpages/SubpageClosingCta";
 import CaseCard from "@/components/sections/CaseCard";
@@ -7,18 +8,51 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   WORK_PAGE_QUERY,
   toWorkPage,
+  WORK_PAGE_SEO_QUERY,
+  toWorkPageSeo,
   CASE_STUDIES_LIST_QUERY,
   toCaseStudies,
+  SITE_SUBPAGE_CTA_QUERY,
+  toSubpageCta,
 } from "@/sanity/lib/queries";
-import type { WORK_PAGE_QUERYResult, CASE_STUDIES_LIST_QUERYResult } from "@/sanity/types";
+import type {
+  WORK_PAGE_QUERYResult,
+  WORK_PAGE_SEO_QUERYResult,
+  CASE_STUDIES_LIST_QUERYResult,
+  SITE_SUBPAGE_CTA_QUERYResult,
+} from "@/sanity/types";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const seoResult = await sanityFetch<WORK_PAGE_SEO_QUERYResult>({
+    query: WORK_PAGE_SEO_QUERY,
+    params: { locale },
+    tags: ["workPage"],
+  });
+  const seo = toWorkPageSeo(seoResult);
+
+  return {
+    title: seo.title || "fspark9",
+    description: seo.description || "Trust isn't marketed. It's built.",
+    ...(seo.noIndex ? { robots: { index: false } } : {}),
+    ...(seo.ogImage?.url
+      ? { openGraph: { images: [{ url: seo.ogImage.url, alt: seo.ogImage.alt }] } }
+      : {}),
+  };
+}
 
 /**
  * dc.html: page.hasCaseIndex (satır 796-820). Kendi heading/intro'su
  * yok — SubpageHero yeterli. Kartlar artık caseStudy koleksiyonundan
  * geliyor, CaseCard'ı rounded=true ile çağırıyor (bkz. CaseCard.tsx —
- * Home'un köşeli kartından tek farkı bu). linkLabel hâlâ
- * HomePage.caseStudies'ten (CaseStudiesSection alanı, CaseStudy
- * dokümanının parçası değil — Sanity şeması henüz yok).
+ * Home'un köşeli kartından tek farkı bu). linkLabel hâlâ content/en.ts
+ * + tr.ts'teki HomePage.caseStudies'ten — Sanity'de bu alan var ve ana
+ * sayfa onu kullanıyor, ama /work henüz kendi sorgusuyla çekmiyor,
+ * ayrı bir senkron adımı.
  */
 export default async function WorkPage({
   params,
@@ -30,7 +64,7 @@ export default async function WorkPage({
   const settings = locale === "tr" ? trSettings : enSettings;
   const { linkLabel } = home.caseStudies;
 
-  const [heroResult, caseStudiesResult] = await Promise.all([
+  const [heroResult, caseStudiesResult, subpageCtaResult] = await Promise.all([
     sanityFetch<WORK_PAGE_QUERYResult>({
       query: WORK_PAGE_QUERY,
       params: { locale },
@@ -41,9 +75,15 @@ export default async function WorkPage({
       params: { locale },
       tags: ["caseStudy"],
     }),
+    sanityFetch<SITE_SUBPAGE_CTA_QUERYResult>({
+      query: SITE_SUBPAGE_CTA_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
   ]);
   const page = toWorkPage(heroResult);
   const items = toCaseStudies(caseStudiesResult);
+  const subpageCta = toSubpageCta(subpageCtaResult);
 
   return (
     <main>
@@ -55,7 +95,7 @@ export default async function WorkPage({
           ))}
         </div>
       </section>
-      <SubpageClosingCta content={settings.subpageCta} />
+      <SubpageClosingCta content={subpageCta} />
     </main>
   );
 }

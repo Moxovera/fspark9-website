@@ -9,8 +9,14 @@ import {
   CASE_STUDY_SLUGS_QUERY,
   CASE_STUDY_QUERY,
   toCaseStudyDetail,
+  SITE_SUBPAGE_CTA_QUERY,
+  toSubpageCta,
 } from "@/sanity/lib/queries";
-import type { CASE_STUDY_SLUGS_QUERYResult, CASE_STUDY_QUERYResult } from "@/sanity/types";
+import type {
+  CASE_STUDY_SLUGS_QUERYResult,
+  CASE_STUDY_QUERYResult,
+  SITE_SUBPAGE_CTA_QUERYResult,
+} from "@/sanity/types";
 
 export async function generateStaticParams() {
   const slugs = await sanityFetch<CASE_STUDY_SLUGS_QUERYResult>({
@@ -35,12 +41,20 @@ export default async function CaseDetailPage({
   const { locale, slug } = await params;
   const settings = locale === "tr" ? trSettings : enSettings;
 
-  const result = await sanityFetch<CASE_STUDY_QUERYResult>({
-    query: CASE_STUDY_QUERY,
-    params: { locale, slug },
-    tags: [`caseStudy:${slug}`],
-  });
+  const [result, subpageCtaResult] = await Promise.all([
+    sanityFetch<CASE_STUDY_QUERYResult>({
+      query: CASE_STUDY_QUERY,
+      params: { locale, slug },
+      tags: [`caseStudy:${slug}`],
+    }),
+    sanityFetch<SITE_SUBPAGE_CTA_QUERYResult>({
+      query: SITE_SUBPAGE_CTA_QUERY,
+      params: { locale },
+      tags: ["siteSettings"],
+    }),
+  ]);
   const item = toCaseStudyDetail(result);
+  const subpageCta = toSubpageCta(subpageCtaResult);
 
   if (!item) {
     notFound();
@@ -54,7 +68,7 @@ export default async function CaseDetailPage({
         backHref="/work"
       />
       <CaseDetail item={item} />
-      <SubpageClosingCta content={settings.subpageCta} />
+      <SubpageClosingCta content={subpageCta} />
     </main>
   );
 }
