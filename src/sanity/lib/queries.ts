@@ -16,6 +16,12 @@ import type {
   SubpageCta,
   Link,
   SanityImage,
+  PageHero,
+  WorkPage,
+  ServicesPage,
+  StoryPage,
+  LegalPage,
+  LegalBlock,
 } from "@/types/content";
 import type {
   HOME_HERO_QUERYResult,
@@ -30,6 +36,10 @@ import type {
   HOME_MEDIA_QUERYResult,
   SITE_BOOKING_QUERYResult,
   SITE_SUBPAGE_CTA_QUERYResult,
+  WORK_PAGE_QUERYResult,
+  SERVICES_PAGE_QUERYResult,
+  STORY_PAGE_QUERYResult,
+  LEGAL_PAGE_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -469,5 +479,151 @@ export function toSubpageCta(result: SITE_SUBPAGE_CTA_QUERYResult): SubpageCta {
     body: result?.body ?? "",
     ctaLabel: result?.ctaLabel ?? "",
     ctaHref: result?.ctaHref ?? "",
+  };
+}
+
+// pageHero object tipi (types/content.ts: PageHero) work/services/story/
+// legal sayfalarının ortak SubpageHero deseni — Home'un çok daha büyük
+// `hero` tipiyle KARIŞTIRILMAMALI.
+type PageHeroLike = {
+  eyebrow: string | null;
+  title: string | null;
+  intro: string | null;
+} | null;
+
+function toPageHero(hero: PageHeroLike): PageHero {
+  return {
+    eyebrow: hero?.eyebrow ?? "",
+    title: hero?.title ?? "",
+    intro: hero?.intro ?? "",
+  };
+}
+
+export const WORK_PAGE_QUERY = defineQuery(`
+  *[_type == "workPage"][0].hero{
+    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+  }
+`);
+
+export function toWorkPage(result: WORK_PAGE_QUERYResult): WorkPage {
+  return { hero: toPageHero(result) };
+}
+
+export const SERVICES_PAGE_QUERY = defineQuery(`
+  *[_type == "servicesPage"][0].hero{
+    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+  }
+`);
+
+export function toServicesPage(result: SERVICES_PAGE_QUERYResult): ServicesPage {
+  return { hero: toPageHero(result) };
+}
+
+export const STORY_PAGE_QUERY = defineQuery(`
+  *[_type == "storyPage"][0]{
+    "hero": hero{
+      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+    },
+    "media": media{
+      type,
+      "image": image{
+        "url": asset->url,
+        "alt": coalesce(alt, ""),
+        "width": asset->metadata.dimensions.width,
+        "height": asset->metadata.dimensions.height,
+        "lqip": asset->metadata.lqip
+      },
+      youtubeId,
+      "caption": select($locale == "tr" => coalesce(caption.tr, caption.en), caption.en)
+    },
+    "prose": prose[]{
+      _type,
+      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en)
+    }
+  }
+`);
+
+export function toStoryPage(result: STORY_PAGE_QUERYResult): StoryPage {
+  return {
+    hero: toPageHero(result?.hero ?? null),
+    media: {
+      type: result?.media?.type ?? "image",
+      image: toSanityImage(result?.media?.image ?? null),
+      youtubeId: result?.media?.youtubeId ?? undefined,
+      caption: result?.media?.caption ?? undefined,
+    },
+    prose: (result?.prose ?? []).map((block) =>
+      block._type === "proseHead"
+        ? { type: "head" as const, text: block.text ?? "" }
+        : { type: "body" as const, text: block.text ?? "" },
+    ),
+  };
+}
+
+export const LEGAL_PAGE_QUERY = defineQuery(`
+  *[_type == "legalPage" && slug == $slug][0]{
+    "hero": hero{
+      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+    },
+    "blocks": blocks[]{
+      _type,
+      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "lines": select($locale == "tr" => coalesce(lines.tr, lines.en), lines.en),
+      "items": select($locale == "tr" => coalesce(items.tr, items.en), items.en),
+      "head": select($locale == "tr" => coalesce(head.tr, head.en), head.en),
+      "rows": select($locale == "tr" => coalesce(rows.tr, rows.en), rows.en)
+    }
+  }
+`);
+
+const LEGAL_BLOCK_TYPE_MAP = {
+  legalBlockDiv: "div",
+  legalBlockHeading: "h",
+  legalBlockSubheading: "sh",
+  legalBlockBold: "b",
+  legalBlockField: "field",
+  legalBlockList: "ul",
+  legalBlockTable: "tbl",
+} as const;
+
+export function toLegalPage(result: LEGAL_PAGE_QUERYResult): LegalPage {
+  return {
+    hero: toPageHero(result?.hero ?? null),
+    blocks: (result?.blocks ?? [])
+      .map((block): LegalBlock | null => {
+        switch (block._type) {
+          case "legalBlockDiv":
+          case "legalBlockHeading":
+          case "legalBlockSubheading":
+          case "legalBlockBold":
+            return { type: LEGAL_BLOCK_TYPE_MAP[block._type], text: block.text ?? "" };
+          case "legalBlockField":
+            return {
+              type: "field",
+              label: block.label ?? undefined,
+              lines: block.lines ?? [],
+            };
+          case "legalBlockList":
+            return { type: "ul", items: block.items ?? [] };
+          case "legalBlockTable":
+            return {
+              type: "tbl",
+              head: block.head ?? [],
+              rows: (block.rows ?? []).map((row) => row.cells ?? []),
+            };
+          default:
+            return null;
+        }
+      })
+      .filter((block): block is LegalBlock => block !== null),
   };
 }

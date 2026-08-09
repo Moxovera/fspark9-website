@@ -1,8 +1,10 @@
 import SubpageHero from "@/components/subpages/SubpageHero";
 import LegalBlocks from "@/components/subpages/LegalBlocks";
-import { en, tr } from "@/content/legal/privacy";
 import { siteSettings as enSettings } from "@/content/en";
 import { siteSettings as trSettings } from "@/content/tr";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { LEGAL_PAGE_QUERY, toLegalPage } from "@/sanity/lib/queries";
+import type { LEGAL_PAGE_QUERYResult } from "@/sanity/types";
 
 export default async function PrivacyPage({
   params,
@@ -10,8 +12,14 @@ export default async function PrivacyPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const page = locale === "tr" ? tr : en;
   const settings = locale === "tr" ? trSettings : enSettings;
+
+  const result = await sanityFetch<LEGAL_PAGE_QUERYResult>({
+    query: LEGAL_PAGE_QUERY,
+    params: { locale, slug: "privacy" },
+    tags: ["legalPage:privacy"],
+  });
+  const page = toLegalPage(result);
 
   return (
     <main>

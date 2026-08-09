@@ -1,12 +1,13 @@
 /**
  * Tek seferlik seed script.
  *
- * content/en.ts + content/tr.ts'teki HomePage/SiteSettings verisini okuyup
- * Sanity'deki homePage ve siteSettings singleton dokümanlarına
- * createOrReplace ile yazar. Sadece şeması var olan alanlar yazılır (bkz.
- * README notu en altta) — familiar/caseStudies/process/faq/closingCta.quote,
- * siteSettings.nav/footer/defaultOgImage, work.ts/services.ts/story.ts/
- * legal/*.ts'nin TAMAMI atlanır, çünkü bunların Sanity şeması henüz yok.
+ * content/en.ts + content/tr.ts'teki HomePage/SiteSettings verisini,
+ * content/work.ts + services.ts + story.ts'teki WorkPage/ServicesPage/
+ * StoryPage verisini, content/legal/*.ts'teki 4 LegalPage dokümanını
+ * okuyup Sanity'deki karşılık gelen dokümanlara createOrReplace ile
+ * yazar. familiar/caseStudies/process/faq/closingCta.quote,
+ * siteSettings.nav/footer/defaultOgImage hâlâ atlanır, çünkü bunların
+ * Sanity şeması henüz yok.
  *
  * Görsel alanları (proofItem.logo, story.media.image) bilerek boş
  * bırakılır — Studio'dan elle yüklenecek.
@@ -19,6 +20,14 @@ import { createClient } from "next-sanity";
 
 import { en as enHome, siteSettings as enSiteSettings } from "../content/en";
 import { tr as trHome, siteSettings as trSiteSettings } from "../content/tr";
+import { en as enWork, tr as trWork } from "../content/work";
+import { en as enServices, tr as trServices } from "../content/services";
+import { en as enStory, tr as trStory } from "../content/story";
+import { en as enTerms, tr as trTerms } from "../content/legal/terms";
+import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
+import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
+import { en as enImpressum, tr as trImpressum } from "../content/legal/impressum";
+import type { LegalBlock, LegalPage } from "../types/content";
 import { apiVersion, dataset, projectId } from "../sanity/env";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
@@ -53,15 +62,109 @@ function toLink(en: { label: string; href: string; external?: boolean }, tr: { l
   };
 }
 
-async function existingId(type: "homePage" | "siteSettings", fallback: string) {
+async function existingId(
+  type: "homePage" | "siteSettings" | "workPage" | "servicesPage" | "storyPage",
+  fallback: string,
+) {
   const id = await client.fetch<string | null>(`*[_type == $type][0]._id`, { type });
   return id ?? fallback;
 }
 
+async function existingLegalId(slug: string, fallback: string) {
+  const id = await client.fetch<string | null>(
+    `*[_type == "legalPage" && slug == $slug][0]._id`,
+    { slug },
+  );
+  return id ?? fallback;
+}
+
+function toPageHero(en: { eyebrow: string; title: string; intro: string }, tr: typeof en) {
+  return {
+    _type: "pageHero" as const,
+    eyebrow: ls(en.eyebrow, tr.eyebrow),
+    title: ls(en.title, tr.title),
+    intro: lt(en.intro, tr.intro),
+  };
+}
+
+// LegalPage.blocks — en/tr aynı sırayı paylaşan iki dizi (impressum.ts'te
+// ikisi de AYNI diziye işaret ediyor, çünkü o belge zaten üç dili tek
+// metinde taşıyor — bkz. o dosyadaki yorum). block tipine göre doğru
+// legalBlock* nesnesine çevrilir.
+function toLegalBlock(en: LegalBlock, tr: LegalBlock) {
+  const _key = key();
+  switch (en.type) {
+    case "div":
+      return { _key, _type: "legalBlockDiv" as const, text: lt(en.text, tr.type === "div" ? tr.text : "") };
+    case "h":
+      return { _key, _type: "legalBlockHeading" as const, text: ls(en.text, tr.type === "h" ? tr.text : "") };
+    case "sh":
+      return {
+        _key,
+        _type: "legalBlockSubheading" as const,
+        text: ls(en.text, tr.type === "sh" ? tr.text : ""),
+      };
+    case "b":
+      return { _key, _type: "legalBlockBold" as const, text: lt(en.text, tr.type === "b" ? tr.text : "") };
+    case "field": {
+      const trField = tr.type === "field" ? tr : { label: undefined, lines: [] as string[] };
+      return {
+        _key,
+        _type: "legalBlockField" as const,
+        ...(en.label ? { label: ls(en.label, trField.label ?? "") } : {}),
+        lines: { en: en.lines, tr: trField.lines },
+      };
+    }
+    case "ul": {
+      const trList = tr.type === "ul" ? tr : { items: [] as string[] };
+      return { _key, _type: "legalBlockList" as const, items: { en: en.items, tr: trList.items } };
+    }
+    case "tbl": {
+      const trTable = tr.type === "tbl" ? tr : { head: [] as string[], rows: [] as string[][] };
+      return {
+        _key,
+        _type: "legalBlockTable" as const,
+        head: { en: en.head, tr: trTable.head },
+        rows: {
+          en: en.rows.map((cells) => ({ _key: key(), _type: "row" as const, cells })),
+          tr: trTable.rows.map((cells) => ({ _key: key(), _type: "row" as const, cells })),
+        },
+      };
+    }
+  }
+}
+
+function toLegalPageDoc(id: string, slug: string, en: LegalPage, tr: LegalPage) {
+  return {
+    _id: id,
+    _type: "legalPage",
+    slug,
+    hero: toPageHero(en.hero, tr.hero),
+    blocks: en.blocks.map((block, i) => toLegalBlock(block, tr.blocks[i])),
+  };
+}
+
 async function main() {
-  const [homePageId, siteSettingsId] = await Promise.all([
+  const [
+    homePageId,
+    siteSettingsId,
+    workPageId,
+    servicesPageId,
+    storyPageId,
+    termsId,
+    privacyId,
+    cookiesId,
+    impressumId,
+  ] = await Promise.all([
     existingId("homePage", "homePage"),
     existingId("siteSettings", "siteSettings"),
+    existingId("workPage", "workPage"),
+    existingId("servicesPage", "servicesPage"),
+    existingId("storyPage", "storyPage"),
+    existingLegalId("terms", "legalPage-terms"),
+    existingLegalId("privacy", "legalPage-privacy"),
+    existingLegalId("cookies", "legalPage-cookies"),
+    existingLegalId("impressum", "legalPage-impressum"),
   ]);
 
   const homePageDoc = {
@@ -284,13 +387,62 @@ async function main() {
     },
   };
 
-  const [homePageResult, siteSettingsResult] = await Promise.all([
+  const workPageDoc = {
+    _id: workPageId,
+    _type: "workPage",
+    title: "Work Page",
+    hero: toPageHero(enWork.hero, trWork.hero),
+  };
+
+  const servicesPageDoc = {
+    _id: servicesPageId,
+    _type: "servicesPage",
+    title: "Services Page",
+    hero: toPageHero(enServices.hero, trServices.hero),
+  };
+
+  const storyPageDoc = {
+    _id: storyPageId,
+    _type: "storyPage",
+    title: "Story Page",
+    hero: toPageHero(enStory.hero, trStory.hero),
+    media: {
+      _type: "storyMedia",
+      type: enStory.media.type,
+      // media.image bilerek atlandı — Studio'dan elle yüklenecek.
+      ...(enStory.media.youtubeId ? { youtubeId: enStory.media.youtubeId } : {}),
+      ...(enStory.media.caption
+        ? { caption: lt(enStory.media.caption, trStory.media.caption ?? "") }
+        : {}),
+    },
+    prose: enStory.prose.map((block, i) => {
+      const trBlock = trStory.prose[i];
+      return block.type === "head"
+        ? { _key: key(), _type: "proseHead" as const, text: ls(block.text, trBlock.text) }
+        : { _key: key(), _type: "proseBody" as const, text: lt(block.text, trBlock.text) };
+    }),
+  };
+
+  const termsDoc = toLegalPageDoc(termsId, "terms", enTerms, trTerms);
+  const privacyDoc = toLegalPageDoc(privacyId, "privacy", enPrivacy, trPrivacy);
+  const cookiesDoc = toLegalPageDoc(cookiesId, "cookies", enCookies, trCookies);
+  const impressumDoc = toLegalPageDoc(impressumId, "impressum", enImpressum, trImpressum);
+
+  const results = await Promise.all([
     client.createOrReplace(homePageDoc),
     client.createOrReplace(siteSettingsDoc),
+    client.createOrReplace(workPageDoc),
+    client.createOrReplace(servicesPageDoc),
+    client.createOrReplace(storyPageDoc),
+    client.createOrReplace(termsDoc),
+    client.createOrReplace(privacyDoc),
+    client.createOrReplace(cookiesDoc),
+    client.createOrReplace(impressumDoc),
   ]);
 
-  console.log(`homePage written: ${homePageResult._id}`);
-  console.log(`siteSettings written: ${siteSettingsResult._id}`);
+  for (const result of results) {
+    console.log(`${result._type} written: ${result._id}`);
+  }
 }
 
 main().catch((err) => {

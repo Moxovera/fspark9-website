@@ -768,6 +768,118 @@ export type SITE_SUBPAGE_CTA_QUERYResult = {
   ctaLabel: string | null;
   ctaHref: string | null;
 } | null;
+// Variable: WORK_PAGE_QUERY
+// Query: *[_type == "workPage"][0].hero{    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)  }
+export type WORK_PAGE_QUERYResult = {
+  eyebrow: string | null;
+  title: string | null;
+  intro: string | null;
+} | null;
+// Variable: SERVICES_PAGE_QUERY
+// Query: *[_type == "servicesPage"][0].hero{    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)  }
+export type SERVICES_PAGE_QUERYResult = {
+  eyebrow: string | null;
+  title: string | null;
+  intro: string | null;
+} | null;
+// Variable: STORY_PAGE_QUERY
+// Query: *[_type == "storyPage"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "media": media{      type,      "image": image{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      youtubeId,      "caption": select($locale == "tr" => coalesce(caption.tr, caption.en), caption.en)    },    "prose": prose[]{      _type,      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en)    }  }
+export type STORY_PAGE_QUERYResult = {
+  hero: {
+    eyebrow: string | null;
+    title: string | null;
+    intro: string | null;
+  } | null;
+  media: {
+    type: "image" | "youtube";
+    image: {
+      url: string | null;
+      alt: string | "";
+      width: number | null;
+      height: number | null;
+      lqip: string | null;
+    } | null;
+    youtubeId: string | null;
+    caption: string | null;
+  } | null;
+  prose: Array<{
+    _type: "proseBody";
+    text: string | null;
+  } | {
+    _type: "proseHead";
+    text: string | null;
+  }> | null;
+} | null;
+// Variable: LEGAL_PAGE_QUERY
+// Query: *[_type == "legalPage" && slug == $slug][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "blocks": blocks[]{      _type,      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "lines": select($locale == "tr" => coalesce(lines.tr, lines.en), lines.en),      "items": select($locale == "tr" => coalesce(items.tr, items.en), items.en),      "head": select($locale == "tr" => coalesce(head.tr, head.en), head.en),      "rows": select($locale == "tr" => coalesce(rows.tr, rows.en), rows.en)    }  }
+export type LEGAL_PAGE_QUERYResult = {
+  hero: {
+    eyebrow: string | null;
+    title: string | null;
+    intro: string | null;
+  } | null;
+  blocks: Array<{
+    _type: "legalBlockBold";
+    text: string | null;
+    label: null;
+    lines: null;
+    items: null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockDiv";
+    text: string | null;
+    label: null;
+    lines: null;
+    items: null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockField";
+    text: null;
+    label: string | null;
+    lines: Array<string> | null;
+    items: null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockHeading";
+    text: string | null;
+    label: null;
+    lines: null;
+    items: null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockList";
+    text: null;
+    label: null;
+    lines: null;
+    items: Array<string> | null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockSubheading";
+    text: string | null;
+    label: null;
+    lines: null;
+    items: null;
+    head: null;
+    rows: null;
+  } | {
+    _type: "legalBlockTable";
+    text: null;
+    label: null;
+    lines: null;
+    items: null;
+    head: Array<string> | null;
+    rows: Array<{
+      cells?: Array<string>;
+      _type: "row";
+      _key: string;
+    }> | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -785,5 +897,9 @@ declare module "@sanity/client" {
     "\n  *[_type == \"homePage\"][0].media{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"items\": items[] | order(order asc) {\n      source,\n      \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n      \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en),\n      href,\n      isVideo,\n      order\n    }\n  }\n": HOME_MEDIA_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].booking{\n    calLink,\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"meta1\": select($locale == \"tr\" => coalesce(meta1.tr, meta1.en), meta1.en),\n    \"meta2\": select($locale == \"tr\" => coalesce(meta2.tr, meta2.en), meta2.en)\n  }\n": SITE_BOOKING_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].subpageCta{\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref\n  }\n": SITE_SUBPAGE_CTA_QUERYResult;
+    "\n  *[_type == \"workPage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n  }\n": WORK_PAGE_QUERYResult;
+    "\n  *[_type == \"servicesPage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n  }\n": SERVICES_PAGE_QUERYResult;
+    "\n  *[_type == \"storyPage\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"media\": media{\n      type,\n      \"image\": image{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      youtubeId,\n      \"caption\": select($locale == \"tr\" => coalesce(caption.tr, caption.en), caption.en)\n    },\n    \"prose\": prose[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en)\n    }\n  }\n": STORY_PAGE_QUERYResult;
+    "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
   }
 }

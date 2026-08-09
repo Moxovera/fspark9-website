@@ -2,9 +2,11 @@ import SubpageHero from "@/components/subpages/SubpageHero";
 import ServicesDetailTabs from "@/components/subpages/ServicesDetailTabs";
 import ServicesDetailAccordion from "@/components/subpages/ServicesDetailAccordion";
 import SubpageClosingCta from "@/components/subpages/SubpageClosingCta";
-import { en, tr } from "@/content/services";
 import { en as enHome, siteSettings as enSettings } from "@/content/en";
 import { tr as trHome, siteSettings as trSettings } from "@/content/tr";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SERVICES_PAGE_QUERY, toServicesPage } from "@/sanity/lib/queries";
+import type { SERVICES_PAGE_QUERYResult } from "@/sanity/types";
 
 /**
  * dc.html: page.hasBlocks (satır 727-793). Satır/panel içeriği Home'un
@@ -19,10 +21,16 @@ export default async function ServicesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const page = locale === "tr" ? tr : en;
   const home = locale === "tr" ? trHome : enHome;
   const settings = locale === "tr" ? trSettings : enSettings;
   const { items, labels } = home.services;
+
+  const heroResult = await sanityFetch<SERVICES_PAGE_QUERYResult>({
+    query: SERVICES_PAGE_QUERY,
+    params: { locale },
+    tags: ["servicesPage"],
+  });
+  const page = toServicesPage(heroResult);
 
   return (
     <main>
