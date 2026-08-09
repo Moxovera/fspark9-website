@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/ui/Reveal";
 import type { FrameworkStep } from "@/types/content";
+import type { CSSProperties } from "react";
 
 interface FrameworkProps {
   steps: FrameworkStep[];
@@ -11,6 +12,42 @@ interface FrameworkProps {
 // Hover'daki scale/rotate/glow saf CSS ile (.framework-card:hover
 // .framework-motif, globals.css) — JS state gerekmiyor, bu yüzden
 // bileşen server component olarak kalıyor.
+
+// dc.html'de "↗" düz Unicode karakteri olarak geçiyor. Bilinen bir
+// platform kusuru var: bazı mobil tarayıcılar bu karakteri (ve U+2190-
+// 2199 aralığındaki diğer oklar) "emoji" sunumuyla (kalın, kendi
+// yazı tipinden) render ediyor, masaüstü ise "text" sunumuyla (ince,
+// çevredeki fontla) — aynı karakter, iki farklı kalınlık. SVG stroke
+// viewBox'a göre orantılı ölçeklendiği için bu tutarsızlığı bütünüyle
+// ortadan kaldırıyor; dc.html'in kendisi de diğer ok ikonlarında zaten
+// SVG kullanıyor (bkz. Header.tsx'teki "geri" oku), burada da aynı desen.
+function ArrowUpRightIcon({
+  size,
+  className,
+  style,
+}: {
+  size: number;
+  className?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      style={style}
+    >
+      <line x1="7" y1="17" x2="17" y2="7" />
+      <polyline points="7 7 17 7 17 17" />
+    </svg>
+  );
+}
 
 function StrategyMotif() {
   return (
@@ -31,14 +68,13 @@ function StrategyMotif() {
             "linear-gradient(140deg, color-mix(in srgb, var(--ivory) 22%, transparent), color-mix(in srgb, var(--ivory) 4%, transparent))",
         }}
       />
-      <span
-        className="relative text-[40px] leading-none text-ivory"
+      <ArrowUpRightIcon
+        size={40}
+        className="relative text-ivory"
         style={{
-          textShadow: "0 0 22px color-mix(in srgb, var(--bronze) 80%, transparent)",
+          filter: "drop-shadow(0 0 11px color-mix(in srgb, var(--bronze) 80%, transparent))",
         }}
-      >
-        ↗
-      </span>
+      />
     </div>
   );
 }
@@ -181,9 +217,10 @@ export default function Framework({ steps }: FrameworkProps) {
                   <span className="absolute top-4 left-[18px] font-mono text-[15px] tracking-[0.08em] text-ivory/90">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="absolute top-[14px] right-[18px] text-lg text-ivory/55">
-                    ↗
-                  </span>
+                  <ArrowUpRightIcon
+                    size={18}
+                    className="absolute top-[14px] right-[18px] text-ivory/55"
+                  />
                   <div className="framework-motif absolute inset-0 flex items-center justify-center">
                     <Motif />
                   </div>
