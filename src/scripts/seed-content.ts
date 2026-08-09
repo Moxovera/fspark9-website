@@ -10,10 +10,12 @@
  * intro/linkLabel, items hâlâ caseStudy koleksiyonundan)/process/faq/
  * closingCta alır; siteSettings nav/footer alır.
  *
- * seo alanı (homePage/siteSettings) BİLEREK atlanır —
- * content/en.ts + tr.ts'te sadece boş placeholder var
- * ({title:"", description:""}), yazacak gerçek veri yok; alan
- * Studio'da elle doldurulmayı bekliyor.
+ * seo.title/description (homePage, siteSettings, workPage,
+ * servicesPage, storyPage, legalPage×4) SEO_COPY sabitinden yazılır —
+ * content/en.ts + tr.ts'te sadece boş placeholder olduğu için (bkz.
+ * HomePage.seo), bu metin content/*.ts'ten değil doğrudan bu script
+ * içinde elle yazıldı (bkz. _design/fspark9-positioning-v5.md notu).
+ * noIndex hepsinde false.
  *
  * Görsel alanları (proofItem.logo, story.media.image, caseStudy.
  * coverImage/screens/logo, seo.ogImage) bilerek boş bırakılır —
@@ -66,6 +68,131 @@ function toLink(en: { label: string; href: string; external?: boolean }, tr: { l
     label: ls(en.label, tr.label),
     href: en.href,
     ...(en.external ? { external: true } : {}),
+  };
+}
+
+// SEO title/description — content/en.ts + tr.ts'te sadece boş placeholder
+// vardı ({title:"", description:""}), bu yüzden burada elle yazıldı.
+// _design/fspark9-positioning-v5.md + dc.html'deki mevcut ton (direkt,
+// kısa cümle, jargonsuz) korunarak; çoğu satır sitenin kendi hero/
+// closingCta/pages metinlerinden türetildi, yeni bir ses icat edilmedi.
+// ogImage hâlâ boş bırakılıyor.
+const SEO_COPY = {
+  homePage: {
+    en: {
+      title: "fspark9 | Build the banking side once.",
+      description:
+        "I'm the side that builds it, not the one that just advises. Proposition, partner, licence route and launch, one person, in your team until it's live.",
+    },
+    tr: {
+      title: "fspark9 | Bankacılık tarafını bir kere kurun.",
+      description:
+        "Ben kuran tarafım, sadece tavsiye veren değil. Önerme, partner, lisans rotası ve lansman, tek kişi, ekibinizin içinde, canlıya çıkana kadar.",
+    },
+  },
+  siteSettings: {
+    en: {
+      title: "fspark9 | Fintech and digital banking advisory",
+      description:
+        "Trust isn't marketed. It's built. I help companies build the banking side of their product: proposition, partner, licence and launch.",
+    },
+    tr: {
+      title: "fspark9 | Fintech ve dijital bankacılık danışmanlığı",
+      description:
+        "Güven pazarlanmaz, kurulur. Şirketlerin ürününün bankacılık tarafını kuruyorum: önerme, partner, lisans ve lansman.",
+    },
+  },
+  workPage: {
+    en: {
+      title: "Case studies | fspark9",
+      description:
+        "What was actually built. Two brands, two different problems. Both needed someone who could decide, set it up and ship it without handing off halfway through.",
+    },
+    tr: {
+      title: "Vaka İncelemeleri | fspark9",
+      description:
+        "Gerçekte ne kuruldu. İki marka, iki farklı problem. Ortak noktaları, karar veren, kuran ve işi yarı yolda bırakmayan birine ihtiyaç duymalarıydı.",
+    },
+  },
+  servicesPage: {
+    en: {
+      title: "Services | fspark9",
+      description:
+        "Four places where money and months usually go missing, and what I do about each one. Pick the one that sounds like your quarter.",
+    },
+    tr: {
+      title: "Hizmetler | fspark9",
+      description:
+        "Paranın ve zamanın en çok kaybolduğu dört yer, ve her biri için ne yaptığım. Hangisi sizin çeyreğinize benziyorsa oradan başlayın.",
+    },
+  },
+  storyPage: {
+    en: {
+      title: "Why I do this | fspark9",
+      description:
+        "Money can't be sold like chocolate. It's earned through trust. The story behind fspark9, what I believe about this work, and what the name means.",
+    },
+    tr: {
+      title: "Bunu Neden Yapıyorum | fspark9",
+      description:
+        "Para, çikolata gibi satılmaz. Güvenle kazanılır. fspark9'un arkasındaki hikaye, bu iş hakkında ne düşündüğüm ve ismin anlamı.",
+    },
+  },
+  terms: {
+    en: {
+      title: "Terms of use | fspark9",
+      description:
+        "What this site is, and is not. Nothing published here is legal, regulatory, tax or investment advice, and no figure on this site is a promise.",
+    },
+    tr: {
+      title: "Kullanım Şartları | fspark9",
+      description:
+        "Bu site nedir, ne değildir. Burada yayınlanan hiçbir şey hukuki, regülasyona dair, vergi ya da yatırım tavsiyesi değildir.",
+    },
+  },
+  privacy: {
+    en: {
+      title: "Privacy | fspark9",
+      description: "What happens to your data, written plainly. Built to meet Articles 13 and 14 GDPR.",
+    },
+    tr: {
+      title: "Gizlilik | fspark9",
+      description:
+        "Verinize ne oluyor, sade bir dille anlatıldı. GDPR 13. ve 14. maddelerini karşılayacak şekilde hazırlandı.",
+    },
+  },
+  cookies: {
+    en: {
+      title: "Cookies | fspark9",
+      description:
+        "This site does not track you. No advertising cookies, no analytics cookies, no consent banner, because there is nothing to consent to.",
+    },
+    tr: {
+      title: "Çerezler | fspark9",
+      description:
+        "Bu site sizi takip etmiyor. Reklam çerezi yok, analitik çerezi yok, rıza penceresi yok, çünkü rıza verilecek bir şey yok.",
+    },
+  },
+  impressum: {
+    en: {
+      title: "Impressum | fspark9",
+      description:
+        "Who is behind this site. Information pursuant to § 5 DDG. The German version is authoritative, English and Turkish follow below.",
+    },
+    tr: {
+      title: "Künye | fspark9",
+      description:
+        "Bu sitenin arkasında kim var. § 5 DDG uyarınca bilgiler. Almanca sürüm asıldır, İngilizce ve Türkçe sürümler altta yer alır.",
+    },
+  },
+} as const;
+
+function toSeo(entry: { en: { title: string; description: string }; tr: { title: string; description: string } }) {
+  return {
+    _type: "seo" as const,
+    title: ls(entry.en.title, entry.tr.title),
+    description: lt(entry.en.description, entry.tr.description),
+    noIndex: false,
   };
 }
 
@@ -218,6 +345,7 @@ async function main() {
     _id: homePageId,
     _type: "homePage",
     title: "Home Page",
+    seo: toSeo(SEO_COPY.homePage),
     hero: {
       _type: "hero",
       eyebrow: ls(enHome.hero.eyebrow, trHome.hero.eyebrow),
@@ -481,6 +609,7 @@ async function main() {
     _id: siteSettingsId,
     _type: "siteSettings",
     title: "Site Settings",
+    seo: toSeo(SEO_COPY.siteSettings),
     ...(existingLogo ? { logo: existingLogo } : {}),
     nav: enSiteSettings.nav.map((item, i) => ({
       _key: key(),
@@ -525,6 +654,7 @@ async function main() {
     _id: workPageId,
     _type: "workPage",
     title: "Work Page",
+    seo: toSeo(SEO_COPY.workPage),
     hero: toPageHero(enWork.hero, trWork.hero),
   };
 
@@ -532,6 +662,7 @@ async function main() {
     _id: servicesPageId,
     _type: "servicesPage",
     title: "Services Page",
+    seo: toSeo(SEO_COPY.servicesPage),
     hero: toPageHero(enServices.hero, trServices.hero),
   };
 
@@ -539,6 +670,7 @@ async function main() {
     _id: storyPageId,
     _type: "storyPage",
     title: "Story Page",
+    seo: toSeo(SEO_COPY.storyPage),
     hero: toPageHero(enStory.hero, trStory.hero),
     media: {
       _type: "storyMedia",
@@ -557,10 +689,22 @@ async function main() {
     }),
   };
 
-  const termsDoc = toLegalPageDoc(termsId, "terms", enTerms, trTerms);
-  const privacyDoc = toLegalPageDoc(privacyId, "privacy", enPrivacy, trPrivacy);
-  const cookiesDoc = toLegalPageDoc(cookiesId, "cookies", enCookies, trCookies);
-  const impressumDoc = toLegalPageDoc(impressumId, "impressum", enImpressum, trImpressum);
+  const termsDoc = {
+    ...toLegalPageDoc(termsId, "terms", enTerms, trTerms),
+    seo: toSeo(SEO_COPY.terms),
+  };
+  const privacyDoc = {
+    ...toLegalPageDoc(privacyId, "privacy", enPrivacy, trPrivacy),
+    seo: toSeo(SEO_COPY.privacy),
+  };
+  const cookiesDoc = {
+    ...toLegalPageDoc(cookiesId, "cookies", enCookies, trCookies),
+    seo: toSeo(SEO_COPY.cookies),
+  };
+  const impressumDoc = {
+    ...toLegalPageDoc(impressumId, "impressum", enImpressum, trImpressum),
+    seo: toSeo(SEO_COPY.impressum),
+  };
 
   const enInsha = enHome.caseStudies.items.find((item) => item.slug === "insha");
   const trInsha = trHome.caseStudies.items.find((item) => item.slug === "insha");
