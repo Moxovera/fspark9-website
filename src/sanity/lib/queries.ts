@@ -23,6 +23,13 @@ import type {
   LegalPage,
   LegalBlock,
   CaseStudy,
+  PageSeo,
+  FamiliarSection,
+  CaseStudiesSection,
+  ProcessSection,
+  FaqSection,
+  ClosingCta,
+  SiteSettings,
 } from "@/types/content";
 import type {
   HOME_HERO_QUERYResult,
@@ -43,6 +50,15 @@ import type {
   LEGAL_PAGE_QUERYResult,
   CASE_STUDIES_LIST_QUERYResult,
   CASE_STUDY_QUERYResult,
+  HOME_FAMILIAR_QUERYResult,
+  HOME_CASE_STUDIES_SECTION_QUERYResult,
+  HOME_PROCESS_QUERYResult,
+  HOME_FAQ_QUERYResult,
+  HOME_CLOSING_CTA_QUERYResult,
+  HOME_SEO_QUERYResult,
+  SITE_SEO_QUERYResult,
+  SITE_NAV_QUERYResult,
+  SITE_FOOTER_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -766,4 +782,221 @@ export function toCaseStudies(result: CASE_STUDIES_LIST_QUERYResult): CaseStudy[
 
 export function toCaseStudyDetail(result: CASE_STUDY_QUERYResult): CaseStudy | null {
   return result ? toCaseStudy(result) : null;
+}
+
+export const HOME_FAMILIAR_QUERY = defineQuery(`
+  *[_type == "homePage"][0].familiar{
+    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+    "points": points[] | order(order asc) {
+      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),
+      order
+    },
+    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)
+  }
+`);
+
+export function toFamiliarSection(result: HOME_FAMILIAR_QUERYResult): FamiliarSection {
+  return {
+    heading: result?.heading ?? "",
+    points: (result?.points ?? []).map((point) => ({
+      text: point.text ?? "",
+      order: point.order ?? 0,
+    })),
+    closingLine: result?.closingLine ?? "",
+  };
+}
+
+// caseStudiesSection wrapper — sadece heading/intro/linkLabel. items
+// CASE_STUDIES_LIST_QUERY'den ayrı geliyor (bkz. o sorgunun yorumu),
+// page.tsx ikisini birleştirir.
+export const HOME_CASE_STUDIES_SECTION_QUERY = defineQuery(`
+  *[_type == "homePage"][0].caseStudies{
+    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),
+    "linkLabel": select($locale == "tr" => coalesce(linkLabel.tr, linkLabel.en), linkLabel.en)
+  }
+`);
+
+export function toCaseStudiesSection(
+  result: HOME_CASE_STUDIES_SECTION_QUERYResult,
+  items: CaseStudy[],
+): CaseStudiesSection {
+  return {
+    heading: result?.heading ?? undefined,
+    intro: result?.intro ?? "",
+    items,
+    linkLabel: result?.linkLabel ?? "",
+  };
+}
+
+export const HOME_PROCESS_QUERY = defineQuery(`
+  *[_type == "homePage"][0].process{
+    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+    "steps": steps[] | order(number asc) {
+      number,
+      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+      "detail": select($locale == "tr" => coalesce(detail.tr, detail.en), detail.en)
+    },
+    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),
+    ctaHref
+  }
+`);
+
+export function toProcessSection(result: HOME_PROCESS_QUERYResult): ProcessSection {
+  return {
+    heading: result?.heading ?? "",
+    steps: (result?.steps ?? []).map((step) => ({
+      number: step.number ?? 0,
+      title: step.title ?? "",
+      description: step.description ?? "",
+      detail: step.detail ?? "",
+    })),
+    ctaLabel: result?.ctaLabel ?? "",
+    ctaHref: result?.ctaHref ?? "",
+  };
+}
+
+export const HOME_FAQ_QUERY = defineQuery(`
+  *[_type == "homePage"][0].faq{
+    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+    "items": items[] | order(order asc) {
+      "question": select($locale == "tr" => coalesce(question.tr, question.en), question.en),
+      "answer": select($locale == "tr" => coalesce(answer.tr, answer.en), answer.en),
+      order
+    }
+  }
+`);
+
+export function toFaqSection(result: HOME_FAQ_QUERYResult): FaqSection {
+  return {
+    heading: result?.heading ?? "",
+    items: (result?.items ?? []).map((item) => ({
+      question: item.question ?? "",
+      answer: item.answer ?? "",
+      order: item.order ?? 0,
+    })),
+  };
+}
+
+export const HOME_CLOSING_CTA_QUERY = defineQuery(`
+  *[_type == "homePage"][0].closingCta{
+    "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),
+    "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),
+    "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),
+    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),
+    ctaHref,
+    "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en)
+  }
+`);
+
+export function toClosingCta(result: HOME_CLOSING_CTA_QUERYResult): ClosingCta {
+  return {
+    quote: result?.quote ?? "",
+    quoteAttribution: result?.quoteAttribution ?? "",
+    headline: result?.headline ?? "",
+    body: result?.body ?? undefined,
+    ctaLabel: result?.ctaLabel ?? "",
+    ctaHref: result?.ctaHref ?? "",
+    note: result?.note ?? undefined,
+  };
+}
+
+// PageSeo — homePage.seo ve siteSettings.seo aynı şekli paylaşıyor,
+// tek sorgu metni her iki dokümanda da tekrarlanıyor (bkz. dosyanın
+// geri kalanındaki aynı desen).
+export const HOME_SEO_QUERY = defineQuery(`
+  *[_type == "homePage"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export const SITE_SEO_QUERY = defineQuery(`
+  *[_type == "siteSettings"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+function toPageSeo(result: HOME_SEO_QUERYResult | SITE_SEO_QUERYResult): PageSeo {
+  return {
+    title: result?.title ?? "",
+    description: result?.description ?? "",
+    ogImage: toSanityImage(result?.ogImage ?? null),
+    noIndex: result?.noIndex ?? undefined,
+  };
+}
+
+export function toHomeSeo(result: HOME_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export function toSiteSeo(result: SITE_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export const SITE_NAV_QUERY = defineQuery(`
+  *[_type == "siteSettings"][0].nav[]{
+    "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+    href,
+    external
+  }
+`);
+
+export function toSiteNav(result: SITE_NAV_QUERYResult): Link[] {
+  return (result ?? []).map((item) => toLink(item));
+}
+
+export const SITE_FOOTER_QUERY = defineQuery(`
+  *[_type == "siteSettings"][0].footer{
+    "tagline": select($locale == "tr" => coalesce(tagline.tr, tagline.en), tagline.en),
+    "nine": select($locale == "tr" => coalesce(nine.tr, nine.en), nine.en),
+    "signature": select($locale == "tr" => coalesce(signature.tr, signature.en), signature.en),
+    email,
+    linkedin,
+    "nav": nav[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      href,
+      external
+    },
+    "legalLinks": legalLinks[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      href,
+      external
+    },
+    "legal": select($locale == "tr" => coalesce(legal.tr, legal.en), legal.en),
+    "copyright": select($locale == "tr" => coalesce(copyright.tr, copyright.en), copyright.en)
+  }
+`);
+
+export function toFooter(result: SITE_FOOTER_QUERYResult): SiteSettings["footer"] {
+  return {
+    tagline: result?.tagline ?? "",
+    nine: result?.nine ?? "",
+    signature: result?.signature ?? "",
+    email: result?.email ?? "",
+    linkedin: result?.linkedin ?? "",
+    nav: (result?.nav ?? []).map((item) => toLink(item)),
+    legalLinks: (result?.legalLinks ?? []).map((item) => toLink(item)),
+    legal: result?.legal ?? "",
+    copyright: result?.copyright ?? "",
+  };
 }

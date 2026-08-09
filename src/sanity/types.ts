@@ -1161,6 +1161,113 @@ export type CASE_STUDY_QUERYResult = {
 // Variable: CASE_STUDY_SLUGS_QUERY
 // Query: *[_type == "caseStudy"].slug
 export type CASE_STUDY_SLUGS_QUERYResult = Array<string>;
+// Variable: HOME_FAMILIAR_QUERY
+// Query: *[_type == "homePage"][0].familiar{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "points": points[] | order(order asc) {      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),      order    },    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)  }
+export type HOME_FAMILIAR_QUERYResult = {
+  heading: string | null;
+  points: Array<{
+    text: string | null;
+    order: number | null;
+  }> | null;
+  closingLine: string | null;
+} | null;
+// Variable: HOME_CASE_STUDIES_SECTION_QUERY
+// Query: *[_type == "homePage"][0].caseStudies{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "linkLabel": select($locale == "tr" => coalesce(linkLabel.tr, linkLabel.en), linkLabel.en)  }
+export type HOME_CASE_STUDIES_SECTION_QUERYResult = {
+  heading: string | null;
+  intro: string | null;
+  linkLabel: string | null;
+} | null;
+// Variable: HOME_PROCESS_QUERY
+// Query: *[_type == "homePage"][0].process{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "steps": steps[] | order(number asc) {      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),      "detail": select($locale == "tr" => coalesce(detail.tr, detail.en), detail.en)    },    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref  }
+export type HOME_PROCESS_QUERYResult = {
+  heading: string | null;
+  steps: Array<{
+    number: number | null;
+    title: string | null;
+    description: string | null;
+    detail: string | null;
+  }> | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+} | null;
+// Variable: HOME_FAQ_QUERY
+// Query: *[_type == "homePage"][0].faq{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "items": items[] | order(order asc) {      "question": select($locale == "tr" => coalesce(question.tr, question.en), question.en),      "answer": select($locale == "tr" => coalesce(answer.tr, answer.en), answer.en),      order    }  }
+export type HOME_FAQ_QUERYResult = {
+  heading: string | null;
+  items: Array<{
+    question: string | null;
+    answer: string | null;
+    order: number | null;
+  }> | null;
+} | null;
+// Variable: HOME_CLOSING_CTA_QUERY
+// Query: *[_type == "homePage"][0].closingCta{    "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),    "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),    "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref,    "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en)  }
+export type HOME_CLOSING_CTA_QUERYResult = {
+  quote: string | null;
+  quoteAttribution: string | null;
+  headline: string | null;
+  body: string | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+  note: string | null;
+} | null;
+// Variable: HOME_SEO_QUERY
+// Query: *[_type == "homePage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type HOME_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: SITE_SEO_QUERY
+// Query: *[_type == "siteSettings"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type SITE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: SITE_NAV_QUERY
+// Query: *[_type == "siteSettings"][0].nav[]{    "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),    href,    external  }
+export type SITE_NAV_QUERYResult = Array<{
+  label: string | null;
+  href: string | null;
+  external: boolean | null;
+}> | null;
+// Variable: SITE_FOOTER_QUERY
+// Query: *[_type == "siteSettings"][0].footer{    "tagline": select($locale == "tr" => coalesce(tagline.tr, tagline.en), tagline.en),    "nine": select($locale == "tr" => coalesce(nine.tr, nine.en), nine.en),    "signature": select($locale == "tr" => coalesce(signature.tr, signature.en), signature.en),    email,    linkedin,    "nav": nav[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "legalLinks": legalLinks[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "legal": select($locale == "tr" => coalesce(legal.tr, legal.en), legal.en),    "copyright": select($locale == "tr" => coalesce(copyright.tr, copyright.en), copyright.en)  }
+export type SITE_FOOTER_QUERYResult = {
+  tagline: string | null;
+  nine: string | null;
+  signature: string | null;
+  email: string | null;
+  linkedin: string | null;
+  nav: Array<{
+    label: string | null;
+    href: string | null;
+    external: boolean | null;
+  }> | null;
+  legalLinks: Array<{
+    label: string | null;
+    href: string | null;
+    external: boolean | null;
+  }> | null;
+  legal: string | null;
+  copyright: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1185,5 +1292,14 @@ declare module "@sanity/client" {
     "\n  *[_type == \"caseStudy\"] | order(order asc) {\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDIES_LIST_QUERYResult;
     "\n  *[_type == \"caseStudy\" && slug == $slug][0]{\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDY_QUERYResult;
     "\n  *[_type == \"caseStudy\"].slug\n": CASE_STUDY_SLUGS_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].familiar{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"points\": points[] | order(order asc) {\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      order\n    },\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en)\n  }\n": HOME_FAMILIAR_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].caseStudies{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"linkLabel\": select($locale == \"tr\" => coalesce(linkLabel.tr, linkLabel.en), linkLabel.en)\n  }\n": HOME_CASE_STUDIES_SECTION_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].process{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"steps\": steps[] | order(number asc) {\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n      \"detail\": select($locale == \"tr\" => coalesce(detail.tr, detail.en), detail.en)\n    },\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref\n  }\n": HOME_PROCESS_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].faq{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"items\": items[] | order(order asc) {\n      \"question\": select($locale == \"tr\" => coalesce(question.tr, question.en), question.en),\n      \"answer\": select($locale == \"tr\" => coalesce(answer.tr, answer.en), answer.en),\n      order\n    }\n  }\n": HOME_FAQ_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].closingCta{\n    \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n    \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref,\n    \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en)\n  }\n": HOME_CLOSING_CTA_QUERYResult;
+    "\n  *[_type == \"homePage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": HOME_SEO_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].nav[]{\n    \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n    href,\n    external\n  }\n": SITE_NAV_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
   }
 }

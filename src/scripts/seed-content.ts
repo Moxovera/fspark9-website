@@ -6,12 +6,18 @@
  * StoryPage verisini, content/legal/*.ts'teki 4 LegalPage dokümanını,
  * content/en.ts + tr.ts'teki HomePage.caseStudies.items'daki insha/RUUT
  * verisini okuyup Sanity'deki karşılık gelen dokümanlara createOrReplace
- * ile yazar. CaseStudiesSection'ın kendisi (heading/intro/linkLabel)
- * hâlâ atlanır — o ayrı bir şema, henüz yok.
+ * ile yazar. homePage ayrıca familiar/caseStudies(wrapper: heading/
+ * intro/linkLabel, items hâlâ caseStudy koleksiyonundan)/process/faq/
+ * closingCta alır; siteSettings nav/footer alır.
+ *
+ * seo alanı (homePage/siteSettings) BİLEREK atlanır —
+ * content/en.ts + tr.ts'te sadece boş placeholder var
+ * ({title:"", description:""}), yazacak gerçek veri yok; alan
+ * Studio'da elle doldurulmayı bekliyor.
  *
  * Görsel alanları (proofItem.logo, story.media.image, caseStudy.
- * coverImage/screens/logo) bilerek boş bırakılır — Studio'dan elle
- * yüklenecek.
+ * coverImage/screens/logo, seo.ogImage) bilerek boş bırakılır —
+ * Studio'dan elle yüklenecek.
  *
  * Çalıştırma:
  *   SANITY_API_WRITE_TOKEN=... npm run seed
@@ -399,12 +405,77 @@ async function main() {
         };
       }),
     },
+    familiar: {
+      _type: "familiarSection",
+      heading: ls(enHome.familiar.heading, trHome.familiar.heading),
+      points: enHome.familiar.points.map((point, i) => ({
+        _key: key(),
+        _type: "familiarPoint",
+        text: lt(point.text, trHome.familiar.points[i].text),
+        order: point.order,
+      })),
+      closingLine: lt(enHome.familiar.closingLine, trHome.familiar.closingLine),
+    },
+    caseStudies: {
+      _type: "caseStudiesSection",
+      ...(enHome.caseStudies.heading
+        ? { heading: ls(enHome.caseStudies.heading, trHome.caseStudies.heading ?? "") }
+        : {}),
+      intro: lt(enHome.caseStudies.intro, trHome.caseStudies.intro),
+      linkLabel: ls(enHome.caseStudies.linkLabel, trHome.caseStudies.linkLabel),
+    },
+    process: {
+      _type: "processSection",
+      heading: ls(enHome.process.heading, trHome.process.heading),
+      steps: enHome.process.steps.map((step, i) => {
+        const trStep = trHome.process.steps[i];
+        return {
+          _key: key(),
+          _type: "processStep",
+          number: step.number,
+          title: ls(step.title, trStep.title),
+          description: lt(step.description, trStep.description),
+          detail: lt(step.detail, trStep.detail),
+        };
+      }),
+      ctaLabel: ls(enHome.process.ctaLabel, trHome.process.ctaLabel),
+      ctaHref: enHome.process.ctaHref,
+    },
+    faq: {
+      _type: "faqSection",
+      heading: ls(enHome.faq.heading, trHome.faq.heading),
+      items: enHome.faq.items.map((item, i) => {
+        const trItem = trHome.faq.items[i];
+        return {
+          _key: key(),
+          _type: "faqItem",
+          question: ls(item.question, trItem.question),
+          answer: lt(item.answer, trItem.answer),
+          order: item.order,
+        };
+      }),
+    },
+    closingCta: {
+      _type: "closingCta",
+      quote: lt(enHome.closingCta.quote, trHome.closingCta.quote),
+      quoteAttribution: ls(enHome.closingCta.quoteAttribution, trHome.closingCta.quoteAttribution),
+      headline: ls(enHome.closingCta.headline, trHome.closingCta.headline),
+      ...(enHome.closingCta.body
+        ? { body: lt(enHome.closingCta.body, trHome.closingCta.body ?? "") }
+        : {}),
+      ctaLabel: ls(enHome.closingCta.ctaLabel, trHome.closingCta.ctaLabel),
+      ctaHref: enHome.closingCta.ctaHref,
+      ...(enHome.closingCta.note
+        ? { note: lt(enHome.closingCta.note, trHome.closingCta.note ?? "") }
+        : {}),
+    },
   };
 
   const siteSettingsDoc = {
     _id: siteSettingsId,
     _type: "siteSettings",
     title: "Site Settings",
+    nav: enSiteSettings.nav.map((item, i) => toLink(item, trSiteSettings.nav[i])),
     booking: {
       _type: "bookingSection",
       calLink: enSiteSettings.booking.calLink,
@@ -419,6 +490,22 @@ async function main() {
       body: lt(enSiteSettings.subpageCta.body, trSiteSettings.subpageCta.body),
       ctaLabel: ls(enSiteSettings.subpageCta.ctaLabel, trSiteSettings.subpageCta.ctaLabel),
       ctaHref: enSiteSettings.subpageCta.ctaHref,
+    },
+    footer: {
+      _type: "footer",
+      tagline: ls(enSiteSettings.footer.tagline, trSiteSettings.footer.tagline),
+      nine: ls(enSiteSettings.footer.nine, trSiteSettings.footer.nine),
+      signature: ls(enSiteSettings.footer.signature, trSiteSettings.footer.signature),
+      email: enSiteSettings.footer.email,
+      linkedin: enSiteSettings.footer.linkedin,
+      nav: enSiteSettings.footer.nav.map((item, i) =>
+        toLink(item, trSiteSettings.footer.nav[i]),
+      ),
+      legalLinks: enSiteSettings.footer.legalLinks.map((item, i) =>
+        toLink(item, trSiteSettings.footer.legalLinks[i]),
+      ),
+      legal: ls(enSiteSettings.footer.legal, trSiteSettings.footer.legal),
+      copyright: ls(enSiteSettings.footer.copyright, trSiteSettings.footer.copyright),
     },
   };
 
