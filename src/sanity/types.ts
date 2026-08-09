@@ -232,6 +232,8 @@ export type HomePage = {
   hero?: Hero;
   framework?: Framework;
   proofStrip?: ProofStrip;
+  familiar?: FamiliarSection;
+  caseStudies?: CaseStudiesSection;
   services?: ServicesSection;
   comparison?: ComparisonTable;
   approach?: ApproachSection;
@@ -357,6 +359,22 @@ export type ServicesSection = {
   fullEngagementHeading?: LocaleString;
   fullEngagementBody?: LocaleText;
   link?: Link;
+};
+
+export type CaseStudiesSection = {
+  _type: "caseStudiesSection";
+  heading?: LocaleString;
+  intro?: LocaleText;
+  linkLabel?: LocaleString;
+};
+
+export type FamiliarSection = {
+  _type: "familiarSection";
+  heading?: LocaleString;
+  points?: Array<{
+    _key: string;
+  } & FamiliarPoint>;
+  closingLine?: LocaleText;
 };
 
 export type ProofStrip = {
@@ -592,6 +610,12 @@ export type Service = {
   runsOn?: LocaleText;
 };
 
+export type FamiliarPoint = {
+  _type: "familiarPoint";
+  text?: LocaleText;
+  order?: number;
+};
+
 export type ProofItem = {
   _type: "proofItem";
   name?: string;
@@ -731,7 +755,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = CaseStudy | SanityImageCrop | SanityImageHotspot | LocaleText | LocaleString | LegalPage | PageHero | Seo | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | ClosingCta | FaqSection | ProcessSection | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | ProofStrip | Framework | Hero | SiteSettings | Footer | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | FaqItem | ProcessStep | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = CaseStudy | SanityImageCrop | SanityImageHotspot | LocaleText | LocaleString | LegalPage | PageHero | Seo | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | ClosingCta | FaqSection | ProcessSection | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | CaseStudiesSection | FamiliarSection | ProofStrip | Framework | Hero | SiteSettings | Footer | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | FaqItem | ProcessStep | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | FamiliarPoint | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_HERO_QUERY

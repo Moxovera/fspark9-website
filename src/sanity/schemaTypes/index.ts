@@ -13,6 +13,9 @@ import frameworkStep from "./objects/frameworkStep";
 import framework from "./objects/framework";
 import proofItem from "./objects/proofItem";
 import proofStrip from "./objects/proofStrip";
+import familiarPoint from "./objects/familiarPoint";
+import familiarSection from "./objects/familiarSection";
+import caseStudiesSection from "./objects/caseStudiesSection";
 import service from "./objects/service";
 import servicesSection from "./objects/servicesSection";
 import caseStudyAction from "./objects/caseStudyAction";
@@ -66,6 +69,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     framework,
     proofItem,
     proofStrip,
+    familiarPoint,
+    familiarSection,
+    caseStudiesSection,
     service,
     servicesSection,
     caseStudyAction,

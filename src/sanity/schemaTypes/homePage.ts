@@ -16,6 +16,8 @@ export default defineType({
     defineField({ name: "hero", title: "Hero", type: "hero" }),
     defineField({ name: "framework", title: "Framework", type: "framework" }),
     defineField({ name: "proofStrip", title: "Proof strip", type: "proofStrip" }),
+    defineField({ name: "familiar", title: "Familiar", type: "familiarSection" }),
+    defineField({ name: "caseStudies", title: "Case studies", type: "caseStudiesSection" }),
     defineField({ name: "services", title: "Services", type: "servicesSection" }),
     defineField({ name: "comparison", title: "Comparison", type: "comparisonTable" }),
     defineField({ name: "approach", title: "Approach", type: "approachSection" }),
