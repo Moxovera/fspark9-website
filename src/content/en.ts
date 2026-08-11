@@ -91,7 +91,7 @@ export const en: HomePage = {
         order: 4,
       },
       {
-        text: "The board has asked which country is next and nobody in the room can answer it with numbers.",
+        text: "The board has asked which country is next, and proving it takes someone who has run this playbook before.",
         order: 5,
       },
       {
@@ -107,7 +107,7 @@ export const en: HomePage = {
         order: 8,
       },
       {
-        text: "The strategy deck was excellent. Six months later nobody in the building knows how to turn it into a live product.",
+        text: "The strategy deck was excellent, and turning it into a live product takes hands on experience, not another deck.",
         order: 9,
       },
     ],
@@ -291,13 +291,13 @@ export const en: HomePage = {
         title: "Proposition and Product Blueprint",
         tag: "Decide",
         problem:
-          "You are about to spend real money on a build, and the business case behind it is a spreadsheet somebody made assumptions into. Nobody in the room has launched a financial product before, so every estimate comes back with a different number and a different date.",
+          "The business case behind it is a spreadsheet somebody made assumptions into. What it needs is someone who has actually launched financial products before, and knows which assumption to test first.",
         action:
           "I pressure test the commercial model and the customer proposition before you commit a development budget. Which product genuinely fits your customers, which one earns money at your real volume, what to launch first and what to leave out.",
         outcome:
           "A validated proposition and commercial model, the revenue logic behind it, the assumption most likely to be wrong and what to do about it, and a build sequence with the first release defined.",
         rightDoor:
-          "You have budget approval or you are about to ask for it. There is more than one product idea on the table. Somebody has produced a business case and nobody in the room is confident enough in it to bet the year on it.",
+          "You have budget approval or you are about to ask for it. There is more than one product idea on the table. Somebody has produced a business case and it takes someone who has actually launched one to call it with confidence.",
         notRightDoor:
           "You have already validated the model and signed the partner. In that case you want Partner Selection or the Experience Build, not this.",
         duration: "Typically four to eight weeks, to be confirmed against scope.",
@@ -473,7 +473,7 @@ export const en: HomePage = {
       {
         title: "Fintechs who want the banking side taken off their plate",
         problem:
-          "Your team's week goes to partner calls, compliance questions and integration detail. There is nothing left for marketing and operations. The launch date moves a little further out every month, and the honest answer to why is that nobody in the room has done this before.",
+          "Your team's week goes to partner calls, compliance questions and integration detail. There is nothing left for marketing and operations. The launch date moves every month, and closing that gap takes ten plus years of doing exactly this.",
         do: "You hand the banking product side to me. I decide the route, find the partner, negotiate the terms and run the process. When you want it, my team ships the product itself.",
         result:
           "Your team gets back to its own work. The product stops slipping, and at the end of every month you can see exactly where things stand on one page.",
@@ -638,7 +638,7 @@ export const en: HomePage = {
       {
         question: "We already have a team. Where do you fit?",
         answer:
-          "Beside them, not above them. I am not there to review your people. I take the part nobody in the room has done before and carry it, so your team can get back to what they are good at.",
+          "I bring ten plus years building financial products, a network across the sector, and the problem solving to close the gaps a normal team hits for the first time.",
         order: 6,
       },
       {
@@ -683,7 +683,7 @@ export const siteSettings: SiteSettings = {
     { label: "Contact", href: "/book" },
   ],
   backLabel: "Back",
-  ctaLabel: "Book a free 30 minute call",
+  ctaLabel: "Book a free call",
   ctaHref: "/book",
   booking: {
     calLink: "mburakdikmen/quick-chat",
@@ -695,7 +695,7 @@ export const siteSettings: SiteSettings = {
   subpageCta: {
     headline: "In your team until it's live.",
     body: "Not a report, not a retainer, not a subcontractor in the middle. I come in at the decision and I leave when customers are using it. The first call is free. Tell me where things stand and we will see together whether I can help. If I cannot, you will still leave with two or three things worth doing.",
-    ctaLabel: "Book a free 30 minute call",
+    ctaLabel: "Book a free call",
     ctaHref: "/book",
   },
   footer: {

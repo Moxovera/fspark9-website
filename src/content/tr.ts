@@ -90,7 +90,7 @@ export const tr: HomePage = {
         order: 4,
       },
       {
-        text: "Yönetim sıradaki ülkeyi sordu, odadaki kimse rakamla cevap veremiyor.",
+        text: "Yönetim sıradaki ülkeyi sordu ve bunu kanıtlamak, bu oyunu daha önce oynamış birini gerektiriyor.",
         order: 5,
       },
       {
@@ -106,7 +106,7 @@ export const tr: HomePage = {
         order: 8,
       },
       {
-        text: "Strateji sunumu mükemmeldi. Altı ay sonra binada onu canlı bir ürüne çevirmeyi bilen kimse yok.",
+        text: "Strateji sunumu mükemmeldi, canlı ürüne çevirmek bir sunum değil, sahada edinilmiş tecrübe gerektiriyor.",
         order: 9,
       },
     ],
@@ -289,13 +289,13 @@ export const tr: HomePage = {
         title: "Önerme ve Ürün Planı",
         tag: "Karar",
         problem:
-          "Geliştirmeye ciddi para harcamak üzeresiniz ve arkasındaki iş modeli, birinin varsayımlarını doldurduğu bir tablo. Odada daha önce finansal ürün çıkarmış kimse yok, o yüzden her tahmin farklı bir rakam ve farklı bir tarihle geliyor.",
+          "Arkasındaki iş modeli, birinin varsayımlarını doldurduğu bir tablo. İhtiyaç olan şey, daha önce gerçekten finansal ürün çıkarmış ve hangi varsayımın önce test edileceğini bilen biri.",
         action:
           "Geliştirme bütçesini bağlamadan önce ticari modeli ve müşteri önermesini baskı altına alırım. Hangi ürün müşterinize gerçekten yakışıyor, hangisi sizin gerçek hacminizde para kazandırıyor, önce ne çıkacak ve ne çıkmayacak.",
         outcome:
           "Doğrulanmış bir önerme ve ticari model, arkasındaki gelir mantığı, yanlış olma ihtimali en yüksek varsayım ve ona karşı ne yapılacağı, ve ilk sürümü tanımlanmış bir çıkış sırası.",
         rightDoor:
-          "Bütçe onayınız var ya da almak üzeresiniz. Masada birden fazla ürün fikri var. Biri bir iş planı hazırladı ve odadaki kimse yılı buna bağlamaya yetecek kadar güvenmiyor.",
+          "Bütçe onayınız var ya da almak üzeresiniz. Masada birden fazla ürün fikri var. Biri bir iş planı hazırladı ve bunu güvenle söylemek, gerçekten bir ürün çıkarmış birini gerektiriyor.",
         notRightDoor:
           "Modeli zaten doğruladıysanız ve partneri imzaladıysanız. O zaman Partner Seçimi ya da Deneyim İnşası'na bakın.",
         duration: "Genelde dört ile sekiz hafta, kapsama göre netleşir.",
@@ -471,7 +471,7 @@ export const tr: HomePage = {
       {
         title: "Bankacılık tarafını devretmek isteyen fintechler",
         problem:
-          "Ekibinizin haftası partner görüşmelerine, uyum sorularına ve entegrasyon detaylarına gidiyor. Pazarlamaya ve operasyona ayıracak vakit kalmıyor. Lansman tarihi her ay biraz daha ileri kayıyor, ve dürüst cevap şu: odada bunu daha önce yapmış kimse yok.",
+          "Ekibinizin haftası partner görüşmelerine, uyum sorularına ve entegrasyon detaylarına gidiyor. Pazarlamaya ve operasyona ayıracak vakit kalmıyor. Lansman tarihi her ay biraz daha ileri kayıyor. Bu boşluğu kapatmak, tam olarak bu işi on yılı aşkın süredir yapan birini gerektiriyor.",
         do: "Bankacılık ürün tarafını bana devredersiniz. Rotayı ben belirlerim, partneri ben bulurum, şartları ben müzakere ederim, süreci ben yürütürüm. İsterseniz ürünün kendisini ekibim çıkarır.",
         result:
           "Ekibiniz kendi işine döner. Ürün gecikmeyi bırakır, ay sonunda nerede olduğunuzu tek sayfada görürsünüz.",
@@ -634,7 +634,7 @@ export const tr: HomePage = {
       {
         question: "Bizim ekibimiz var. Siz nerede duruyorsunuz?",
         answer:
-          "Ekibinizin üstünde değil, yanında. Odada daha önce kimsenin yapmadığı kısmı alıp taşıyorum, ekibiniz de kendi iyi olduğu işe dönüyor.",
+          "On yılı aşkın finansal ürün tecrübesi, sektörde geniş bir network ve normal bir ekibin ilk kez karşılaştığı boşlukları kapatacak problem çözme becerisi getiriyorum.",
         order: 6,
       },
       {
@@ -678,7 +678,7 @@ export const siteSettings: SiteSettings = {
     { label: "İletişim", href: "/book" },
   ],
   backLabel: "Geri",
-  ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
+  ctaLabel: "Ücretsiz görüşme ayarla",
   ctaHref: "/book",
   booking: {
     calLink: "mburakdikmen/quick-chat",
@@ -690,7 +690,7 @@ export const siteSettings: SiteSettings = {
   subpageCta: {
     headline: "Ekibinizin içinde, canlıya çıkana kadar.",
     body: "Rapor değil, danışmanlık aboneliği değil, ortada taşeron yok. Karar anında giriyorum, müşteri ürünü kullanmaya başlayınca çıkıyorum. İlk görüşme ücretsiz. Durumu anlatın, yardımcı olabilir miyim birlikte görelim. Olamıyorsam da elinizde yapmaya değer iki üç madde ile kalırsınız.",
-    ctaLabel: "30 dakikalık ücretsiz görüşme ayarla",
+    ctaLabel: "Ücretsiz görüşme ayarla",
     ctaHref: "/book",
   },
   footer: {
