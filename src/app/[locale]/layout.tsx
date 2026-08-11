@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { Analytics } from "@vercel/analytics/next";
 import { playfairDisplay, inter, ibmPlexMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
@@ -121,6 +122,7 @@ export default async function LocaleLayout({
             <BookingOverlay content={settings.booking} />
           </BookingProvider>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
