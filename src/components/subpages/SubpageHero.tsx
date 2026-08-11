@@ -35,7 +35,7 @@ export default function SubpageHero({ hero, backLabel, backHref = "/" }: Subpage
       <div className="mx-auto max-w-[1000px]">
         <Link
           href={backHref}
-          className="mb-7 inline-flex items-center gap-[11px] rounded-full border border-ivory/22 py-2.5 pr-[18px] pl-3"
+          className="mb-7 inline-flex items-center gap-[11px] rounded-full border border-ivory/22 py-2.5 pr-[18px] pl-3 transition-[background-color,border-color] duration-[250ms] ease-out hover:border-bronze/70 hover:bg-ivory/[0.08]"
         >
           <svg
             width="17"

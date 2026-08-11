@@ -33,7 +33,7 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
       <Link
         href={pathname as LinkHref}
         locale="en"
-        className={locale === "en" ? "text-ivory" : "text-ivory/45"}
+        className={`transition-colors duration-200 ${locale === "en" ? "text-ivory" : "text-ivory/45"}`}
       >
         EN
       </Link>
@@ -41,7 +41,7 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
       <Link
         href={pathname as LinkHref}
         locale="tr"
-        className={locale === "tr" ? "text-ivory" : "text-ivory/45"}
+        className={`transition-colors duration-200 ${locale === "tr" ? "text-ivory" : "text-ivory/45"}`}
       >
         TR
       </Link>

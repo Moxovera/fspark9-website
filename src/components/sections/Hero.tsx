@@ -78,7 +78,7 @@ export default function Hero({ content }: HeroProps) {
         </Reveal>
 
         <Reveal className="mt-10 flex flex-col items-start gap-3.5">
-          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory">
+          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory transition-[transform,box-shadow,background-color] duration-[250ms] ease-out hover:-translate-y-0.5 hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)] hover:shadow-[0_14px_40px_rgba(166,124,61,0.4)]">
             {ctaLabel}
           </BookingCta>
           <p className="max-w-[46ch] text-sm leading-[1.55] text-ivory/50">

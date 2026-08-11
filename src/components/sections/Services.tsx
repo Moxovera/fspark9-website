@@ -63,7 +63,7 @@ export default function Services({ content }: ServicesProps) {
 
         <Link
           href={link.href as LinkHref}
-          className="mt-9 inline-block border-b border-bronze/40 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy"
+          className="mt-9 inline-block border-b border-bronze/40 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy transition-colors duration-200 hover:text-bronze"
         >
           {link.label}
         </Link>

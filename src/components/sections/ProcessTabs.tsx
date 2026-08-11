@@ -67,7 +67,7 @@ export default function ProcessTabs({ steps, ctaLabel }: ProcessTabsProps) {
         <p className="max-w-[56ch] text-[15px] leading-[1.65] text-ivory/60">
           {activeStep.detail}
         </p>
-        <BookingCta className="self-start bg-bronze px-[26px] py-[15px] text-[15px] font-medium text-ivory">
+        <BookingCta className="self-start bg-bronze px-[26px] py-[15px] text-[15px] font-medium text-ivory transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_34px_rgba(166,124,61,0.38)]">
           {ctaLabel}
         </BookingCta>
       </div>

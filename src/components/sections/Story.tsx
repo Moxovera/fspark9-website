@@ -35,7 +35,7 @@ export default function Story({ content }: StoryProps) {
           </div>
           <Link
             href={link.href as LinkHref}
-            className="mt-[30px] inline-block border-b border-bronze/45 pb-1 font-mono text-[13px] tracking-[0.06em] text-ivory"
+            className="mt-[30px] inline-block border-b border-bronze/45 pb-1 font-mono text-[13px] tracking-[0.06em] text-ivory transition-colors duration-200 hover:text-bronze"
           >
             {link.label}
           </Link>

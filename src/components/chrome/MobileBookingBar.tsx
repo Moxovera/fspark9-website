@@ -24,7 +24,7 @@ export default function MobileBookingBar({ ctaLabel }: MobileBookingBarProps) {
       <button
         type="button"
         onClick={open}
-        className="w-full bg-bronze p-[15px] text-[15px] font-medium text-ivory"
+        className="w-full cursor-pointer bg-bronze p-[15px] text-[15px] font-medium text-ivory transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)]"
       >
         {ctaLabel}
       </button>

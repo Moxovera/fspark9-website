@@ -52,7 +52,7 @@ export default function Header({ settings, locale }: HeaderProps) {
             <Link
               key={item.href}
               href={item.href as LinkHref}
-              className="text-[14.5px] whitespace-nowrap text-ivory/82"
+              className="text-[14.5px] whitespace-nowrap text-ivory/82 transition-colors duration-200 hover:text-ivory"
             >
               {item.label}
             </Link>
@@ -62,7 +62,7 @@ export default function Header({ settings, locale }: HeaderProps) {
         <div className="flex shrink-0 items-center gap-[18px]">
           <LocaleSwitcher locale={locale} />
 
-          <BookingCta className="hidden bg-bronze px-5 py-3 text-sm font-medium whitespace-nowrap text-ivory min-[1180px]:block">
+          <BookingCta className="hidden bg-bronze px-5 py-3 text-sm font-medium whitespace-nowrap text-ivory transition-[transform,box-shadow,background-color] duration-[250ms] ease-out hover:-translate-y-0.5 hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)] hover:shadow-[0_10px_30px_rgba(166,124,61,0.35)] min-[1180px]:block">
             {ctaLabel}
           </BookingCta>
 

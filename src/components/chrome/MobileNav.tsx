@@ -50,7 +50,7 @@ export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
         aria-label="Menu"
-        className="focus-visible:outline-bronze flex h-11 w-11 flex-col items-center justify-center gap-[5px] focus-visible:outline-2 focus-visible:outline-offset-2 min-[1180px]:hidden"
+        className="focus-visible:outline-bronze flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-[5px] rounded-full transition-colors duration-200 ease-out hover:bg-ivory/10 focus-visible:outline-2 focus-visible:outline-offset-2 min-[1180px]:hidden"
       >
         <span className="block h-[1.5px] w-6 bg-ivory" style={topBarStyle} />
         <span className="block h-[1.5px] w-6 bg-ivory" style={midBarStyle} />
@@ -68,7 +68,7 @@ export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
                 key={item.href}
                 href={item.href as LinkHref}
                 onClick={() => setOpen(false)}
-                className="border-b border-ivory/[0.08] py-3 font-display text-[1.35rem] text-ivory"
+                className="border-b border-ivory/[0.08] py-3 font-display text-[1.35rem] text-ivory transition-colors duration-200 hover:text-bronze"
               >
                 {item.label}
               </Link>
@@ -79,7 +79,7 @@ export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
                 setOpen(false);
                 openBooking();
               }}
-              className="mt-5 block w-full bg-bronze px-[22px] py-4 text-center text-[15px] font-medium text-ivory"
+              className="mt-5 block w-full cursor-pointer bg-bronze px-[22px] py-4 text-center text-[15px] font-medium text-ivory transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)]"
             >
               {ctaLabel}
             </button>

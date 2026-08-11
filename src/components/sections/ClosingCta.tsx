@@ -34,7 +34,7 @@ export default function ClosingCta({ content }: ClosingCtaProps) {
         )}
 
         <Reveal className="flex flex-col items-start gap-3.5">
-          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory">
+          <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(166,124,61,0.4)]">
             {ctaLabel}
           </BookingCta>
           {note && (

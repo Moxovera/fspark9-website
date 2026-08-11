@@ -78,7 +78,7 @@ export default function ProofStrip({ content }: ProofStripProps) {
       <div className="mx-auto max-w-[1280px] px-7 pt-11">
         <Link
           href={link.href as LinkHref}
-          className="border-b border-navy/35 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy"
+          className="border-b border-navy/35 pb-1 font-mono text-[13px] tracking-[0.06em] text-navy transition-colors duration-200 hover:text-bronze"
         >
           {link.label}
         </Link>

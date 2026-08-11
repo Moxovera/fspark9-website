@@ -46,7 +46,7 @@ export default function Footer({ settings, locale }: FooterProps) {
               <Link
                 key={item.href}
                 href={item.href as LinkHref}
-                className="text-[14.5px] text-ivory/72"
+                className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
               >
                 {item.label}
               </Link>
@@ -58,11 +58,14 @@ export default function Footer({ settings, locale }: FooterProps) {
               href={linkedin}
               target="_blank"
               rel="noopener"
-              className="text-[14.5px] text-ivory/72"
+              className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
             >
               LinkedIn
             </a>
-            <a href={`mailto:${email}`} className="text-[14.5px] text-ivory/72">
+            <a
+              href={`mailto:${email}`}
+              className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
+            >
               {email}
             </a>
             <div className="mt-2">
@@ -72,7 +75,11 @@ export default function Footer({ settings, locale }: FooterProps) {
 
           <div className="flex flex-col gap-3">
             {legalLinks.map((item) => (
-              <Link key={item.href} href={item.href as LinkHref} className="text-sm text-ivory/55">
+              <Link
+                key={item.href}
+                href={item.href as LinkHref}
+                className="text-sm text-ivory/55 transition-colors duration-200 hover:text-bronze"
+              >
                 {item.label}
               </Link>
             ))}
