@@ -132,6 +132,10 @@ Sabit hex kodu **yasak**. Tüm renkler `globals.css` içindeki CSS değişkenler
 
 Fontlar `next/font/google` ile: Playfair Display (başlık), Inter (gövde), IBM Plex Mono (numara ve etiket). CDN link'i kullanılmayacak.
 
+### İkonlar
+
+Metin içine gömülü Unicode ok/sembol karakteri **yasak** (ör. `↗`, `→`). dc.html bunları düz karakter olarak kullanıyor olsa bile React'e geçerken inline SVG'ye çevrilecek. Gerekçe: U+2190–2199 aralığındaki oklar hem "text" hem "emoji" sunumuna sahip — masaüstü ince (text) render eder, bazı mobil tarayıcılar kalın (emoji) render eder, aynı karakter platforma göre iki farklı kalınlıkta çıkar ve bu CSS ile düzeltilemez. SVG stroke viewBox'a orantılı ölçeklendiği için tutarlılığı garanti eder. Kalıp: 24×24 viewBox, `stroke="currentColor"`, `strokeWidth="1.8"`, `strokeLinecap`/`strokeLinejoin="round"` (bkz. `Framework.tsx`'teki `ArrowUpRightIcon`, `Hero.tsx`'teki scroll oku).
+
 ### Bileşen yapısı
 
 ```
@@ -155,7 +159,7 @@ src/
     effects/                  → canvas ve görsel efektler
   hooks/
   types/content.ts            → tüm içerik arayüzleri
-  content/                    → Faz 2 geçici veri, Faz 3'te Sanity alır
+  content/                    → yalnızca Sanity kapsamı dışındaki 3 sayfa: /book, /thank-you, 404
   sanity/
 ```
 
@@ -169,10 +173,11 @@ src/
 
 ### Veri akışı
 
-Faz 2'de veri `src/content/*.ts` dosyalarından gelir.
-Faz 3'te aynı veri Sanity'den gelir.
+**Sanity entegrasyonu tamamlandı.** Ana sayfa, alt sayfalar (services/work/story/legal), nav/footer, site geneli SEO ve booking ayarları artık `src/sanity/lib/fetch.ts` (`sanityFetch`) + `src/sanity/lib/queries.ts` üzerinden Sanity'den geliyor. Studio `/studio` altında embed. Şema `src/sanity/schemaTypes/`.
 
-**Bileşenler bu geçişte değişmeyecek.** Sadece `page.tsx` içindeki veri kaynağı değişecek. Bileşen `types/content.ts` arayüzüne göre yazıldıysa bu otomatik çalışır.
+**Kapsam dışı — bilinçli olarak `src/content/*.ts`'te statik kalan 3 sayfa:** `/book`, `/thank-you`, 404 (`global-not-found.tsx`). Sebep: bu sayfalarda editoryal/tekrar eden içerik yok (tek seferlik teşekkür metni, sabit booking kart çerçevesi, tek satır 404 mesajı) — Sanity'ye taşımak şema karmaşıklığı ekler, düzenlenebilirlik kazandırmaz. `/book`'un `calLink`'i istisna: bu tek alan `siteSettings`'ten (Sanity) geliyor, sayfanın geri kalanı statik.
+
+Bileşenler `types/content.ts` arayüzüne göre yazıldığı için veri kaynağı (statik dosya ↔ Sanity) bileşen kodunu etkilemiyor, sadece `page.tsx`/`sanityFetch` çağrısı değişiyor.
 
 ### Erişilebilirlik
 
@@ -180,6 +185,17 @@ Faz 3'te aynı veri Sanity'den gelir.
 - SSS accordion ise klavye ile açılıp kapanabilir olacak, `<button>` kullanılacak, `div` + onClick değil
 - Odak halkası (focus ring) kaldırılmayacak, marka rengiyle özelleştirilecek
 - Renk kontrastı WCAG AA. Bronz üzerine fildişi kombinasyonu kontrol edilecek.
+
+---
+
+## Analytics
+
+Vercel Web Analytics kuruldu (`@vercel/analytics/next`). Bu projede tek bir `app/layout.tsx` **yok** — `next.config.ts`'te `experimental.globalNotFound: true` olduğu için `global-not-found.tsx` kendi `<html><body>`'sini kurup `[locale]/layout.tsx`'i tamamen atlıyor. İkisi de birbirinden bağımsız kök HTML dosyası. Bu yüzden `<Analytics />` component'i **her ikisine de** eklendi:
+
+- `src/app/[locale]/layout.tsx`
+- `src/app/global-not-found.tsx`
+
+Sadece birine eklemek trafiğin bir kısmını (normal sayfalar ya da 404'ler) kaçırır. Yeni bir kök HTML dosyası eklenirse (ör. başka bir top-level özel dosya) oraya da eklenmesi gerekir.
 
 ---
 
