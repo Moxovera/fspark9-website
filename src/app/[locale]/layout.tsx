@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { playfairDisplay, inter, ibmPlexMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
@@ -123,6 +124,7 @@ export default async function LocaleLayout({
           </BookingProvider>
         </NextIntlClientProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

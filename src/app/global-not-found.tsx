@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { playfairDisplay, ibmPlexMono } from "@/lib/fonts";
 import { en } from "@/content/not-found";
 import "./globals.css";
@@ -52,6 +53,7 @@ export default function GlobalNotFound() {
           </div>
         </main>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

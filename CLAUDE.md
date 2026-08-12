@@ -190,7 +190,7 @@ Bileşenler `types/content.ts` arayüzüne göre yazıldığı için veri kayna�
 
 ## Analytics
 
-Vercel Web Analytics kuruldu (`@vercel/analytics/next`). Bu projede tek bir `app/layout.tsx` **yok** — `next.config.ts`'te `experimental.globalNotFound: true` olduğu için `global-not-found.tsx` kendi `<html><body>`'sini kurup `[locale]/layout.tsx`'i tamamen atlıyor. İkisi de birbirinden bağımsız kök HTML dosyası. Bu yüzden `<Analytics />` component'i **her ikisine de** eklendi:
+Vercel Web Analytics (`@vercel/analytics/next`) ve Vercel Speed Insights (`@vercel/speed-insights/next`) kuruldu. Bu projede tek bir `app/layout.tsx` **yok** — `next.config.ts`'te `experimental.globalNotFound: true` olduğu için `global-not-found.tsx` kendi `<html><body>`'sini kurup `[locale]/layout.tsx`'i tamamen atlıyor. İkisi de birbirinden bağımsız kök HTML dosyası. Bu yüzden hem `<Analytics />` hem `<SpeedInsights />` component'leri **her ikisine de** eklendi:
 
 - `src/app/[locale]/layout.tsx`
 - `src/app/global-not-found.tsx`
