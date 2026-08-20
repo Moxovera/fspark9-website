@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HandshakeIcon, GlobeIcon } from "@/components/sections/ServicesTabs";
 import type { Service, ServicesSection } from "@/types/content";
 
@@ -52,6 +52,11 @@ function PhoneDashIcon({ active }: { active: boolean }) {
 
 const ICONS = [CompassIcon, HandshakeIcon, GlobeIcon, PhoneDashIcon];
 
+// Giden panelin solma süresi. Geçişin toplamı ~0.4sn kalsın diye kısa
+// tutuldu; CSS'teki opacity transition'ı ile birebir aynı olmalı.
+// Home'daki ServicesTabs.tsx ile aynı değer.
+const EXIT_MS = 170;
+
 // dc.html: rowAccent (satır 2357), 4 satırın etiket rengi sırayla
 // bronze/muted/navy/off-brand-bronze — bkz. globals.css'teki
 // color-mix() notu (#8A6A45 için).
@@ -71,8 +76,40 @@ function rowsFor(item: Service, labels: ServicesSection["labels"]) {
   ];
 }
 
+// Dört panel de her zaman DOM'da (dc.html: grid-area: 1/1 ile üst üste
+// bindirilmiş) — ama bu SADECE panel kutusunun yüksekliğini sabit tutmak
+// için: görünmeyen panel visibility:hidden ile yerini korur, yoksa sekme
+// değişiminde kutu yüksekliği zıplar ve altındaki bölüm kayar.
+//
+// GEÇİŞ SIRALI, CROSSFADE DEĞİL — Home'un ServicesTabs.tsx'inde yapılan
+// düzeltmenin aynısı (bkz. o dosyadaki uzun not). Paneller aynı anda
+// solup açılırken geçişin ~350ms'si boyunca İKİ panel de opacity>0 /
+// visibility:visible kalıyor, iki yoğun metin bloğu üst üste binip
+// okunaksız hale geliyordu. Buradaki panel Home'unkinden daha da yoğun
+// (navy başlık bloğu + 4 satırlık zebra grid), bu yüzden binme daha da
+// belirgindi. z-index sıralaması sadece hangisinin ÜSTTE olduğunu
+// belirliyor, ikisinin aynı anda görünmesini engellemiyor.
+//
+// Çözüm: iki ayrı state. activeTab tıklamayla anında değişir (sol liste
+// beklemeden tepki verir), shownTab ise panel kutusunda o an duran
+// paneldir. İkisi ayrıştığında önce mevcut panel solar (EXIT_MS), sonra
+// shownTab yeni indekse geçer ve yeni panel opacity 0'dan girer. Hiçbir
+// karede birden fazla panel görünür olmaz.
+//
+// Hızlı art arda tıklama: her tıklama effect'i yeniden çalıştırır,
+// cleanup önceki timeout'u iptal eder, bekleyen geçiş her zaman EN SON
+// seçilen sekmeye çözülür — arada kalan panel hiç gösterilmez. Solma
+// sürerken aynı sekmeye geri tıklanırsa activeTab === shownTab olur ve
+// panel yarıda kalmadan geri açılır (kalıcı görünmezlik yok).
 export default function ServicesDetailTabs({ items, labels }: ServicesDetailTabsProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const [shownTab, setShownTab] = useState(0);
+
+  useEffect(() => {
+    if (activeTab === shownTab) return;
+    const timer = setTimeout(() => setShownTab(activeTab), EXIT_MS);
+    return () => clearTimeout(timer);
+  }, [activeTab, shownTab]);
 
   return (
     <div className="grid grid-cols-[minmax(290px,1fr)_2fr] items-start gap-11">
@@ -138,28 +175,25 @@ export default function ServicesDetailTabs({ items, labels }: ServicesDetailTabs
         }}
       >
         {items.map((item, i) => {
-          const isActive = i === activeTab;
+          // shownTab: kutuda duran panel (girerken/çıkarken de o).
+          // isSettled: geçiş bitmiş, panel tam görünür.
+          const isShown = i === shownTab;
+          const isSettled = isShown && activeTab === shownTab;
           const rows = rowsFor(item, labels);
           return (
             <div
               key={item.slug}
               className="flex h-full flex-col"
+              aria-hidden={isSettled ? undefined : true}
               style={{
                 gridArea: "1 / 1",
-                // Sabit isActive?2:1 tek geçişte doğruydu ama sekmeler hızlı
-                // art arda tıklanınca (önceki geçiş bitmeden yenisi
-                // başlıyor) iki eski panel aynı anda solarken ikisi de
-                // zIndex:1 paylaşıyordu — aralarındaki sıra belirsiz
-                // kalıyordu (Playwright'la ölçüldü, bkz. ServicesTabs.tsx'
-                // teki aynı düzeltmenin yorumu). Her panel artık sabit,
-                // kendine özgü bir zIndex taşıyor.
-                zIndex: isActive ? items.length + 1 : i + 1,
-                opacity: isActive ? 1 : 0,
-                transform: `translateY(${isActive ? 0 : 16}px)`,
-                pointerEvents: isActive ? "auto" : "none",
-                visibility: isActive ? "visible" : "hidden",
+                zIndex: isShown ? items.length + 1 : i + 1,
+                opacity: isSettled ? 1 : 0,
+                transform: `translateY(${isSettled ? 0 : 10}px)`,
+                pointerEvents: isSettled ? "auto" : "none",
+                visibility: isShown ? "visible" : "hidden",
                 transition:
-                  "opacity .45s ease, transform .5s cubic-bezier(.2,.8,.2,1), visibility .45s",
+                  "opacity .17s ease, transform .24s cubic-bezier(.2,.8,.2,1)",
               }}
             >
               <div className="bg-navy px-[clamp(28px,3vw,40px)] py-[clamp(28px,3vw,40px)]">
