@@ -289,7 +289,7 @@ export const en: HomePage = {
         slug: "proposition-blueprint",
         number: 1,
         title: "Proposition and Product Blueprint",
-        tag: "Decide",
+        tag: "DECIDE",
         problem:
           "The business case behind it is a spreadsheet somebody made assumptions into. What it needs is someone who has actually launched financial products before, and knows which assumption to test first.",
         action:
@@ -308,7 +308,7 @@ export const en: HomePage = {
         slug: "partner-selection",
         number: 2,
         title: "Partner Selection",
-        tag: "Set up",
+        tag: "SET UP",
         problem:
           "Three providers sent proposals. On paper they look the same, the prices are far apart and nobody explains why. The thing that hurts you in year two is never in the proposal. It is in the exit clause, the volume tiers and the risk appetite mismatch.",
         action:
@@ -327,7 +327,7 @@ export const en: HomePage = {
         slug: "market-expansion",
         number: 3,
         title: "New Market Expansion",
-        tag: "Set up and ship",
+        tag: "SET UP AND SHIP",
         problem:
           "The product works at home. In the new country the regulator is different, the partner structure is different, and what customers there expect is different. Most expansions stall because the team lifts the working product and finds out in month four that it cannot legally operate in the shape it was built.",
         action:
@@ -347,7 +347,7 @@ export const en: HomePage = {
         slug: "experience-build",
         number: 4,
         title: "Digital Native Experience Build",
-        tag: "Ship",
+        tag: "SHIP",
         problem:
           "The app looks good and people still do not finish opening the account. Your designer’s flow comes back from legal with changes nobody understands, gets redrawn, and comes back again. Two cycles later the launch date has moved.",
         action:

@@ -287,7 +287,7 @@ export const tr: HomePage = {
         slug: "proposition-blueprint",
         number: 1,
         title: "Önerme ve Ürün Planı",
-        tag: "Karar",
+        tag: "KARAR",
         problem:
           "Arkasındaki iş modeli, birinin varsayımlarını doldurduğu bir tablo. İhtiyaç olan şey, daha önce gerçekten finansal ürün çıkarmış ve hangi varsayımın önce test edileceğini bilen biri.",
         action:
@@ -306,7 +306,7 @@ export const tr: HomePage = {
         slug: "partner-selection",
         number: 2,
         title: "Partner Seçimi",
-        tag: "Kurulum",
+        tag: "KURULUM",
         problem:
           "Üç sağlayıcı teklif gönderdi. Kağıt üzerinde hepsi aynı, fiyatlar birbirinden çok uzak, kimse nedenini açıklamıyor. İkinci yıl canınızı yakan şey teklifte hiç yazmaz.",
         action:
@@ -325,7 +325,7 @@ export const tr: HomePage = {
         slug: "market-expansion",
         number: 3,
         title: "Yeni Ülkeye Açılma",
-        tag: "Kurulum ve ürün",
+        tag: "KURULUM VE ÜRÜN",
         problem:
           "Ürün kendi ülkenizde çalışıyor. Yeni ülkede regülatör farklı, partner yapısı farklı, oradaki müşterinin beklentisi farklı. Çoğu açılım şurada tıkanıyor: ekip çalışan ürünü olduğu gibi taşıyor ve dördüncü ayda kurulduğu haliyle yasal olarak çalışamayacağını öğreniyor.",
         action:
@@ -345,7 +345,7 @@ export const tr: HomePage = {
         slug: "experience-build",
         number: 4,
         title: "Dijital Deneyim İnşası",
-        tag: "Ürün",
+        tag: "ÜRÜN",
         problem:
           "Uygulama güzel görünüyor ama insanlar hesabı yine de açamıyor. Tasarımcınızın akışı hukuktan kimsenin anlamadığı değişikliklerle geri geliyor, yeniden çiziliyor, yine geri geliyor.",
         action:

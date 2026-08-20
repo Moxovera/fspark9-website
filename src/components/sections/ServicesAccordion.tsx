@@ -20,6 +20,10 @@ interface ServicesAccordionProps {
 // aynı). AudienceAccordion'ın hover-peek animasyonu (hoverIndex,
 // peekStyle, iconStyle) buraya taşınmadı — mouse hover'a bağlı, bu
 // dokunmatik/mobil-öncelikli bağlamda karşılığı yok.
+// Adım etiketi (numara · tag) üzerinde CSS text-transform:uppercase YOK:
+// bu dönüşüm elemanın diline bağlı çalışır ve lang="tr" altında küçük "i"
+// noktalı "İ"ye dönüşür (DECIDE → DECİDE). Etiket metni kaynakta zaten
+// büyük harf tutuluyor (bkz. ServicesTabs.tsx'teki aynı not).
 export default function ServicesAccordion({ items, labels }: ServicesAccordionProps) {
   const [openIndex, setOpenIndex] = useState(-1);
 
@@ -38,7 +42,7 @@ export default function ServicesAccordion({ items, labels }: ServicesAccordionPr
               <div>
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="mb-3 font-mono text-[11.5px] tracking-[0.14em] text-bronze uppercase">
+                    <p className="mb-3 font-mono text-[11.5px] tracking-[0.14em] text-bronze">
                       {numberText} · {item.tag}
                     </p>
                     <h3 className="font-display text-[1.45rem] leading-[1.18] font-medium text-navy">
@@ -77,7 +81,7 @@ export default function ServicesAccordion({ items, labels }: ServicesAccordionPr
                 className="focus-visible:outline-bronze flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent p-0 text-left focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 <div>
-                  <p className="mb-3 font-mono text-[11.5px] tracking-[0.14em] text-bronze uppercase">
+                  <p className="mb-3 font-mono text-[11.5px] tracking-[0.14em] text-bronze">
                     {numberText} · {item.tag}
                   </p>
                   <h3 className="font-display text-[1.45rem] leading-[1.18] font-medium text-navy">
