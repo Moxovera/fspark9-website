@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import { ArrowRightIcon, CloseIcon } from "@/components/sections/ServicesAccordion";
 import type { Service, ServicesSection } from "@/types/content";
 
 interface ServicesDetailAccordionProps {
@@ -63,7 +64,7 @@ export default function ServicesDetailAccordion({ items, labels }: ServicesDetai
                     aria-label="Close"
                     className="accordion-close-btn focus-visible:outline-bronze flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-transparent text-[17px] leading-none text-ivory focus-visible:outline-2 focus-visible:outline-offset-2"
                   >
-                    ✕
+                    <CloseIcon />
                   </button>
                 </div>
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))]">
@@ -103,7 +104,9 @@ export default function ServicesDetailAccordion({ items, labels }: ServicesDetai
                     {item.title}
                   </h2>
                 </div>
-                <span className="shrink-0 text-xl text-bronze">→</span>
+                <span className="shrink-0 text-xl text-bronze">
+                  <ArrowRightIcon />
+                </span>
               </button>
             )}
           </Reveal>

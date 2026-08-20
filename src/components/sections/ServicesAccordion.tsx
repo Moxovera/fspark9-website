@@ -24,6 +24,54 @@ interface ServicesAccordionProps {
 // bu dönüşüm elemanın diline bağlı çalışır ve lang="tr" altında küçük "i"
 // noktalı "İ"ye dönüşür (DECIDE → DECİDE). Etiket metni kaynakta zaten
 // büyük harf tutuluyor (bkz. ServicesTabs.tsx'teki aynı not).
+// Unicode ok/sembol karakteri (→, ✕) yerine inline SVG — CLAUDE.md'deki
+// kural: U+2190–2199 aralığındaki oklar hem "text" hem "emoji" sunumuna
+// sahip, masaüstü ince, bazı mobil tarayıcılar kalın render ediyor ve bu
+// CSS ile düzeltilemiyor. Aynı belirsizlik ✕ (U+2715) için de geçerli.
+// Kalıp dosyanın geri kalanıyla ve Comparison.tsx'teki CheckIcon/DashIcon
+// ile aynı: 24x24 viewBox, fill yok, stroke="currentColor" (renk sarmalayan
+// elemanın text-* sınıfından geliyor, böylece renk değişmiyor), yuvarlak uç.
+//
+// Ok geometrisi SubpageHero'daki geri okunun aynadaki hali — projede zaten
+// kurulu olan tek ok ikonu o, yeni bir çizim tipi eklenmedi.
+// ServicesDetailAccordion da bu ikisini buradan import ediyor (aynı şekilde
+// ServicesDetailTabs, ServicesTabs'tan ikon import ediyor).
+export function ArrowRightIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" y1="12" x2="19" y2="12" />
+      <polyline points="13 5 20 12 13 19" />
+    </svg>
+  );
+}
+
+export function CloseIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="6" y1="6" x2="18" y2="18" />
+      <line x1="18" y1="6" x2="6" y2="18" />
+    </svg>
+  );
+}
+
 export default function ServicesAccordion({ items, labels }: ServicesAccordionProps) {
   const [openIndex, setOpenIndex] = useState(-1);
 
@@ -55,7 +103,7 @@ export default function ServicesAccordion({ items, labels }: ServicesAccordionPr
                     aria-label="Close"
                     className="accordion-close-btn focus-visible:outline-bronze flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-transparent text-[17px] leading-none text-navy focus-visible:outline-2 focus-visible:outline-offset-2"
                   >
-                    ✕
+                    <CloseIcon />
                   </button>
                 </div>
                 <div className="mt-5">
@@ -88,7 +136,9 @@ export default function ServicesAccordion({ items, labels }: ServicesAccordionPr
                     {item.title}
                   </h3>
                 </div>
-                <span className="shrink-0 text-xl text-bronze">→</span>
+                <span className="shrink-0 text-xl text-bronze">
+                  <ArrowRightIcon />
+                </span>
               </button>
             )}
           </Reveal>
