@@ -46,7 +46,30 @@ export default function Media({ content }: MediaProps) {
                       </svg>
                     </span>
                   )}
-                  <p className="font-mono text-[11.5px] tracking-[0.1em] uppercase text-bronze">
+                  {/* lang="en": text-transform:uppercase, elemanın diline göre
+                      büyütür. Sayfa <html lang="tr"> olduğunda küçük "i" noktalı
+                      "İ"ye dönüşüyor ve İngilizce yayın adları bozuluyordu
+                      ("Fintech Istanbul" → "FİNTECH ISTANBUL").
+
+                      Burada CSS transform'u kaldırıp metni kaynakta büyük harf
+                      tutma yoluna (bkz. ServicesTabs.tsx'teki adım etiketleri)
+                      GİDİLMEDİ, çünkü iki alan farklı şeyler: adım etiketi
+                      dile göre çevrilen ve büyük harfliliği kendi kimliği olan
+                      bir tasarım etiketi; buradaki source ise bir yayın/mecra
+                      ADI — büyük harf sadece görünüm. Ad'ı kaynakta büyük harf
+                      tutmak Studio önizlemelerine ve ekran okuyuculara da
+                      sızardı.
+
+                      lang="en" ayrıca doğru işaretleme: mediaItem.source
+                      Sanity'de localeString DEĞİL, düz string (schema:
+                      objects/mediaItem.ts) ve seed EN değerinden yazıyor
+                      (scripts/seed-content.ts) — yani TR sayfasında da
+                      İngilizce metin görünüyor. Bu alan ileride localeString'e
+                      çevrilirse buradaki sabit lang de locale'e bağlanmalı. */}
+                  <p
+                    lang="en"
+                    className="font-mono text-[11.5px] tracking-[0.1em] uppercase text-bronze"
+                  >
                     {item.source}
                   </p>
                 </div>
