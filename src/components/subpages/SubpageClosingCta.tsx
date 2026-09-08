@@ -23,7 +23,7 @@ export default function SubpageClosingCta({ content }: SubpageClosingCtaProps) {
         <p className="mb-[38px] max-w-[60ch] text-[1.06rem] leading-[1.68] text-ivory/74">
           {body}
         </p>
-        <BookingCta className="bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(166,124,61,0.4)]">
+        <BookingCta className="rounded-[30px] bg-bronze px-8 py-[18px] font-sans text-base font-medium text-ivory transition-[transform,box-shadow] duration-[250ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(166,124,61,0.4)]">
           {ctaLabel}
         </BookingCta>
       </div>
