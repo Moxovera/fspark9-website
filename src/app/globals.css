@@ -214,12 +214,17 @@ body {
     background-color 0.25s ease;
 }
 
+/* Dinlenme durumunda nötr — üç aksan renginden de (navy/bronze/blend)
+   farklı olması gerekiyor, aksi halde bronze kartın hover'ı görünmez kalır
+   (dinlenme rengiyle aynı renge "geçiş" fark edilmiyordu). Düz --muted
+   ivory zeminde 4.4:1 veriyor, WCAG AA (4.5:1) eşiğinin az altında kalıyor
+   ("01" gibi küçük metin için); %10 charcoal katılarak 5:1'e çıkarıldı. */
 .framework-card-accent-num {
-  color: var(--bronze);
+  color: color-mix(in srgb, var(--muted) 90%, var(--charcoal) 10%);
 }
 
 .framework-card-accent-bar {
-  background-color: var(--bronze);
+  background-color: color-mix(in srgb, var(--muted) 90%, var(--charcoal) 10%);
 }
 
 .framework-card[data-accent="navy"]:hover {
