@@ -17,6 +17,13 @@ const cardClassName =
   "framework-card flex h-full flex-col rounded-[20px] border border-navy bg-ivory p-8 " +
   "focus-visible:outline-bronze focus-visible:outline-2 focus-visible:outline-offset-2";
 
+// Üç kart, hover'da üçü de farklı bir fspark9 rengiyle vurgulanıyor —
+// sırayla navy, bronze ve ikisinin türetilmiş karışımı (globals.css'teki
+// .framework-card[data-accent] kuralları). Kart zemini her zaman ivory
+// kalıyor, sadece kenarlık/aksan çubuğu/adım numarası renk değiştiriyor —
+// bu yüzden gövde metni (navy/muted) kontrastı hiçbir aksanda bozulmuyor.
+const cardAccents = ["navy", "bronze", "blend"] as const;
+
 // next-intl'in Link'i tipli rota kullanıyor (düz string kabul etmiyor),
 // bu yüzden href tipi doğrudan Link'ten türetiliyor.
 interface FrameworkCardProps {
@@ -24,6 +31,7 @@ interface FrameworkCardProps {
   label: string;
   description: string;
   href: ComponentProps<typeof Link>["href"];
+  accent: (typeof cardAccents)[number];
 }
 
 // Hover'daki kalkma (translateY -4px + scale 1.03) saf CSS ile
@@ -31,13 +39,13 @@ interface FrameworkCardProps {
 // kütüphanesi kurmayı yasakladığı için referanstaki framer-motion
 // variant'ı CSS geçişine çevrildi — görsel sonuç aynı, bileşen de
 // server component olarak kalıyor ('use client' sınırı gerekmiyor).
-function FrameworkCard({ step, label, description, href }: FrameworkCardProps) {
+function FrameworkCard({ step, label, description, href, accent }: FrameworkCardProps) {
   return (
-    <Link href={href} className={cardClassName}>
-      <span className="font-mono text-[13px] tracking-[0.18em] text-bronze">
+    <Link href={href} className={cardClassName} data-accent={accent}>
+      <span className="framework-card-accent-num font-mono text-[13px] tracking-[0.18em]">
         {String(step).padStart(2, "0")}
       </span>
-      <span aria-hidden className="mt-4 block h-0.5 w-8 bg-bronze" />
+      <span aria-hidden className="framework-card-accent-bar mt-4 block h-0.5 w-8" />
       <h3 className="font-display mt-7 text-[1.75rem] leading-[1.2] font-bold text-navy">
         {label}
       </h3>
@@ -59,6 +67,7 @@ export default function Framework({ steps }: FrameworkProps) {
               label={step.label}
               description={step.description}
               href="/services"
+              accent={cardAccents[i % cardAccents.length]}
             />
           </Reveal>
         ))}

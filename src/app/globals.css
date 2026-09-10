@@ -192,12 +192,67 @@ body {
   box-shadow: 0 1px 2px color-mix(in srgb, var(--navy) 6%, transparent);
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .framework-card:hover {
   transform: translateY(-4px) scale(1.03);
   box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--navy) 22%, transparent);
+}
+
+/* Üçüncü kart aksanı, navy+bronze karışımından türetiliyor — yeni bir
+   hex değeri değil, iki marka renginin CSS color-mix ile birleşimi. */
+.framework-card[data-accent="blend"] {
+  --accent-blend: color-mix(in srgb, var(--navy) 55%, var(--bronze) 45%);
+}
+
+.framework-card-accent-num,
+.framework-card-accent-bar {
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.framework-card-accent-num {
+  color: var(--bronze);
+}
+
+.framework-card-accent-bar {
+  background-color: var(--bronze);
+}
+
+.framework-card[data-accent="navy"]:hover {
+  border-color: var(--navy);
+  box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--navy) 34%, transparent);
+}
+.framework-card[data-accent="navy"]:hover .framework-card-accent-num {
+  color: var(--navy);
+}
+.framework-card[data-accent="navy"]:hover .framework-card-accent-bar {
+  background-color: var(--navy);
+}
+
+.framework-card[data-accent="bronze"]:hover {
+  border-color: var(--bronze);
+  box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--bronze) 34%, transparent);
+}
+.framework-card[data-accent="bronze"]:hover .framework-card-accent-num {
+  color: var(--bronze);
+}
+.framework-card[data-accent="bronze"]:hover .framework-card-accent-bar {
+  background-color: var(--bronze);
+}
+
+.framework-card[data-accent="blend"]:hover {
+  border-color: var(--accent-blend);
+  box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--accent-blend) 34%, transparent);
+}
+.framework-card[data-accent="blend"]:hover .framework-card-accent-num {
+  color: var(--accent-blend);
+}
+.framework-card[data-accent="blend"]:hover .framework-card-accent-bar {
+  background-color: var(--accent-blend);
 }
 
 @media (prefers-reduced-motion: reduce) {
