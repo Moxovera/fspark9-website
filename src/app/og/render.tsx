@@ -27,8 +27,8 @@ async function loadGoogleFont(family: string, weight: number) {
 // içinde SVG okuyamıyor, bu yüzden Sanity'nin görsel API'sinden
 // `?fm=png` ile PNG'ye çevrilmiş hali isteniyor.
 export async function renderOgImage() {
-  const [interData, logoResult] = await Promise.all([
-    loadGoogleFont("Inter", 400),
+  const [cabinData, logoResult] = await Promise.all([
+    loadGoogleFont("Cabin", 400),
     sanityFetch<SITE_LOGO_QUERYResult>({ query: SITE_LOGO_QUERY, tags: ["siteSettings"] }),
   ]);
   const logo = toSiteLogo(logoResult);
@@ -67,7 +67,7 @@ export async function renderOgImage() {
         />
         <div
           style={{
-            fontFamily: "Inter",
+            fontFamily: "Cabin",
             fontSize: 27,
             color: "rgba(247, 244, 236, 0.72)",
             letterSpacing: "0.01em",
@@ -80,7 +80,7 @@ export async function renderOgImage() {
     {
       width: 1200,
       height: 630,
-      fonts: [{ name: "Inter", data: interData, weight: 400, style: "normal" }],
+      fonts: [{ name: "Cabin", data: cabinData, weight: 400, style: "normal" }],
     },
   );
 }

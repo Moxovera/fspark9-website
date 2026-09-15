@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { playfairDisplay, inter, ibmPlexMono } from "@/lib/fonts";
+import { montserrat, cabin, ibmPlexMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/chrome/Header";
@@ -112,7 +112,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${playfairDisplay.variable} ${inter.variable} ${ibmPlexMono.variable} font-sans antialiased`}
+        className={`${montserrat.variable} ${cabin.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider>
           <BookingProvider>

@@ -1,18 +1,18 @@
-import { Playfair_Display, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Montserrat, Cabin, IBM_Plex_Mono } from "next/font/google";
 
 // [locale]/layout.tsx VE app/global-not-found.tsx (kök 404, layout.tsx'i
 // bypass ediyor) paylaşıyor — next/font/google çağrıları tek yerde,
 // weight/subset ayarları iki dosyada tekrarlanmasın diye.
-export const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+export const montserrat = Montserrat({
+  variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
 });
 
-export const inter = Inter({
-  variable: "--font-inter",
+export const cabin = Cabin({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
 });
 
 export const ibmPlexMono = IBM_Plex_Mono({
