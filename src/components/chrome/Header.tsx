@@ -48,15 +48,26 @@ export default function Header({ settings, locale }: HeaderProps) {
         </Link>
 
         <nav className="hidden items-center gap-[26px] min-[1180px]:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href as LinkHref}
-              className="text-[14.5px] whitespace-nowrap text-ivory/82 transition-colors duration-200 hover:text-ivory"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {nav.map((item) => {
+            // Spark, dc.html'de karşılığı olmayan yeni bir sekme —
+            // diğerlerinin aksine bronz glow hover'ı alıyor (bkz.
+            // globals.css .nav-spark). Eşleşme href'e göre: label
+            // dile göre değişiyor, href sabit kalıyor.
+            const isSpark = item.href === "/spark";
+            return (
+              <Link
+                key={item.href}
+                href={item.href as LinkHref}
+                className={
+                  isSpark
+                    ? "nav-spark text-[14.5px] whitespace-nowrap text-ivory/82"
+                    : "text-[14.5px] whitespace-nowrap text-ivory/82 transition-colors duration-200 hover:text-ivory"
+                }
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex shrink-0 items-center gap-[18px]">

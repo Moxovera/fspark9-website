@@ -675,6 +675,7 @@ export const siteSettings: SiteSettings = {
     { label: "Hizmetler", href: "/services" },
     { label: "Vaka İncelemeleri", href: "/work" },
     { label: "Medya", href: "/#media" },
+    { label: "Spark", href: "/spark" },
     { label: "İletişim", href: "/book" },
   ],
   backLabel: "Geri",

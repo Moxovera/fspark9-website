@@ -680,6 +680,7 @@ export const siteSettings: SiteSettings = {
     { label: "Services", href: "/services" },
     { label: "Case studies", href: "/work" },
     { label: "Media", href: "/#media" },
+    { label: "Spark", href: "/spark" },
     { label: "Contact", href: "/book" },
   ],
   backLabel: "Back",

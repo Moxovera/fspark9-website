@@ -462,3 +462,78 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 24px 60px color-mix(in srgb, var(--navy) 22%, transparent);
 }
+
+/* "Spark" nav sekmesi hover'ı — dc.html'de karşılığı yok, yeni bir
+   sekme (bkz. Header.tsx). Diğer nav linkleri düz ivory/82 → ivory renk
+   geçişi kullanırken, Spark bronz aksana referans veren yumuşak bir
+   glow + hafif bir kıvılcım hissiyle ayrışıyor — merak uyandırsın,
+   dikkat dağıtmasın diye tek seferlik (loop'suz) bir hover geçişi,
+   JS yok. Kıvılcım noktası (::after) glow'dan 80ms geç başlıyor,
+   "parlamanın ardından kıvılcım sıçrıyor" hissi için. */
+.nav-spark {
+  position: relative;
+  transition:
+    color 0.35s ease,
+    text-shadow 0.35s ease;
+}
+
+.nav-spark::before {
+  content: "";
+  position: absolute;
+  inset: -12px -16px;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--bronze) 45%, transparent) 0%,
+    transparent 72%
+  );
+  opacity: 0;
+  transform: scale(0.82);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  pointer-events: none;
+}
+
+.nav-spark::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  right: -9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bronze);
+  box-shadow: 0 0 8px 1px color-mix(in srgb, var(--bronze) 80%, transparent);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.3s ease 0.08s,
+    transform 0.3s ease 0.08s;
+  pointer-events: none;
+}
+
+.nav-spark:hover {
+  color: var(--bronze);
+  text-shadow: 0 0 14px color-mix(in srgb, var(--bronze) 55%, transparent);
+}
+
+.nav-spark:hover::before,
+.nav-spark:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-spark,
+  .nav-spark::before,
+  .nav-spark::after {
+    transition: none;
+  }
+
+  .nav-spark::before,
+  .nav-spark::after {
+    transform: none;
+  }
+}
