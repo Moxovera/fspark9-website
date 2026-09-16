@@ -1,9 +1,9 @@
-import { Montserrat, Cabin, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Cabin, IBM_Plex_Mono } from "next/font/google";
 
 // [locale]/layout.tsx VE app/global-not-found.tsx (kök 404, layout.tsx'i
 // bypass ediyor) paylaşıyor — next/font/google çağrıları tek yerde,
 // weight/subset ayarları iki dosyada tekrarlanmasın diye.
-export const montserrat = Montserrat({
+export const fraunces = Fraunces({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["600", "700"],
