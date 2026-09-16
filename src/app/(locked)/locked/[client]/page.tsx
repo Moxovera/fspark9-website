@@ -1,12 +1,29 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
-import type { Locale } from "@/types/content";
+import type { Locale, LockedReportContent } from "@/types/content";
 import { getLockedClient } from "@/content/locked/clients";
 import { lockedCookieName, lockedLangCookieName, verifyLockedCookie } from "@/lib/locked-auth";
 import { LockedGate } from "@/components/locked/LockedGate";
+import { Report } from "@/components/locked/report/Report";
 
 const NEUTRAL_TITLE = "fspark9 · Private report";
+
+// One case per client slug — each client's content module lives in its own
+// private submodule folder (src/content/locked/<slug>/), so this is the
+// one place that has to grow when a new client is added.
+async function loadReportData(client: string, lang: Locale) {
+  if (client === "fuzul") {
+    const [{ fuzulReportTr }, { fuzulReportEn }, data] = await Promise.all([
+      import("@/content/locked/fuzul/tr"),
+      import("@/content/locked/fuzul/en"),
+      import("@/content/locked/fuzul/data"),
+    ]);
+    const content: LockedReportContent = lang === "tr" ? fuzulReportTr : fuzulReportEn;
+    return { content, banks: data.BANKS, total: data.TOTAL, rates: data.RATES, refs: data.REFS };
+  }
+  return null;
+}
 
 async function resolveState(client: string, searchLang: string | undefined) {
   const cookieStore = await cookies();
@@ -76,19 +93,8 @@ export default async function LockedClientPage({
     return <LockedGate client={client} initialLang={activeLang} gate={config.gate} />;
   }
 
-  // Phase 2 replaces this with the ported report (ReportTopBar, ReportHero,
-  // ReportSummary, chapters, charts...) built from src/content/locked/fuzul/*
-  // (private submodule). This placeholder only proves the gate + cookie +
-  // routing + indexing skeleton end to end.
-  return (
-    <main className="wrap" style={{ paddingBlock: 64 }}>
-      <p className="eyebrow">fspark9 · locked</p>
-      <h1>{config.title[activeLang]}</h1>
-      <p className="lede">
-        {activeLang === "tr"
-          ? "Kilit açıldı. Rapor içeriği bir sonraki aşamada eklenecek."
-          : "Unlocked. Report content is added in the next phase."}
-      </p>
-    </main>
-  );
+  const data = await loadReportData(client, activeLang);
+  if (!data) notFound();
+
+  return <Report client={client} lang={activeLang} content={data.content} banks={data.banks} total={data.total} rates={data.rates} refs={data.refs} />;
 }

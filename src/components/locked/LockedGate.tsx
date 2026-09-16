@@ -3,7 +3,7 @@
 import { useActionState, useEffect, useState, useTransition } from "react";
 import { unlockAction, setLockedLangAction, type UnlockState } from "@/app/(locked)/locked/[client]/actions";
 import type { Locale, LockedGateContent } from "@/types/content";
-import { BrandMark } from "@/components/locked/BrandMark";
+import { Wordmark } from "@/components/locked/Wordmark";
 
 const initialState: UnlockState = { error: false };
 
@@ -36,7 +36,7 @@ export function LockedGate({
   return (
     <div className="gate">
       <form className="gate-card" action={formAction} autoComplete="off">
-        <BrandMark size={34} />
+        <Wordmark height={34} />
         <h1>{t.title}</h1>
         <p>{t.text}</p>
         <label htmlFor="gate-pass">{t.label}</label>

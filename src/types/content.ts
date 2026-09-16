@@ -635,3 +635,271 @@ export interface LockedGateContent {
   btn: string
   err: string
 }
+
+// ── Report body (fspark9-locked-fuzul-claude-code-brief.md) ──
+// Block shape mirrors the reference file's actual DOM structure (ported by
+// a jsdom extraction script, not hand-retyped, to guarantee the copy is
+// byte-exact — see fuzul/fspark9-locked-fuzul-claude-code-brief.md).
+// `html` fields hold small, trusted, developer-authored rich-text
+// fragments (strong/em/br/<span class="src"><a href="#k1">[1]</a></span>
+// source refs) — never user input. Bank-logo slots inside table/heat cells
+// are the literal `<span class="bl" data-bank="slug"></span>` markup from
+// the source; components parse that prefix out (see parseBankPrefix) and
+// render a real BankLogo instead of raw-rendering it.
+
+export interface ReportSourceIds {
+  sourceIds?: string[]
+}
+
+export interface HtmlBlock extends ReportSourceIds {
+  kind: 'prose' | 'pull' | 'small'
+  html: string
+}
+
+export interface H3Block {
+  kind: 'h3'
+  text: string
+}
+
+export interface NoteBlock {
+  kind: 'note'
+  html: string
+}
+
+export interface ListBlock {
+  kind: 'list'
+  items: string[]
+}
+
+export interface TableCell {
+  tag: string
+  cls: string
+  html: string
+}
+
+export interface TableBlock {
+  kind: 'table'
+  isHeat: boolean
+  head: string[] | null
+  /** non-null when the original used data-fill (bank-rows / heat-rows / refs) — computed, not content */
+  bodyFillAttr: string | null
+  rows: TableCell[][] | null
+  minWidth: string | null
+}
+
+export interface DetailsBlock {
+  kind: 'details'
+  sumT: string
+  sumH: string
+  table: TableBlock
+}
+
+export interface MeterInfo {
+  ariaLabel: string
+  fillPct: number
+  labels: { leftStyle: string; goal: boolean; text: string }[]
+}
+
+export type ChartKey =
+  | 'growth'
+  | 'shareSteps'
+  | 'share'
+  | 'bubble'
+  | 'capital'
+  | 'points'
+  | 'rates'
+  | 'kt'
+  | 'tfs'
+  | 'fzbranch'
+  | 'map'
+
+export interface FigureBlock {
+  kind: 'figure'
+  title: string
+  sub: string
+  segButtons: { mode: string; label: string }[] | null
+  legendItems: { color: string; label: string }[] | null
+  meter: MeterInfo | null
+  chart: ChartKey | null
+  chartAria: string | null
+  caption: string | null
+  detailsNested: DetailsBlock | null
+}
+
+export interface HomesBlock {
+  kind: 'homes'
+  items: { title: string; on: number; big: string; small: string }[]
+  legend: string[]
+}
+
+export interface JourneyBlock {
+  kind: 'journey'
+  title: string
+  steps: { h5: string; p: string }[]
+  bankName: string | null
+  bankSlug: string | null
+  bankText: string | null
+}
+
+export interface TimelineBlock {
+  kind: 'timeline'
+  items: { date: string; slug: string | null; lg: boolean; title: string; body: string; fz: boolean }[]
+}
+
+export interface MoveBlockData {
+  kind: 'moveBlock'
+  letter: string
+  title: string
+  intro: string
+  moves: { no: string; title: string; body: string; note: string | null }[]
+}
+
+export interface TrioCard {
+  k: string
+  kStyle: string | null
+  h4: string
+  p: string | null
+  dl: { dt: string; dd: string }[] | null
+  flow: { tag: string; text: string }[] | null
+  fz: boolean
+}
+
+export interface TrioBlock {
+  kind: 'trio'
+  cards: TrioCard[]
+}
+
+export interface TwoBlock {
+  kind: 'two'
+  style: string | null
+  cols: ReportBlock[]
+}
+
+export interface GroupBlock {
+  kind: 'group'
+  blocks: ReportBlock[]
+}
+
+export type ReportBlock =
+  | HtmlBlock
+  | H3Block
+  | NoteBlock
+  | ListBlock
+  | TableBlock
+  | DetailsBlock
+  | FigureBlock
+  | HomesBlock
+  | JourneyBlock
+  | TimelineBlock
+  | MoveBlockData
+  | TrioBlock
+  | TwoBlock
+  | GroupBlock
+
+export interface ReportChapter {
+  id: string
+  nav: string
+  eyebrow: string
+  heading: string
+  lede: string
+  blocks: ReportBlock[]
+}
+
+export interface ReportHeroStat {
+  /** raw html for a plain value (e.g. "%14", "4,92<small>trilyon TL</small>") */
+  v: string
+  l: string
+  sourceIds: string[]
+}
+
+export interface ReportHeroContent {
+  eyebrow: string
+  /** e.g. "Evin<br>Bankası <em>Olmak</em>" — split into lines/em by ReportHero */
+  h1: string
+  sub: string
+  whoB: string
+  whoSpan: string
+  stats: ReportHeroStat[]
+}
+
+export interface ReportSummaryPoint {
+  title: string
+  body: string
+  sourceIds: string[]
+}
+
+export interface ReportSummaryContent {
+  eyebrow: string
+  heading: string
+  points: ReportSummaryPoint[]
+  proposal: { tagNum: string; tagLabel: string; heading: string; body: string; aside: string }
+}
+
+export interface ReportClosingContent {
+  eyebrow: string
+  /** blockquote innerHTML, incl. <em> */
+  quote: string
+  lede: string
+  signP: string
+  contact: string
+  method: string
+}
+
+export interface ReportChartStrings {
+  growth: string[]
+  shareSteps: string[]
+  grp: { ozel: string; kamu: string; yeni: string }
+  shareOther: string
+  merged: string
+  mergedTipTitle: string
+  mergedTipLine1: string
+  mergedTipLine2: string
+  shareTipSuffix: string
+  trn: string
+  bn: string
+  axAssets: string
+  axRoa: string
+  tipAssets: string
+  tipRoa: string
+  tipGrowth: string
+  emlakNote: string
+  loss: string
+  capital: { name: string; caption: string; slug: string }[]
+  points: { name: string; value: string; caption: string; slug: string | null }[]
+  policy: string
+  rateTip: string
+  ktCur: string
+  ktOther: string
+  ktCurTip: string
+  ktOtherTip: string
+  tfs: string[]
+  tfsUnit: string
+  fzb: string[]
+  branches: string
+  map: {
+    zone: string
+    xl: string
+    xr: string
+    x: string
+    yb: string
+    yt: string
+    pts: Record<string, string>
+    names: Record<string, string>
+  }
+  lv: Record<'0' | '1' | '2' | '3' | '4', string>
+  heat: [string, number[]][]
+  facts: [string, string[]][]
+  heatSrc: string
+  heatSrc2: string
+  heatSrc3: string
+  note: string
+  sources: string
+}
+
+export interface LockedReportContent {
+  hero: ReportHeroContent
+  summary: ReportSummaryContent
+  chapters: ReportChapter[]
+  closing: ReportClosingContent
+  charts: ReportChartStrings
+}
