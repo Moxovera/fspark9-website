@@ -106,6 +106,14 @@ export interface ThankYouPage {
   links: Link[]
 }
 
+// dc.html'de karşılığı yok — /spark, ilk kurulumda içeriksiz bir
+// yer tutucu olarak eklendi (bkz. nav'daki "Spark" sekmesi). BookPage
+// ile aynı şekilde SubpageHero'nun tek başına yeterli olduğu en dar
+// sayfa tipi: sadece hero, altında başka bir blok yok.
+export interface SparkPage {
+  hero: PageHero
+}
+
 // dc.html: page.hasCta (satır 1018-1026) — /services, /work, /work/insha,
 // /work/ruut ve /story'nin paylaştığı kapanış bölümü. t.final.headline/sub
 // + t.hero.cta'dan geliyor, Home'un kendi ClosingCta'sındaki alıntı
