@@ -24,6 +24,23 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  async headers() {
+    // Defense in depth alongside the per-page `robots` metadata
+    // (src/app/(locked)/layout.tsx, .../locked/[client]/page.tsx): a header
+    // is honored even by crawlers that don't parse the HTML head, and
+    // Referrer-Policy keeps the client's report URL out of any outbound
+    // referrer header from that page. Deliberately not added to
+    // robots.txt (none exists) — a disallow line would advertise the path.
+    return [
+      {
+        source: "/locked/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+          { key: "Referrer-Policy", value: "no-referrer" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     // dc.html: routes tablosunda /legal, /impressum ile aynı sayfaya
     // gidiyordu (alias). next-intl'in locale-prefix'li rotalarını bu

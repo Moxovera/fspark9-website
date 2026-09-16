@@ -1,0 +1,3 @@
+[submodule "src/content/locked/fuzul"]
+	path = src/content/locked/fuzul
+	url = https://github.com/Moxovera/privatemoxovera.git

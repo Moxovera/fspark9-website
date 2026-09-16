@@ -622,3 +622,16 @@ export type PostListItem = Pick<
   Post,
   'slug' | 'title' | 'excerpt' | 'publishedAt' | 'coverImage' | 'categories'
 >
+
+// ─────────────────────────────────────────────
+// Kilitli müşteri raporları (/locked/[client])
+// Kapsam dışı: Sanity'ye taşınmaz (bkz. CLAUDE.md "Veri akışı").
+// ─────────────────────────────────────────────
+
+export interface LockedGateContent {
+  title: string
+  text: string
+  label: string
+  btn: string
+  err: string
+}
