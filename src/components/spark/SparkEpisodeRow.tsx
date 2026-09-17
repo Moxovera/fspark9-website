@@ -13,7 +13,8 @@ interface SparkEpisodeRowProps {
 
 /**
  * Liste sayfasındaki tek bir giriş — dikey liste (grid DEĞİL). Gün
- * ölçüsü satırdaki en büyük öğe, konu adı (Fraunces) yanında, ülke düz
+ * ölçüsü satırdaki en büyük öğe, konu adının (Fraunces) önünde bölüm
+ * numarası (hub'daki format numarasıyla aynı stil), ülke altında düz
  * bir kelime olarak. Tek girişle de sayfa bitmiş görünmeli (bkz. Spark
  * revizyon brief §4: "Build and screenshot the single entry case
  * first").
@@ -41,9 +42,14 @@ export default function SparkEpisodeRow({
           className="shrink-0"
         />
         <div className="flex flex-col gap-1 pt-1">
-          <h2 className="font-display text-[1.6rem] leading-[1.2] font-medium text-ivory">
-            {episode.subject}
-          </h2>
+          <div className="flex flex-wrap items-baseline gap-x-3">
+            <span className="font-mono text-xs tracking-[0.14em] text-bronze">
+              {String(episode.number).padStart(2, "0")}
+            </span>
+            <h2 className="font-display text-[1.6rem] leading-[1.2] font-medium text-ivory">
+              {episode.subject}
+            </h2>
+          </div>
           <p className="text-sm text-ivory/60">{episode.country}</p>
         </div>
       </div>
