@@ -106,12 +106,208 @@ export interface ThankYouPage {
   links: Link[]
 }
 
-// dc.html'de karşılığı yok — /spark, ilk kurulumda içeriksiz bir
-// yer tutucu olarak eklendi (bkz. nav'daki "Spark" sekmesi). BookPage
-// ile aynı şekilde SubpageHero'nun tek başına yeterli olduğu en dar
-// sayfa tipi: sadece hero, altında başka bir blok yok.
+// dc.html'de karşılığı yok — /spark, fspark9'un editoryal bölümü.
+// Format listesi ve teaser, lastDayFormat/lastDayEpisode
+// koleksiyonlarından sorgulanır (bkz. sanity/lib/queries.ts), burada
+// sadece bu sayfaya özgü sabit içerik (hero/pillars/closingLine) var.
+export interface SparkPillar {
+  label: string // mono etiket, ör. "THE RECORD"
+  body: string
+}
+
+// Bir format kartı — şu an sadece "The Last Day" var, ama liste
+// yayınlanma sırasına göre sorgulanıyor, elle sabitlenmiyor.
+export interface SparkFormatSummary {
+  name: string
+  slug: string // "the-last-day" ya da "son-gun" — /spark/[formatSlug]'a next-intl'in typed pathname nesnesiyle bağlanır
+  description: string
+  episodeCountLabel: string // "3 episodes" / "1 bölüm" — tekil/çoğul zaten çözülmüş
+}
+
+// "The spark" teaser bloğu — en güncel yayınlanmış bölüme bağlanır.
+// Hiç bölüm yoksa SparkPage.teaser undefined kalır ve blok render
+// edilmez (sahte/placeholder kart YOK, bkz. build prompt kabul kriteri 2).
+export interface SparkTeaser {
+  figure: string // mono büyük rakam, ör. "156 DAYS"
+  line: string
+  // /spark/[formatSlug]/[episodeSlug] next-intl'de templated bir route —
+  // düz string href geçilemez ("Insufficient params" hatası verir),
+  // bileşen {pathname, params} nesnesini kendisi kurar.
+  formatSlug: string
+  episodeSlug: string
+}
+
 export interface SparkPage {
   hero: PageHero
+  pillars: SparkPillar[]
+  closingLine: string
+  formats: SparkFormatSummary[]
+  teaser?: SparkTeaser
+}
+
+// Ana sayfadaki Spark modülü (Story'nin altı, ClosingCta'nın üstü) —
+// sparkSection.hero'yu tam olarak paylaşmıyor: title aynı ("Spark"),
+// intro standfirst'ün TAMAMI değil ilk iki cümlesi.
+export interface SparkHomeModule {
+  title: string
+  intro: string
+  teaser?: SparkTeaser
+  linkLabel: string
+}
+
+// ─────────────────────────────────────────────
+// Spark · Layer 2 (format sayfası — /spark/the-last-day)
+// ─────────────────────────────────────────────
+
+// Corrections paneli üç satırı SparkPillar'la aynı şekli paylaşıyor
+// (kalın giriş cümlesi + gövde), ama görsel muamelesi farklı (mono
+// etiket değil, satır içi kalın metin) — bu yüzden CorrectionsPanel
+// kendi bileşeninde ayrı render ediyor, tip burada tekrar tanımlanmadı.
+export type LastDayCorrectionLine = SparkPillar
+
+// Bir bölümün format sayfasındaki liste kartı — asıl içeriği (blocks)
+// Layer 3'te, episode sayfasının kendi tipinde.
+export interface LastDayEpisodeSummary {
+  number: number
+  subject: string
+  market: string
+  dayCountLabel: string // "156 days" / "156 gün"
+  firstSentence: string
+  formatSlug: string
+  episodeSlug: string
+}
+
+export interface LastDayFormatPage {
+  hero: PageHero
+  howItWorks: SparkPillar[]
+  closingLine: string
+  corrections: LastDayCorrectionLine[]
+  episodes: LastDayEpisodeSummary[]
+}
+
+// ─────────────────────────────────────────────
+// Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
+// ─────────────────────────────────────────────
+
+export type LastDaySourceKind = 'regulator' | 'filing' | 'company' | 'court' | 'press'
+
+// Format'ın sabit mekanik kelime dağarcığı (lastDayFormat.mechanicLabels)
+// — editoryal içerik değil, bileşenlere prop olarak akan UI kelimeleri.
+export interface LastDayMechanicLabels {
+  dayWord: string
+  recordLabel: string
+  readingLabel: string
+  gapLabel: string
+  noteLabel: string
+  restsOnLabel: string
+  callOptionRule: string
+  callOptionDecision: string
+  callRevealDiverged: string
+  callRevealUnsettled: string
+  ledgerToggleLabel: string
+  correctionsCtaLabel: string
+  scorecardHeading: string
+  scorecardMatched: string
+  scorecardDiverged: string
+  scorecardUnsettled: string
+  scorecardPending: string
+  publishedLabel: string
+  evidenceTakenLabel: string
+  lastCheckedLabel: string
+}
+
+// Sol çizgi: navy/solid/3px. Mono etiket: RECORD/KAYIT.
+export interface LastDayRecordBlock {
+  kind: 'record'
+  key: string
+  day: number
+  date: string // ISO tarih
+  heading: string
+  body: string
+  quote?: string
+  quoteAttribution?: string
+  sourceLabel: string
+  sourceUrl: string
+  sourceKind: LastDaySourceKind
+}
+
+// Sol çizgi: bronze/solid/3px. Mono etiket: READING/OKUMA.
+export interface LastDayReadingBlock {
+  kind: 'reading'
+  key: string
+  day: number
+  heading: string
+  body: string
+  restsOn: string[] // dayanılan record'ların heading'i (editoryal, gerçek referans değil)
+}
+
+// Sol çizgi: slate/dashed/3px. Mono etiket: GAP/BOŞLUK.
+export interface LastDayGapBlock {
+  kind: 'gap'
+  key: string
+  day?: number
+  heading: string
+  body: string
+  whereItWouldBe?: string
+  invitesCorrection: boolean
+}
+
+export type LastDayRevealBlock = LastDayRecordBlock | LastDayReadingBlock | LastDayGapBlock
+
+// Reader'a asla gösterilmeyen `answer` alanı — TheCall bileşeni sadece
+// reader'ın kendi seçimini kilitler, kilitli seçimi asla "yanlış" diye
+// etiketlemez (bkz. build prompt Part 0).
+export interface LastDayCallBlock {
+  kind: 'call'
+  key: string
+  id: string
+  day: number
+  prompt: string
+  answer: 'rule' | 'decision' | 'unsettled'
+  revealBlocks: LastDayRevealBlock[]
+}
+
+// Dördüncü bir şey — record/reading/gap'ten biri DEĞİL, sol çizgi ya da
+// mono state etiketi taşımaz, kaynak çipi yok, Ledger modunda tamamen
+// kaybolur.
+export interface LastDayNoteBlock {
+  kind: 'note'
+  key: string
+  day: number
+  body: string
+}
+
+export type LastDayBlock =
+  | LastDayRecordBlock
+  | LastDayReadingBlock
+  | LastDayGapBlock
+  | LastDayCallBlock
+  | LastDayNoteBlock
+
+export interface LastDayEpisodePage {
+  number: number
+  subject: string
+  parent?: string
+  market: string
+  dayZero: string
+  dayLast: string
+  dayCount: number
+  formatName: string
+  standfirst: string
+  publishedAt?: string
+  evidenceTakenAt?: string
+  lastCheckedAt?: string
+  blocks: LastDayBlock[]
+  backHref: { formatSlug: string } // /spark/[formatSlug]'a next-intl typed pathname ile geri döner
+  labels: LastDayMechanicLabels
+  correctionsHref: string // gap "invites correction" linki — corrections paneline (#corrections) ya da mailto'ya
+}
+
+// TheCall/Scorecard'ın localStorage'da tuttuğu durum — bkz.
+// hooks/useLastDayCalls.ts. Versiyonlu anahtar: fspark9.lastday.v1.
+export interface LastDayCallsState {
+  calls: Record<string, 'rule' | 'decision'>
+  ledger: boolean
 }
 
 // dc.html: page.hasCta (satır 1018-1026) — /services, /work, /work/insha,

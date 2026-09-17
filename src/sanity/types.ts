@@ -13,6 +13,154 @@
  */
 
 // Source: schema.json
+export type LastDayEpisode = {
+  _id: string;
+  _type: "lastDayEpisode";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  format: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "lastDayFormat";
+  };
+  number: number;
+  slug?: LocaleSlug;
+  subject?: string;
+  parent?: string;
+  market?: string;
+  dayZero?: string;
+  dayLast?: string;
+  standfirst?: LocaleText;
+  publishedAt?: string;
+  evidenceTakenAt?: string;
+  lastCheckedAt?: string;
+  teaserFigure?: LocaleString;
+  teaserLine?: LocaleText;
+  blocks?: Array<{
+    _key: string;
+  } & LastDayRecordBlock | {
+    _key: string;
+  } & LastDayReadingBlock | {
+    _key: string;
+  } & LastDayGapBlock | {
+    _key: string;
+  } & LastDayCallBlock | {
+    _key: string;
+  } & LastDayNoteBlock>;
+};
+
+export type LocaleText = {
+  _type: "localeText";
+  en?: string;
+  tr?: string;
+};
+
+export type LocaleString = {
+  _type: "localeString";
+  en?: string;
+  tr?: string;
+};
+
+export type LocaleSlug = {
+  _type: "localeSlug";
+  en: Slug;
+  tr: Slug;
+};
+
+export type LastDayFormat = {
+  _id: string;
+  _type: "lastDayFormat";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: LocaleString;
+  slug?: LocaleSlug;
+  description?: LocaleText;
+  seo?: Seo;
+  hero?: PageHero;
+  howItWorks?: Array<{
+    _key: string;
+  } & SparkLabeledLine>;
+  closingLine?: LocaleText;
+  corrections?: Array<{
+    _key: string;
+  } & SparkLabeledLine>;
+  dayCountSingular?: LocaleString;
+  dayCountPlural?: LocaleString;
+  mechanicLabels?: LastDayMechanicLabels;
+};
+
+export type LastDayMechanicLabels = {
+  _type: "lastDayMechanicLabels";
+  dayWord?: LocaleString;
+  recordLabel?: LocaleString;
+  readingLabel?: LocaleString;
+  gapLabel?: LocaleString;
+  noteLabel?: LocaleString;
+  restsOnLabel?: LocaleString;
+  callOptionRule?: LocaleString;
+  callOptionDecision?: LocaleString;
+  callRevealDiverged?: LocaleString;
+  callRevealUnsettled?: LocaleString;
+  ledgerToggleLabel?: LocaleString;
+  correctionsCtaLabel?: LocaleString;
+  scorecardHeading?: LocaleString;
+  scorecardMatched?: LocaleString;
+  scorecardDiverged?: LocaleString;
+  scorecardUnsettled?: LocaleString;
+  scorecardPending?: LocaleString;
+  publishedLabel?: LocaleString;
+  evidenceTakenLabel?: LocaleString;
+  lastCheckedLabel?: LocaleString;
+};
+
+export type PageHero = {
+  _type: "pageHero";
+  eyebrow?: LocaleString;
+  title?: LocaleString;
+  intro?: LocaleText;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: LocaleString;
+  description?: LocaleText;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  noIndex?: boolean;
+};
+
+export type SparkSection = {
+  _id: string;
+  _type: "sparkSection";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: Seo;
+  hero?: PageHero;
+  pillars?: Array<{
+    _key: string;
+  } & SparkLabeledLine>;
+  closingLine?: LocaleText;
+  episodeCountSingular?: LocaleString;
+  episodeCountPlural?: LocaleString;
+  homeLinkLabel?: LocaleString;
+};
+
 export type CaseStudy = {
   _id: string;
   _type: "caseStudy";
@@ -97,18 +245,6 @@ export type SanityImageHotspot = {
   width: number;
 };
 
-export type LocaleText = {
-  _type: "localeText";
-  en?: string;
-  tr?: string;
-};
-
-export type LocaleString = {
-  _type: "localeString";
-  en?: string;
-  tr?: string;
-};
-
 export type LegalPage = {
   _id: string;
   _type: "legalPage";
@@ -133,33 +269,6 @@ export type LegalPage = {
   } & LegalBlockList | {
     _key: string;
   } & LegalBlockTable>;
-};
-
-export type PageHero = {
-  _type: "pageHero";
-  eyebrow?: LocaleString;
-  title?: LocaleString;
-  intro?: LocaleText;
-};
-
-export type Seo = {
-  _type: "seo";
-  title?: LocaleString;
-  description?: LocaleText;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  noIndex?: boolean;
 };
 
 export type StoryPage = {
@@ -666,6 +775,69 @@ export type ProseHead = {
   text?: LocaleString;
 };
 
+export type LastDayNoteBlock = {
+  _type: "lastDayNoteBlock";
+  day: number;
+  body: LocaleText;
+};
+
+export type LastDayCallBlock = {
+  _type: "lastDayCallBlock";
+  id: string;
+  day: number;
+  prompt: LocaleText;
+  answer: "rule" | "decision" | "unsettled";
+  revealBlocks: Array<{
+    _key: string;
+  } & LastDayRecordBlock | {
+    _key: string;
+  } & LastDayReadingBlock | {
+    _key: string;
+  } & LastDayGapBlock>;
+};
+
+export type LastDayGapBlock = {
+  _type: "lastDayGapBlock";
+  day?: number;
+  heading: LocaleString;
+  body: LocaleText;
+  whereItWouldBe?: LocaleString;
+  invitesCorrection?: boolean;
+};
+
+export type LastDayReadingBlock = {
+  _type: "lastDayReadingBlock";
+  day: number;
+  heading: LocaleString;
+  body: LocaleText;
+  restsOn: Array<string>;
+};
+
+export type LastDayRecordBlock = {
+  _type: "lastDayRecordBlock";
+  day: number;
+  date: string;
+  heading: LocaleString;
+  body: LocaleText;
+  quote?: LocaleText;
+  quoteAttribution?: LocaleString;
+  sourceLabel: LocaleString;
+  sourceUrl: string;
+  sourceKind: "regulator" | "filing" | "company" | "court" | "press";
+};
+
+export type SparkLabeledLine = {
+  _type: "sparkLabeledLine";
+  label?: LocaleString;
+  body?: LocaleText;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -762,13 +934,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
-};
-
-export type AllSanitySchemaTypes = CaseStudy | SanityImageCrop | SanityImageHotspot | LocaleText | LocaleString | LegalPage | PageHero | Seo | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | ClosingCta | FaqSection | ProcessSection | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | CaseStudiesSection | FamiliarSection | ProofStrip | Framework | Hero | SiteSettings | Footer | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | FaqItem | ProcessStep | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | FamiliarPoint | ProofItem | FrameworkStep | ProseBody | ProseHead | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = LastDayEpisode | LocaleText | LocaleString | LocaleSlug | LastDayFormat | LastDayMechanicLabels | PageHero | Seo | SparkSection | CaseStudy | SanityImageCrop | SanityImageHotspot | LegalPage | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | ClosingCta | FaqSection | ProcessSection | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | CaseStudiesSection | FamiliarSection | ProofStrip | Framework | Hero | SiteSettings | Footer | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | FaqItem | ProcessStep | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | FamiliarPoint | ProofItem | FrameworkStep | ProseBody | ProseHead | LastDayNoteBlock | LastDayCallBlock | LastDayGapBlock | LastDayReadingBlock | LastDayRecordBlock | SparkLabeledLine | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_HERO_QUERY
@@ -1346,6 +1512,302 @@ export type SITE_LOGO_QUERYResult = {
   height: number | null;
   lqip: string | null;
 } | null;
+// Variable: SPARK_SEO_QUERY
+// Query: *[_type == "sparkSection"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type SPARK_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: SPARK_SECTION_QUERY
+// Query: *[_type == "sparkSection"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "pillars": pillars[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    },    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),    "episodeCountSingular": select($locale == "tr" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),    "episodeCountPlural": select($locale == "tr" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)  }
+export type SPARK_SECTION_QUERYResult = {
+  hero: {
+    eyebrow: string | null;
+    title: string | null;
+    intro: string | null;
+  } | null;
+  pillars: Array<{
+    label: string | null;
+    body: string | null;
+  }> | null;
+  closingLine: string | null;
+  episodeCountSingular: string | null;
+  episodeCountPlural: string | null;
+  homeLinkLabel: string | null;
+} | null;
+// Variable: LAST_DAY_FORMATS_QUERY
+// Query: *[_type == "lastDayFormat"] | order(_createdAt asc){    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "episodeCount": count(*[_type == "lastDayEpisode" && references(^._id)])  }
+export type LAST_DAY_FORMATS_QUERYResult = Array<{
+  name: string | null;
+  slug: string | null;
+  description: string | null;
+  episodeCount: number;
+}>;
+// Variable: SPARK_TEASER_EPISODE_QUERY
+// Query: *[_type == "lastDayEpisode" && defined(publishedAt)] | order(publishedAt desc)[0]{    "figure": select($locale == "tr" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),    "line": select($locale == "tr" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),    "episodeSlug": select($locale == "tr" => slug.tr.current, slug.en.current),    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current)  }
+export type SPARK_TEASER_EPISODE_QUERYResult = {
+  figure: string | null;
+  line: string | null;
+  episodeSlug: string | null;
+  formatSlug: string | null;
+} | null;
+// Variable: LAST_DAY_FORMAT_SLUGS_QUERY
+// Query: *[_type == "lastDayFormat" && defined(slug.en.current) && defined(slug.tr.current)]{    "en": slug.en.current,    "tr": slug.tr.current  }
+export type LAST_DAY_FORMAT_SLUGS_QUERYResult = Array<{
+  en: string;
+  tr: string;
+}>;
+// Variable: LAST_DAY_FORMAT_SEO_QUERY
+// Query: *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+export type LAST_DAY_FORMAT_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+  ogImage: {
+    url: string | null;
+    alt: string | "";
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  } | null;
+  noIndex: boolean | null;
+} | null;
+// Variable: LAST_DAY_FORMAT_QUERY
+// Query: *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "howItWorks": howItWorks[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    },    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),    "corrections": corrections[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    },    "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),    "episodes": *[_type == "lastDayEpisode" && references(^._id)] | order(number asc){      number,      subject,      market,      dayZero,      dayLast,      "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
+export type LAST_DAY_FORMAT_QUERYResult = {
+  hero: {
+    eyebrow: string | null;
+    title: string | null;
+    intro: string | null;
+  } | null;
+  howItWorks: Array<{
+    label: string | null;
+    body: string | null;
+  }> | null;
+  closingLine: string | null;
+  corrections: Array<{
+    label: string | null;
+    body: string | null;
+  }> | null;
+  dayCountSingular: string | null;
+  dayCountPlural: string | null;
+  episodes: Array<{
+    number: number;
+    subject: string | null;
+    market: string | null;
+    dayZero: string | null;
+    dayLast: string | null;
+    standfirst: string | null;
+    slug: string | null;
+  }>;
+} | null;
+// Variable: LAST_DAY_EPISODE_SLUGS_QUERY
+// Query: *[_type == "lastDayEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{    "episodeEn": slug.en.current,    "episodeTr": slug.tr.current,    "formatEn": format->slug.en.current,    "formatTr": format->slug.tr.current  }
+export type LAST_DAY_EPISODE_SLUGS_QUERYResult = Array<{
+  episodeEn: string;
+  episodeTr: string;
+  formatEn: string | null;
+  formatTr: string | null;
+}>;
+// Variable: LAST_DAY_EPISODE_SEO_QUERY
+// Query: *[_type == "lastDayEpisode"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    "title": subject,    "description": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en)  }
+export type LAST_DAY_EPISODE_SEO_QUERYResult = {
+  title: string | null;
+  description: string | null;
+} | null;
+// Variable: LAST_DAY_EPISODE_QUERY
+// Query: *[_type == "lastDayEpisode"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    number,    subject,    parent,    market,    dayZero,    dayLast,    "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),    publishedAt,    evidenceTakenAt,    lastCheckedAt,    "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),    "labels": format->mechanicLabels{      "dayWord": select($locale == "tr" => coalesce(dayWord.tr, dayWord.en), dayWord.en),      "recordLabel": select($locale == "tr" => coalesce(recordLabel.tr, recordLabel.en), recordLabel.en),      "readingLabel": select($locale == "tr" => coalesce(readingLabel.tr, readingLabel.en), readingLabel.en),      "gapLabel": select($locale == "tr" => coalesce(gapLabel.tr, gapLabel.en), gapLabel.en),      "noteLabel": select($locale == "tr" => coalesce(noteLabel.tr, noteLabel.en), noteLabel.en),      "restsOnLabel": select($locale == "tr" => coalesce(restsOnLabel.tr, restsOnLabel.en), restsOnLabel.en),      "callOptionRule": select($locale == "tr" => coalesce(callOptionRule.tr, callOptionRule.en), callOptionRule.en),      "callOptionDecision": select($locale == "tr" => coalesce(callOptionDecision.tr, callOptionDecision.en), callOptionDecision.en),      "callRevealDiverged": select($locale == "tr" => coalesce(callRevealDiverged.tr, callRevealDiverged.en), callRevealDiverged.en),      "callRevealUnsettled": select($locale == "tr" => coalesce(callRevealUnsettled.tr, callRevealUnsettled.en), callRevealUnsettled.en),      "ledgerToggleLabel": select($locale == "tr" => coalesce(ledgerToggleLabel.tr, ledgerToggleLabel.en), ledgerToggleLabel.en),      "correctionsCtaLabel": select($locale == "tr" => coalesce(correctionsCtaLabel.tr, correctionsCtaLabel.en), correctionsCtaLabel.en),      "scorecardHeading": select($locale == "tr" => coalesce(scorecardHeading.tr, scorecardHeading.en), scorecardHeading.en),      "scorecardMatched": select($locale == "tr" => coalesce(scorecardMatched.tr, scorecardMatched.en), scorecardMatched.en),      "scorecardDiverged": select($locale == "tr" => coalesce(scorecardDiverged.tr, scorecardDiverged.en), scorecardDiverged.en),      "scorecardUnsettled": select($locale == "tr" => coalesce(scorecardUnsettled.tr, scorecardUnsettled.en), scorecardUnsettled.en),      "scorecardPending": select($locale == "tr" => coalesce(scorecardPending.tr, scorecardPending.en), scorecardPending.en),      "publishedLabel": select($locale == "tr" => coalesce(publishedLabel.tr, publishedLabel.en), publishedLabel.en),      "evidenceTakenLabel": select($locale == "tr" => coalesce(evidenceTakenLabel.tr, evidenceTakenLabel.en), evidenceTakenLabel.en),      "lastCheckedLabel": select($locale == "tr" => coalesce(lastCheckedLabel.tr, lastCheckedLabel.en), lastCheckedLabel.en)    },    "blocks": blocks[]{        _type,  _key,  day,  date,  "headingEn": heading.en,  "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),  "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),  "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),  "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),  "sourceLabel": select($locale == "tr" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),  sourceUrl,  sourceKind,  restsOn,  "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),  invitesCorrection,      id,      "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),      answer,      "revealBlocks": revealBlocks[]{          _type,  _key,  day,  date,  "headingEn": heading.en,  "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),  "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),  "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),  "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),  "sourceLabel": select($locale == "tr" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),  sourceUrl,  sourceKind,  restsOn,  "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),  invitesCorrection      }    }  }
+export type LAST_DAY_EPISODE_QUERYResult = {
+  number: number;
+  subject: string | null;
+  parent: string | null;
+  market: string | null;
+  dayZero: string | null;
+  dayLast: string | null;
+  standfirst: string | null;
+  publishedAt: string | null;
+  evidenceTakenAt: string | null;
+  lastCheckedAt: string | null;
+  formatName: string | null;
+  labels: {
+    dayWord: string | null;
+    recordLabel: string | null;
+    readingLabel: string | null;
+    gapLabel: string | null;
+    noteLabel: string | null;
+    restsOnLabel: string | null;
+    callOptionRule: string | null;
+    callOptionDecision: string | null;
+    callRevealDiverged: string | null;
+    callRevealUnsettled: string | null;
+    ledgerToggleLabel: string | null;
+    correctionsCtaLabel: string | null;
+    scorecardHeading: string | null;
+    scorecardMatched: string | null;
+    scorecardDiverged: string | null;
+    scorecardUnsettled: string | null;
+    scorecardPending: string | null;
+    publishedLabel: string | null;
+    evidenceTakenLabel: string | null;
+    lastCheckedLabel: string | null;
+  } | null;
+  blocks: Array<{
+    _type: "lastDayCallBlock";
+    _key: string;
+    day: number;
+    date: null;
+    headingEn: null;
+    heading: null;
+    body: null;
+    quote: null;
+    quoteAttribution: null;
+    sourceLabel: null;
+    sourceUrl: null;
+    sourceKind: null;
+    restsOn: null;
+    whereItWouldBe: null;
+    invitesCorrection: null;
+    id: string;
+    prompt: string | null;
+    answer: "decision" | "rule" | "unsettled";
+    revealBlocks: Array<{
+      _type: "lastDayGapBlock";
+      _key: string;
+      day: number | null;
+      date: null;
+      headingEn: string | null;
+      heading: string | null;
+      body: string | null;
+      quote: null;
+      quoteAttribution: null;
+      sourceLabel: null;
+      sourceUrl: null;
+      sourceKind: null;
+      restsOn: null;
+      whereItWouldBe: string | null;
+      invitesCorrection: boolean | null;
+    } | {
+      _type: "lastDayReadingBlock";
+      _key: string;
+      day: number;
+      date: null;
+      headingEn: string | null;
+      heading: string | null;
+      body: string | null;
+      quote: null;
+      quoteAttribution: null;
+      sourceLabel: null;
+      sourceUrl: null;
+      sourceKind: null;
+      restsOn: Array<string>;
+      whereItWouldBe: null;
+      invitesCorrection: null;
+    } | {
+      _type: "lastDayRecordBlock";
+      _key: string;
+      day: number;
+      date: string;
+      headingEn: string | null;
+      heading: string | null;
+      body: string | null;
+      quote: string | null;
+      quoteAttribution: string | null;
+      sourceLabel: string | null;
+      sourceUrl: string;
+      sourceKind: "company" | "court" | "filing" | "press" | "regulator";
+      restsOn: null;
+      whereItWouldBe: null;
+      invitesCorrection: null;
+    }>;
+  } | {
+    _type: "lastDayGapBlock";
+    _key: string;
+    day: number | null;
+    date: null;
+    headingEn: string | null;
+    heading: string | null;
+    body: string | null;
+    quote: null;
+    quoteAttribution: null;
+    sourceLabel: null;
+    sourceUrl: null;
+    sourceKind: null;
+    restsOn: null;
+    whereItWouldBe: string | null;
+    invitesCorrection: boolean | null;
+    id: null;
+    prompt: null;
+    answer: null;
+    revealBlocks: null;
+  } | {
+    _type: "lastDayNoteBlock";
+    _key: string;
+    day: number;
+    date: null;
+    headingEn: null;
+    heading: null;
+    body: string | null;
+    quote: null;
+    quoteAttribution: null;
+    sourceLabel: null;
+    sourceUrl: null;
+    sourceKind: null;
+    restsOn: null;
+    whereItWouldBe: null;
+    invitesCorrection: null;
+    id: null;
+    prompt: null;
+    answer: null;
+    revealBlocks: null;
+  } | {
+    _type: "lastDayReadingBlock";
+    _key: string;
+    day: number;
+    date: null;
+    headingEn: string | null;
+    heading: string | null;
+    body: string | null;
+    quote: null;
+    quoteAttribution: null;
+    sourceLabel: null;
+    sourceUrl: null;
+    sourceKind: null;
+    restsOn: Array<string>;
+    whereItWouldBe: null;
+    invitesCorrection: null;
+    id: null;
+    prompt: null;
+    answer: null;
+    revealBlocks: null;
+  } | {
+    _type: "lastDayRecordBlock";
+    _key: string;
+    day: number;
+    date: string;
+    headingEn: string | null;
+    heading: string | null;
+    body: string | null;
+    quote: string | null;
+    quoteAttribution: string | null;
+    sourceLabel: string | null;
+    sourceUrl: string;
+    sourceKind: "company" | "court" | "filing" | "press" | "regulator";
+    restsOn: null;
+    whereItWouldBe: null;
+    invitesCorrection: null;
+    id: null;
+    prompt: null;
+    answer: null;
+    revealBlocks: null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1384,5 +1846,15 @@ declare module "@sanity/client" {
     "\n  *[_type == \"siteSettings\"][0].nav[]{\n    \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n    href,\n    external\n  }\n": SITE_NAV_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
+    "\n  *[_type == \"sparkSection\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SPARK_SEO_QUERYResult;
+    "\n  *[_type == \"sparkSection\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"pillars\": pillars[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    },\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en),\n    \"episodeCountSingular\": select($locale == \"tr\" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),\n    \"episodeCountPlural\": select($locale == \"tr\" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),\n    \"homeLinkLabel\": select($locale == \"tr\" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)\n  }\n": SPARK_SECTION_QUERYResult;
+    "\n  *[_type == \"lastDayFormat\"] | order(_createdAt asc){\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"episodeCount\": count(*[_type == \"lastDayEpisode\" && references(^._id)])\n  }\n": LAST_DAY_FORMATS_QUERYResult;
+    "\n  *[_type == \"lastDayEpisode\" && defined(publishedAt)] | order(publishedAt desc)[0]{\n    \"figure\": select($locale == \"tr\" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),\n    \"line\": select($locale == \"tr\" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),\n    \"episodeSlug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"formatSlug\": select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current)\n  }\n": SPARK_TEASER_EPISODE_QUERYResult;
+    "\n  *[_type == \"lastDayFormat\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"en\": slug.en.current,\n    \"tr\": slug.tr.current\n  }\n": LAST_DAY_FORMAT_SLUGS_QUERYResult;
+    "\n  *[_type == \"lastDayFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LAST_DAY_FORMAT_SEO_QUERYResult;
+    "\n  *[_type == \"lastDayFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"howItWorks\": howItWorks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    },\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en),\n    \"corrections\": corrections[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    },\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),\n    \"episodes\": *[_type == \"lastDayEpisode\" && references(^._id)] | order(number asc){\n      number,\n      subject,\n      market,\n      dayZero,\n      dayLast,\n      \"standfirst\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": LAST_DAY_FORMAT_QUERYResult;
+    "\n  *[_type == \"lastDayEpisode\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"episodeEn\": slug.en.current,\n    \"episodeTr\": slug.tr.current,\n    \"formatEn\": format->slug.en.current,\n    \"formatTr\": format->slug.tr.current\n  }\n": LAST_DAY_EPISODE_SLUGS_QUERYResult;
+    "\n  *[_type == \"lastDayEpisode\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    \"title\": subject,\n    \"description\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en)\n  }\n": LAST_DAY_EPISODE_SEO_QUERYResult;
+    "\n  *[_type == \"lastDayEpisode\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    number,\n    subject,\n    parent,\n    market,\n    dayZero,\n    dayLast,\n    \"standfirst\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n    publishedAt,\n    evidenceTakenAt,\n    lastCheckedAt,\n    \"formatName\": select($locale == \"tr\" => coalesce(format->name.tr, format->name.en), format->name.en),\n    \"labels\": format->mechanicLabels{\n      \"dayWord\": select($locale == \"tr\" => coalesce(dayWord.tr, dayWord.en), dayWord.en),\n      \"recordLabel\": select($locale == \"tr\" => coalesce(recordLabel.tr, recordLabel.en), recordLabel.en),\n      \"readingLabel\": select($locale == \"tr\" => coalesce(readingLabel.tr, readingLabel.en), readingLabel.en),\n      \"gapLabel\": select($locale == \"tr\" => coalesce(gapLabel.tr, gapLabel.en), gapLabel.en),\n      \"noteLabel\": select($locale == \"tr\" => coalesce(noteLabel.tr, noteLabel.en), noteLabel.en),\n      \"restsOnLabel\": select($locale == \"tr\" => coalesce(restsOnLabel.tr, restsOnLabel.en), restsOnLabel.en),\n      \"callOptionRule\": select($locale == \"tr\" => coalesce(callOptionRule.tr, callOptionRule.en), callOptionRule.en),\n      \"callOptionDecision\": select($locale == \"tr\" => coalesce(callOptionDecision.tr, callOptionDecision.en), callOptionDecision.en),\n      \"callRevealDiverged\": select($locale == \"tr\" => coalesce(callRevealDiverged.tr, callRevealDiverged.en), callRevealDiverged.en),\n      \"callRevealUnsettled\": select($locale == \"tr\" => coalesce(callRevealUnsettled.tr, callRevealUnsettled.en), callRevealUnsettled.en),\n      \"ledgerToggleLabel\": select($locale == \"tr\" => coalesce(ledgerToggleLabel.tr, ledgerToggleLabel.en), ledgerToggleLabel.en),\n      \"correctionsCtaLabel\": select($locale == \"tr\" => coalesce(correctionsCtaLabel.tr, correctionsCtaLabel.en), correctionsCtaLabel.en),\n      \"scorecardHeading\": select($locale == \"tr\" => coalesce(scorecardHeading.tr, scorecardHeading.en), scorecardHeading.en),\n      \"scorecardMatched\": select($locale == \"tr\" => coalesce(scorecardMatched.tr, scorecardMatched.en), scorecardMatched.en),\n      \"scorecardDiverged\": select($locale == \"tr\" => coalesce(scorecardDiverged.tr, scorecardDiverged.en), scorecardDiverged.en),\n      \"scorecardUnsettled\": select($locale == \"tr\" => coalesce(scorecardUnsettled.tr, scorecardUnsettled.en), scorecardUnsettled.en),\n      \"scorecardPending\": select($locale == \"tr\" => coalesce(scorecardPending.tr, scorecardPending.en), scorecardPending.en),\n      \"publishedLabel\": select($locale == \"tr\" => coalesce(publishedLabel.tr, publishedLabel.en), publishedLabel.en),\n      \"evidenceTakenLabel\": select($locale == \"tr\" => coalesce(evidenceTakenLabel.tr, evidenceTakenLabel.en), evidenceTakenLabel.en),\n      \"lastCheckedLabel\": select($locale == \"tr\" => coalesce(lastCheckedLabel.tr, lastCheckedLabel.en), lastCheckedLabel.en)\n    },\n    \"blocks\": blocks[]{\n      \n  _type,\n  _key,\n  day,\n  date,\n  \"headingEn\": heading.en,\n  \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n  \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n  \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n  \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n  \"sourceLabel\": select($locale == \"tr\" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),\n  sourceUrl,\n  sourceKind,\n  restsOn,\n  \"whereItWouldBe\": select($locale == \"tr\" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),\n  invitesCorrection\n,\n      id,\n      \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n      answer,\n      \"revealBlocks\": revealBlocks[]{\n        \n  _type,\n  _key,\n  day,\n  date,\n  \"headingEn\": heading.en,\n  \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n  \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n  \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n  \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n  \"sourceLabel\": select($locale == \"tr\" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),\n  sourceUrl,\n  sourceKind,\n  restsOn,\n  \"whereItWouldBe\": select($locale == \"tr\" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),\n  invitesCorrection\n\n      }\n    }\n  }\n": LAST_DAY_EPISODE_QUERYResult;
   }
 }

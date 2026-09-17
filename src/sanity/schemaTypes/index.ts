@@ -2,6 +2,14 @@ import type { SchemaTypeDefinition } from "sanity";
 
 import localeString from "./objects/localeString";
 import localeText from "./objects/localeText";
+import localeSlug from "./objects/localeSlug";
+import sparkLabeledLine from "./objects/sparkLabeledLine";
+import lastDayRecordBlock from "./objects/lastDayRecordBlock";
+import lastDayReadingBlock from "./objects/lastDayReadingBlock";
+import lastDayGapBlock from "./objects/lastDayGapBlock";
+import lastDayCallBlock from "./objects/lastDayCallBlock";
+import lastDayNoteBlock from "./objects/lastDayNoteBlock";
+import lastDayMechanicLabels from "./objects/lastDayMechanicLabels";
 import link from "./objects/link";
 import seo from "./objects/seo";
 import footer from "./objects/footer";
@@ -53,11 +61,22 @@ import servicesPage from "./servicesPage";
 import storyPage from "./storyPage";
 import legalPage from "./legalPage";
 import caseStudy from "./caseStudy";
+import sparkSection from "./sparkSection";
+import lastDayFormat from "./lastDayFormat";
+import lastDayEpisode from "./lastDayEpisode";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     localeString,
     localeText,
+    localeSlug,
+    sparkLabeledLine,
+    lastDayRecordBlock,
+    lastDayReadingBlock,
+    lastDayGapBlock,
+    lastDayCallBlock,
+    lastDayNoteBlock,
+    lastDayMechanicLabels,
     link,
     seo,
     footer,
@@ -109,5 +128,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     storyPage,
     legalPage,
     caseStudy,
+    sparkSection,
+    lastDayFormat,
+    lastDayEpisode,
   ],
 };

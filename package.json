@@ -11,6 +11,7 @@
     "sanity:typegen": "sanity typegen generate",
     "typegen": "npm run sanity:schema && npm run sanity:typegen",
     "seed": "tsx --env-file=.env.local src/scripts/seed-content.ts",
+    "seed:spark": "tsx --env-file=.env.local src/scripts/seed-spark.ts",
     "upload-logo": "tsx --env-file=.env.local src/scripts/upload-logo.ts",
     "upload-og-image": "tsx --env-file=.env.local src/scripts/upload-og-image.ts"
   },

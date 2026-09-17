@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 import type { ComponentProps } from "react";
 
@@ -7,11 +8,13 @@ interface LocaleSwitcherProps {
   locale: string;
 }
 
-// usePathname()'in dönüş tipi /work/[slug] gibi dinamik route kalıplarını
-// da kapsıyor (henüz o route yok), ama Link'in statik href'i bunu kabul
-// etmiyor (dinamik route'lar için {pathname, params} nesnesi gerekiyor).
-// Dil değiştirici sadece MEVCUT sayfada kalıyor, yeni bir route'a
-// girmiyor — bu cast burada güvenli.
+// usePathname()'in dönüş tipi /work/[slug], /spark/[formatSlug] gibi
+// dinamik route KALIPLARINI (köşeli parantezli literal template) döner,
+// çözülmüş path'i değil — next-intl'in Link'i templated bir href'i
+// {pathname, params} nesnesi olmadan reddediyor ("Insufficient params
+// provided for localized pathname"). useParams() güncel route'un gerçek
+// segment değerlerini verir; ikisini birlikte geçmek hem statik hem
+// dinamik route'larda çalışır (statik route'larda params boş obje).
 type LinkHref = ComponentProps<typeof Link>["href"];
 
 /**
@@ -27,11 +30,13 @@ type LinkHref = ComponentProps<typeof Link>["href"];
  */
 export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
   const pathname = usePathname();
+  const params = useParams();
+  const href = { pathname, params } as unknown as LinkHref;
 
   return (
     <div className="flex items-center gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
       <Link
-        href={pathname as LinkHref}
+        href={href}
         locale="en"
         className={`transition-colors duration-200 ${locale === "en" ? "text-ivory" : "text-ivory/45"}`}
       >
@@ -39,7 +44,7 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
       </Link>
       <span className="text-ivory/30">|</span>
       <Link
-        href={pathname as LinkHref}
+        href={href}
         locale="tr"
         className={`transition-colors duration-200 ${locale === "tr" ? "text-ivory" : "text-ivory/45"}`}
       >

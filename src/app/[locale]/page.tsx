@@ -10,6 +10,7 @@ import Comparison from "@/components/sections/Comparison";
 import Approach from "@/components/sections/Approach";
 import Testimonials from "@/components/sections/Testimonials";
 import Story from "@/components/sections/Story";
+import SparkHome from "@/components/sections/SparkHome";
 import Services from "@/components/sections/Services";
 import CaseStudies from "@/components/sections/CaseStudies";
 import Process from "@/components/sections/Process";
@@ -36,6 +37,10 @@ import {
   HOME_CLOSING_CTA_QUERY,
   HOME_SEO_QUERY,
   SITE_SEO_QUERY,
+  SPARK_SECTION_QUERY,
+  SPARK_TEASER_EPISODE_QUERY,
+  toSparkHomeModule,
+  toSparkTeaser,
   toHero,
   toFramework,
   toProofStrip,
@@ -75,6 +80,8 @@ import type {
   HOME_CLOSING_CTA_QUERYResult,
   HOME_SEO_QUERYResult,
   SITE_SEO_QUERYResult,
+  SPARK_SECTION_QUERYResult,
+  SPARK_TEASER_EPISODE_QUERYResult,
 } from "@/sanity/types";
 
 export async function generateMetadata({
@@ -123,6 +130,8 @@ export default async function Home({
     mediaResult,
     faqResult,
     closingCtaResult,
+    sparkSectionResult,
+    sparkTeaserResult,
   ] = await Promise.all([
     sanityFetch<HOME_HERO_QUERYResult>({
       query: HOME_HERO_QUERY,
@@ -204,6 +213,16 @@ export default async function Home({
       params: { locale },
       tags: ["homePage"],
     }),
+    sanityFetch<SPARK_SECTION_QUERYResult>({
+      query: SPARK_SECTION_QUERY,
+      params: { locale },
+      tags: ["sparkSection"],
+    }),
+    sanityFetch<SPARK_TEASER_EPISODE_QUERYResult>({
+      query: SPARK_TEASER_EPISODE_QUERY,
+      params: { locale },
+      tags: ["lastDayEpisode"],
+    }),
   ]);
 
   const hero = toHero(heroResult);
@@ -224,6 +243,7 @@ export default async function Home({
   const media = toMediaSection(mediaResult);
   const faq = toFaqSection(faqResult);
   const closingCta = toClosingCta(closingCtaResult);
+  const sparkHome = toSparkHomeModule(sparkSectionResult, toSparkTeaser(sparkTeaserResult));
 
   return (
     <main>
@@ -238,6 +258,12 @@ export default async function Home({
       <Approach content={approach} />
       <Testimonials content={testimonials} />
       <Story content={story} />
+      <SparkHome
+        title={sparkHome.title}
+        intro={sparkHome.intro}
+        teaser={sparkHome.teaser}
+        linkLabel={sparkHome.linkLabel}
+      />
       <Services content={services} />
       <CaseStudies content={caseStudies} />
       <Process content={process} />

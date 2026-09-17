@@ -30,6 +30,16 @@ import type {
   FaqSection,
   ClosingCta,
   SiteSettings,
+  SparkPage,
+  SparkFormatSummary,
+  SparkTeaser,
+  SparkHomeModule,
+  LastDayFormatPage,
+  LastDayEpisodePage,
+  LastDayBlock,
+  LastDayRevealBlock,
+  LastDayRecordBlock,
+  LastDayCallBlock,
 } from "@/types/content";
 import type {
   HOME_HERO_QUERYResult,
@@ -64,6 +74,14 @@ import type {
   SITE_NAV_QUERYResult,
   SITE_FOOTER_QUERYResult,
   SITE_LOGO_QUERYResult,
+  SPARK_SEO_QUERYResult,
+  SPARK_SECTION_QUERYResult,
+  LAST_DAY_FORMATS_QUERYResult,
+  SPARK_TEASER_EPISODE_QUERYResult,
+  LAST_DAY_FORMAT_SEO_QUERYResult,
+  LAST_DAY_FORMAT_QUERYResult,
+  LAST_DAY_EPISODE_SEO_QUERYResult,
+  LAST_DAY_EPISODE_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -1007,7 +1025,9 @@ type PageSeoResult =
   | WORK_PAGE_SEO_QUERYResult
   | SERVICES_PAGE_SEO_QUERYResult
   | STORY_PAGE_SEO_QUERYResult
-  | LEGAL_PAGE_SEO_QUERYResult;
+  | LEGAL_PAGE_SEO_QUERYResult
+  | SPARK_SEO_QUERYResult
+  | LAST_DAY_FORMAT_SEO_QUERYResult;
 
 function toPageSeo(result: PageSeoResult): PageSeo {
   return {
@@ -1102,4 +1122,526 @@ export const SITE_LOGO_QUERY = defineQuery(`
 
 export function toSiteLogo(result: SITE_LOGO_QUERYResult): SanityImage | undefined {
   return toSanityImage(result);
+}
+
+// ─────────────────────────────────────────────
+// Spark · Layer 1 (bölüm sayfası)
+// ─────────────────────────────────────────────
+
+export const SPARK_SEO_QUERY = defineQuery(`
+  *[_type == "sparkSection"][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export function toSparkSeo(result: SPARK_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export const SPARK_SECTION_QUERY = defineQuery(`
+  *[_type == "sparkSection"][0]{
+    "hero": hero{
+      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+    },
+    "pillars": pillars[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+    },
+    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),
+    "episodeCountSingular": select($locale == "tr" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),
+    "episodeCountPlural": select($locale == "tr" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),
+    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)
+  }
+`);
+
+// Standfirst'ün ilk iki cümlesi, ana sayfa modülü için (bkz. build
+// prompt: "the standfirst's first two sentences"). Cümle sonu "." ile
+// tespit ediliyor — Sanity'deki metin bu formatta yazıldığı sürece
+// (kısaltma yok) doğru çalışır; kısaltmalı bir standfirst yazılırsa
+// yanlış kesebilir, bilinen bir sınırlama.
+function firstTwoSentences(text: string): string {
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  return sentences.slice(0, 2).join(" ");
+}
+
+export function toSparkHomeModule(
+  sectionResult: SPARK_SECTION_QUERYResult,
+  teaser: SparkTeaser | undefined,
+): SparkHomeModule {
+  return {
+    title: sectionResult?.hero?.title ?? "",
+    intro: firstTwoSentences(sectionResult?.hero?.intro ?? ""),
+    teaser,
+    linkLabel: sectionResult?.homeLinkLabel ?? "",
+  };
+}
+
+export const LAST_DAY_FORMATS_QUERY = defineQuery(`
+  *[_type == "lastDayFormat"] | order(_createdAt asc){
+    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
+    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "episodeCount": count(*[_type == "lastDayEpisode" && references(^._id)])
+  }
+`);
+
+export function toSparkFormats(
+  result: LAST_DAY_FORMATS_QUERYResult,
+  episodeCountSingular: string,
+  episodeCountPlural: string,
+): SparkFormatSummary[] {
+  return result
+    .filter((item) => Boolean(item.slug))
+    .map((item) => {
+      const count = item.episodeCount ?? 0;
+      const word = count === 1 ? episodeCountSingular : episodeCountPlural;
+      return {
+        name: item.name ?? "",
+        slug: item.slug ?? "",
+        description: item.description ?? "",
+        episodeCountLabel: `${count} ${word}`.trim(),
+      };
+    });
+}
+
+export const SPARK_TEASER_EPISODE_QUERY = defineQuery(`
+  *[_type == "lastDayEpisode" && defined(publishedAt)] | order(publishedAt desc)[0]{
+    "figure": select($locale == "tr" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),
+    "line": select($locale == "tr" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),
+    "episodeSlug": select($locale == "tr" => slug.tr.current, slug.en.current),
+    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current)
+  }
+`);
+
+export function toSparkTeaser(result: SPARK_TEASER_EPISODE_QUERYResult): SparkTeaser | undefined {
+  if (!result || !result.episodeSlug || !result.formatSlug) return undefined;
+  return {
+    figure: result.figure ?? "",
+    line: result.line ?? "",
+    formatSlug: result.formatSlug,
+    episodeSlug: result.episodeSlug,
+  };
+}
+
+export function toSparkPage(
+  sectionResult: SPARK_SECTION_QUERYResult,
+  formatsResult: LAST_DAY_FORMATS_QUERYResult,
+  teaser: SparkTeaser | undefined,
+): SparkPage {
+  return {
+    hero: toPageHero(sectionResult?.hero ?? null),
+    pillars: (sectionResult?.pillars ?? []).map((item) => ({
+      label: item.label ?? "",
+      body: item.body ?? "",
+    })),
+    closingLine: sectionResult?.closingLine ?? "",
+    formats: toSparkFormats(
+      formatsResult,
+      sectionResult?.episodeCountSingular ?? "",
+      sectionResult?.episodeCountPlural ?? "",
+    ),
+    teaser,
+  };
+}
+
+// ─────────────────────────────────────────────
+// Spark · Layer 2 (format sayfası — /spark/the-last-day)
+// ─────────────────────────────────────────────
+
+// generateStaticParams için — her formatın HER İKİ dildeki slug'ı
+// birlikte gerekiyor (locale'e göre değil), çünkü [locale]/[formatSlug]
+// kombinasyonlarının tamamı elle üretiliyor (bkz. build prompt'un
+// routing sınırlaması: next-intl'in statik pathnames haritası
+// içerik başına farklı slug'ı desteklemiyor).
+export const LAST_DAY_FORMAT_SLUGS_QUERY = defineQuery(`
+  *[_type == "lastDayFormat" && defined(slug.en.current) && defined(slug.tr.current)]{
+    "en": slug.en.current,
+    "tr": slug.tr.current
+  }
+`);
+
+export const LAST_DAY_FORMAT_SEO_QUERY = defineQuery(`
+  *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{
+    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
+    "ogImage": ogImage{
+      "url": asset->url,
+      "alt": coalesce(alt, ""),
+      "width": asset->metadata.dimensions.width,
+      "height": asset->metadata.dimensions.height,
+      "lqip": asset->metadata.lqip
+    },
+    noIndex
+  }
+`);
+
+export function toLastDayFormatSeo(result: LAST_DAY_FORMAT_SEO_QUERYResult): PageSeo {
+  return toPageSeo(result);
+}
+
+export const LAST_DAY_FORMAT_QUERY = defineQuery(`
+  *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
+    "hero": hero{
+      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
+      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
+      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
+    },
+    "howItWorks": howItWorks[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+    },
+    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),
+    "corrections": corrections[]{
+      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+    },
+    "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),
+    "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),
+    "episodes": *[_type == "lastDayEpisode" && references(^._id)] | order(number asc){
+      number,
+      subject,
+      market,
+      dayZero,
+      dayLast,
+      "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
+      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)
+    }
+  }
+`);
+
+// Cümle sonu "." ile tespit ediliyor — bkz. firstTwoSentences'daki
+// aynı bilinen sınırlama (kısaltmalı bir standfirst yanlış kesebilir).
+function firstSentence(text: string): string {
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+  return sentences[0] ?? "";
+}
+
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+export function toLastDayFormatPage(
+  result: LAST_DAY_FORMAT_QUERYResult,
+  formatSlug: string,
+): LastDayFormatPage {
+  const dayCountSingular = result?.dayCountSingular ?? "";
+  const dayCountPlural = result?.dayCountPlural ?? "";
+
+  const episodes = (result?.episodes ?? [])
+    .filter((episode) => Boolean(episode.slug))
+    .map((episode) => {
+      const days =
+        episode.dayZero && episode.dayLast
+          ? Math.round(
+              (new Date(episode.dayLast).getTime() - new Date(episode.dayZero).getTime()) /
+                MS_PER_DAY,
+            )
+          : undefined;
+      const word = days === 1 ? dayCountSingular : dayCountPlural;
+
+      return {
+        number: episode.number ?? 0,
+        subject: episode.subject ?? "",
+        market: episode.market ?? "",
+        dayCountLabel: days !== undefined ? `${days} ${word}`.trim() : "",
+        firstSentence: firstSentence(episode.standfirst ?? ""),
+        formatSlug,
+        episodeSlug: episode.slug ?? "",
+      };
+    });
+
+  return {
+    hero: toPageHero(result?.hero ?? null),
+    howItWorks: (result?.howItWorks ?? []).map((item) => ({
+      label: item.label ?? "",
+      body: item.body ?? "",
+    })),
+    closingLine: result?.closingLine ?? "",
+    corrections: (result?.corrections ?? []).map((item) => ({
+      label: item.label ?? "",
+      body: item.body ?? "",
+    })),
+    episodes,
+  };
+}
+
+// ─────────────────────────────────────────────
+// Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
+// ─────────────────────────────────────────────
+
+// record/reading/gap'in ortak alan projeksiyonu — hem episode.blocks[]
+// hem de call.revealBlocks[] için aynı şekilde kullanılıyor (GROQ'da
+// fragment yok, JS template string ile tekrar).
+const LAST_DAY_REVEAL_BLOCK_PROJECTION = `
+  _type,
+  _key,
+  day,
+  date,
+  "headingEn": heading.en,
+  "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+  "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+  "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),
+  "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),
+  "sourceLabel": select($locale == "tr" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),
+  sourceUrl,
+  sourceKind,
+  restsOn,
+  "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
+  invitesCorrection
+`;
+
+export const LAST_DAY_EPISODE_SLUGS_QUERY = defineQuery(`
+  *[_type == "lastDayEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{
+    "episodeEn": slug.en.current,
+    "episodeTr": slug.tr.current,
+    "formatEn": format->slug.en.current,
+    "formatTr": format->slug.tr.current
+  }
+`);
+
+export const LAST_DAY_EPISODE_SEO_QUERY = defineQuery(`
+  *[_type == "lastDayEpisode"
+    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug
+    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug
+  ][0]{
+    "title": subject,
+    "description": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en)
+  }
+`);
+
+export function toLastDayEpisodeSeo(result: LAST_DAY_EPISODE_SEO_QUERYResult): PageSeo {
+  return {
+    title: result?.title ?? "",
+    description: result?.description ?? "",
+    ogImage: undefined,
+    noIndex: undefined,
+  };
+}
+
+export const LAST_DAY_EPISODE_QUERY = defineQuery(`
+  *[_type == "lastDayEpisode"
+    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug
+    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug
+  ][0]{
+    number,
+    subject,
+    parent,
+    market,
+    dayZero,
+    dayLast,
+    "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
+    publishedAt,
+    evidenceTakenAt,
+    lastCheckedAt,
+    "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),
+    "labels": format->mechanicLabels{
+      "dayWord": select($locale == "tr" => coalesce(dayWord.tr, dayWord.en), dayWord.en),
+      "recordLabel": select($locale == "tr" => coalesce(recordLabel.tr, recordLabel.en), recordLabel.en),
+      "readingLabel": select($locale == "tr" => coalesce(readingLabel.tr, readingLabel.en), readingLabel.en),
+      "gapLabel": select($locale == "tr" => coalesce(gapLabel.tr, gapLabel.en), gapLabel.en),
+      "noteLabel": select($locale == "tr" => coalesce(noteLabel.tr, noteLabel.en), noteLabel.en),
+      "restsOnLabel": select($locale == "tr" => coalesce(restsOnLabel.tr, restsOnLabel.en), restsOnLabel.en),
+      "callOptionRule": select($locale == "tr" => coalesce(callOptionRule.tr, callOptionRule.en), callOptionRule.en),
+      "callOptionDecision": select($locale == "tr" => coalesce(callOptionDecision.tr, callOptionDecision.en), callOptionDecision.en),
+      "callRevealDiverged": select($locale == "tr" => coalesce(callRevealDiverged.tr, callRevealDiverged.en), callRevealDiverged.en),
+      "callRevealUnsettled": select($locale == "tr" => coalesce(callRevealUnsettled.tr, callRevealUnsettled.en), callRevealUnsettled.en),
+      "ledgerToggleLabel": select($locale == "tr" => coalesce(ledgerToggleLabel.tr, ledgerToggleLabel.en), ledgerToggleLabel.en),
+      "correctionsCtaLabel": select($locale == "tr" => coalesce(correctionsCtaLabel.tr, correctionsCtaLabel.en), correctionsCtaLabel.en),
+      "scorecardHeading": select($locale == "tr" => coalesce(scorecardHeading.tr, scorecardHeading.en), scorecardHeading.en),
+      "scorecardMatched": select($locale == "tr" => coalesce(scorecardMatched.tr, scorecardMatched.en), scorecardMatched.en),
+      "scorecardDiverged": select($locale == "tr" => coalesce(scorecardDiverged.tr, scorecardDiverged.en), scorecardDiverged.en),
+      "scorecardUnsettled": select($locale == "tr" => coalesce(scorecardUnsettled.tr, scorecardUnsettled.en), scorecardUnsettled.en),
+      "scorecardPending": select($locale == "tr" => coalesce(scorecardPending.tr, scorecardPending.en), scorecardPending.en),
+      "publishedLabel": select($locale == "tr" => coalesce(publishedLabel.tr, publishedLabel.en), publishedLabel.en),
+      "evidenceTakenLabel": select($locale == "tr" => coalesce(evidenceTakenLabel.tr, evidenceTakenLabel.en), evidenceTakenLabel.en),
+      "lastCheckedLabel": select($locale == "tr" => coalesce(lastCheckedLabel.tr, lastCheckedLabel.en), lastCheckedLabel.en)
+    },
+    "blocks": blocks[]{
+      ${LAST_DAY_REVEAL_BLOCK_PROJECTION},
+      id,
+      "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+      answer,
+      "revealBlocks": revealBlocks[]{
+        ${LAST_DAY_REVEAL_BLOCK_PROJECTION}
+      }
+    }
+  }
+`);
+
+type LastDayRevealBlockLike = {
+  _type: string;
+  _key: string;
+  day: number | null;
+  date: string | null;
+  headingEn: string | null;
+  heading: string | null;
+  body: string | null;
+  quote: string | null;
+  quoteAttribution: string | null;
+  sourceLabel: string | null;
+  sourceUrl: string | null;
+  sourceKind: string | null;
+  restsOn: string[] | null;
+  whereItWouldBe: string | null;
+  invitesCorrection: boolean | null;
+};
+
+// reading.restsOn Sanity'de editoryal olarak EN heading metniyle
+// yazılıyor (bkz. lastDayReadingBlock.ts yorumu — gerçek bir sibling
+// referansı değil). TR'de İngilizce metin görünmemesi için, bu harita
+// EN heading'i geçerli dildeki karşılığına çevirir.
+function buildHeadingMap(blocks: LastDayBlockLike[]): Map<string, string> {
+  const map = new Map<string, string>();
+  for (const block of blocks) {
+    if (block.headingEn && block.heading) map.set(block.headingEn, block.heading);
+    for (const reveal of block.revealBlocks ?? []) {
+      if (reveal.headingEn && reveal.heading) map.set(reveal.headingEn, reveal.heading);
+    }
+  }
+  return map;
+}
+
+function toLastDayRevealBlock(
+  block: LastDayRevealBlockLike,
+  headingMap: Map<string, string>,
+): LastDayRevealBlock {
+  if (block._type === "lastDayRecordBlock") {
+    if (!block.sourceUrl) {
+      throw new Error(
+        `Spark verification contract: record "${block.heading ?? block._key}" has no sourceUrl. ` +
+          "A record block must always cite its source — see build prompt Part 0.",
+      );
+    }
+    return {
+      kind: "record",
+      key: block._key,
+      day: block.day ?? 0,
+      date: block.date ?? "",
+      heading: block.heading ?? "",
+      body: block.body ?? "",
+      quote: block.quote ?? undefined,
+      quoteAttribution: block.quoteAttribution ?? undefined,
+      sourceLabel: block.sourceLabel ?? "",
+      sourceUrl: block.sourceUrl,
+      sourceKind: (block.sourceKind ?? "press") as LastDayRecordBlock["sourceKind"],
+    };
+  }
+  if (block._type === "lastDayReadingBlock") {
+    return {
+      kind: "reading",
+      key: block._key,
+      day: block.day ?? 0,
+      heading: block.heading ?? "",
+      body: block.body ?? "",
+      restsOn: (block.restsOn ?? []).map((heading) => headingMap.get(heading) ?? heading),
+    };
+  }
+  return {
+    kind: "gap",
+    key: block._key,
+    day: block.day ?? undefined,
+    heading: block.heading ?? "",
+    body: block.body ?? "",
+    whereItWouldBe: block.whereItWouldBe ?? undefined,
+    invitesCorrection: block.invitesCorrection ?? true,
+  };
+}
+
+type LastDayBlockLike = LastDayRevealBlockLike & {
+  id: string | null;
+  prompt: string | null;
+  answer: string | null;
+  revealBlocks: LastDayRevealBlockLike[] | null;
+};
+
+function toLastDayBlock(block: LastDayBlockLike, headingMap: Map<string, string>): LastDayBlock {
+  if (block._type === "lastDayCallBlock") {
+    return {
+      kind: "call",
+      key: block._key,
+      id: block.id ?? block._key,
+      day: block.day ?? 0,
+      prompt: block.prompt ?? "",
+      answer: (block.answer ?? "unsettled") as LastDayCallBlock["answer"],
+      revealBlocks: (block.revealBlocks ?? []).map((reveal) =>
+        toLastDayRevealBlock(reveal, headingMap),
+      ),
+    };
+  }
+  if (block._type === "lastDayNoteBlock") {
+    return {
+      kind: "note",
+      key: block._key,
+      day: block.day ?? 0,
+      body: block.body ?? "",
+    };
+  }
+  return toLastDayRevealBlock(block, headingMap);
+}
+
+export function toLastDayEpisodePage(
+  result: LAST_DAY_EPISODE_QUERYResult,
+  formatSlug: string,
+): LastDayEpisodePage | undefined {
+  if (!result) return undefined;
+
+  const dayZero = result.dayZero ?? "";
+  const dayLast = result.dayLast ?? "";
+  const dayCount =
+    dayZero && dayLast
+      ? Math.round((new Date(dayLast).getTime() - new Date(dayZero).getTime()) / MS_PER_DAY)
+      : 0;
+
+  const labels = result.labels;
+  const rawBlocks = result.blocks ?? [];
+  const headingMap = buildHeadingMap(rawBlocks);
+
+  return {
+    number: result.number ?? 0,
+    subject: result.subject ?? "",
+    parent: result.parent ?? undefined,
+    market: result.market ?? "",
+    dayZero,
+    dayLast,
+    dayCount,
+    formatName: result.formatName ?? "",
+    standfirst: result.standfirst ?? "",
+    publishedAt: result.publishedAt ?? undefined,
+    evidenceTakenAt: result.evidenceTakenAt ?? undefined,
+    lastCheckedAt: result.lastCheckedAt ?? undefined,
+    blocks: rawBlocks.map((block) => toLastDayBlock(block, headingMap)),
+    backHref: { formatSlug },
+    correctionsHref: `/spark/${formatSlug}#corrections`,
+    labels: {
+      dayWord: labels?.dayWord ?? "",
+      recordLabel: labels?.recordLabel ?? "",
+      readingLabel: labels?.readingLabel ?? "",
+      gapLabel: labels?.gapLabel ?? "",
+      noteLabel: labels?.noteLabel ?? "",
+      restsOnLabel: labels?.restsOnLabel ?? "",
+      callOptionRule: labels?.callOptionRule ?? "",
+      callOptionDecision: labels?.callOptionDecision ?? "",
+      callRevealDiverged: labels?.callRevealDiverged ?? "",
+      callRevealUnsettled: labels?.callRevealUnsettled ?? "",
+      ledgerToggleLabel: labels?.ledgerToggleLabel ?? "",
+      correctionsCtaLabel: labels?.correctionsCtaLabel ?? "",
+      scorecardHeading: labels?.scorecardHeading ?? "",
+      scorecardMatched: labels?.scorecardMatched ?? "",
+      scorecardDiverged: labels?.scorecardDiverged ?? "",
+      scorecardUnsettled: labels?.scorecardUnsettled ?? "",
+      scorecardPending: labels?.scorecardPending ?? "",
+      publishedLabel: labels?.publishedLabel ?? "",
+      evidenceTakenLabel: labels?.evidenceTakenLabel ?? "",
+      lastCheckedLabel: labels?.lastCheckedLabel ?? "",
+    },
+  };
 }
