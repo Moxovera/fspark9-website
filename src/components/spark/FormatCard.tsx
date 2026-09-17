@@ -3,6 +3,7 @@ import type { SparkFormatSummary } from "@/types/content";
 
 interface FormatCardProps {
   format: SparkFormatSummary;
+  index: number; // 1-based — kart üstündeki "01" etiketi için
 }
 
 // CLAUDE.md'deki ok ikonu kalıbı (24×24, stroke="currentColor",
@@ -38,12 +39,15 @@ function ArrowUpRightIcon() {
  * href düz string olarak geçilemez ("Insufficient params" hatası
  * verir), bkz. CaseCard.tsx'teki aynı desen.
  */
-export default function FormatCard({ format }: FormatCardProps) {
+export default function FormatCard({ format, index }: FormatCardProps) {
   return (
     <Link
       href={{ pathname: "/spark/[formatSlug]", params: { formatSlug: format.slug } }}
       className="group relative block overflow-hidden border border-ivory/14 bg-ivory/[0.02] p-10 transition-[border-color,background-color,transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-bronze/60 hover:bg-ivory/[0.04] hover:shadow-[0_24px_60px_-20px_rgba(166,124,61,0.45)] sm:p-12"
     >
+      <p className="mb-4 font-mono text-xs tracking-[0.14em] text-bronze">
+        {String(index).padStart(2, "0")}
+      </p>
       <div className="mb-8 flex items-start justify-between gap-4">
         <h3 className="font-display text-[clamp(1.9rem,4vw,2.6rem)] leading-[1.1] font-medium text-ivory">
           {format.name}

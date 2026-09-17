@@ -3,13 +3,9 @@ import type { SchemaTypeDefinition } from "sanity";
 import localeString from "./objects/localeString";
 import localeText from "./objects/localeText";
 import localeSlug from "./objects/localeSlug";
-import sparkLabeledLine from "./objects/sparkLabeledLine";
-import lastDayRecordBlock from "./objects/lastDayRecordBlock";
-import lastDayReadingBlock from "./objects/lastDayReadingBlock";
-import lastDayGapBlock from "./objects/lastDayGapBlock";
-import lastDayCallBlock from "./objects/lastDayCallBlock";
-import lastDayNoteBlock from "./objects/lastDayNoteBlock";
-import lastDayMechanicLabels from "./objects/lastDayMechanicLabels";
+import statHighlight from "./objects/statHighlight";
+import noteHighlight from "./objects/noteHighlight";
+import localeBody from "./objects/localeBody";
 import link from "./objects/link";
 import seo from "./objects/seo";
 import footer from "./objects/footer";
@@ -70,13 +66,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     localeString,
     localeText,
     localeSlug,
-    sparkLabeledLine,
-    lastDayRecordBlock,
-    lastDayReadingBlock,
-    lastDayGapBlock,
-    lastDayCallBlock,
-    lastDayNoteBlock,
-    lastDayMechanicLabels,
+    statHighlight,
+    noteHighlight,
+    localeBody,
     link,
     seo,
     footer,

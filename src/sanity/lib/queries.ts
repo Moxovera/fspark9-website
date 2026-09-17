@@ -36,10 +36,7 @@ import type {
   SparkHomeModule,
   LastDayFormatPage,
   LastDayEpisodePage,
-  LastDayBlock,
-  LastDayRevealBlock,
-  LastDayRecordBlock,
-  LastDayCallBlock,
+  LastDayBodyBlock,
 } from "@/types/content";
 import type {
   HOME_HERO_QUERYResult,
@@ -1154,7 +1151,8 @@ export const SPARK_SECTION_QUERY = defineQuery(`
       "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
     },
-    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)
+    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en),
+    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en)
   }
 `);
 
@@ -1224,6 +1222,7 @@ export function toSparkPage(
   return {
     hero: toPageHero(sectionResult?.hero ?? null),
     formats: toSparkFormats(formatsResult),
+    comingSoonLabel: sectionResult?.comingSoonLabel ?? "",
   };
 }
 
@@ -1268,15 +1267,6 @@ export const LAST_DAY_FORMAT_QUERY = defineQuery(`
       "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
       "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
-    },
-    "howItWorks": howItWorks[]{
-      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
-      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
-    },
-    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),
-    "corrections": corrections[]{
-      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
-      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
     },
     "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),
     "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),
@@ -1333,15 +1323,6 @@ export function toLastDayFormatPage(
 
   return {
     hero: toPageHero(result?.hero ?? null),
-    howItWorks: (result?.howItWorks ?? []).map((item) => ({
-      label: item.label ?? "",
-      body: item.body ?? "",
-    })),
-    closingLine: result?.closingLine ?? "",
-    corrections: (result?.corrections ?? []).map((item) => ({
-      label: item.label ?? "",
-      body: item.body ?? "",
-    })),
     episodes,
   };
 }
@@ -1349,27 +1330,6 @@ export function toLastDayFormatPage(
 // ─────────────────────────────────────────────
 // Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
-
-// record/reading/gap'in ortak alan projeksiyonu — hem episode.blocks[]
-// hem de call.revealBlocks[] için aynı şekilde kullanılıyor (GROQ'da
-// fragment yok, JS template string ile tekrar).
-const LAST_DAY_REVEAL_BLOCK_PROJECTION = `
-  _type,
-  _key,
-  day,
-  date,
-  "headingEn": heading.en,
-  "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
-  "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
-  "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),
-  "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),
-  "sourceLabel": select($locale == "tr" => coalesce(sourceLabel.tr, sourceLabel.en), sourceLabel.en),
-  sourceUrl,
-  sourceKind,
-  restsOn,
-  "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
-  invitesCorrection
-`;
 
 export const LAST_DAY_EPISODE_SLUGS_QUERY = defineQuery(`
   *[_type == "lastDayEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{
@@ -1411,154 +1371,12 @@ export const LAST_DAY_EPISODE_QUERY = defineQuery(`
     dayZero,
     dayLast,
     "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
-    publishedAt,
-    evidenceTakenAt,
-    lastCheckedAt,
     "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),
-    "labels": format->mechanicLabels{
-      "dayWord": select($locale == "tr" => coalesce(dayWord.tr, dayWord.en), dayWord.en),
-      "recordLabel": select($locale == "tr" => coalesce(recordLabel.tr, recordLabel.en), recordLabel.en),
-      "readingLabel": select($locale == "tr" => coalesce(readingLabel.tr, readingLabel.en), readingLabel.en),
-      "gapLabel": select($locale == "tr" => coalesce(gapLabel.tr, gapLabel.en), gapLabel.en),
-      "noteLabel": select($locale == "tr" => coalesce(noteLabel.tr, noteLabel.en), noteLabel.en),
-      "restsOnLabel": select($locale == "tr" => coalesce(restsOnLabel.tr, restsOnLabel.en), restsOnLabel.en),
-      "callOptionRule": select($locale == "tr" => coalesce(callOptionRule.tr, callOptionRule.en), callOptionRule.en),
-      "callOptionDecision": select($locale == "tr" => coalesce(callOptionDecision.tr, callOptionDecision.en), callOptionDecision.en),
-      "callRevealDiverged": select($locale == "tr" => coalesce(callRevealDiverged.tr, callRevealDiverged.en), callRevealDiverged.en),
-      "callRevealUnsettled": select($locale == "tr" => coalesce(callRevealUnsettled.tr, callRevealUnsettled.en), callRevealUnsettled.en),
-      "ledgerToggleLabel": select($locale == "tr" => coalesce(ledgerToggleLabel.tr, ledgerToggleLabel.en), ledgerToggleLabel.en),
-      "correctionsCtaLabel": select($locale == "tr" => coalesce(correctionsCtaLabel.tr, correctionsCtaLabel.en), correctionsCtaLabel.en),
-      "scorecardHeading": select($locale == "tr" => coalesce(scorecardHeading.tr, scorecardHeading.en), scorecardHeading.en),
-      "scorecardMatched": select($locale == "tr" => coalesce(scorecardMatched.tr, scorecardMatched.en), scorecardMatched.en),
-      "scorecardDiverged": select($locale == "tr" => coalesce(scorecardDiverged.tr, scorecardDiverged.en), scorecardDiverged.en),
-      "scorecardUnsettled": select($locale == "tr" => coalesce(scorecardUnsettled.tr, scorecardUnsettled.en), scorecardUnsettled.en),
-      "scorecardPending": select($locale == "tr" => coalesce(scorecardPending.tr, scorecardPending.en), scorecardPending.en),
-      "publishedLabel": select($locale == "tr" => coalesce(publishedLabel.tr, publishedLabel.en), publishedLabel.en),
-      "evidenceTakenLabel": select($locale == "tr" => coalesce(evidenceTakenLabel.tr, evidenceTakenLabel.en), evidenceTakenLabel.en),
-      "lastCheckedLabel": select($locale == "tr" => coalesce(lastCheckedLabel.tr, lastCheckedLabel.en), lastCheckedLabel.en)
-    },
-    "blocks": blocks[]{
-      ${LAST_DAY_REVEAL_BLOCK_PROJECTION},
-      id,
-      "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
-      answer,
-      "revealBlocks": revealBlocks[]{
-        ${LAST_DAY_REVEAL_BLOCK_PROJECTION}
-      }
-    }
+    "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),
+    "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),
+    "body": select($locale == "tr" => body.tr, body.en)
   }
 `);
-
-type LastDayRevealBlockLike = {
-  _type: string;
-  _key: string;
-  day: number | null;
-  date: string | null;
-  headingEn: string | null;
-  heading: string | null;
-  body: string | null;
-  quote: string | null;
-  quoteAttribution: string | null;
-  sourceLabel: string | null;
-  sourceUrl: string | null;
-  sourceKind: string | null;
-  restsOn: string[] | null;
-  whereItWouldBe: string | null;
-  invitesCorrection: boolean | null;
-};
-
-// reading.restsOn Sanity'de editoryal olarak EN heading metniyle
-// yazılıyor (bkz. lastDayReadingBlock.ts yorumu — gerçek bir sibling
-// referansı değil). TR'de İngilizce metin görünmemesi için, bu harita
-// EN heading'i geçerli dildeki karşılığına çevirir.
-function buildHeadingMap(blocks: LastDayBlockLike[]): Map<string, string> {
-  const map = new Map<string, string>();
-  for (const block of blocks) {
-    if (block.headingEn && block.heading) map.set(block.headingEn, block.heading);
-    for (const reveal of block.revealBlocks ?? []) {
-      if (reveal.headingEn && reveal.heading) map.set(reveal.headingEn, reveal.heading);
-    }
-  }
-  return map;
-}
-
-function toLastDayRevealBlock(
-  block: LastDayRevealBlockLike,
-  headingMap: Map<string, string>,
-): LastDayRevealBlock {
-  if (block._type === "lastDayRecordBlock") {
-    if (!block.sourceUrl) {
-      throw new Error(
-        `Spark verification contract: record "${block.heading ?? block._key}" has no sourceUrl. ` +
-          "A record block must always cite its source — see build prompt Part 0.",
-      );
-    }
-    return {
-      kind: "record",
-      key: block._key,
-      day: block.day ?? 0,
-      date: block.date ?? "",
-      heading: block.heading ?? "",
-      body: block.body ?? "",
-      quote: block.quote ?? undefined,
-      quoteAttribution: block.quoteAttribution ?? undefined,
-      sourceLabel: block.sourceLabel ?? "",
-      sourceUrl: block.sourceUrl,
-      sourceKind: (block.sourceKind ?? "press") as LastDayRecordBlock["sourceKind"],
-    };
-  }
-  if (block._type === "lastDayReadingBlock") {
-    return {
-      kind: "reading",
-      key: block._key,
-      day: block.day ?? 0,
-      heading: block.heading ?? "",
-      body: block.body ?? "",
-      restsOn: (block.restsOn ?? []).map((heading) => headingMap.get(heading) ?? heading),
-    };
-  }
-  return {
-    kind: "gap",
-    key: block._key,
-    day: block.day ?? undefined,
-    heading: block.heading ?? "",
-    body: block.body ?? "",
-    whereItWouldBe: block.whereItWouldBe ?? undefined,
-    invitesCorrection: block.invitesCorrection ?? true,
-  };
-}
-
-type LastDayBlockLike = LastDayRevealBlockLike & {
-  id: string | null;
-  prompt: string | null;
-  answer: string | null;
-  revealBlocks: LastDayRevealBlockLike[] | null;
-};
-
-function toLastDayBlock(block: LastDayBlockLike, headingMap: Map<string, string>): LastDayBlock {
-  if (block._type === "lastDayCallBlock") {
-    return {
-      kind: "call",
-      key: block._key,
-      id: block.id ?? block._key,
-      day: block.day ?? 0,
-      prompt: block.prompt ?? "",
-      answer: (block.answer ?? "unsettled") as LastDayCallBlock["answer"],
-      revealBlocks: (block.revealBlocks ?? []).map((reveal) =>
-        toLastDayRevealBlock(reveal, headingMap),
-      ),
-    };
-  }
-  if (block._type === "lastDayNoteBlock") {
-    return {
-      kind: "note",
-      key: block._key,
-      day: block.day ?? 0,
-      body: block.body ?? "",
-    };
-  }
-  return toLastDayRevealBlock(block, headingMap);
-}
 
 export function toLastDayEpisodePage(
   result: LAST_DAY_EPISODE_QUERYResult,
@@ -1573,10 +1391,6 @@ export function toLastDayEpisodePage(
       ? Math.round((new Date(dayLast).getTime() - new Date(dayZero).getTime()) / MS_PER_DAY)
       : 0;
 
-  const labels = result.labels;
-  const rawBlocks = result.blocks ?? [];
-  const headingMap = buildHeadingMap(rawBlocks);
-
   return {
     number: result.number ?? 0,
     subject: result.subject ?? "",
@@ -1587,33 +1401,9 @@ export function toLastDayEpisodePage(
     dayCount,
     formatName: result.formatName ?? "",
     standfirst: result.standfirst ?? "",
-    publishedAt: result.publishedAt ?? undefined,
-    evidenceTakenAt: result.evidenceTakenAt ?? undefined,
-    lastCheckedAt: result.lastCheckedAt ?? undefined,
-    blocks: rawBlocks.map((block) => toLastDayBlock(block, headingMap)),
+    body: (result.body ?? []) as LastDayBodyBlock[],
+    dayLabel: result.dayLabel ?? "",
+    noteLabel: result.noteLabel ?? "",
     backHref: { formatSlug },
-    correctionsHref: `/spark/${formatSlug}#corrections`,
-    labels: {
-      dayWord: labels?.dayWord ?? "",
-      recordLabel: labels?.recordLabel ?? "",
-      readingLabel: labels?.readingLabel ?? "",
-      gapLabel: labels?.gapLabel ?? "",
-      noteLabel: labels?.noteLabel ?? "",
-      restsOnLabel: labels?.restsOnLabel ?? "",
-      callOptionRule: labels?.callOptionRule ?? "",
-      callOptionDecision: labels?.callOptionDecision ?? "",
-      callRevealDiverged: labels?.callRevealDiverged ?? "",
-      callRevealUnsettled: labels?.callRevealUnsettled ?? "",
-      ledgerToggleLabel: labels?.ledgerToggleLabel ?? "",
-      correctionsCtaLabel: labels?.correctionsCtaLabel ?? "",
-      scorecardHeading: labels?.scorecardHeading ?? "",
-      scorecardMatched: labels?.scorecardMatched ?? "",
-      scorecardDiverged: labels?.scorecardDiverged ?? "",
-      scorecardUnsettled: labels?.scorecardUnsettled ?? "",
-      scorecardPending: labels?.scorecardPending ?? "",
-      publishedLabel: labels?.publishedLabel ?? "",
-      evidenceTakenLabel: labels?.evidenceTakenLabel ?? "",
-      lastCheckedLabel: labels?.lastCheckedLabel ?? "",
-    },
   };
 }

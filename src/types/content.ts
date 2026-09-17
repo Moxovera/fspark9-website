@@ -11,7 +11,13 @@
  * Not: buradaki tipler dil çözümlenmiş halidir (düz string).
  * Sanity şemasında alanlar { en, tr } olarak saklanır,
  * GROQ sorgusu aktif dile göre çözer ve bu tipleri döner.
+ *
+ * İSTİSNA: lastDayEpisode.body (bkz. LastDayBodyBlock) — Portable Text
+ * dizileri dil başına AYRI diziler olarak saklanır (localeBody.en[] /
+ * .tr[]), tek bir alan bazlı {en,tr} objesi değil, çünkü bir dilin
+ * paragraf/başlık sayısı ve sırası diğerinden bağımsız olabilir.
  */
+import type { PortableTextBlock } from '@portabletext/types'
 
 // ─────────────────────────────────────────────
 // Ortak
@@ -106,16 +112,6 @@ export interface ThankYouPage {
   links: Link[]
 }
 
-// SparkPillar tipi hâlâ var (Layer 2'nin howItWorks/corrections satırları
-// aynı şekli paylaşıyor, bkz. LastDayFormatPage) — sadece sparkSection'ın
-// KENDİSİ artık pillars taşımıyor. Kullanıcı geri bildirimi: ana sayfa
-// mekanizmayı (record/reading/gap) açıklamamalı, format sayfası zaten
-// açıklıyor.
-export interface SparkPillar {
-  label: string // mono etiket
-  body: string
-}
-
 // Bir format kartı — şu an sadece "The Last Day" var, ama liste
 // yayınlanma sırasına göre sorgulanıyor, elle sabitlenmiyor. Bölüm
 // sayısı BİLEREK gösterilmiyor (kullanıcı geri bildirimi: "N episodes"
@@ -147,6 +143,7 @@ export interface SparkTeaser {
 export interface SparkPage {
   hero: PageHero
   formats: SparkFormatSummary[]
+  comingSoonLabel: string
 }
 
 // Ana sayfadaki Spark modülü (Story'nin altı, ClosingCta'nın üstü) —
@@ -163,13 +160,7 @@ export interface SparkHomeModule {
 // Spark · Layer 2 (format sayfası — /spark/the-last-day)
 // ─────────────────────────────────────────────
 
-// Corrections paneli üç satırı SparkPillar'la aynı şekli paylaşıyor
-// (kalın giriş cümlesi + gövde), ama görsel muamelesi farklı (mono
-// etiket değil, satır içi kalın metin) — bu yüzden CorrectionsPanel
-// kendi bileşeninde ayrı render ediyor, tip burada tekrar tanımlanmadı.
-export type LastDayCorrectionLine = SparkPillar
-
-// Bir bölümün format sayfasındaki liste kartı — asıl içeriği (blocks)
+// Bir bölümün format sayfasındaki liste kartı — asıl içeriği (body)
 // Layer 3'te, episode sayfasının kendi tipinde.
 export interface LastDayEpisodeSummary {
   number: number
@@ -181,11 +172,11 @@ export interface LastDayEpisodeSummary {
   episodeSlug: string
 }
 
+// Kullanıcı geri bildirimi sonrası kasıtlı olarak dar: kısa bir hero
+// (tek cümle — "burada kapanan şirketleri bulacaksın" türünden) +
+// bölüm listesi. howItWorks/corrections/closingLine KALDIRILDI.
 export interface LastDayFormatPage {
   hero: PageHero
-  howItWorks: SparkPillar[]
-  closingLine: string
-  corrections: LastDayCorrectionLine[]
   episodes: LastDayEpisodeSummary[]
 }
 
@@ -193,101 +184,29 @@ export interface LastDayFormatPage {
 // Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
 
-export type LastDaySourceKind = 'regulator' | 'filing' | 'company' | 'court' | 'press'
-
-// Format'ın sabit mekanik kelime dağarcığı (lastDayFormat.mechanicLabels)
-// — editoryal içerik değil, bileşenlere prop olarak akan UI kelimeleri.
-export interface LastDayMechanicLabels {
-  dayWord: string
-  recordLabel: string
-  readingLabel: string
-  gapLabel: string
-  noteLabel: string
-  restsOnLabel: string
-  callOptionRule: string
-  callOptionDecision: string
-  callRevealDiverged: string
-  callRevealUnsettled: string
-  ledgerToggleLabel: string
-  correctionsCtaLabel: string
-  scorecardHeading: string
-  scorecardMatched: string
-  scorecardDiverged: string
-  scorecardUnsettled: string
-  scorecardPending: string
-  publishedLabel: string
-  evidenceTakenLabel: string
-  lastCheckedLabel: string
+// Bölüm gövdesinin içine serbestçe yerleştirilen büyük rakam/istatistik
+// (ör. "156 DAYS"). @portabletext/react components.types ile eşleşir.
+export interface LastDayStatHighlight {
+  _type: 'statHighlight'
+  figure: string
+  caption?: string
 }
 
-// Sol çizgi: navy/solid/3px. Mono etiket: RECORD/KAYIT.
-export interface LastDayRecordBlock {
-  kind: 'record'
-  key: string
-  day: number
-  date: string // ISO tarih
-  heading: string
-  body: string
-  quote?: string
-  quoteAttribution?: string
-  sourceLabel: string
-  sourceUrl: string
-  sourceKind: LastDaySourceKind
-}
-
-// Sol çizgi: bronze/solid/3px. Mono etiket: READING/OKUMA.
-export interface LastDayReadingBlock {
-  kind: 'reading'
-  key: string
-  day: number
-  heading: string
-  body: string
-  restsOn: string[] // dayanılan record'ların heading'i (editoryal, gerçek referans değil)
-}
-
-// Sol çizgi: slate/dashed/3px. Mono etiket: GAP/BOŞLUK.
-export interface LastDayGapBlock {
-  kind: 'gap'
-  key: string
-  day?: number
-  heading: string
-  body: string
-  whereItWouldBe?: string
-  invitesCorrection: boolean
-}
-
-export type LastDayRevealBlock = LastDayRecordBlock | LastDayReadingBlock | LastDayGapBlock
-
-// Reader'a asla gösterilmeyen `answer` alanı — TheCall bileşeni sadece
-// reader'ın kendi seçimini kilitler, kilitli seçimi asla "yanlış" diye
-// etiketlemez (bkz. build prompt Part 0).
-export interface LastDayCallBlock {
-  kind: 'call'
-  key: string
-  id: string
-  day: number
-  prompt: string
-  answer: 'rule' | 'decision' | 'unsettled'
-  revealBlocks: LastDayRevealBlock[]
-}
-
-// Dördüncü bir şey — record/reading/gap'ten biri DEĞİL, sol çizgi ya da
-// mono state etiketi taşımaz, kaynak çipi yok, Ledger modunda tamamen
-// kaybolur.
-export interface LastDayNoteBlock {
-  kind: 'note'
-  key: string
-  day: number
+// fspark9'un kendi sesi — bölüm gövdesinin içine serbestçe yerleştirilir.
+export interface LastDayNoteHighlight {
+  _type: 'noteHighlight'
   body: string
 }
 
-export type LastDayBlock =
-  | LastDayRecordBlock
-  | LastDayReadingBlock
-  | LastDayGapBlock
-  | LastDayCallBlock
-  | LastDayNoteBlock
+// Sanity Portable Text bloğu (paragraf/başlık/alıntı/liste) — kendi
+// tipini burada yeniden tanımlamak yerine @portabletext/types'tan
+// import edildi (bkz. queries.ts).
+export type LastDayBodyBlock = PortableTextBlock | LastDayStatHighlight | LastDayNoteHighlight
 
+// Kullanıcı geri bildirimi sonrası: sabit record/reading/gap/call/note
+// şablonu KALDIRILDI. Her bölüm artık serbest biçimli `body` (Portable
+// Text + statHighlight/noteHighlight) ile kendi yapısını kuruyor — bir
+// bölümün dinamizmi bir diğeriyle aynı olmak zorunda değil.
 export interface LastDayEpisodePage {
   number: number
   subject: string
@@ -298,20 +217,10 @@ export interface LastDayEpisodePage {
   dayCount: number
   formatName: string
   standfirst: string
-  publishedAt?: string
-  evidenceTakenAt?: string
-  lastCheckedAt?: string
-  blocks: LastDayBlock[]
+  body: LastDayBodyBlock[]
+  dayLabel: string // "DAY" / "GÜN" — büyük saatin öneki
+  noteLabel: string // "fspark9 · Note" / "fspark9 · Not"
   backHref: { formatSlug: string } // /spark/[formatSlug]'a next-intl typed pathname ile geri döner
-  labels: LastDayMechanicLabels
-  correctionsHref: string // gap "invites correction" linki — corrections paneline (#corrections) ya da mailto'ya
-}
-
-// TheCall/Scorecard'ın localStorage'da tuttuğu durum — bkz.
-// hooks/useLastDayCalls.ts. Versiyonlu anahtar: fspark9.lastday.v1.
-export interface LastDayCallsState {
-  calls: Record<string, 'rule' | 'decision'>
-  ledger: boolean
 }
 
 // dc.html: page.hasCta (satır 1018-1026) — /services, /work, /work/insha,
@@ -783,45 +692,6 @@ export interface LandingPage {
   >
   closingCta: ClosingCta
 }
-
-// ─────────────────────────────────────────────
-// Blog · Faz 3'te şema yazılır, Faz 5'te doldurulur
-// ─────────────────────────────────────────────
-
-export interface Author {
-  name: string
-  role: string
-  avatar?: SanityImage
-}
-
-export interface Category {
-  slug: string
-  title: string
-}
-
-/** Sanity Portable Text bloğu. Render bileşeni Faz 5'te yazılır. */
-export type PortableTextBlock = unknown
-
-export interface Post {
-  slug: string
-  language: Locale        // blog DOKÜMAN bazlı i18n kullanır
-  title: string
-  excerpt: string
-  publishedAt: string     // ISO
-  updatedAt?: string
-  author: Author
-  categories: Category[]
-  coverImage?: SanityImage
-  body: PortableTextBlock[]
-  seo: PageSeo
-  /** Varsa diğer dildeki karşılığı. Zorunlu değil. */
-  translationSlug?: string
-}
-
-export type PostListItem = Pick<
-  Post,
-  'slug' | 'title' | 'excerpt' | 'publishedAt' | 'coverImage' | 'categories'
->
 
 // ─────────────────────────────────────────────
 // Kilitli müşteri raporları (/locked/[client])

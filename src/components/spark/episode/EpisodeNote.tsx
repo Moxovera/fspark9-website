@@ -1,24 +1,15 @@
-"use client";
-
-import { useLastDayCalls } from "@/hooks/useLastDayCalls";
-
 interface EpisodeNoteProps {
   body: string;
   label: string; // "fspark9 · Note" / "fspark9 · Not"
 }
 
 /**
- * Dördüncü bir şey — record/reading/gap'ten biri DEĞİL. Sol çizgi yok,
- * mono state etiketi yok, kaynak çipi yok. Ledger modunda tamamen
- * kaybolur. Ana site'ın locked-report.css'indeki Note bileşeninin
- * TASARIM FİKRİ yeniden kullanıldı (rozet + etiket + gövde), ama bu
- * sayfa Tailwind + main site token'larıyla (locked-report'un ayrı CSS
- * sistemi değil) sıfırdan kuruldu — bkz. Layer 1 handback notu.
+ * fspark9'un kendi sesi — bölüm gövdesinin (Portable Text) içine
+ * serbestçe yerleştirilir (bkz. EpisodeBody.tsx). Ledger/call mekaniği
+ * kaldırıldığı için artık sade bir server component — herhangi bir
+ * client state'e bağlı değil.
  */
 export default function EpisodeNote({ body, label }: EpisodeNoteProps) {
-  const { ledger } = useLastDayCalls();
-  if (ledger) return null;
-
   return (
     <aside className="flex flex-col items-start gap-4 rounded-md border border-bronze/35 bg-bronze/[0.08] p-6 shadow-[0_8px_24px_-8px_rgba(166,124,61,0.35)] min-[620px]:flex-row min-[620px]:items-start">
       <span

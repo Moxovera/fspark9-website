@@ -32,5 +32,11 @@ export default defineType({
       title: "Homepage module link label (e.g. \"Explore Spark\")",
       type: "localeString",
     }),
+    defineField({
+      name: "comingSoonLabel",
+      title: "Coming soon label (e.g. \"Coming Soon\")",
+      description: "Format listesindeki son, tıklanamaz yer tutucu kartın etiketi.",
+      type: "localeString",
+    }),
   ],
 });

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SubpageHero from "@/components/subpages/SubpageHero";
-import LedgerToggle from "@/components/spark/episode/LedgerToggle";
 import EpisodeClock from "@/components/spark/episode/EpisodeClock";
-import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
-import Scorecard from "@/components/spark/episode/Scorecard";
+import EpisodeBody from "@/components/spark/episode/EpisodeBody";
 import { siteSettings as enSettings } from "@/content/en";
 import { siteSettings as trSettings } from "@/content/tr";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -25,7 +23,7 @@ import type {
   LAST_DAY_EPISODE_QUERYResult,
 } from "@/sanity/types";
 
-const BLOCKS_CONTAINER_ID = "episode-blocks";
+const BODY_CONTAINER_ID = "episode-body";
 
 export async function generateStaticParams() {
   const episodes = await sanityFetch<LAST_DAY_EPISODE_SLUGS_QUERYResult>({
@@ -103,44 +101,21 @@ export default async function LastDayEpisodePageRoute({
               "UNİTED KİNGDOM" olur (yanlış nokta). */}
           <span lang="en">{episode.market}</span>
           {episode.parent && <span lang="en">{episode.parent}</span>}
-          {episode.publishedAt && (
-            <span>
-              {episode.labels.publishedLabel} {episode.publishedAt}
-            </span>
-          )}
-          {episode.evidenceTakenAt && (
-            <span>
-              {episode.labels.evidenceTakenLabel} {episode.evidenceTakenAt}
-            </span>
-          )}
-          {episode.lastCheckedAt && (
-            <span>
-              {episode.labels.lastCheckedLabel} {episode.lastCheckedAt}
-            </span>
-          )}
         </div>
       </section>
 
       <section className="bg-ivory px-7 pb-[120px]">
         <div className="mx-auto flex max-w-[760px] flex-col gap-8">
-          <div className="flex items-center justify-between gap-4">
-            <EpisodeClock
-              containerId={BLOCKS_CONTAINER_ID}
-              dayWord={episode.labels.dayWord}
-              startDay={0}
-            />
-            <LedgerToggle label={episode.labels.ledgerToggleLabel} />
-          </div>
+          <EpisodeClock
+            containerId={BODY_CONTAINER_ID}
+            dayLabel={episode.dayLabel}
+            dayZero={0}
+            dayLast={episode.dayCount}
+          />
 
-          <div id={BLOCKS_CONTAINER_ID}>
-            <EpisodeBlocks
-              blocks={episode.blocks}
-              labels={episode.labels}
-              correctionsHref={episode.correctionsHref}
-            />
+          <div id={BODY_CONTAINER_ID}>
+            <EpisodeBody value={episode.body} noteLabel={episode.noteLabel} />
           </div>
-
-          <Scorecard blocks={episode.blocks} labels={episode.labels} />
         </div>
       </section>
     </main>

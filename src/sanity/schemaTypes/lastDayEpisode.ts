@@ -3,8 +3,13 @@ import { defineField, defineType } from "sanity";
 // Layer 1: number/slug/subject/teaser*/publishedAt ("the spark" teaser
 // bloğu ve /spark'taki format kartı için). Layer 2: market/dayZero/
 // dayLast/standfirst (format sayfasındaki bölüm listesi kartı — gün
-// sayısı başlığı ve standfirst'ün ilk cümlesi). Layer 3: parent/
-// evidenceTakenAt/lastCheckedAt/blocks (bölümün asıl içeriği).
+// sayısı başlığı ve standfirst'ün ilk cümlesi). Layer 3: parent/body
+// (bölümün asıl içeriği). Kullanıcı geri bildirimi sonrası: sabit
+// record/reading/gap/call/note şablonu KALDIRILDI — her bölüm artık
+// serbest biçimli `body` (localeBody, bkz. o dosyanın yorumu) ile
+// kendi yapısını kuruyor, hiçbir bölüm bir diğeriyle aynı kalıba
+// zorlanmıyor. evidenceTakenAt/lastCheckedAt de bu değişiklikle
+// kaldırıldı — resmi doğrulama/corrections aparatının bir parçasıydı.
 export default defineType({
   name: "lastDayEpisode",
   title: "Last Day Episode",
@@ -31,8 +36,6 @@ export default defineType({
     defineField({ name: "dayLast", title: "Last day (closure)", type: "date" }),
     defineField({ name: "standfirst", title: "Standfirst", type: "localeText" }),
     defineField({ name: "publishedAt", title: "Published at", type: "date" }),
-    defineField({ name: "evidenceTakenAt", title: "Evidence taken at", type: "date" }),
-    defineField({ name: "lastCheckedAt", title: "Last checked at", type: "date" }),
     defineField({
       name: "teaserFigure",
       title: "Teaser figure (mono, e.g. \"156 DAYS\")",
@@ -40,16 +43,10 @@ export default defineType({
     }),
     defineField({ name: "teaserLine", title: "Teaser line", type: "localeText" }),
     defineField({
-      name: "blocks",
-      title: "Blocks",
-      type: "array",
-      of: [
-        { type: "lastDayRecordBlock" },
-        { type: "lastDayReadingBlock" },
-        { type: "lastDayGapBlock" },
-        { type: "lastDayCallBlock" },
-        { type: "lastDayNoteBlock" },
-      ],
+      name: "body",
+      title: "Body",
+      description: "Serbest biçimli içerik — başlık, paragraf, alıntı, liste, stat highlight, fspark9 note.",
+      type: "localeBody",
     }),
   ],
   preview: {

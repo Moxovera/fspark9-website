@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SubpageHero from "@/components/subpages/SubpageHero";
-import SparkPillars from "@/components/spark/SparkPillars";
-import CorrectionsPanel from "@/components/spark/CorrectionsPanel";
 import EpisodeList from "@/components/spark/EpisodeList";
 import Reveal from "@/components/ui/Reveal";
 import { siteSettings as enSettings } from "@/content/en";
@@ -88,25 +86,8 @@ export default async function LastDayFormatPageRoute({
     <main>
       <SubpageHero hero={page.hero} backLabel={settings.backLabel} backHref="/spark" />
 
-      <section className="bg-navy px-7 pb-[104px]">
-        <div className="mx-auto max-w-[1000px]">
-          <SparkPillars pillars={page.howItWorks} />
-        </div>
-      </section>
-
-      <section id="corrections" className="border-t border-ivory/[0.08] bg-navy px-7 py-[88px]">
-        <div className="mx-auto max-w-[1000px]">
-          <Reveal>
-            <p className="mb-10 max-w-[62ch] text-[1.02rem] leading-[1.66] text-ivory/70">
-              {page.closingLine}
-            </p>
-            <CorrectionsPanel lines={page.corrections} />
-          </Reveal>
-        </div>
-      </section>
-
       {page.episodes.length > 0 && (
-        <section className="border-t border-ivory/[0.08] bg-navy px-7 pb-[120px]">
+        <section className="bg-navy px-7 pb-[120px]">
           <div className="mx-auto max-w-[1000px]">
             <Reveal>
               <EpisodeList episodes={page.episodes} />

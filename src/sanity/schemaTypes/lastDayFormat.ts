@@ -1,9 +1,12 @@
 import { defineField, defineType } from "sanity";
 
-// Layer 1: name/slug/description (format kartı). Layer 2: hero/
-// howItWorks/closingLine/corrections/dayCount* (format sayfasının
-// kendisi, /spark/the-last-day). Bölümlerin kendi içerik modeli
-// (blocks: record/reading/gap/call/note) lastDayEpisode'da, Layer 3'te.
+// Layer 1: name/slug/description (format kartı). Layer 2: hero (kısa
+// tek satır — "burada kapanan şirketleri bulacaksın" türünden, ayrıntılı
+// mekanizma açıklaması ya da corrections paneli YOK, kullanıcı geri
+// bildirimi sonrası kaldırıldı). Bölümlerin kendi içeriği artık serbest
+// biçimli (bkz. lastDayEpisode.body / localeBody) — burada sadece
+// bölüm listesinin "156 days" etiketi ve saatin "DAY" öneki için
+// kelime dağarcığı kalıyor.
 export default defineType({
   name: "lastDayFormat",
   title: "Last Day Format",
@@ -20,28 +23,9 @@ export default defineType({
     defineField({
       name: "hero",
       title: "Hero",
-      description: "eyebrow \"Spark\", title = name (\"The Last Day\"/\"Son Gün\"), intro = standfirst.",
-      type: "pageHero",
-    }),
-    defineField({
-      name: "howItWorks",
-      title: "How it works",
-      description: "Tam olarak 3 satır: The clock / The record only / The call.",
-      type: "array",
-      of: [{ type: "sparkLabeledLine" }],
-      validation: (rule) => rule.length(3),
-    }),
-    defineField({ name: "closingLine", title: "Closing line", type: "localeText" }),
-    defineField({
-      name: "corrections",
-      title: "Corrections panel",
       description:
-        "Tam olarak 3 satır: Corrections / Every episode carries three dates / Right of reply. " +
-        "\"label\" kalın giriş cümlesi (ör. \"Corrections.\"), \"body\" geri kalan metin. Adres " +
-        "henüz yoksa body içine literal \"[ADDRESS TO BE SET]\" yazılır — uydurma adres YOK.",
-      type: "array",
-      of: [{ type: "sparkLabeledLine" }],
-      validation: (rule) => rule.length(3),
+        "eyebrow \"Spark\", title = name, intro = TEK kısa cümle (\"you'll find companies that closed\" türünden — uzun standfirst, how-it-works ya da corrections YOK).",
+      type: "pageHero",
     }),
     defineField({
       name: "dayCountSingular",
@@ -54,9 +38,15 @@ export default defineType({
       type: "localeString",
     }),
     defineField({
-      name: "mechanicLabels",
-      title: "Mechanic labels (Layer 3 — bölüm sayfasının sabit UI kelimeleri)",
-      type: "lastDayMechanicLabels",
+      name: "dayLabel",
+      title: "Day label (mono, e.g. \"DAY\")",
+      description: "Bölüm sayfasındaki büyük saatin öneki.",
+      type: "localeString",
+    }),
+    defineField({
+      name: "noteLabel",
+      title: "fspark9 Note label (e.g. \"fspark9 · Note\")",
+      type: "localeString",
     }),
   ],
   preview: {

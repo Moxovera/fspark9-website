@@ -86,7 +86,7 @@ export default async function SparkPage({
         <section className="bg-navy px-7 pb-[120px]">
           <div className="mx-auto max-w-[1000px]">
             <Reveal>
-              <SparkFormatsList formats={page.formats} />
+              <SparkFormatsList formats={page.formats} comingSoonLabel={page.comingSoonLabel} />
             </Reveal>
           </div>
         </section>
