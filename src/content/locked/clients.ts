@@ -6,7 +6,7 @@ export interface LockedClient {
   passwordEnv: string;
   title: Record<Locale, string>;
   // Gate boilerplate (not the report itself — see src/content/locked/fuzul/
-  // for the actual report content, which is a private submodule).
+  // for the actual report content).
   gate: Record<Locale, LockedGateContent>;
 }
 

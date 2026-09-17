@@ -18,8 +18,9 @@ export async function resolveLockedState(client: string, searchLang: string | un
 }
 
 // One case per client slug — each client's content module lives in its own
-// private submodule folder (src/content/locked/<slug>/), so this is the
-// one place that has to grow when a new client is added.
+// folder (src/content/locked/<slug>/), so this is the one place that has
+// to grow when a new client is added. Content lives directly in this repo
+// (not a separate private submodule) since it's sourced from public data.
 export async function loadLockedReportData(client: string, lang: Locale) {
   if (client === "fuzul") {
     const [{ fuzulReportTr }, { fuzulReportEn }, data] = await Promise.all([

@@ -34,9 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
-# locked-report source material: contains the client's real, private data —
-# must never land in this public repo (the report content itself lives in
-# the private privatemoxovera submodule, src/content/locked/fuzul/)
+# raw reference/working material for the locked report (brief, source
+# HTML, proposal doc) — not needed at runtime, the extracted content lives
+# in src/content/locked/fuzul/
 /fuzul/
 
 # vercel
