@@ -734,11 +734,6 @@ export const sparkCopy = {
     eyebrow: "fspark9",
     title: "Spark",
     purposeLine: "Kamuya açık kayıttan kurulur. Sırayla okunur. Elinizde bir karar kalır.",
-    ribbonLabels: {
-      episodes: "bölüm",
-      daysCounted: "sayılan gün",
-      markets: "pazar",
-    },
   },
   formatOne: {
     name: "Son Gün",

@@ -743,11 +743,6 @@ export const sparkCopy = {
     eyebrow: "fspark9",
     title: "Spark",
     purposeLine: "Built from the public record. Read in order. You leave with a decision to make.",
-    ribbonLabels: {
-      episodes: "episodes",
-      daysCounted: "days counted",
-      markets: "markets",
-    },
   },
   formatOne: {
     name: "The Last Day",

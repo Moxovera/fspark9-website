@@ -31,9 +31,6 @@ const DRIFT_QUERY = /* groq */ `{
     "eyebrowEn": hero.eyebrow.en, "eyebrowTr": hero.eyebrow.tr,
     "titleEn": hero.title.en, "titleTr": hero.title.tr,
     "purposeLineEn": hero.intro.en, "purposeLineTr": hero.intro.tr,
-    "episodesRibbonLabelEn": episodesRibbonLabel.en, "episodesRibbonLabelTr": episodesRibbonLabel.tr,
-    "daysRibbonLabelEn": daysRibbonLabel.en, "daysRibbonLabelTr": daysRibbonLabel.tr,
-    "marketsRibbonLabelEn": marketsRibbonLabel.en, "marketsRibbonLabelTr": marketsRibbonLabel.tr,
   },
   "format": *[_id == "sparkFormat-the-last-day"][0]{
     "nameEn": name.en, "nameTr": name.tr,
@@ -55,9 +52,6 @@ interface DriftResult {
     eyebrowEn: string | null; eyebrowTr: string | null;
     titleEn: string | null; titleTr: string | null;
     purposeLineEn: string | null; purposeLineTr: string | null;
-    episodesRibbonLabelEn: string | null; episodesRibbonLabelTr: string | null;
-    daysRibbonLabelEn: string | null; daysRibbonLabelTr: string | null;
-    marketsRibbonLabelEn: string | null; marketsRibbonLabelTr: string | null;
   } | null;
   format: {
     nameEn: string | null; nameTr: string | null;
@@ -93,36 +87,6 @@ async function main() {
     check("sparkSection.hero.title (tr)", result.section?.titleTr, sparkCopyTr.hub.title),
     check("sparkSection.hero.intro (en)", result.section?.purposeLineEn, sparkCopyEn.hub.purposeLine),
     check("sparkSection.hero.intro (tr)", result.section?.purposeLineTr, sparkCopyTr.hub.purposeLine),
-    check(
-      "sparkSection.episodesRibbonLabel (en)",
-      result.section?.episodesRibbonLabelEn,
-      sparkCopyEn.hub.ribbonLabels.episodes,
-    ),
-    check(
-      "sparkSection.episodesRibbonLabel (tr)",
-      result.section?.episodesRibbonLabelTr,
-      sparkCopyTr.hub.ribbonLabels.episodes,
-    ),
-    check(
-      "sparkSection.daysRibbonLabel (en)",
-      result.section?.daysRibbonLabelEn,
-      sparkCopyEn.hub.ribbonLabels.daysCounted,
-    ),
-    check(
-      "sparkSection.daysRibbonLabel (tr)",
-      result.section?.daysRibbonLabelTr,
-      sparkCopyTr.hub.ribbonLabels.daysCounted,
-    ),
-    check(
-      "sparkSection.marketsRibbonLabel (en)",
-      result.section?.marketsRibbonLabelEn,
-      sparkCopyEn.hub.ribbonLabels.markets,
-    ),
-    check(
-      "sparkSection.marketsRibbonLabel (tr)",
-      result.section?.marketsRibbonLabelTr,
-      sparkCopyTr.hub.ribbonLabels.markets,
-    ),
     // sparkFormat-the-last-day
     check("sparkFormat.name (en)", result.format?.nameEn, sparkCopyEn.formatOne.name),
     check("sparkFormat.name (tr)", result.format?.nameTr, sparkCopyTr.formatOne.name),

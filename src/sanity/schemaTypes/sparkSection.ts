@@ -1,11 +1,11 @@
 import { defineField, defineType } from "sanity";
 
 // /spark ve /tr/spark'ın kendisi — hub. Kasıtlı olarak dar: kısa bir
-// hero (eyebrow/title/purpose line) + canlı ribbon rakamları + format
-// vitrini. Format listesi burada SAKLANMAZ, sparkFormat koleksiyonundan
-// sorgulanır (bkz. queries.ts). Ribbon etiketleri (episodes/days
-// counted/markets) burada — rakamların KENDİSİ hiçbir zaman burada
-// saklanmıyor, her zaman yayınlanmış bölümlerden hesaplanıyor.
+// hero (eyebrow/title/purpose line) + format vitrini. Format listesi
+// burada SAKLANMAZ, sparkFormat koleksiyonundan sorgulanır (bkz.
+// queries.ts). Ribbon (episodes/days counted/markets toplamı) BİLEREK
+// yok — tek formatla, format satırındaki envanterin tekrarından
+// ibaretti, kullanıcı geri bildirimiyle kaldırıldı.
 export default defineType({
   name: "sparkSection",
   title: "Spark Section",
@@ -35,21 +35,6 @@ export default defineType({
       name: "comingSoonLabel",
       title: "Coming soon label (e.g. \"Coming Soon\")",
       description: "Format listesindeki son, tıklanamaz yer tutucu kartın etiketi.",
-      type: "localeString",
-    }),
-    defineField({
-      name: "episodesRibbonLabel",
-      title: "Ribbon label — episodes (e.g. \"episodes\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "daysRibbonLabel",
-      title: "Ribbon label — days counted (e.g. \"days counted\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "marketsRibbonLabel",
-      title: "Ribbon label — markets (e.g. \"markets\")",
       type: "localeString",
     }),
   ],

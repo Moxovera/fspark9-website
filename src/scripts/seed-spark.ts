@@ -74,9 +74,6 @@ const sparkSectionDoc = {
   // etiketi olarak makul bir varsayılan. Uncertainty list'te.
   homeLinkLabel: ls("Explore Spark", "Spark'ı keşfedin"),
   comingSoonLabel: ls("Coming Soon", "Çok Yakında"),
-  episodesRibbonLabel: ls(sparkCopyEn.hub.ribbonLabels.episodes, sparkCopyTr.hub.ribbonLabels.episodes),
-  daysRibbonLabel: ls(sparkCopyEn.hub.ribbonLabels.daysCounted, sparkCopyTr.hub.ribbonLabels.daysCounted),
-  marketsRibbonLabel: ls(sparkCopyEn.hub.ribbonLabels.markets, sparkCopyTr.hub.ribbonLabels.markets),
 };
 
 // ─────────────────────────────────────────────

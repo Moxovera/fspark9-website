@@ -33,7 +33,6 @@ import type {
   SparkPage,
   SparkFormatSummary,
   SparkEpisodeSummary,
-  SparkRibbonItem,
   SparkTeaser,
   SparkHomeModule,
   SparkFormatPage,
@@ -76,7 +75,6 @@ import type {
   SITE_LOGO_QUERYResult,
   SPARK_SEO_QUERYResult,
   SPARK_SECTION_QUERYResult,
-  SPARK_RIBBON_QUERYResult,
   SPARK_FORMATS_HUB_QUERYResult,
   SPARK_TEASER_EPISODE_QUERYResult,
   SPARK_FORMAT_SEO_QUERYResult,
@@ -1156,10 +1154,7 @@ export const SPARK_SECTION_QUERY = defineQuery(`
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
     },
     "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en),
-    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en),
-    "episodesRibbonLabel": select($locale == "tr" => coalesce(episodesRibbonLabel.tr, episodesRibbonLabel.en), episodesRibbonLabel.en),
-    "daysRibbonLabel": select($locale == "tr" => coalesce(daysRibbonLabel.tr, daysRibbonLabel.en), daysRibbonLabel.en),
-    "marketsRibbonLabel": select($locale == "tr" => coalesce(marketsRibbonLabel.tr, marketsRibbonLabel.en), marketsRibbonLabel.en)
+    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en)
   }
 `);
 
@@ -1183,50 +1178,6 @@ export function toSparkHomeModule(
     teaser,
     linkLabel: sectionResult?.homeLinkLabel ?? "",
   };
-}
-
-// Ribbon rakamları YAYINLANMIŞ dokümanlardan hesaplanır — komponente
-// elle bir sayı geçilmez (bkz. revizyon brief §6). Sadece
-// launchDate/closureDate'i İKİSİ de olan bölümler gün toplamına
-// katılıyor; hiçbiri yoksa ilgili rakam ribbon'dan tamamen düşüyor
-// (bkz. toSparkRibbon).
-export const SPARK_RIBBON_QUERY = defineQuery(`
-  *[_type == "sparkEpisode" && status == "published"]{
-    country,
-    launchDate,
-    closureDate
-  }
-`);
-
-export function toSparkRibbon(
-  result: SPARK_RIBBON_QUERYResult,
-  episodesLabel: string,
-  daysLabel: string,
-  marketsLabel: string,
-): SparkRibbonItem[] {
-  const items: SparkRibbonItem[] = [];
-
-  if (result.length > 0) {
-    items.push({ value: result.length, label: episodesLabel });
-  }
-
-  const totalDays = result.reduce((sum, episode) => {
-    const days = computeDayCount(episode.launchDate, episode.closureDate);
-    return days !== null ? sum + days : sum;
-  }, 0);
-  const countedEpisodes = result.filter(
-    (episode) => computeDayCount(episode.launchDate, episode.closureDate) !== null,
-  );
-  if (countedEpisodes.length > 0) {
-    items.push({ value: totalDays, label: daysLabel });
-  }
-
-  const markets = new Set(result.map((episode) => episode.country).filter(Boolean));
-  if (markets.size > 0) {
-    items.push({ value: markets.size, label: marketsLabel });
-  }
-
-  return items;
 }
 
 // generateStaticParams için — her formatın HER İKİ dildeki slug'ı
@@ -1336,17 +1287,10 @@ export function toSparkTeaser(result: SPARK_TEASER_EPISODE_QUERYResult): SparkTe
 
 export function toSparkPage(
   sectionResult: SPARK_SECTION_QUERYResult,
-  ribbonResult: SPARK_RIBBON_QUERYResult,
   formatsResult: SPARK_FORMATS_HUB_QUERYResult,
 ): SparkPage {
   return {
     hero: toPageHero(sectionResult?.hero ?? null),
-    ribbon: toSparkRibbon(
-      ribbonResult,
-      sectionResult?.episodesRibbonLabel ?? "",
-      sectionResult?.daysRibbonLabel ?? "",
-      sectionResult?.marketsRibbonLabel ?? "",
-    ),
     formats: toSparkFormatsForHub(formatsResult),
     comingSoonLabel: sectionResult?.comingSoonLabel ?? "",
   };

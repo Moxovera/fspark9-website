@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import SubpageHero from "@/components/subpages/SubpageHero";
 import SparkFormatRows from "@/components/spark/SparkFormatRows";
-import SparkRibbon from "@/components/spark/SparkRibbon";
 import CanvasField from "@/components/effects/CanvasFieldLoader";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_SEO_QUERY,
   SITE_SEO_QUERY,
   SPARK_SECTION_QUERY,
-  SPARK_RIBBON_QUERY,
   SPARK_FORMATS_HUB_QUERY,
   toSparkSeo,
   toSiteSeo,
@@ -19,7 +17,6 @@ import type {
   SPARK_SEO_QUERYResult,
   SITE_SEO_QUERYResult,
   SPARK_SECTION_QUERYResult,
-  SPARK_RIBBON_QUERYResult,
   SPARK_FORMATS_HUB_QUERYResult,
 } from "@/sanity/types";
 
@@ -47,11 +44,16 @@ export async function generateMetadata({
 
 /**
  * Hub — revizyon v2. Kısa bir hero (eyebrow/title/purpose line), tek
- * orkestre animasyon (bronz çizgi + ribbon count-up, bkz. globals.css
- * .spark-hairline ve RibbonCountUp.tsx), format 01'in tam genişlik
- * satırı (envanteriyle birlikte) ve format 02'nin dokunulmamış yer
- * tutucusu. Geri butonu artık "fspark9" diyor (ana sayfaya döndüğünü
- * adlandırıyor) — genel "Back" etiketi YOK, bkz. sparkSection.hero.eyebrow.
+ * orkestre animasyon (bronz çizgi, bkz. globals.css .spark-hairline),
+ * format 01'in tam genişlik satırı (envanteriyle birlikte) ve format
+ * 02'nin dokunulmamış yer tutucusu. Geri butonu artık "fspark9" diyor
+ * (ana sayfaya döndüğünü adlandırıyor) — genel "Back" etiketi YOK,
+ * bkz. sparkSection.hero.eyebrow.
+ *
+ * Ribbon (episodes/days counted/markets) BİLEREK kaldırıldı — tek
+ * formatla/tek bölümle, üstteki rakamlar aşağıdaki envanter satırının
+ * tekrarından ibaretti ve kullanıcı geri bildirimiyle çıkarıldı. Bkz.
+ * silinen SparkRibbon.tsx/RibbonCountUp.tsx.
  */
 export default async function SparkPage({
   params,
@@ -61,16 +63,11 @@ export default async function SparkPage({
   const { locale } = await params;
   const resolvedLocale: "en" | "tr" = locale === "tr" ? "tr" : "en";
 
-  const [sectionResult, ribbonResult, formatsResult] = await Promise.all([
+  const [sectionResult, formatsResult] = await Promise.all([
     sanityFetch<SPARK_SECTION_QUERYResult>({
       query: SPARK_SECTION_QUERY,
       params: { locale },
       tags: ["sparkSection"],
-    }),
-    sanityFetch<SPARK_RIBBON_QUERYResult>({
-      query: SPARK_RIBBON_QUERY,
-      params: { locale },
-      tags: ["sparkEpisode"],
     }),
     sanityFetch<SPARK_FORMATS_HUB_QUERYResult>({
       query: SPARK_FORMATS_HUB_QUERY,
@@ -79,14 +76,13 @@ export default async function SparkPage({
     }),
   ]);
 
-  const page = toSparkPage(sectionResult, ribbonResult, formatsResult);
+  const page = toSparkPage(sectionResult, formatsResult);
 
   return (
     <main>
       <CanvasField />
       <SubpageHero hero={page.hero} backLabel={page.hero.eyebrow}>
         <div className="spark-hairline mt-8 h-px w-full max-w-[240px] bg-bronze" />
-        <SparkRibbon items={page.ribbon} />
       </SubpageHero>
 
       {page.formats.length > 0 && (

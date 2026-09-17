@@ -148,14 +148,6 @@ export interface SparkFormatSummary {
   episodes: SparkEpisodeSummary[]
 }
 
-// Ribbon'daki tek bir rakam — DEĞER her zaman yayınlanmış dokümanlardan
-// hesaplanır, komponente elle bir sayı geçilmez. Hesaplanamayan bir
-// rakam diziden tamamen ÇIKARILIR (bkz. queries.ts:toSparkRibbon).
-export interface SparkRibbonItem {
-  value: number
-  label: string
-}
-
 // "The spark" teaser bloğu — en güncel yayınlanmış bölüme bağlanır.
 // Sadece SparkHomeModule (ana sayfa) kullanıyor — Spark bölüm sayfasının
 // kendisi (SparkPage) artık bölüm içeriğini göstermiyor. Hiç bölüm yoksa
@@ -171,12 +163,13 @@ export interface SparkTeaser {
 }
 
 // Ana Spark sayfası (hub) — kısa bir hero (eyebrow/title/purpose line),
-// canlı ribbon rakamları, format 01'in satırı (envanteriyle birlikte).
-// Format 02 BİLEREK burada YOK — sabit UI karosu, veri katmanına hiç
-// girmiyor.
+// format 01'in satırı (envanteriyle birlikte). Format 02 BİLEREK
+// burada YOK — sabit UI karosu, veri katmanına hiç girmiyor. Ribbon
+// (episodes/days/markets toplamı) BİLEREK burada YOK — tek formatla,
+// üstteki toplam envanter satırının tekrarından ibaretti ve kullanıcı
+// geri bildirimiyle kaldırıldı.
 export interface SparkPage {
   hero: PageHero
-  ribbon: SparkRibbonItem[]
   formats: SparkFormatSummary[]
   comingSoonLabel: string
 }
