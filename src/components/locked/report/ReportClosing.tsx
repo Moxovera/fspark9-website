@@ -1,7 +1,18 @@
 import type { ReportClosingContent } from "@/types/content";
 import { Wordmark } from "@/components/locked/Wordmark";
+import { NextLine } from "./NextLine";
 
-export function ReportClosing({ closing, id }: { closing: ReportClosingContent; id: string }) {
+export function ReportClosing({
+  closing,
+  id,
+  client,
+  nextLineText,
+}: {
+  closing: ReportClosingContent;
+  id: string;
+  client: string;
+  nextLineText: string;
+}) {
   return (
     <section className="wrap closing" id={id}>
       <p className="eyebrow">{closing.eyebrow}</p>
@@ -12,6 +23,7 @@ export function ReportClosing({ closing, id }: { closing: ReportClosingContent; 
         <p dangerouslySetInnerHTML={{ __html: closing.signP }} />
         <div className="contact" dangerouslySetInnerHTML={{ __html: closing.contact }} />
       </div>
+      <NextLine href={`/locked/${client}/working-together`} text={nextLineText} />
       <p className="method" dangerouslySetInnerHTML={{ __html: closing.method }} />
     </section>
   );

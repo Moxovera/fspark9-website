@@ -893,7 +893,39 @@ export interface ReportChartStrings {
   heatSrc2: string
   heatSrc3: string
   note: string
+  noteAria: string
   sources: string
+  /** the quiet "how could we turn this into a working relationship" link text (NextLine) */
+  nextLine: string
+  /** topbar "back to the report" link, shown on the working-together page */
+  backToReport: string
+}
+
+export interface WorkingTogetherItem {
+  num: string
+  label: string
+  lead: string
+  detail: string
+}
+
+export interface WorkingTogetherContent {
+  pageTitle: string
+  eyebrow: string
+  heroTitle: string
+  metaLine: string
+  summaryHeading: string
+  summaryBody: string
+  supportHeading: string
+  items: WorkingTogetherItem[]
+  closingLabel: string
+  ctaLabel: string
+  ctaUrl: string
+  ctaUrlDisplay: string
+  bioName: string
+  bioTitle: string
+  bioBody: string
+  nextStepBadge: string
+  nextStepText: string
 }
 
 export interface LockedReportContent {
@@ -901,5 +933,6 @@ export interface LockedReportContent {
   summary: ReportSummaryContent
   chapters: ReportChapter[]
   closing: ReportClosingContent
+  workingTogether: WorkingTogetherContent
   charts: ReportChartStrings
 }

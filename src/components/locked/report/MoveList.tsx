@@ -1,7 +1,15 @@
 import type { MoveBlockData } from "@/types/content";
 import { Note } from "./Note";
 
-export function MoveList({ block, noteLabel }: { block: MoveBlockData; noteLabel: string }) {
+export function MoveList({
+  block,
+  noteLabel,
+  noteAriaLabel,
+}: {
+  block: MoveBlockData;
+  noteLabel: string;
+  noteAriaLabel: string;
+}) {
   return (
     <div className="move-block">
       <h3>
@@ -15,7 +23,7 @@ export function MoveList({ block, noteLabel }: { block: MoveBlockData; noteLabel
           <div>
             <h4>{mv.title}</h4>
             <p dangerouslySetInnerHTML={{ __html: mv.body }} />
-            {mv.note && <Note html={mv.note} label={noteLabel} />}
+            {mv.note && <Note html={mv.note} label={noteLabel} ariaLabel={noteAriaLabel} />}
           </div>
         </div>
       ))}

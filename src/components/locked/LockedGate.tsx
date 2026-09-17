@@ -11,14 +11,16 @@ export function LockedGate({
   client,
   initialLang,
   gate,
+  returnPath,
 }: {
   client: string;
   initialLang: Locale;
   gate: Record<Locale, LockedGateContent>;
+  returnPath: string;
 }) {
   const [lang, setLang] = useState<Locale>(initialLang);
   const [, startTransition] = useTransition();
-  const [state, formAction, pending] = useActionState(unlockAction.bind(null, client), initialState);
+  const [state, formAction, pending] = useActionState(unlockAction.bind(null, client, returnPath), initialState);
   const t = gate[lang];
 
   useEffect(() => {

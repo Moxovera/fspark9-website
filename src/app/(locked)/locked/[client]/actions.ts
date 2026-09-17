@@ -24,6 +24,7 @@ const ONE_YEAR = 60 * 60 * 24 * 365;
 // isn't duplicated between a content file and a server action.
 export async function unlockAction(
   client: string,
+  returnPath: string,
   _prevState: UnlockState,
   formData: FormData,
 ): Promise<UnlockState> {
@@ -51,7 +52,10 @@ export async function unlockAction(
     maxAge: THIRTY_DAYS,
   });
 
-  redirect(`/locked/${client}`);
+  // Returns to wherever the gate was shown (the report root, or a sub-page
+  // like /locked/<client>/working-together) rather than always the report
+  // root — bounded to this client's own /locked/<client>* tree below.
+  redirect(returnPath.startsWith(`/locked/${client}`) ? returnPath : `/locked/${client}`);
 }
 
 export async function setLockedLangAction(client: string, lang: Locale) {

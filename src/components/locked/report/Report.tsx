@@ -39,11 +39,17 @@ export function Report({
         chapters={content.chapters.map((c) => ({ id: c.id, nav: c.nav }))}
       />
       <main className="report">
-        <ReportHero hero={content.hero} summary={content.summary} chapterId={heroId} />
+        <ReportHero
+          hero={content.hero}
+          summary={content.summary}
+          chapterId={heroId}
+          client={client}
+          nextLineText={content.charts.nextLine}
+        />
         {content.chapters.map((chapter) => (
           <ChapterSection key={chapter.id} chapter={chapter} chartData={chartData} />
         ))}
-        <ReportClosing closing={content.closing} id={closingId} />
+        <ReportClosing closing={content.closing} id={closingId} client={client} nextLineText={content.charts.nextLine} />
         <SourceList refs={refs} label={content.charts.sources} />
       </main>
     </ChartTooltipProvider>

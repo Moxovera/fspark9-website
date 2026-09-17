@@ -22,7 +22,7 @@ export function BlockRenderer({ block, chartData }: { block: ReportBlock; chartD
     case "h3":
       return <h3>{block.text}</h3>;
     case "note":
-      return <Note html={block.html} label={noteLabel} />;
+      return <Note html={block.html} label={noteLabel} ariaLabel={chartData.strings.noteAria} />;
     case "list":
       return (
         <ul className="clean prose">
@@ -60,7 +60,7 @@ export function BlockRenderer({ block, chartData }: { block: ReportBlock; chartD
     case "timeline":
       return <Timeline block={block} ariaLabel={block.items.map((i) => i.title).join(", ")} />;
     case "moveBlock":
-      return <MoveList block={block} noteLabel={noteLabel} />;
+      return <MoveList block={block} noteLabel={noteLabel} noteAriaLabel={chartData.strings.noteAria} />;
     case "trio":
       return <TrioCards block={block} />;
     case "two":

@@ -15,7 +15,11 @@
   --ground: #f7f4ec;
   --surface: #fffcf5;
   --surface-2: #efeadd;
-  --note-bg: #f1ece0;
+  --note-bg: #f3e6cf;
+  --note-line: rgba(166, 124, 61, 0.45);
+  --note-badge: #0b1f3a;
+  --note-badge-ink: #f7f4ec;
+  --note-shadow: 0 10px 24px -18px rgba(134, 97, 42, 0.6);
   --ink: #1c1c1c;
   --ink-2: #3f4550;
   --muted: #6b7280;
@@ -53,7 +57,11 @@
     --ground: #0b1626;
     --surface: #10203a;
     --surface-2: #152847;
-    --note-bg: #132642;
+    --note-bg: #2a2519;
+    --note-line: rgba(201, 154, 85, 0.5);
+    --note-badge: #f4efe3;
+    --note-badge-ink: #0b1626;
+    --note-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.7);
     --ink: #efeadf;
     --ink-2: #c9cdd5;
     --muted: #98a2b3;
@@ -88,7 +96,11 @@
   --ground: #0b1626;
   --surface: #10203a;
   --surface-2: #152847;
-  --note-bg: #132642;
+  --note-bg: #2a2519;
+  --note-line: rgba(201, 154, 85, 0.5);
+  --note-badge: #f4efe3;
+  --note-badge-ink: #0b1626;
+  --note-shadow: 0 10px 24px -18px rgba(0, 0, 0, 0.7);
   --ink: #efeadf;
   --ink-2: #c9cdd5;
   --muted: #98a2b3;
@@ -222,12 +234,33 @@ ul.clean li::before{content:""; position:absolute; left:2px; top:.8em; width:8px
 .proposal .aside{grid-column:1 / -1; border-top:1px solid rgba(247,244,236,.18); padding-top:16px; font-size:14px; color:var(--key-muted)}
 
 /* ---------- note ---------- */
-.note{background:var(--note-bg); border-radius:6px; padding:18px 22px 18px 18px; margin:26px 0; display:grid; grid-template-columns:30px minmax(0,1fr); gap:14px; max-width:760px}
-.note + .note{margin-top:-12px}
-.note .ico{width:30px; height:30px; border-radius:50%; background:var(--surface); border:1px solid var(--rule); display:grid; place-items:center}
-.note .ico svg{width:12px; height:19px}
-.note .lab{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--bronze-ink); margin:4px 0 4px}
-.note p{margin:0; font-size:16.5px; line-height:1.62; color:var(--ink)}
+.note{background:var(--note-bg); border:1px solid var(--note-line); box-shadow:var(--note-shadow); border-radius:6px; padding:20px 24px 20px 20px; margin:30px 0; display:grid; grid-template-columns:40px minmax(0,1fr); gap:16px; max-width:760px}
+.note + .note{margin-top:-14px}
+.note .ico{--logo-ink:var(--note-badge-ink); width:40px; height:40px; border-radius:50%; background:var(--note-badge); display:grid; place-items:center}
+.note .ico svg{width:15px; height:24px}
+/* the badge itself is dark-on-light / light-on-dark (inverted from the
+   page), so the symbol inside it needs the inverted wm-light/wm-dark pick */
+.note .ico .wm-light{display:none}
+.note .ico .wm-dark{display:inline-block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .note .ico .wm-light{display:inline-block}
+  :root:not([data-theme="light"]) .note .ico .wm-dark{display:none}
+}
+:root[data-theme="dark"] .note .ico .wm-light{display:inline-block}
+:root[data-theme="dark"] .note .ico .wm-dark{display:none}
+.note .lab{font-family:var(--f-mono); font-size:13px; letter-spacing:.06em; color:var(--heading); font-weight:500; margin:2px 0 6px}
+.note .lab i{font-style:normal; color:var(--bronze-ink)}
+.note p{margin:0; font-family:var(--f-display); font-size:18.5px; line-height:1.52; color:var(--heading)}
+
+/* ---------- quiet link to the working together page ---------- */
+.next-line{margin-top:18px; font-size:16.5px; color:var(--ink-2); max-width:560px}
+.next-line a{color:var(--heading); text-decoration:underline; text-decoration-color:var(--bronze); text-decoration-thickness:1px; text-underline-offset:4px; transition:text-decoration-color .15s}
+.next-line a:hover{text-decoration-color:var(--heading)}
+.next-line a span{color:var(--bronze-ink); margin-left:4px; display:inline-block; transition:transform .15s}
+.next-line a span svg{width:15px; height:15px; vertical-align:-2px}
+.next-line a:hover span{transform:translateX(3px)}
+@media (prefers-reduced-motion: reduce){.next-line a span{transition:none}}
+.closing .next-line{margin-top:26px}
 
 /* ---------- figures ---------- */
 figure{margin:40px 0 14px}
@@ -402,6 +435,8 @@ details.data[open] .sum-h{display:none}
   .move{grid-template-columns:1fr; gap:4px}
   .move .no{font-size:26px}
   .gate-row{flex-direction:column}
+  .note{grid-template-columns:1fr; gap:10px; padding:18px}
+  .note p{font-size:17px}
 }
 @media print{
   .topbar{position:static}

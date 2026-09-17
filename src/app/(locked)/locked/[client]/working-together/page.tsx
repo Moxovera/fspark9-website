@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Locale } from "@/types/content";
 import { getLockedClient } from "@/content/locked/clients";
 import { LockedGate } from "@/components/locked/LockedGate";
-import { Report } from "@/components/locked/report/Report";
+import { WorkingTogether } from "@/components/locked/report/WorkingTogether";
 import { LOCKED_NEUTRAL_TITLE, resolveLockedState, loadLockedReportData } from "@/lib/locked-report";
 
 export async function generateMetadata({
@@ -20,13 +20,10 @@ export async function generateMetadata({
   const { lang: searchLang } = await searchParams;
   const { authed, lang } = await resolveLockedState(client, searchLang);
   const activeLang = lang ?? config.defaultLocale;
+  const data = authed ? await loadLockedReportData(client, activeLang) : null;
 
   return {
-    // Real title only once unlocked, in the active language — never sent
-    // to link-preview crawlers (they never carry the unlock cookie, so
-    // they always see this generated for the locked branch anyway) and
-    // never rendered while the gate is showing (see acceptance check #1).
-    title: authed ? config.title[activeLang] : LOCKED_NEUTRAL_TITLE,
+    title: data ? data.content.workingTogether.pageTitle : LOCKED_NEUTRAL_TITLE,
     robots: {
       index: false,
       follow: false,
@@ -38,7 +35,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LockedClientPage({
+export default async function WorkingTogetherPage({
   params,
   searchParams,
 }: {
@@ -48,8 +45,6 @@ export default async function LockedClientPage({
   const { client } = await params;
   const config = getLockedClient(client);
   if (!config) {
-    // Unknown client slugs return 404 without revealing which slugs exist —
-    // notFound() bubbles to app/global-not-found.tsx (experimental.globalNotFound).
     notFound();
   }
 
@@ -58,11 +53,18 @@ export default async function LockedClientPage({
   const activeLang: Locale = lang ?? config.defaultLocale;
 
   if (!authed) {
-    return <LockedGate client={client} initialLang={activeLang} gate={config.gate} returnPath={`/locked/${client}`} />;
+    return (
+      <LockedGate
+        client={client}
+        initialLang={activeLang}
+        gate={config.gate}
+        returnPath={`/locked/${client}/working-together`}
+      />
+    );
   }
 
   const data = await loadLockedReportData(client, activeLang);
   if (!data) notFound();
 
-  return <Report client={client} lang={activeLang} content={data.content} banks={data.banks} total={data.total} rates={data.rates} refs={data.refs} />;
+  return <WorkingTogether client={client} lang={activeLang} content={data.content} />;
 }

@@ -3,6 +3,7 @@ import { Wordmark } from "@/components/locked/Wordmark";
 import { HouseIllustration } from "./HouseIllustration";
 import { ArrowRightIcon } from "@/components/sections/ServicesAccordion";
 import { ReportSummary } from "./ReportSummary";
+import { NextLine } from "./NextLine";
 
 // A "n → m" range in one stat's value came through as a literal arrow
 // character in the source (`<span ...>→</span>`) — CLAUDE.md bans
@@ -29,10 +30,14 @@ export function ReportHero({
   hero,
   summary,
   chapterId,
+  client,
+  nextLineText,
 }: {
   hero: ReportHeroContent;
   summary: ReportSummaryContent;
   chapterId: string;
+  client: string;
+  nextLineText: string;
 }) {
   return (
     <div className="wrap hero" id={chapterId} data-top>
@@ -48,6 +53,10 @@ export function ReportHero({
               <span>{hero.whoSpan}</span>
             </div>
           </div>
+          {/* Placed below the byline, not above it as in the reference —
+              design review call: the fspark9/name credit reads better
+              before the "here's what's next" link. */}
+          <NextLine href={`/locked/${client}/working-together`} text={nextLineText} />
         </div>
         <div className="house" aria-hidden="true">
           <HouseIllustration />
