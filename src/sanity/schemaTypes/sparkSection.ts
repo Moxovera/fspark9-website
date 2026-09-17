@@ -1,8 +1,12 @@
 import { defineField, defineType } from "sanity";
 
 // /spark ve /tr/spark'ın kendisi — Layer 1 (Spark bölüm sayfası).
-// Format listesi ve spark teaser'ı burada SAKLANMAZ, lastDayFormat/
-// lastDayEpisode koleksiyonlarından sorgulanır (bkz. queries.ts).
+// Kasıtlı olarak dar: kullanıcı geri bildirimi sonrası (bkz. commit
+// mesajı/handback) sayfa sadece kısa bir hero + format vitrini. Format
+// listesi burada SAKLANMAZ, lastDayFormat koleksiyonundan sorgulanır
+// (bkz. queries.ts). Mekanizma açıklaması (pillars) ve bölüm teaser'ı
+// BİLEREK kaldırıldı — ana sayfa artık bölüm içeriğini göstermiyor,
+// sadece format adlarını gösterip tıklatıyor.
 export default defineType({
   name: "sparkSection",
   title: "Spark Section",
@@ -19,27 +23,9 @@ export default defineType({
     defineField({
       name: "hero",
       title: "Hero",
-      description: "eyebrow \"fspark9\", title \"Spark\", intro = standfirst.",
+      description:
+        "eyebrow \"fspark9\", title \"Spark\", intro = tek cümlelik vaat (uzun standfirst DEĞİL).",
       type: "pageHero",
-    }),
-    defineField({
-      name: "pillars",
-      title: "Pillars",
-      description: "Tam olarak 3 satır: THE RECORD / YOUR CALL / THE GAPS.",
-      type: "array",
-      of: [{ type: "sparkLabeledLine" }],
-      validation: (rule) => rule.length(3),
-    }),
-    defineField({ name: "closingLine", title: "Closing line", type: "localeText" }),
-    defineField({
-      name: "episodeCountSingular",
-      title: "Episode count word (singular, e.g. \"episode\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "episodeCountPlural",
-      title: "Episode count word (plural, e.g. \"episodes\")",
-      type: "localeString",
     }),
     defineField({
       name: "homeLinkLabel",

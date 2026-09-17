@@ -152,12 +152,6 @@ export type SparkSection = {
   title?: string;
   seo?: Seo;
   hero?: PageHero;
-  pillars?: Array<{
-    _key: string;
-  } & SparkLabeledLine>;
-  closingLine?: LocaleText;
-  episodeCountSingular?: LocaleString;
-  episodeCountPlural?: LocaleString;
   homeLinkLabel?: LocaleString;
 };
 
@@ -1527,29 +1521,21 @@ export type SPARK_SEO_QUERYResult = {
   noIndex: boolean | null;
 } | null;
 // Variable: SPARK_SECTION_QUERY
-// Query: *[_type == "sparkSection"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "pillars": pillars[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    },    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),    "episodeCountSingular": select($locale == "tr" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),    "episodeCountPlural": select($locale == "tr" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)  }
+// Query: *[_type == "sparkSection"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)  }
 export type SPARK_SECTION_QUERYResult = {
   hero: {
     eyebrow: string | null;
     title: string | null;
     intro: string | null;
   } | null;
-  pillars: Array<{
-    label: string | null;
-    body: string | null;
-  }> | null;
-  closingLine: string | null;
-  episodeCountSingular: string | null;
-  episodeCountPlural: string | null;
   homeLinkLabel: string | null;
 } | null;
 // Variable: LAST_DAY_FORMATS_QUERY
-// Query: *[_type == "lastDayFormat"] | order(_createdAt asc){    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "episodeCount": count(*[_type == "lastDayEpisode" && references(^._id)])  }
+// Query: *[_type == "lastDayFormat"] | order(_createdAt asc){    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)  }
 export type LAST_DAY_FORMATS_QUERYResult = Array<{
   name: string | null;
   slug: string | null;
   description: string | null;
-  episodeCount: number;
 }>;
 // Variable: SPARK_TEASER_EPISODE_QUERY
 // Query: *[_type == "lastDayEpisode" && defined(publishedAt)] | order(publishedAt desc)[0]{    "figure": select($locale == "tr" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),    "line": select($locale == "tr" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),    "episodeSlug": select($locale == "tr" => slug.tr.current, slug.en.current),    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current)  }
@@ -1847,8 +1833,8 @@ declare module "@sanity/client" {
     "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
     "\n  *[_type == \"sparkSection\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SPARK_SEO_QUERYResult;
-    "\n  *[_type == \"sparkSection\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"pillars\": pillars[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    },\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en),\n    \"episodeCountSingular\": select($locale == \"tr\" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),\n    \"episodeCountPlural\": select($locale == \"tr\" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),\n    \"homeLinkLabel\": select($locale == \"tr\" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)\n  }\n": SPARK_SECTION_QUERYResult;
-    "\n  *[_type == \"lastDayFormat\"] | order(_createdAt asc){\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"episodeCount\": count(*[_type == \"lastDayEpisode\" && references(^._id)])\n  }\n": LAST_DAY_FORMATS_QUERYResult;
+    "\n  *[_type == \"sparkSection\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"homeLinkLabel\": select($locale == \"tr\" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)\n  }\n": SPARK_SECTION_QUERYResult;
+    "\n  *[_type == \"lastDayFormat\"] | order(_createdAt asc){\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n  }\n": LAST_DAY_FORMATS_QUERYResult;
     "\n  *[_type == \"lastDayEpisode\" && defined(publishedAt)] | order(publishedAt desc)[0]{\n    \"figure\": select($locale == \"tr\" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),\n    \"line\": select($locale == \"tr\" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),\n    \"episodeSlug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"formatSlug\": select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current)\n  }\n": SPARK_TEASER_EPISODE_QUERYResult;
     "\n  *[_type == \"lastDayFormat\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"en\": slug.en.current,\n    \"tr\": slug.tr.current\n  }\n": LAST_DAY_FORMAT_SLUGS_QUERYResult;
     "\n  *[_type == \"lastDayFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LAST_DAY_FORMAT_SEO_QUERYResult;

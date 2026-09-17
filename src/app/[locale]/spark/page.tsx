@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import SubpageHero from "@/components/subpages/SubpageHero";
-import SparkPillars from "@/components/spark/SparkPillars";
 import SparkFormatsList from "@/components/spark/SparkFormatsList";
-import SparkCard from "@/components/spark/SparkCard";
+import CanvasField from "@/components/effects/CanvasFieldLoader";
 import Reveal from "@/components/ui/Reveal";
 import { siteSettings as enSettings } from "@/content/en";
 import { siteSettings as trSettings } from "@/content/tr";
@@ -12,11 +11,9 @@ import {
   SITE_SEO_QUERY,
   SPARK_SECTION_QUERY,
   LAST_DAY_FORMATS_QUERY,
-  SPARK_TEASER_EPISODE_QUERY,
   toSparkSeo,
   toSiteSeo,
   toSparkPage,
-  toSparkTeaser,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
 import type {
@@ -24,7 +21,6 @@ import type {
   SITE_SEO_QUERYResult,
   SPARK_SECTION_QUERYResult,
   LAST_DAY_FORMATS_QUERYResult,
-  SPARK_TEASER_EPISODE_QUERYResult,
 } from "@/sanity/types";
 
 export async function generateMetadata({
@@ -49,6 +45,15 @@ export async function generateMetadata({
   return toMetadata(toSparkSeo(seoResult), toSiteSeo(siteSeoResult));
 }
 
+/**
+ * Kasıtlı olarak dar sayfa: kısa bir hero (tek cümlelik vaat) + format
+ * vitrini. Mekanizmayı (record/reading/gap/call) açıklamak, bölüm
+ * içeriğini önizlemek ya da "N bölüm" / "daha fazlası geliyor" gibi bir
+ * sayaç/özür cümlesi YOK — kullanıcı geri bildirimi: ana sayfa sadece
+ * format adlarını net bir şekilde göstermeli, bölümler formata
+ * tıklandıktan sonra okunmalı. CanvasField (ana sayfadaki fare izi
+ * efektiyle birebir aynı bileşen) sayfaya hareket katıyor.
+ */
 export default async function SparkPage({
   params,
 }: {
@@ -57,7 +62,7 @@ export default async function SparkPage({
   const { locale } = await params;
   const settings = locale === "tr" ? trSettings : enSettings;
 
-  const [sectionResult, formatsResult, teaserResult] = await Promise.all([
+  const [sectionResult, formatsResult] = await Promise.all([
     sanityFetch<SPARK_SECTION_QUERYResult>({
       query: SPARK_SECTION_QUERY,
       params: { locale },
@@ -66,45 +71,22 @@ export default async function SparkPage({
     sanityFetch<LAST_DAY_FORMATS_QUERYResult>({
       query: LAST_DAY_FORMATS_QUERY,
       params: { locale },
-      tags: ["lastDayFormat", "lastDayEpisode"],
-    }),
-    sanityFetch<SPARK_TEASER_EPISODE_QUERYResult>({
-      query: SPARK_TEASER_EPISODE_QUERY,
-      params: { locale },
-      tags: ["lastDayEpisode"],
+      tags: ["lastDayFormat"],
     }),
   ]);
 
-  const page = toSparkPage(sectionResult, formatsResult, toSparkTeaser(teaserResult));
+  const page = toSparkPage(sectionResult, formatsResult);
 
   return (
     <main>
+      <CanvasField />
       <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
 
-      <section className="bg-navy px-7 pb-[104px]">
-        <div className="mx-auto max-w-[1000px]">
-          <SparkPillars pillars={page.pillars} />
-        </div>
-      </section>
-
       {page.formats.length > 0 && (
-        <section className="border-t border-ivory/[0.08] bg-navy px-7 py-[88px]">
+        <section className="bg-navy px-7 pb-[120px]">
           <div className="mx-auto max-w-[1000px]">
             <Reveal>
-              <p className="mb-10 max-w-[62ch] text-[1.02rem] leading-[1.66] text-ivory/70">
-                {page.closingLine}
-              </p>
               <SparkFormatsList formats={page.formats} />
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      {page.teaser && (
-        <section className="border-t border-ivory/[0.08] bg-navy px-7 pb-[120px]">
-          <div className="mx-auto max-w-[1000px]">
-            <Reveal>
-              <SparkCard teaser={page.teaser} />
             </Reveal>
           </div>
         </section>

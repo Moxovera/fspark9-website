@@ -56,46 +56,15 @@ const sparkSectionDoc = {
     _type: "pageHero",
     eyebrow: ls("fspark9", "fspark9"),
     title: ls("Spark", "Spark"),
+    // Kullanıcı geri bildirimi sonrası kısaltıldı: uzun standfirst ve
+    // mekanizma açıklaması (pillars) kaldırıldı, tek cümlelik vaat
+    // kaldı — "focus on dynamic and engaging fintech contents rather
+    // then blog" (kullanıcının kendi ifadesi).
     intro: lt(
-      "This is not another blog about fintech. What is here is different in all three ways that matter: what we choose to look at, where the information comes from, and how it reaches you. Most writing about this industry hands you someone's conclusion and asks you to trust it. These pieces hand you the actual record instead, dated and sourced, in the order it happened, and keep that record visibly separate from anything we make of it. Then they stop and ask you to call it before we do. Where the record does not settle something, we say so rather than filling the hole. Change how something is presented and you change what actually gets through, which is the point.",
-      "Bu, fintech hakkında bir blog daha değil. Burada olan şey, önemli olan üç noktada da farklı: neye baktığımız, bilginin nereden geldiği ve size nasıl ulaştığı. Bu sektör hakkındaki yazıların çoğu size birinin vardığı sonucu verir ve ona güvenmenizi ister. Bu yazılar ise size gerçek kaydın kendisini veriyor, tarihli ve kaynaklı, olduğu sırayla, ve bu kaydı ondan çıkardığımız her şeyden görünür şekilde ayrı tutuyor. Sonra durup, biz söylemeden önce sizin karar vermenizi istiyoruz. Kaydın bir şeyi netleştirmediği yerde, boşluğu doldurmak yerine bunu söylüyoruz. Bir şeyin nasıl sunulduğunu değiştirmek aslında ne geçtiğini değiştirir — mesele de bu.",
+      "Dynamic, engaging fintech content — not another blog.",
+      "Dinamik ve ilgi çekici fintech içerikleri — bir blog değil.",
     ),
   },
-  pillars: [
-    {
-      _type: "sparkLabeledLine",
-      _key: "record",
-      label: ls("THE RECORD", "THE RECORD"),
-      body: lt(
-        "Filings, regulatory letters, release notes, statements on file. Shown as themselves, with the date and the source, not summarised into a takeaway.",
-        "Başvurular, düzenleyici mektupları, sürüm notları, kayıtlı beyanlar. Bir çıkarıma indirgenmeden, tarihi ve kaynağıyla birlikte, oldukları gibi gösterilir.",
-      ),
-    },
-    {
-      _type: "sparkLabeledLine",
-      _key: "call",
-      label: ls("YOUR CALL", "YOUR CALL"),
-      body: lt(
-        "The page holds the answer back at certain points and asks what you think happened. Your calls stay in your browser and build up across episodes.",
-        "Sayfa belirli noktalarda cevabı geride tutar ve sizce ne olduğunu sorar. Tahminleriniz tarayıcınızda kalır ve bölümler boyunca birikir.",
-      ),
-    },
-    {
-      _type: "sparkLabeledLine",
-      _key: "gaps",
-      label: ls("THE GAPS", "THE GAPS"),
-      body: lt(
-        "What could not be established is marked where it sits, not buried in a footnote. You will see the holes in the record, because they are part of it.",
-        "Tespit edilemeyen şey, bir dipnota gömülmek yerine, tam olarak ait olduğu yerde işaretlenir. Kayıttaki boşlukları göreceksiniz, çünkü onlar da kaydın bir parçası.",
-      ),
-    },
-  ],
-  closingLine: lt(
-    "One format is live. More are coming.",
-    "Şu an bir format yayında. Daha fazlası geliyor.",
-  ),
-  episodeCountSingular: ls("episode", "bölüm"),
-  episodeCountPlural: ls("episodes", "bölüm"),
   // build prompt'ta bu tam ifade verilmedi — ana sayfa modülünün link
   // etiketi olarak makul bir varsayılan. Uncertainty list'te.
   homeLinkLabel: ls("Explore Spark", "Spark'ı keşfedin"),

@@ -106,27 +106,30 @@ export interface ThankYouPage {
   links: Link[]
 }
 
-// dc.html'de karşılığı yok — /spark, fspark9'un editoryal bölümü.
-// Format listesi ve teaser, lastDayFormat/lastDayEpisode
-// koleksiyonlarından sorgulanır (bkz. sanity/lib/queries.ts), burada
-// sadece bu sayfaya özgü sabit içerik (hero/pillars/closingLine) var.
+// SparkPillar tipi hâlâ var (Layer 2'nin howItWorks/corrections satırları
+// aynı şekli paylaşıyor, bkz. LastDayFormatPage) — sadece sparkSection'ın
+// KENDİSİ artık pillars taşımıyor. Kullanıcı geri bildirimi: ana sayfa
+// mekanizmayı (record/reading/gap) açıklamamalı, format sayfası zaten
+// açıklıyor.
 export interface SparkPillar {
-  label: string // mono etiket, ör. "THE RECORD"
+  label: string // mono etiket
   body: string
 }
 
 // Bir format kartı — şu an sadece "The Last Day" var, ama liste
-// yayınlanma sırasına göre sorgulanıyor, elle sabitlenmiyor.
+// yayınlanma sırasına göre sorgulanıyor, elle sabitlenmiyor. Bölüm
+// sayısı BİLEREK gösterilmiyor (kullanıcı geri bildirimi: "N episodes"
+// gibi sayaç metni yerine sade, vitrin gibi bir format adı).
 export interface SparkFormatSummary {
   name: string
   slug: string // "the-last-day" ya da "son-gun" — /spark/[formatSlug]'a next-intl'in typed pathname nesnesiyle bağlanır
   description: string
-  episodeCountLabel: string // "3 episodes" / "1 bölüm" — tekil/çoğul zaten çözülmüş
 }
 
 // "The spark" teaser bloğu — en güncel yayınlanmış bölüme bağlanır.
-// Hiç bölüm yoksa SparkPage.teaser undefined kalır ve blok render
-// edilmez (sahte/placeholder kart YOK, bkz. build prompt kabul kriteri 2).
+// Sadece SparkHomeModule (ana sayfa) kullanıyor — Spark bölüm sayfasının
+// kendisi (SparkPage) artık bölüm içeriğini göstermiyor. Hiç bölüm yoksa
+// undefined kalır ve blok render edilmez (sahte/placeholder kart YOK).
 export interface SparkTeaser {
   figure: string // mono büyük rakam, ör. "156 DAYS"
   line: string
@@ -137,12 +140,13 @@ export interface SparkTeaser {
   episodeSlug: string
 }
 
+// Ana Spark sayfası — kasıtlı olarak dar: kısa bir hero (tek cümlelik
+// vaat) + format vitrini. Mekanizma açıklaması ve bölüm teaser'ı
+// (SparkTeaser) BİLEREK burada YOK — SparkTeaser hâlâ var ama sadece
+// ana sayfadaki (homepage) SparkHome modülü için kullanılıyor.
 export interface SparkPage {
   hero: PageHero
-  pillars: SparkPillar[]
-  closingLine: string
   formats: SparkFormatSummary[]
-  teaser?: SparkTeaser
 }
 
 // Ana sayfadaki Spark modülü (Story'nin altı, ClosingCta'nın üstü) —

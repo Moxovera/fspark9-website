@@ -1154,13 +1154,6 @@ export const SPARK_SECTION_QUERY = defineQuery(`
       "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
     },
-    "pillars": pillars[]{
-      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
-      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
-    },
-    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),
-    "episodeCountSingular": select($locale == "tr" => coalesce(episodeCountSingular.tr, episodeCountSingular.en), episodeCountSingular.en),
-    "episodeCountPlural": select($locale == "tr" => coalesce(episodeCountPlural.tr, episodeCountPlural.en), episodeCountPlural.en),
     "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en)
   }
 `);
@@ -1191,28 +1184,18 @@ export const LAST_DAY_FORMATS_QUERY = defineQuery(`
   *[_type == "lastDayFormat"] | order(_createdAt asc){
     "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
     "slug": select($locale == "tr" => slug.tr.current, slug.en.current),
-    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
-    "episodeCount": count(*[_type == "lastDayEpisode" && references(^._id)])
+    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)
   }
 `);
 
-export function toSparkFormats(
-  result: LAST_DAY_FORMATS_QUERYResult,
-  episodeCountSingular: string,
-  episodeCountPlural: string,
-): SparkFormatSummary[] {
+export function toSparkFormats(result: LAST_DAY_FORMATS_QUERYResult): SparkFormatSummary[] {
   return result
     .filter((item) => Boolean(item.slug))
-    .map((item) => {
-      const count = item.episodeCount ?? 0;
-      const word = count === 1 ? episodeCountSingular : episodeCountPlural;
-      return {
-        name: item.name ?? "",
-        slug: item.slug ?? "",
-        description: item.description ?? "",
-        episodeCountLabel: `${count} ${word}`.trim(),
-      };
-    });
+    .map((item) => ({
+      name: item.name ?? "",
+      slug: item.slug ?? "",
+      description: item.description ?? "",
+    }));
 }
 
 export const SPARK_TEASER_EPISODE_QUERY = defineQuery(`
@@ -1237,21 +1220,10 @@ export function toSparkTeaser(result: SPARK_TEASER_EPISODE_QUERYResult): SparkTe
 export function toSparkPage(
   sectionResult: SPARK_SECTION_QUERYResult,
   formatsResult: LAST_DAY_FORMATS_QUERYResult,
-  teaser: SparkTeaser | undefined,
 ): SparkPage {
   return {
     hero: toPageHero(sectionResult?.hero ?? null),
-    pillars: (sectionResult?.pillars ?? []).map((item) => ({
-      label: item.label ?? "",
-      body: item.body ?? "",
-    })),
-    closingLine: sectionResult?.closingLine ?? "",
-    formats: toSparkFormats(
-      formatsResult,
-      sectionResult?.episodeCountSingular ?? "",
-      sectionResult?.episodeCountPlural ?? "",
-    ),
-    teaser,
+    formats: toSparkFormats(formatsResult),
   };
 }
 
