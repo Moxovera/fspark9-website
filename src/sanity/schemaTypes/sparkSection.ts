@@ -1,12 +1,11 @@
 import { defineField, defineType } from "sanity";
 
-// /spark ve /tr/spark'ın kendisi — Layer 1 (Spark bölüm sayfası).
-// Kasıtlı olarak dar: kullanıcı geri bildirimi sonrası (bkz. commit
-// mesajı/handback) sayfa sadece kısa bir hero + format vitrini. Format
-// listesi burada SAKLANMAZ, lastDayFormat koleksiyonundan sorgulanır
-// (bkz. queries.ts). Mekanizma açıklaması (pillars) ve bölüm teaser'ı
-// BİLEREK kaldırıldı — ana sayfa artık bölüm içeriğini göstermiyor,
-// sadece format adlarını gösterip tıklatıyor.
+// /spark ve /tr/spark'ın kendisi — hub. Kasıtlı olarak dar: kısa bir
+// hero (eyebrow/title/purpose line) + canlı ribbon rakamları + format
+// vitrini. Format listesi burada SAKLANMAZ, sparkFormat koleksiyonundan
+// sorgulanır (bkz. queries.ts). Ribbon etiketleri (episodes/days
+// counted/markets) burada — rakamların KENDİSİ hiçbir zaman burada
+// saklanmıyor, her zaman yayınlanmış bölümlerden hesaplanıyor.
 export default defineType({
   name: "sparkSection",
   title: "Spark Section",
@@ -24,7 +23,7 @@ export default defineType({
       name: "hero",
       title: "Hero",
       description:
-        "eyebrow \"fspark9\", title \"Spark\", intro = tek cümlelik vaat (uzun standfirst DEĞİL).",
+        "eyebrow \"fspark9\", title \"Spark\", intro = purpose line (tek cümle, uzun standfirst DEĞİL).",
       type: "pageHero",
     }),
     defineField({
@@ -36,6 +35,21 @@ export default defineType({
       name: "comingSoonLabel",
       title: "Coming soon label (e.g. \"Coming Soon\")",
       description: "Format listesindeki son, tıklanamaz yer tutucu kartın etiketi.",
+      type: "localeString",
+    }),
+    defineField({
+      name: "episodesRibbonLabel",
+      title: "Ribbon label — episodes (e.g. \"episodes\")",
+      type: "localeString",
+    }),
+    defineField({
+      name: "daysRibbonLabel",
+      title: "Ribbon label — days counted (e.g. \"days counted\")",
+      type: "localeString",
+    }),
+    defineField({
+      name: "marketsRibbonLabel",
+      title: "Ribbon label — markets (e.g. \"markets\")",
       type: "localeString",
     }),
   ],

@@ -58,8 +58,8 @@ import storyPage from "./storyPage";
 import legalPage from "./legalPage";
 import caseStudy from "./caseStudy";
 import sparkSection from "./sparkSection";
-import lastDayFormat from "./lastDayFormat";
-import lastDayEpisode from "./lastDayEpisode";
+import sparkFormat from "./sparkFormat";
+import sparkEpisode from "./sparkEpisode";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -121,7 +121,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     legalPage,
     caseStudy,
     sparkSection,
-    lastDayFormat,
-    lastDayEpisode,
+    sparkFormat,
+    sparkEpisode,
   ],
 };

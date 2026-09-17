@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import SubpageHero from "@/components/subpages/SubpageHero";
-import SparkFormatsList from "@/components/spark/SparkFormatsList";
+import SparkFormatRows from "@/components/spark/SparkFormatRows";
+import SparkRibbon from "@/components/spark/SparkRibbon";
 import CanvasField from "@/components/effects/CanvasFieldLoader";
-import Reveal from "@/components/ui/Reveal";
-import { siteSettings as enSettings } from "@/content/en";
-import { siteSettings as trSettings } from "@/content/tr";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_SEO_QUERY,
   SITE_SEO_QUERY,
   SPARK_SECTION_QUERY,
-  LAST_DAY_FORMATS_QUERY,
+  SPARK_RIBBON_QUERY,
+  SPARK_FORMATS_HUB_QUERY,
   toSparkSeo,
   toSiteSeo,
   toSparkPage,
@@ -20,7 +19,8 @@ import type {
   SPARK_SEO_QUERYResult,
   SITE_SEO_QUERYResult,
   SPARK_SECTION_QUERYResult,
-  LAST_DAY_FORMATS_QUERYResult,
+  SPARK_RIBBON_QUERYResult,
+  SPARK_FORMATS_HUB_QUERYResult,
 } from "@/sanity/types";
 
 export async function generateMetadata({
@@ -46,13 +46,12 @@ export async function generateMetadata({
 }
 
 /**
- * Kasıtlı olarak dar sayfa: kısa bir hero (tek cümlelik vaat) + format
- * vitrini. Mekanizmayı (record/reading/gap/call) açıklamak, bölüm
- * içeriğini önizlemek ya da "N bölüm" / "daha fazlası geliyor" gibi bir
- * sayaç/özür cümlesi YOK — kullanıcı geri bildirimi: ana sayfa sadece
- * format adlarını net bir şekilde göstermeli, bölümler formata
- * tıklandıktan sonra okunmalı. CanvasField (ana sayfadaki fare izi
- * efektiyle birebir aynı bileşen) sayfaya hareket katıyor.
+ * Hub — revizyon v2. Kısa bir hero (eyebrow/title/purpose line), tek
+ * orkestre animasyon (bronz çizgi + ribbon count-up, bkz. globals.css
+ * .spark-hairline ve RibbonCountUp.tsx), format 01'in tam genişlik
+ * satırı (envanteriyle birlikte) ve format 02'nin dokunulmamış yer
+ * tutucusu. Geri butonu artık "fspark9" diyor (ana sayfaya döndüğünü
+ * adlandırıyor) — genel "Back" etiketi YOK, bkz. sparkSection.hero.eyebrow.
  */
 export default async function SparkPage({
   params,
@@ -60,34 +59,44 @@ export default async function SparkPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const settings = locale === "tr" ? trSettings : enSettings;
+  const resolvedLocale: "en" | "tr" = locale === "tr" ? "tr" : "en";
 
-  const [sectionResult, formatsResult] = await Promise.all([
+  const [sectionResult, ribbonResult, formatsResult] = await Promise.all([
     sanityFetch<SPARK_SECTION_QUERYResult>({
       query: SPARK_SECTION_QUERY,
       params: { locale },
       tags: ["sparkSection"],
     }),
-    sanityFetch<LAST_DAY_FORMATS_QUERYResult>({
-      query: LAST_DAY_FORMATS_QUERY,
+    sanityFetch<SPARK_RIBBON_QUERYResult>({
+      query: SPARK_RIBBON_QUERY,
       params: { locale },
-      tags: ["lastDayFormat"],
+      tags: ["sparkEpisode"],
+    }),
+    sanityFetch<SPARK_FORMATS_HUB_QUERYResult>({
+      query: SPARK_FORMATS_HUB_QUERY,
+      params: { locale },
+      tags: ["sparkFormat", "sparkEpisode"],
     }),
   ]);
 
-  const page = toSparkPage(sectionResult, formatsResult);
+  const page = toSparkPage(sectionResult, ribbonResult, formatsResult);
 
   return (
     <main>
       <CanvasField />
-      <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
+      <SubpageHero hero={page.hero} backLabel={page.hero.eyebrow}>
+        <div className="spark-hairline mt-8 h-px w-full max-w-[240px] bg-bronze" />
+        <SparkRibbon items={page.ribbon} />
+      </SubpageHero>
 
       {page.formats.length > 0 && (
         <section className="bg-navy px-7 pb-[120px]">
           <div className="mx-auto max-w-[1000px]">
-            <Reveal>
-              <SparkFormatsList formats={page.formats} comingSoonLabel={page.comingSoonLabel} />
-            </Reveal>
+            <SparkFormatRows
+              formats={page.formats}
+              comingSoonLabel={page.comingSoonLabel}
+              locale={resolvedLocale}
+            />
           </div>
         </section>
       )}

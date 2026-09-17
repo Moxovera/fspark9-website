@@ -723,3 +723,34 @@ export const siteSettings: SiteSettings = {
     height: 964,
   },
 };
+
+/**
+ * Spark section revision brief v2 (17 September 2026), §3 "Copy, final
+ * strings" — Türkçe karşılığı, en.ts'teki sparkCopy ile aynı şekilde.
+ * Bkz. o dosyadaki yorum.
+ */
+export const sparkCopy = {
+  hub: {
+    eyebrow: "fspark9",
+    title: "Spark",
+    purposeLine: "Kamuya açık kayıttan kurulur. Sırayla okunur. Elinizde bir karar kalır.",
+    ribbonLabels: {
+      episodes: "bölüm",
+      daysCounted: "sayılan gün",
+      markets: "pazar",
+    },
+  },
+  formatOne: {
+    name: "Son Gün",
+    subjectLine:
+      "Kapanan şirketler ve ürünler, dosyaladıkları, yayınladıkları ve geride bıraktıkları üzerinden okunuyor.",
+    whatIsInside:
+      "Her bölüm ilk günden son güne kadar sayılıyor, kayıt açıldıkça kararları siz veriyorsunuz.",
+    statusLine: "1 bölüm yayında.",
+  },
+  lastDayList: {
+    purposeLine: "Her kayıt lansmandan kapanışa kadar gün gün sayılıyor, kaynağı kamuya açık kayıt.",
+    episodeOneHook: "Yüz milyon sterlin ve on sekiz ay inşa. 156 gün açık kaldı.",
+    readLink: "Kaydı oku",
+  },
+};

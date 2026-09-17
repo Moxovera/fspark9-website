@@ -1,10 +1,10 @@
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import StatHighlight from "@/components/spark/episode/StatHighlight";
 import EpisodeNote from "@/components/spark/episode/EpisodeNote";
-import type { LastDayBodyBlock } from "@/types/content";
+import type { SparkBodyBlock } from "@/types/content";
 
 interface EpisodeBodyProps {
-  value: LastDayBodyBlock[];
+  value: SparkBodyBlock[];
   noteLabel: string;
 }
 

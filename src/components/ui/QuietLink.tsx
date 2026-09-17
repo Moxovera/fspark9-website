@@ -7,7 +7,11 @@ import type { ComponentProps } from "react";
 type LinkHref = ComponentProps<typeof Link>["href"];
 
 interface QuietLinkProps {
-  href: string;
+  // Düz string (statik route) YA DA next-intl'in {pathname, params}
+  // nesnesi (templated route, ör. /spark/[formatSlug]/[episodeSlug]) —
+  // bkz. FormatCard.tsx'teki "Insufficient params" hatası, aynı sorunu
+  // burada da önlemek için tip düz string'e daraltılmadı.
+  href: LinkHref;
   label: string;
   className?: string;
 }
@@ -22,7 +26,7 @@ interface QuietLinkProps {
 export default function QuietLink({ href, label, className }: QuietLinkProps) {
   return (
     <Link
-      href={href as LinkHref}
+      href={href}
       className={`inline-flex items-center gap-2 border-b border-bronze/45 pb-1 font-mono text-[13px] tracking-[0.06em] text-ivory transition-colors duration-200 hover:text-bronze ${className ?? ""}`}
     >
       {label}

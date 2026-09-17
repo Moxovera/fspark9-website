@@ -728,3 +728,39 @@ export const siteSettings: SiteSettings = {
     height: 964,
   },
 };
+
+/**
+ * Spark section revision brief v2 (17 September 2026), §3 "Copy, final
+ * strings" — checked into git as the canonical reference. seed-spark.ts
+ * imports these directly (so Sanity is seeded FROM this file, not a
+ * separately hand typed copy) and scripts/check-spark-drift.ts re-reads
+ * live Sanity content and diffs it against these same constants, to
+ * catch drift from manual Studio edits. Both en.ts and tr.ts must be
+ * updated in the same commit — see that file for the Turkish text.
+ */
+export const sparkCopy = {
+  hub: {
+    eyebrow: "fspark9",
+    title: "Spark",
+    purposeLine: "Built from the public record. Read in order. You leave with a decision to make.",
+    ribbonLabels: {
+      episodes: "episodes",
+      daysCounted: "days counted",
+      markets: "markets",
+    },
+  },
+  formatOne: {
+    name: "The Last Day",
+    subjectLine:
+      "Companies and products that shut down, read through what they filed, published and left behind.",
+    whatIsInside:
+      "Every episode is timed from first day to last, and you make the calls yourself as the record opens.",
+    statusLine: "1 episode published.",
+  },
+  lastDayList: {
+    purposeLine:
+      "Every entry runs from launch to shutdown, counted in days, sourced from what is on the public record.",
+    episodeOneHook: "A hundred million pounds and eighteen months to build. 156 days open.",
+    readLink: "Read the record",
+  },
+};

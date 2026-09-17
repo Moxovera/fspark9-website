@@ -32,12 +32,15 @@ import type {
   SiteSettings,
   SparkPage,
   SparkFormatSummary,
+  SparkEpisodeSummary,
+  SparkRibbonItem,
   SparkTeaser,
   SparkHomeModule,
-  LastDayFormatPage,
-  LastDayEpisodePage,
-  LastDayBodyBlock,
+  SparkFormatPage,
+  SparkEpisodePage,
+  SparkBodyBlock,
 } from "@/types/content";
+import { computeDayCount } from "@/components/spark/day/dayMath";
 import type {
   HOME_HERO_QUERYResult,
   HOME_FRAMEWORK_QUERYResult,
@@ -73,12 +76,13 @@ import type {
   SITE_LOGO_QUERYResult,
   SPARK_SEO_QUERYResult,
   SPARK_SECTION_QUERYResult,
-  LAST_DAY_FORMATS_QUERYResult,
+  SPARK_RIBBON_QUERYResult,
+  SPARK_FORMATS_HUB_QUERYResult,
   SPARK_TEASER_EPISODE_QUERYResult,
-  LAST_DAY_FORMAT_SEO_QUERYResult,
-  LAST_DAY_FORMAT_QUERYResult,
-  LAST_DAY_EPISODE_SEO_QUERYResult,
-  LAST_DAY_EPISODE_QUERYResult,
+  SPARK_FORMAT_SEO_QUERYResult,
+  SPARK_FORMAT_QUERYResult,
+  SPARK_EPISODE_SEO_QUERYResult,
+  SPARK_EPISODE_QUERYResult,
 } from "@/sanity/types";
 
 // Sanity'de alanlar zorunlu değil, bu yüzden typegen çoğu alanı `| null`
@@ -1024,7 +1028,7 @@ type PageSeoResult =
   | STORY_PAGE_SEO_QUERYResult
   | LEGAL_PAGE_SEO_QUERYResult
   | SPARK_SEO_QUERYResult
-  | LAST_DAY_FORMAT_SEO_QUERYResult;
+  | SPARK_FORMAT_SEO_QUERYResult;
 
 function toPageSeo(result: PageSeoResult): PageSeo {
   return {
@@ -1152,7 +1156,10 @@ export const SPARK_SECTION_QUERY = defineQuery(`
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
     },
     "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en),
-    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en)
+    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en),
+    "episodesRibbonLabel": select($locale == "tr" => coalesce(episodesRibbonLabel.tr, episodesRibbonLabel.en), episodesRibbonLabel.en),
+    "daysRibbonLabel": select($locale == "tr" => coalesce(daysRibbonLabel.tr, daysRibbonLabel.en), daysRibbonLabel.en),
+    "marketsRibbonLabel": select($locale == "tr" => coalesce(marketsRibbonLabel.tr, marketsRibbonLabel.en), marketsRibbonLabel.en)
   }
 `);
 
@@ -1178,37 +1185,149 @@ export function toSparkHomeModule(
   };
 }
 
-export const LAST_DAY_FORMATS_QUERY = defineQuery(`
-  *[_type == "lastDayFormat"] | order(_createdAt asc){
-    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
-    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),
-    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)
+// Ribbon rakamları YAYINLANMIŞ dokümanlardan hesaplanır — komponente
+// elle bir sayı geçilmez (bkz. revizyon brief §6). Sadece
+// launchDate/closureDate'i İKİSİ de olan bölümler gün toplamına
+// katılıyor; hiçbiri yoksa ilgili rakam ribbon'dan tamamen düşüyor
+// (bkz. toSparkRibbon).
+export const SPARK_RIBBON_QUERY = defineQuery(`
+  *[_type == "sparkEpisode" && status == "published"]{
+    country,
+    launchDate,
+    closureDate
   }
 `);
 
-export function toSparkFormats(result: LAST_DAY_FORMATS_QUERYResult): SparkFormatSummary[] {
+export function toSparkRibbon(
+  result: SPARK_RIBBON_QUERYResult,
+  episodesLabel: string,
+  daysLabel: string,
+  marketsLabel: string,
+): SparkRibbonItem[] {
+  const items: SparkRibbonItem[] = [];
+
+  if (result.length > 0) {
+    items.push({ value: result.length, label: episodesLabel });
+  }
+
+  const totalDays = result.reduce((sum, episode) => {
+    const days = computeDayCount(episode.launchDate, episode.closureDate);
+    return days !== null ? sum + days : sum;
+  }, 0);
+  const countedEpisodes = result.filter(
+    (episode) => computeDayCount(episode.launchDate, episode.closureDate) !== null,
+  );
+  if (countedEpisodes.length > 0) {
+    items.push({ value: totalDays, label: daysLabel });
+  }
+
+  const markets = new Set(result.map((episode) => episode.country).filter(Boolean));
+  if (markets.size > 0) {
+    items.push({ value: markets.size, label: marketsLabel });
+  }
+
+  return items;
+}
+
+// generateStaticParams için — her formatın HER İKİ dildeki slug'ı
+// birlikte gerekiyor (locale'e göre değil), çünkü [locale]/[formatSlug]
+// kombinasyonlarının tamamı elle üretiliyor (next-intl'in statik
+// pathnames haritası içerik başına farklı slug'ı desteklemiyor).
+export const SPARK_FORMAT_SLUGS_QUERY = defineQuery(`
+  *[_type == "sparkFormat" && defined(slug.en.current) && defined(slug.tr.current)]{
+    "en": slug.en.current,
+    "tr": slug.tr.current
+  }
+`);
+
+// Hub'daki format satırları — sadece status "live" olanlar (format 02
+// BİLEREK bir doküman değil, bu sorguya hiç girmiyor, sabit UI karosu
+// olarak kalıyor). Her formatın kendi envanteri (yayınlanmış bölümleri)
+// aynı sorguda geliyor ki hub tıklamadan önce içeriği göstersin.
+export const SPARK_FORMATS_HUB_QUERY = defineQuery(`
+  *[_type == "sparkFormat" && status == "live"] | order(orderRank asc){
+    number,
+    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),
+    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),
+    "subjectLine": select($locale == "tr" => coalesce(subjectLine.tr, subjectLine.en), subjectLine.en),
+    "whatIsInside": select($locale == "tr" => coalesce(whatIsInside.tr, whatIsInside.en), whatIsInside.en),
+    "statusLine": select($locale == "tr" => coalesce(statusLine.tr, statusLine.en), statusLine.en),
+    "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),
+    "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),
+    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),
+    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){
+      number,
+      subject,
+      country,
+      launchDate,
+      closureDate,
+      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),
+      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)
+    }
+  }
+`);
+
+function toSparkEpisodeSummaries(
+  episodes: {
+    number: number | null;
+    subject: string | null;
+    country: string | null;
+    launchDate: string | null;
+    closureDate: string | null;
+    hook: string | null;
+    slug: string | null;
+  }[],
+  formatSlug: string,
+): SparkEpisodeSummary[] {
+  return episodes
+    .filter((episode) => Boolean(episode.slug))
+    .map((episode) => ({
+      number: episode.number ?? 0,
+      subject: episode.subject ?? "",
+      country: episode.country ?? "",
+      launchDate: episode.launchDate,
+      closureDate: episode.closureDate,
+      hook: episode.hook ?? "",
+      formatSlug,
+      episodeSlug: episode.slug ?? "",
+    }));
+}
+
+export function toSparkFormatsForHub(result: SPARK_FORMATS_HUB_QUERYResult): SparkFormatSummary[] {
   return result
     .filter((item) => Boolean(item.slug))
     .map((item) => ({
+      number: item.number ?? 0,
       name: item.name ?? "",
       slug: item.slug ?? "",
-      description: item.description ?? "",
+      subjectLine: item.subjectLine ?? "",
+      whatIsInside: item.whatIsInside ?? "",
+      statusLine: item.statusLine ?? "",
+      dayCountSingular: item.dayCountSingular ?? "",
+      dayCountPlural: item.dayCountPlural ?? "",
+      dayNotEstablishedLabel: item.dayNotEstablishedLabel ?? "",
+      episodes: toSparkEpisodeSummaries(item.episodes ?? [], item.slug ?? ""),
     }));
 }
 
 export const SPARK_TEASER_EPISODE_QUERY = defineQuery(`
-  *[_type == "lastDayEpisode" && defined(publishedAt)] | order(publishedAt desc)[0]{
-    "figure": select($locale == "tr" => coalesce(teaserFigure.tr, teaserFigure.en), teaserFigure.en),
-    "line": select($locale == "tr" => coalesce(teaserLine.tr, teaserLine.en), teaserLine.en),
+  *[_type == "sparkEpisode" && status == "published" && defined(publishedAt)] | order(publishedAt desc)[0]{
+    "line": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),
+    launchDate,
+    closureDate,
     "episodeSlug": select($locale == "tr" => slug.tr.current, slug.en.current),
-    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current)
+    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current),
+    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),
+    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en)
   }
 `);
 
 export function toSparkTeaser(result: SPARK_TEASER_EPISODE_QUERYResult): SparkTeaser | undefined {
   if (!result || !result.episodeSlug || !result.formatSlug) return undefined;
+  const days = computeDayCount(result.launchDate, result.closureDate);
+  const word = days === 1 ? result.dayCountSingular : result.dayCountPlural;
   return {
-    figure: result.figure ?? "",
+    figure: days !== null ? `${days} ${word ?? ""}`.trim() : "",
     line: result.line ?? "",
     formatSlug: result.formatSlug,
     episodeSlug: result.episodeSlug,
@@ -1217,33 +1336,28 @@ export function toSparkTeaser(result: SPARK_TEASER_EPISODE_QUERYResult): SparkTe
 
 export function toSparkPage(
   sectionResult: SPARK_SECTION_QUERYResult,
-  formatsResult: LAST_DAY_FORMATS_QUERYResult,
+  ribbonResult: SPARK_RIBBON_QUERYResult,
+  formatsResult: SPARK_FORMATS_HUB_QUERYResult,
 ): SparkPage {
   return {
     hero: toPageHero(sectionResult?.hero ?? null),
-    formats: toSparkFormats(formatsResult),
+    ribbon: toSparkRibbon(
+      ribbonResult,
+      sectionResult?.episodesRibbonLabel ?? "",
+      sectionResult?.daysRibbonLabel ?? "",
+      sectionResult?.marketsRibbonLabel ?? "",
+    ),
+    formats: toSparkFormatsForHub(formatsResult),
     comingSoonLabel: sectionResult?.comingSoonLabel ?? "",
   };
 }
 
 // ─────────────────────────────────────────────
-// Spark · Layer 2 (format sayfası — /spark/the-last-day)
+// Spark · The Last Day liste sayfası (/spark/the-last-day)
 // ─────────────────────────────────────────────
 
-// generateStaticParams için — her formatın HER İKİ dildeki slug'ı
-// birlikte gerekiyor (locale'e göre değil), çünkü [locale]/[formatSlug]
-// kombinasyonlarının tamamı elle üretiliyor (bkz. build prompt'un
-// routing sınırlaması: next-intl'in statik pathnames haritası
-// içerik başına farklı slug'ı desteklemiyor).
-export const LAST_DAY_FORMAT_SLUGS_QUERY = defineQuery(`
-  *[_type == "lastDayFormat" && defined(slug.en.current) && defined(slug.tr.current)]{
-    "en": slug.en.current,
-    "tr": slug.tr.current
-  }
-`);
-
-export const LAST_DAY_FORMAT_SEO_QUERY = defineQuery(`
-  *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{
+export const SPARK_FORMAT_SEO_QUERY = defineQuery(`
+  *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{
     "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
     "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),
     "ogImage": ogImage{
@@ -1257,82 +1371,53 @@ export const LAST_DAY_FORMAT_SEO_QUERY = defineQuery(`
   }
 `);
 
-export function toLastDayFormatSeo(result: LAST_DAY_FORMAT_SEO_QUERYResult): PageSeo {
+export function toSparkFormatSeo(result: SPARK_FORMAT_SEO_QUERYResult): PageSeo {
   return toPageSeo(result);
 }
 
-export const LAST_DAY_FORMAT_QUERY = defineQuery(`
-  *[_type == "lastDayFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
+export const SPARK_FORMAT_QUERY = defineQuery(`
+  *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
     "hero": hero{
       "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
       "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
       "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)
     },
+    "hookLabel": select($locale == "tr" => coalesce(hookLabel.tr, hookLabel.en), hookLabel.en),
     "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),
     "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),
-    "episodes": *[_type == "lastDayEpisode" && references(^._id)] | order(number asc){
+    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),
+    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){
       number,
       subject,
-      market,
-      dayZero,
-      dayLast,
-      "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
+      country,
+      launchDate,
+      closureDate,
+      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),
       "slug": select($locale == "tr" => slug.tr.current, slug.en.current)
     }
   }
 `);
 
-// Cümle sonu "." ile tespit ediliyor — bkz. firstTwoSentences'daki
-// aynı bilinen sınırlama (kısaltmalı bir standfirst yanlış kesebilir).
-function firstSentence(text: string): string {
-  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean);
-  return sentences[0] ?? "";
-}
-
-const MS_PER_DAY = 24 * 60 * 60 * 1000;
-
-export function toLastDayFormatPage(
-  result: LAST_DAY_FORMAT_QUERYResult,
+export function toSparkFormatPage(
+  result: SPARK_FORMAT_QUERYResult,
   formatSlug: string,
-): LastDayFormatPage {
-  const dayCountSingular = result?.dayCountSingular ?? "";
-  const dayCountPlural = result?.dayCountPlural ?? "";
-
-  const episodes = (result?.episodes ?? [])
-    .filter((episode) => Boolean(episode.slug))
-    .map((episode) => {
-      const days =
-        episode.dayZero && episode.dayLast
-          ? Math.round(
-              (new Date(episode.dayLast).getTime() - new Date(episode.dayZero).getTime()) /
-                MS_PER_DAY,
-            )
-          : undefined;
-      const word = days === 1 ? dayCountSingular : dayCountPlural;
-
-      return {
-        number: episode.number ?? 0,
-        subject: episode.subject ?? "",
-        market: episode.market ?? "",
-        dayCountLabel: days !== undefined ? `${days} ${word}`.trim() : "",
-        firstSentence: firstSentence(episode.standfirst ?? ""),
-        formatSlug,
-        episodeSlug: episode.slug ?? "",
-      };
-    });
-
+): SparkFormatPage {
   return {
     hero: toPageHero(result?.hero ?? null),
-    episodes,
+    hookLabel: result?.hookLabel ?? "",
+    dayCountSingular: result?.dayCountSingular ?? "",
+    dayCountPlural: result?.dayCountPlural ?? "",
+    dayNotEstablishedLabel: result?.dayNotEstablishedLabel ?? "",
+    episodes: toSparkEpisodeSummaries(result?.episodes ?? [], formatSlug),
   };
 }
 
 // ─────────────────────────────────────────────
-// Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
+// Spark · Bölüm sayfası (/spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
 
-export const LAST_DAY_EPISODE_SLUGS_QUERY = defineQuery(`
-  *[_type == "lastDayEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{
+export const SPARK_EPISODE_SLUGS_QUERY = defineQuery(`
+  *[_type == "sparkEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{
     "episodeEn": slug.en.current,
     "episodeTr": slug.tr.current,
     "formatEn": format->slug.en.current,
@@ -1340,8 +1425,8 @@ export const LAST_DAY_EPISODE_SLUGS_QUERY = defineQuery(`
   }
 `);
 
-export const LAST_DAY_EPISODE_SEO_QUERY = defineQuery(`
-  *[_type == "lastDayEpisode"
+export const SPARK_EPISODE_SEO_QUERY = defineQuery(`
+  *[_type == "sparkEpisode"
     && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug
     && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug
   ][0]{
@@ -1350,7 +1435,7 @@ export const LAST_DAY_EPISODE_SEO_QUERY = defineQuery(`
   }
 `);
 
-export function toLastDayEpisodeSeo(result: LAST_DAY_EPISODE_SEO_QUERYResult): PageSeo {
+export function toSparkEpisodeSeo(result: SPARK_EPISODE_SEO_QUERYResult): PageSeo {
   return {
     title: result?.title ?? "",
     description: result?.description ?? "",
@@ -1359,50 +1444,48 @@ export function toLastDayEpisodeSeo(result: LAST_DAY_EPISODE_SEO_QUERYResult): P
   };
 }
 
-export const LAST_DAY_EPISODE_QUERY = defineQuery(`
-  *[_type == "lastDayEpisode"
+export const SPARK_EPISODE_QUERY = defineQuery(`
+  *[_type == "sparkEpisode"
     && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug
     && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug
   ][0]{
     number,
     subject,
     parent,
-    market,
-    dayZero,
-    dayLast,
+    country,
+    launchDate,
+    closureDate,
     "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
     "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),
     "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),
+    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),
+    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),
+    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),
     "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),
     "body": select($locale == "tr" => body.tr, body.en)
   }
 `);
 
-export function toLastDayEpisodePage(
-  result: LAST_DAY_EPISODE_QUERYResult,
+export function toSparkEpisodePage(
+  result: SPARK_EPISODE_QUERYResult,
   formatSlug: string,
-): LastDayEpisodePage | undefined {
+): SparkEpisodePage | undefined {
   if (!result) return undefined;
-
-  const dayZero = result.dayZero ?? "";
-  const dayLast = result.dayLast ?? "";
-  const dayCount =
-    dayZero && dayLast
-      ? Math.round((new Date(dayLast).getTime() - new Date(dayZero).getTime()) / MS_PER_DAY)
-      : 0;
 
   return {
     number: result.number ?? 0,
     subject: result.subject ?? "",
     parent: result.parent ?? undefined,
-    market: result.market ?? "",
-    dayZero,
-    dayLast,
-    dayCount,
+    country: result.country ?? "",
+    launchDate: result.launchDate,
+    closureDate: result.closureDate,
     formatName: result.formatName ?? "",
     standfirst: result.standfirst ?? "",
-    body: (result.body ?? []) as LastDayBodyBlock[],
+    body: (result.body ?? []) as SparkBodyBlock[],
     dayLabel: result.dayLabel ?? "",
+    dayCountSingular: result.dayCountSingular ?? "",
+    dayCountPlural: result.dayCountPlural ?? "",
+    dayNotEstablishedLabel: result.dayNotEstablishedLabel ?? "",
     noteLabel: result.noteLabel ?? "",
     backHref: { formatSlug },
   };

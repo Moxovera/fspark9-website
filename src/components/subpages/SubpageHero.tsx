@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import type { PageHero } from "@/types/content";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 // bkz. Header.tsx — content.ts'in genel Link tipi next-intl'in
 // pathnames union'ıyla birebir örtüşmüyor.
@@ -14,6 +14,10 @@ interface SubpageHeroProps {
   // atlaması — kullanıcı listeye değil doğrudan ana sayfaya fırlatılıyor.
   // Varsayılan "/" (dc.html'le aynı davranış), /work/[slug] "/work" geçirir.
   backHref?: LinkHref;
+  // Spark hub'ın hairline + ribbon'ı gibi, intro'nun altına eklenen
+  // isteğe bağlı ekstra içerik — geri kalan sayfalar bunu hiç geçmiyor,
+  // mevcut davranışları birebir aynı kalıyor.
+  children?: ReactNode;
 }
 
 /**
@@ -27,7 +31,7 @@ interface SubpageHeroProps {
  * burada kasıtlı bir sapma: basit <Link>, scroll hafızası taşınmadı
  * (Next.js'in kendi route/scroll davranışı yeterli).
  */
-export default function SubpageHero({ hero, backLabel, backHref = "/" }: SubpageHeroProps) {
+export default function SubpageHero({ hero, backLabel, backHref = "/", children }: SubpageHeroProps) {
   const { eyebrow, title, intro } = hero;
 
   return (
@@ -64,6 +68,7 @@ export default function SubpageHero({ hero, backLabel, backHref = "/" }: Subpage
         <p className="max-w-[62ch] text-[1.08rem] leading-[1.68] text-ivory/74">
           {intro}
         </p>
+        {children}
       </div>
     </section>
   );

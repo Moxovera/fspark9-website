@@ -12,7 +12,7 @@
  * Sanity şemasında alanlar { en, tr } olarak saklanır,
  * GROQ sorgusu aktif dile göre çözer ve bu tipleri döner.
  *
- * İSTİSNA: lastDayEpisode.body (bkz. LastDayBodyBlock) — Portable Text
+ * İSTİSNA: sparkEpisode.body (bkz. SparkBodyBlock) — Portable Text
  * dizileri dil başına AYRI diziler olarak saklanır (localeBody.en[] /
  * .tr[]), tek bir alan bazlı {en,tr} objesi değil, çünkü bir dilin
  * paragraf/başlık sayısı ve sırası diğerinden bağımsız olabilir.
@@ -112,14 +112,48 @@ export interface ThankYouPage {
   links: Link[]
 }
 
-// Bir format kartı — şu an sadece "The Last Day" var, ama liste
-// yayınlanma sırasına göre sorgulanıyor, elle sabitlenmiyor. Bölüm
-// sayısı BİLEREK gösterilmiyor (kullanıcı geri bildirimi: "N episodes"
-// gibi sayaç metni yerine sade, vitrin gibi bir format adı).
+// Revizyon v2 (bkz. Spark section revision brief v2): lastDayFormat/
+// lastDayEpisode → sparkFormat/sparkEpisode. Format 02 kasıtlı olarak
+// bir doküman DEĞİL — mevcut sabit "coming soon" karosu aynen kalıyor,
+// bu yüzden burada sadece format 01 (ve gelecekte eklenecek gerçek
+// formatlar) için tipler var.
+
+// Bir bölümün hem hub envanter satırında hem liste sayfasında
+// kullanılan özeti — gün sayısı burada TUTULMUYOR, DayMeasure
+// bileşeni launchDate/closureDate'ten hesaplıyor (bkz.
+// components/spark/day/dayMath.ts).
+export interface SparkEpisodeSummary {
+  number: number
+  subject: string
+  country: string
+  launchDate: string | null
+  closureDate: string | null
+  hook: string
+  formatSlug: string
+  episodeSlug: string
+}
+
+// Hub'daki format satırı — format 01 için hem kart metni hem envanteri
+// (yayınlanmış bölümlerin özeti) taşıyor.
 export interface SparkFormatSummary {
+  number: number
   name: string
   slug: string // "the-last-day" ya da "son-gun" — /spark/[formatSlug]'a next-intl'in typed pathname nesnesiyle bağlanır
-  description: string
+  subjectLine: string
+  whatIsInside: string
+  statusLine: string
+  dayCountSingular: string
+  dayCountPlural: string
+  dayNotEstablishedLabel: string
+  episodes: SparkEpisodeSummary[]
+}
+
+// Ribbon'daki tek bir rakam — DEĞER her zaman yayınlanmış dokümanlardan
+// hesaplanır, komponente elle bir sayı geçilmez. Hesaplanamayan bir
+// rakam diziden tamamen ÇIKARILIR (bkz. queries.ts:toSparkRibbon).
+export interface SparkRibbonItem {
+  value: number
+  label: string
 }
 
 // "The spark" teaser bloğu — en güncel yayınlanmış bölüme bağlanır.
@@ -127,7 +161,7 @@ export interface SparkFormatSummary {
 // kendisi (SparkPage) artık bölüm içeriğini göstermiyor. Hiç bölüm yoksa
 // undefined kalır ve blok render edilmez (sahte/placeholder kart YOK).
 export interface SparkTeaser {
-  figure: string // mono büyük rakam, ör. "156 DAYS"
+  figure: string // mono büyük rakam, ör. "156 days" — launchDate/closureDate'ten hesaplanır
   line: string
   // /spark/[formatSlug]/[episodeSlug] next-intl'de templated bir route —
   // düz string href geçilemez ("Insufficient params" hatası verir),
@@ -136,12 +170,13 @@ export interface SparkTeaser {
   episodeSlug: string
 }
 
-// Ana Spark sayfası — kasıtlı olarak dar: kısa bir hero (tek cümlelik
-// vaat) + format vitrini. Mekanizma açıklaması ve bölüm teaser'ı
-// (SparkTeaser) BİLEREK burada YOK — SparkTeaser hâlâ var ama sadece
-// ana sayfadaki (homepage) SparkHome modülü için kullanılıyor.
+// Ana Spark sayfası (hub) — kısa bir hero (eyebrow/title/purpose line),
+// canlı ribbon rakamları, format 01'in satırı (envanteriyle birlikte).
+// Format 02 BİLEREK burada YOK — sabit UI karosu, veri katmanına hiç
+// girmiyor.
 export interface SparkPage {
   hero: PageHero
+  ribbon: SparkRibbonItem[]
   formats: SparkFormatSummary[]
   comingSoonLabel: string
 }
@@ -157,43 +192,36 @@ export interface SparkHomeModule {
 }
 
 // ─────────────────────────────────────────────
-// Spark · Layer 2 (format sayfası — /spark/the-last-day)
+// Spark · The Last Day liste sayfası (/spark/the-last-day)
 // ─────────────────────────────────────────────
-
-// Bir bölümün format sayfasındaki liste kartı — asıl içeriği (body)
-// Layer 3'te, episode sayfasının kendi tipinde.
-export interface LastDayEpisodeSummary {
-  number: number
-  subject: string
-  market: string
-  dayCountLabel: string // "156 days" / "156 gün"
-  firstSentence: string
-  formatSlug: string
-  episodeSlug: string
-}
 
 // Kullanıcı geri bildirimi sonrası kasıtlı olarak dar: kısa bir hero
-// (tek cümle — "burada kapanan şirketleri bulacaksın" türünden) +
-// bölüm listesi. howItWorks/corrections/closingLine KALDIRILDI.
-export interface LastDayFormatPage {
+// (purpose line) + bölüm listesi. howItWorks/corrections/closingLine
+// YOK. Gün mekaniği kelime dağarcığı (singular/plural/notEstablished)
+// burada, DayMeasure bileşenine geçiliyor.
+export interface SparkFormatPage {
   hero: PageHero
-  episodes: LastDayEpisodeSummary[]
+  hookLabel: string // "Read the record" / "Kaydı oku"
+  dayCountSingular: string
+  dayCountPlural: string
+  dayNotEstablishedLabel: string
+  episodes: SparkEpisodeSummary[]
 }
 
 // ─────────────────────────────────────────────
-// Spark · Layer 3 (bölüm sayfası — /spark/the-last-day/01-bo)
+// Spark · Bölüm sayfası (/spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
 
 // Bölüm gövdesinin içine serbestçe yerleştirilen büyük rakam/istatistik
 // (ör. "156 DAYS"). @portabletext/react components.types ile eşleşir.
-export interface LastDayStatHighlight {
+export interface SparkStatHighlight {
   _type: 'statHighlight'
   figure: string
   caption?: string
 }
 
 // fspark9'un kendi sesi — bölüm gövdesinin içine serbestçe yerleştirilir.
-export interface LastDayNoteHighlight {
+export interface SparkNoteHighlight {
   _type: 'noteHighlight'
   body: string
 }
@@ -201,24 +229,24 @@ export interface LastDayNoteHighlight {
 // Sanity Portable Text bloğu (paragraf/başlık/alıntı/liste) — kendi
 // tipini burada yeniden tanımlamak yerine @portabletext/types'tan
 // import edildi (bkz. queries.ts).
-export type LastDayBodyBlock = PortableTextBlock | LastDayStatHighlight | LastDayNoteHighlight
+export type SparkBodyBlock = PortableTextBlock | SparkStatHighlight | SparkNoteHighlight
 
-// Kullanıcı geri bildirimi sonrası: sabit record/reading/gap/call/note
-// şablonu KALDIRILDI. Her bölüm artık serbest biçimli `body` (Portable
-// Text + statHighlight/noteHighlight) ile kendi yapısını kuruyor — bir
-// bölümün dinamizmi bir diğeriyle aynı olmak zorunda değil.
-export interface LastDayEpisodePage {
+// Bölüm sayfası bu revizyon turunda BİLEREK neredeyse dokunulmadı —
+// tek değişiklik başlıktaki gün bileşeni (DayMeasure, "full" varyantı).
+export interface SparkEpisodePage {
   number: number
   subject: string
   parent?: string
-  market: string
-  dayZero: string
-  dayLast: string
-  dayCount: number
+  country: string
+  launchDate: string | null
+  closureDate: string | null
   formatName: string
   standfirst: string
-  body: LastDayBodyBlock[]
-  dayLabel: string // "DAY" / "GÜN" — büyük saatin öneki
+  body: SparkBodyBlock[]
+  dayLabel: string // "DAY" / "GÜN"
+  dayCountSingular: string
+  dayCountPlural: string
+  dayNotEstablishedLabel: string
   noteLabel: string // "fspark9 · Note" / "fspark9 · Not"
   backHref: { formatSlug: string } // /spark/[formatSlug]'a next-intl typed pathname ile geri döner
 }

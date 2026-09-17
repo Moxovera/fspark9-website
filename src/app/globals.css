@@ -132,6 +132,30 @@ body {
   }
 }
 
+/* Spark hub'ın tek orkestre animasyonu — bronz çizgi soldan sağa bir
+   kez çiziliyor (~600ms). Sayfa yüklenirken (scroll'a bağlı değil)
+   tetiklendiği için saf CSS animasyonu yeterli, JS gerekmiyor — bkz.
+   Spark revizyon brief §5: "the bronze hairline draws once beneath
+   the title, left to right, around 600ms". */
+.spark-hairline {
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: spark-hairline-draw 600ms ease-out 150ms forwards;
+}
+
+@keyframes spark-hairline-draw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark-hairline {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
 /* Hero scroll göstergesi döngüsü — dc.html: fs-cue-line / fs-cue-bob */
 @keyframes fs-cue-line {
   0%,
