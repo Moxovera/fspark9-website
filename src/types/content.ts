@@ -134,14 +134,18 @@ export interface SparkEpisodeSummary {
 }
 
 // Hub'daki format satırı — format 01 için hem kart metni hem envanteri
-// (yayınlanmış bölümlerin özeti) taşıyor.
+// (yayınlanmış bölümlerin özeti) taşıyor. statusLine SAYISI burada YOK —
+// bileşen bunu episodes.length'ten hesaplar, statusLineSingular/Plural
+// sadece sayıya eklenecek kelimeyi taşır (bkz. DayMeasure'daki
+// singular/plural deseniyle aynı yaklaşım).
 export interface SparkFormatSummary {
   number: number
   name: string
   slug: string // "the-last-day" ya da "son-gun" — /spark/[formatSlug]'a next-intl'in typed pathname nesnesiyle bağlanır
   subjectLine: string
   whatIsInside: string
-  statusLine: string
+  statusLineSingular: string
+  statusLinePlural: string
   dayCountSingular: string
   dayCountPlural: string
   dayNotEstablishedLabel: string

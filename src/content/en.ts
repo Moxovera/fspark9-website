@@ -750,7 +750,8 @@ export const sparkCopy = {
       "Companies and products that shut down, read through what they filed, published and left behind.",
     whatIsInside:
       "Every episode is timed from first day to last, and you make the calls yourself as the record opens.",
-    statusLine: "1 episode published.",
+    statusLineSingular: "episode published.",
+    statusLinePlural: "episodes published.",
   },
   lastDayList: {
     purposeLine:

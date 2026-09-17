@@ -13,9 +13,9 @@
  * yeniden yazıldı.
  *
  * §3'teki çakışan alanlar (hub eyebrow/title/purposeLine, format
- * subjectLine/whatIsInside/statusLine/hero.intro/hookLabel, episode
- * hook) burada YENİDEN YAZILMIYOR — content/en.ts ve content/tr.ts
- * içindeki `sparkCopy`'den import ediliyor. Tek kaynak burası değil,
+ * subjectLine/whatIsInside/statusLineSingular/Plural/hero.intro/
+ * hookLabel, episode hook) burada YENİDEN YAZILMIYOR — content/en.ts ve
+ * content/tr.ts içindeki `sparkCopy`'den import ediliyor. Tek kaynak burası değil,
  * o dosyalar; seed bu sabitleri Sanity'ye taşıyan tek yer. Sürüklenmeyi
  * yakalamak için scripts/check-spark-drift.ts, seedden sonra Sanity'yi
  * aynı `sparkCopy` sabitleriyle karşılaştırır.
@@ -93,7 +93,8 @@ const sparkFormatDoc = {
   subjectLine: lt(sparkCopyEn.formatOne.subjectLine, sparkCopyTr.formatOne.subjectLine),
   whatIsInside: lt(sparkCopyEn.formatOne.whatIsInside, sparkCopyTr.formatOne.whatIsInside),
   status: "live",
-  statusLine: lt(sparkCopyEn.formatOne.statusLine, sparkCopyTr.formatOne.statusLine),
+  statusLineSingular: ls(sparkCopyEn.formatOne.statusLineSingular, sparkCopyTr.formatOne.statusLineSingular),
+  statusLinePlural: ls(sparkCopyEn.formatOne.statusLinePlural, sparkCopyTr.formatOne.statusLinePlural),
   orderRank: 1,
   hero: {
     _type: "pageHero",

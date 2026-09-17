@@ -741,7 +741,8 @@ export const sparkCopy = {
       "Kapanan şirketler ve ürünler, dosyaladıkları, yayınladıkları ve geride bıraktıkları üzerinden okunuyor.",
     whatIsInside:
       "Her bölüm ilk günden son güne kadar sayılıyor, kayıt açıldıkça kararları siz veriyorsunuz.",
-    statusLine: "1 bölüm yayında.",
+    statusLineSingular: "bölüm yayında.",
+    statusLinePlural: "bölüm yayında.",
   },
   lastDayList: {
     purposeLine: "Her kayıt lansmandan kapanışa kadar gün gün sayılıyor, kaynağı kamuya açık kayıt.",

@@ -20,6 +20,12 @@ interface FormatRowProps {
  * çözülen tek hover efekti — no lift, no shadow, no scale).
  */
 export default function FormatRow({ format, locale }: FormatRowProps) {
+  const episodeCount = format.episodes.length;
+  const statusLine =
+    episodeCount > 0
+      ? `${episodeCount} ${episodeCount === 1 ? format.statusLineSingular : format.statusLinePlural}`
+      : null;
+
   return (
     <Link
       href={{ pathname: "/spark/[formatSlug]", params: { formatSlug: format.slug } }}
@@ -71,9 +77,11 @@ export default function FormatRow({ format, locale }: FormatRowProps) {
         </div>
       )}
 
-      <div className="max-w-[280px] border-t border-ivory/10 pt-4">
-        <p className="font-mono text-xs tracking-[0.04em] text-ivory/60">{format.statusLine}</p>
-      </div>
+      {statusLine && (
+        <div className="max-w-[280px] border-t border-ivory/10 pt-4">
+          <p className="font-mono text-xs tracking-[0.04em] text-ivory/60">{statusLine}</p>
+        </div>
+      )}
     </Link>
   );
 }

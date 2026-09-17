@@ -36,7 +36,8 @@ const DRIFT_QUERY = /* groq */ `{
     "nameEn": name.en, "nameTr": name.tr,
     "subjectLineEn": subjectLine.en, "subjectLineTr": subjectLine.tr,
     "whatIsInsideEn": whatIsInside.en, "whatIsInsideTr": whatIsInside.tr,
-    "statusLineEn": statusLine.en, "statusLineTr": statusLine.tr,
+    "statusLineSingularEn": statusLineSingular.en, "statusLineSingularTr": statusLineSingular.tr,
+    "statusLinePluralEn": statusLinePlural.en, "statusLinePluralTr": statusLinePlural.tr,
     "heroEyebrowEn": hero.eyebrow.en, "heroEyebrowTr": hero.eyebrow.tr,
     "heroTitleEn": hero.title.en, "heroTitleTr": hero.title.tr,
     "heroIntroEn": hero.intro.en, "heroIntroTr": hero.intro.tr,
@@ -57,7 +58,8 @@ interface DriftResult {
     nameEn: string | null; nameTr: string | null;
     subjectLineEn: string | null; subjectLineTr: string | null;
     whatIsInsideEn: string | null; whatIsInsideTr: string | null;
-    statusLineEn: string | null; statusLineTr: string | null;
+    statusLineSingularEn: string | null; statusLineSingularTr: string | null;
+    statusLinePluralEn: string | null; statusLinePluralTr: string | null;
     heroEyebrowEn: string | null; heroEyebrowTr: string | null;
     heroTitleEn: string | null; heroTitleTr: string | null;
     heroIntroEn: string | null; heroIntroTr: string | null;
@@ -94,8 +96,26 @@ async function main() {
     check("sparkFormat.subjectLine (tr)", result.format?.subjectLineTr, sparkCopyTr.formatOne.subjectLine),
     check("sparkFormat.whatIsInside (en)", result.format?.whatIsInsideEn, sparkCopyEn.formatOne.whatIsInside),
     check("sparkFormat.whatIsInside (tr)", result.format?.whatIsInsideTr, sparkCopyTr.formatOne.whatIsInside),
-    check("sparkFormat.statusLine (en)", result.format?.statusLineEn, sparkCopyEn.formatOne.statusLine),
-    check("sparkFormat.statusLine (tr)", result.format?.statusLineTr, sparkCopyTr.formatOne.statusLine),
+    check(
+      "sparkFormat.statusLineSingular (en)",
+      result.format?.statusLineSingularEn,
+      sparkCopyEn.formatOne.statusLineSingular,
+    ),
+    check(
+      "sparkFormat.statusLineSingular (tr)",
+      result.format?.statusLineSingularTr,
+      sparkCopyTr.formatOne.statusLineSingular,
+    ),
+    check(
+      "sparkFormat.statusLinePlural (en)",
+      result.format?.statusLinePluralEn,
+      sparkCopyEn.formatOne.statusLinePlural,
+    ),
+    check(
+      "sparkFormat.statusLinePlural (tr)",
+      result.format?.statusLinePluralTr,
+      sparkCopyTr.formatOne.statusLinePlural,
+    ),
     check("sparkFormat.hero.eyebrow (en)", result.format?.heroEyebrowEn, sparkCopyEn.hub.title),
     check("sparkFormat.hero.eyebrow (tr)", result.format?.heroEyebrowTr, sparkCopyTr.hub.title),
     check("sparkFormat.hero.title (en)", result.format?.heroTitleEn, sparkCopyEn.formatOne.name),
