@@ -18,7 +18,7 @@ export const en: LegalPage = {
       lines: [
         "Mehmet Burak Dikmen, trading as fspark9",
         "Beusselstrasse 31, 10553 Berlin, Germany",
-        "Email: mehmetburakdikmen@gmail.com",
+        "Email: info@fspark9.com",
       ],
     },
     {
@@ -184,7 +184,7 @@ export const en: LegalPage = {
     },
     {
       type: "b",
-      text: "Write to mehmetburakdikmen@gmail.com. I respond within one month. No charge, and no reason needed for a deletion request.",
+      text: "Write to info@fspark9.com. I respond within one month. No charge, and no reason needed for a deletion request.",
     },
     {
       type: "b",
@@ -226,7 +226,7 @@ export const tr: LegalPage = {
       lines: [
         "Mehmet Burak Dikmen, fspark9 ticari adıyla",
         "Beusselstrasse 31, 10553 Berlin, Almanya",
-        "E-posta: mehmetburakdikmen@gmail.com",
+        "E-posta: info@fspark9.com",
       ],
     },
     {
@@ -392,7 +392,7 @@ export const tr: LegalPage = {
     },
     {
       type: "b",
-      text: "mehmetburakdikmen@gmail.com adresine yazın. Bir ay içinde dönerim. Ücret yok, silme talebi için gerekçe belirtmeniz gerekmiyor.",
+      text: "info@fspark9.com adresine yazın. Bir ay içinde dönerim. Ücret yok, silme talebi için gerekçe belirtmeniz gerekmiyor.",
     },
     {
       type: "b",

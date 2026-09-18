@@ -26,7 +26,7 @@ const blocks: LegalPage["blocks"] = [
   {
     type: "field",
     label: "Kontakt",
-    lines: ["E-Mail: mehmetburakdikmen@gmail.com"],
+    lines: ["E-Mail: info@fspark9.com"],
   },
   {
     type: "field",
@@ -68,7 +68,7 @@ const blocks: LegalPage["blocks"] = [
   {
     type: "field",
     label: "Contact",
-    lines: ["Email: mehmetburakdikmen@gmail.com"],
+    lines: ["Email: info@fspark9.com"],
   },
   {
     type: "field",
@@ -110,7 +110,7 @@ const blocks: LegalPage["blocks"] = [
   {
     type: "field",
     label: "İletişim",
-    lines: ["E-posta: mehmetburakdikmen@gmail.com"],
+    lines: ["E-posta: info@fspark9.com"],
   },
   {
     type: "field",

@@ -698,7 +698,7 @@ export const siteSettings: SiteSettings = {
     tagline: "Fintech ve dijital bankacılık danışmanlığı",
     nine: "9, son adımdır. Spark, onu ateşleyen şey.",
     signature: "GÜVEN PAZARLANMAZ. KURULUR.",
-    email: "mehmetburakdikmen@gmail.com",
+    email: "info@fspark9.com",
     linkedin: "https://www.linkedin.com/in/mdikmen/",
     nav: [
       { label: "Hizmetler", href: "/services" },

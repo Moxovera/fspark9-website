@@ -703,7 +703,7 @@ export const siteSettings: SiteSettings = {
     tagline: "Fintech and digital banking advisory",
     nine: "Nine is the last step. Spark is what lights it.",
     signature: "TRUST ISN'T MARKETED. IT'S BUILT.",
-    email: "mehmetburakdikmen@gmail.com",
+    email: "info@fspark9.com",
     linkedin: "https://www.linkedin.com/in/mdikmen/",
     nav: [
       { label: "Services", href: "/services" },

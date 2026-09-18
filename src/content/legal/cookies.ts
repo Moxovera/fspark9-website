@@ -39,7 +39,7 @@ export const en: LegalPage = {
     },
     {
       type: "b",
-      text: "When you click, you are choosing to load it. At that point Cal.com sets its own cookies, which are needed to run the booking. If you would rather not, email me instead at mehmetburakdikmen@gmail.com and we will arrange a time that way.",
+      text: "When you click, you are choosing to load it. At that point Cal.com sets its own cookies, which are needed to run the booking. If you would rather not, email me instead at info@fspark9.com and we will arrange a time that way.",
     },
     {
       type: "b",
@@ -63,7 +63,7 @@ export const en: LegalPage = {
     { type: "h", text: "Questions" },
     {
       type: "b",
-      text: "mehmetburakdikmen@gmail.com. See also the privacy policy.",
+      text: "info@fspark9.com. See also the privacy policy.",
     },
   ],
 };
@@ -107,7 +107,7 @@ export const tr: LegalPage = {
     },
     {
       type: "b",
-      text: "Tıkladığınızda yüklenmesini siz seçmiş oluyorsunuz. O andan itibaren Cal.com randevunun çalışması için gereken kendi çerezlerini yerleştiriyor. Bunu tercih etmiyorsanız mehmetburakdikmen@gmail.com adresine yazın, saati o şekilde ayarlayalım.",
+      text: "Tıkladığınızda yüklenmesini siz seçmiş oluyorsunuz. O andan itibaren Cal.com randevunun çalışması için gereken kendi çerezlerini yerleştiriyor. Bunu tercih etmiyorsanız info@fspark9.com adresine yazın, saati o şekilde ayarlayalım.",
     },
     {
       type: "b",
@@ -131,7 +131,7 @@ export const tr: LegalPage = {
     { type: "h", text: "Soru" },
     {
       type: "b",
-      text: "mehmetburakdikmen@gmail.com. Ayrıca bkz. gizlilik politikası.",
+      text: "info@fspark9.com. Ayrıca bkz. gizlilik politikası.",
     },
   ],
 };
