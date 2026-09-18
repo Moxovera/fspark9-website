@@ -10,14 +10,16 @@ import { defineField, defineType } from "sanity";
 //
 // Final interaction brief (17 Eylül 2026), kullanıcının açık onayıyla:
 // serbest biçimli `body` (localeBody) yerini `blocks`'a bıraktı —
-// Record/Reading/Gap/altı mekanik modeli, bkz. sparkEpisodeBlocks.ts.
-// Bu, Faz 3'te bilinçli olarak kaldırılan "engaging layer"ın açık bir
+// Record/Reading/altı mekanik modeli, bkz. sparkEpisodeBlocks.ts. Bu,
+// Faz 3'te bilinçli olarak kaldırılan "engaging layer"ın açık bir
 // tersine çevrilmesi, kazayla değil. `blocks` TEK bir paylaşılan dizi
 // (locale başına AYRI diziler değil) çünkü mekanik sırası ve state
-// anahtarları (blockId) dilden bağımsız kalmalı. `expertNotes` artık
-// gövde içine serpiştirilmiş bloklar değil, bölüm sonunda imzalı, tek
-// bir bölüm (bkz. final brief §1, "the previous version... is corrected
-// here").
+// anahtarları (blockId) dilden bağımsız kalmalı.
+//
+// Kullanıcının canlıyı gördükten sonraki sadeleştirme talimatıyla (18
+// Eylül 2026) Gap block type'ı ve ayrı `expertNotes` alanı TAMAMEN
+// kaldırıldı — uzman notları artık `blocks` dizisinin içinde,
+// `sparkNote` tipiyle, ilgili olduğu noktaya gömülü.
 export default defineType({
   name: "sparkEpisode",
   title: "Spark Episode",
@@ -66,30 +68,21 @@ export default defineType({
       name: "blocks",
       title: "Blocks",
       description:
-        "Record/Reading/Gap ve altı mekanik, okunma sırasında TEK dizi. Hiçbir bloğun elle girilmiş bir " +
-        "\"day\" alanı yok — gün numarası her zaman launchDate ve bloğun kendi date'inden hesaplanır.",
+        "Record/Reading/Note ve altı mekanik, okunma sırasında TEK dizi. Hiçbir bloğun elle girilmiş bir " +
+        "\"day\" alanı yok — gün numarası her zaman launchDate ve bloğun kendi date'inden hesaplanır. " +
+        "fspark9 notları (sparkNote) da bu dizinin İÇİNDE, ilgili olduğu noktaya yerleştirilir.",
       type: "array",
       of: [
         { type: "sparkRecord" },
         { type: "sparkReading" },
-        { type: "sparkGap" },
+        { type: "sparkNote" },
         { type: "sparkCall" },
         { type: "sparkEstimate" },
-        { type: "sparkEstimateReveal" },
         { type: "sparkWeigh" },
         { type: "sparkSignal" },
         { type: "sparkSecondOpinion" },
         { type: "sparkAllocation" },
       ],
-    }),
-    defineField({
-      name: "expertNotes",
-      title: "Expert Notes (signed, end of episode)",
-      description:
-        "Birinci ağızdan, imzalı, bölümün en sonunda tek bölüm olarak render edilir (final brief §1). " +
-        "Ledger modunda tamamen gizlenir. Her giriş kendi başına bir nokta.",
-      type: "array",
-      of: [{ type: "localeText" }],
     }),
   ],
   preview: {

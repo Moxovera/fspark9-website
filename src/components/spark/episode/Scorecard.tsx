@@ -6,7 +6,6 @@ import type {
   SparkCallBlock,
   SparkEpisodeBlock,
   SparkEstimateBlock,
-  SparkEstimateRevealBlock,
   SparkMechanicVocabulary,
   SparkSecondOpinionBlock,
   SparkSignalBlock,
@@ -25,20 +24,14 @@ interface ScorecardProps {
  * mesafe olarak (geçti/kaldı yok), Weigh/Signal/SecondOpinion/Allocation
  * "your reading" etiketiyle açıkça skorlanmamış, bölümler arası koşan
  * sayaç, paylaşım eylemi (SADECE okuyucunun kendi deseni hakkında,
- * konu hakkında bir yargı asla). Ledger modunda gizlenir — bu bileşen
- * kendi ledger kontrolünü yapar (diğer mekanikler gibi).
+ * konu hakkında bir yargı asla).
  */
 export default function Scorecard({ subject, blocks, vocabulary }: ScorecardProps) {
   const state = useLastDayState();
   const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
 
-  if (state.ledger) return null;
-
   const calls = blocks.filter((b): b is SparkCallBlock => b._type === "sparkCall");
   const estimates = blocks.filter((b): b is SparkEstimateBlock => b._type === "sparkEstimate");
-  const estimateReveals = blocks.filter(
-    (b): b is SparkEstimateRevealBlock => b._type === "sparkEstimateReveal",
-  );
   const weighs = blocks.filter((b): b is SparkWeighBlock => b._type === "sparkWeigh");
   const signals = blocks.filter((b): b is SparkSignalBlock => b._type === "sparkSignal");
   const opinions = blocks.filter((b): b is SparkSecondOpinionBlock => b._type === "sparkSecondOpinion");
@@ -101,15 +94,14 @@ export default function Scorecard({ subject, blocks, vocabulary }: ScorecardProp
           {estimates.map((estimate) => {
             const pickedIndex = state.estimates[estimate.blockId];
             const bracket = pickedIndex !== undefined ? estimate.brackets[Number(pickedIndex)] : undefined;
-            const reveal = estimateReveals.find((r) => r.estimateBlockId === estimate.blockId);
             let comparison: string | null = null;
-            if (bracket && reveal) {
-              if (reveal.actualValue >= bracket.min && (bracket.max === null || reveal.actualValue <= bracket.max)) {
-                comparison = reveal.insideBracketLabel;
-              } else if (reveal.actualValue < bracket.min) {
-                comparison = reveal.belowBracketLabel;
+            if (bracket) {
+              if (estimate.actualValue >= bracket.min && (bracket.max === null || estimate.actualValue <= bracket.max)) {
+                comparison = estimate.insideBracketLabel;
+              } else if (estimate.actualValue < bracket.min) {
+                comparison = estimate.belowBracketLabel;
               } else {
-                comparison = reveal.aboveBracketLabel;
+                comparison = estimate.aboveBracketLabel;
               }
             }
             return (

@@ -117,7 +117,6 @@ const sparkFormatDoc = {
   // eşleşme metnini ben yazdım, uncertainty list'te işaretli).
   recordLabel: ls("RECORD", "KAYIT"),
   readingLabel: ls("READING", "OKUMA"),
-  gapLabel: ls("GAP", "BOŞLUK"),
   // Orijinal Faz 1 brief altı yeni mekanik için TR karşılığı vermedi
   // (sadece RECORD/READING/GAP için verdi) — bunlar kendi çevirim,
   // uncertainty list'te işaretli.
@@ -132,18 +131,7 @@ const sparkFormatDoc = {
   callMatchLabel: ls("Your call matches the record.", "Tahmininiz kayıtla eşleşiyor."),
   callMismatchLabel: ls("The record went the other way.", "Kayıt başka yöne gitti."),
   callUnsettledLabel: ls("The record does not settle this.", "Kayıt bunu netleştirmiyor."),
-  estimateHeldLabel: lt(
-    "Held until the record opens on the last day.",
-    "Kayıt son günde açılana kadar tutuluyor.",
-  ),
-  correctionInviteLabel: ls(
-    "This is a standing invitation to correct the record.",
-    "Bu, kaydı düzeltmek için açık bir davettir.",
-  ),
   allocationCommitLabel: ls("Lock in this split", "Bu dağılımı kilitle"),
-  ledgerToggleLabel: ls("Show the record only", "Sadece kaydı göster"),
-  expertNotesHeading: ls("Expert Notes", "Uzman Notları"),
-  expertNotesSignature: ls("Mehmet Burak Dikmen, fspark9", "Mehmet Burak Dikmen, fspark9"),
   scorecardHeading: ls("Your scorecard", "Puan durumunuz"),
   scorecardUnansweredLabel: ls("Not answered yet.", "Henüz yanıtlanmadı."),
   scorecardYourReadingLabel: ls("your reading", "sizin okumanız"),
@@ -157,45 +145,45 @@ const sparkFormatDoc = {
 };
 
 // ─────────────────────────────────────────────
-// Episode 01 · sparkEpisode (Bó) — Record/Reading/Gap + altı mekanik
+// Episode 01 · sparkEpisode (Bó) — Record/Reading/Note + altı mekanik
 // ─────────────────────────────────────────────
 //
 // Final interaction brief (17 Eylül 2026), kullanıcının açık onayıyla:
 // serbest biçimli gövde yerini `blocks`'a bıraktı. §3'teki yeni,
-// kaynaklı kayıtlar eklendi (Bailie day056/079, Purdue day146),
-// tarihsiz CEO gap'i kaldırıldı, yerine tarihli bir çelişki gap'i
-// geldi. §2 gereği HİÇBİR bloğun elle girilmiş bir "day" alanı yok —
-// sadece `date`, gün numarası DayMeasure/dayMath.ts'te render zamanında
+// kaynaklı kayıtlar eklendi (Bailie day056/079, Purdue day146). §2
+// gereği HİÇBİR bloğun elle girilmiş bir "day" alanı yok — sadece
+// `date`, gün numarası DayMeasure/dayMath.ts'te render zamanında
 // hesaplanıyor.
 //
-// CMA mektubu (day605) hakkında bilinçli bir karar: final brief'in §6
-// akışı bundan hiç bahsetmiyor, ama episode'un standfirst'ü ("one
+// Kullanıcının canlıyı gördükten sonraki sadeleştirme talimatıyla (18
+// Eylül 2026): Gap block type'ı tamamen kaldırıldı ("böyle bir şeye
+// gerek yok") — hem iki bağımsız gap bloğu (day079 tarih çelişkisi,
+// day605 opt-in sorusu) hem de call-reissue-cost/weigh-reissue-cost
+// içindeki gap yarıları tamamen silindi, ikincilerin gap'e dayalı
+// reveal'ları düz reading'e dönüştürüldü. THE ESTIMATE artık kendi
+// karşılaştırmasını hemen, aynı yerde gösteriyor (eskiden ayrı, day156'ya
+// kadar tutulan sparkEstimateReveal bloğu buraya gömüldü). Uzman
+// notları artık `blocks` dizisinin İÇİNDE, sparkNote tipiyle, ilgili
+// olduğu noktaya yerleştirildi (eskiden bölüm sonunda ayrı,
+// konsolide bir `expertNotes` dizisiydi).
+//
+// CMA mektubu (day605→573) hakkında bilinçli bir karar: final brief'in
+// §6 akışı bundan hiç bahsetmiyor, ama episode'un standfirst'ü ("one
 // regulatory filing that surfaced a year later, which none of the
 // press coverage at the time had") doğrudan bunu vaat ediyor, VE
-// brief'in kendi "Ten interactive moments" sayımı (4 Call + 2 Estimate
-// anı + Weigh + Signal + SecondOpinion + Allocation = 10) CMA için
-// yeni bir Call EKLENMEDEN tam tutuyor. Bu yüzden CMA kaydı KALDI ama
-// orijinal brief'teki Call 7 sarmalayıcısı olmadan, düz bir Record +
-// Reading + Gap olarak, akışın en sonunda (day605, kronolojik olarak
-// gerçekten en son). Bkz. handback'teki uncertainty notu.
+// brief'in kendi "Ten interactive moments" sayımı (4 Call + Estimate +
+// Weigh + Signal + SecondOpinion + Allocation = 10) CMA için yeni bir
+// Call EKLENMEDEN tam tutuyor. Bu yüzden CMA kaydı KALDI ama orijinal
+// brief'teki Call 7 sarmalayıcısı olmadan, düz bir Record + Reading
+// olarak, akışın en sonunda (kronolojik olarak gerçekten en son). Bkz.
+// handback'teki uncertainty notu.
 
 function inlineReading(heading: ReturnType<typeof ls>, body: ReturnType<typeof lt>) {
   return { _type: "sparkInlineReading" as const, _key: key(), heading, body };
 }
 
-function inlineGap(
-  heading: ReturnType<typeof ls>,
-  body: ReturnType<typeof lt>,
-  whereItWouldBe?: ReturnType<typeof ls>,
-) {
-  return {
-    _type: "sparkInlineGap" as const,
-    _key: key(),
-    heading,
-    body,
-    whereItWouldBe,
-    invitesCorrection: true,
-  };
+function note(date: string, body: ReturnType<typeof lt>) {
+  return { _type: "sparkNote" as const, _key: key(), date, body };
 }
 
 const FINEXTRA = "https://www.finextra.com/newsarticle/34850/natwest-launches-digital-challenger-b";
@@ -243,7 +231,17 @@ const episodeBlocks = [
     },
   },
 
-  // Day 000 · THE ESTIMATE 1 (held)
+  // Day 000 · fspark9 note (operating model difference)
+  note(
+    "2019-11-27",
+    lt(
+      "A high street bank and a digital-first challenger are not solving the same problem with different branding. They are running different operating models, and the gap between them shows up in places that are easy to underrate from the outside. Speed of the kind these products need is not a feature you add later. It is closer to an organisational habit, and habits built for a different kind of banking do not transfer quickly.",
+      "Bir şubeli banka ile dijital öncelikli bir meydan okuyucu, aynı sorunu farklı bir markalamayla çözmüyor. Farklı işletim modelleri yürütüyorlar, ve aralarındaki fark, dışarıdan bakınca hafife alınması kolay yerlerde ortaya çıkıyor. Bu tür ürünlerin ihtiyaç duyduğu hız, sonradan eklenen bir özellik değildir. Kurumsal bir alışkanlığa daha yakındır, ve farklı bir bankacılık türü için kurulmuş alışkanlıklar hızlı aktarılmaz.",
+    ),
+  ),
+
+  // Day 000 · THE ESTIMATE (resolves immediately on pick, merged with
+  // what used to be a separate day156 sparkEstimateReveal block)
   {
     _type: "sparkEstimate" as const,
     _key: key(),
@@ -265,6 +263,21 @@ const episodeBlocks = [
       },
       { _key: key(), label: ls("Over 1 million", "1 milyonun üzerinde"), min: 1000000, max: null },
     ],
+    actualValue: 11413,
+    actualLabel: ls("11,413 customers", "11.413 müşteri"),
+    insideBracketLabel: ls("The record is inside your bracket.", "Kayıt sizin aralığınızın içinde."),
+    belowBracketLabel: ls("The record came in lower.", "Kayıt daha düşük çıktı."),
+    // Brief bu durumu tarif etmedi (sadece "inside" ve "lower" için tam
+    // metin verdi) — gerçek değer (11.413) en düşük bracket'i seçen bir
+    // okuyucu için bu dalı tetikler. Simetrik UI metni, uncertainty list'te.
+    aboveBracketLabel: ls("The record came in higher.", "Kayıt daha yüksek çıktı."),
+    derivedReading: inlineReading(
+      ls("What it cost per customer", "Müşteri başına maliyeti"),
+      lt(
+        "The reported build spend divided by the customers on the books at closure works out to around £8,760 per customer. The hundred million pounds is a reported build figure rather than a filed total spend, the customer count is at closure rather than at peak, and the division is arithmetic done here rather than a figure anyone published.",
+        "Raporlanan yapım harcamasının kapanıştaki müşteri sayısına bölünmesi, müşteri başına yaklaşık 8.760 sterline denk geliyor. Yüz milyon rakamı dosyalanmış bir toplam harcama değil raporlanmış bir yapım rakamı, müşteri sayısı zirvede değil kapanışta, ve bölme işlemi burada yapılan bir aritmetik, kimsenin yayınladığı bir rakam değil.",
+      ),
+    ),
   },
 
   // Day 000 · THE CALL 1
@@ -278,15 +291,13 @@ const episodeBlocks = [
       "Bir banka, ayrı bir lisans başvurusu yapmak yerine kendi bankacılık lisansı üzerinde bağımsız bir dijital marka başlatıyor. Kural mı, karar mı?",
     ),
     answer: "decision",
-    reveal: [
-      inlineReading(
-        ls("A trade with a shape", "Şekli olan bir takas"),
-        lt(
-          "Operating under the parent's banking licence removed the licensing timeline and cost. In exchange, the product inherited RBS's compliance surface, incident process and audit trail. That is a trade with a shape, not a mistake and not something any rule forced.",
-          "Ana şirketin bankacılık lisansı altında çalışmak, lisanslama süresini ve maliyetini ortadan kaldırdı. Karşılığında ürün, RBS'in uyum yüzeyini, olay sürecini ve denetim izini devraldı. Bu, şekli olan bir takas, ne bir hata ne de bir kuralın zorunlu kıldığı bir şey.",
-        ),
+    reveal: inlineReading(
+      ls("A trade with a shape", "Şekli olan bir takas"),
+      lt(
+        "Operating under the parent's banking licence removed the licensing timeline and cost. In exchange, the product inherited RBS's compliance surface, incident process and audit trail. That is a trade with a shape, not a mistake and not something any rule forced.",
+        "Ana şirketin bankacılık lisansı altında çalışmak, lisanslama süresini ve maliyetini ortadan kaldırdı. Karşılığında ürün, RBS'in uyum yüzeyini, olay sürecini ve denetim izini devraldı. Bu, şekli olan bir takas, ne bir hata ne de bir kuralın zorunlu kıldığı bir şey.",
       ),
-    ],
+    ),
   },
 
   // Day 037 · PSD2 compliance cut off
@@ -343,16 +354,23 @@ const episodeBlocks = [
       "Bir ürünün ilk haftalarında çıkarılan bir kart stoğunun değiştirilmesi gerekiyor. Kural mı, karar mı?",
     ),
     answer: "rule",
-    reveal: [
-      inlineReading(
-        ls("What a compliance deadline does", "Bir uyum son tarihinin yaptığı şey"),
-        lt(
-          "A card reissue at week eleven is not one cost but three events: manufacture, delivery, and reactivation. The expensive one is the third, because it lands on a customer who has only just finished onboarding. PSD2 and the Strong Customer Authentication requirements forced the replacement itself. They did not choose which moment in a customer's life that replacement would land on.",
-          "On birinci haftadaki bir kart yeniden verme işlemi tek bir maliyet değil üç olaydır: üretim, teslimat ve yeniden etkinleştirme. Pahalı olan üçüncüsüdür, çünkü daha yeni katılım sağlamış bir müşteriye düşer. PSD2 ve Güçlü Müşteri Kimlik Doğrulaması gereksinimleri değişimin kendisini zorladı. Bu değişimin bir müşterinin hayatının hangi anına denk geleceğini seçmediler.",
-        ),
+    reveal: inlineReading(
+      ls("What a compliance deadline does", "Bir uyum son tarihinin yaptığı şey"),
+      lt(
+        "A card reissue at week eleven is not one cost but three events: manufacture, delivery, and reactivation. The expensive one is the third, because it lands on a customer who has only just finished onboarding. PSD2 and the Strong Customer Authentication requirements forced the replacement itself. They did not choose which moment in a customer's life that replacement would land on.",
+        "On birinci haftadaki bir kart yeniden verme işlemi tek bir maliyet değil üç olaydır: üretim, teslimat ve yeniden etkinleştirme. Pahalı olan üçüncüsüdür, çünkü daha yeni katılım sağlamış bir müşteriye düşer. PSD2 ve Güçlü Müşteri Kimlik Doğrulaması gereksinimleri değişimin kendisini zorladı. Bu değişimin bir müşterinin hayatının hangi anına denk geleceğini seçmediler.",
       ),
-    ],
+    ),
   },
+
+  // Day 070 · fspark9 note (habit costs)
+  note(
+    "2020-02-05",
+    lt(
+      "This is what that habit costs in practice. A compliance deadline landing three months into a product's life is not a technical problem, it is an operational one, and how fast an organisation can turn a card estate over is decided long before the deadline exists.",
+      "Bu alışkanlığın pratikte maliyeti işte bu. Bir ürünün hayatının üçüncü ayına denk gelen bir uyum son tarihi teknik bir sorun değil, operasyonel bir sorundur; bir kuruluşun bir kart stoğunu ne kadar hızlı devredebileceği, son tarih var olmadan çok önce belirlenir.",
+    ),
+  ),
 
   // Day 070 · THE WEIGH
   {
@@ -391,14 +409,6 @@ const episodeBlocks = [
         ),
       },
     ],
-    revealGap: inlineGap(
-      ls("No published cost", "Yayınlanmış bir maliyet yok"),
-      lt(
-        "No cost figure for the reissue appears in the public record. No per card cost, no operational cost, no retention effect was published.",
-        "Yeniden verme işlemi için kamuya açık kayıtta bir maliyet rakamı yer almıyor. Kart başına maliyet, operasyonel maliyet ya da elde tutma etkisi hiç yayınlanmadı.",
-      ),
-      ls("A parent disclosure or a filed document.", "Bir ana şirket açıklaması ya da dosyalanmış bir belge."),
-    ),
     revealReading: inlineReading(
       ls("Three events, not one cost", "Bir maliyet değil, üç olay"),
       lt(
@@ -446,20 +456,6 @@ const episodeBlocks = [
     },
   },
 
-  // Discrepancy gap (NEW, replaces the old undated CEO gap)
-  {
-    _type: "sparkGap" as const,
-    _key: key(),
-    date: "2020-02-14",
-    heading: ls("Two published dates for the same departure", "Aynı ayrılış için iki yayınlanmış tarih"),
-    body: lt(
-      "A later report places the chief executive's departure in January. The confirmation report places it on 14 February, with immediate effect. Both are press.",
-      "Daha sonraki bir haber, Genel Müdür'ün ayrılışını Ocak ayına yerleştiriyor. Doğrulama haberi ise bunu 14 Şubat'a, derhal yürürlüğe girecek şekilde yerleştiriyor. İkisi de basın kaynağı.",
-    ),
-    whereItWouldBe: ls("The RBS full year results, 14 February 2020.", "RBS'in yıllık sonuç açıklaması, 14 Şubat 2020."),
-    invitesCorrection: true,
-  },
-
   // Day 079 · THE SIGNAL (NEW)
   {
     _type: "sparkSignal" as const,
@@ -487,6 +483,15 @@ const episodeBlocks = [
       ),
     ),
   },
+
+  // Day 079 · fspark9 note (leadership timing)
+  note(
+    "2020-02-14",
+    lt(
+      "Leadership movement packed into a young product's first quarter is a real constraint on what that product can do next, and the public record almost never says what else was happening inside the business at the time. Choosing to stop rather than keep funding something through that kind of disruption is a defensible call, even though stopping five months after a high-profile launch will always read, from the outside, as a failure. Sometimes the harder and more disciplined move is recognising quickly that something is not the right fit, rather than letting a mismatch run for the sake of not looking like it stopped.",
+      "Genç bir ürünün ilk çeyreğine sıkışan liderlik hareketliliği, o ürünün bundan sonra ne yapabileceği üzerinde gerçek bir kısıtlama yaratır, ve kamuya açık kayıt işletmenin içinde o sırada başka neler olduğunu neredeyse hiç söylemez. Böyle bir karışıklık boyunca bir şeyi fonlamaya devam etmek yerine durdurmayı seçmek savunulabilir bir karardır, yüksek profilli bir lansmandan beş ay sonra durmak dışarıdan her zaman bir başarısızlık gibi okunsa bile. Bazen daha zor ve daha disiplinli hamle, bir uyumsuzluğun durmuş gibi görünmemek uğruna sürmesine izin vermek yerine, bir şeyin doğru uyum olmadığını hızlıca fark etmektir.",
+    ),
+  ),
 
   // Day 108 · deactivation
   {
@@ -518,16 +523,13 @@ const episodeBlocks = [
       "On bir haftalık bir ürüne bir kart yeniden verme işlemi müşteri açısından neye mal oldu?",
     ),
     answer: "unsettled",
-    reveal: [
-      inlineGap(
-        ls("No published figure", "Yayınlanmış bir rakam yok"),
-        lt(
-          "The public record does not carry it. No customer number was published between launch and closure.",
-          "Kamuya açık kayıt bunu taşımıyor. Lansman ile kapanış arasında hiçbir müşteri rakamı yayınlanmadı.",
-        ),
-        ls("A parent disclosure or a filed document.", "Bir ana şirket açıklaması ya da dosyalanmış bir belge."),
+    reveal: inlineReading(
+      ls("No published figure", "Yayınlanmış bir rakam yok"),
+      lt(
+        "The public record does not carry it. No customer number was published between launch and closure.",
+        "Kamuya açık kayıt bunu taşımıyor. Lansman ile kapanış arasında hiçbir müşteri rakamı yayınlanmadı.",
       ),
-    ],
+    ),
   },
 
   // Day 146 · Purdue departure (NEW), no mechanic
@@ -568,29 +570,6 @@ const episodeBlocks = [
     },
   },
 
-  // Day 156 · THE ESTIMATE 1 resolves
-  {
-    _type: "sparkEstimateReveal" as const,
-    _key: key(),
-    date: "2020-05-01",
-    estimateBlockId: "estimate-customers",
-    actualValue: 11413,
-    actualLabel: ls("11,413 customers", "11.413 müşteri"),
-    insideBracketLabel: ls("The record is inside your bracket.", "Kayıt sizin aralığınızın içinde."),
-    belowBracketLabel: ls("The record came in lower.", "Kayıt daha düşük çıktı."),
-    // Brief bu durumu tarif etmedi (sadece "inside" ve "lower" için tam
-    // metin verdi) — gerçek değer (11.413) en düşük bracket'i seçen bir
-    // okuyucu için bu dalı tetikler. Simetrik UI metni, uncertainty list'te.
-    aboveBracketLabel: ls("The record came in higher.", "Kayıt daha yüksek çıktı."),
-    derivedReading: inlineReading(
-      ls("What it cost per customer", "Müşteri başına maliyeti"),
-      lt(
-        "The reported build spend divided by the customers on the books at closure works out to around £8,760 per customer. The hundred million pounds is a reported build figure rather than a filed total spend, the customer count is at closure rather than at peak, and the division is arithmetic done here rather than a figure anyone published.",
-        "Raporlanan yapım harcamasının kapanıştaki müşteri sayısına bölünmesi, müşteri başına yaklaşık 8.760 sterline denk geliyor. Yüz milyon rakamı dosyalanmış bir toplam harcama değil raporlanmış bir yapım rakamı, müşteri sayısı zirvede değil kapanışta, ve bölme işlemi burada yapılan bir aritmetik, kimsenin yayınladığı bir rakam değil.",
-      ),
-    ),
-  },
-
   // Day 156 · THE CALL 4
   {
     _type: "sparkCall" as const,
@@ -599,15 +578,13 @@ const episodeBlocks = [
     date: "2020-05-01",
     prompt: lt("The closure. Rule, or decision?", "Kapanış. Kural mı, karar mı?"),
     answer: "decision",
-    reveal: [
-      inlineReading(
-        ls("No rule closed Bó", "Bó'yu hiçbir kural kapatmadı"),
-        lt(
-          "No rule closed Bó. There was no supervisory action, no enforcement, no licence problem, no insolvency. The PSD2 reissue was a rule doing something concrete and expensive to a young card estate, but it was not what ended the product. Holding those two apart is the point of this episode.",
-          "Bó'yu hiçbir kural kapatmadı. Herhangi bir denetim önlemi, yaptırım, lisans sorunu ya da iflas yoktu. PSD2 yeniden verme işlemi, genç bir kart stoğuna somut ve maliyetli bir şey yapan bir kuraldı, ama ürünü kapatan bu değildi. Bu ikisini birbirinden ayrı tutmak bu bölümün asıl meselesi.",
-        ),
+    reveal: inlineReading(
+      ls("No rule closed Bó", "Bó'yu hiçbir kural kapatmadı"),
+      lt(
+        "No rule closed Bó. There was no supervisory action, no enforcement, no licence problem, no insolvency. The PSD2 reissue was a rule doing something concrete and expensive to a young card estate, but it was not what ended the product. Holding those two apart is the point of this episode.",
+        "Bó'yu hiçbir kural kapatmadı. Herhangi bir denetim önlemi, yaptırım, lisans sorunu ya da iflas yoktu. PSD2 yeniden verme işlemi, genç bir kart stoğuna somut ve maliyetli bir şey yapan bir kuraldı, ama ürünü kapatan bu değildi. Bu ikisini birbirinden ayrı tutmak bu bölümün asıl meselesi.",
       ),
-    ],
+    ),
   },
 
   // Day 156 · THE SECOND OPINION (NEW)
@@ -718,52 +695,16 @@ const episodeBlocks = [
     ),
     restsOn: ["record-cma-letter"],
   },
-  {
-    _type: "sparkGap" as const,
-    _key: key(),
-    date: "2021-06-22",
-    heading: ls("Why opt in, and when corrected", "Neden opt in, ve ne zaman düzeltildi"),
-    body: lt(
-      "The letter does not state why the process was opt in rather than opt out, or when it was corrected.",
-      "Mektup, sürecin neden opt out yerine opt in olduğunu, ya da ne zaman düzeltildiğini belirtmiyor.",
-    ),
-    whereItWouldBe: ls(
-      "NatWest Group's subsequent compliance reporting to the CMA, not reviewed.",
-      "NatWest Group'un CMA'ya sonraki uyum raporlaması, incelenmedi.",
-    ),
-    invitesCorrection: true,
-  },
-];
 
-// Expert Notes — bölüm sonunda tek, imzalı bölüm (final brief §1).
-// İlk üçü daha önce onaylanmış içerikten birebir. Orijinal Faz 1
-// brief'in "leadership movement" notu buraya EKLENDİ (tarih artık
-// belirlendiği için "the date is not established" varsayımı geçersiz,
-// ama notun asıl noktası, liderlik hareketliliğinin gerçek bir
-// kısıtlama olması, hâlâ geçerli). Orijinal day156 notu ("Retail
-// digital banking in the UK was already crowded...") DÜŞÜRÜLDÜ, çünkü
-// içeriği artık SECOND OPINION'ın Reading B'siyle neredeyse birebir
-// çakışıyor — aynı argümanı iki kere tekrarlamamak için (handback'te
-// işaretli).
-const expertNotes = [
-  lt(
-    "A high street bank and a digital-first challenger are not solving the same problem with different branding. They are running different operating models, and the gap between them shows up in places that are easy to underrate from the outside. Speed of the kind these products need is not a feature you add later. It is closer to an organisational habit, and habits built for a different kind of banking do not transfer quickly.",
-    "Bir şubeli banka ile dijital öncelikli bir meydan okuyucu, aynı sorunu farklı bir markalamayla çözmüyor. Farklı işletim modelleri yürütüyorlar, ve aralarındaki fark, dışarıdan bakınca hafife alınması kolay yerlerde ortaya çıkıyor. Bu tür ürünlerin ihtiyaç duyduğu hız, sonradan eklenen bir özellik değildir. Kurumsal bir alışkanlığa daha yakındır, ve farklı bir bankacılık türü için kurulmuş alışkanlıklar hızlı aktarılmaz.",
-  ),
-  lt(
-    "This is what that habit costs in practice. A compliance deadline landing three months into a product's life is not a technical problem, it is an operational one, and how fast an organisation can turn a card estate over is decided long before the deadline exists.",
-    "Bu alışkanlığın pratikte maliyeti işte bu. Bir ürünün hayatının üçüncü ayına denk gelen bir uyum son tarihi teknik bir sorun değil, operasyonel bir sorundur; bir kuruluşun bir kart stoğunu ne kadar hızlı devredebileceği, son tarih var olmadan çok önce belirlenir.",
-  ),
-  lt(
-    "Leadership movement packed into a young product's first quarter is a real constraint on what that product can do next, and the public record almost never says what else was happening inside the business at the time. Choosing to stop rather than keep funding something through that kind of disruption is a defensible call, even though stopping five months after a high-profile launch will always read, from the outside, as a failure. Sometimes the harder and more disciplined move is recognising quickly that something is not the right fit, rather than letting a mismatch run for the sake of not looking like it stopped.",
-    "Genç bir ürünün ilk çeyreğine sıkışan liderlik hareketliliği, o ürünün bundan sonra ne yapabileceği üzerinde gerçek bir kısıtlama yaratır, ve kamuya açık kayıt işletmenin içinde o sırada başka neler olduğunu neredeyse hiç söylemez. Böyle bir karışıklık boyunca bir şeyi fonlamaya devam etmek yerine durdurmayı seçmek savunulabilir bir karardır, yüksek profilli bir lansmandan beş ay sonra durmak dışarıdan her zaman bir başarısızlık gibi okunsa bile. Bazen daha zor ve daha disiplinli hamle, bir uyumsuzluğun durmuş gibi görünmemek uğruna sürmesine izin vermek yerine, bir şeyin doğru uyum olmadığını hızlıca fark etmektir.",
-  ),
-  lt(
-    "Worth saying, because it rarely gets said about neobanks generally: running a retail digital bank at any real scale is hard in ways that have nothing to do with strategy. New account opening is one of the first things fraudsters test against any new digital bank. A retail product aimed at mass adoption needs servicing infrastructure, statements, transaction histories, complaints handling, built to handle volume correctly from day one, not bolted on afterward. That weight is a real part of what building a proper digital challenger costs, on top of the technology itself.",
-    "Söylemeye değer, çünkü genel olarak neobankalar hakkında nadiren söylenir: bir perakende dijital bankayı gerçek bir ölçekte yürütmek, stratejiyle hiçbir ilgisi olmayan şekillerde zordur. Yeni hesap açma, dolandırıcıların herhangi bir yeni dijital bankaya karşı ilk test ettiği şeylerden biridir. Kitlesel benimsemeyi hedefleyen bir perakende ürünü, sonradan eklenmek yerine ilk günden itibaren hacmi doğru şekilde kaldıracak şekilde kurulmuş servis altyapısına, hesap özetlerine, hesap hareketleri dökümlerine, şikâyet yönetimine ihtiyaç duyar. Bu yük, teknolojinin kendisinin üzerine, düzgün bir dijital meydan okuyucu kurmanın gerçek bir maliyet parçasıdır.",
+  // Day 605 · fspark9 note (neobank operational difficulty)
+  note(
+    "2021-06-22",
+    lt(
+      "Worth saying, because it rarely gets said about neobanks generally: running a retail digital bank at any real scale is hard in ways that have nothing to do with strategy. New account opening is one of the first things fraudsters test against any new digital bank. A retail product aimed at mass adoption needs servicing infrastructure, statements, transaction histories, complaints handling, built to handle volume correctly from day one, not bolted on afterward. That weight is a real part of what building a proper digital challenger costs, on top of the technology itself.",
+      "Söylemeye değer, çünkü genel olarak neobankalar hakkında nadiren söylenir: bir perakende dijital bankayı gerçek bir ölçekte yürütmek, stratejiyle hiçbir ilgisi olmayan şekillerde zordur. Yeni hesap açma, dolandırıcıların herhangi bir yeni dijital bankaya karşı ilk test ettiği şeylerden biridir. Kitlesel benimsemeyi hedefleyen bir perakende ürünü, sonradan eklenmek yerine ilk günden itibaren hacmi doğru şekilde kaldıracak şekilde kurulmuş servis altyapısına, hesap özetlerine, hesap hareketleri dökümlerine, şikâyet yönetimine ihtiyaç duyar. Bu yük, teknolojinin kendisinin üzerine, düzgün bir dijital meydan okuyucu kurmanın gerçek bir maliyet parçasıdır.",
+    ),
   ),
 ];
-
 
 const sparkEpisodeDoc = {
   _id: "sparkEpisode-01-bo",
@@ -792,7 +733,6 @@ const sparkEpisodeDoc = {
   evidenceTakenAt: new Date().toISOString().slice(0, 10),
   lastCheckedAt: new Date().toISOString().slice(0, 10),
   blocks: episodeBlocks,
-  expertNotes,
 };
 
 async function main() {

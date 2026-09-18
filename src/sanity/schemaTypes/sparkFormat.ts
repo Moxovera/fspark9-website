@@ -94,20 +94,20 @@ export default defineType({
     }),
     defineField({
       name: "noteLabel",
-      title: "fspark9 Note label (e.g. \"fspark9 · Note\"), per-card inside Expert Notes",
+      title: "fspark9 Note label (e.g. \"fspark9 · Note\"), rozette gövde içinde ilgili bloğun ardında",
       type: "localeString",
     }),
     // Final interaction brief (17 Eylül 2026) — mekanik kelime dağarcığı.
     // Format seviyesinde, çünkü her biri sabit arayüz metni, bölüme
     // özel bir içerik değil (bkz. sparkEpisodeBlocks.ts).
     //
-    // Blok tipi mono etiketleri (RECORD/READING/GAP) orijinal Faz 1
-    // brief'inin kendi tablosundan birebir (KAYIT/OKUMA/BOŞLUK). Altı
-    // mekanik adı (callLabel...allocationLabel) için brief TR karşılığı
-    // vermedi, kendi çevirim — uncertainty list'te işaretli.
+    // Blok tipi mono etiketleri (RECORD/READING) orijinal Faz 1 brief'inin
+    // kendi tablosundan birebir (KAYIT/OKUMA). GAP kaldırıldı (18 Eylül
+    // 2026, kullanıcı talebi). Altı mekanik adı (callLabel...
+    // allocationLabel) için brief TR karşılığı vermedi, kendi çevirim —
+    // uncertainty list'te işaretli.
     defineField({ name: "recordLabel", title: "Block label — RECORD", type: "localeString" }),
     defineField({ name: "readingLabel", title: "Block label — READING", type: "localeString" }),
-    defineField({ name: "gapLabel", title: "Block label — GAP", type: "localeString" }),
     defineField({ name: "callLabel", title: "Mechanic label — THE CALL", type: "localeString" }),
     defineField({ name: "estimateLabel", title: "Mechanic label — THE ESTIMATE", type: "localeString" }),
     defineField({ name: "weighLabel", title: "Mechanic label — THE WEIGH", type: "localeString" }),
@@ -140,33 +140,8 @@ export default defineType({
       type: "localeString",
     }),
     defineField({
-      name: "estimateHeldLabel",
-      title: "The Estimate — \"held until the record opens\" notice",
-      type: "localeText",
-    }),
-    defineField({
-      name: "correctionInviteLabel",
-      title: "Gap — correction invite line (no address exists yet, plain text only)",
-      type: "localeString",
-    }),
-    defineField({
       name: "allocationCommitLabel",
       title: "The Allocation — commit button label (e.g. \"Lock in this split\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "ledgerToggleLabel",
-      title: "Ledger toggle label (\"Show the record only\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "expertNotesHeading",
-      title: "Expert Notes section heading",
-      type: "localeString",
-    }),
-    defineField({
-      name: "expertNotesSignature",
-      title: "Expert Notes signature line",
       type: "localeString",
     }),
     defineField({

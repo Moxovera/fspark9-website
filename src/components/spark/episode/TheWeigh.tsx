@@ -15,13 +15,11 @@ interface TheWeighProps {
 /**
  * Skorlanmayan ilk mekanik. "There is no right answer here. Pick the
  * one you would defend." commit'ten ÖNCE görünür (bkz. final
- * interaction brief §6). Reveal SIRAYLA: önce gap, sonra reading.
- * Okuyucunun seçimi asla işaretlenmez — highlight yok, "most readers
- * chose" yok, sayaç yok.
+ * interaction brief §6). Okuyucunun seçimi asla işaretlenmez —
+ * highlight yok, "most readers chose" yok, sayaç yok.
  */
 export default function TheWeigh({ block, launchDate, dayLabel, vocabulary }: TheWeighProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
   const picked = state.weighs[block.blockId];
@@ -65,16 +63,7 @@ export default function TheWeigh({ block, launchDate, dayLabel, vocabulary }: Th
 
       {picked && (
         <div className="mt-6 flex flex-col gap-4">
-          <RevealItem
-            item={{ _type: "sparkInlineGap", ...block.revealGap }}
-            readingLabel={vocabulary.readingLabel}
-            gapLabel={vocabulary.gapLabel}
-          />
-          <RevealItem
-            item={{ _type: "sparkInlineReading", ...block.revealReading }}
-            readingLabel={vocabulary.readingLabel}
-            gapLabel={vocabulary.gapLabel}
-          />
+          <RevealItem item={block.revealReading} readingLabel={vocabulary.readingLabel} />
         </div>
       )}
     </div>

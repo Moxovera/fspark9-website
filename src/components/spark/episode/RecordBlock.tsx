@@ -11,8 +11,8 @@ interface RecordBlockProps {
 /**
  * Part 0 kural 3: "Fact and reading must be told apart in the layout
  * itself." Navy dolu 3px sol çizgi + "RECORD"/"KAYIT" mono etiket —
- * asla sadece renkle ayırt edilmez (bkz. GapBlock/ReadingBlock'un
- * kendi çizgi/etiket kombinasyonu). `id={block.blockId}` ReadingBlock'un
+ * asla sadece renkle ayırt edilmez (bkz. ReadingBlock'un kendi
+ * çizgi/etiket kombinasyonu). `id={block.blockId}` ReadingBlock'un
  * restsOn çipleri buraya bağlanabilsin diye. `data-spark-day` EpisodeClock'un
  * IntersectionObserver'ı için — hesaplanan gün numarası her zaman
  * launchDate + bu bloğun date'inden türetilir, elle girilmiş bir gün

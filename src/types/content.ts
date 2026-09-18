@@ -226,20 +226,6 @@ export interface SparkInlineReading {
   body: string
 }
 
-export interface SparkInlineGap {
-  heading: string
-  body: string
-  whereItWouldBe?: string
-  invitesCorrection: boolean
-}
-
-// Mekanik reveal'ları (Call/Weigh/Signal/Allocation) bu iki şekilden
-// birini taşır, _type ile ayırt edilir (Sanity'nin array-of-object
-// elemanlarına otomatik verdiği alan).
-export type SparkRevealItem =
-  | ({ _type: 'sparkInlineReading' } & SparkInlineReading)
-  | ({ _type: 'sparkInlineGap' } & SparkInlineGap)
-
 export interface SparkRecordBlock {
   _type: 'sparkRecord'
   blockId: string
@@ -259,15 +245,6 @@ export interface SparkReadingBlock {
   restsOn: string[]
 }
 
-export interface SparkGapBlock {
-  _type: 'sparkGap'
-  date: string | null
-  heading: string
-  body: string
-  whereItWouldBe?: string
-  invitesCorrection: boolean
-}
-
 export type SparkCallAnswer = 'rule' | 'decision' | 'unsettled'
 
 export interface SparkCallBlock {
@@ -276,7 +253,7 @@ export interface SparkCallBlock {
   date: string
   prompt: string
   answer: SparkCallAnswer
-  reveal: SparkRevealItem[]
+  reveal: SparkInlineReading
 }
 
 export interface SparkEstimateBracket {
@@ -285,18 +262,15 @@ export interface SparkEstimateBracket {
   max: number | null // null = açık uçlu en üst aralık
 }
 
+// Okuyucu bracket'ı seçtiği anda actualValue/derivedReading AYNI yerde
+// açılır — ayrı, sayfa sonuna kadar tutulan bir reveal bloğu YOK (18
+// Eylül 2026, kullanıcı talebi: "cevapları hemen görsün").
 export interface SparkEstimateBlock {
   _type: 'sparkEstimate'
   blockId: string
   date: string
   prompt: string
   brackets: SparkEstimateBracket[] // her zaman 5, düşükten yükseğe sıralı
-}
-
-export interface SparkEstimateRevealBlock {
-  _type: 'sparkEstimateReveal'
-  date: string
-  estimateBlockId: string
   actualValue: number
   actualLabel: string
   insideBracketLabel: string
@@ -317,7 +291,6 @@ export interface SparkWeighBlock {
   prompt: string
   disclaimer: string
   options: SparkWeighOption[] // her zaman 3
-  revealGap: SparkInlineGap
   revealReading: SparkInlineReading
 }
 
@@ -354,13 +327,21 @@ export interface SparkAllocationBlock {
   revealReading: SparkInlineReading
 }
 
+// fspark9'un kendi sesi — bölüm akışının ilgili noktasına gömülü (18
+// Eylül 2026, kullanıcı talebi: "en sona eklemeyelim"), sayfa sonunda
+// konsolide bir bölüm YOK.
+export interface SparkNoteBlock {
+  _type: 'sparkNote'
+  date: string
+  body: string
+}
+
 export type SparkEpisodeBlock =
   | SparkRecordBlock
   | SparkReadingBlock
-  | SparkGapBlock
+  | SparkNoteBlock
   | SparkCallBlock
   | SparkEstimateBlock
-  | SparkEstimateRevealBlock
   | SparkWeighBlock
   | SparkSignalBlock
   | SparkSecondOpinionBlock
@@ -372,7 +353,6 @@ export type SparkEpisodeBlock =
 export interface SparkMechanicVocabulary {
   recordLabel: string
   readingLabel: string
-  gapLabel: string
   callLabel: string
   estimateLabel: string
   weighLabel: string
@@ -384,13 +364,8 @@ export interface SparkMechanicVocabulary {
   callMatchLabel: string
   callMismatchLabel: string
   callUnsettledLabel: string
-  estimateHeldLabel: string
-  correctionInviteLabel: string
   allocationCommitLabel: string
-  ledgerToggleLabel: string
   noteLabel: string
-  expertNotesHeading: string
-  expertNotesSignature: string
   scorecardHeading: string
   scorecardUnansweredLabel: string
   scorecardYourReadingLabel: string
@@ -414,7 +389,6 @@ export interface SparkEpisodePage extends SparkMechanicVocabulary {
   formatName: string
   standfirst: string
   blocks: SparkEpisodeBlock[]
-  expertNotes: string[]
   dayLabel: string // "DAY" / "GÜN"
   dayCountSingular: string
   dayCountPlural: string

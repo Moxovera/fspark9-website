@@ -28,7 +28,6 @@ export interface LastDayState {
   signals: Record<string, string>;
   opinions: Record<string, string>;
   allocations: Record<string, number>;
-  ledger: boolean;
 }
 
 const EMPTY_STATE: LastDayState = {
@@ -38,7 +37,6 @@ const EMPTY_STATE: LastDayState = {
   signals: {},
   opinions: {},
   allocations: {},
-  ledger: false,
 };
 
 let cachedState: LastDayState = EMPTY_STATE;
@@ -49,8 +47,8 @@ function readLegacyV1(): Partial<LastDayState> {
   try {
     const raw = window.localStorage.getItem(LEGACY_STORAGE_KEY);
     if (!raw) return {};
-    const legacy = JSON.parse(raw) as { calls?: Record<string, CallAnswer>; ledger?: boolean };
-    return { calls: legacy.calls ?? {}, ledger: legacy.ledger ?? false };
+    const legacy = JSON.parse(raw) as { calls?: Record<string, CallAnswer> };
+    return { calls: legacy.calls ?? {} };
   } catch {
     return {};
   }
@@ -76,7 +74,6 @@ function readFromStorage(): LastDayState {
       signals: parsed.signals ?? {},
       opinions: parsed.opinions ?? {},
       allocations: parsed.allocations ?? {},
-      ledger: parsed.ledger ?? false,
     };
     return cachedState;
   } catch {
@@ -141,11 +138,6 @@ export function setOpinionAnswer(blockId: string, optionLabel: string) {
 export function setAllocationValue(blockId: string, valueA: number) {
   const current = readFromStorage();
   writeToStorage({ ...current, allocations: { ...current.allocations, [blockId]: valueA } });
-}
-
-export function setLedgerMode(ledger: boolean) {
-  const current = readFromStorage();
-  writeToStorage({ ...current, ledger });
 }
 
 /** Bölümler arası koşan toplam etkileşim sayısı — Scorecard'ın "running cross episode count" alanı. */

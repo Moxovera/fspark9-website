@@ -22,7 +22,6 @@ interface TheSignalProps {
  */
 export default function TheSignal({ block, launchDate, dayLabel, vocabulary }: TheSignalProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
   const picked = state.signals[block.blockId];
@@ -65,11 +64,7 @@ export default function TheSignal({ block, launchDate, dayLabel, vocabulary }: T
 
       {picked && (
         <div className="mt-6">
-          <RevealItem
-            item={{ _type: "sparkInlineReading", ...block.revealReading }}
-            readingLabel={vocabulary.readingLabel}
-            gapLabel={vocabulary.gapLabel}
-          />
+          <RevealItem item={block.revealReading} readingLabel={vocabulary.readingLabel} />
         </div>
       )}
     </div>

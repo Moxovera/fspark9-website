@@ -1417,7 +1417,6 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
     "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),
     "recordLabel": select($locale == "tr" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),
     "readingLabel": select($locale == "tr" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),
-    "gapLabel": select($locale == "tr" => coalesce(format->gapLabel.tr, format->gapLabel.en), format->gapLabel.en),
     "callLabel": select($locale == "tr" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),
     "estimateLabel": select($locale == "tr" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),
     "weighLabel": select($locale == "tr" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),
@@ -1429,13 +1428,8 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
     "callMatchLabel": select($locale == "tr" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),
     "callMismatchLabel": select($locale == "tr" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),
     "callUnsettledLabel": select($locale == "tr" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),
-    "estimateHeldLabel": select($locale == "tr" => coalesce(format->estimateHeldLabel.tr, format->estimateHeldLabel.en), format->estimateHeldLabel.en),
-    "correctionInviteLabel": select($locale == "tr" => coalesce(format->correctionInviteLabel.tr, format->correctionInviteLabel.en), format->correctionInviteLabel.en),
     "allocationCommitLabel": select($locale == "tr" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),
-    "ledgerToggleLabel": select($locale == "tr" => coalesce(format->ledgerToggleLabel.tr, format->ledgerToggleLabel.en), format->ledgerToggleLabel.en),
     "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),
-    "expertNotesHeading": select($locale == "tr" => coalesce(format->expertNotesHeading.tr, format->expertNotesHeading.en), format->expertNotesHeading.en),
-    "expertNotesSignature": select($locale == "tr" => coalesce(format->expertNotesSignature.tr, format->expertNotesSignature.en), format->expertNotesSignature.en),
     "scorecardHeading": select($locale == "tr" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),
     "scorecardUnansweredLabel": select($locale == "tr" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),
     "scorecardYourReadingLabel": select($locale == "tr" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),
@@ -1464,30 +1458,18 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
         "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
         restsOn
       },
-      _type == "sparkGap" => {
+      _type == "sparkNote" => {
         date,
-        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
-        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
-        "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
-        invitesCorrection
+        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
       },
       _type == "sparkCall" => {
         blockId,
         date,
         "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
         answer,
-        "reveal": reveal[]{
-          _type,
-          _type == "sparkInlineReading" => {
-            "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
-            "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
-          },
-          _type == "sparkInlineGap" => {
-            "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
-            "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
-            "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
-            invitesCorrection
-          }
+        "reveal": reveal{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
         }
       },
       _type == "sparkEstimate" => {
@@ -1498,11 +1480,7 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
           "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
           min,
           max
-        }
-      },
-      _type == "sparkEstimateReveal" => {
-        date,
-        estimateBlockId,
+        },
         actualValue,
         "actualLabel": select($locale == "tr" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),
         "insideBracketLabel": select($locale == "tr" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),
@@ -1521,12 +1499,6 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
         "options": options[]{
           "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
           "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en)
-        },
-        "revealGap": revealGap{
-          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
-          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
-          "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
-          invitesCorrection
         },
         "revealReading": revealReading{
           "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
@@ -1572,8 +1544,7 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
           "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
         }
       }
-    },
-    "expertNotes": expertNotes[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value
+    }
   }
 `);
 
@@ -1593,14 +1564,12 @@ export function toSparkEpisodePage(
     formatName: result.formatName ?? "",
     standfirst: result.standfirst ?? "",
     blocks: (result.blocks ?? []) as SparkEpisodePage["blocks"],
-    expertNotes: (result.expertNotes ?? []).filter((note): note is string => note !== null),
     dayLabel: result.dayLabel ?? "",
     dayCountSingular: result.dayCountSingular ?? "",
     dayCountPlural: result.dayCountPlural ?? "",
     dayNotEstablishedLabel: result.dayNotEstablishedLabel ?? "",
     recordLabel: result.recordLabel ?? "",
     readingLabel: result.readingLabel ?? "",
-    gapLabel: result.gapLabel ?? "",
     callLabel: result.callLabel ?? "",
     estimateLabel: result.estimateLabel ?? "",
     weighLabel: result.weighLabel ?? "",
@@ -1612,13 +1581,8 @@ export function toSparkEpisodePage(
     callMatchLabel: result.callMatchLabel ?? "",
     callMismatchLabel: result.callMismatchLabel ?? "",
     callUnsettledLabel: result.callUnsettledLabel ?? "",
-    estimateHeldLabel: result.estimateHeldLabel ?? "",
-    correctionInviteLabel: result.correctionInviteLabel ?? "",
     allocationCommitLabel: result.allocationCommitLabel ?? "",
-    ledgerToggleLabel: result.ledgerToggleLabel ?? "",
     noteLabel: result.noteLabel ?? "",
-    expertNotesHeading: result.expertNotesHeading ?? "",
-    expertNotesSignature: result.expertNotesSignature ?? "",
     scorecardHeading: result.scorecardHeading ?? "",
     scorecardUnansweredLabel: result.scorecardUnansweredLabel ?? "",
     scorecardYourReadingLabel: result.scorecardYourReadingLabel ?? "",

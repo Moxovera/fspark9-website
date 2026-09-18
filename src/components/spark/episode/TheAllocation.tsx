@@ -22,7 +22,6 @@ interface TheAllocationProps {
  */
 export default function TheAllocation({ block, launchDate, dayLabel, vocabulary }: TheAllocationProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
   const committed = state.allocations[block.blockId];
@@ -72,11 +71,7 @@ export default function TheAllocation({ block, launchDate, dayLabel, vocabulary 
 
       {hasCommitted && (
         <div className="mt-6">
-          <RevealItem
-            item={{ _type: "sparkInlineReading", ...block.revealReading }}
-            readingLabel={vocabulary.readingLabel}
-            gapLabel={vocabulary.gapLabel}
-          />
+          <RevealItem item={block.revealReading} readingLabel={vocabulary.readingLabel} />
         </div>
       )}
     </div>

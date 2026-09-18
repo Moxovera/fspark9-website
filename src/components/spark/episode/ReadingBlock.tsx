@@ -11,7 +11,7 @@ interface ReadingBlockProps {
 
 /**
  * Bronz dolu 3px sol çizgi + "READING"/"OKUMA" mono etiket — RecordBlock'un
- * navy/GapBlock'un kesik çizgisinden ayrı, asla sadece renkle değil.
+ * navy çizgisinden ayrı, asla sadece renkle değil.
  * `restsOn` orijinal brief'te "decoration değil" diye tarif edildi — her
  * zaman en az bir kayda dayanır, burada o kayıtlara giden küçük çipler
  * olarak render edilir (bkz. sparkEpisodeBlocks.ts yorumu: aynı doküman

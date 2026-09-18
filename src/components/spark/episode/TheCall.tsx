@@ -17,11 +17,10 @@ interface TheCallProps {
  * "Only The Call is scored, and only against the record"). Kilitlenen
  * seçim asla "yanlış" diye etiketlenmez — eşleşmiyorsa "the record went
  * the other way" (bkz. orijinal brief'in TheCall notu), answer
- * "unsettled" ise gap çerçevesi. Ledger modunda tamamen gizlenir.
+ * "unsettled" ise düz bir reading olarak çerçevelenir.
  */
 export default function TheCall({ block, launchDate, dayLabel, vocabulary }: TheCallProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
   const picked = state.calls[block.blockId];
@@ -71,9 +70,7 @@ export default function TheCall({ block, launchDate, dayLabel, vocabulary }: The
 
       {picked && (
         <div className="mt-6 flex flex-col gap-4">
-          {block.reveal.map((item, index) => (
-            <RevealItem key={index} item={item} readingLabel={vocabulary.readingLabel} gapLabel={vocabulary.gapLabel} />
-          ))}
+          <RevealItem item={block.reveal} readingLabel={vocabulary.readingLabel} />
           <p className="font-mono text-xs tracking-[0.04em] text-muted">{comparisonLabel}</p>
         </div>
       )}

@@ -21,7 +21,6 @@ interface SecondOpinionProps {
  */
 export default function SecondOpinion({ block, launchDate, dayLabel, vocabulary }: SecondOpinionProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
   const picked = state.opinions[block.blockId];
@@ -65,16 +64,8 @@ export default function SecondOpinion({ block, launchDate, dayLabel, vocabulary 
       {picked && (
         <div className="mt-6 flex flex-col gap-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <RevealItem
-              item={{ _type: "sparkInlineReading", ...block.readingA }}
-              readingLabel={vocabulary.readingLabel}
-              gapLabel={vocabulary.gapLabel}
-            />
-            <RevealItem
-              item={{ _type: "sparkInlineReading", ...block.readingB }}
-              readingLabel={vocabulary.readingLabel}
-              gapLabel={vocabulary.gapLabel}
-            />
+            <RevealItem item={block.readingA} readingLabel={vocabulary.readingLabel} />
+            <RevealItem item={block.readingB} readingLabel={vocabulary.readingLabel} />
           </div>
           <p className="max-w-[62ch] border-t border-bronze/20 pt-4 text-[1.02rem] leading-[1.6] font-medium text-bronze">
             {block.closingLine}

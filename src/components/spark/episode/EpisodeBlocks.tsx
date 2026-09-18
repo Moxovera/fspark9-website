@@ -1,10 +1,8 @@
 import RecordBlock from "@/components/spark/episode/RecordBlock";
 import ReadingBlock from "@/components/spark/episode/ReadingBlock";
-import GapBlock from "@/components/spark/episode/GapBlock";
-import LedgerGate from "@/components/spark/episode/LedgerGate";
+import EpisodeNote from "@/components/spark/episode/EpisodeNote";
 import TheCall from "@/components/spark/episode/TheCall";
 import TheEstimate from "@/components/spark/episode/TheEstimate";
-import TheEstimateReveal from "@/components/spark/episode/TheEstimateReveal";
 import TheWeigh from "@/components/spark/episode/TheWeigh";
 import TheSignal from "@/components/spark/episode/TheSignal";
 import SecondOpinion from "@/components/spark/episode/SecondOpinion";
@@ -19,12 +17,12 @@ interface EpisodeBlocksProps {
 }
 
 /**
- * Final interaction brief — tek sıralı `blocks` dizisini gezip her
- * _type için doğru bileşeni render eder. RecordBlock/GapBlock her
- * zaman görünür (server component, ledger'a bakmaz); ReadingBlock
- * LedgerGate ile sarmalanır (server kalır, sadece görünürlüğü client
- * tarafından kontrol edilir); altı mekanik kendi ledger kontrolünü
- * kendi içinde yapar (bkz. her birinin kendi dosyası).
+ * Tek sıralı `blocks` dizisini gezip her _type için doğru bileşeni
+ * render eder. Her şey her zaman görünür (18 Eylül 2026, kullanıcı
+ * talebi: Ledger tamamen kaldırıldı) — gizlenen hiçbir blok yok.
+ * `sparkNote` (fspark9'un kendi sesi) gövde akışının içinde, ilgili
+ * olduğu noktada render edilir, sayfa sonunda konsolide bir bölüm
+ * DEĞİL.
  */
 export default function EpisodeBlocks({ blocks, launchDate, dayLabel, vocabulary }: EpisodeBlocksProps) {
   const recordsById = new Map<string, SparkRecordBlock>(
@@ -47,27 +45,17 @@ export default function EpisodeBlocks({ blocks, launchDate, dayLabel, vocabulary
             );
           case "sparkReading":
             return (
-              <LedgerGate key={index}>
-                <ReadingBlock
-                  block={block}
-                  launchDate={launchDate}
-                  dayLabel={dayLabel}
-                  readingLabel={vocabulary.readingLabel}
-                  recordsById={recordsById}
-                />
-              </LedgerGate>
-            );
-          case "sparkGap":
-            return (
-              <GapBlock
+              <ReadingBlock
                 key={index}
                 block={block}
                 launchDate={launchDate}
                 dayLabel={dayLabel}
-                gapLabel={vocabulary.gapLabel}
-                correctionInviteLabel={vocabulary.correctionInviteLabel}
+                readingLabel={vocabulary.readingLabel}
+                recordsById={recordsById}
               />
             );
+          case "sparkNote":
+            return <EpisodeNote key={index} body={block.body} label={vocabulary.noteLabel} />;
           case "sparkCall":
             return (
               <TheCall key={block.blockId} block={block} launchDate={launchDate} dayLabel={dayLabel} vocabulary={vocabulary} />
@@ -82,22 +70,6 @@ export default function EpisodeBlocks({ blocks, launchDate, dayLabel, vocabulary
                 vocabulary={vocabulary}
               />
             );
-          case "sparkEstimateReveal": {
-            const estimate = blocks.find(
-              (b): b is Extract<SparkEpisodeBlock, { _type: "sparkEstimate" }> =>
-                b._type === "sparkEstimate" && b.blockId === block.estimateBlockId,
-            );
-            return (
-              <TheEstimateReveal
-                key={index}
-                block={block}
-                estimate={estimate}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
-          }
           case "sparkWeigh":
             return (
               <TheWeigh

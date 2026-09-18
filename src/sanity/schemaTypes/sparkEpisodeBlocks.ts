@@ -1,24 +1,36 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 
-// Episode 01 Bó, final interaction brief (17 Eylül 2026): Record/Reading/
-// Gap/Call modeli + altı mekanik geri getirildi (bkz. sparkEpisode.ts
-// üst yorumu — bu, daha önce bilinçli olarak kaldırılan "engaging layer"ın
-// kullanıcının açık onayıyla tersine çevrilmesi). Tüm bloklar TEK bir
-// paylaşılan `blocks` dizisinde, orijinal brief'teki gibi — alanlar
-// {en,tr} taşıyor (sparkEpisode.body'nin dil başına BAĞIMSIZ dizi
-// deseninin AKSİNE), çünkü mekanik pozisyonları ve state anahtarları
-// dilden bağımsız kalmalı.
+// Episode 01 Bó, final interaction brief (17 Eylül 2026) + kullanıcının
+// canlıyı gördükten sonraki sadeleştirme talimatı (18 Eylül 2026,
+// "diğer last day içeriklerine de uygulayalım" — yani bu format'ın
+// TÜM gelecek bölümleri için şablon):
+//
+//   - Ledger ("Sadece kaydı göster") TAMAMEN kaldırıldı — her şey
+//     her zaman görünür, gizlenen hiçbir şey yok.
+//   - Gap block type'ı TAMAMEN kaldırıldı — "böyle bir şeye gerek
+//     yok." Weigh/Call'ın gap yarısı düz reading'e döndü, bağımsız
+//     gap'ler (day079 tarih çelişkisi, day605 opt-in sorusu) silindi.
+//   - The Estimate artık HEMEN sonuçlanıyor — okuyucu bracket'ı
+//     seçtiği anda karşılaştırma + türetilmiş reading aynı yerde
+//     açılıyor, sayfa sonuna kadar bekleme YOK (sparkEstimateReveal
+//     sparkEstimate'e gömüldü).
+//   - Uzman notları (sparkNote) tekrar `blocks` dizisinin İÇİNDE,
+//     ilgili olduğu ana yerleştiriliyor — bölüm sonunda konsolide
+//     bir "Expert Notes" bölümü YOK.
+//
+// Tüm bloklar TEK bir paylaşılan `blocks` dizisinde — alanlar {en,tr}
+// taşıyor (sparkEpisode.body'nin dil başına BAĞIMSIZ dizi deseninin
+// AKSİNE), çünkü mekanik pozisyonları ve state anahtarları dilden
+// bağımsız kalmalı.
 //
 // `restsOn` orijinal brief'te Sanity reference olarak tarif edildi, ama
 // referans alanları AYNI dokümanın dizi elemanlarını hedefleyemez (sadece
-// başka dokümanları). Onun yerine her record/gap bloğu kararlı bir
-// `blockId` string'i taşıyor, reading/call/mekanik reveal'ları bu id'lere
-// string dizisiyle işaret ediyor.
+// başka dokümanları). Onun yerine her record bloğu kararlı bir
+// `blockId` string'i taşıyor, reading'ler bu id'lere string diziyle işaret
+// ediyor.
 //
-// `day` alanı YOK — brief'in açık talimatı: "remove hand typed day
-// numbers entirely and compute every stamp from dayZero and the block's
-// own date at render time." Sadece `date` saklanıyor, gün numarası her
-// zaman DayMeasure/dayMath'ten hesaplanıyor (bkz. dayNumberLabel).
+// `day` alanı YOK — sadece `date` saklanıyor, gün numarası her zaman
+// DayMeasure/dayMath'ten render zamanında hesaplanıyor.
 
 const sourceKindOptions = ["regulator", "filing", "company", "court", "press"];
 
@@ -39,9 +51,9 @@ export const sparkSource = defineType({
   ],
 });
 
-// Reveal içinde gömülü, kendi _type'ı olmayan "hafif" reading/gap —
-// ayrı bir sparkReading/sparkGap dokümanına referans vermek yerine
-// (bkz. üstteki not), her mekanik kendi reveal'ını doğrudan taşıyor.
+// Reveal içinde gömülü, kendi _type'ı olmayan "hafif" reading — ayrı
+// bir sparkReading dokümanına referans vermek yerine (bkz. üstteki
+// not), her mekanik kendi reveal'ını doğrudan taşıyor.
 export const sparkInlineReading = defineType({
   name: "sparkInlineReading",
   title: "Reading (reveal)",
@@ -49,19 +61,6 @@ export const sparkInlineReading = defineType({
   fields: [
     defineField({ name: "heading", title: "Heading", type: "localeString", validation: (r) => r.required() }),
     defineField({ name: "body", title: "Body", type: "localeText", validation: (r) => r.required() }),
-  ],
-  preview: { select: { title: "heading.en" } },
-});
-
-export const sparkInlineGap = defineType({
-  name: "sparkInlineGap",
-  title: "Gap (reveal)",
-  type: "object",
-  fields: [
-    defineField({ name: "heading", title: "Heading", type: "localeString", validation: (r) => r.required() }),
-    defineField({ name: "body", title: "Body", type: "localeText", validation: (r) => r.required() }),
-    defineField({ name: "whereItWouldBe", title: "Where it would be", type: "localeString" }),
-    defineField({ name: "invitesCorrection", title: "Invites correction", type: "boolean", initialValue: true }),
   ],
   preview: { select: { title: "heading.en" } },
 });
@@ -116,18 +115,19 @@ export const sparkReading = defineType({
   preview: { select: { title: "heading.en", subtitle: "date" } },
 });
 
-export const sparkGap = defineType({
-  name: "sparkGap",
-  title: "Gap",
+// fspark9'un kendi sesi, birinci ağızdan — kullanıcı isteğiyle (18
+// Eylül 2026) tekrar gövde içine, ilgili bloğun hemen ardına
+// yerleştiriliyor (bkz. EpisodeNote.tsx). Konsolide "Expert Notes"
+// bölümü kaldırıldı.
+export const sparkNote = defineType({
+  name: "sparkNote",
+  title: "fspark9 Note",
   type: "object",
   fields: [
-    defineField({ name: "date", title: "Date (varsa)", type: "date" }),
-    defineField({ name: "heading", title: "Heading", type: "localeString", validation: (r) => r.required() }),
-    defineField({ name: "body", title: "Body", type: "localeText", validation: (r) => r.required() }),
-    defineField({ name: "whereItWouldBe", title: "Where it would be", type: "localeString" }),
-    defineField({ name: "invitesCorrection", title: "Invites correction", type: "boolean", initialValue: true }),
+    defineField({ name: "date", title: "Date", type: "date", validation: (r) => r.required() }),
+    defineField({ name: "body", title: "Body (one point)", type: "localeText", validation: (r) => r.required() }),
   ],
-  preview: { select: { title: "heading.en", subtitle: "date" } },
+  preview: { select: { title: "body.en", subtitle: "date" } },
 });
 
 export const sparkCall = defineType({
@@ -147,15 +147,17 @@ export const sparkCall = defineType({
     }),
     defineField({
       name: "reveal",
-      title: "Reveal (reading and/or gap, in order)",
-      type: "array",
-      of: [{ type: "sparkInlineReading" }, { type: "sparkInlineGap" }],
-      validation: (r) => r.required().min(1),
+      title: "Reveal (reading, shown immediately on pick)",
+      type: "sparkInlineReading",
+      validation: (r) => r.required(),
     }),
   ],
   preview: { select: { title: "prompt.en", subtitle: "date" } },
 });
 
+// The Estimate artık kendi kendine yeten TEK blok — okuyucu bracket'ı
+// seçtiği anda actualValue/derivedReading burada, aynı yerde açılır.
+// Ayrı bir "resolves later" bloğu YOK.
 export const sparkEstimate = defineType({
   name: "sparkEstimate",
   title: "The Estimate",
@@ -168,8 +170,8 @@ export const sparkEstimate = defineType({
       name: "brackets",
       title: "Brackets (exactly 5, ordered low to high)",
       description:
-        "min/max sayısal sınırlar TheEstimateReveal'ın karşılaştırması için — label sadece görüntü metni, " +
-        "çeviriye göre değişebileceğinden karşılaştırma HİÇBİR ZAMAN label string'inden değil bu sınırlardan yapılır.",
+        "min/max sayısal sınırlar karşılaştırma için — label sadece görüntü metni, çeviriye göre " +
+        "değişebileceğinden karşılaştırma HİÇBİR ZAMAN label string'inden değil bu sınırlardan yapılır.",
       type: "array",
       of: [
         defineArrayMember({
@@ -187,22 +189,6 @@ export const sparkEstimate = defineType({
         }),
       ],
       validation: (r) => r.required().length(5),
-    }),
-  ],
-  preview: { select: { title: "prompt.en", subtitle: "date" } },
-});
-
-export const sparkEstimateReveal = defineType({
-  name: "sparkEstimateReveal",
-  title: "The Estimate — resolves",
-  type: "object",
-  fields: [
-    defineField({ name: "date", title: "Date", type: "date", validation: (r) => r.required() }),
-    defineField({
-      name: "estimateBlockId",
-      title: "Resolves this Estimate's blockId",
-      type: "string",
-      validation: (r) => r.required(),
     }),
     defineField({ name: "actualValue", title: "Actual value (raw number)", type: "number", validation: (r) => r.required() }),
     defineField({
@@ -236,7 +222,7 @@ export const sparkEstimateReveal = defineType({
       validation: (r) => r.required(),
     }),
   ],
-  preview: { select: { title: "actualLabel.en", subtitle: "date" } },
+  preview: { select: { title: "prompt.en", subtitle: "date" } },
 });
 
 export const sparkWeigh = defineType({
@@ -269,10 +255,9 @@ export const sparkWeigh = defineType({
       ],
       validation: (r) => r.required().length(3),
     }),
-    defineField({ name: "revealGap", title: "Reveal — gap (first)", type: "sparkInlineGap", validation: (r) => r.required() }),
     defineField({
       name: "revealReading",
-      title: "Reveal — reading (second)",
+      title: "Reveal — reading",
       type: "sparkInlineReading",
       validation: (r) => r.required(),
     }),
@@ -383,13 +368,11 @@ export const sparkAllocation = defineType({
 export const sparkEpisodeBlockTypes = [
   sparkSource,
   sparkInlineReading,
-  sparkInlineGap,
   sparkRecord,
   sparkReading,
-  sparkGap,
+  sparkNote,
   sparkCall,
   sparkEstimate,
-  sparkEstimateReveal,
   sparkWeigh,
   sparkSignal,
   sparkSecondOpinion,

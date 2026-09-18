@@ -3,9 +3,6 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import EpisodeClock from "@/components/spark/episode/EpisodeClock";
 import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
-import LedgerToggle from "@/components/spark/episode/LedgerToggle";
-import LedgerGate from "@/components/spark/episode/LedgerGate";
-import ExpertNotes from "@/components/spark/episode/ExpertNotes";
 import Scorecard from "@/components/spark/episode/Scorecard";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
@@ -68,9 +65,12 @@ export async function generateMetadata({
 /**
  * Bölüm sayfası — final interaction brief (17 Eylül 2026) ile yeniden
  * kuruldu. Kullanıcının açık onayıyla Faz 3'te kaldırılan Record/Reading/
- * Gap/Call modeli ve altı mekanik geri getirildi (bkz. proje hafızası
- * "spark content philosophy" notu — bu, o kararın BİLİNÇLİ bir tersine
- * çevrilmesi).
+ * Call modeli ve altı mekanik geri getirildi (bkz. proje hafızası "spark
+ * content philosophy" notu — bu, o kararın BİLİNÇLİ bir tersine
+ * çevrilmesi). Canlıyı gördükten sonraki sadeleştirme talimatıyla (18
+ * Eylül 2026) Ledger toggle, Gap block'ları ve sayfa sonu konsolide
+ * Expert Notes bölümü kaldırıldı — her şey her zaman görünür, notlar
+ * gövde akışının içinde (bkz. EpisodeBlocks.tsx'teki sparkNote case'i).
  *
  * SubpageHero ARTIK KULLANILMIYOR bu sayfada — brief §5: "The page
  * opens on the clock, not on a headline... The standfirst sits below
@@ -150,10 +150,6 @@ export default async function SparkEpisodePageRoute({
 
       <section className="bg-ivory px-7 pb-[160px]">
         <div className="mx-auto flex max-w-[760px] flex-col gap-10">
-          <div className="flex justify-end">
-            <LedgerToggle label={episode.ledgerToggleLabel} />
-          </div>
-
           <EpisodeBlocks
             blocks={episode.blocks}
             launchDate={episode.launchDate}
@@ -162,15 +158,6 @@ export default async function SparkEpisodePageRoute({
           />
 
           <Scorecard subject={episode.subject} blocks={episode.blocks} vocabulary={episode} />
-
-          <LedgerGate>
-            <ExpertNotes
-              notes={episode.expertNotes}
-              heading={episode.expertNotesHeading}
-              noteLabel={episode.noteLabel}
-              signature={episode.expertNotesSignature}
-            />
-          </LedgerGate>
         </div>
       </section>
     </main>

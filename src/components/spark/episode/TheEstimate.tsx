@@ -1,6 +1,7 @@
 "use client";
 
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
+import RevealItem from "@/components/spark/episode/RevealItem";
 import { setEstimateAnswer, useLastDayState } from "@/hooks/useLastDayState";
 import type { SparkEstimateBlock, SparkMechanicVocabulary } from "@/types/content";
 
@@ -12,17 +13,32 @@ interface TheEstimateProps {
 }
 
 /**
- * Tek gecikmeli reveal — bkz. final interaction brief §6: "Held, not
- * resolved here." Okuyucunun seçtiği bracket burada SADECE saklanır,
- * karşılaştırma TheEstimateReveal'da, sayfanın ilerisinde olur.
- * Skorlanmaz — sadece mesafe raporlanır (asla geçti/kaldı kelimesi).
+ * Okuyucu bir bracket seçtiği anda karşılaştırma + türetilmiş reading
+ * AYNI yerde açılır (18 Eylül 2026, kullanıcı talebi: "cevapları hemen
+ * görsün... sonuna kadar beklemesine gerek yok") — artık ayrı, sayfa
+ * sonuna kadar tutulan bir reveal bloğu yok. Karşılaştırma HER ZAMAN
+ * bracket'ın min/max sayısal sınırlarından yapılır, hiçbir zaman dile
+ * bağlı label metninden (bkz. sparkEpisodeBlocks.ts yorumu). "geçti/
+ * kaldı" kelimesi YOK, final interaction brief §6: "Never a word like
+ * wrong, never a tick or a cross."
  */
 export default function TheEstimate({ block, launchDate, dayLabel, vocabulary }: TheEstimateProps) {
   const state = useLastDayState();
-  if (state.ledger) return null;
 
   const day = dayNumberLabel(block.date, launchDate);
-  const picked = state.estimates[block.blockId];
+  const pickedIndex = state.estimates[block.blockId];
+  const pickedBracket = pickedIndex !== undefined ? block.brackets[Number(pickedIndex)] : undefined;
+
+  let comparisonLabel: string | null = null;
+  if (pickedBracket) {
+    if (block.actualValue >= pickedBracket.min && (pickedBracket.max === null || block.actualValue <= pickedBracket.max)) {
+      comparisonLabel = block.insideBracketLabel;
+    } else if (block.actualValue < pickedBracket.min) {
+      comparisonLabel = block.belowBracketLabel;
+    } else {
+      comparisonLabel = block.aboveBracketLabel;
+    }
+  }
 
   return (
     <div className="scroll-mt-32 border-l-[3px] border-bronze/60 py-2 pl-6" data-spark-day={day}>
@@ -38,14 +54,14 @@ export default function TheEstimate({ block, launchDate, dayLabel, vocabulary }:
         <div className="flex flex-wrap gap-3" role="radiogroup">
           {block.brackets.map((bracket, index) => {
             const indexKey = String(index);
-            const isSelected = picked === indexKey;
+            const isSelected = pickedIndex === indexKey;
             return (
               <button
                 key={bracket.label}
                 type="button"
                 role="radio"
                 aria-checked={isSelected}
-                disabled={Boolean(picked)}
+                disabled={Boolean(pickedIndex)}
                 onClick={() => setEstimateAnswer(block.blockId, indexKey)}
                 className={`rounded-full border px-5 py-2.5 text-sm transition-colors ${
                   isSelected
@@ -60,7 +76,16 @@ export default function TheEstimate({ block, launchDate, dayLabel, vocabulary }:
         </div>
       </fieldset>
 
-      {picked && <p className="mt-4 max-w-[52ch] text-sm text-muted">{vocabulary.estimateHeldLabel}</p>}
+      {pickedBracket && (
+        <div className="mt-6 flex flex-col gap-4">
+          {comparisonLabel && (
+            <p className="text-[1.05rem] font-medium text-charcoal">
+              {comparisonLabel} <span className="font-mono text-muted">({block.actualLabel})</span>
+            </p>
+          )}
+          <RevealItem item={block.derivedReading} readingLabel={vocabulary.readingLabel} />
+        </div>
+      )}
     </div>
   );
 }
