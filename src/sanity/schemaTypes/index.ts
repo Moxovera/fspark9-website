@@ -60,6 +60,7 @@ import caseStudy from "./caseStudy";
 import sparkSection from "./sparkSection";
 import sparkFormat from "./sparkFormat";
 import sparkEpisode from "./sparkEpisode";
+import { sparkEpisodeBlockTypes } from "./sparkEpisodeBlocks";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -123,5 +124,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     sparkSection,
     sparkFormat,
     sparkEpisode,
+    ...sparkEpisodeBlockTypes,
   ],
 };

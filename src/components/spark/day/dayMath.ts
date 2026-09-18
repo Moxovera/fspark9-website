@@ -24,18 +24,21 @@ export function computeDayCount(
 }
 
 /**
- * Bir tarihin launch'a göre gün numarası — launch günü "day 001".
- * Sıfır doldurmalı 3 haneli string döner. Bu fonksiyon burada, gün
- * bileşeniyle birlikte, dışa açık tutuluyor çünkü ileride gelecek
- * etkileşim katmanı (calls, vb.) aynı numaralandırmayı kullanacak
- * (bkz. revizyon brief 4b).
+ * Bir tarihin launch'a göre gün numarası — launch günü "day 000" (SIFIR
+ * indeksli, final interaction brief'in referans tablosuyla doğrulandı:
+ * 27 Kas 2019 → 000, 1 May 2020 → 156). Launch'tan ÖNCEKİ bir tarih
+ * negatif döner ("-026"), pozitif tarafta sıfır doldurmalı 3 hane.
+ * Bu fonksiyon episode bloklarındaki HER "day" damgası için kullanılır
+ * — hiçbir blok elle girilmiş bir gün numarası taşımaz, hepsi kendi
+ * `date` alanından burada hesaplanır (final interaction brief §2).
  */
 export function dayNumberLabel(date: string, launchDate: string): string {
   const start = new Date(launchDate).getTime();
   const target = new Date(date).getTime();
   if (Number.isNaN(start) || Number.isNaN(target)) return "000";
-  const dayNumber = Math.round((target - start) / MS_PER_DAY) + 1;
-  return String(Math.max(dayNumber, 1)).padStart(3, "0");
+  const dayNumber = Math.round((target - start) / MS_PER_DAY);
+  const sign = dayNumber < 0 ? "-" : "";
+  return `${sign}${String(Math.abs(dayNumber)).padStart(3, "0")}`;
 }
 
 export interface DayMeasureLine {

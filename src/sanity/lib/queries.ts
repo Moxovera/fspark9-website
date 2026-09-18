@@ -37,7 +37,6 @@ import type {
   SparkHomeModule,
   SparkFormatPage,
   SparkEpisodePage,
-  SparkBodyBlock,
 } from "@/types/content";
 import { computeDayCount } from "@/components/spark/day/dayMath";
 import type {
@@ -1390,6 +1389,15 @@ export function toSparkEpisodeSeo(result: SPARK_EPISODE_SEO_QUERYResult): PageSe
   };
 }
 
+// NOT: Sanity'nin typegen aracı bu defineQuery çağrısını STATİK olarak
+// ayrıştırıyor — template literal İÇİNDE JS seviyesinde \${...}
+// interpolasyonu (bir fonksiyon çağrısı ya da paylaşılan bir sabit)
+// görürse ayrıştırma başarısız oluyor ("Unsupported expression type").
+// Bu yüzden aşağıdaki sorgu, tekrarlayan select(...) kalıplarını bir
+// yardımcıya çıkarmak yerine BİLEREK tek, düz bir template literal
+// olarak tam yazıldı. `$locale` (JS \${} DEĞİL, GROQ'un kendi $param
+// söz dizimi) her zamanki gibi çalışıyor, dosyanın geri kalanıyla
+// tutarlı.
 export const SPARK_EPISODE_QUERY = defineQuery(`
   *[_type == "sparkEpisode"
     && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug
@@ -1407,8 +1415,165 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
     "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),
     "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),
     "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),
+    "recordLabel": select($locale == "tr" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),
+    "readingLabel": select($locale == "tr" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),
+    "gapLabel": select($locale == "tr" => coalesce(format->gapLabel.tr, format->gapLabel.en), format->gapLabel.en),
+    "callLabel": select($locale == "tr" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),
+    "estimateLabel": select($locale == "tr" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),
+    "weighLabel": select($locale == "tr" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),
+    "signalLabel": select($locale == "tr" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),
+    "secondOpinionLabel": select($locale == "tr" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),
+    "allocationLabel": select($locale == "tr" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),
+    "callOptionRuleLabel": select($locale == "tr" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),
+    "callOptionDecisionLabel": select($locale == "tr" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),
+    "callMatchLabel": select($locale == "tr" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),
+    "callMismatchLabel": select($locale == "tr" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),
+    "callUnsettledLabel": select($locale == "tr" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),
+    "estimateHeldLabel": select($locale == "tr" => coalesce(format->estimateHeldLabel.tr, format->estimateHeldLabel.en), format->estimateHeldLabel.en),
+    "correctionInviteLabel": select($locale == "tr" => coalesce(format->correctionInviteLabel.tr, format->correctionInviteLabel.en), format->correctionInviteLabel.en),
+    "allocationCommitLabel": select($locale == "tr" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),
+    "ledgerToggleLabel": select($locale == "tr" => coalesce(format->ledgerToggleLabel.tr, format->ledgerToggleLabel.en), format->ledgerToggleLabel.en),
     "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),
-    "body": select($locale == "tr" => body.tr, body.en)
+    "expertNotesHeading": select($locale == "tr" => coalesce(format->expertNotesHeading.tr, format->expertNotesHeading.en), format->expertNotesHeading.en),
+    "expertNotesSignature": select($locale == "tr" => coalesce(format->expertNotesSignature.tr, format->expertNotesSignature.en), format->expertNotesSignature.en),
+    "scorecardHeading": select($locale == "tr" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),
+    "scorecardUnansweredLabel": select($locale == "tr" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),
+    "scorecardYourReadingLabel": select($locale == "tr" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),
+    "scorecardCrossEpisodeLabel": select($locale == "tr" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),
+    "scorecardShareLabel": select($locale == "tr" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),
+    "scorecardCopiedLabel": select($locale == "tr" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),
+    "scorecardPrivacyLine": select($locale == "tr" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),
+    "blocks": blocks[]{
+      _type,
+      _type == "sparkRecord" => {
+        blockId,
+        date,
+        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+        "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),
+        "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),
+        "source": source{
+          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+          url,
+          kind
+        }
+      },
+      _type == "sparkReading" => {
+        date,
+        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+        restsOn
+      },
+      _type == "sparkGap" => {
+        date,
+        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+        "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
+        invitesCorrection
+      },
+      _type == "sparkCall" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        answer,
+        "reveal": reveal[]{
+          _type,
+          _type == "sparkInlineReading" => {
+            "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+            "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+          },
+          _type == "sparkInlineGap" => {
+            "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+            "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+            "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
+            invitesCorrection
+          }
+        }
+      },
+      _type == "sparkEstimate" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        "brackets": brackets[]{
+          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+          min,
+          max
+        }
+      },
+      _type == "sparkEstimateReveal" => {
+        date,
+        estimateBlockId,
+        actualValue,
+        "actualLabel": select($locale == "tr" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),
+        "insideBracketLabel": select($locale == "tr" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),
+        "belowBracketLabel": select($locale == "tr" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),
+        "aboveBracketLabel": select($locale == "tr" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),
+        "derivedReading": derivedReading{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        }
+      },
+      _type == "sparkWeigh" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        "disclaimer": select($locale == "tr" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),
+        "options": options[]{
+          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),
+          "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en)
+        },
+        "revealGap": revealGap{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),
+          "whereItWouldBe": select($locale == "tr" => coalesce(whereItWouldBe.tr, whereItWouldBe.en), whereItWouldBe.en),
+          invitesCorrection
+        },
+        "revealReading": revealReading{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        }
+      },
+      _type == "sparkSignal" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),
+        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,
+        "revealReading": revealReading{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        }
+      },
+      _type == "sparkSecondOpinion" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),
+        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,
+        "readingA": readingA{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        },
+        "readingB": readingB{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        },
+        "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)
+      },
+      _type == "sparkAllocation" => {
+        blockId,
+        date,
+        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),
+        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),
+        "categoryALabel": select($locale == "tr" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),
+        "categoryBLabel": select($locale == "tr" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),
+        "revealReading": revealReading{
+          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),
+          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)
+        }
+      }
+    },
+    "expertNotes": expertNotes[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value
   }
 `);
 
@@ -1427,12 +1592,40 @@ export function toSparkEpisodePage(
     closureDate: result.closureDate,
     formatName: result.formatName ?? "",
     standfirst: result.standfirst ?? "",
-    body: (result.body ?? []) as SparkBodyBlock[],
+    blocks: (result.blocks ?? []) as SparkEpisodePage["blocks"],
+    expertNotes: (result.expertNotes ?? []).filter((note): note is string => note !== null),
     dayLabel: result.dayLabel ?? "",
     dayCountSingular: result.dayCountSingular ?? "",
     dayCountPlural: result.dayCountPlural ?? "",
     dayNotEstablishedLabel: result.dayNotEstablishedLabel ?? "",
+    recordLabel: result.recordLabel ?? "",
+    readingLabel: result.readingLabel ?? "",
+    gapLabel: result.gapLabel ?? "",
+    callLabel: result.callLabel ?? "",
+    estimateLabel: result.estimateLabel ?? "",
+    weighLabel: result.weighLabel ?? "",
+    signalLabel: result.signalLabel ?? "",
+    secondOpinionLabel: result.secondOpinionLabel ?? "",
+    allocationLabel: result.allocationLabel ?? "",
+    callOptionRuleLabel: result.callOptionRuleLabel ?? "",
+    callOptionDecisionLabel: result.callOptionDecisionLabel ?? "",
+    callMatchLabel: result.callMatchLabel ?? "",
+    callMismatchLabel: result.callMismatchLabel ?? "",
+    callUnsettledLabel: result.callUnsettledLabel ?? "",
+    estimateHeldLabel: result.estimateHeldLabel ?? "",
+    correctionInviteLabel: result.correctionInviteLabel ?? "",
+    allocationCommitLabel: result.allocationCommitLabel ?? "",
+    ledgerToggleLabel: result.ledgerToggleLabel ?? "",
     noteLabel: result.noteLabel ?? "",
+    expertNotesHeading: result.expertNotesHeading ?? "",
+    expertNotesSignature: result.expertNotesSignature ?? "",
+    scorecardHeading: result.scorecardHeading ?? "",
+    scorecardUnansweredLabel: result.scorecardUnansweredLabel ?? "",
+    scorecardYourReadingLabel: result.scorecardYourReadingLabel ?? "",
+    scorecardCrossEpisodeLabel: result.scorecardCrossEpisodeLabel ?? "",
+    scorecardShareLabel: result.scorecardShareLabel ?? "",
+    scorecardCopiedLabel: result.scorecardCopiedLabel ?? "",
+    scorecardPrivacyLine: result.scorecardPrivacyLine ?? "",
     backHref: { formatSlug },
   };
 }

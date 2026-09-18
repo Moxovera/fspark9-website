@@ -12,12 +12,11 @@
  * Sanity şemasında alanlar { en, tr } olarak saklanır,
  * GROQ sorgusu aktif dile göre çözer ve bu tipleri döner.
  *
- * İSTİSNA: sparkEpisode.body (bkz. SparkBodyBlock) — Portable Text
- * dizileri dil başına AYRI diziler olarak saklanır (localeBody.en[] /
- * .tr[]), tek bir alan bazlı {en,tr} objesi değil, çünkü bir dilin
- * paragraf/başlık sayısı ve sırası diğerinden bağımsız olabilir.
+ * ESKİ İSTİSNA (artık geçerli değil): sparkEpisode.body serbest biçimli
+ * Portable Text'ken dil başına AYRI dizilerdeydi. Final interaction
+ * brief (17 Eylül 2026) ile `blocks`'a geçildi — TEK paylaşılan dizi,
+ * alanlar içeride {en,tr} taşıyor (bkz. SparkEpisodeBlock).
  */
-import type { PortableTextBlock } from '@portabletext/types'
 
 // ─────────────────────────────────────────────
 // Ortak
@@ -209,28 +208,203 @@ export interface SparkFormatPage {
 // Spark · Bölüm sayfası (/spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
 
-// Bölüm gövdesinin içine serbestçe yerleştirilen büyük rakam/istatistik
-// (ör. "156 DAYS"). @portabletext/react components.types ile eşleşir.
-export interface SparkStatHighlight {
-  _type: 'statHighlight'
-  figure: string
-  caption?: string
+// Final interaction brief (17 Eylül 2026), kullanıcının açık onayıyla:
+// serbest biçimli Portable Text gövdesi yerini Record/Reading/Gap +
+// altı mekanik modeline bıraktı (bkz. sanity/schemaTypes/
+// sparkEpisodeBlocks.ts). Hiçbir blok elle girilmiş bir "day" taşımıyor
+// — gün numarası HER ZAMAN launchDate + bloğun date'inden hesaplanır
+// (bkz. dayMath.ts:dayNumberLabel).
+
+export interface SparkSource {
+  label: string
+  url: string
+  kind: 'regulator' | 'filing' | 'company' | 'court' | 'press'
 }
 
-// fspark9'un kendi sesi — bölüm gövdesinin içine serbestçe yerleştirilir.
-export interface SparkNoteHighlight {
-  _type: 'noteHighlight'
+export interface SparkInlineReading {
+  heading: string
   body: string
 }
 
-// Sanity Portable Text bloğu (paragraf/başlık/alıntı/liste) — kendi
-// tipini burada yeniden tanımlamak yerine @portabletext/types'tan
-// import edildi (bkz. queries.ts).
-export type SparkBodyBlock = PortableTextBlock | SparkStatHighlight | SparkNoteHighlight
+export interface SparkInlineGap {
+  heading: string
+  body: string
+  whereItWouldBe?: string
+  invitesCorrection: boolean
+}
 
-// Bölüm sayfası bu revizyon turunda BİLEREK neredeyse dokunulmadı —
-// tek değişiklik başlıktaki gün bileşeni (DayMeasure, "full" varyantı).
-export interface SparkEpisodePage {
+// Mekanik reveal'ları (Call/Weigh/Signal/Allocation) bu iki şekilden
+// birini taşır, _type ile ayırt edilir (Sanity'nin array-of-object
+// elemanlarına otomatik verdiği alan).
+export type SparkRevealItem =
+  | ({ _type: 'sparkInlineReading' } & SparkInlineReading)
+  | ({ _type: 'sparkInlineGap' } & SparkInlineGap)
+
+export interface SparkRecordBlock {
+  _type: 'sparkRecord'
+  blockId: string
+  date: string
+  heading: string
+  body: string
+  quote?: string
+  quoteAttribution?: string
+  source: SparkSource
+}
+
+export interface SparkReadingBlock {
+  _type: 'sparkReading'
+  date: string
+  heading: string
+  body: string
+  restsOn: string[]
+}
+
+export interface SparkGapBlock {
+  _type: 'sparkGap'
+  date: string | null
+  heading: string
+  body: string
+  whereItWouldBe?: string
+  invitesCorrection: boolean
+}
+
+export type SparkCallAnswer = 'rule' | 'decision' | 'unsettled'
+
+export interface SparkCallBlock {
+  _type: 'sparkCall'
+  blockId: string
+  date: string
+  prompt: string
+  answer: SparkCallAnswer
+  reveal: SparkRevealItem[]
+}
+
+export interface SparkEstimateBracket {
+  label: string
+  min: number
+  max: number | null // null = açık uçlu en üst aralık
+}
+
+export interface SparkEstimateBlock {
+  _type: 'sparkEstimate'
+  blockId: string
+  date: string
+  prompt: string
+  brackets: SparkEstimateBracket[] // her zaman 5, düşükten yükseğe sıralı
+}
+
+export interface SparkEstimateRevealBlock {
+  _type: 'sparkEstimateReveal'
+  date: string
+  estimateBlockId: string
+  actualValue: number
+  actualLabel: string
+  insideBracketLabel: string
+  belowBracketLabel: string
+  aboveBracketLabel: string
+  derivedReading: SparkInlineReading
+}
+
+export interface SparkWeighOption {
+  label: string
+  line: string
+}
+
+export interface SparkWeighBlock {
+  _type: 'sparkWeigh'
+  blockId: string
+  date: string
+  prompt: string
+  disclaimer: string
+  options: SparkWeighOption[] // her zaman 3
+  revealGap: SparkInlineGap
+  revealReading: SparkInlineReading
+}
+
+export interface SparkSignalBlock {
+  _type: 'sparkSignal'
+  blockId: string
+  date: string
+  prompt: string
+  notScoredLabel: string
+  options: string[] // her zaman 3
+  revealReading: SparkInlineReading
+}
+
+export interface SparkSecondOpinionBlock {
+  _type: 'sparkSecondOpinion'
+  blockId: string
+  date: string
+  prompt: string
+  notScoredLabel: string
+  options: string[] // her zaman 3
+  readingA: SparkInlineReading
+  readingB: SparkInlineReading
+  closingLine: string
+}
+
+export interface SparkAllocationBlock {
+  _type: 'sparkAllocation'
+  blockId: string
+  date: string
+  prompt: string
+  notScoredLabel: string
+  categoryALabel: string
+  categoryBLabel: string
+  revealReading: SparkInlineReading
+}
+
+export type SparkEpisodeBlock =
+  | SparkRecordBlock
+  | SparkReadingBlock
+  | SparkGapBlock
+  | SparkCallBlock
+  | SparkEstimateBlock
+  | SparkEstimateRevealBlock
+  | SparkWeighBlock
+  | SparkSignalBlock
+  | SparkSecondOpinionBlock
+  | SparkAllocationBlock
+
+// Format seviyesinde, mekaniklerin sabit arayüz kelime dağarcığı —
+// bölüme özel değil (bkz. sparkFormat.ts şeması). SparkFormatPage
+// bunu taşır, episode sayfası format'tan okur.
+export interface SparkMechanicVocabulary {
+  recordLabel: string
+  readingLabel: string
+  gapLabel: string
+  callLabel: string
+  estimateLabel: string
+  weighLabel: string
+  signalLabel: string
+  secondOpinionLabel: string
+  allocationLabel: string
+  callOptionRuleLabel: string
+  callOptionDecisionLabel: string
+  callMatchLabel: string
+  callMismatchLabel: string
+  callUnsettledLabel: string
+  estimateHeldLabel: string
+  correctionInviteLabel: string
+  allocationCommitLabel: string
+  ledgerToggleLabel: string
+  noteLabel: string
+  expertNotesHeading: string
+  expertNotesSignature: string
+  scorecardHeading: string
+  scorecardUnansweredLabel: string
+  scorecardYourReadingLabel: string
+  scorecardCrossEpisodeLabel: string
+  scorecardShareLabel: string
+  scorecardCopiedLabel: string
+  scorecardPrivacyLine: string
+}
+
+// Bölüm sayfası — final interaction brief ile yeniden kuruldu. `blocks`
+// TEK bir sıralı dizi (locale başına ayrı diziler DEĞİL, bkz.
+// sparkEpisode.ts şema yorumu), çünkü mekanik sırası ve state anahtarları
+// (blockId) dilden bağımsız kalmalı.
+export interface SparkEpisodePage extends SparkMechanicVocabulary {
   number: number
   subject: string
   parent?: string
@@ -239,12 +413,12 @@ export interface SparkEpisodePage {
   closureDate: string | null
   formatName: string
   standfirst: string
-  body: SparkBodyBlock[]
+  blocks: SparkEpisodeBlock[]
+  expertNotes: string[]
   dayLabel: string // "DAY" / "GÜN"
   dayCountSingular: string
   dayCountPlural: string
   dayNotEstablishedLabel: string
-  noteLabel: string // "fspark9 · Note" / "fspark9 · Not"
   backHref: { formatSlug: string } // /spark/[formatSlug]'a next-intl typed pathname ile geri döner
 }
 

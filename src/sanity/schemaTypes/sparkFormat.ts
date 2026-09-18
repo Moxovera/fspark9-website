@@ -94,7 +94,115 @@ export default defineType({
     }),
     defineField({
       name: "noteLabel",
-      title: "fspark9 Note label (e.g. \"fspark9 · Note\")",
+      title: "fspark9 Note label (e.g. \"fspark9 · Note\"), per-card inside Expert Notes",
+      type: "localeString",
+    }),
+    // Final interaction brief (17 Eylül 2026) — mekanik kelime dağarcığı.
+    // Format seviyesinde, çünkü her biri sabit arayüz metni, bölüme
+    // özel bir içerik değil (bkz. sparkEpisodeBlocks.ts).
+    //
+    // Blok tipi mono etiketleri (RECORD/READING/GAP) orijinal Faz 1
+    // brief'inin kendi tablosundan birebir (KAYIT/OKUMA/BOŞLUK). Altı
+    // mekanik adı (callLabel...allocationLabel) için brief TR karşılığı
+    // vermedi, kendi çevirim — uncertainty list'te işaretli.
+    defineField({ name: "recordLabel", title: "Block label — RECORD", type: "localeString" }),
+    defineField({ name: "readingLabel", title: "Block label — READING", type: "localeString" }),
+    defineField({ name: "gapLabel", title: "Block label — GAP", type: "localeString" }),
+    defineField({ name: "callLabel", title: "Mechanic label — THE CALL", type: "localeString" }),
+    defineField({ name: "estimateLabel", title: "Mechanic label — THE ESTIMATE", type: "localeString" }),
+    defineField({ name: "weighLabel", title: "Mechanic label — THE WEIGH", type: "localeString" }),
+    defineField({ name: "signalLabel", title: "Mechanic label — THE SIGNAL", type: "localeString" }),
+    defineField({ name: "secondOpinionLabel", title: "Mechanic label — THE SECOND OPINION", type: "localeString" }),
+    defineField({ name: "allocationLabel", title: "Mechanic label — THE ALLOCATION", type: "localeString" }),
+    defineField({
+      name: "callOptionRuleLabel",
+      title: "The Call — option \"a rule forced this\"",
+      type: "localeString",
+    }),
+    defineField({
+      name: "callOptionDecisionLabel",
+      title: "The Call — option \"someone decided this\"",
+      type: "localeString",
+    }),
+    defineField({
+      name: "callMatchLabel",
+      title: "The Call — reveal when the reader's pick matches the record",
+      type: "localeString",
+    }),
+    defineField({
+      name: "callMismatchLabel",
+      title: "The Call — reveal when the record went the other way",
+      type: "localeString",
+    }),
+    defineField({
+      name: "callUnsettledLabel",
+      title: "The Call — reveal when the record does not settle it",
+      type: "localeString",
+    }),
+    defineField({
+      name: "estimateHeldLabel",
+      title: "The Estimate — \"held until the record opens\" notice",
+      type: "localeText",
+    }),
+    defineField({
+      name: "correctionInviteLabel",
+      title: "Gap — correction invite line (no address exists yet, plain text only)",
+      type: "localeString",
+    }),
+    defineField({
+      name: "allocationCommitLabel",
+      title: "The Allocation — commit button label (e.g. \"Lock in this split\")",
+      type: "localeString",
+    }),
+    defineField({
+      name: "ledgerToggleLabel",
+      title: "Ledger toggle label (\"Show the record only\")",
+      type: "localeString",
+    }),
+    defineField({
+      name: "expertNotesHeading",
+      title: "Expert Notes section heading",
+      type: "localeString",
+    }),
+    defineField({
+      name: "expertNotesSignature",
+      title: "Expert Notes signature line",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardHeading",
+      title: "Scorecard heading",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardUnansweredLabel",
+      title: "Scorecard — placeholder for a mechanic not yet answered",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardYourReadingLabel",
+      title: "Scorecard — \"your reading\" tag for unscored mechanics",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardCrossEpisodeLabel",
+      title: "Scorecard — running cross-episode count label",
+      description: "Sayı önüne eklenir: \"12 \" + bu alan.",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardShareLabel",
+      title: "Scorecard — share action label",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardCopiedLabel",
+      title: "Scorecard — \"copied to clipboard\" confirmation (Web Share API fallback)",
+      type: "localeString",
+    }),
+    defineField({
+      name: "scorecardPrivacyLine",
+      title: "Scorecard — privacy line (verbatim from brief)",
       type: "localeString",
     }),
   ],

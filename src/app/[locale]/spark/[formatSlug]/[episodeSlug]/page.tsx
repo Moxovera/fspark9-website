@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import SubpageHero from "@/components/subpages/SubpageHero";
-import DayMeasure from "@/components/spark/day/DayMeasure";
-import EpisodeBody from "@/components/spark/episode/EpisodeBody";
+import { Link } from "@/i18n/navigation";
+import EpisodeClock from "@/components/spark/episode/EpisodeClock";
+import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
+import LedgerToggle from "@/components/spark/episode/LedgerToggle";
+import LedgerGate from "@/components/spark/episode/LedgerGate";
+import ExpertNotes from "@/components/spark/episode/ExpertNotes";
+import Scorecard from "@/components/spark/episode/Scorecard";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_EPISODE_SLUGS_QUERY,
@@ -62,12 +66,17 @@ export async function generateMetadata({
 }
 
 /**
- * Bölüm sayfası — bu revizyon turunda BİLEREK neredeyse dokunulmadı
- * (bkz. Spark revizyon brief §0.2 ve §4b). Tek değişiklik: başlıktaki
- * gün göstergesi artık paylaşılan DayMeasure bileşeninin "full"
- * varyantı (hem hub hem liste sayfasıyla aynı hesaplama, launchDate/
- * closureDate'ten türetiliyor), eski scroll'a bağlı EpisodeClock
- * kaldırıldı.
+ * Bölüm sayfası — final interaction brief (17 Eylül 2026) ile yeniden
+ * kuruldu. Kullanıcının açık onayıyla Faz 3'te kaldırılan Record/Reading/
+ * Gap/Call modeli ve altı mekanik geri getirildi (bkz. proje hafızası
+ * "spark content philosophy" notu — bu, o kararın BİLİNÇLİ bir tersine
+ * çevrilmesi).
+ *
+ * SubpageHero ARTIK KULLANILMIYOR bu sayfada — brief §5: "The page
+ * opens on the clock, not on a headline... The standfirst sits below
+ * this." SubpageHero'nun sabit eyebrow→title→intro sırası saatin
+ * başlıktan ÖNCE gelmesine izin vermiyor, bu yüzden bu sayfa kendi
+ * header'ını kuruyor (geri butonu SubpageHero'yla aynı görsel dilde).
  */
 export default async function SparkEpisodePageRoute({
   params,
@@ -85,17 +94,48 @@ export default async function SparkEpisodePageRoute({
 
   const episode = toSparkEpisodePage(result, formatSlug);
 
-  if (!episode) {
+  if (!episode || !episode.launchDate || !episode.closureDate) {
     notFound();
   }
 
   return (
     <main>
-      <SubpageHero
-        hero={{ eyebrow: episode.formatName, title: episode.subject, intro: episode.standfirst }}
-        backLabel={episode.formatName}
-        backHref={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }}
-      />
+      <section className="bg-navy px-7 pt-[182px] pb-16">
+        <div className="mx-auto max-w-[1000px]">
+          <Link
+            href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }}
+            className="mb-10 inline-flex items-center gap-[11px] rounded-full border border-ivory/22 py-2.5 pr-[18px] pl-3 transition-[background-color,border-color] duration-[250ms] ease-out hover:border-bronze/70 hover:bg-ivory/[0.08]"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ stroke: "var(--bronze)" }}
+            >
+              <line x1="20" y1="12" x2="5" y2="12" />
+              <polyline points="11 5 4 12 11 19" />
+            </svg>
+            <span className="font-mono text-xs tracking-[0.1em] text-ivory/80 uppercase">{episode.formatName}</span>
+          </Link>
+
+          <EpisodeClock
+            launchDate={episode.launchDate}
+            closureDate={episode.closureDate}
+            dayLabel={episode.dayLabel}
+            locale={resolvedLocale}
+          />
+
+          <p className="mt-10 mb-4 font-mono text-xs tracking-[0.14em] text-bronze uppercase">{episode.formatName}</p>
+          <h1 className="mb-[26px] max-w-[22ch] font-display text-[clamp(2.3rem,5vw,4rem)] leading-[1.08] font-medium tracking-[-0.01em] text-ivory">
+            {episode.subject}
+          </h1>
+          <p className="max-w-[62ch] text-[1.08rem] leading-[1.68] text-ivory/74">{episode.standfirst}</p>
+        </div>
+      </section>
 
       <section className="bg-ivory px-7 pb-6">
         <div className="mx-auto flex max-w-[760px] flex-wrap items-center gap-x-4 gap-y-2 border-b border-charcoal/10 pb-8 font-mono text-[11.5px] tracking-[0.05em] text-muted uppercase">
@@ -108,20 +148,29 @@ export default async function SparkEpisodePageRoute({
         </div>
       </section>
 
-      <section className="bg-ivory px-7 pb-[120px]">
+      <section className="bg-ivory px-7 pb-[160px]">
         <div className="mx-auto flex max-w-[760px] flex-col gap-10">
-          <DayMeasure
+          <div className="flex justify-end">
+            <LedgerToggle label={episode.ledgerToggleLabel} />
+          </div>
+
+          <EpisodeBlocks
+            blocks={episode.blocks}
             launchDate={episode.launchDate}
-            closureDate={episode.closureDate}
-            singular={episode.dayCountSingular}
-            plural={episode.dayCountPlural}
-            notEstablishedLabel={episode.dayNotEstablishedLabel}
-            variant="full"
-            tone="onIvory"
-            locale={resolvedLocale}
+            dayLabel={episode.dayLabel}
+            vocabulary={episode}
           />
 
-          <EpisodeBody value={episode.body} noteLabel={episode.noteLabel} />
+          <Scorecard subject={episode.subject} blocks={episode.blocks} vocabulary={episode} />
+
+          <LedgerGate>
+            <ExpertNotes
+              notes={episode.expertNotes}
+              heading={episode.expertNotesHeading}
+              noteLabel={episode.noteLabel}
+              signature={episode.expertNotesSignature}
+            />
+          </LedgerGate>
         </div>
       </section>
     </main>
