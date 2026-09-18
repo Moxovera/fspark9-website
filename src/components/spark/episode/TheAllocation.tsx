@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
 import RevealItem from "@/components/spark/episode/RevealItem";
 import { setAllocationValue, useLastDayState } from "@/hooks/useLastDayState";
@@ -19,14 +20,22 @@ interface TheAllocationProps {
  * tek bir çubuk. Adım genişliği 5 — hem masaüstü hem mobil için tek
  * bir granülerlik, cihaza göre farklı `step` JS viewport tespiti
  * gerektirir ve bu küçük cilanın karşılığı yok (uncertainty list'te).
+ *
+ * `pendingValue` sürüklenirken YALNIZCA yerel state'i günceller — daha
+ * önce doğrudan `setAllocationValue` çağırıyordu, bu da ilk `onChange`
+ * tetiklendiği anda kaydı "committed" yapıp slider'ı kilitliyordu ve
+ * okuyucu değerini hiç ayarlayamadan devre dışı kalıyordu (18 Eylül
+ * 2026'da canlıda bulunan gerçek bug). Sadece "Lock in this split"
+ * tıklaması `setAllocationValue`'yu çağırır.
  */
 export default function TheAllocation({ block, launchDate, dayLabel, vocabulary }: TheAllocationProps) {
   const state = useLastDayState();
+  const [pendingValue, setPendingValue] = useState(50);
 
   const day = dayNumberLabel(block.date, launchDate);
   const committed = state.allocations[block.blockId];
   const hasCommitted = committed !== undefined;
-  const value = committed ?? 50;
+  const value = hasCommitted ? committed : pendingValue;
 
   return (
     <div className="scroll-mt-32 border-l-[3px] border-bronze/60 py-2 pl-6" data-spark-day={day}>
@@ -54,7 +63,7 @@ export default function TheAllocation({ block, launchDate, dayLabel, vocabulary 
           disabled={hasCommitted}
           aria-label={`${block.categoryALabel} / ${block.categoryBLabel}`}
           onChange={(event) => {
-            if (!hasCommitted) setAllocationValue(block.blockId, Number(event.target.value));
+            if (!hasCommitted) setPendingValue(Number(event.target.value));
           }}
           className="w-full max-w-[420px] accent-bronze disabled:opacity-70"
         />
