@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import EpisodeClock from "@/components/spark/episode/EpisodeClock";
 import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
 import Scorecard from "@/components/spark/episode/Scorecard";
+import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_EPISODE_SLUGS_QUERY,
@@ -100,6 +101,12 @@ export default async function SparkEpisodePageRoute({
 
   return (
     <main>
+      {episode.altFormatSlug && (
+        <SparkAltSlugRegistrar
+          formatSlug={episode.altFormatSlug}
+          episodeSlug={episode.altEpisodeSlug ?? undefined}
+        />
+      )}
       <section className="bg-navy px-7 pt-[182px] pb-16">
         <div className="mx-auto max-w-[1000px]">
           <Link

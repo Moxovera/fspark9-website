@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SubpageHero from "@/components/subpages/SubpageHero";
 import SparkEpisodeList from "@/components/spark/SparkEpisodeList";
+import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_FORMAT_SLUGS_QUERY,
@@ -87,6 +88,7 @@ export default async function SparkFormatPageRoute({
 
   return (
     <main>
+      {page.altFormatSlug && <SparkAltSlugRegistrar formatSlug={page.altFormatSlug} />}
       <SubpageHero hero={page.hero} backLabel={page.hero.eyebrow} backHref="/spark" />
 
       {page.episodes.length > 0 && (

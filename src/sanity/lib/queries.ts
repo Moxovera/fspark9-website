@@ -1322,6 +1322,7 @@ export function toSparkFormatSeo(result: SPARK_FORMAT_SEO_QUERYResult): PageSeo 
 
 export const SPARK_FORMAT_QUERY = defineQuery(`
   *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
+    "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),
     "hero": hero{
       "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),
       "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),
@@ -1354,6 +1355,7 @@ export function toSparkFormatPage(
     dayCountPlural: result?.dayCountPlural ?? "",
     dayNotEstablishedLabel: result?.dayNotEstablishedLabel ?? "",
     episodes: toSparkEpisodeSummaries(result?.episodes ?? [], formatSlug),
+    altFormatSlug: result?.altFormatSlug ?? null,
   };
 }
 
@@ -1409,6 +1411,8 @@ export const SPARK_EPISODE_QUERY = defineQuery(`
     country,
     launchDate,
     closureDate,
+    "altFormatSlug": select($locale == "tr" => format->slug.en.current, format->slug.tr.current),
+    "altEpisodeSlug": select($locale == "tr" => slug.en.current, slug.tr.current),
     "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
     "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),
     "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),
@@ -1561,6 +1565,8 @@ export function toSparkEpisodePage(
     country: result.country ?? "",
     launchDate: result.launchDate,
     closureDate: result.closureDate,
+    altFormatSlug: result.altFormatSlug ?? null,
+    altEpisodeSlug: result.altEpisodeSlug ?? null,
     formatName: result.formatName ?? "",
     standfirst: result.standfirst ?? "",
     blocks: (result.blocks ?? []) as SparkEpisodePage["blocks"],

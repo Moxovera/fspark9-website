@@ -202,6 +202,10 @@ export interface SparkFormatPage {
   dayCountPlural: string
   dayNotEstablishedLabel: string
   episodes: SparkEpisodeSummary[]
+  // Bu format'ın DİĞER locale'deki slug'ı (ör. TR'de "son-gun" iken EN
+  // karşılığı "the-last-day") — LocaleSwitcher'ın dil değiştirirken
+  // doğru URL'i kurabilmesi için (bkz. SparkAltSlugContext.tsx).
+  altFormatSlug: string | null
 }
 
 // ─────────────────────────────────────────────
@@ -386,6 +390,10 @@ export interface SparkEpisodePage extends SparkMechanicVocabulary {
   country: string
   launchDate: string | null
   closureDate: string | null
+  // Bu bölümün ve format'ının DİĞER locale'deki slug'ları — bkz.
+  // SparkFormatPage.altFormatSlug yorumu, aynı gerekçe.
+  altFormatSlug: string | null
+  altEpisodeSlug: string | null
   formatName: string
   standfirst: string
   blocks: SparkEpisodeBlock[]

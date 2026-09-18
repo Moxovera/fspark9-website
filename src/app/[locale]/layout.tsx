@@ -11,6 +11,7 @@ import Footer from "@/components/chrome/Footer";
 import MobileBookingBar from "@/components/chrome/MobileBookingBar";
 import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
+import { SparkAltSlugProvider } from "@/components/chrome/SparkAltSlugContext";
 import { siteSettings as enSiteSettings } from "@/content/en";
 import { siteSettings as trSiteSettings } from "@/content/tr";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -115,13 +116,15 @@ export default async function LocaleLayout({
         className={`${fraunces.variable} ${cabin.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider>
-          <BookingProvider>
-            <Header settings={settings} locale={locale} />
-            {children}
-            <Footer settings={settings} locale={locale} />
-            <MobileBookingBar ctaLabel={settings.ctaLabel} />
-            <BookingOverlay content={settings.booking} />
-          </BookingProvider>
+          <SparkAltSlugProvider>
+            <BookingProvider>
+              <Header settings={settings} locale={locale} />
+              {children}
+              <Footer settings={settings} locale={locale} />
+              <MobileBookingBar ctaLabel={settings.ctaLabel} />
+              <BookingOverlay content={settings.booking} />
+            </BookingProvider>
+          </SparkAltSlugProvider>
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
