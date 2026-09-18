@@ -22,12 +22,12 @@ export default function SparkCard({ teaser }: SparkCardProps) {
         pathname: "/spark/[formatSlug]/[episodeSlug]",
         params: { formatSlug: teaser.formatSlug, episodeSlug: teaser.episodeSlug },
       }}
-      className="group block border border-bronze/30 bg-ivory/[0.02] p-10 transition-[border-color,background-color] duration-200 hover:border-bronze/60 hover:bg-ivory/[0.04]"
+      className="group block border border-bronze/30 bg-navy/[0.03] p-10 transition-[border-color,background-color] duration-200 hover:border-bronze/60 hover:bg-navy/[0.05]"
     >
       <p className="mb-4 font-mono text-[clamp(2.2rem,5vw,3.4rem)] leading-none tracking-[-0.01em] text-bronze">
         {teaser.figure}
       </p>
-      <p className="max-w-[58ch] text-[1.02rem] leading-[1.66] text-ivory/80">{teaser.line}</p>
+      <p className="max-w-[58ch] text-[1.02rem] leading-[1.66] text-charcoal/85">{teaser.line}</p>
     </Link>
   );
 }

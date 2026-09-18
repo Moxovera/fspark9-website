@@ -90,18 +90,14 @@ export default async function SparkFormatPageRoute({
       <SubpageHero hero={page.hero} backLabel={page.hero.eyebrow} backHref="/spark" />
 
       {page.episodes.length > 0 && (
-        <section className="bg-navy px-7 pb-[120px]">
-          <div className="mx-auto max-w-[1000px]">
-            <SparkEpisodeList
-              episodes={page.episodes}
-              dayCountSingular={page.dayCountSingular}
-              dayCountPlural={page.dayCountPlural}
-              dayNotEstablishedLabel={page.dayNotEstablishedLabel}
-              hookLabel={page.hookLabel}
-              locale={resolvedLocale}
-            />
-          </div>
-        </section>
+        <SparkEpisodeList
+          episodes={page.episodes}
+          dayCountSingular={page.dayCountSingular}
+          dayCountPlural={page.dayCountPlural}
+          dayNotEstablishedLabel={page.dayNotEstablishedLabel}
+          hookLabel={page.hookLabel}
+          locale={resolvedLocale}
+        />
       )}
     </main>
   );

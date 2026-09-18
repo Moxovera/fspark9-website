@@ -14,6 +14,9 @@ interface QuietLinkProps {
   href: LinkHref;
   label: string;
   className?: string;
+  // Spark satırlarının artık kapalı (navy)/açık (ivory) alternediği
+  // arka plana göre — bkz. FormatRow/SparkEpisodeRow (18 Eylül 2026).
+  tone?: "onNavy" | "onIvory";
 }
 
 /**
@@ -23,11 +26,14 @@ interface QuietLinkProps {
  * at the bottom, using the NextLine quiet text link pattern... not a
  * boxed button" gereksinimi.
  */
-export default function QuietLink({ href, label, className }: QuietLinkProps) {
+export default function QuietLink({ href, label, className, tone = "onNavy" }: QuietLinkProps) {
+  const isOnIvory = tone === "onIvory";
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 border-b border-bronze/45 pb-1 font-mono text-[13px] tracking-[0.06em] text-ivory transition-colors duration-200 hover:text-bronze ${className ?? ""}`}
+      className={`inline-flex items-center gap-2 border-b pb-1 font-mono text-[13px] tracking-[0.06em] transition-colors duration-200 hover:text-bronze ${
+        isOnIvory ? "border-navy/35 text-navy" : "border-bronze/45 text-ivory"
+      } ${className ?? ""}`}
     >
       {label}
       <span

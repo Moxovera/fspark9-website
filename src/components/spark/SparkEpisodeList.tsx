@@ -11,7 +11,9 @@ interface SparkEpisodeListProps {
 }
 
 /**
- * Dikey liste — grid DEĞİL (bkz. Spark revizyon brief §4).
+ * Dikey liste — grid DEĞİL (bkz. Spark revizyon brief §4). Satırlar
+ * navy/ivory arasında SIRAYLA alterniyor, ilk satır her zaman ivory
+ * (üstündeki hero her zaman navy) — bkz. SparkEpisodeRow.tsx yorumu.
  */
 export default function SparkEpisodeList({
   episodes,
@@ -25,7 +27,7 @@ export default function SparkEpisodeList({
 
   return (
     <div className="flex flex-col">
-      {episodes.map((episode) => (
+      {episodes.map((episode, index) => (
         <SparkEpisodeRow
           key={episode.episodeSlug}
           episode={episode}
@@ -34,6 +36,8 @@ export default function SparkEpisodeList({
           dayNotEstablishedLabel={dayNotEstablishedLabel}
           hookLabel={hookLabel}
           locale={locale}
+          tone={index % 2 === 0 ? "onIvory" : "onNavy"}
+          isLast={index === episodes.length - 1}
         />
       ))}
     </div>

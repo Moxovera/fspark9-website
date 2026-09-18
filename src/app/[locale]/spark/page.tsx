@@ -86,15 +86,11 @@ export default async function SparkPage({
       </SubpageHero>
 
       {page.formats.length > 0 && (
-        <section className="bg-navy px-7 pb-[120px]">
-          <div className="mx-auto max-w-[1000px]">
-            <SparkFormatRows
-              formats={page.formats}
-              comingSoonLabel={page.comingSoonLabel}
-              locale={resolvedLocale}
-            />
-          </div>
-        </section>
+        <SparkFormatRows
+          formats={page.formats}
+          comingSoonLabel={page.comingSoonLabel}
+          locale={resolvedLocale}
+        />
       )}
     </main>
   );
