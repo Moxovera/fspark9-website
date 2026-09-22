@@ -55,8 +55,15 @@ export async function generateMetadata({
   });
   const seo = toSiteSeo(seoResult);
   const paths = { en: getPathname({ href: "/", locale: "en" }), tr: getPathname({ href: "/", locale: "tr" }) };
+  const metadata = toMetadata(seo, seo, locale, paths);
 
-  return toMetadata(seo, seo, locale, paths);
+  return {
+    ...metadata,
+    verification: {
+      ...metadata.verification,
+      google: "Q0aqMhmoUFw2Uu97Q40akGlm1utCKdpNPq1Lwe4UQSw",
+    },
+  };
 }
 
 export default async function LocaleLayout({
