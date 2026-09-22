@@ -17,6 +17,7 @@ import {
   toSubpageCta,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   SERVICES_PAGE_QUERYResult,
   SERVICES_PAGE_SEO_QUERYResult,
@@ -43,7 +44,9 @@ export async function generateMetadata({
     }),
   ]);
 
-  return toMetadata(toServicesPageSeo(seoResult), toSiteSeo(siteSeoResult));
+  const paths = { en: getPathname({ href: "/services", locale: "en" }), tr: getPathname({ href: "/services", locale: "tr" }) };
+
+  return toMetadata(toServicesPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**

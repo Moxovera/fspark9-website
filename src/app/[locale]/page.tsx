@@ -61,6 +61,7 @@ import {
   toSiteSeo,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   HOME_HERO_QUERYResult,
   HOME_FRAMEWORK_QUERYResult,
@@ -103,7 +104,9 @@ export async function generateMetadata({
     }),
   ]);
 
-  return toMetadata(toHomeSeo(seoResult), toSiteSeo(siteSeoResult));
+  const paths = { en: getPathname({ href: "/", locale: "en" }), tr: getPathname({ href: "/", locale: "tr" }) };
+
+  return toMetadata(toHomeSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function Home({

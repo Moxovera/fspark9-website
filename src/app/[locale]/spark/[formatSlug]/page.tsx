@@ -14,6 +14,7 @@ import {
   toSparkFormatPage,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   SPARK_FORMAT_SLUGS_QUERYResult,
   SPARK_FORMAT_SEO_QUERYResult,
@@ -44,7 +45,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; formatSlug: string }>;
 }): Promise<Metadata> {
   const { locale, formatSlug } = await params;
-  const [seoResult, siteSeoResult] = await Promise.all([
+  const [seoResult, siteSeoResult, formatSlugs] = await Promise.all([
     sanityFetch<SPARK_FORMAT_SEO_QUERYResult>({
       query: SPARK_FORMAT_SEO_QUERY,
       params: { locale, formatSlug },
@@ -55,9 +56,27 @@ export async function generateMetadata({
       params: { locale },
       tags: ["siteSettings"],
     }),
+    sanityFetch<SPARK_FORMAT_SLUGS_QUERYResult>({
+      query: SPARK_FORMAT_SLUGS_QUERY,
+      tags: ["sparkFormat"],
+    }),
   ]);
 
-  return toMetadata(toSparkFormatSeo(seoResult), toSiteSeo(siteSeoResult));
+  // the-last-day/son-gun gibi slug'lar locale'e göre farklı — hreflang
+  // için generateStaticParams'ın kullandığı aynı listeden ikisini de
+  // buluyoruz, ayrı bir sorgu şekli değiştirmeden.
+  const match = formatSlugs.find((format) =>
+    locale === "tr" ? format.tr === formatSlug : format.en === formatSlug,
+  );
+  const paths =
+    match && match.en && match.tr
+      ? {
+          en: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: match.en } }, locale: "en" }),
+          tr: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: match.tr } }, locale: "tr" }),
+        }
+      : undefined;
+
+  return toMetadata(toSparkFormatSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**

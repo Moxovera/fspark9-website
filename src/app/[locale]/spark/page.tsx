@@ -13,6 +13,7 @@ import {
   toSparkPage,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   SPARK_SEO_QUERYResult,
   SITE_SEO_QUERYResult,
@@ -39,7 +40,9 @@ export async function generateMetadata({
     }),
   ]);
 
-  return toMetadata(toSparkSeo(seoResult), toSiteSeo(siteSeoResult));
+  const paths = { en: getPathname({ href: "/spark", locale: "en" }), tr: getPathname({ href: "/spark", locale: "tr" }) };
+
+  return toMetadata(toSparkSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**

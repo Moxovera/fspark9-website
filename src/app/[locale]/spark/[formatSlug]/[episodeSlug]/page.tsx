@@ -16,6 +16,7 @@ import {
   toSparkEpisodePage,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   SPARK_EPISODE_SLUGS_QUERYResult,
   SPARK_EPISODE_SEO_QUERYResult,
@@ -47,7 +48,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; formatSlug: string; episodeSlug: string }>;
 }): Promise<Metadata> {
   const { locale, formatSlug, episodeSlug } = await params;
-  const [seoResult, siteSeoResult] = await Promise.all([
+  const [seoResult, siteSeoResult, episodeSlugs] = await Promise.all([
     sanityFetch<SPARK_EPISODE_SEO_QUERYResult>({
       query: SPARK_EPISODE_SEO_QUERY,
       params: { locale, formatSlug, episodeSlug },
@@ -58,9 +59,41 @@ export async function generateMetadata({
       params: { locale },
       tags: ["siteSettings"],
     }),
+    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
+      query: SPARK_EPISODE_SLUGS_QUERY,
+      tags: ["sparkEpisode"],
+    }),
   ]);
 
-  return toMetadata(toSparkEpisodeSeo(seoResult), toSiteSeo(siteSeoResult));
+  // slug çiftleri en/tr'de farklı (the-last-day/01-bo vs son-gun/01-bo
+  // gibi) — hreflang için ikisini de generateStaticParams'ın kullandığı
+  // aynı listeden buluyoruz, ayrı bir sorgu şekli değiştirmeden.
+  const match = episodeSlugs.find((episode) =>
+    locale === "tr"
+      ? episode.formatTr === formatSlug && episode.episodeTr === episodeSlug
+      : episode.formatEn === formatSlug && episode.episodeEn === episodeSlug,
+  );
+  const paths =
+    match && match.formatEn && match.episodeEn && match.formatTr && match.episodeTr
+      ? {
+          en: getPathname({
+            href: {
+              pathname: "/spark/[formatSlug]/[episodeSlug]",
+              params: { formatSlug: match.formatEn, episodeSlug: match.episodeEn },
+            },
+            locale: "en",
+          }),
+          tr: getPathname({
+            href: {
+              pathname: "/spark/[formatSlug]/[episodeSlug]",
+              params: { formatSlug: match.formatTr, episodeSlug: match.episodeTr },
+            },
+            locale: "tr",
+          }),
+        }
+      : undefined;
+
+  return toMetadata(toSparkEpisodeSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**

@@ -13,6 +13,7 @@ import {
   toSiteSeo,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   LEGAL_PAGE_QUERYResult,
   LEGAL_PAGE_SEO_QUERYResult,
@@ -38,7 +39,9 @@ export async function generateMetadata({
     }),
   ]);
 
-  return toMetadata(toLegalPageSeo(seoResult), toSiteSeo(siteSeoResult));
+  const paths = { en: getPathname({ href: "/privacy", locale: "en" }), tr: getPathname({ href: "/privacy", locale: "tr" }) };
+
+  return toMetadata(toLegalPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function PrivacyPage({

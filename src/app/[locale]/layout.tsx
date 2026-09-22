@@ -5,7 +5,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { fraunces, cabin, ibmPlexMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
+import { SITE_URL } from "@/lib/site";
 import { routing } from "@/i18n/routing";
+import { getPathname } from "@/i18n/navigation";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
 import MobileBookingBar from "@/components/chrome/MobileBookingBar";
@@ -52,8 +54,9 @@ export async function generateMetadata({
     tags: ["siteSettings"],
   });
   const seo = toSiteSeo(seoResult);
+  const paths = { en: getPathname({ href: "/", locale: "en" }), tr: getPathname({ href: "/", locale: "tr" }) };
 
-  return toMetadata(seo, seo);
+  return toMetadata(seo, seo, locale, paths);
 }
 
 export default async function LocaleLayout({
@@ -100,6 +103,21 @@ export default async function LocaleLayout({
     logo: toSiteLogo(logoResult),
   };
 
+  // Site kimliği için Organization JSON-LD — SEO'nun beklediği tek
+  // yapılandırılmış veri parçası (rich result garanti etmez, ama arama
+  // motoruna marka adını, logoyu ve iletişim noktasını netleştirir).
+  // siteSettings'ten (nav/footer sorgularıyla zaten çekilen email/logo)
+  // besleniyor, metin gömülmüyor.
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "fspark9",
+    url: SITE_URL,
+    logo: settings.logo?.url ?? `${SITE_URL}/assets/lockup-reversed.svg`,
+    ...(settings.footer.email ? { email: settings.footer.email } : {}),
+    ...(settings.footer.linkedin ? { sameAs: [settings.footer.linkedin] } : {}),
+  };
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
@@ -110,6 +128,10 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js')`,
           }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
       <body

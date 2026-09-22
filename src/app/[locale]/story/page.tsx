@@ -16,6 +16,7 @@ import {
   toSubpageCta,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { getPathname } from "@/i18n/navigation";
 import type {
   STORY_PAGE_QUERYResult,
   STORY_PAGE_SEO_QUERYResult,
@@ -42,7 +43,9 @@ export async function generateMetadata({
     }),
   ]);
 
-  return toMetadata(toStoryPageSeo(seoResult), toSiteSeo(siteSeoResult));
+  const paths = { en: getPathname({ href: "/story", locale: "en" }), tr: getPathname({ href: "/story", locale: "tr" }) };
+
+  return toMetadata(toStoryPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function StoryPage({
