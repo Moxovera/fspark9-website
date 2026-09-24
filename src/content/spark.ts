@@ -1,0 +1,123 @@
+import type { Locale, SparkHubContent } from "@/types/content";
+
+/**
+ * Spark hub ve format sayfalarının metni (v2). Copy §5, §6 ve §6c.
+ * Yayındaki bölümler (Bó) Sanity'den geliyor: konu, gün sayısı
+ * (computeDayCount), tarih. Burada sadece etiketler ve henüz yayında
+ * olmayan satırlar (Nuri, Sector reports Nº 01) var; bunlar Sanity'ye
+ * canlıya çıkış günü `coming` durumuyla girecek (brief v4 §6.3).
+ *
+ * Copy'de TR karşılığı olmayan etiketler (readLabel, showAllLabel,
+ * allIssuesLabel) teslim notunda onaya sunuldu.
+ */
+export const spark: Record<Locale, SparkHubContent> = {
+  en: {
+    seo: {
+      title: "Spark: fintech postmortems and sector reports | fspark9",
+      description:
+        "Short, sharp formats that get companies moving. The Last Day and sector reports, numbered and dated.",
+    },
+    bigWord: "Spark",
+    heading: "Short, sharp formats that get companies moving.",
+    tickerTail: "Numbered and dated",
+    readLabel: "Read",
+    backLabel: "Spark",
+    formats: [
+      {
+        number: "01",
+        name: "The Last Day",
+        slug: "the-last-day",
+        status: "live",
+        seo: {
+          title: "The Last Day: why fintechs and banks closed | fspark9",
+          description:
+            "The last months of fintechs and banks that closed, read from the public record, one episode at a time.",
+        },
+        description: "The last months of fintechs and banks that closed, read from the public record.",
+        openLabel: "Open The Last Day",
+        comingIssues: [{ number: "Nº 02", subject: "Nuri", hook: "Formerly Bitwala.", statusLabel: "Coming next" }],
+        aboutLabel: "About this format",
+        aboutLines: [
+          "Every episode ends on the company’s last day.",
+          "Every claim points to a public record.",
+          "Numbered and dated.",
+        ],
+        showAllLabel: "Show all",
+        allIssuesLabel: "All issues",
+        daysUnit: "days",
+      },
+      {
+        number: "02",
+        name: "Sector reports",
+        slug: "sector-reports",
+        status: "preparing",
+        seo: {
+          title: "Sector reports | fspark9 Spark",
+          description: "Market reads with our own notes and a clear view at the end. The first report is in preparation.",
+        },
+        description: "Market reads with our own notes and a clear view at the end.",
+        comingIssues: [
+          { number: "Nº 01", subject: "Sector reports", hook: "", statusLabel: "In preparation" },
+        ],
+        aboutLabel: "About this format",
+        aboutLines: [],
+        showAllLabel: "Show all",
+        allIssuesLabel: "All issues",
+        daysUnit: "days",
+      },
+    ],
+  },
+  tr: {
+    seo: {
+      title: "Spark: fintech otopsileri ve sektör raporları | fspark9",
+      description:
+        "Şirketleri harekete geçiren kısa ve net formatlar. Son Gün ve sektör raporları, numaralı ve tarihli.",
+    },
+    bigWord: "Spark",
+    heading: "Şirketleri harekete geçiren kısa ve net formatlar.",
+    tickerTail: "Numaralı ve tarihli",
+    readLabel: "Okuyun",
+    backLabel: "Spark",
+    formats: [
+      {
+        number: "01",
+        name: "Son Gün",
+        slug: "son-gun",
+        status: "live",
+        seo: {
+          title: "Son Gün: fintech ve bankalar neden kapandı | fspark9",
+          description: "Kapanan fintech ve bankaların son ayları, kamuya açık kayıtlardan, bölüm bölüm.",
+        },
+        description: "Kapanan fintech ve bankaların son aylarını kamuya açık kayıtlardan okuyoruz.",
+        openLabel: "Son Gün’ü açın",
+        comingIssues: [{ number: "Nº 02", subject: "Nuri", hook: "Eski adıyla Bitwala.", statusLabel: "Sırada" }],
+        aboutLabel: "Bu format hakkında",
+        aboutLines: [
+          "Her bölüm şirketin son günüyle biter.",
+          "Her iddia kamuya açık bir kayda dayanır.",
+          "Numaralı ve tarihli.",
+        ],
+        showAllLabel: "Tümünü göster",
+        allIssuesLabel: "Tüm sayılar",
+        daysUnit: "gün",
+      },
+      {
+        number: "02",
+        name: "Sektör raporları",
+        slug: "sektor-raporlari",
+        status: "preparing",
+        seo: {
+          title: "Sektör raporları | fspark9 Spark",
+          description: "Kendi notlarımızla pazar okumaları, sonunda net bir görüş. İlk rapor hazırlanıyor.",
+        },
+        description: "Kendi notlarımızla pazar okumaları, sonunda net bir görüş.",
+        comingIssues: [{ number: "Nº 01", subject: "Sektör raporları", hook: "", statusLabel: "Hazırlanıyor" }],
+        aboutLabel: "Bu format hakkında",
+        aboutLines: [],
+        showAllLabel: "Tümünü göster",
+        allIssuesLabel: "Tüm sayılar",
+        daysUnit: "gün",
+      },
+    ],
+  },
+};

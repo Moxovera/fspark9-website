@@ -1308,3 +1308,209 @@ export interface SiteChrome {
     copyright: string
   }
 }
+
+// ─────────────────────────────────────────────
+// v2 sayfa içerikleri (brief v4 §6.1, §7). Kaynak: site copy v2.
+// Veri: src/content/{chrome,home,services,work,about,spark}.ts
+// ─────────────────────────────────────────────
+
+export interface PageSeoCopy {
+  title: string
+  description: string
+}
+
+/** Kapanış bloğu (siteSettings.nextStep). Etiket ana sayfada numaralı, diğer sayfalarda numarasız. */
+export interface NextStepContent {
+  label: string
+  /** Ana sayfadaki numaralı etiket ("05 · Next step"). */
+  homeLabel: string
+  headlineLead: string
+  /** Flare kesimi alan kelime. */
+  headlineCut: string
+  steps: string[]
+  ctaLabel: string
+}
+
+export interface TitleText {
+  title: string
+  text: string
+}
+
+export interface FigureItem {
+  value: string
+  label: string
+}
+
+/** Açılış başlığı: her cümle kendi satırında, son cümlenin sonundaki `cutWord` Flare kesimde. */
+export interface HeadlineWithCut {
+  headlineSentences: string[]
+  cutWord: string
+}
+
+export interface HomeContent {
+  seo: PageSeoCopy
+  opening: HeadlineWithCut & {
+    /** Etiket parçaları. Mobilde board sadece ilk ve sonu gösteriyor. */
+    eyebrowParts: string[]
+    intro: string
+    ctaLabel: string
+    secondaryLinkLabel: string
+    portraitAlt: string
+  }
+  startWhereYouAre: {
+    label: string
+    heading: string
+    text: string
+    items: TitleText[]
+  }
+  fourServices: {
+    label: string
+    heading: string
+    intro: string
+  }
+  work: {
+    label: string
+    heading: string
+    allLinkLabel: string
+    featured: {
+      slug: string
+      label: string
+      heading: string
+      text: string
+      figures: FigureItem[]
+      linkLabel: string
+      screens: { src: string; alt: string }[]
+    }
+    rows: { slug: string; name: string; line: string; tags: string }[]
+    alsoLabel: string
+    also: TitleText[]
+  }
+  withMe: {
+    label: string
+    heading: string
+    text: string
+    points: TitleText[]
+    portraitAlt: string
+  }
+  spark: {
+    label: string
+    heading: string
+    text: string
+    linkLabel: string
+    cards: SparkCardContent[]
+  }
+}
+
+export interface SparkCardContent {
+  format: string
+  number: string
+  title: string
+  line: string
+  /** Yayında olan bölüm: tarih ve okuma linki. Gelecek bölüm: durum etiketi. */
+  date?: string
+  linkLabel?: string
+  href?: NavHref
+  status?: string
+}
+
+export interface ServiceStep {
+  /** Zero to Live'da her adımın adı var; diğer üç hizmette sadece satır var. */
+  title?: string
+  line: string
+  slices: readonly number[]
+}
+
+export interface ServicePageContent {
+  slug: ServiceSlug
+  seo: PageSeoCopy
+  backLabel: string
+  opening: { label: string; heading: string; intro: string }
+  stepsLabel: string
+  steps: ServiceStep[]
+  otherServicesLabel: string
+  keepLabel: string
+  keep: string
+  ctaLabel: string
+}
+
+export interface ServicesIndexContent {
+  seo: PageSeoCopy
+  backLabel: string
+  opening: { label: string; heading: string; intro: string }
+}
+
+export interface CaseContent {
+  slug: string
+  seo: PageSeoCopy
+  name: string
+  subtitle: string
+  tags: string
+  services: ServiceSlug[]
+  problem: { label: string; body: string }
+  actions: { label: string; items: string[] }
+  delivered: { label: string; body: string }
+  figures?: FigureItem[]
+  proof: FigureItem
+  sources: string[]
+}
+
+export interface WorkPageContent {
+  seo: PageSeoCopy
+  backLabel: string
+  heading: string
+  lead: string
+  readLabel: string
+}
+
+export interface AboutContent {
+  seo: PageSeoCopy
+  backLabel: string
+  hero: HeadlineWithCut
+  pair: { label: string; body: string }[]
+  result: { label: string; body: string }
+  whyNine: { label: string; text: string }
+  portraitAlt: string
+}
+
+/**
+ * Henüz yayında olmayan sayı (status: coming). Yayındaki bölümler
+ * Sanity'den geliyor (gün sayısı computeDayCount ile hesaplanır, hiç
+ * elle yazılmaz); burada sadece listede Stone ve linksiz duran satırlar.
+ */
+export interface SparkComingIssue {
+  number: string
+  subject: string
+  hook: string
+  statusLabel: string
+}
+
+export interface SparkFormatContent {
+  number: string
+  name: string
+  /** Bu dildeki slug (the-last-day / son-gun). */
+  slug: string
+  status: 'live' | 'preparing'
+  seo: PageSeoCopy
+  description: string
+  /** Copy'de sadece The Last Day'in açma linki var. */
+  openLabel?: string
+  comingIssues: SparkComingIssue[]
+  /** Hub'daki "preparing" formatın sayı yerine gösterdiği satır. */
+  preparingLine?: string
+  aboutLabel: string
+  aboutLines: string[]
+  showAllLabel: string
+  allIssuesLabel: string
+  daysUnit: string
+}
+
+export interface SparkHubContent {
+  seo: PageSeoCopy
+  bigWord: string
+  heading: string
+  /** Kayan şeridin son parçası; önceki parçalar bölümlerden üretilir. */
+  tickerTail: string
+  readLabel: string
+  backLabel: string
+  formats: SparkFormatContent[]
+}

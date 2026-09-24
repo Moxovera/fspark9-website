@@ -1,4 +1,4 @@
-import type { Locale, ServiceSummary, SiteChrome } from "@/types/content";
+import type { Locale, NextStepContent, ServiceSummary, SiteChrome } from "@/types/content";
 
 /**
  * v2 site çerçevesinin metni. Kaynak: `_design/v2/fspark9-site-copy-v2.md`
@@ -128,4 +128,29 @@ export const services: Record<Locale, ServiceSummary[]> = {
       slices: [3, 4, 7, 8],
     },
   ],
+};
+
+/**
+ * Kapanış bloğu, her sayfada (yasal, thank-you ve 404 hariç). Copy §1.6.
+ * Etiket ana sayfada numaralı ("05 · Next step"), diğer sayfalarda
+ * numarasız: kullanıcı kararı, 24 Eylül 2026. TR'de Flare kesimi alan
+ * kelime copy'de işaretli değil, EN'deki "live." karşılığı seçildi.
+ */
+export const nextStep: Record<Locale, NextStepContent> = {
+  en: {
+    label: "Next step",
+    homeLabel: "05 · Next step",
+    headlineLead: "Step nine is",
+    headlineCut: "live.",
+    steps: ["A free 30 minute call.", "A written proposal, with the price."],
+    ctaLabel: "Book a call",
+  },
+  tr: {
+    label: "Sonraki adım",
+    homeLabel: "05 · Sonraki adım",
+    headlineLead: "Dokuzuncu adım",
+    headlineCut: "canlıya çıkış.",
+    steps: ["30 dakikalık ücretsiz görüşme.", "Fiyatıyla birlikte yazılı teklif."],
+    ctaLabel: "Görüşme ayarla",
+  },
 };
