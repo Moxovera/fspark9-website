@@ -1,7 +1,7 @@
 /**
  * Tek seferlik script.
  *
- * _design/assets/lockup-reversed.svg dosyasını (finalize edilmiş site
+ * _design/v1/assets/lockup-reversed.svg dosyasını (finalize edilmiş site
  * logosu — Header/Footer'ın navy zemin üzerinde kullandığı reversed
  * lockup, dc.html'deki aynı asset) Sanity'ye image asset olarak
  * yükler ve siteSettings.logo alanına bağlar.
@@ -29,7 +29,7 @@ if (!token) {
 
 const client = createClient({ projectId, dataset, apiVersion, useCdn: false, token });
 
-const LOGO_PATH = resolve(__dirname, "../../_design/assets/lockup-reversed.svg");
+const LOGO_PATH = resolve(__dirname, "../../_design/v1/assets/lockup-reversed.svg");
 
 async function main() {
   const file = readFileSync(LOGO_PATH);
