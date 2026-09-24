@@ -23,8 +23,6 @@ export function generateStaticParams() {
   return routing.locales.flatMap((locale) => servicePages[locale].map(({ slug }) => ({ locale, slug })));
 }
 
-export const dynamicParams = false;
-
 function find(locale: Locale, slug: string) {
   return servicePages[locale].find((page) => page.slug === slug);
 }
