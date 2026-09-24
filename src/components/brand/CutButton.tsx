@@ -26,10 +26,10 @@ export default function CutButton({ label, tone = "flare", size = "default", cla
   // buton genişliği board'la aynı kalıyor.
   return (
     <BookingCta
-      className={`inline-flex items-center gap-[14px] font-sans leading-none font-bold whitespace-nowrap [clip-path:polygon(0_0,100%_0,calc(100%-18px)_100%,0_100%)] ${TONE[tone]} ${SIZE[size]} ${className ?? ""}`}
+      className={`group inline-flex items-center gap-[14px] font-sans leading-none font-bold whitespace-nowrap [clip-path:polygon(0_0,100%_0,calc(100%-18px)_100%,0_100%)] ${TONE[tone]} ${SIZE[size]} ${className ?? ""}`}
     >
       {label}
-      <ArrowRightIcon className="-mx-[0.2em] size-[1em] flex-none" />
+      <ArrowRightIcon className="go-arrow -mx-[0.2em] size-[1em] flex-none" />
     </BookingCta>
   );
 }

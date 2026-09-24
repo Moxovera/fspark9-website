@@ -12,8 +12,7 @@ const SIZE = {
 /**
  * Kare Ink kutu, Paper ok (brand book v3 §6 "Clickable rows"). Sadece
  * görsel: etiketi satırın kendisi taşıyor, bu yüzden aria-hidden ve
- * içinde link yok. Satırın hover durumunda okun 4px kayması (brief §10)
- * Geçiş C'de `group` üzerinden eklenecek.
+ * içinde link yok. Satır (`group`) hover olunca ok 4px sağa kayar (brief §10).
  *
  * Ok 0.8em: uzunluğu board’daki mono glyph’le aynı. Çizgi kalınlığı ev
  * kuralı gereği 1.8 (CLAUDE.md "İkonlar"), glyph’ten biraz ince, bilinçli.
@@ -24,7 +23,7 @@ export default function GoButton({ size, className }: GoButtonProps) {
       aria-hidden="true"
       className={`inline-flex flex-none items-center justify-center bg-ink text-paper ${SIZE[size]} ${className ?? ""}`}
     >
-      <ArrowRightIcon className="size-[0.8em]" />
+      <ArrowRightIcon className="go-arrow size-[0.8em]" />
     </span>
   );
 }

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { EIGHT_SLICES, slicePath } from "@/lib/dial";
 import type { RingOutlineProps } from "@/types/content";
 
@@ -7,14 +8,14 @@ import type { RingOutlineProps } from "@/types/content";
  * Flare dolu. Boyutu kullanan yer verir: masaüstünde 700px, mobilde
  * 420px. Sayfa başına bir kez, sadece açılışta.
  *
- * Çizgiler `data-slice` taşıyor: yükleme animasyonu (stroke-dashoffset,
- * brief §10) Geçiş C'de bu attribute'a bağlanacak.
+ * `animate`: yüklemede çizgiler sırayla çizilir, sonra Flare dilim gelir
+ * (brief §10, globals.css .ring-draw).
  */
-export default function RingOutline({ className }: RingOutlineProps) {
+export default function RingOutline({ className, animate = false }: RingOutlineProps) {
   return (
     <svg
       viewBox="0 0 100 100"
-      className={`block overflow-visible ${className ?? ""}`}
+      className={`block overflow-visible ${animate ? "ring-draw" : ""} ${className ?? ""}`}
       aria-hidden="true"
       focusable="false"
     >
@@ -23,6 +24,8 @@ export default function RingOutline({ className }: RingOutlineProps) {
           key={i}
           d={slicePath(i, 50, 35)}
           data-slice={i}
+          pathLength={1}
+          style={{ "--slice-i": i - 1 } as CSSProperties}
           fill="none"
           className="stroke-ring"
           strokeWidth="0.6"

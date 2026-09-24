@@ -1206,6 +1206,8 @@ export interface DialProps {
 
 export interface RingOutlineProps {
   className?: string
+  /** Yüklemede çizim animasyonu (sadece açılışta). */
+  animate?: boolean
 }
 
 export interface LogoProps {
@@ -1513,4 +1515,28 @@ export interface SparkHubContent {
   readLabel: string
   backLabel: string
   formats: SparkFormatContent[]
+}
+
+export interface TextLinkProps {
+  href: NavHref
+  label: string
+  ground?: BrandGround
+  className?: string
+}
+
+export interface CutHeadlineProps extends HeadlineWithCut {
+  className?: string
+}
+
+export interface PortraitProps {
+  alt: string
+  /** next/image sizes; boyut kullanan yerden className ile. */
+  sizes: string
+  priority?: boolean
+  className?: string
+}
+
+export interface PhonePairProps {
+  screens: { src: string; alt: string }[]
+  className?: string
 }

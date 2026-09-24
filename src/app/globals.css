@@ -168,6 +168,83 @@ body {
   transition: opacity .4s var(--ease-brand), transform .4s var(--ease-brand);
 }
 
+/* ── v2 hareket (brief v4 §10). Tek easing, hepsi reduced-motion'da kapalı. ── */
+
+/* Açılış halkası: sekiz çizgi sırayla çizilir (60ms ara, 480ms), sonra
+   Flare dilim 0.92'den 1'e (240ms). Portre ilk dilimle birlikte belirir.
+   Path'ler pathLength=1 taşıyor, dash değerleri buna göre. */
+.ring-draw [data-slice]:not([data-slice="9"]) {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ring-draw 480ms var(--ease-brand) forwards;
+  animation-delay: calc(var(--slice-i) * 60ms);
+}
+.ring-draw [data-slice="9"] {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-flare 240ms var(--ease-brand) 900ms forwards;
+}
+.portrait-in {
+  opacity: 0;
+  animation: fade-in 480ms var(--ease-brand) forwards;
+}
+@keyframes ring-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes ring-flare {
+  from { opacity: 1; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+/* CutWord: soldan clip-path silmesi, 500ms, başlıktan 200ms sonra. Reveal
+   içindeyse görünür olana kadar bekler. */
+.cut-wipe {
+  animation: cut-wipe 500ms var(--ease-brand) 200ms both;
+}
+.js .reveal:not(.is-visible) .cut-wipe {
+  animation: none;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+@keyframes cut-wipe {
+  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+}
+
+/* Hover (160ms): satır okları 4px sağa, metin linkinin alt çizgisi
+   soldan yeniden çizilir. */
+.go-arrow {
+  transition: transform 160ms var(--ease-brand);
+}
+.group:hover .go-arrow,
+.group:focus-visible .go-arrow {
+  transform: translateX(4px);
+}
+.text-link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+}
+.group:hover .text-link-line {
+  animation: underline-grow 160ms var(--ease-brand);
+}
+@keyframes underline-grow {
+  from { background-size: 0 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-draw [data-slice]:not([data-slice="9"]) { animation: none; stroke-dashoffset: 0; }
+  .ring-draw [data-slice="9"] { animation: none; opacity: 1; }
+  .portrait-in { animation: none; opacity: 1; }
+  .cut-wipe, .js .reveal:not(.is-visible) .cut-wipe { animation: none; clip-path: polygon(0 0, 100% 0, calc(100% - 0.32em) 100%, 0 100%); }
+  .go-arrow { transition: none; }
+  .group:hover .go-arrow, .group:focus-visible .go-arrow { transform: none; }
+  .group:hover .text-link-line { animation: none; }
+}
+
 /* Mobil menü sağdan kayarak gelir, 240ms (brief v4 §10). */
 .sheet-in-right {
   animation: sheet-in-right 240ms var(--ease-brand);
