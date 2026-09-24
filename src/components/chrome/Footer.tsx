@@ -1,98 +1,49 @@
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
-import type { SiteSettings } from "@/types/content";
-import type { ComponentProps } from "react";
+import Logo from "@/components/brand/Logo";
+import type { SiteChrome } from "@/types/content";
 
 interface FooterProps {
-  settings: SiteSettings;
-  locale: string;
+  chrome: SiteChrome;
 }
 
-// bkz. Header.tsx — aynı gerekçe: content.ts'in genel Link[] tipi
-// (href: string) next-intl'in pathnames union'ıyla birebir örtüşmüyor.
-type LinkHref = ComponentProps<typeof Link>["href"];
-
 /**
- * pb-[116px] (<900px): MobileBookingBar.tsx sabit alt bar'ı bu genişlikte
- * görünüyor (~77.5px, EN/TR ve 320-414px arası ölçüldü, satır kırılmıyor)
- * ve sayfanın son elemanı bu bileşen olduğu için, ekstra pay olmadan
- * imza satırı ve copyright kalıcı olarak bar'ın altında kalıyordu —
- * kullanıcı daha aşağı kaydıramadığı için görünmez oluyordu.
+ * Footer (board Main, Legal, HomeMobile): Ink zemin, üstte InkRule çizgi.
+ * Masaüstünde tek satır (logo, e-posta, LinkedIn, boşluk, Imprint,
+ * copyright), mobilde alt alta. Sadece Imprint linki var; Privacy, Cookies
+ * ve Terms yasal sayfalardaki sekmelerden açılıyor (brief v4 §5).
+ *
+ * Board'da footer, NextStep'in olduğu sayfalarda aynı Ink bölümün
+ * içinde duruyor. Burada ayrı bir blok: üst boşluğu (40px / 32px) yasal
+ * sayfalardaki haliyle aynı, NextStep kendi alt boşluğunu buna göre
+ * ayarlayacak. 900px altında MobileBookingBar'ın altında kalmaması için
+ * alt boşluk çubuğun yüksekliği kadar büyüyor.
  */
-export default function Footer({ settings, locale }: FooterProps) {
-  const { footer, logo } = settings;
-  const { tagline, nine, signature, email, linkedin, nav, legalLinks, legal, copyright } =
-    footer;
+export default function Footer({ chrome }: FooterProps) {
+  const { brandName, footer } = chrome;
 
   return (
-    <footer className="bg-[color-mix(in_srgb,var(--navy)_75%,black_25%)] px-7 pt-[76px] pb-[34px] max-[900px]:pb-[116px]">
-      <div className="mx-auto max-w-[1280px]">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-11 pb-[52px]">
-          <div>
-            <Image
-              src={logo?.url || "/assets/lockup-reversed.svg"}
-              alt={logo?.alt || "fspark9"}
-              width={logo?.width || 166}
-              height={logo?.height || 47}
-              className="mb-[18px] h-auto w-[166px]"
-            />
-            <p className="mb-[22px] text-[14.5px] text-ivory/60">{tagline}</p>
-            <p className="font-display text-[1.1rem] text-bronze">{nine}</p>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href as LinkHref}
-                className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <a
-              href={linkedin}
-              target="_blank"
-              rel="noopener"
-              className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
+    <footer className="on-ink bg-ink px-5 pt-8 pb-[105px] min-[768px]:px-16 min-[768px]:pt-10 min-[900px]:pb-12">
+      <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:items-center min-[768px]:gap-6 min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
+        <Logo tone="paper" label={brandName} className="h-[22px] self-start" />
+        <a href={`mailto:${footer.email}`} className="mt-2 text-paper no-underline min-[768px]:mt-0">
+          {footer.email}
+        </a>
+        <a href={footer.linkedinHref} target="_blank" rel="noopener" className="text-paper no-underline">
+          {footer.linkedinLabel}
+        </a>
+        <div className="hidden flex-grow min-[768px]:block" />
+        <div className="flex flex-wrap items-center gap-x-5 text-[14px] text-dust">
+          {footer.legalLinks.map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="inline-flex min-h-11 items-center text-dust no-underline min-[768px]:min-h-0"
             >
-              LinkedIn
-            </a>
-            <a
-              href={`mailto:${email}`}
-              className="text-[14.5px] text-ivory/72 transition-colors duration-200 hover:text-bronze"
-            >
-              {email}
-            </a>
-            <div className="mt-2">
-              <LocaleSwitcher locale={locale} />
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {legalLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href as LinkHref}
-                className="text-sm text-ivory/55 transition-colors duration-200 hover:text-bronze"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <p className="mt-2 text-[13px] leading-[1.6] text-ivory/40">{legal}</p>
-          </div>
+              {item.label}
+            </Link>
+          ))}
         </div>
-
-        <div className="flex flex-wrap justify-between gap-5 border-t border-bronze/40 pt-[22px]">
-          <p className="font-mono text-[12.5px] tracking-[0.08em] text-bronze">
-            {signature}
-          </p>
-          <p className="text-[12.5px] text-ivory/40">{copyright}</p>
-        </div>
+        <span className="text-[14px] text-dust">{footer.copyright}</span>
       </div>
     </footer>
   );

@@ -168,6 +168,23 @@ body {
   transition: opacity .4s var(--ease-brand), transform .4s var(--ease-brand);
 }
 
+/* Mobil menü sağdan kayarak gelir, 240ms (brief v4 §10). */
+.sheet-in-right {
+  animation: sheet-in-right 240ms var(--ease-brand);
+}
+
+@keyframes sheet-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-in-right {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .js .reveal {
     opacity: 1;

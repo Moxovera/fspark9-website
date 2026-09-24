@@ -1,81 +1,149 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { usePathname } from "@/i18n/navigation";
 
-interface HeaderFrameProps {
-  children: ReactNode;
+// Açılışı Paper olan sayfalar: header'ları hep açık (board Legal, ThankYou).
+// Diğer her sayfa Ink açılışla başlıyor, header koyu başlayıp 80px'ten
+// sonra açığa dönüyor.
+const LIGHT_ROUTES = new Set(["/impressum", "/terms", "/privacy", "/cookies", "/thank-you"]);
+const SCROLL_THRESHOLD = 80;
+const HOVER_DELAY = 120;
+
+interface HeaderStateValue {
+  servicesOpen: boolean;
+  openServices: () => void;
+  closeServices: (returnFocus?: boolean) => void;
+  toggleServices: () => void;
+  scheduleOpenServices: () => void;
+  cancelScheduledOpen: () => void;
+  registerServicesButton: (el: HTMLButtonElement | null) => void;
+}
+
+const HeaderStateContext = createContext<HeaderStateValue | null>(null);
+
+export function useHeaderState() {
+  const ctx = useContext(HeaderStateContext);
+  if (!ctx) throw new Error("useHeaderState must be used within HeaderFrame");
+  return ctx;
 }
 
 /**
- * dc.html: dark = st.scrolled || page !== 'home', scrolled = scrollY > 40.
- * Sadece header'ın kendi arka plan/backdrop-filter/border rengini
- * etkiliyor — logo/nav/CTA/dil değiştirici hiçbiri scroll'a bağlı değil,
- * bu yüzden onlar server'da (Header.tsx) üretilip children olarak
- * geçiyor, sadece <header> etiketinin kendisi burada (StickyStack'teki
- * "children klonlanmaz, sadece dış kapsayıcıya state" deseniyle aynı).
+ * Header'ın client kısmı (brief v4 §5). İçerik server'da (Header.tsx)
+ * üretilip children olarak geliyor; burada sadece <header> etiketi ve
+ * iki durum var:
  *
- * dc.html'in kendi scroll dinleyicisi throttle'sız; burada Familiar/
- * StickyStack/MediaSlider'daki dirty flag + tek rAF tick dersi
- * uygulanıyor.
+ * - Ton: `data-tone="dark"` Ink açılışın üstünde, `light` 80px kaydırınca,
+ *   açık sayfalarda ve Services menüsü açıkken. Çocuklar renklerini
+ *   `group-data-[tone=light]/header:` ile bundan alıyor.
+ * - Services menüsü: tıklama/klavye ile açılır, üzerine gelince 120ms
+ *   sonra açılır; Escape, dışarı tıklama ve sayfa değişimi kapatır.
  *
- * Alt sayfalar henüz yok (page !== 'home' koşulu şimdilik anlamsız) —
- * bu yüzden forceDark gibi bir prop eklenmedi, alt sayfalar kurulunca
- * tek satırlık bir ek olur.
+ * Scroll dinleyicisi passive ve rAF ile kısılmış, her olayda layout
+ * okumuyor.
  */
-export default function HeaderFrame({ children }: HeaderFrameProps) {
+export default function HeaderFrame({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const hoverTimer = useRef<number | null>(null);
 
   useEffect(() => {
-    let dirty = false;
-    let tickScheduled = false;
     let rafId: number | null = null;
-
     const apply = () => {
-      const next = window.scrollY > 40;
+      rafId = null;
+      const next = window.scrollY > SCROLL_THRESHOLD;
       setScrolled((prev) => (prev === next ? prev : next));
     };
-
-    const scheduleTick = () => {
-      dirty = true;
-      if (tickScheduled) return;
-      tickScheduled = true;
-      rafId = requestAnimationFrame(() => {
-        tickScheduled = false;
-        if (dirty) {
-          dirty = false;
-          apply();
-        }
-      });
+    const onScroll = () => {
+      if (rafId === null) rafId = requestAnimationFrame(apply);
     };
-
-    window.addEventListener("scroll", scheduleTick, { passive: true });
-    scheduleTick();
-
+    window.addEventListener("scroll", onScroll, { passive: true });
+    apply();
     return () => {
-      window.removeEventListener("scroll", scheduleTick);
+      window.removeEventListener("scroll", onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 
-  const headerStyle: CSSProperties = {
-    background: scrolled
-      ? "color-mix(in srgb, color-mix(in srgb, var(--navy) 75%, black 25%) 88%, transparent)"
-      : "transparent",
-    backdropFilter: scrolled ? "blur(14px)" : "none",
-    borderBottomColor: scrolled
-      ? "color-mix(in srgb, var(--ivory) 10%, transparent)"
-      : "transparent",
-    transition:
-      "background .4s ease, backdrop-filter .4s ease, border-color .4s ease",
-  };
+  const cancelScheduledOpen = useCallback(() => {
+    if (hoverTimer.current !== null) {
+      window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
+    }
+  }, []);
+
+  const closeServices = useCallback(
+    (returnFocus = false) => {
+      cancelScheduledOpen();
+      setServicesOpen(false);
+      if (returnFocus) buttonRef.current?.focus();
+    },
+    [cancelScheduledOpen],
+  );
+
+  // Sayfa değişince menü kapanır.
+  useEffect(() => {
+    closeServices();
+  }, [pathname, closeServices]);
+
+  // Açıkken: Escape ve header dışına tıklama kapatır.
+  useEffect(() => {
+    if (!servicesOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeServices(true);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) closeServices();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [servicesOpen, closeServices]);
+
+  useEffect(() => cancelScheduledOpen, [cancelScheduledOpen]);
+
+  const value = useMemo<HeaderStateValue>(
+    () => ({
+      servicesOpen,
+      openServices: () => setServicesOpen(true),
+      closeServices,
+      toggleServices: () => setServicesOpen((open) => !open),
+      scheduleOpenServices: () => {
+        cancelScheduledOpen();
+        hoverTimer.current = window.setTimeout(() => setServicesOpen(true), HOVER_DELAY);
+      },
+      cancelScheduledOpen,
+      registerServicesButton: (el) => {
+        buttonRef.current = el;
+      },
+    }),
+    [servicesOpen, closeServices, cancelScheduledOpen],
+  );
+
+  const light = LIGHT_ROUTES.has(pathname) || scrolled || servicesOpen;
 
   return (
-    <header
-      className="fixed inset-x-0 top-0 z-[95] border-b"
-      style={headerStyle}
-    >
-      {children}
-    </header>
+    <HeaderStateContext.Provider value={value}>
+      <header
+        ref={headerRef}
+        data-tone={light ? "light" : "dark"}
+        onMouseLeave={() => {
+          cancelScheduledOpen();
+          if (servicesOpen) closeServices();
+        }}
+        className={`group/header fixed inset-x-0 top-0 z-[95] border-b transition-[background-color,border-color] duration-[240ms] ease-brand ${
+          light ? "border-rule bg-paper" : "on-ink border-headrule bg-ink"
+        }`}
+      >
+        {children}
+      </header>
+    </HeaderStateContext.Provider>
   );
 }

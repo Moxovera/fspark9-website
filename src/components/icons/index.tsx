@@ -2,8 +2,8 @@ import type { SVGProps } from "react";
 
 /**
  * Sitenin tek ikon seti (CLAUDE.md "İkonlar", brief v4 §2). Board'lar
- * okları ve kapatma işaretini metin glyph'i (→ ← ↓ ↗ ×) olarak çiziyor,
- * bunlar burada inline SVG. Hepsi 24 × 24 viewBox, currentColor, 1.8
+ * okları ve kapatma işaretini Unicode metin glyph'i olarak çiziyor,
+ * bunlar burada inline SVG. Hepsi 24x24 viewBox, currentColor, 1.8
  * stroke, yuvarlak uç ve birleşim. Boyut ve renk kullanan yerden
  * className ile verilir, ikon hep dekoratif (aria-hidden): etiketi
  * taşıyan her zaman ikonu içeren link ya da buton.
@@ -51,10 +51,10 @@ export function ChevronDownIcon(props: IconProps) {
 }
 
 export function CloseIcon(props: IconProps) {
-  return <Icon d="M6 6l12 12M18 6 6 18" {...props} />;
+  return <Icon d="M5 5l14 14M19 5 5 19" {...props} />;
 }
 
-/** Mobil header'daki iki çizgili menü işareti (board: HomeMobile). */
+/** Mobil header'daki iki çizgili menü işareti (board HomeMobile: 24px genişlik, 12px aralık). */
 export function MenuIcon(props: IconProps) {
-  return <Icon d="M2 8h20M2 16h20" {...props} />;
+  return <Icon d="M0 6h24M0 18h24" {...props} />;
 }

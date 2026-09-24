@@ -1,33 +1,29 @@
 "use client";
 
+import CutButton from "@/components/brand/CutButton";
 import { useBooking } from "@/hooks/useBooking";
+import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
 
 interface MobileBookingBarProps {
-  ctaLabel: string;
+  label: string;
 }
 
 /**
- * dc.html: narrow = st.w < 900, sc-if ile tam mount/unmount — JS resize
- * dinleyicisiyle hesaplanıyor. Header'ın 1180px kırılımında olduğu gibi
- * burada da JS/state gerekmiyor, saf CSS breakpoint'i (`max-[899px]:`)
- * aynı görünürlük davranışını veriyor. Tek client sebebi useBooking()
- * hook'u — buton dışında hiçbir state/efekt yok.
+ * Mobilde tek randevu girişi (brief v4 §5): mobil header'da buton yok.
+ * 900px altında görünen Paper çubuk, üstte Rule çizgi, tam genişlik Flare
+ * cut buton. Randevu penceresi ya da mobil menü açıkken gizli. Tailwind'in
+ * `max-[900px]:` varyantı "900'ün altı" demek (bkz. CLAUDE.md).
  *
- * z-index 80 — header'ın (95) ve booking overlay'in (100) altında,
- * dc.html'deki sıralamayla aynı.
+ * z-index 80: header (95), mobil menü (110) ve randevu penceresinin altında.
  */
-export default function MobileBookingBar({ ctaLabel }: MobileBookingBarProps) {
-  const { open } = useBooking();
+export default function MobileBookingBar({ label }: MobileBookingBarProps) {
+  const { isOpen: bookingOpen } = useBooking();
+  const { isOpen: menuOpen } = useMobileMenu();
+  if (bookingOpen || menuOpen) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[80] hidden border-t border-bronze/35 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--navy)_75%,black_25%)_92%,transparent)] p-3 backdrop-blur-[10px] max-[900px]:block">
-      <button
-        type="button"
-        onClick={open}
-        className="w-full cursor-pointer bg-bronze p-[15px] text-[15px] font-medium text-ivory transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)]"
-      >
-        {ctaLabel}
-      </button>
+    <div className="fixed inset-x-0 bottom-0 z-[80] hidden border-t border-rule bg-paper px-5 py-3 max-[900px]:block">
+      <CutButton label={label} className="w-full justify-center" />
     </div>
   );
 }

@@ -9,9 +9,13 @@ export const routing = defineRouting({
   pathnames: {
     '/': '/',
     '/services': '/services',
+    // v2: dört hizmet sayfası, slug iki dilde aynı (brief v4 §3)
+    '/services/[slug]': '/services/[slug]',
     '/work': '/work',
     '/work/[slug]': '/work/[slug]',
     '/story': '/story',
+    // v2: /story'nin yeni adı. Sayfa Adım 6'da gelecek, /story 301'i Adım 8'de.
+    '/about': '/about',
     '/spark': '/spark',
     // formatSlug'un kendisi zaten locale'e göre farklı değer taşıyor
     // (the-last-day / son-gun) — next-intl'in statik pathnames haritası

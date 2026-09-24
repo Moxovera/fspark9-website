@@ -1,88 +1,120 @@
 "use client";
 
-import { useState } from "react";
-import type { CSSProperties, ComponentProps } from "react";
-import { Link } from "@/i18n/navigation";
-import { useBooking } from "@/hooks/useBooking";
-import type { Link as NavLink } from "@/types/content";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Link, usePathname } from "@/i18n/navigation";
+import Logo from "@/components/brand/Logo";
+import Dial from "@/components/brand/Dial";
+import CutButton from "@/components/brand/CutButton";
+import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
+import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
+import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
+import type { ServiceSummary, SiteChrome } from "@/types/content";
 
 interface MobileNavProps {
-  nav: NavLink[];
-  ctaLabel: string;
+  chrome: SiteChrome;
+  services: ServiceSummary[];
+  locale: string;
 }
 
-// bkz. Header.tsx — content.ts'in genel Link[] tipi next-intl'in
-// pathnames union'ıyla birebir örtüşmüyor.
-type LinkHref = ComponentProps<typeof Link>["href"];
+const BIG_LINK =
+  "block border-b border-inkrule py-[18px] font-display text-[28px] leading-[normal] font-extrabold tracking-[-0.03em] text-paper no-underline";
 
 /**
- * dc.html: state.menu (tek boolean), toggleMenu = !menu — Faq'daki gibi
- * tek kontrol hem açar hem kapatır, ayrı bir ✕ butonu yok. Panel
- * `sc-if`, gerçek mount/unmount (display:none değil). Hamburger
- * ikonunun çubukları dc.html'in bar() fonksiyonuyla birebir aynı
- * transform/transition değerlerini kullanıyor.
- *
- * ≥1180px'te hem buton hem panel CSS ile gizli (min-[1180px]:hidden) —
- * dc.html'deki `compact &&` şartının CSS karşılığı, resize dinleyicisi
- * gerekmiyor (responsive geçiş zaten Geçiş A'da saf CSS'e bağlandı).
+ * Mobil menü (board MobileMenu): 900px altında burger, açılınca tam ekran
+ * Ink katman. Odak katmanın içinde kalır, Escape ve kapatma butonu
+ * kapatır, odak burger'a döner, sayfa kaymaz (useDialogFocus). Sayfa
+ * değişince ve "Book a call"a basınca kapanır.
  */
-export default function MobileNav({ nav, ctaLabel }: MobileNavProps) {
-  const [open, setOpen] = useState(false);
-  const { open: openBooking } = useBooking();
+export default function MobileNav({ chrome, services, locale }: MobileNavProps) {
+  const { isOpen, setOpen } = useMobileMenu();
+  const [servicesExpanded, setServicesExpanded] = useState(true);
+  const pathname = usePathname();
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const close = useCallback(() => setOpen(false), [setOpen]);
 
-  const topBarStyle: CSSProperties = {
-    transition: "transform .3s ease, opacity .2s ease",
-    transform: open ? "rotate(45deg) translateY(6.5px)" : "none",
-  };
-  const midBarStyle: CSSProperties = {
-    transition: "opacity .2s ease",
-    opacity: open ? 0 : 1,
-  };
-  const botBarStyle: CSSProperties = {
-    transition: "transform .3s ease, opacity .2s ease",
-    transform: open ? "rotate(-45deg) translateY(-6.5px)" : "none",
-  };
+  useDialogFocus(isOpen, sheetRef, burgerRef, close);
+
+  useEffect(() => {
+    close();
+  }, [pathname, close]);
 
   return (
     <>
       <button
+        ref={burgerRef}
         type="button"
-        onClick={() => setOpen((current) => !current)}
-        aria-expanded={open}
-        aria-label="Menu"
-        className="focus-visible:outline-bronze flex h-11 w-11 cursor-pointer flex-col items-center justify-center gap-[5px] rounded-full transition-colors duration-200 ease-out hover:bg-ivory/10 focus-visible:outline-2 focus-visible:outline-offset-2 min-[1180px]:hidden"
+        aria-label={chrome.menuOpenLabel}
+        aria-expanded={isOpen}
+        onClick={() => setOpen(true)}
+        className="flex size-11 cursor-pointer items-center justify-end text-paper group-data-[tone=light]/header:text-ink min-[900px]:hidden"
       >
-        <span className="block h-[1.5px] w-6 bg-ivory" style={topBarStyle} />
-        <span className="block h-[1.5px] w-6 bg-ivory" style={midBarStyle} />
-        <span className="block h-[1.5px] w-6 bg-ivory" style={botBarStyle} />
+        <MenuIcon className="size-6" strokeWidth="2" strokeLinecap="butt" />
       </button>
 
-      {open && (
+      {isOpen && (
         <div
-          className="fs-fade absolute inset-x-0 top-full border-t border-ivory/10 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--navy)_75%,black_25%)_97%,transparent)] px-7 pt-[22px] pb-[30px] backdrop-blur-[14px] min-[1180px]:hidden"
-          style={{ animationDuration: "0.25s" }}
+          ref={sheetRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={chrome.menuLabel}
+          className="on-ink sheet-in-right fixed inset-0 z-[110] flex flex-col overflow-y-auto bg-ink min-[900px]:hidden"
         >
-          <nav className="mx-auto flex max-w-[1280px] flex-col gap-1">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href as LinkHref}
-                onClick={() => setOpen(false)}
-                className="border-b border-ivory/[0.08] py-3 font-display text-[1.35rem] text-ivory transition-colors duration-200 hover:text-bronze"
+          <div className="flex h-16 flex-none items-center justify-between border-b border-headrule px-5">
+            <Link href="/" aria-label={chrome.homeLabel} className="block">
+              <Logo tone="paper" label={chrome.brandName} className="h-[22px]" />
+            </Link>
+            <button
+              type="button"
+              aria-label={chrome.menuCloseLabel}
+              onClick={close}
+              className="flex size-11 cursor-pointer items-center justify-end text-paper"
+            >
+              <CloseIcon className="size-[22px]" strokeWidth="2.2" strokeLinecap="butt" />
+            </button>
+          </div>
+
+          <nav className="flex flex-grow flex-col px-5 pt-2 pb-8">
+            <div className="border-b border-inkrule py-[18px]">
+              <button
+                type="button"
+                aria-expanded={servicesExpanded}
+                aria-controls="mobile-services"
+                onClick={() => setServicesExpanded((open) => !open)}
+                className="flex w-full cursor-pointer items-center justify-between font-display text-[28px] leading-[normal] font-extrabold tracking-[-0.03em] text-paper"
               >
+                {chrome.servicesLabel}
+                <ChevronDownIcon className={`size-[19px] flex-none ${servicesExpanded ? "rotate-180" : ""}`} />
+              </button>
+              <div id="mobile-services" hidden={!servicesExpanded} className="flex flex-col pt-3">
+                {services.map((service) => (
+                  <Link
+                    key={service.slug}
+                    href={{ pathname: "/services/[slug]", params: { slug: service.slug } }}
+                    className="flex items-center gap-[14px] py-3 text-[17px] text-paper no-underline"
+                  >
+                    <Dial lit={service.slices} size={28} tone="ink" />
+                    {service.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {chrome.nav.map((item) => (
+              <Link key={item.label} href={item.href} className={BIG_LINK}>
                 {item.label}
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                openBooking();
-              }}
-              className="mt-5 block w-full cursor-pointer bg-bronze px-[22px] py-4 text-center text-[15px] font-medium text-ivory transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--bronze)_88%,white)]"
-            >
-              {ctaLabel}
-            </button>
+
+            <div className="flex-grow" />
+
+            <div className="flex flex-col gap-6 pt-8">
+              <LocaleSwitcher locale={locale} ground="ink" />
+              <div onClickCapture={close}>
+                <CutButton label={chrome.bookLabel} className="w-full" />
+              </div>
+            </div>
           </nav>
         </div>
       )}

@@ -3,7 +3,8 @@ import type { LogoProps } from "@/types/content";
 /**
  * fspark9 wordmark (logo v2, C2). Path'ler `_design/v2/logo/svg/
  * fspark9-wordmark-ink.svg` dosyasından birebir kopya, yeniden çizim yok.
- * Gövde currentColor: `tone` ink ise Ink, paper ise Paper. Dokuzuncu
+ * Gövde currentColor: `tone` ink ise Ink, paper ise Paper, verilmezse
+ * kapsayıcının rengini alır (header ton değiştirirken). Dokuzuncu
  * dilim iki tonda da Flare. Yükseklik className ile (header 27px, mobil
  * header ve footer 22px); genişlik viewBox oranından geliyor.
  */
@@ -30,7 +31,7 @@ export default function Logo({ tone, label, className }: LogoProps) {
       viewBox="0 -1577 7420 2014"
       role="img"
       aria-label={label}
-      className={`block w-auto flex-none ${tone === "paper" ? "text-paper" : "text-ink"} ${className ?? ""}`}
+      className={`block w-auto flex-none ${tone === "paper" ? "text-paper" : tone === "ink" ? "text-ink" : ""} ${className ?? ""}`}
     >
       <g fill="currentColor">
         {LETTERS.map((d) => (

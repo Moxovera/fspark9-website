@@ -7,6 +7,11 @@ import type { ComponentProps } from "react";
 
 interface LocaleSwitcherProps {
   locale: string;
+  /**
+   * `header`: rengini header'ın tonundan alır (koyu: Paper/Dust, açık:
+   * Ink/Stone). `ink`: her zaman koyu zemin (mobil menü).
+   */
+  ground?: "header" | "ink";
 }
 
 // usePathname()'in dönüş tipi /work/[slug], /spark/[formatSlug] gibi
@@ -40,7 +45,7 @@ const SPARK_EPISODE_PATTERN = "/spark/[formatSlug]/[episodeSlug]";
  * dosyanın yorumu) gelen, sayfanın kendi Sanity verisinden bilinen
  * gerçek karşılık slug kullanılıyor.
  */
-export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
+export default function LocaleSwitcher({ locale, ground = "header" }: LocaleSwitcherProps) {
   const pathname = usePathname();
   const params = useParams();
   const { altSlug } = useSparkAltSlug();
@@ -70,23 +75,31 @@ export default function LocaleSwitcher({ locale }: LocaleSwitcherProps) {
     return { pathname, params } as unknown as LinkHref;
   }
 
+  // Board: etkin dil Paper ve 1px alt çizgili, diğeri ve ayraç Dust.
+  // Açık header'da aynısı Ink/Stone ile.
+  const follow = ground === "header";
+  const activeColor = follow ? "text-paper group-data-[tone=light]/header:text-ink" : "text-paper";
+  const quietColor = follow ? "text-dust group-data-[tone=light]/header:text-stone" : "text-dust";
+
+  function item(target: "en" | "tr", label: string) {
+    const active = locale === target;
+    return (
+      <Link
+        href={hrefFor(target)}
+        locale={target}
+        aria-current={active ? "true" : undefined}
+        className={`inline-flex min-h-11 items-center px-1 no-underline ${active ? activeColor : quietColor}`}
+      >
+        <span className={active ? "border-b border-current pb-[2px]" : undefined}>{label}</span>
+      </Link>
+    );
+  }
+
   return (
-    <div className="flex items-center gap-[7px] font-mono text-[12.5px] tracking-[0.08em]">
-      <Link
-        href={hrefFor("en")}
-        locale="en"
-        className={`transition-colors duration-200 ${locale === "en" ? "text-ivory" : "text-ivory/45"}`}
-      >
-        EN
-      </Link>
-      <span className="text-ivory/30">|</span>
-      <Link
-        href={hrefFor("tr")}
-        locale="tr"
-        className={`transition-colors duration-200 ${locale === "tr" ? "text-ivory" : "text-ivory/45"}`}
-      >
-        TR
-      </Link>
+    <div className="flex items-center gap-2 font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em]">
+      {item("en", "EN")}
+      <span aria-hidden="true" className={quietColor}>/</span>
+      {item("tr", "TR")}
     </div>
   );
 }

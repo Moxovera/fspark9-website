@@ -1209,8 +1209,8 @@ export interface RingOutlineProps {
 }
 
 export interface LogoProps {
-  /** Gövde rengi. `ink`: Paper/White zeminde, `paper`: Ink zeminde. */
-  tone: 'ink' | 'paper'
+  /** Gövde rengi. `ink`: Paper/White zeminde, `paper`: Ink zeminde. Verilmezse currentColor. */
+  tone?: 'ink' | 'paper'
   /** Ekran okuyucu etiketi (marka adı). */
   label: string
   className?: string
@@ -1255,4 +1255,56 @@ export interface LabelProps {
 export interface CutWordProps {
   children: import('react').ReactNode
   className?: string
+}
+
+// ─────────────────────────────────────────────
+// Site çerçevesi (v2): header, Services menüsü, mobil menü, footer,
+// mobil randevu çubuğu. Veri: src/content/chrome.ts (Sanity pass'e
+// kadar statik, sonra siteSettings'ten gelecek, brief v4 §6.1).
+// ─────────────────────────────────────────────
+
+/** next-intl Link'in kabul ettiği href (pathnames union'ı). */
+export type NavHref = import('react').ComponentProps<typeof import('@/i18n/navigation').Link>['href']
+
+export type ServiceSlug = 'zero-to-live' | 'product-strategy' | 'embedded-finance' | 'expansion-gtm'
+
+/** Bir hizmetin menü ve satır özeti (brief v4 §6.1 servicePage: name, shortLine, audience, slices). */
+export interface ServiceSummary {
+  slug: ServiceSlug
+  name: string
+  shortLine: string
+  audience: string
+  /** Yanık dilimler 1..8 (dokuzuncu hep yanık, saklanmaz). */
+  slices: readonly number[]
+}
+
+export interface NavItem {
+  label: string
+  href: NavHref
+}
+
+export interface SiteChrome {
+  /** Logonun ekran okuyucu adı. */
+  brandName: string
+  /** Logo linkinin etiketi (ana sayfaya gider). */
+  homeLabel: string
+  servicesLabel: string
+  /** Services menüsünden sonraki linkler: Work, About, Spark. */
+  nav: NavItem[]
+  servicesMenu: {
+    label: string
+    heading: string
+  }
+  bookLabel: string
+  /** Mobil menü katmanının ekran okuyucu adı. */
+  menuLabel: string
+  menuOpenLabel: string
+  menuCloseLabel: string
+  footer: {
+    email: string
+    linkedinHref: string
+    linkedinLabel: string
+    legalLinks: NavItem[]
+    copyright: string
+  }
 }

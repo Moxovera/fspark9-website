@@ -14,24 +14,18 @@ import MobileBookingBar from "@/components/chrome/MobileBookingBar";
 import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
 import { SparkAltSlugProvider } from "@/components/chrome/SparkAltSlugContext";
-import { siteSettings as enSiteSettings } from "@/content/en";
-import { siteSettings as trSiteSettings } from "@/content/tr";
+import { MobileMenuProvider } from "@/components/chrome/MobileMenuContext";
+import { chrome as chromeCopy, services as serviceCopy } from "@/content/chrome";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
-  SITE_NAV_QUERY,
-  SITE_FOOTER_QUERY,
   SITE_SEO_QUERY,
   SITE_BOOKING_QUERY,
   SITE_LOGO_QUERY,
-  toSiteNav,
-  toFooter,
   toSiteSeo,
   toBookingSection,
   toSiteLogo,
 } from "@/sanity/lib/queries";
 import type {
-  SITE_NAV_QUERYResult,
-  SITE_FOOTER_QUERYResult,
   SITE_SEO_QUERYResult,
   SITE_BOOKING_QUERYResult,
   SITE_LOGO_QUERYResult,
@@ -79,19 +73,12 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const staticSettings = locale === "tr" ? trSiteSettings : enSiteSettings;
+  // v2 çerçeve metni statik (src/content/chrome.ts), Sanity pass'e kadar.
+  // Sanity'den sadece calLink'li booking ve JSON-LD logosu okunuyor.
+  const chrome = chromeCopy[locale];
+  const services = serviceCopy[locale];
 
-  const [navResult, footerResult, bookingResult, logoResult] = await Promise.all([
-    sanityFetch<SITE_NAV_QUERYResult>({
-      query: SITE_NAV_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-    sanityFetch<SITE_FOOTER_QUERYResult>({
-      query: SITE_FOOTER_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
+  const [bookingResult, logoResult] = await Promise.all([
     sanityFetch<SITE_BOOKING_QUERYResult>({
       query: SITE_BOOKING_QUERY,
       params: { locale },
@@ -102,13 +89,8 @@ export default async function LocaleLayout({
       tags: ["siteSettings"],
     }),
   ]);
-  const settings = {
-    ...staticSettings,
-    nav: toSiteNav(navResult),
-    footer: toFooter(footerResult),
-    booking: toBookingSection(bookingResult),
-    logo: toSiteLogo(logoResult),
-  };
+  const booking = toBookingSection(bookingResult);
+  const logo = toSiteLogo(logoResult);
 
   // Site kimliği için Organization JSON-LD — SEO'nun beklediği tek
   // yapılandırılmış veri parçası (rich result garanti etmez, ama arama
@@ -120,9 +102,9 @@ export default async function LocaleLayout({
     "@type": "Organization",
     name: "fspark9",
     url: SITE_URL,
-    logo: settings.logo?.url ?? `${SITE_URL}/assets/lockup-reversed.svg`,
-    ...(settings.footer.email ? { email: settings.footer.email } : {}),
-    ...(settings.footer.linkedin ? { sameAs: [settings.footer.linkedin] } : {}),
+    logo: logo?.url ?? `${SITE_URL}/assets/lockup-reversed.svg`,
+    email: chrome.footer.email,
+    sameAs: [chrome.footer.linkedinHref],
   };
 
   return (
@@ -147,11 +129,13 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <SparkAltSlugProvider>
             <BookingProvider>
-              <Header settings={settings} locale={locale} />
-              {children}
-              <Footer settings={settings} locale={locale} />
-              <MobileBookingBar ctaLabel={settings.ctaLabel} />
-              <BookingOverlay content={settings.booking} />
+              <MobileMenuProvider>
+                <Header chrome={chrome} services={services} locale={locale} />
+                {children}
+                <Footer chrome={chrome} />
+                <MobileBookingBar label={chrome.bookLabel} />
+                <BookingOverlay content={booking} />
+              </MobileMenuProvider>
             </BookingProvider>
           </SparkAltSlugProvider>
         </NextIntlClientProvider>
