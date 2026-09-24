@@ -75,8 +75,9 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 - `npm run cleanup:v3 -- --confirm`: v1'den kalan 3 belge (eski ana sayfa, taslağı, storyPage) ve referanssız görseller. Geri alınamaz; yedek alındı (Sanity'nin JSON dökümü).
 - Search Console: sitemap gönderimi, ana sayfa, dört hizmet, `/work`, `/about`, `/spark` (EN ve TR) için indeksleme isteği; bir hafta sonra Pages raporu.
 - Rich Results Test: her şablon için (Service, Article, Person, BreadcrumbList).
-- Lighthouse mobil: yerelde performans 87 ile 90, LCP simülasyonu ~3.8 sn (gerçek ölçüm 0.4 sn). Canlıda PageSpeed ile tekrar ölçülecek; hedef LCP 2.5 sn altı.
-- Studio localhost'ta açılmıyor (CORS origin kayıtlı değil). Gerekirse sanity.io/manage'dan `http://localhost:3000` eklenir.
+- Lighthouse mobil, canlı (2026-09-24): performans 95 ile 99; erişilebilirlik, best practices, SEO 100; CLS 0. LCP ana sayfada 2.2 sn, diğer sayfalarda 2.7 ile 2.9 sn (hedef 2.5 altı). Bir hafta sonra Speed Insights saha verisiyle bakılacak.
+- Studio localhost'ta ve preview adresinde açılmıyor (CORS origin kayıtlı değil), fspark9.com/studio'da açılıyor. Gerekirse sanity.io/manage'dan `http://localhost:3000` eklenir.
+- next-intl `setRequestLocale` her layout ve sayfada çağrılıyor; yoksa sayfalar dinamik render olur ve CDN önbelleğe almaz (v1'den beri böyleydi, düzeltildi).
 
 ## Bilinen ve kabul edilmiş
 
