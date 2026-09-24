@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { fraunces, cabin, ibmPlexMono } from "@/lib/fonts";
+import { epilogue, hanken, splineMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
 import { SITE_URL } from "@/lib/site";
 import { routing } from "@/i18n/routing";
@@ -142,7 +142,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${fraunces.variable} ${cabin.variable} ${ibmPlexMono.variable} font-sans antialiased`}
+        className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider>
           <SparkAltSlugProvider>

@@ -1187,3 +1187,72 @@ export interface LockedReportContent {
   workingTogether: WorkingTogetherContent
   charts: ReportChartStrings
 }
+
+// ─────────────────────────────────────────────
+// Marka parçaları (v2 rebuild, brief v4 §7.1)
+// src/components/brand/*
+// ─────────────────────────────────────────────
+
+/** Bileşenin üzerinde durduğu zemin. `ink`: koyu açılış/kapanış, `paper`: açık zemin (Paper ya da White). */
+export type BrandGround = 'paper' | 'ink'
+
+export interface DialProps {
+  /** Yanık dilimler, 1..8. Dokuzuncu hiç yazılmaz, hep Flare. */
+  lit: readonly number[]
+  size: number
+  tone?: BrandGround
+  className?: string
+}
+
+export interface RingOutlineProps {
+  className?: string
+}
+
+export interface LogoProps {
+  /** Gövde rengi. `ink`: Paper/White zeminde, `paper`: Ink zeminde. */
+  tone: 'ink' | 'paper'
+  /** Ekran okuyucu etiketi (marka adı). */
+  label: string
+  className?: string
+}
+
+/**
+ * Eğik kenarlı buton. Her örnek randevu penceresini açar (BookingCta).
+ * `flare`: sayfa içi ana buton; `paper`: koyu header; `ink`: açık header
+ * ve Ink'e ihtiyaç duyan yerler (ör. Allocation "Lock in this split").
+ */
+export interface CutButtonProps {
+  label: string
+  tone?: 'flare' | 'paper' | 'ink'
+  size?: 'default' | 'header'
+  className?: string
+}
+
+export type GoButtonSize = 64 | 48 | 44 | 40
+
+export interface GoButtonProps {
+  size: GoButtonSize
+  className?: string
+}
+
+export interface BackLinkProps {
+  href: import('react').ComponentProps<typeof import('@/i18n/navigation').Link>['href']
+  label: string
+  /** Zemin: `ink` ise Dust, `paper` ise Stone. */
+  ground: BrandGround
+  className?: string
+}
+
+export interface LabelProps {
+  children: import('react').ReactNode
+  /** Zemin: `ink` ise Dust, `paper` ise Stone. `strong`: Ink (ya da Ink zeminde Paper). */
+  ground?: BrandGround
+  strong?: boolean
+  as?: 'div' | 'span' | 'p'
+  className?: string
+}
+
+export interface CutWordProps {
+  children: import('react').ReactNode
+  className?: string
+}

@@ -1,14 +1,31 @@
 @import "tailwindcss";
 
 :root {
+  /* The Ninth Slice (brand book v3, brief v4 §4) */
+  --paper: #F3F1EB;
+  --ink: #17150F;
+  --white: #FFFFFF;
+  --stone: #5E594F;    /* secondary text */
+  --rule: #D8D3C8;     /* lines, empty slices, never text */
+  --flare: #FFC629;    /* ninth slice, one accent, never text on Paper */
+  --dust: #A39D90;     /* small labels on Ink only */
+  --inkrule: #3A362D;  /* lines on Ink */
+  --ring: #4A453B;     /* hero ring outline */
+  /* Board'larda brief'in listesi dışında kalan iki renk, birebir alındı: */
+  --headrule: #2A2720; /* koyu header'ın alt çizgisi (tüm board'larda) */
+  --portrait: #221F18; /* portre dairesinin görsel yüklenene kadarki zemini */
+
+  /* v1 token'ları. Sadece henüz silinmemiş eski bölümler kullanıyor
+     (brief §7.9). O bölümler silinince bunlar ve aşağıdaki color-mix
+     notu da silinecek. Yeni bileşen bunları kullanmaz. */
   --navy: #0b1f3a;
   --bronze: #a67c3d;
   --ivory: #f7f4ec;
   --charcoal: #1c1c1c;
   --muted: #6b7280;
 
-  --background: var(--ivory);
-  --foreground: var(--charcoal);
+  --background: var(--paper);
+  --foreground: var(--ink);
 }
 
 /*
@@ -88,6 +105,19 @@
  */
 
 @theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-white: var(--white);
+  --color-stone: var(--stone);
+  --color-rule: var(--rule);
+  --color-flare: var(--flare);
+  --color-dust: var(--dust);
+  --color-inkrule: var(--inkrule);
+  --color-ring: var(--ring);
+  --color-headrule: var(--headrule);
+  --color-portrait: var(--portrait);
+
+  /* v1, bkz. :root notu */
   --color-navy: var(--navy);
   --color-bronze: var(--bronze);
   --color-ivory: var(--ivory);
@@ -97,14 +127,28 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-body);
-  --font-display: var(--font-heading);
-  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-epilogue);
+  --font-sans: var(--font-hanken);
+  --font-mono: var(--font-spline-mono);
+
+  /* Tek easing (brand book v3 §6b) */
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/* Odak halkası (brief §12): 2px Ink, 2px offset. Ink zemin üzerindeki
+   bölümler .on-ink taşır, orada halka Paper. Hiçbir yerde kaldırılmaz. */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.on-ink :focus-visible {
+  outline-color: var(--paper);
 }
 
 /* Scroll tetiklemeli reveal — CLAUDE.md, "Scroll tetiklemeli reveal" */
@@ -115,13 +159,13 @@ body {
 
 .js .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
 }
 
 .js .reveal.is-visible {
   opacity: 1;
   transform: none;
-  transition: opacity .6s ease, transform .6s ease;
+  transition: opacity .4s var(--ease-brand), transform .4s var(--ease-brand);
 }
 
 @media (prefers-reduced-motion: reduce) {

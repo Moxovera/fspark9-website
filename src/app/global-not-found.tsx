@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { fraunces, ibmPlexMono } from "@/lib/fonts";
+import { epilogue, hanken, splineMono } from "@/lib/fonts";
 import { en } from "@/content/not-found";
 import "./globals.css";
 
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   return (
     <html lang="en">
-      <body className={`${fraunces.variable} ${ibmPlexMono.variable} antialiased`}>
+      <body className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} font-sans antialiased`}>
         <main className="flex min-h-[100svh] items-center bg-navy px-7 pt-[150px] pb-20">
           <div className="mx-auto max-w-[1000px]">
             <Image
