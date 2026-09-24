@@ -926,6 +926,9 @@ export interface CaseContent {
   sources: string[]
   /** Sanity'deki ekran görüntüleri (ilk ikisi). Statik kaynakta yok. */
   screens?: SanityImage[]
+  /** Belgenin Sanity tarihleri (Article JSON-LD). Statik kaynakta yok. */
+  publishedAt?: string
+  modifiedAt?: string
 }
 
 export interface WorkPageContent {

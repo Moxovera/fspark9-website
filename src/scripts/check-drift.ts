@@ -97,7 +97,7 @@ async function main() {
     compare(`servicesIndex.${l}`, servicesIndexS[l], servicesIndex[l]);
     compare(`servicePages.${l}`, servicePagesS[l], servicePages[l]);
     compare(`workPage.${l}`, workPageS[l], workPage[l]);
-    compare(`cases.${l}`, casesS[l].map((c) => omit(c, "screens")), cases[l]);
+    compare(`cases.${l}`, casesS[l].map((c) => omit(c, "screens", "publishedAt", "modifiedAt")), cases[l]);
     compare(`about.${l}`, omit(aboutS[l], "portraitSrc"), about[l]);
     compare(`spark.${l}`, sparkS[l], spark[l]);
   }

@@ -267,6 +267,7 @@ export const WORK_PAGE_QUERY = defineQuery(`*[_type == "workPage" && _id == "wor
 
 export const CASES_QUERY = defineQuery(`*[_type == "caseStudy"] | order(order asc){
   slug, seo{ title, description }, name, subtitle, market, tags,
+  "publishedAt": _createdAt, "modifiedAt": _updatedAt,
   "services": services[]->slug,
   problem, actions, delivered, figures, proof, sources,
   "screens": screens[0...2]{ "url": asset->url, alt, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height }

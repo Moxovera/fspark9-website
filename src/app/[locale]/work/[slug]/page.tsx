@@ -73,7 +73,14 @@ export default async function CasePage({ params }: { params: Params }) {
             { name: chrome.nav[0].label, path: getPathname({ href: "/work", locale }) },
             { name: item.name, path },
           ]),
-          articleJsonLd(locale, personInfo(home[locale], chrome), { headline: item.subtitle, description: item.seo.description, path, about: item.name }),
+          articleJsonLd(locale, personInfo(home[locale], chrome), {
+            headline: item.subtitle,
+            description: item.seo.description,
+            path,
+            about: item.name,
+            datePublished: item.publishedAt,
+            dateModified: item.modifiedAt,
+          }),
         ]}
       />
       <section className="on-ink bg-ink pt-16 min-[900px]:pt-[84px]">

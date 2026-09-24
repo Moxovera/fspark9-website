@@ -1195,7 +1195,7 @@ export type WORK_PAGE_QUERYResult = {
   nextCaseLabel: LocaleString | null;
 } | null;
 // Variable: CASES_QUERY
-// Query: *[_type == "caseStudy"] | order(order asc){  slug, seo{ title, description }, name, subtitle, market, tags,  "services": services[]->slug,  problem, actions, delivered, figures, proof, sources,  "screens": screens[0...2]{ "url": asset->url, alt, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height }}
+// Query: *[_type == "caseStudy"] | order(order asc){  slug, seo{ title, description }, name, subtitle, market, tags,  "publishedAt": _createdAt, "modifiedAt": _updatedAt,  "services": services[]->slug,  problem, actions, delivered, figures, proof, sources,  "screens": screens[0...2]{ "url": asset->url, alt, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height }}
 export type CASES_QUERYResult = Array<{
   slug: string;
   seo: {
@@ -1206,6 +1206,8 @@ export type CASES_QUERYResult = Array<{
   subtitle: LocaleText | null;
   market: LocaleString | null;
   tags: LocaleString | null;
+  publishedAt: string;
+  modifiedAt: string;
   services: Array<string> | null;
   problem: {
     label?: LocaleString;
@@ -1650,7 +1652,7 @@ declare module "@sanity/client" {
     "*[_type == \"servicesPage\" && _id == \"servicesPage\"][0]{\n  seo{ title, description }, backLabel, opening, servicePageLabels\n}": SERVICES_PAGE_QUERYResult;
     "*[_type == \"servicePage\"] | order(order asc){\n  slug, seo{ title, description }, opening, steps[]{ title, line, slices }, keep\n}": SERVICE_PAGES_QUERYResult;
     "*[_type == \"workPage\" && _id == \"workPage\"][0]{\n  seo{ title, description }, backLabel, label, heading, lead, readLabel,\n  caseLabel, caseBackLabel, sourcesLabel, nextCaseLabel\n}": WORK_PAGE_QUERYResult;
-    "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
+    "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"publishedAt\": _createdAt, \"modifiedAt\": _updatedAt,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
     "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
     "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,\n    columns, showAllTemplate,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
