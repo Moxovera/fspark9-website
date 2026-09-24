@@ -1,120 +1,94 @@
 # FSPARK9 · Proje Durumu
 
-Bu dosya, projeye yeni başlayan (veya araya giren) birinin hızlıca bağlam kazanması için tutuluyor. Tek durum kaynağı burasıdır. Kalıcı kurallar için `CLAUDE.md`'ye, alt sayfa route planı için `_design/route-haritasi.md`'ye bakılır. Bölüm × geçiş ilerlemesi aşağıda "Bölüm C detay takibi" bölümünde.
+Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalıcı kurallar `CLAUDE.md`'de.
 
-**TÜM BEKLEYEN KÜÇÜK İŞLER TAMAMLANDI (2026-08-06 civarı):** mouse trail canvas efekti, geri butonu üçlüsü, thank-you tetikleme, favicon. Site artık işlevsel olarak tam. Sıradaki büyük faz: Sanity CMS entegrasyonu (Bölüm D).
+**v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-08-04
+Son güncelleme: 2026-09-24
 
 ---
 
+## Kaynaklar
+
+| Dosya | Ne |
+|---|---|
+| `_design/v2/fspark9-rebuild-brief-v4.md` | Rebuild brief'i: rotalar, tokenlar, Sanity şeması, hareket, SEO, kontrol listesi |
+| `_design/v2/fspark9-site-copy-v2.md` | Tek metin kaynağı (EN ve TR), §6c SEO başlıkları, dilim haritası |
+| `_design/v2/boards/*.dc.html`, `_design/v2/screens/*.png` | Görsel kaynak (board'lar). Metinde copy, görselde board kazanır |
+| `fspark9-brandbook-v3.md` | Marka: renkler, fontlar, halka, kesim, hareket |
+| `fspark9-legal-update-v2.md` | Privacy ve Cookies metin güncellemesi (uygulandı) |
+| `_design/v2/logo/` | Logo paketi (wordmark, 9 sembolü, favicon, apple-icon) |
+
 ## Kilitlenmiş kararlar
 
-- **Next.js 15** (bilerek pinlendi, `create-next-app@15` ile kuruldu — 16 değil), App Router, TypeScript, `src/` dizini.
-- **Tailwind v4** kullanılıyor. Bu, CLAUDE.md'deki "renkler Tailwind config üzerinden" ifadesinin klasik `tailwind.config.ts` değil, Tailwind v4'ün CSS-first modeli (`globals.css` içindeki `@theme inline` bloğu) olarak yorumlandığı anlamına geliyor. Ayrı bir JS/TS config dosyası yok, tek kaynak `globals.css`.
-- **next-intl**, `localePrefix: 'as-needed'` — EN kökte (`/`), TR `/tr` altında. Routing/navigation/request config `src/i18n/` altında, middleware `src/middleware.ts`.
-- **4 marka rengi** CSS değişkeni olarak `globals.css`'te tanımlı, Tailwind'e `@theme inline` ile bağlı: `--navy #0B1F3A`, `--bronze #A67C3D`, `--ivory #F7F4EC`, `--charcoal #1C1C1C`. Sabit hex kodu bileşen içinde yasak.
-- **3 font** `next/font/google` ile: Playfair Display → `font-display`, Inter → `font-sans`, IBM Plex Mono → `font-mono`.
-- **Scroll reveal** tek paylaşılan mekanizma: `layout.tsx`'te bloklayıcı script (`html.js`), `globals.css`'te `.reveal/.js/.is-visible`, tek `IntersectionObserver` → `src/hooks/useReveal.ts`, tek sarmalayıcı bileşen → `src/components/ui/Reveal.tsx`. Her bölüm kendi observer'ını kurmuyor.
-- **Üç geçiş yöntemi** (Geçiş A · Yapı → Geçiş B · Stil doğrulama → Geçiş C · Animasyon) her bölüm için ayrı ayrı, tek istekte tek bölüm.
-- **Bölüm tamamlama kontrol listesi** (CLAUDE.md'ye eklendi): 375/768/1440 görsel kontrol, çakışma kontrolü, absolute/fixed eleman kontrolü, `npm run build` + `npm run lint` temiz, dc.html karşılaştırması — ancak bunlar geçtikten sonra commit.
-- Bileşenler props alır, metin gömülmez; tipler `src/types/content.ts`'ten gelir. `any` yasak. Harici animasyon kütüphanesi yasak. Tasarım birebir uygulanır, "iyileştirilmez."
+- Next.js 15.5 App Router, TypeScript, Tailwind v4 (CSS-first, tokenlar `globals.css` `@theme inline`).
+- next-intl 4, `localePrefix: 'as-needed'`: EN kökte, TR `/tr`. Pathname çevirileri `src/i18n/routing.ts`.
+- Üç kök layout: `[locale]/layout.tsx` (site), `global-not-found.tsx` (dil bilmeyen 404), `(locked)/layout.tsx` (kilitli raporlar). Analytics ve Speed Insights üçünde de.
+- Renkler: paper, ink, white, stone, rule, flare, dust, inkrule, ring, headrule, portrait. Bileşende hex yok. Canvas/OG gibi CSS değişkeni okuyamayan yerler için `src/lib/brandColors.ts`.
+- Fontlar `next/font`: Epilogue (başlık, rakam), Hanken Grotesk (metin), Spline Sans Mono (etiket). latin-ext şart.
+- Tek easing `--ease-brand`. Tüm hareketler reduced-motion'da kapalı.
+- `/locked` (Fuzul raporu) v2'den bağımsız, kendi CSS'i ve fontları var. Her değişiklikte önce/sonra ekran görüntüsüyle birebir aynı kaldığı doğrulanıyor.
+- Apex domain birincil: `fspark9.com`, `www` ondan yönleniyor (Vercel domain ayarı).
+- NextStep etiketi sadece ana sayfada numaralı ("05 · Next step"), diğer sayfalarda numarasız. Services menüsünde "How they fit" linki yok.
 
 ## Kullanıcı profili
 
-- **Mehmet Burak Dikmen** — fspark9'un kurucusu, projenin geliştiricisi/sahibi. Site kendi fintech/dijital bankacılık danışmanlık işinin tanıtım sitesi.
-- Git commit kimliği: `Mehmet Burak Dikmen <mehmetburakdikmen@gmail.com>`.
-- Türkçe çalışıyor. Onay akışını önemsiyor — önce öneri/plan, sonra "yap" denince uygulama şeklinde ilerliyoruz.
-- Teknik titizlik bekliyor: iddiaları (özellikle animasyon/zamanlama) gerçek ölçümle (Playwright vb.) doğrulatıyor, "çalışıyor görünüyor" yeterli değil.
-- GitHub: `Moxovera/fspark9-website`. Vercel'e bağlı (canlı: `fspark9-website.vercel.app`), custom domain henüz bağlanmadı.
+- **Mehmet Burak Dikmen**: fspark9'un kurucusu, sitenin sahibi. Fintech ve dijital bankacılık danışmanlığı.
+- Git kimliği: `Mehmet Burak Dikmen <mehmetburakdikmen@gmail.com>`. GitHub `Moxovera/fspark9-website`, Vercel'e bağlı.
+- Türkçe çalışıyor. Teknik titizlik bekliyor: iddialar gerçek ölçümle (Playwright, canlı URL) doğrulanıyor.
+- Metinleri Sanity Studio'dan kendisi düzenliyor.
 
-## Dosya konumları
+## Veri akışı
 
-| Dosya | Ne işe yarar |
+- Sayfalar içeriği `src/sanity/lib/content.ts` yükleyicilerinden alıyor (`getChrome`, `getHome`, `getServicesIndex`, `getServicePages`, `getWorkPage`, `getCases`, `getAbout`, `getSparkHub`). Her biri tek sorguyla iki dili çekip `Record<Locale, T>` döndürüyor; `localize()` iki dilli alanları aktif dile indiriyor (TR boşsa EN).
+- Legal, SEO, logo ve bölüm sayfası sorguları `src/sanity/lib/queries.ts`'te.
+- ISR 60 saniye: Studio'da yayınlanan değişiklik en geç bir dakikada sitede.
+- `src/content/*.ts` sitenin aynası: `npm run seed:v3` buradan Sanity'ye yazıyor, `npm run check:drift` Sanity'yi buna karşı alan alan karşılaştırıyor. Studio'da metin değiştirildikten sonra drift farkı normal: ya aynayı güncelle ya da farkı kabul et.
+- Statik kalan (bilinçli): `/thank-you`, iki 404. `/book` artık `/?book=1`'e 301, randevu penceresi her sayfada.
+
+## Sanity yapısı
+
+Studio `/studio`, menü `src/sanity/structure.ts`:
+
+- **Site settings** (tekil): header, Services menüsü, footer, randevu penceresi (calLink), Next step bloğu, yasal sekmeler, varsayılan SEO, OG görselleri (EN ve TR ayrı), logo.
+- **Home** (tekil): açılış, Start where you are, Four services, Work, With me, Spark metinleri. Spark kartları bölümlerden otomatik.
+- **Services**: Services page (tekil, ortak etiketler dahil) ve dört hizmet belgesi (ad, satır, kitle, dilimler, adımlar, kapanış).
+- **Work**: Work page (tekil) ve vakalar (hikaye, rakamlar, kaynaklar, ekranlar, hizmet referansları; dilimler hizmetlerden hesaplanıyor).
+- **About** (tekil).
+- **Spark**: hub ve bölüm sayfası etiketleri (tekil), formatlar, bölümler. Bölüm durumu `published`, `coming` (listede linksiz satır, sayfası 404, sitemap'te yok) ya da `draft`.
+- **Legal pages** ×4.
+
+Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
+
+## Scriptler
+
+| Komut | Ne yapar |
 |---|---|
-| `_design/fspark9 Site.dc.html` | Tasarım kaynağı — DCLogic tabanlı, tek doğru referans |
-| `_design/content.ts` | Onaylı içerik tipi referansı — değişiklikler önce burada yapılır |
-| `_design/route-haritasi.md` | Alt sayfa route/dosya/bileşen planı — henüz uygulanmadı, referans olarak duruyor |
-| `src/types/content.ts` | Çalışan kopya — `_design/content.ts`'ten kopyalanır; tek fark `PostListItem` (lint için `interface extends {}` yerine `type = Pick<...>`) |
-| `src/content/en.ts`, `src/content/tr.ts` | Faz 2 içerik verisi — şu an sadece `hero` dolu, geri kalanı tip hatası vermeyecek placeholder |
-| `src/components/sections/Hero.tsx` | Tamamlanan tek bölüm |
-| `src/components/ui/Reveal.tsx` | Paylaşılan reveal sarmalayıcı (`'use client'` sınırı burada) |
-| `src/hooks/useReveal.ts` | Paylaşılan `IntersectionObserver` hook'u |
-| `src/app/[locale]/page.tsx` | Ana sayfa, bölümleri dizer — şu an sadece `<Hero>` |
-| `src/app/[locale]/layout.tsx` | Fontlar, reveal bloklayıcı script, `NextIntlClientProvider` |
-| `src/app/globals.css` | Renk/font token'ları, reveal CSS, scroll cue `@keyframes` |
-| `src/i18n/{routing,navigation,request}.ts`, `src/middleware.ts` | next-intl kurulumu |
+| `npm run seed:v3` | src/content'ten Sanity'ye yazar (görsellere ve bölüm bloklarına dokunmaz). `-- --dry` listeler |
+| `npm run check:drift` | Sanity ile src/content'i alan alan karşılaştırır, fark varsa exit 1 |
+| `npm run cleanup:v3` | v1'den kalan belgeleri ve referanssız görselleri listeler, `-- --confirm` ile siler |
+| `npm run upload-og-image` | Çalışan bir sunucudan `/og` ve `/og?locale=tr`'yi alıp Site settings'e yükler |
+| `npm run typegen` | Şema çıkarır ve sorgu tiplerini üretir (`src/sanity/types.ts`) |
 
-## Durum tablosu
+## Açık işler
 
-**ANA SAYFANIN 14 BÖLÜMÜNÜN TÜMÜ TAMAMLANDI (2026-08-06 civarı).** Sıradaki büyük adımlar: header/footer, booking overlay, alt sayfalar (services/work/story/book/legal), Sanity entegrasyonu.
+- `npm run cleanup:v3 -- --confirm`: v1'den kalan 3 belge (eski ana sayfa, taslağı, storyPage) ve referanssız görseller. Geri alınamaz; yedek alındı (Sanity'nin JSON dökümü).
+- Search Console: sitemap gönderimi, ana sayfa, dört hizmet, `/work`, `/about`, `/spark` (EN ve TR) için indeksleme isteği; bir hafta sonra Pages raporu.
+- Rich Results Test: her şablon için (Service, Article, Person, BreadcrumbList).
+- Lighthouse mobil: yerelde performans 87 ile 90, LCP simülasyonu ~3.8 sn (gerçek ölçüm 0.4 sn). Canlıda PageSpeed ile tekrar ölçülecek; hedef LCP 2.5 sn altı.
+- Studio localhost'ta açılmıyor (CORS origin kayıtlı değil). Gerekirse sanity.io/manage'dan `http://localhost:3000` eklenir.
 
-**Bölüm A — Denetim: tamamlandı.** dc.html + content.ts + support.js incelendi, uyuşmazlıklar raporlandı ve çözüldü.
+## Bilinen ve kabul edilmiş
 
-**Bölüm B — Kurulum: tamamlandı.**
-- Next.js + next-intl + design token + font kurulumu bitti.
-- GitHub bağlandı (`Moxovera/fspark9-website`), Vercel bağlandı.
-- Kontrol Noktası 1 doğrulandı (build temiz, ilk commit + push başarılı, `git remote -v` / `git log` ile teyit edildi).
-- **Açık:** custom domain henüz Vercel'e bağlanmadı.
+- Genel 404 `/tr/...` adreslerinde de `lang=en`: kök layout dili bilemiyor, iki dili birden gösteriyor.
+- Birkaç büyük başlıkta satır kutuları 2 ile 8px üst üste biniyor: board'larla aynı (leading < 1).
 
-**Bölüm C — Bölüm bölüm inşa:** Hero bitti, Framework'e başlanıyor. Site bölümü bazında Geçiş A/B/C detayı aşağıda.
+## Çözülen hatalardan kalan dersler
 
-*(Not: buradaki "Bölüm A/B/C" proje fazlarını ifade ediyor — CLAUDE.md'deki her site bölümü için uygulanan "Geçiş A/B/C" ile karıştırılmamalı, aşağıdaki tablo o ikinci anlamı takip ediyor.)*
-
-### Bölüm C detay takibi
-
-Her site bölümü için CLAUDE.md'nin üç geçiş yöntemine (Geçiş A · Yapı, Geçiş B · Stil doğrulama, Geçiş C · Animasyon) göre ilerleme. Sıra `src/types/content.ts` içindeki `HomePage` arayüzüyle aynı (dc.html'deki gerçek sıra).
-
-| Site bölümü | Geçiş A · Yapı | Geçiş B · Stil doğrulama | Geçiş C · Animasyon |
-|---|:---:|:---:|:---:|
-| Hero | [x] | [x] | [x] |
-| Framework | [x] | [x] | [x] |
-| ProofStrip | [x] | [x] | [x] |
-| Familiar | [x] | [x] | [x] |
-| CaseStudies | [x] | [x] | [x] |
-| Services | [x] | [x] | [x] |
-| Comparison | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
-| Approach | [x] | [x] | [x] |
-| Testimonials | [x] | [x] | [x] |
-| Audience | [x] | [x] | [x] |
-| Story | [x] | [x] | [x] |
-| Process | [x] | [x] | [x] |
-| Media | [x] | [x] | [x] |
-| Faq | [x] | [x] | [x] |
-| ClosingCta | [x] | [x] | N/A — sadece reveal, ayrı animasyon yok |
-
-## Bilinçli tasarım sapmaları
-
-dc.html'den kasıtlı olarak farklı yapılan, onaylanmış noktalar. Her satır: ne, neden.
-
-- Familiar kartları — mobilde sayı sütunu daraltıldı (132px→~85px), metne daha çok yer açmak için, dc.html'de bu ayrım yok.
-- Off-brand renkler #fffdf7→ivory+%40beyaz, #F5F0E6→ivory+%10bronz (Comparison, vurgu satırı) olarak paletten türetildi, tasarımcı onayıyla. F5F0E6'nın diğer bölümlerdeki kullanımı aynı yüzdeyi tekrarlamak zorunda değil — bkz. aşağıdaki Approach notu, kademeli (nötr/vurgu) bir sistem.
-- Comparison tablosu mobil genişliği daraltıldı (640px→480px, padding 20px→12-14px), tasarımcı QA notuyla, gereksiz mobil scroll'u azaltmak için.
-- Approach hover-accordion: dc.html'in `st.handHov` JS state'i yerine saf CSS `:has()` kullanıldı (JS yok, Framework'teki `.framework-card:hover` deseniyle tutarlı). Off-brand `#F5F0E6`/`#EFE7D6` çifti paletten `color-mix(bronze 3%, ivory 97%)` / `color-mix(bronze 11%, ivory 89%)` olarak türetildi. F5F0E6 kaynak rengi iki bölümde farklı oranlarla türetildi (Comparison %10 = vurgu, Approach %3 = nötr/hover'da %11'e çıkıyor) — bu kasıtlı bir kademeli sistem, tutarsızlık değil. Nötr durumlar daha açık, vurgu/etkileşim durumları daha güçlü bronz tonu kullanır.
-- Testimonials koyu sol panel: dc.html'de `#1A202C`, paletten temiz bir color-mix ile türemiyor (navy/charcoal/muted kombinasyonlarının hiçbiri iyi oturmuyor). `var(--navy)` doğrudan kullanılmasına karar verildi — G kanalı zaten neredeyse birebir örtüşüyor, gözle fark edilmeyecek kadar küçük bir sapma. Aynı slider'daki CTA metin/border rengi `#E7C68A` ise `color-mix(bronze 50%, ivory 50%)` ile türetildi — düz `var(--bronze)` navy zemin üzerinde WCAG AA'nın (4.5:1) az altında kaldığı için (~4.4:1), bu türetilmiş ton ~8:1 veriyor. Detay: `globals.css` üstteki off-brand renk yorum bloğu.
-- Testimonial navy panel — mobilde dikey padding azaltıldı, kullanıcı kaydırmadan daha fazla içerik görebilsin diye, dc.html'de bu ayrım yok.
-- Services ve Approach bölümlerinde mobil erişilebilirlik iyileştirmesi — her ikisi de artık mobilde tek-açık accordion deseni kullanıyor (ServicesAccordion, ApproachAccordion), dc.html'de bu ayrım yok, kullanıcı isteğiyle eklendi. Masaüstü davranışları (Services tab+panel, Approach hover) değişmedi.
-
-## Çözülen kritik hatalar
-
-- Familiar sticky stack — JS'in CSS position:sticky'nin üstüne ayrıca translateY uygulaması, kartların yanlış konuma itilmesine sebep oluyordu. Opus ile kök neden bulunup translateY kaldırıldı, konumlandırma tamamen CSS'e bırakıldı.
-- Testimonial slider — dc.html'deki gizli slayt butonlarının klavye tab sırasına girmesi inert+aria-hidden ile düzeltildi, ardından inert'in fokus kaybı yan etkisi ref ile telafi edildi. Ayrıca dc.html'deki ok ikonu hover'da kaybolma hatası (stroke sabitti) stroke=currentColor ile düzeltildi.
-- Services tab crossfade — masaüstünde panel geçişinde metin çakışması (dc.html'de de var olan bir kusur), z-index eksikliğinden kaynaklanıyordu, zIndex: isActive?2:1 ile düzeltildi.
-- Services tab crossfade z-index (round 2) — ilk düzeltmemiz (isActive?2:1) sadece "bir aktif, bir solan" durumunu varsayıyordu, hızlı art arda tıklamada birden fazla panel aynı anda solurken z-index çakışması yaşanabiliyordu. Her panele benzersiz z-index (isActive ? items.length+1 : i+1) ile deterministik hale getirildi, hem Home hem /services'te düzeltildi.
-- CaseStudies kapak görselleri (yerel SVG) production build'de boş çıkıyordu — Next.js image optimizer varsayılan olarak SVG'yi reddediyor (`400 image type is not allowed`), `next.config.ts`'te `images.dangerouslyAllowSVG: true` + kısıtlayıcı CSP eksikti. Hata sadece `npm run build && npm run start` ile ortaya çıkıyor, `npm run dev`'de görünmüyordu. Bkz. CLAUDE.md "Bölüm tamamlama kontrol listesi" madde 7.
-- Tailwind v4'te `max-[Npx]:` beklenenin aksine `<Npx` (N hariç) olarak derleniyor — `@media not all and (min-width:Npx)`. `MobileBookingBar.tsx`'te dc.html'in `st.w < 900` koşulunu birebir tutturmak için `max-[899px]:` değil `max-[900px]:` kullanmak gerekti. Herhangi bir "max-[Npx]" breakpoint yazılırken N'in dc.html'deki eşiğin kendisi olması gerekiyor, eşik-1 değil.
-- next-intl `pathnames` kurulunca `Link`'in `href`'i taranmış bir union'a dönüyor — content.ts'in genel `Link[]` tipi (`href: string`) bunu 8 dosyada kırdı. `ComponentProps<typeof Link>["href"]` cast'iyle düzeltildi (`any` değil). Gerçek dinamik route'lar (`/work/[slug]`) için cast yerine `{pathname, params}` nesne formu kullanılmalı.
-- `@calcom/embed-react`'in `<Cal>` bileşeni server component içine doğrudan konursa SSR'da "useRef is not a function" ile patlıyor (kendi içinde hook kullanıyor). `BookingOverlay.tsx` zaten tamamen client olduğu için bunu yaşamamıştı; `/book` sayfası server olduğu için `CalEmbed.tsx` adında küçük bir client-leaf gerekti — ikisi de aynı bileşeni paylaşıyor. Ders: herhangi bir üçüncü parti bileşen client-only ise (hook kullanıyorsa), server component'e doğrudan konmadan önce kendi `"use client"` sarmalayıcısına alınmalı.
-
-## Bugün alınan içerik kararları
-
-- `content.ts`'e dc.html'de olup karşılığı olmayan üç bölüm için yeni tipler eklendi: `FamiliarSection`/`FamiliarPoint` (sticky kart yığını), `TestimonialSection`/`Testimonial` (testimonial slider), `MediaSection`/`MediaItem` (basın/medya).
-- `WhyMeSection`/`WhyMeBlock` → `ApproachSection`/`ApproachBlock` olarak yeniden adlandırıldı. Sebep: isim çakışması — gerçek "Why I do this" bölümü zaten `StorySection`'a karşılık geliyordu, eski `WhyMeSection` ise "The side that builds it" içindeki "What I do differently" bloğuna karşılık geliyordu.
-- `AudienceCard` gerçek yapıya göre düzeltildi: `title/problem/do/result` alanları, veri kaynaklı olmadığı için `icon` alanı kaldırıldı. `AudienceSection`'a paylaşılan `labels` eklendi.
-- `ProcessStep`'e `detail` alanı eklendi (ana metinden ayrı, ikincil açıklama).
-- `ComparisonValue`'nun üstüne dc.html'deki düz string hücrelerin nasıl eşleneceğine dair bir not eklendi.
-- Hero içeriği önce kullanıcının verdiği yeni (paraphrase) metinle dolduruldu, sonra bu geri alındı — dc.html'deki gerçek `t.hero` verisiyle (eyebrow, headlinePrimary/headlineAccent, bullets, closingLine, scrollLabel) değiştirildi. `Hero` tipi buna göre genişletildi.
-
-## Sıradaki adım
-
-Ana sayfanın 14 bölümü + header/footer + booking overlay + sticky mobil alt CTA bar + legal 4'lüsü + `/book` (gerçek Cal.com embed'i, hem overlay'de hem bu sayfada `CalEmbed.tsx` paylaşılıyor) tamamlandı. Kalan büyük adımlar (route-haritasi.md sıralaması): `/story`, `/thank-you`, `/services`, `/work` (index), `/work/[slug]`, sonra Sanity entegrasyonu.
+- Tailwind v4'te `max-[Npx]:` N'i hariç tutuyor; eşiğin kendisi yazılır.
+- next-intl typed pathnames: dinamik rotalarda `{ pathname, params }` nesnesi kullanılır, string değil.
+- Üçüncü parti client-only bileşen (hook kullanan) server component'e doğrudan konmaz, küçük bir `"use client"` sarmalayıcıya alınır (`CalEmbed`).
+- next/image optimizer yerel SVG'yi varsayılan olarak reddediyor; `dangerouslyAllowSVG` + kısıtlayıcı CSP `next.config.ts`'te. Görsel içeren her değişiklik production build ile denenir.
+- Logo paketindeki `favicon.ico`'nun PNG'leri RGB'ydi, Next çözemedi; RGBA olarak yeniden üretildi.
+- GROQ `*[_id == "x"]` typegen'de bütün belge tiplerinin birleşimini üretiyor; sorgulara `_type == "x"` filtresi eklenir.
+- Unicode ok karakterleri mobilde emoji sunumuyla kalın çıkıyor; her ok inline SVG.

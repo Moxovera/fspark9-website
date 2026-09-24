@@ -1,12 +1,12 @@
 # FSPARK9 · Repo Kuralları
 
-Bu dosya repo kökünde durur. Claude Code her oturumda okur.
+Bu dosya repo kökünde durur. Claude Code her oturumda okur. Güncel durum ve açık işler `FSPARK9-DURUM.md`'de.
 
 ---
 
 ## Proje
 
-Next.js 15 App Router + TypeScript + Tailwind + Sanity CMS.
+Next.js 15 App Router + TypeScript + Tailwind v4 + Sanity CMS.
 Tek repo, Vercel'de tek deploy. Sanity Studio `/studio` altında embed.
 
 Diller: EN birincil (`/`), TR ikincil (`/tr`). `next-intl`, `localePrefix: 'as-needed'`.
@@ -15,15 +15,18 @@ Diller: EN birincil (`/`), TR ikincil (`/tr`). `next-intl`, `localePrefix: 'as-n
 
 ## Tasarım kaynağı
 
-Gerçek kaynak: `_design/fspark9.dc.html`
+- Brief: `_design/v2/fspark9-rebuild-brief-v4.md`
+- Metin: `_design/v2/fspark9-site-copy-v2.md` (tek metin kaynağı, EN ve TR)
+- Görsel: `_design/v2/boards/*.dc.html` ve `_design/v2/screens/*.png`
+- Marka: `fspark9-brandbook-v3.md`
 
-Bu bir **Design Component** dosyası. Tek dosyada HTML benzeri şablon + `DCLogic` tabanlı bir JS mantık sınıfı bulunuyor. Tarayıcıda doğrudan açılabiliyor.
+Metinde copy dosyası, görselde board kazanır. Copy'nin sessiz kaldığı yerde board'daki metin kullanılır.
+
+Board'lar **Design Component** dosyası: tek dosyada şablon + `DCLogic` tabanlı JS sınıfı, tarayıcıda doğrudan açılıyor.
 
 ### DCLogic hakkında
 
-**DCLogic'i port etme. Shim yazma. Taklit etme.**
-
-DCLogic bir Claude Design çalışma zamanıdır. React üzerine kuruludur ama React değildir. Yapılacak şey sınıfın **ne yaptığını okumak** ve aynı davranışı React deyimleriyle sıfırdan yazmaktır:
+**DCLogic'i port etme. Shim yazma. Taklit etme.** Sınıfın ne yaptığını oku, aynı davranışı React deyimleriyle yaz:
 
 | DCLogic'te | Next.js'te |
 |---|---|
@@ -33,7 +36,7 @@ DCLogic bir Claude Design çalışma zamanıdır. React üzerine kuruludur ama R
 | Event handler metodu | Bileşen içi fonksiyon |
 | DOM sorgusu (`querySelector`) | `useRef` |
 
-`querySelector` ile DOM'a doğrudan erişen kod React'e taşınırken **ref'e çevrilecek.** Doğrudan DOM manipülasyonu bırakılmayacak.
+Doğrudan DOM manipülasyonu bırakılmayacak.
 
 ---
 
@@ -41,80 +44,31 @@ DCLogic bir Claude Design çalışma zamanıdır. React üzerine kuruludur ama R
 
 Bir bölümü tek seferde bitirmeye çalışma. Her bölüm için sırayla:
 
-**Geçiş A · Yapı**
-Şablonu JSX'e çevir. Sadece markup ve statik Tailwind sınıfları. Animasyon yok, etkileşim yok. Sonuç: doğru görünen ama hareketsiz bölüm.
+**Geçiş A · Yapı.** JSX ve statik Tailwind sınıfları. Animasyon ve etkileşim yok.
 
-**Geçiş B · Stil doğrulama**
-Orijinal `.dc.html` dosyasını tarayıcıda yan sekmede aç, karşılaştır. 375px, 768px, 1440px. Fark varsa burada düzelt.
+**Geçiş B · Stil doğrulama.** Board'u yerel statik sunucu + Playwright ile gerçek tarayıcıda çalıştır, `getComputedStyle` ile hesaplanmış stil karşılaştırması yap; sadece kaynak kodu okumakla yetinme. 375px, 768px, 1440px.
 
-Mümkün olduğunda dc.html'i gerçek bir tarayıcıda (yerel statik sunucu + Playwright) çalıştırıp `getComputedStyle` ile piksel/hesaplanmış-stil karşılaştırması yap, sadece kaynak kodu okumakla yetinme. Bu yöntem artık standart, ilk kez ProofStrip bölümünde kullanıldı.
-
-**Geçiş C · Animasyon ve etkileşim**
-Aşağıdaki animasyon kurallarına göre ekle. Tek tek, biri bittikten sonra diğeri.
+**Geçiş C · Animasyon ve etkileşim.** Aşağıdaki kurallara göre, tek tek.
 
 ---
 
 ## Animasyon kuralları
 
-Projede üç animasyon tipi var. Her biri farklı ele alınır. Harici animasyon kütüphanesi **kurulmayacak**, mevcut CSS ve JS yaklaşımı korunacak.
+Harici animasyon kütüphanesi **kurulmayacak**. Tek easing: `--ease-brand` (`cubic-bezier(0.2, 0.7, 0.2, 1)`). Her hareket `prefers-reduced-motion: reduce` altında kapalı.
 
-### 1. Scroll tetiklemeli reveal
+### Scroll tetiklemeli reveal
 
-**Problem:** Sunucuda render edilirken eleman `opacity: 0` ile çıkar. JS yüklenene kadar içerik görünmez. JS hata verirse kalıcı görünmez. Tarayıcı arama motoru ve JS'siz kullanıcı boş sayfa görür.
+`<head>`'deki bloklayıcı script `<html>`'e `js` sınıfı ekler, gizleme bu sınıfa bağlı (`.js .reveal`). JS kapalıysa içerik görünür. Observer tek hook'ta: `src/hooks/useReveal.ts`, sarmalayıcı `src/components/ui/Reveal.tsx`. Görünür olunca `unobserve`. Bölümler kendi observer'ını kurmaz.
 
-**Çözüm:** `<head>` içinde bloklayıcı satır içi script ile `<html>` etiketine `js` sınıfı ekle. CSS'te gizleme kuralını bu sınıfa bağla.
+Hareket sınıfları `globals.css`'te: `ring-draw`, `portrait-in`, `cut-wipe`, `dial-fill`, `dial-fill-result`, `marker-wipe`, `go-arrow`, `text-link-line`, `format-number`, `sheet-in-right`, `booking-backdrop`, `booking-window`.
 
-```tsx
-// layout.tsx, <head> içinde
-<script dangerouslySetInnerHTML={{
-  __html: `document.documentElement.classList.add('js')`
-}} />
-```
+### Canvas ya da mouse efekti eklenirse
 
-```css
-/* globals.css */
-.reveal { opacity: 1; transform: none; }
-.js .reveal { opacity: 0; transform: translateY(24px); }
-.js .reveal.is-visible {
-  opacity: 1; transform: none;
-  transition: opacity .6s ease, transform .6s ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  .js .reveal { opacity: 1; transform: none; transition: none; }
-}
-```
+Ayrı client component, `next/dynamic` ile `ssr: false`. `requestAnimationFrame` cleanup'ta `cancelAnimationFrame`. `devicePixelRatio` ölçeği, `ResizeObserver`, `{ passive: true }` dinleyiciler. Dokunmatik cihazda ve reduced-motion'da mount edilmez.
 
-JS kapalıysa içerik görünür. JS açıksa flash olmadan gizlenir ve animasyonla gelir.
+### Sticky
 
-**Observer tek bir hook'ta toplanır:** `src/hooks/useReveal.ts`. Her bölüm kendi observer'ını kurmaz. Görünür olduktan sonra `unobserve` çağrılır.
-
-### 2. Mouse tracking canvas efekti
-
-**Kurallar:**
-
-- Ayrı bir client component olacak: `src/components/effects/CanvasField.tsx`
-- `next/dynamic` ile `ssr: false` yüklenecek. Sunucuda canvas'ın hiçbir işi yok.
-- `requestAnimationFrame` döngüsü `useEffect` cleanup'ında **mutlaka** `cancelAnimationFrame` ile durdurulacak. Durdurulmazsa route değişiminde bellek sızıntısı ve arka planda dönen döngü kalır.
-- `devicePixelRatio` ile ölçeklenecek, yoksa retina ekranda bulanık çıkar
-- Resize dinleyicisi `ResizeObserver` ile, `window.resize` ile değil
-- **Dokunmatik cihazda hiç mount edilmeyecek.** Mouse tracking'in mobilde karşılığı yok, sadece pil ve performans yakar.
-- `prefers-reduced-motion: reduce` ise mount edilmeyecek
-- Mouse dinleyicisi `{ passive: true }` olacak
-
-```tsx
-const CanvasField = dynamic(() => import('./CanvasField'), { ssr: false })
-```
-
-### 3. Kart yığını (card stack) scroll animasyonu
-
-**Problem:** `position: sticky` bir üst elemanda `transform`, `filter`, `perspective` veya `will-change` varsa **sessizce çalışmaz.** Bileşenleştirme sırasında sarmalayıcı div eklenince en sık kırılan yer burasıdır.
-
-**Kurallar:**
-
-- Sticky elemanın hiçbir atasında `transform` benzeri bir özellik olmayacak. Reveal animasyonu `translateY` kullandığı için bu bölümde reveal sarmalayıcısı sticky ataya konmayacak.
-- Sticky container'ın ataları `overflow: hidden` içermeyecek, bu da sticky'yi kırar
-- Scroll dinleyicisi kullanılıyorsa `{ passive: true }` olacak ve `requestAnimationFrame` ile kısılacak. Her scroll olayında layout okuma yapılmayacak.
-- Mümkünse scroll ilerlemesi `IntersectionObserver` eşikleri veya CSS `position: sticky` ile çözülecek, JS scroll matematiği son çare
+Sticky elemanın hiçbir atasında `transform`, `filter`, `perspective`, `will-change` ya da `overflow: hidden` olmaz; reveal sarmalayıcısı (translateY) sticky ataya konmaz. Scroll dinleyicisi gerekirse `{ passive: true }` + `requestAnimationFrame`; mümkünse `IntersectionObserver` ya da saf CSS.
 
 ---
 
@@ -122,109 +76,102 @@ const CanvasField = dynamic(() => import('./CanvasField'), { ssr: false })
 
 ### Renk ve tipografi
 
-Sabit hex kodu **yasak**. Tüm renkler `globals.css` içindeki CSS değişkenlerinden, Tailwind config üzerinden.
+Bileşende sabit hex kodu **yasak**. Renkler `globals.css` `:root` değişkenlerinden, Tailwind'e `@theme inline` ile bağlı:
 
 ```
---navy · --bronze · --ivory · --charcoal · --muted
+paper · ink · white · stone · rule · flare · dust · inkrule · ring · headrule · portrait
 ```
 
-`--muted`, dc.html'deki ikincil/muted metin rengi (`#6B7280`) için — kart açıklaması, alt metin gibi birincil olmayan gövde metinlerinde kullanılır.
+Flare Paper üzerinde metin rengi olmaz (kontrast). CSS değişkeni okuyamayan yerler (OG görseli, canvas) `src/lib/brandColors.ts`'i kullanır; değerler `:root` ile birebir aynı tutulur.
 
-Fontlar `next/font/google` ile: Playfair Display (başlık), Inter (gövde), IBM Plex Mono (numara ve etiket). CDN link'i kullanılmayacak.
+Fontlar `next/font/google`, `src/lib/fonts.ts`: Epilogue (`font-display`, başlık ve rakam), Hanken Grotesk (`font-sans`, metin), Spline Sans Mono (`font-mono`, etiket). `latin-ext` şart (Türkçe). CDN link'i yok.
 
-### İkonlar
+### Metin kuralları
 
-Metin içine gömülü Unicode ok/sembol karakteri **yasak** (ör. `↗`, `→`). dc.html bunları düz karakter olarak kullanıyor olsa bile React'e geçerken inline SVG'ye çevrilecek. Gerekçe: U+2190–2199 aralığındaki oklar hem "text" hem "emoji" sunumuna sahip — masaüstü ince (text) render eder, bazı mobil tarayıcılar kalın (emoji) render eder, aynı karakter platforma göre iki farklı kalınlıkta çıkar ve bu CSS ile düzeltilemez. SVG stroke viewBox'a orantılı ölçeklendiği için tutarlılığı garanti eder. Kalıp: 24×24 viewBox, `stroke="currentColor"`, `strokeWidth="1.8"`, `strokeLinecap`/`strokeLinejoin="round"` (bkz. `Framework.tsx`'teki `ArrowUpRightIcon`, `Hero.tsx`'teki scroll oku).
+Metinde uzun ve orta tire (—, –) yok. Unicode ok ya da sembol (`↗`, `→`) yok: her ok inline SVG, `src/components/icons` (24×24 viewBox, `stroke="currentColor"`, `strokeWidth` 1.8, yuvarlak uçlar). Gerekçe: U+2190–2199 okları bazı mobil tarayıcılarda emoji sunumuyla kalın çıkıyor, CSS ile düzeltilemiyor.
 
 ### Bileşen yapısı
 
 ```
 src/
-  app/[locale]/
-    page.tsx                  → ana sayfa, bölümleri dizer
-    layout.tsx
+  app/[locale]/                → sayfalar (home, services, services/[slug], work, work/[slug],
+                                 about, spark, spark/[formatSlug], spark/[formatSlug]/[episodeSlug],
+                                 thank-you, impressum, privacy, cookies, terms)
+  app/global-not-found.tsx     → dil bilmeyen 404 (kendi <html>'i)
+  app/(locked)/                → kilitli müşteri raporları, v2'den bağımsız
+  app/og/                      → OG görseli (EN, ?locale=tr)
   components/
-    sections/                 → her bölüm ayrı dosya
-      Hero.tsx
-      Framework.tsx
-      ProofStrip.tsx
-      CaseStudies.tsx
-      Services.tsx
-      Comparison.tsx
-      WhyMe.tsx
-      Story.tsx
-      Faq.tsx
-      ClosingCta.tsx
-    ui/                       → tekrar kullanılan parçalar
-    effects/                  → canvas ve görsel efektler
+    brand/                     → Dial, RingOutline, Logo, CutButton, GoButton, Label, CutHeadline ...
+    chrome/                    → Header, ServicesMenu, MobileNav, Footer, MobileBookingBar
+    blocks/                    → sayfalar arası bloklar (NextStep, PageOpening, PairAndResult ...)
+    home/ services/ work/ spark/ subpages/ booking/
+    icons/  ui/  seo/  effects/
+    locked/                    → sadece /locked
   hooks/
-  types/content.ts            → tüm içerik arayüzleri
-  content/                    → yalnızca Sanity kapsamı dışındaki 3 sayfa: /book, /thank-you, 404
-  sanity/
+  types/content.ts             → tüm içerik ve props arayüzleri
+  content/                     → Sanity içeriğinin statik aynası (seed ve drift kaynağı)
+  sanity/                      → şema, Studio menüsü, sorgular, yükleyiciler
+  scripts/                     → seed-v3, check-drift, cleanup-v3, upload-og-image
 ```
 
 ### Bileşen kuralları
 
-- Bileşenler **props alır**. İçine metin gömülmez. Tek bir sabit metin bile.
-- Props tipleri `types/content.ts` içinde tanımlı. Bileşen kendi tipini oradan import eder.
-- Varsayılan Server Component. `'use client'` sadece animasyon, canvas, form ve etkileşim için.
-- `'use client'` mümkün olan en küçük bileşene konulacak. Bölümün tamamı client olmayacak, sadece animasyonlu parçası.
-- Tekrarlanan yapılar (vaka analizi, hizmet kartı, SSS satırı) tek bileşen + dizi olarak yazılacak. Kopyala yapıştır yok.
+- Bileşenler **props alır**. İçine metin gömülmez, tek bir sabit metin bile.
+- Props tipleri `types/content.ts`'te. Bileşen kendi tipini oradan import eder, dosya içinde props arayüzü tanımlanmaz. (İç state ve context değer tipleri istisna.)
+- Varsayılan Server Component. `'use client'` sadece animasyon, form ve etkileşim için, mümkün olan en küçük bileşene.
+- Tekrarlanan yapılar tek bileşen + dizi.
 
 ### Veri akışı
 
-**Sanity entegrasyonu tamamlandı.** Ana sayfa, alt sayfalar (services/work/story/legal), nav/footer, site geneli SEO ve booking ayarları artık `src/sanity/lib/fetch.ts` (`sanityFetch`) + `src/sanity/lib/queries.ts` üzerinden Sanity'den geliyor. Studio `/studio` altında embed. Şema `src/sanity/schemaTypes/`.
+Sayfa içeriği Sanity'den. Yükleyiciler `src/sanity/lib/content.ts`: tek sorguyla iki dili çekip `Record<Locale, T>` döndürür, `localize()` iki dilli alanları (`localeString`, `localeText`) aktif dile indirir. Sayfa `content[locale]` ile okur. Legal, SEO, logo ve bölüm sayfası sorguları `src/sanity/lib/queries.ts`'te. ISR 60 saniye.
 
-**Kapsam dışı — bilinçli olarak `src/content/*.ts`'te statik kalan 3 sayfa:** `/book`, `/thank-you`, 404 (`global-not-found.tsx`). Sebep: bu sayfalarda editoryal/tekrar eden içerik yok (tek seferlik teşekkür metni, sabit booking kart çerçevesi, tek satır 404 mesajı) — Sanity'ye taşımak şema karmaşıklığı ekler, düzenlenebilirlik kazandırmaz. `/book`'un `calLink`'i istisna: bu tek alan `siteSettings`'ten (Sanity) geliyor, sayfanın geri kalanı statik.
-
-Bileşenler `types/content.ts` arayüzüne göre yazıldığı için veri kaynağı (statik dosya ↔ Sanity) bileşen kodunu etkilemiyor, sadece `page.tsx`/`sanityFetch` çağrısı değişiyor.
+- GROQ sorgularında tekil belgeler `*[_type == "x" && _id == "x"]` ile çekilir (sadece `_id` filtresi typegen'de bütün tiplerin birleşimini üretir).
+- Şema değişince `npm run typegen`.
+- `src/content/*.ts` aynadır: `npm run seed:v3` buradan Sanity'ye yazar, `npm run check:drift` Sanity'yi buna karşı alan alan karşılaştırır. İçerik şekli ya da eşleme kodu değiştiğinde ikisi de çalıştırılır.
+- Statik kalan (bilinçli): `/thank-you` ve iki 404. Tekrar eden, düzenlenecek içerikleri yok.
+- Görseller (vaka ekranları, isteğe bağlı portre, OG) sadece Sanity'de.
 
 ### Erişilebilirlik
 
-- Her görselde anlamlı `alt`. Dekoratifse `alt=""`.
-- SSS accordion ise klavye ile açılıp kapanabilir olacak, `<button>` kullanılacak, `div` + onClick değil
-- Odak halkası (focus ring) kaldırılmayacak, marka rengiyle özelleştirilecek
-- Renk kontrastı WCAG AA. Bronz üzerine fildişi kombinasyonu kontrol edilecek.
+- Her görselde anlamlı `alt`, dekoratifse `alt=""`.
+- Açılır/kapanır her şey `<button>`, klavye ile çalışır. Diyaloglar `useDialogFocus` (odak tuzağı, Escape, kaydırma kilidi, odak iadesi).
+- Odak halkası kaldırılmaz (2px Ink, Ink zeminde Paper).
+- Kontrast WCAG AA, dokunma hedefi en az 44px, sayfa başına tek h1, başlık sırası atlanmaz.
 
 ---
 
 ## Analytics
 
-Vercel Web Analytics (`@vercel/analytics/next`) ve Vercel Speed Insights (`@vercel/speed-insights/next`) kuruldu. Bu projede tek bir `app/layout.tsx` **yok** — `next.config.ts`'te `experimental.globalNotFound: true` olduğu için `global-not-found.tsx` kendi `<html><body>`'sini kurup `[locale]/layout.tsx`'i tamamen atlıyor. İkisi de birbirinden bağımsız kök HTML dosyası. Bu yüzden hem `<Analytics />` hem `<SpeedInsights />` component'leri **her ikisine de** eklendi:
-
-- `src/app/[locale]/layout.tsx`
-- `src/app/global-not-found.tsx`
-
-Sadece birine eklemek trafiğin bir kısmını (normal sayfalar ya da 404'ler) kaçırır. Yeni bir kök HTML dosyası eklenirse (ör. başka bir top-level özel dosya) oraya da eklenmesi gerekir.
+Vercel Web Analytics (`@vercel/analytics/next`) ve Speed Insights (`@vercel/speed-insights/next`). Üç ayrı kök HTML var ve üçünde de ikisi birden duruyor: `src/app/[locale]/layout.tsx`, `src/app/global-not-found.tsx`, `src/app/(locked)/layout.tsx`. Yeni bir kök HTML dosyası eklenirse oraya da eklenir.
 
 ---
 
 ## Çalışma düzeni
 
 - **Tek istekte tek bölüm.** "Tüm tasarımı çevir" isteği kabul edilmeyecek.
-- Her bölüm bitince: `npm run build` çalıştır, hata varsa düzelt, sonra commit.
-- Her bölüm ayrı commit. Mesaj: `feat(section): hero`
-- Push sonrası Vercel preview linkinde kontrol edilir.
+- Her bölüm bitince `npm run build` ve `npm run lint`, hata varsa düzelt, sonra commit. Mesaj: `feat(section): hero`.
+- Geliştirme `staging` dalında. Push sonrası Vercel preview linkinde kontrol edilir (SSO arkasında). `main` canlıdır, oraya sadece kullanıcının onayıyla geçilir.
 
 ## Bölüm tamamlama kontrol listesi
 
-Her bölüm (Geçiş A, B, C hepsi dahil) "bitti" denmeden önce şunlar kontrol edilir:
+Bir bölüm "bitti" denmeden önce:
 
-1. 375px (mobil), 768px (tablet), 1440px (masaüstü) genişliklerde görsel kontrol yapılır
-2. Hiçbir eleman başka bir elemanın üzerine binmiyor, taşmıyor, kesilmiyor
-3. absolute/fixed konumlanmış her eleman (scroll göstergesi, dekoratif ikon, sabit buton vb.) üç genişlikte de ayrı ayrı kontrol edilir, çünkü masaüstünde doğru duran bir absolute eleman mobilde en sık kırılan yerdir
-4. `npm run build` ve `npm run lint` hatasız geçer
-5. Görsel/medya içeren bölümlerde (next/image kullanımı varsa) npm run build && npm run start ile GERÇEK production build test edilir, sadece npm run dev ile yetinilmez. Next.js'in optimizer davranışı dev ve production'da farklılaşabilir (örneğin yerel SVG'ler dev'de çalışıp production'da sessizce kırılabilir) — bu fark sadece production build'de ortaya çıkar.
-6. dc.html ile yan yana karşılaştırılır, kasıtsız bir sapma yoksa devam edilir
-7. Bu altı madde geçmeden commit atılmaz
+1. 375px, 768px, 1440px'te görsel kontrol (ara genişlikler 900 ve 1180 de).
+2. Hiçbir eleman başka bir elemanın üzerine binmiyor, taşmıyor, kesilmiyor.
+3. absolute/fixed her eleman üç genişlikte ayrı ayrı kontrol edilir.
+4. `npm run build` ve `npm run lint` hatasız.
+5. Görsel/medya içeren bölümlerde `npm run build && npm run start` ile gerçek production build test edilir, `npm run dev` yetmez (optimizer davranışı farklı).
+6. Board ile yan yana karşılaştırılır.
+7. İçerik ya da Sanity eşlemesi değiştiyse `npm run check:drift` temiz.
+8. `/locked` önce/sonra ekran görüntüleri aynı.
 
-Bu kontrol listesini uygulamadan bir bölümü "tamamlandı" olarak raporlama.
+Bu maddeler geçmeden commit atılmaz, bölüm tamamlandı diye raporlanmaz.
 
 ## Yapılmayacaklar
 
-- Harici animasyon kütüphanesi kurmak (framer-motion, GSAP, AOS)
-- CSS-in-JS kütüphanesi eklemek
-- Tasarımı "iyileştirmek". Tasarım kilitli, birebir uygulanacak.
-- `any` tipi kullanmak
-- `useEffect` içinde cleanup yazmadan dinleyici veya döngü başlatmak
+- Harici animasyon kütüphanesi (framer-motion, GSAP, AOS)
+- CSS-in-JS kütüphanesi
+- Tasarımı "iyileştirmek". Tasarım kilitli, birebir uygulanır.
+- `any` tipi
+- `useEffect` içinde cleanup yazmadan dinleyici ya da döngü başlatmak
 - Metni bileşen içine gömmek
