@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Link } from "@/i18n/navigation";
+import BackLink from "@/components/brand/BackLink";
+import Label from "@/components/brand/Label";
+import NextStep from "@/components/blocks/NextStep";
+import SparkSubnav from "@/components/spark/SparkSubnav";
 import EpisodeClock from "@/components/spark/episode/EpisodeClock";
 import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
+import EpisodeRuler from "@/components/spark/episode/EpisodeRuler";
 import Scorecard from "@/components/spark/episode/Scorecard";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
+import { computeDayCount } from "@/components/spark/day/dayMath";
+import { spark } from "@/content/spark";
+import { nextStep } from "@/content/chrome";
+import { fill, formatShortDate } from "@/lib/format";
+import { loadFormatIssues } from "@/lib/spark";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_EPISODE_SLUGS_QUERY,
@@ -112,94 +121,147 @@ export async function generateMetadata({
  * başlıktan ÖNCE gelmesine izin vermiyor, bu yüzden bu sayfa kendi
  * header'ını kuruyor (geri butonu SubpageHero'yla aynı görsel dilde).
  */
+/**
+ * v2 bölüm sayfası (brief v4 §7.7, board Episode / EpisodeM). İçerik, blok
+ * sırası, mekanikler ve localStorage anahtarları (fspark9.lastday.v2)
+ * aynen korunuyor; sadece sunum değişti. Gün sayıları her zaman
+ * launchDate / closureDate / blok tarihlerinden hesaplanıyor.
+ */
 export default async function SparkEpisodePageRoute({
   params,
 }: {
   params: Promise<{ locale: string; formatSlug: string; episodeSlug: string }>;
 }) {
-  const { locale, formatSlug, episodeSlug } = await params;
-  const resolvedLocale: "en" | "tr" = locale === "tr" ? "tr" : "en";
+  const { locale: rawLocale, formatSlug, episodeSlug } = await params;
+  const locale = rawLocale === "tr" ? "tr" : "en";
+  const hub = spark[locale];
+  const format = hub.formats.find((f) => f.slug === formatSlug);
 
   const result = await sanityFetch<SPARK_EPISODE_QUERYResult>({
     query: SPARK_EPISODE_QUERY,
     params: { locale, formatSlug, episodeSlug },
     tags: ["sparkEpisode", "sparkFormat"],
   });
-
   const episode = toSparkEpisodePage(result, formatSlug);
+  if (!episode || !episode.launchDate || !episode.closureDate || !format) notFound();
 
-  if (!episode || !episode.launchDate || !episode.closureDate) {
-    notFound();
-  }
+  const ctx = {
+    launchDate: episode.launchDate,
+    closureDate: episode.closureDate,
+    dayLabel: episode.dayLabel,
+    locale,
+    labels: hub.episode,
+    vocabulary: episode,
+  } as const;
+  const days = computeDayCount(episode.launchDate, episode.closureDate);
+  const range = fill(hub.episode.dateRangeTemplate, {
+    from: formatShortDate(episode.launchDate, locale),
+    to: formatShortDate(episode.closureDate, locale),
+  });
+  const numberLabel = `Nº ${String(episode.number).padStart(2, "0")}`;
+  const { issues } = await loadFormatIssues(locale, format, hub);
+  const next = issues.find((issue) => issue.number === episode.number + 1);
+  const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] uppercase min-[900px]:text-[12px]";
 
   return (
-    <main>
+    <main className="pt-16 min-[900px]:pt-[84px]">
       {episode.altFormatSlug && (
-        <SparkAltSlugRegistrar
-          formatSlug={episode.altFormatSlug}
-          episodeSlug={episode.altEpisodeSlug ?? undefined}
-        />
+        <SparkAltSlugRegistrar formatSlug={episode.altFormatSlug} episodeSlug={episode.altEpisodeSlug ?? undefined} />
       )}
-      <section className="bg-navy px-7 pt-[182px] pb-16">
-        <div className="mx-auto max-w-[1000px]">
-          <Link
-            href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }}
-            className="mb-10 inline-flex items-center gap-[11px] rounded-full border border-ivory/22 py-2.5 pr-[18px] pl-3 transition-[background-color,border-color] duration-[250ms] ease-out hover:border-bronze/70 hover:bg-ivory/[0.08]"
-          >
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ stroke: "var(--bronze)" }}
+      <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+
+      <section className="on-ink bg-ink">
+        <div className="flex flex-col gap-4 px-5 pt-4 pb-9 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-end min-[900px]:gap-x-6 min-[900px]:px-8 min-[900px]:pt-10 min-[900px]:pb-16 min-[1280px]:px-16">
+          <div className="flex flex-col gap-4 min-[900px]:col-span-7 min-[900px]:gap-5">
+            <BackLink
+              href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }}
+              label={format.name}
+              ground="ink"
+              className="-mb-2"
+            />
+            <Label ground="ink">{`${format.name} · ${numberLabel}`}</Label>
+            <div className="flex items-end justify-between min-[900px]:block">
+              <h1 className="m-0 font-display text-[96px] leading-[0.85] font-extrabold tracking-[-0.06em] text-paper min-[900px]:-ml-2 min-[900px]:text-[clamp(160px,16.667vw,240px)] min-[900px]:leading-[0.8] min-[900px]:tracking-[-0.065em]">
+                {episode.subject}
+              </h1>
+              {days !== null && (
+                <span className="flex flex-col items-end gap-1 min-[900px]:hidden">
+                  <span className="font-display text-[56px] leading-[0.9] font-extrabold tracking-[-0.05em] text-paper">{days}</span>
+                  <span className={`${mono} text-dust`}>{hub.episode.daysOpenShortLabel}</span>
+                </span>
+              )}
+            </div>
+            <div
+              lang="en"
+              className="flex flex-col gap-[6px] border-t border-inkrule pt-[14px] min-[900px]:mt-2 min-[900px]:flex-row min-[900px]:gap-7 min-[900px]:pt-[18px]"
             >
-              <line x1="20" y1="12" x2="5" y2="12" />
-              <polyline points="11 5 4 12 11 19" />
-            </svg>
-            <span className="font-mono text-xs tracking-[0.1em] text-ivory/80 uppercase">{episode.formatName}</span>
-          </Link>
-
-          <EpisodeClock
-            launchDate={episode.launchDate}
-            closureDate={episode.closureDate}
-            dayLabel={episode.dayLabel}
-            locale={resolvedLocale}
-          />
-
-          <p className="mt-10 mb-4 font-mono text-xs tracking-[0.14em] text-bronze uppercase">{episode.formatName}</p>
-          <h1 className="mb-[26px] max-w-[22ch] font-display text-[clamp(2.3rem,5vw,4rem)] leading-[1.08] font-medium tracking-[-0.01em] text-ivory">
-            {episode.subject}
-          </h1>
-          <p className="max-w-[62ch] text-[1.08rem] leading-[1.68] text-ivory/74">{episode.standfirst}</p>
+              {episode.parent && <span className={`${mono} text-dust`}>{episode.parent}</span>}
+              <span className={`${mono} text-dust`}>{episode.country}</span>
+              <span lang={locale} className={`${mono} text-dust`}>
+                {range}
+              </span>
+            </div>
+          </div>
+          {days !== null && (
+            <div className="hidden min-[900px]:col-span-4 min-[900px]:col-start-9 min-[900px]:flex min-[900px]:flex-col min-[900px]:items-end min-[900px]:gap-[10px] min-[900px]:justify-self-end min-[900px]:pb-1">
+              <span className="text-outline-paper font-display text-[clamp(112px,11.112vw,160px)] leading-[0.8] font-extrabold tracking-[-0.06em]">
+                {days}
+              </span>
+              <span className={`${mono} text-dust`}>{hub.episode.daysOpenLabel}</span>
+            </div>
+          )}
         </div>
       </section>
 
-      <section className="bg-ivory px-7 pb-6">
-        <div className="mx-auto flex max-w-[760px] flex-wrap items-center gap-x-4 gap-y-2 border-b border-charcoal/10 pb-8 font-mono text-[11.5px] tracking-[0.05em] text-muted uppercase">
-          {/* country/parent şu an lokalize edilmemiş sabit İngilizce özel
-              isimler (bkz. sparkEpisode şeması) — lang="en" olmadan
-              tarayıcı TR büyütme kuralını uygular ve "United Kingdom"
-              "UNİTED KİNGDOM" olur (yanlış nokta). */}
-          <span lang="en">{episode.country}</span>
-          {episode.parent && <span lang="en">{episode.parent}</span>}
+      <EpisodeRuler blocks={episode.blocks} ctx={ctx} />
+
+      <section className="bg-paper px-5 pt-9 pb-2 min-[900px]:px-8 min-[900px]:pt-16 min-[900px]:pb-6 min-[1280px]:px-16">
+        <div className="flex flex-col gap-4 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6">
+          <div className="flex flex-col gap-4 min-[900px]:col-span-8 min-[900px]:col-start-4 min-[900px]:gap-6">
+            <p className="m-0 font-display text-[24px] leading-[1.25] font-bold tracking-[-0.02em] text-ink min-[900px]:text-[36px] min-[900px]:leading-[1.22] min-[900px]:tracking-[-0.025em]">
+              {episode.standfirst}
+            </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 min-[900px]:gap-6">
+              {[hub.episode.builtFromLabel, hub.episode.evidenceTakenLabel, hub.episode.lastCheckedLabel].map((item) => (
+                <span key={item} className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-ivory px-7 pb-[160px]">
-        <div className="mx-auto flex max-w-[760px] flex-col gap-10">
-          <EpisodeBlocks
-            blocks={episode.blocks}
-            launchDate={episode.launchDate}
-            dayLabel={episode.dayLabel}
-            vocabulary={episode}
-          />
-
-          <Scorecard subject={episode.subject} blocks={episode.blocks} vocabulary={episode} />
+      <section className="bg-paper px-5 pt-7 pb-8 min-[900px]:px-8 min-[900px]:pt-12 min-[900px]:pb-16 min-[1280px]:px-16">
+        <div className="grid grid-cols-1 gap-5 min-[900px]:grid-cols-12 min-[900px]:items-start min-[900px]:gap-x-6">
+          <EpisodeClock ctx={ctx} />
+          <div className="flex flex-col gap-4 min-[900px]:col-span-8 min-[900px]:col-start-4 min-[900px]:gap-6">
+            <EpisodeBlocks blocks={episode.blocks} ctx={ctx} />
+            <Scorecard subject={episode.subject} blocks={episode.blocks} ctx={ctx} />
+          </div>
         </div>
       </section>
+
+      {next && (
+        <section className="bg-paper px-5 pb-16 min-[900px]:px-8 min-[900px]:pb-[104px] min-[1280px]:px-16">
+          <div className="min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6">
+            <div className="flex flex-col gap-[10px] border-t-2 border-ink pt-4 min-[900px]:col-span-8 min-[900px]:col-start-4">
+              <Label>{fill(hub.episode.nextTemplate, { format: format.name })}</Label>
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <span className="flex items-baseline gap-[14px]">
+                  <Label as="span">{next.numberLabel}</Label>
+                  <span className="font-display text-[34px] leading-[normal] font-extrabold tracking-[-0.035em] text-stone min-[900px]:text-[44px]">
+                    {next.subject}
+                  </span>
+                </span>
+                <Label as="span">{next.statusLabel}</Label>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <NextStep content={nextStep[locale]} />
     </main>
   );
 }

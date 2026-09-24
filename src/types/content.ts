@@ -1508,24 +1508,58 @@ export interface SparkFormatContent {
   /** Copy'de sadece The Last Day'in açma linki var. */
   openLabel?: string
   comingIssues: SparkComingIssue[]
-  /** Hub'daki "preparing" formatın sayı yerine gösterdiği satır. */
+  /** Hub'daki "preparing" formatın açma linki yerine gösterdiği satır (board SparkIndex). */
   preparingLine?: string
   aboutLabel: string
   aboutLines: string[]
   showAllLabel: string
   allIssuesLabel: string
   daysUnit: string
+  /** Format sayfası liste başlığı ve sütunları (board LastDay). */
+  episodesLabel: string
+  columns: { number: string; company: string; days: string; published: string }
+  /** "{n}" yerine toplam bölüm sayısı gelir. */
+  showAllTemplate: string
 }
 
 export interface SparkHubContent {
   seo: PageSeoCopy
   bigWord: string
   heading: string
-  /** Kayan şeridin son parçası; önceki parçalar bölümlerden üretilir. */
+  /** Kayan şerit parçaları (copy §5) ve son parçası. */
+  tickerItems: string[]
   tickerTail: string
   readLabel: string
+  /** Hub'ın geri linki (Home). */
   backLabel: string
+  /** Format ve bölüm sayfalarının geri linki ve üst şeridi (Spark). */
+  sparkLabel: string
+  formatsLabel: string
+  /** Canlıya çıkış tarihi belli olana kadar yayın tarihi yer tutucusu. */
+  launchDateLabel: string
   formats: SparkFormatContent[]
+  /** Bölüm sayfası etiketleri (copy §6b, board Episode). "{x}" yer tutucuları kodda doldurulur. */
+  episode: SparkEpisodeLabels
+}
+
+export interface SparkEpisodeLabels {
+  daysOpenLabel: string
+  daysOpenShortLabel: string
+  /** "{from}" ve "{to}" tarihlerle dolar. */
+  dateRangeTemplate: string
+  rulerLabel: string
+  afterClosureLabel: string
+  builtFromLabel: string
+  evidenceTakenLabel: string
+  lastCheckedLabel: string
+  clockDayLabel: string
+  /** "{n}" kapanış günüyle dolar. */
+  clockOfTemplate: string
+  readingResultLabel: string
+  scorecardLabel: string
+  /** "{format}" format adıyla dolar. */
+  nextTemplate: string
+  sourceLabel: string
 }
 
 export interface TextLinkProps {
@@ -1550,4 +1584,28 @@ export interface PortraitProps {
 export interface PhonePairProps {
   screens: { src: string; alt: string }[]
   className?: string
+}
+
+/** Bir format listesindeki sayı: yayındaki (Sanity) ya da gelecek (statik). */
+export interface SparkIssue {
+  number: number
+  numberLabel: string
+  subject: string
+  hook: string
+  status: 'published' | 'coming'
+  /** computeDayCount ile hesaplanır; gelecek sayılarda null. */
+  days: number | null
+  href?: NavHref
+  /** Gelecek sayılarda durum ("Coming next"), yayındakilerde yayın tarihi. */
+  statusLabel: string
+}
+
+/** Bölüm bloklarının ortak bağlamı (tarih hesabı, dil, etiketler). */
+export interface EpisodeContext {
+  launchDate: string
+  closureDate: string
+  dayLabel: string
+  locale: Locale
+  labels: SparkEpisodeLabels
+  vocabulary: SparkMechanicVocabulary
 }

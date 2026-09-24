@@ -1,77 +1,47 @@
 "use client";
 
-import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import RevealItem from "@/components/spark/episode/RevealItem";
+import { MechanicCard, OptionButton, ResultLine, InlineReading } from "@/components/spark/episode/MechanicParts";
+import { dayParts } from "@/components/spark/episode/dayText";
 import { setOpinionAnswer, useLastDayState } from "@/hooks/useLastDayState";
-import type { SparkMechanicVocabulary, SparkSecondOpinionBlock } from "@/types/content";
+import type { EpisodeContext, SparkSecondOpinionBlock } from "@/types/content";
 
-interface SecondOpinionProps {
-  block: SparkSecondOpinionBlock;
-  launchDate: string;
-  dayLabel: string;
-  vocabulary: SparkMechanicVocabulary;
-}
-
-/**
- * İki okuma EŞİT ağırlıkta, yan yana (masaüstü) / alt alta (mobil),
- * hangisinin "doğru" olduğunu ima eden bir sıralama YOK (final
- * interaction brief §6). Kapanış cümlesi bronz renkte, ayrık —
- * yayının kendi ticari argümanı, hiç fspark9'dan bahsetmiyor, olduğu
- * gibi bırakılıyor.
- */
-export default function SecondOpinion({ block, launchDate, dayLabel, vocabulary }: SecondOpinionProps) {
+/** The Second Opinion: seçimden sonra iki okuma masaüstünde yan yana, altta kapanış cümlesi. */
+export default function SecondOpinion({ block, ctx }: { block: SparkSecondOpinionBlock; ctx: EpisodeContext }) {
   const state = useLastDayState();
-
-  const day = dayNumberLabel(block.date, launchDate);
+  const { day, text } = dayParts(block.date, ctx);
   const picked = state.opinions[block.blockId];
 
   return (
-    <div className="scroll-mt-32 border-l-[3px] border-bronze/60 py-2 pl-6" data-spark-day={day}>
-      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] tracking-[0.12em] text-bronze uppercase">
-        <span>{dayLabel} {day}</span>
-        <span>{vocabulary.secondOpinionLabel}</span>
+    <MechanicCard
+      name={ctx.vocabulary.secondOpinionLabel}
+      dayText={text}
+      day={day}
+      date={block.date}
+      prompt={block.prompt}
+      note={block.notScoredLabel}
+    >
+      <div className="grid grid-cols-1 gap-[10px] min-[900px]:grid-cols-3">
+        {block.options.map((option) => (
+          <OptionButton
+            key={option}
+            selected={picked === option}
+            dimmed={Boolean(picked) && picked !== option}
+            disabled={Boolean(picked)}
+            onClick={() => setOpinionAnswer(block.blockId, option)}
+            title={option}
+          />
+        ))}
       </div>
-
-      <fieldset className="border-0 p-0">
-        <legend className="mb-2 max-w-[62ch] text-[1.05rem] leading-[1.6] font-medium text-charcoal">
-          {block.prompt}
-        </legend>
-        <p className="mb-4 text-sm text-muted">{block.notScoredLabel}</p>
-        <div className="flex flex-wrap gap-3" role="radiogroup">
-          {block.options.map((option) => {
-            const isSelected = picked === option;
-            return (
-              <button
-                key={option}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                disabled={Boolean(picked)}
-                onClick={() => setOpinionAnswer(block.blockId, option)}
-                className={`rounded-full border px-5 py-2.5 text-sm transition-colors ${
-                  isSelected
-                    ? "border-bronze bg-bronze text-ivory"
-                    : "border-navy/25 text-charcoal hover:border-bronze/60 disabled:cursor-not-allowed disabled:opacity-50"
-                }`}
-              >
-                {option}
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-
       {picked && (
-        <div className="mt-6 flex flex-col gap-6">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <RevealItem item={block.readingA} readingLabel={vocabulary.readingLabel} />
-            <RevealItem item={block.readingB} readingLabel={vocabulary.readingLabel} />
+        <>
+          <ResultLine label={ctx.labels.readingResultLabel} />
+          <div className="grid grid-cols-1 gap-6 min-[900px]:grid-cols-2">
+            <InlineReading item={block.readingA} />
+            <InlineReading item={block.readingB} />
           </div>
-          <p className="max-w-[62ch] border-t border-bronze/20 pt-4 text-[1.02rem] leading-[1.6] font-medium text-bronze">
-            {block.closingLine}
-          </p>
-        </div>
+          <p className="m-0 font-display text-[18px] leading-[1.35] font-bold text-ink min-[900px]:text-[20px]">{block.closingLine}</p>
+        </>
       )}
-    </div>
+    </MechanicCard>
   );
 }

@@ -1,47 +1,46 @@
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import type { SparkRecordBlock, SparkReadingBlock } from "@/types/content";
-
-interface ReadingBlockProps {
-  block: SparkReadingBlock;
-  launchDate: string;
-  dayLabel: string;
-  readingLabel: string;
-  recordsById: Map<string, SparkRecordBlock>;
-}
+import { dayParts } from "@/components/spark/episode/dayText";
+import type { EpisodeContext, SparkReadingBlock, SparkRecordBlock } from "@/types/content";
 
 /**
- * Bronz dolu 3px sol çizgi + "READING"/"OKUMA" mono etiket — RecordBlock'un
- * navy çizgisinden ayrı, asla sadece renkle değil.
- * `restsOn` orijinal brief'te "decoration değil" diye tarif edildi — her
- * zaman en az bir kayda dayanır, burada o kayıtlara giden küçük çipler
- * olarak render edilir (bkz. sparkEpisodeBlocks.ts yorumu: aynı doküman
- * içindeki dizi elemanlarına Sanity reference hedeflenemediği için
- * blockId string'i kullanılıyor).
+ * Okuma (fspark9'un yorumu, kayıt değil). Board'da ayrı çizilmedi; kayıttan
+ * ayrı durması gerektiği için (kayıt ile okuma sayfa düzeninde ayrışır)
+ * kart yok, 1px Rule üst çizgi ve "Reading" etiketi. Dayandığı kayıtlara
+ * kare çiplerle bağlanır.
  */
-export default function ReadingBlock({ block, launchDate, dayLabel, readingLabel, recordsById }: ReadingBlockProps) {
-  const day = dayNumberLabel(block.date, launchDate);
+export default function ReadingBlock({
+  block,
+  ctx,
+  recordsById,
+}: {
+  block: SparkReadingBlock;
+  ctx: EpisodeContext;
+  recordsById: Map<string, SparkRecordBlock>;
+}) {
+  const { day, text } = dayParts(block.date, ctx);
 
   return (
-    <article className="scroll-mt-32 border-l-[3px] border-bronze py-2 pl-6">
-      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11.5px] tracking-[0.12em] text-bronze uppercase">
-        <span>{dayLabel} {day}</span>
-        <span>{readingLabel}</span>
+    <article data-spark-day={day} data-spark-date={block.date} className="flex flex-col gap-3 border-t border-rule pt-6 pb-2">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase">
+          {ctx.vocabulary.readingLabel}
+        </span>
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">{text}</span>
       </div>
-      <h3 className="mb-2 font-display text-xl font-medium text-charcoal">{block.heading}</h3>
-      <p className="max-w-[68ch] text-[1.02rem] leading-[1.65] text-charcoal/85">{block.body}</p>
-
+      <h3 className="m-0 font-display text-[22px] leading-[1.2] font-bold tracking-[-0.015em] text-ink">{block.heading}</h3>
+      <p className="m-0 text-[16px] leading-[1.6] text-ink min-[900px]:text-[17px]">{block.body}</p>
       {block.restsOn.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {block.restsOn.map((blockId) => {
-            const record = recordsById.get(blockId);
+        <div className="flex flex-wrap gap-2">
+          {block.restsOn.map((id) => {
+            const record = recordsById.get(id);
             if (!record) return null;
             return (
               <a
-                key={blockId}
-                href={`#${blockId}`}
-                className="rounded-full border border-navy/20 px-3 py-1 font-mono text-[11px] tracking-[0.04em] text-navy/70 uppercase transition-colors hover:border-navy/50 hover:text-navy"
+                key={id}
+                href={`#${id}`}
+                className="inline-flex min-h-8 items-center border border-ink px-3 font-mono text-[11px] tracking-[0.08em] text-ink uppercase no-underline hover:bg-white"
               >
-                {dayLabel} {dayNumberLabel(record.date, launchDate)}
+                {ctx.dayLabel} {dayNumberLabel(record.date, ctx.launchDate)}
               </a>
             );
           })}

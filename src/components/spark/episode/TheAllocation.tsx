@@ -1,58 +1,46 @@
 "use client";
 
 import { useState } from "react";
-import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import RevealItem from "@/components/spark/episode/RevealItem";
+import type { CSSProperties } from "react";
+import { MechanicCard, ResultLine, InlineReading } from "@/components/spark/episode/MechanicParts";
+import { dayParts } from "@/components/spark/episode/dayText";
 import { setAllocationValue, useLastDayState } from "@/hooks/useLastDayState";
-import type { SparkAllocationBlock, SparkMechanicVocabulary } from "@/types/content";
-
-interface TheAllocationProps {
-  block: SparkAllocationBlock;
-  launchDate: string;
-  dayLabel: string;
-  vocabulary: SparkMechanicVocabulary;
-}
+import type { EpisodeContext, SparkAllocationBlock } from "@/types/content";
 
 /**
- * "Two sliders summing to 100" TEK bir range input olarak uygulandı —
- * A'nın değeri B'yi otomatik tamamlar (100-A), bu yüzden ikisi asla
- * senkron dışı kalamaz. Görsel olarak iki kategori arasında bölünen
- * tek bir çubuk. Adım genişliği 5 — hem masaüstü hem mobil için tek
- * bir granülerlik, cihaza göre farklı `step` JS viewport tespiti
- * gerektirir ve bu küçük cilanın karşılığı yok (uncertainty list'te).
- *
- * `pendingValue` sürüklenirken YALNIZCA yerel state'i günceller — daha
- * önce doğrudan `setAllocationValue` çağırıyordu, bu da ilk `onChange`
- * tetiklendiği anda kaydı "committed" yapıp slider'ı kilitliyordu ve
- * okuyucu değerini hiç ayarlayamadan devre dışı kalıyordu (18 Eylül
- * 2026'da canlıda bulunan gerçek bug). Sadece "Lock in this split"
- * tıklaması `setAllocationValue`'yu çağırır.
+ * The Allocation: iki büyük sayı, kare Ink tutamaklı gerçek bir
+ * `input type="range"` (globals.css .range-square) ve Ink eğik buton
+ * "Lock in this split". Kilitlenince okuma açılır.
  */
-export default function TheAllocation({ block, launchDate, dayLabel, vocabulary }: TheAllocationProps) {
+export default function TheAllocation({ block, ctx }: { block: SparkAllocationBlock; ctx: EpisodeContext }) {
   const state = useLastDayState();
-  const [pendingValue, setPendingValue] = useState(50);
-
-  const day = dayNumberLabel(block.date, launchDate);
+  const [pending, setPending] = useState(50);
+  const { day, text } = dayParts(block.date, ctx);
   const committed = state.allocations[block.blockId];
-  const hasCommitted = committed !== undefined;
-  const value = hasCommitted ? committed : pendingValue;
+  const locked = committed !== undefined;
+  const value = locked ? committed : pending;
 
   return (
-    <div className="scroll-mt-32 border-l-[3px] border-bronze/60 py-2 pl-6" data-spark-day={day}>
-      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] tracking-[0.12em] text-bronze uppercase">
-        <span>{dayLabel} {day}</span>
-        <span>{vocabulary.allocationLabel}</span>
-      </div>
-
-      <fieldset className="border-0 p-0">
-        <legend className="mb-2 max-w-[62ch] text-[1.05rem] leading-[1.6] font-medium text-charcoal">
-          {block.prompt}
-        </legend>
-        <p className="mb-4 text-sm text-muted">{block.notScoredLabel}</p>
-
-        <div className="mb-2 flex items-baseline justify-between font-mono text-sm text-charcoal">
-          <span>{block.categoryALabel} {value}</span>
-          <span>{block.categoryBLabel} {100 - value}</span>
+    <MechanicCard
+      name={ctx.vocabulary.allocationLabel}
+      dayText={text}
+      day={day}
+      date={block.date}
+      prompt={block.prompt}
+      note={block.notScoredLabel}
+    >
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between gap-3">
+          <div className="flex flex-col gap-1">
+            <span className="font-display text-[40px] leading-none font-extrabold tracking-[-0.04em] text-ink min-[900px]:text-[48px]">{value}</span>
+            <span className="font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase">{block.categoryALabel}</span>
+          </div>
+          <div className="flex flex-col items-end gap-1 text-right">
+            <span className="font-display text-[40px] leading-none font-extrabold tracking-[-0.04em] text-ink min-[900px]:text-[48px]">
+              {100 - value}
+            </span>
+            <span className="font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase">{block.categoryBLabel}</span>
+          </div>
         </div>
         <input
           type="range"
@@ -60,29 +48,32 @@ export default function TheAllocation({ block, launchDate, dayLabel, vocabulary 
           max={100}
           step={5}
           value={value}
-          disabled={hasCommitted}
+          disabled={locked}
           aria-label={`${block.categoryALabel} / ${block.categoryBLabel}`}
+          aria-valuetext={`${value} / ${100 - value}`}
           onChange={(event) => {
-            if (!hasCommitted) setPendingValue(Number(event.target.value));
+            if (!locked) setPending(Number(event.target.value));
           }}
-          className="w-full max-w-[420px] accent-bronze disabled:opacity-70"
+          style={{ "--range-fill": `${value}%` } as CSSProperties}
+          className="range-square w-full"
         />
-        {!hasCommitted && (
+      </div>
+      {!locked ? (
+        <div className="flex">
           <button
             type="button"
             onClick={() => setAllocationValue(block.blockId, value)}
-            className="mt-4 rounded-full border border-bronze px-5 py-2 text-sm text-bronze transition-colors hover:bg-bronze hover:text-ivory"
+            className="group inline-flex cursor-pointer items-center bg-ink py-[14px] pr-10 pl-[18px] text-[14px] leading-none font-bold whitespace-nowrap text-paper [clip-path:polygon(0_0,100%_0,calc(100%-18px)_100%,0_100%)]"
           >
-            {vocabulary.allocationCommitLabel}
+            {ctx.vocabulary.allocationCommitLabel}
           </button>
-        )}
-      </fieldset>
-
-      {hasCommitted && (
-        <div className="mt-6">
-          <RevealItem item={block.revealReading} readingLabel={vocabulary.readingLabel} />
         </div>
+      ) : (
+        <>
+          <ResultLine label={ctx.labels.readingResultLabel} />
+          <InlineReading item={block.revealReading} />
+        </>
       )}
-    </div>
+    </MechanicCard>
   );
 }

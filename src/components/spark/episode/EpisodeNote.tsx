@@ -1,34 +1,28 @@
-import Image from "next/image";
-
-interface EpisodeNoteProps {
-  body: string;
-  label: string; // "fspark9 · Note" / "fspark9 · Not"
-}
+import Dial from "@/components/brand/Dial";
+import { EIGHT_SLICES } from "@/lib/dial";
+import { dayNumberLabel } from "@/components/spark/day/dayMath";
+import type { EpisodeContext } from "@/types/content";
 
 /**
- * fspark9'un kendi sesi — kullanıcı isteğiyle (18 Eylül 2026) yeniden
- * gövde içine, ilgili bloğun hemen ardına yerleştiriliyor (bkz.
- * EpisodeBlocks.tsx'teki "sparkNote" case'i) — son bölümdeki
- * konsolide "Expert Notes" tasarımı terk edildi. Rozetteki "9" düz
- * metin DEĞİL, markanın kendi SVG sembolü (aynı Hero.tsx'te kullanılan
- * /assets/symbol-reversed.svg) — düz metin "9" yuvarlak rozette
- * kötü durduğu için.
+ * fspark9 notu (board Episode): kart yok. 1px Rule üst çizgi, küçük tam
+ * kadran, "fspark9 · Note" ve gün, altında Epilogue 700 22px metin.
  */
-export default function EpisodeNote({ body, label }: EpisodeNoteProps) {
+export default function EpisodeNote({ body, date, ctx }: { body: string; date: string; ctx: EpisodeContext }) {
+  const day = dayNumberLabel(date, ctx.launchDate);
   return (
-    <aside className="flex flex-col items-start gap-4 rounded-md border border-bronze/35 bg-bronze/[0.08] p-6 shadow-[0_8px_24px_-8px_rgba(166,124,61,0.35)] min-[620px]:flex-row min-[620px]:items-start">
-      <span
-        aria-hidden="true"
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy"
-      >
-        <Image src="/assets/symbol-reversed.svg" alt="" width={64} height={100} className="h-5 w-auto" />
-      </span>
-      <div>
-        <p className="mb-1.5 font-mono text-[11px] tracking-[0.08em] text-bronze normal-case">
-          {label}
-        </p>
-        <p className="font-display text-[1.05rem] leading-[1.55] text-charcoal">{body}</p>
+    <aside data-spark-day={day} data-spark-date={date} className="flex flex-col gap-3 border-t border-rule pt-6 pb-2">
+      <div className="flex items-center gap-[10px]">
+        <Dial lit={EIGHT_SLICES} size={22} />
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase">
+          {ctx.vocabulary.noteLabel}
+        </span>
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">
+          {ctx.dayLabel} {day}
+        </span>
       </div>
+      <p className="m-0 max-w-[640px] font-display text-[19px] leading-[1.4] font-bold tracking-[-0.01em] text-ink min-[900px]:text-[22px]">
+        {body}
+      </p>
     </aside>
   );
 }

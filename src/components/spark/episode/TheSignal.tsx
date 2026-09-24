@@ -1,72 +1,36 @@
 "use client";
 
-import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import RevealItem from "@/components/spark/episode/RevealItem";
+import { MechanicCard, OptionButton, ResultLine, InlineReading } from "@/components/spark/episode/MechanicParts";
+import { dayParts } from "@/components/spark/episode/dayText";
 import { setSignalAnswer, useLastDayState } from "@/hooks/useLastDayState";
-import type { SparkMechanicVocabulary, SparkSignalBlock } from "@/types/content";
+import type { EpisodeContext, SparkSignalBlock } from "@/types/content";
 
-interface TheSignalProps {
-  block: SparkSignalBlock;
-  launchDate: string;
-  dayLabel: string;
-  vocabulary: SparkMechanicVocabulary;
-}
-
-/**
- * Final interaction brief §6: "the sharpest moment in the episode."
- * Hard constraint bileşende değil İÇERİKTE uygulanıyor — reveal metni
- * hiçbir zaman kapanışın bu tarihte kararlaştırıldığını ya da
- * atamanın buna hazırlık olduğunu ima etmemeli (bkz. seed-spark.ts'teki
- * gerçek metin). Bileşen sadece "not scored" göstergesini ve seçenekleri
- * render eder, skorlamaz.
- */
-export default function TheSignal({ block, launchDate, dayLabel, vocabulary }: TheSignalProps) {
+/** The Signal: puanlanmayan okuma, üç seçenek alt alta. */
+export default function TheSignal({ block, ctx }: { block: SparkSignalBlock; ctx: EpisodeContext }) {
   const state = useLastDayState();
-
-  const day = dayNumberLabel(block.date, launchDate);
+  const { day, text } = dayParts(block.date, ctx);
   const picked = state.signals[block.blockId];
 
   return (
-    <div className="scroll-mt-32 border-l-[3px] border-bronze/60 py-2 pl-6" data-spark-day={day}>
-      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] tracking-[0.12em] text-bronze uppercase">
-        <span>{dayLabel} {day}</span>
-        <span>{vocabulary.signalLabel}</span>
+    <MechanicCard name={ctx.vocabulary.signalLabel} dayText={text} day={day} date={block.date} prompt={block.prompt} note={block.notScoredLabel}>
+      <div className="flex flex-col gap-[10px]">
+        {block.options.map((option) => (
+          <OptionButton
+            key={option}
+            selected={picked === option}
+            dimmed={Boolean(picked) && picked !== option}
+            disabled={Boolean(picked)}
+            onClick={() => setSignalAnswer(block.blockId, option)}
+            title={option}
+          />
+        ))}
       </div>
-
-      <fieldset className="border-0 p-0">
-        <legend className="mb-2 max-w-[62ch] text-[1.05rem] leading-[1.6] font-medium text-charcoal">
-          {block.prompt}
-        </legend>
-        <p className="mb-4 text-sm text-muted">{block.notScoredLabel}</p>
-        <div className="flex flex-col gap-3" role="radiogroup">
-          {block.options.map((option) => {
-            const isSelected = picked === option;
-            return (
-              <button
-                key={option}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                disabled={Boolean(picked)}
-                onClick={() => setSignalAnswer(block.blockId, option)}
-                className={`rounded-lg border px-5 py-3 text-left text-[1rem] text-charcoal transition-colors ${
-                  isSelected
-                    ? "border-bronze bg-bronze/10"
-                    : "border-navy/20 hover:border-bronze/50 disabled:cursor-not-allowed disabled:opacity-60"
-                }`}
-              >
-                {option}
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-
       {picked && (
-        <div className="mt-6">
-          <RevealItem item={block.revealReading} readingLabel={vocabulary.readingLabel} />
-        </div>
+        <>
+          <ResultLine label={ctx.labels.readingResultLabel} />
+          <InlineReading item={block.revealReading} />
+        </>
       )}
-    </div>
+    </MechanicCard>
   );
 }

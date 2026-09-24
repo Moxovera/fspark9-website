@@ -2,134 +2,71 @@
 
 import { useEffect, useRef, useState } from "react";
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
+import { fill, formatShortDate } from "@/lib/format";
+import type { EpisodeContext } from "@/types/content";
 
 interface EpisodeClockProps {
-  launchDate: string;
-  closureDate: string;
-  dayLabel: string;
-  locale: "en" | "tr";
-}
-
-const OPENING_DURATION_MS = 1200;
-const CLOSURE_DATE_DELAY_MS = 200;
-const SHRINK_DELAY_MS = 500;
-
-function easeOutQuad(t: number): number {
-  return 1 - (1 - t) * (1 - t);
+  ctx: Pick<EpisodeContext, "launchDate" | "closureDate" | "locale" | "labels">;
 }
 
 /**
- * Final interaction brief §5: sayaç önce (fixed DEĞİL, sayfa akışında)
- * DAY 000'dan başlayıp closure gününe kadar sayar, kapanış tarihi
- * eklenir, sonra sabit (fixed) küçük bir rozete küçülür ve sayfanın
- * geri kalanında orada kalır. `prefers-reduced-motion`: dört durum da
- * anında, son değerleriyle basılır, animasyon yok.
- *
- * Sticky halde gün numarası IntersectionObserver ile günceller — "tek
- * karakter titremesi, kaydırma yok, easing yok" (brief'in kendi
- * ifadesi): metin DOĞRUDAN değiştirilir, sayı üzerinde hiçbir CSS
- * transition yok.
+ * Gün saati (brief v4 §7.7, board Episode / EpisodeM). Masaüstünde sol iki
+ * sütunda sticky (top 120px): "Day", büyük gün numarası, tarih, kapanış
+ * gününe göre ilerleme çubuğu ve "of 156". Mobilde header'ın altında ince
+ * sticky şerit: solda gün, sağda tarih. Okunan blok `data-spark-day` / `data-spark-date`
+ * taşıyan elemanlardan tek IntersectionObserver ile izleniyor; sayı
+ * doğrudan değişiyor, geçiş yok. Sticky çalışsın diye bu bileşenin hiçbir
+ * atasında transform ya da overflow yok (CLAUDE.md "Kart yığını").
  */
-export default function EpisodeClock({ launchDate, closureDate, dayLabel, locale }: EpisodeClockProps) {
-  const closureDayNumber = Number(dayNumberLabel(closureDate, launchDate));
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [motionChecked, setMotionChecked] = useState(false);
-  const [count, setCount] = useState(0);
-  const [showClosureDate, setShowClosureDate] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
-  const [stickyDay, setStickyDay] = useState("000");
-  const rafRef = useRef<number | null>(null);
-  const timeoutRefs = useRef<ReturnType<typeof setTimeout>[]>([]);
+export default function EpisodeClock({ ctx }: EpisodeClockProps) {
+  const closureDay = Number(dayNumberLabel(ctx.closureDate, ctx.launchDate));
+  const [current, setCurrent] = useState({ day: "000", date: ctx.launchDate });
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReducedMotion(reduce);
-    setMotionChecked(true);
-    if (reduce) {
-      setCount(closureDayNumber);
-      setShowClosureDate(true);
-      setIsSticky(true);
-      setStickyDay(String(closureDayNumber).padStart(3, "0"));
-    }
-    // Yalnızca mount'ta bir kere kontrol edilir — closureDayNumber prop'tan gelir, bağımlılık olarak eklenirse
-    // her render'da yeniden tetiklenir, bu efekt sadece bir kere çalışmalı.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (!motionChecked || reducedMotion) return;
-
-    const start = performance.now();
-    const tick = (now: number) => {
-      const progress = Math.min(1, (now - start) / OPENING_DURATION_MS);
-      setCount(Math.round(easeOutQuad(progress) * closureDayNumber));
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      } else {
-        const t1 = setTimeout(() => setShowClosureDate(true), CLOSURE_DATE_DELAY_MS);
-        const t2 = setTimeout(() => {
-          setIsSticky(true);
-          setStickyDay(String(closureDayNumber).padStart(3, "0"));
-        }, CLOSURE_DATE_DELAY_MS + SHRINK_DELAY_MS);
-        timeoutRefs.current.push(t1, t2);
-      }
-    };
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-      timeoutRefs.current.forEach(clearTimeout);
-      timeoutRefs.current = [];
-    };
-  }, [motionChecked, reducedMotion, closureDayNumber]);
-
-  useEffect(() => {
-    if (!isSticky) return;
-
-    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-spark-day]"));
+    const scope = ref.current?.parentElement;
+    if (!scope) return;
+    const elements = Array.from(scope.querySelectorAll<HTMLElement>("[data-spark-day]"));
     if (elements.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting);
+        const visible = entries.filter((e) => e.isIntersecting);
         if (visible.length === 0) return;
-        const topMost = visible.reduce((a, b) => (a.boundingClientRect.top <= b.boundingClientRect.top ? a : b));
-        const day = topMost.target.getAttribute("data-spark-day");
-        if (day) setStickyDay(day);
+        const top = visible.reduce((a, b) => (a.boundingClientRect.top <= b.boundingClientRect.top ? a : b));
+        const day = top.target.getAttribute("data-spark-day");
+        const date = top.target.getAttribute("data-spark-date");
+        if (day && date) setCurrent({ day, date });
       },
-      { rootMargin: "-35% 0px -55% 0px", threshold: 0 },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
     );
-    elements.forEach((element) => observer.observe(element));
-
+    elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [isSticky]);
+  }, []);
 
-  const dateFormatter = new Intl.DateTimeFormat(locale === "tr" ? "tr-TR" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-
-  if (isSticky) {
-    return (
-      <div
-        className="fixed top-[104px] right-4 z-30 flex items-center gap-2 rounded-full border border-navy/20 bg-ivory px-4 py-2 font-mono text-xs tracking-[0.06em] text-navy sm:right-7"
-        aria-live="off"
-      >
-        <span>{dayLabel} {stickyDay}</span>
-      </div>
-    );
-  }
+  const n = Number(current.day);
+  const progress = Math.max(0, Math.min(1, closureDay > 0 ? n / closureDay : 0));
+  const date = formatShortDate(current.date, ctx.locale);
+  const of = fill(ctx.labels.clockOfTemplate, { n: closureDay });
+  const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase min-[900px]:text-[12px]";
 
   return (
-    <div className="flex flex-col items-start gap-2">
-      <p className="font-mono text-[clamp(2.4rem,7vw,4rem)] leading-none tracking-[-0.01em] text-ivory">
-        {dayLabel} {String(count).padStart(3, "0")}
-      </p>
-      <p className="font-mono text-sm tracking-[0.04em] text-ivory/60">
-        {dateFormatter.format(new Date(launchDate))}
-        {showClosureDate ? ` - ${dateFormatter.format(new Date(closureDate))}` : ""}
-      </p>
+    <div
+      ref={ref}
+      aria-hidden="true"
+      className="sticky top-16 z-[5] -mx-5 flex items-baseline justify-between border-b-2 border-ink bg-paper px-5 py-[10px] min-[900px]:top-[120px] min-[900px]:col-span-2 min-[900px]:mx-0 min-[900px]:flex-col min-[900px]:items-stretch min-[900px]:justify-start min-[900px]:gap-[6px] min-[900px]:self-start min-[900px]:border-t-2 min-[900px]:border-b-0 min-[900px]:bg-transparent min-[900px]:px-0 min-[900px]:pt-[14px] min-[900px]:pb-0"
+    >
+      <span className="flex items-baseline gap-2 min-[900px]:contents">
+        <span className={mono}>{ctx.labels.clockDayLabel}</span>
+        <span className="font-display text-[22px] leading-none font-extrabold tracking-[-0.02em] text-ink min-[900px]:text-[72px] min-[900px]:leading-[0.9] min-[900px]:tracking-[-0.05em]">
+          {current.day}
+        </span>
+      </span>
+      <span className={mono}>{date}</span>
+      <span className="hidden h-1 bg-rule min-[900px]:relative min-[900px]:mt-[10px] min-[900px]:block">
+        <span className="absolute inset-y-0 left-0 bg-ink" style={{ width: `${progress * 100}%` }} />
+      </span>
+      <span className={`${mono} hidden min-[900px]:block`}>{of}</span>
     </div>
   );
 }

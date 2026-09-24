@@ -1,56 +1,53 @@
-import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import type { SparkRecordBlock } from "@/types/content";
-
-interface RecordBlockProps {
-  block: SparkRecordBlock;
-  launchDate: string;
-  dayLabel: string;
-  recordLabel: string;
-}
+import { ArrowUpRightIcon } from "@/components/icons";
+import { dayParts } from "@/components/spark/episode/dayText";
+import type { EpisodeContext, SparkRecordBlock } from "@/types/content";
 
 /**
- * Part 0 kural 3: "Fact and reading must be told apart in the layout
- * itself." Navy dolu 3px sol çizgi + "RECORD"/"KAYIT" mono etiket —
- * asla sadece renkle ayırt edilmez (bkz. ReadingBlock'un kendi
- * çizgi/etiket kombinasyonu). `id={block.blockId}` ReadingBlock'un
- * restsOn çipleri buraya bağlanabilsin diye. `data-spark-day` EpisodeClock'un
- * IntersectionObserver'ı için — hesaplanan gün numarası her zaman
- * launchDate + bu bloğun date'inden türetilir, elle girilmiş bir gün
- * alanı YOK (final interaction brief §2).
+ * Kayıt (board Episode "Record"): White, 2px Ink üst çizgi. Üst satırda
+ * "Record" ve gün · tarih, sonra başlık, metin, varsa alıntı ve kaynak
+ * linki (mono, altı çizili, SVG dış ok). `id` okumaların restsOn
+ * linkleri için, `data-spark-*` gün saati için.
  */
-export default function RecordBlock({ block, launchDate, dayLabel, recordLabel }: RecordBlockProps) {
-  const day = dayNumberLabel(block.date, launchDate);
+export default function RecordBlock({ block, ctx }: { block: SparkRecordBlock; ctx: EpisodeContext }) {
+  const { day, text } = dayParts(block.date, ctx);
 
   return (
     <article
       id={block.blockId}
       data-spark-day={day}
-      className="scroll-mt-32 border-l-[3px] border-navy py-2 pl-6"
+      data-spark-date={block.date}
+      className="flex scroll-mt-40 flex-col gap-[14px] border-t-2 border-ink bg-white px-5 pt-6 pb-7 min-[900px]:px-8 min-[900px]:pt-7 min-[900px]:pb-[30px]"
     >
-      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11.5px] tracking-[0.12em] text-navy uppercase">
-        <span>{dayLabel} {day}</span>
-        <span>{recordLabel}</span>
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase">
+          {ctx.vocabulary.recordLabel}
+        </span>
+        <span className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">{text}</span>
       </div>
-      <h3 className="mb-2 font-display text-xl font-medium text-charcoal">{block.heading}</h3>
-      <p className="max-w-[68ch] text-[1.02rem] leading-[1.65] text-charcoal/85">{block.body}</p>
-
+      <h3 className="m-0 font-display text-[24px] leading-[1.15] font-bold tracking-[-0.02em] text-ink min-[900px]:text-[28px]">
+        {block.heading}
+      </h3>
+      <p className="m-0 text-[16px] leading-[1.6] text-ink min-[900px]:text-[17px]">{block.body}</p>
       {block.quote && (
-        <blockquote className="mt-4 max-w-[62ch] border-l-2 border-navy/20 pl-4 text-[1.02rem] leading-[1.6] text-charcoal/80 italic">
-          &ldquo;{block.quote}&rdquo;
+        <figure className="m-0 mt-1 flex flex-col gap-[10px] pl-5 min-[900px]:pl-7">
+          <blockquote className="m-0 font-display text-[19px] leading-[1.35] font-bold tracking-[-0.01em] text-ink min-[900px]:text-[21px]">
+            &ldquo;{block.quote}&rdquo;
+          </blockquote>
           {block.quoteAttribution && (
-            <footer className="mt-2 font-sans text-sm not-italic text-muted">{block.quoteAttribution}</footer>
+            <figcaption className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">
+              {block.quoteAttribution}
+            </figcaption>
           )}
-        </blockquote>
+        </figure>
       )}
-
       <a
         href={block.source.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 inline-flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.04em] text-muted underline decoration-navy/30 underline-offset-4 hover:text-navy"
+        className="inline-flex min-h-8 items-center gap-2 self-start border-b border-ink font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-ink uppercase no-underline"
       >
-        <span className="uppercase">{block.source.kind}</span>
-        <span>{block.source.label}</span>
+        {ctx.labels.sourceLabel} · {block.source.label}
+        <ArrowUpRightIcon className="size-3 flex-none" strokeWidth="2.2" />
       </a>
     </article>
   );

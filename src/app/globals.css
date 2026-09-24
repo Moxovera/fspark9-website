@@ -252,6 +252,69 @@ body {
   from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
 }
 
+/* Çerçeve rakam (board: -webkit-text-stroke). Spark'ta "preparing"
+   formatın numarası ve format sayfasının büyük numarası. */
+.text-outline-ink {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+.text-outline-paper {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--paper);
+}
+.text-outline-dust {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--dust);
+}
+/* Hub'da format numarası hover'da 6px yükselir, 240ms (brief §10). */
+.format-number {
+  transition: transform 240ms var(--ease-brand);
+}
+.group\/format:hover .format-number {
+  transform: translateY(-6px);
+}
+
+/* The Allocation: gerçek range input, kare Ink tutamak (brief §7.7).
+   Doluluk --range-fill ile (bileşen inline veriyor). */
+.range-square {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.range-square:disabled {
+  cursor: default;
+}
+.range-square::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(var(--ink), var(--ink)) 0 0 / var(--range-fill, 50%) 100% no-repeat, var(--rule);
+}
+.range-square::-moz-range-track {
+  height: 4px;
+  background: var(--rule);
+}
+.range-square::-moz-range-progress {
+  height: 4px;
+  background: var(--ink);
+}
+.range-square::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -12px;
+  background: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+.range-square::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+
 /* Hover (160ms): satır okları 4px sağa, metin linkinin alt çizgisi
    soldan yeniden çizilir. */
 .go-arrow {
@@ -280,7 +343,8 @@ body {
   .portrait-in { animation: none; opacity: 1; }
   .cut-wipe, .js .reveal:not(.is-visible) .cut-wipe { animation: none; clip-path: polygon(0 0, 100% 0, calc(100% - 0.32em) 100%, 0 100%); }
   .dial-fill.is-visible [data-lit], .reveal.is-visible .dial-fill-result [data-lit], .reveal.is-visible .dial-fill-result [data-slice="9"], .marker-wipe.reveal.is-visible { animation: none; }
-  .go-arrow { transition: none; }
+  .go-arrow, .format-number { transition: none; }
+  .group\/format:hover .format-number { transform: none; }
   .group:hover .go-arrow, .group:focus-visible .go-arrow { transform: none; }
   .group:hover .text-link-line { animation: none; }
 }

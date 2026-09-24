@@ -7,109 +7,40 @@ import TheWeigh from "@/components/spark/episode/TheWeigh";
 import TheSignal from "@/components/spark/episode/TheSignal";
 import SecondOpinion from "@/components/spark/episode/SecondOpinion";
 import TheAllocation from "@/components/spark/episode/TheAllocation";
-import type { SparkEpisodeBlock, SparkMechanicVocabulary, SparkRecordBlock } from "@/types/content";
-
-interface EpisodeBlocksProps {
-  blocks: SparkEpisodeBlock[];
-  launchDate: string;
-  dayLabel: string;
-  vocabulary: SparkMechanicVocabulary;
-}
+import type { EpisodeContext, SparkEpisodeBlock, SparkRecordBlock } from "@/types/content";
 
 /**
- * Tek sıralı `blocks` dizisini gezip her _type için doğru bileşeni
- * render eder. Her şey her zaman görünür (18 Eylül 2026, kullanıcı
- * talebi: Ledger tamamen kaldırıldı) — gizlenen hiçbir blok yok.
- * `sparkNote` (fspark9'un kendi sesi) gövde akışının içinde, ilgili
- * olduğu noktada render edilir, sayfa sonunda konsolide bir bölüm
- * DEĞİL.
+ * Tek sıralı `blocks` dizisini gezip her tip için doğru bileşeni render
+ * eder. Sıra ve içerik Sanity'deki gibi, hiçbir blok gizlenmiyor; not
+ * blokları ilgili yerde akışın içinde.
  */
-export default function EpisodeBlocks({ blocks, launchDate, dayLabel, vocabulary }: EpisodeBlocksProps) {
+export default function EpisodeBlocks({ blocks, ctx }: { blocks: SparkEpisodeBlock[]; ctx: EpisodeContext }) {
   const recordsById = new Map<string, SparkRecordBlock>(
     blocks.filter((b): b is SparkRecordBlock => b._type === "sparkRecord").map((b) => [b.blockId, b]),
   );
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-4 min-[900px]:gap-6">
       {blocks.map((block, index) => {
         switch (block._type) {
           case "sparkRecord":
-            return (
-              <RecordBlock
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                recordLabel={vocabulary.recordLabel}
-              />
-            );
+            return <RecordBlock key={block.blockId} block={block} ctx={ctx} />;
           case "sparkReading":
-            return (
-              <ReadingBlock
-                key={index}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                readingLabel={vocabulary.readingLabel}
-                recordsById={recordsById}
-              />
-            );
+            return <ReadingBlock key={index} block={block} ctx={ctx} recordsById={recordsById} />;
           case "sparkNote":
-            return <EpisodeNote key={index} body={block.body} label={vocabulary.noteLabel} />;
+            return <EpisodeNote key={index} body={block.body} date={block.date} ctx={ctx} />;
           case "sparkCall":
-            return (
-              <TheCall key={block.blockId} block={block} launchDate={launchDate} dayLabel={dayLabel} vocabulary={vocabulary} />
-            );
+            return <TheCall key={block.blockId} block={block} ctx={ctx} />;
           case "sparkEstimate":
-            return (
-              <TheEstimate
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
+            return <TheEstimate key={block.blockId} block={block} ctx={ctx} />;
           case "sparkWeigh":
-            return (
-              <TheWeigh
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
+            return <TheWeigh key={block.blockId} block={block} ctx={ctx} />;
           case "sparkSignal":
-            return (
-              <TheSignal
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
+            return <TheSignal key={block.blockId} block={block} ctx={ctx} />;
           case "sparkSecondOpinion":
-            return (
-              <SecondOpinion
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
+            return <SecondOpinion key={block.blockId} block={block} ctx={ctx} />;
           case "sparkAllocation":
-            return (
-              <TheAllocation
-                key={block.blockId}
-                block={block}
-                launchDate={launchDate}
-                dayLabel={dayLabel}
-                vocabulary={vocabulary}
-              />
-            );
+            return <TheAllocation key={block.blockId} block={block} ctx={ctx} />;
           default:
             return null;
         }

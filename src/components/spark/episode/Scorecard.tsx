@@ -1,169 +1,141 @@
 "use client";
 
 import { useState } from "react";
+import { dayNumberLabel } from "@/components/spark/day/dayMath";
 import { countInteractions, useLastDayState } from "@/hooks/useLastDayState";
-import type {
-  SparkCallBlock,
-  SparkEpisodeBlock,
-  SparkEstimateBlock,
-  SparkMechanicVocabulary,
-  SparkSecondOpinionBlock,
-  SparkSignalBlock,
-  SparkWeighBlock,
-  SparkAllocationBlock,
-} from "@/types/content";
+import type { EpisodeContext, SparkEpisodeBlock } from "@/types/content";
 
-interface ScorecardProps {
-  subject: string;
-  blocks: SparkEpisodeBlock[];
-  vocabulary: SparkMechanicVocabulary;
+interface Row {
+  key: string;
+  name: string;
+  answer: string | null;
+  status: string;
 }
 
 /**
- * Final interaction brief §6, "The end": dört Call kayda karşı, Estimate
- * mesafe olarak (geçti/kaldı yok), Weigh/Signal/SecondOpinion/Allocation
- * "your reading" etiketiyle açıkça skorlanmamış, bölümler arası koşan
- * sayaç, paylaşım eylemi (SADECE okuyucunun kendi deseni hakkında,
- * konu hakkında bir yargı asla).
+ * Skor kartı (board Episode "Your scorecard"): White, 4px Ink üst çizgi.
+ * Mekanik sırasıyla her satırda ad, verilen cevap (yoksa Stone "Not
+ * answered yet.") ve durum. Altta tüm bölümlerdeki cevap sayısı, paylaş
+ * butonu ve gizlilik satırı. Veri useLastDayState'ten (localStorage
+ * fspark9.lastday.v2), hesap mantığı değişmedi.
  */
-export default function Scorecard({ subject, blocks, vocabulary }: ScorecardProps) {
+export default function Scorecard({ subject, blocks, ctx }: { subject: string; blocks: SparkEpisodeBlock[]; ctx: EpisodeContext }) {
   const state = useLastDayState();
-  const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
+  const [copied, setCopied] = useState(false);
+  const { vocabulary: v } = ctx;
 
-  const calls = blocks.filter((b): b is SparkCallBlock => b._type === "sparkCall");
-  const estimates = blocks.filter((b): b is SparkEstimateBlock => b._type === "sparkEstimate");
-  const weighs = blocks.filter((b): b is SparkWeighBlock => b._type === "sparkWeigh");
-  const signals = blocks.filter((b): b is SparkSignalBlock => b._type === "sparkSignal");
-  const opinions = blocks.filter((b): b is SparkSecondOpinionBlock => b._type === "sparkSecondOpinion");
-  const allocations = blocks.filter((b): b is SparkAllocationBlock => b._type === "sparkAllocation");
+  const rows: Row[] = [];
+  for (const block of blocks) {
+    switch (block._type) {
+      case "sparkCall": {
+        const picked = state.calls[block.blockId];
+        const status = !picked
+          ? ""
+          : block.answer === "unsettled"
+            ? v.callUnsettledLabel
+            : picked === block.answer
+              ? v.callMatchLabel
+              : v.callMismatchLabel;
+        rows.push({
+          key: block.blockId,
+          name: `${v.callLabel} · ${ctx.dayLabel} ${dayNumberLabel(block.date, ctx.launchDate)}`,
+          answer: picked ? (picked === "rule" ? v.callOptionRuleLabel : v.callOptionDecisionLabel) : null,
+          status,
+        });
+        break;
+      }
+      case "sparkEstimate": {
+        const index = state.estimates[block.blockId];
+        const bracket = index !== undefined ? block.brackets[Number(index)] : undefined;
+        let status = "";
+        if (bracket) {
+          if (block.actualValue >= bracket.min && (bracket.max === null || block.actualValue <= bracket.max)) status = block.insideBracketLabel;
+          else if (block.actualValue < bracket.min) status = block.belowBracketLabel;
+          else status = block.aboveBracketLabel;
+        }
+        rows.push({ key: block.blockId, name: v.estimateLabel, answer: bracket?.label ?? null, status });
+        break;
+      }
+      case "sparkWeigh":
+        rows.push({ key: block.blockId, name: v.weighLabel, answer: state.weighs[block.blockId] ?? null, status: v.scorecardYourReadingLabel });
+        break;
+      case "sparkSignal":
+        rows.push({ key: block.blockId, name: v.signalLabel, answer: state.signals[block.blockId] ?? null, status: v.scorecardYourReadingLabel });
+        break;
+      case "sparkSecondOpinion":
+        rows.push({ key: block.blockId, name: v.secondOpinionLabel, answer: state.opinions[block.blockId] ?? null, status: v.scorecardYourReadingLabel });
+        break;
+      case "sparkAllocation": {
+        const a = state.allocations[block.blockId];
+        rows.push({ key: block.blockId, name: v.allocationLabel, answer: a !== undefined ? `${a} / ${100 - a}` : null, status: v.scorecardYourReadingLabel });
+        break;
+      }
+    }
+  }
 
-  const answeredCalls = calls.filter((call) => state.calls[call.blockId]);
+  const calls = blocks.filter((b) => b._type === "sparkCall");
+  const answeredCalls = calls.filter((b) => b._type === "sparkCall" && state.calls[b.blockId]);
   const crossEpisodeCount = countInteractions(state);
 
-  async function handleShare() {
-    const lines = [
-      `${subject}, ${answeredCalls.length}/${calls.length} calls made.`,
-      `${crossEpisodeCount} ${vocabulary.scorecardCrossEpisodeLabel}`,
-    ];
-    const text = lines.join("\n");
+  async function share() {
+    const text = [`${subject}, ${answeredCalls.length}/${calls.length} calls made.`, `${crossEpisodeCount} ${v.scorecardCrossEpisodeLabel}`].join("\n");
     try {
       if (navigator.share) {
         await navigator.share({ text });
         return;
       }
     } catch {
-      // kullanıcı paylaşım sayfasını iptal etti ya da API yok — clipboard'a düş
+      // Paylaşım iptal edildi ya da desteklenmiyor: panoya kopyalamaya düş.
     }
     try {
       await navigator.clipboard.writeText(text);
-      setShareStatus("copied");
-      setTimeout(() => setShareStatus("idle"), 2000);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard da yoksa sessizce hiçbir şey yapma, sayfa kırılmaz
+      // Pano da kapalıysa sessizce geç.
     }
   }
 
+  const mono = "font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] uppercase";
+
   return (
-    <section className="mt-4 border-t border-charcoal/10 pt-10">
-      <h2 className="mb-6 font-display text-2xl font-medium text-charcoal">{vocabulary.scorecardHeading}</h2>
-
-      {calls.length > 0 && (
-        <ul className="mb-8 flex flex-col gap-3">
-          {calls.map((call) => {
-            const picked = state.calls[call.blockId];
-            const label =
-              !picked
-                ? null
-                : call.answer === "unsettled"
-                  ? vocabulary.callUnsettledLabel
-                  : picked === call.answer
-                    ? vocabulary.callMatchLabel
-                    : vocabulary.callMismatchLabel;
-            return (
-              <li key={call.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-                <span className="max-w-[46ch] text-sm text-charcoal/85">{call.prompt}</span>
-                <span className="font-mono text-xs tracking-[0.03em] text-muted">{label ?? vocabulary.scorecardUnansweredLabel}</span>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      {estimates.length > 0 && (
-        <ul className="mb-8 flex flex-col gap-3">
-          {estimates.map((estimate) => {
-            const pickedIndex = state.estimates[estimate.blockId];
-            const bracket = pickedIndex !== undefined ? estimate.brackets[Number(pickedIndex)] : undefined;
-            let comparison: string | null = null;
-            if (bracket) {
-              if (estimate.actualValue >= bracket.min && (bracket.max === null || estimate.actualValue <= bracket.max)) {
-                comparison = estimate.insideBracketLabel;
-              } else if (estimate.actualValue < bracket.min) {
-                comparison = estimate.belowBracketLabel;
-              } else {
-                comparison = estimate.aboveBracketLabel;
-              }
-            }
-            return (
-              <li key={estimate.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-                <span className="max-w-[46ch] text-sm text-charcoal/85">{bracket?.label ?? vocabulary.scorecardUnansweredLabel}</span>
-                <span className="font-mono text-xs tracking-[0.03em] text-muted">{comparison ?? vocabulary.scorecardUnansweredLabel}</span>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      {(weighs.length > 0 || signals.length > 0 || opinions.length > 0 || allocations.length > 0) && (
-        <ul className="mb-8 flex flex-col gap-3">
-          {weighs.map((block) => (
-            <li key={block.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-              <span className="max-w-[46ch] text-sm text-charcoal/85">{state.weighs[block.blockId] ?? vocabulary.scorecardUnansweredLabel}</span>
-              <span className="font-mono text-xs tracking-[0.03em] text-bronze uppercase">{vocabulary.scorecardYourReadingLabel}</span>
-            </li>
-          ))}
-          {signals.map((block) => (
-            <li key={block.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-              <span className="max-w-[46ch] text-sm text-charcoal/85">{state.signals[block.blockId] ?? vocabulary.scorecardUnansweredLabel}</span>
-              <span className="font-mono text-xs tracking-[0.03em] text-bronze uppercase">{vocabulary.scorecardYourReadingLabel}</span>
-            </li>
-          ))}
-          {opinions.map((block) => (
-            <li key={block.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-              <span className="max-w-[46ch] text-sm text-charcoal/85">{state.opinions[block.blockId] ?? vocabulary.scorecardUnansweredLabel}</span>
-              <span className="font-mono text-xs tracking-[0.03em] text-bronze uppercase">{vocabulary.scorecardYourReadingLabel}</span>
-            </li>
-          ))}
-          {allocations.map((block) => {
-            const valueA = state.allocations[block.blockId];
-            return (
-              <li key={block.blockId} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-charcoal/8 pb-3">
-                <span className="max-w-[46ch] text-sm text-charcoal/85">
-                  {valueA !== undefined
-                    ? `${block.categoryALabel} ${valueA} / ${block.categoryBLabel} ${100 - valueA}`
-                    : vocabulary.scorecardUnansweredLabel}
-                </span>
-                <span className="font-mono text-xs tracking-[0.03em] text-bronze uppercase">{vocabulary.scorecardYourReadingLabel}</span>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-charcoal/10 pt-6">
-        <p className="font-mono text-sm text-charcoal">
-          {crossEpisodeCount} {vocabulary.scorecardCrossEpisodeLabel}
-        </p>
+    <section className="flex flex-col gap-5 border-t-4 border-ink bg-white px-5 pt-7 pb-8 min-[900px]:px-10 min-[900px]:pt-10 min-[900px]:pb-11">
+      <div className={`${mono} text-ink`}>{ctx.labels.scorecardLabel}</div>
+      <h2 className="m-0 font-display text-[34px] leading-none font-extrabold tracking-[-0.035em] text-ink min-[900px]:text-[44px]">
+        {v.scorecardHeading}
+      </h2>
+      <div className="border-t-2 border-ink">
+        {rows.map((row, i) => (
+          <div
+            key={row.key}
+            className={`flex flex-col gap-1 py-[14px] min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-baseline min-[900px]:gap-x-6 ${i > 0 ? "border-t border-rule" : ""}`}
+          >
+            <span className={`${mono} text-ink min-[900px]:col-span-4`}>{row.name}</span>
+            <span
+              className={`text-[16px] leading-[normal] min-[900px]:col-span-5 ${row.answer ? "font-bold text-ink" : "font-normal text-stone"}`}
+            >
+              {row.answer ?? v.scorecardUnansweredLabel}
+            </span>
+            <span className={`${mono} text-stone min-[900px]:col-span-3 min-[900px]:justify-self-end`}>{row.answer ? row.status : ""}</span>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-baseline gap-[10px]">
+        <span className="font-display text-[40px] leading-none font-extrabold tracking-[-0.04em] text-ink min-[900px]:text-[48px]">
+          {crossEpisodeCount}
+        </span>
+        <span className={`${mono} text-ink`}>{v.scorecardCrossEpisodeLabel}</span>
+      </div>
+      <div className="flex flex-col items-start gap-4 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between min-[900px]:gap-6">
         <button
           type="button"
-          onClick={handleShare}
-          className="rounded-full border border-navy/25 px-5 py-2.5 text-sm text-charcoal transition-colors hover:border-bronze/60"
+          onClick={share}
+          className="inline-flex min-h-[52px] cursor-pointer items-center border-2 border-ink px-5 text-[15px] leading-[normal] font-bold text-ink hover:bg-paper"
         >
-          {shareStatus === "copied" ? vocabulary.scorecardCopiedLabel : vocabulary.scorecardShareLabel}
+          {copied ? v.scorecardCopiedLabel : v.scorecardShareLabel}
         </button>
+        <span className={`${mono} text-stone`}>{v.scorecardPrivacyLine}</span>
       </div>
-
-      <p className="mt-6 text-xs text-muted">{vocabulary.scorecardPrivacyLine}</p>
     </section>
   );
 }
