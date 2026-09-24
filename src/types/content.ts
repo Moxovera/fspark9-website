@@ -1343,3 +1343,9 @@ export interface MarkerFiguresProps {
   figures: FigureItem[];
   locale: string;
 }
+
+/** Kilitli raporun logo ve sembolü (src/components/locked/Wordmark.tsx). */
+export interface LockedMarkProps {
+  height: number
+  className?: string
+}

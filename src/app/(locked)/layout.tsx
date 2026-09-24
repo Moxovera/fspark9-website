@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { fraunces, cabin, ibmPlexMono } from "@/lib/fonts";
+import { epilogue, hanken, splineMono } from "@/lib/fonts";
+import { BRAND } from "@/lib/brandColors";
+import { LOGO_NINE_BODY, LOGO_NINE_SLICE } from "@/components/brand/Logo";
 import "./locked-report.css";
 
 // Root layout for the whole /locked/* area: own <html><body>, no
@@ -36,29 +38,25 @@ export default function LockedLayout({ children }: { children: React.ReactNode }
         />
       </head>
       <body
-        className={`${fraunces.variable} ${cabin.variable} ${ibmPlexMono.variable} antialiased`}
+        className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} antialiased`}
       >
-        {/* Shared defs for the "9" symbol mark, for embedding inside other
-            SVGs (HouseIllustration) or as a standalone icon (Wordmark.tsx's
-            BrandSymbolIcon, Note.tsx) via <use>. Paths copied verbatim from
-            public/assets/fspark9-logo/fspark9-symbol-{primary,reversed}.svg
-            — two ink colors (theme-toggled via wm-light/wm-dark, same as
-            Wordmark) since the real files use hardcoded fills, not
-            currentColor. Not a redraw: same "d" data as the provided files. */}
+        {/* "9" sembolünün paylaşılan tanımları: HouseIllustration içinde ve
+            BrandSymbolIcon (Wordmark.tsx, Note.tsx) üzerinden <use> ile
+            kullanılıyor. v2 logo dosyasının path'leri (Logo.tsx ile aynı
+            kaynak), viewBox 18 0 64 100. Açık varyant Paper zemin için (Ink
+            gövde), koyu varyant Ink rozet için (Paper gövde); dilim ikisinde
+            de Flare. */}
         <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
           <defs>
-            <clipPath id="fs9-slice">
-              <polygon points="50,32 18.2,-18.88 50,-28 81.79,-18.88" />
-            </clipPath>
             <g id="fs9-sym-light">
-              <path fill="#0B1F3A" fillRule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z" />
-              <path fill="#0B1F3A" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z" />
-              <path fill="#A67C3D" fillRule="evenodd" clipPath="url(#fs9-slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z" />
+              <path fill={BRAND.ink} d={LOGO_NINE_BODY[0]} />
+              <path fill={BRAND.flare} d={LOGO_NINE_SLICE} />
+              <path fill={BRAND.ink} d={LOGO_NINE_BODY[1]} />
             </g>
             <g id="fs9-sym-dark">
-              <path fill="#F7F4EC" fillRule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z" />
-              <path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z" />
-              <path fill="#A67C3D" fillRule="evenodd" clipPath="url(#fs9-slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z" />
+              <path fill={BRAND.paper} d={LOGO_NINE_BODY[0]} />
+              <path fill={BRAND.flare} d={LOGO_NINE_SLICE} />
+              <path fill={BRAND.paper} d={LOGO_NINE_BODY[1]} />
             </g>
           </defs>
         </svg>

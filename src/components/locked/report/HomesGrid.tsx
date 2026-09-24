@@ -20,7 +20,7 @@ export function HomesGrid({ block }: { block: HomesBlock }) {
       <div className="legend" style={{ marginTop: 14 }}>
         {block.legend.map((label, i) => (
           <span key={label}>
-            <i style={i === 0 ? { background: "var(--s-ozel)", borderRadius: 2 } : { background: "var(--surface-2)", border: "1px solid var(--rule)", borderRadius: 2 }} />
+            <i style={i === 0 ? { background: "var(--s-ozel)" } : { background: "var(--surface-2)", border: "1px solid var(--rule)" }} />
             {label}
           </span>
         ))}

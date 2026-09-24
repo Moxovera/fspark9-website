@@ -1,40 +1,43 @@
-import Image from "next/image";
+import { LOGO_LETTERS, LOGO_NINE_BODY, LOGO_NINE_SLICE, LOGO_NINE_TRANSFORM } from "@/components/brand/Logo";
+import type { LockedMarkProps } from "@/types/content";
 
 /**
- * Theme-aware fspark9 logo for the locked report. Both variants render at
- * all times and CSS toggles visibility (.wm-light/.wm-dark, same pattern as
- * the --logo-ink/--ground light/dark tokens in locked-report.css) so there
- * is no JS-driven flash and it stays correct with prefers-color-scheme or
- * a future data-theme override. Files are used exactly as provided in
- * public/assets/fspark9-logo/ — not redrawn or recolored.
+ * Kilitli raporun fspark9 logosu: v2 wordmark (logo dosyasının path'leri,
+ * Logo.tsx ile aynı kaynak). Gövde var(--logo-ink), dokuzuncu dilim her
+ * zaman Flare. Rapor tek temalı olduğu için tek çizim yeterli; .wm-light
+ * sınıfı mevcut CSS kancalarıyla uyum için duruyor.
  */
-export function Wordmark({ height, className }: { height: number; className?: string }) {
+export function Wordmark({ height, className }: LockedMarkProps) {
   return (
     <span className={className} style={{ display: "inline-flex", alignItems: "center" }}>
-      <Image
-        src="/assets/fspark9-logo/fspark9-lockup-primary.svg"
-        alt="fspark9"
+      <svg
+        viewBox="0 -1577 7420 2014"
         height={height}
-        width={height * (3387 / 964)}
+        width={height * (7420 / 2014)}
+        role="img"
+        aria-label="fspark9"
         className="wm-light"
         style={{ height, width: "auto" }}
-      />
-      <Image
-        src="/assets/fspark9-logo/fspark9-lockup-reversed.svg"
-        alt="fspark9"
-        height={height}
-        width={height * (4953 / 2530)}
-        className="wm-dark"
-        style={{ height, width: "auto" }}
-      />
+      >
+        <g fill="var(--logo-ink)">
+          {LOGO_LETTERS.map((d) => (
+            <path key={d.slice(0, 12)} d={d} />
+          ))}
+        </g>
+        <g transform={LOGO_NINE_TRANSFORM}>
+          <path d={LOGO_NINE_BODY[0]} fill="var(--logo-ink)" />
+          <path d={LOGO_NINE_SLICE} fill="var(--flare)" />
+          <path d={LOGO_NINE_BODY[1]} fill="var(--logo-ink)" />
+        </g>
+      </svg>
     </span>
   );
 }
 
-// Uses the shared fs9-sym-light/fs9-sym-dark defs ((locked)/layout.tsx) via
-// <use> rather than next/image, so it can also be embedded inside other
-// raw SVGs (HouseIllustration) — not just HTML contexts like Note's icon.
-export function BrandSymbolIcon({ height, className }: { height: number; className?: string }) {
+// Paylaşılan fs9-sym-light/fs9-sym-dark tanımlarını ((locked)/layout.tsx)
+// <use> ile kullanıyor, böylece başka SVG'lerin (HouseIllustration) içine
+// de gömülebiliyor.
+export function BrandSymbolIcon({ height, className }: LockedMarkProps) {
   const width = height * (64 / 100);
   return (
     <svg viewBox="18 0 64 100" width={width} height={height} className={className} aria-hidden="true">

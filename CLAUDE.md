@@ -98,7 +98,7 @@ src/
                                  about, spark, spark/[formatSlug], spark/[formatSlug]/[episodeSlug],
                                  thank-you, impressum, privacy, cookies, terms)
   app/global-not-found.tsx     → dil bilmeyen 404 (kendi <html>'i)
-  app/(locked)/                → kilitli müşteri raporları, v2'den bağımsız
+  app/(locked)/                → kilitli müşteri raporları (kendi layout'u ve locked-report.css'i, v2 markası)
   app/og/                      → OG görseli (EN, ?locale=tr)
   components/
     brand/                     → Dial, RingOutline, Logo, CutButton, GoButton, Label, CutHeadline ...
@@ -163,7 +163,7 @@ Bir bölüm "bitti" denmeden önce:
 5. Görsel/medya içeren bölümlerde `npm run build && npm run start` ile gerçek production build test edilir, `npm run dev` yetmez (optimizer davranışı farklı).
 6. Board ile yan yana karşılaştırılır.
 7. İçerik ya da Sanity eşlemesi değiştiyse `npm run check:drift` temiz.
-8. `/locked` önce/sonra ekran görüntüleri aynı.
+8. `/locked`'a dokunulmadıysa önce/sonra ekran görüntüleri aynı; dokunulduysa metin ve DOM önce/sonra aynı.
 
 Bu maddeler geçmeden commit atılmaz, bölüm tamamlandı diye raporlanmaz.
 

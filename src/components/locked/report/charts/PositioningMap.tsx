@@ -42,12 +42,12 @@ export function PositioningMap({ strings, ariaLabel }: ChartComponentProps) {
     <div className="chart" ref={ref} role="img" aria-label={ariaLabel}>
       {width > 0 && (
         <svg viewBox={`0 0 ${w} ${h}`} width={w} height={h}>
-          <rect x={X(6.6)} y={Y(10)} width={X(10) - X(6.6)} height={Y(5.2) - Y(10)} fill="var(--zone)" rx={4} />
+          <rect x={X(6.6)} y={Y(10)} width={X(10) - X(6.6)} height={Y(5.2) - Y(10)} fill="var(--zone)" />
           <text
             x={X(10) - 10}
             y={Y(10) + 22}
             textAnchor="end"
-            style={{ fontFamily: "var(--f-display)", fontStyle: "italic", fontSize: narrow ? 14 : 17, fill: "var(--bronze-ink)" }}
+            style={{ fontFamily: "var(--f-display)", fontWeight: 700, letterSpacing: "-0.01em", fontSize: narrow ? 14 : 17, fill: "var(--bronze-ink)" }}
           >
             {m.zone}
           </text>

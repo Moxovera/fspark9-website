@@ -27,7 +27,7 @@ Son güncelleme: 2026-09-24
 - Renkler: paper, ink, white, stone, rule, flare, dust, inkrule, ring, headrule, portrait. Bileşende hex yok. Canvas/OG gibi CSS değişkeni okuyamayan yerler için `src/lib/brandColors.ts`.
 - Fontlar `next/font`: Epilogue (başlık, rakam), Hanken Grotesk (metin), Spline Sans Mono (etiket). latin-ext şart.
 - Tek easing `--ease-brand`. Tüm hareketler reduced-motion'da kapalı.
-- `/locked` (Fuzul raporu) v2'den bağımsız, kendi CSS'i ve fontları var. Her değişiklikte önce/sonra ekran görüntüsüyle birebir aynı kaldığı doğrulanıyor.
+- `/locked` (Fuzul raporu) kendi kök layout'u ve CSS'iyle (`locked-report.css`) duruyor, 2026-09-24'te tasarımı v2 markasına geçti (Paper/Ink/Stone/Flare, Epilogue/Hanken/Spline, kare köşeler, v2 logo). İçerik ve mantık değişmedi: metin ve DOM önce/sonra birebir aynı (tek fark iki eski logo `<img>`'inin yerini tek `<svg>` logonun alması). Rapor tek temalı (açık).
 - Apex domain birincil: `fspark9.com`, `www` ondan yönleniyor (Vercel domain ayarı).
 - NextStep etiketi sadece ana sayfada numaralı ("05 · Next step"), diğer sayfalarda numarasız. Services menüsünde "How they fit" linki yok.
 

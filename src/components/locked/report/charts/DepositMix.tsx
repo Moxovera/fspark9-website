@@ -23,7 +23,6 @@ export function DepositMix({ strings, ariaLabel }: ChartComponentProps) {
             y={18}
             width={pw * cur - 1}
             height={34}
-            rx={4}
             fill="var(--s-ozel)"
             data-tip={strings.ktCurTip}
             {...tipHandlers(tip, strings.ktCurTip)}
@@ -34,7 +33,6 @@ export function DepositMix({ strings, ariaLabel }: ChartComponentProps) {
             y={18}
             width={pw * (1 - cur) - 1}
             height={34}
-            rx={4}
             fill="var(--mark-muted)"
             data-tip={strings.ktOtherTip}
             {...tipHandlers(tip, strings.ktOtherTip)}
