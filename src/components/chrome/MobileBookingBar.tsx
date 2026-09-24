@@ -19,10 +19,15 @@ interface MobileBookingBarProps {
 export default function MobileBookingBar({ label }: MobileBookingBarProps) {
   const { isOpen: bookingOpen } = useBooking();
   const { isOpen: menuOpen } = useMobileMenu();
-  if (bookingOpen || menuOpen) return null;
+  // Gizlenirken DOM'dan çıkmıyor: randevu penceresi kapanınca odak bu
+  // butona geri dönebilsin (kaldırılsaydı odak sayfada kayboluyordu).
+  const hidden = bookingOpen || menuOpen;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[80] hidden border-t border-rule bg-paper px-5 py-3 max-[900px]:block">
+    <div
+      aria-hidden={hidden || undefined}
+      className={`fixed inset-x-0 bottom-0 z-[80] hidden border-t border-rule bg-paper px-5 py-3 max-[900px]:block ${hidden ? "invisible" : ""}`}
+    >
       <CutButton label={label} className="w-full justify-center" />
     </div>
   );

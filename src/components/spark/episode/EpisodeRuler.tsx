@@ -6,7 +6,9 @@ interface EpisodeRulerProps {
   ctx: EpisodeContext;
 }
 
-const MIN_GAP = 0.14;
+// Etiketler arası en az %20 (board: 0, 23.7, 44.9, 100). Daha sıkıysa
+// dar masaüstünde (900px) iki etiket üst üste biniyordu.
+const MIN_GAP = 0.2;
 
 /**
  * Gün cetveli (brief v4 §7.7, board Episode / EpisodeM): 0. günden kapanış
@@ -52,7 +54,7 @@ export default function EpisodeRuler({ blocks, ctx }: EpisodeRulerProps) {
   const label = (d: number, heading: string) => (
     <>
       <span className={`${mono} whitespace-nowrap text-ink`}>{dayText(d)}</span>
-      <span className={`${mono} max-w-[150px] text-stone min-[900px]:max-w-none min-[900px]:whitespace-nowrap`}>{heading}</span>
+      <span className={`${mono} max-w-[150px] text-stone min-[1280px]:max-w-none min-[1280px]:whitespace-nowrap`}>{heading}</span>
     </>
   );
 

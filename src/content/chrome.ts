@@ -34,6 +34,12 @@ export const chrome: Record<Locale, SiteChrome> = {
       legalLinks: [{ label: "Imprint", href: "/impressum" }],
       copyright: "© 2026 fspark9",
     },
+    booking: {
+      title: "Book a call",
+      meta: "Free · 30 minutes",
+      closeLabel: "Close",
+      poweredBy: "Scheduling by cal.com",
+    },
     legal: {
       backLabel: "Home",
       tabsLabel: "Legal pages",
@@ -68,6 +74,12 @@ export const chrome: Record<Locale, SiteChrome> = {
       linkedinLabel: "linkedin.com/in/mdikmen",
       legalLinks: [{ label: "Künye", href: "/impressum" }],
       copyright: "© 2026 fspark9",
+    },
+    booking: {
+      title: "Görüşme ayarla",
+      meta: "Ücretsiz · 30 dakika",
+      closeLabel: "Kapat",
+      poweredBy: "Takvim cal.com ile",
     },
     legal: {
       backLabel: "Ana sayfa",

@@ -61,7 +61,7 @@ function EpisodeRow({ issue, daysUnit }: { issue: SparkIssue; daysUnit: string }
   const tone = href ? "text-ink" : "text-stone";
   const days =
     issue.days !== null ? (
-      <span className="flex items-baseline gap-1">
+      <span className="flex items-baseline gap-1 min-[900px]:flex-col min-[900px]:gap-0 min-[1280px]:flex-row min-[1280px]:gap-1">
         <span className="font-display text-[20px] leading-[normal] font-extrabold tracking-[-0.02em] text-ink min-[900px]:text-[24px]">
           {issue.days}
         </span>

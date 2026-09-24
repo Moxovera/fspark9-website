@@ -134,7 +134,7 @@ export default async function LocaleLayout({
                 {children}
                 <Footer chrome={chrome} />
                 <MobileBookingBar label={chrome.bookLabel} />
-                <BookingOverlay content={booking} />
+                <BookingOverlay calLink={booking.calLink} labels={chrome.booking} />
               </MobileMenuProvider>
             </BookingProvider>
           </SparkAltSlugProvider>

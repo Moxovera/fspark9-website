@@ -1311,6 +1311,13 @@ export interface SiteChrome {
     legalLinks: NavItem[]
     copyright: string
   }
+  /** Randevu penceresi (board Booking). calLink Sanity'den. */
+  booking: {
+    title: string
+    meta: string
+    closeLabel: string
+    poweredBy: string
+  }
   /** Yasal sayfaların sekmeleri ve geri linki (board Legal). */
   legal: {
     backLabel: string

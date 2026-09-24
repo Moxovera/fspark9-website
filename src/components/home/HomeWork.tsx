@@ -45,7 +45,7 @@ export default function HomeWork({ content }: HomeWorkProps) {
 
             <PhonePair screens={featured.screens} className="my-3 min-[900px]:hidden" />
 
-            <dl className="m-0 flex flex-col border-b border-rule min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-3 min-[900px]:gap-10 min-[900px]:border-t min-[900px]:border-b-0 min-[900px]:pt-7">
+            <dl className="m-0 flex flex-col border-b border-rule min-[900px]:mt-5 min-[900px]:grid min-[900px]:grid-cols-3 min-[900px]:gap-6 min-[900px]:border-t min-[1280px]:gap-10 min-[900px]:border-b-0 min-[900px]:pt-7">
               {featured.figures.map((figure) => (
                 <div
                   key={figure.label}
@@ -54,7 +54,7 @@ export default function HomeWork({ content }: HomeWorkProps) {
                   <dt className="max-w-[150px] text-right text-[14px] leading-[normal] text-stone min-[900px]:leading-[1.4] min-[900px]:max-w-none min-[900px]:text-left">
                     {figure.label}
                   </dt>
-                  <dd className="order-first m-0 font-display text-[36px] leading-none font-extrabold tracking-[-0.03em] text-ink min-[900px]:text-[50px]">
+                  <dd className="order-first m-0 font-display text-[36px] leading-none font-extrabold tracking-[-0.03em] text-ink min-[900px]:text-[clamp(30px,3.472vw,50px)]">
                     {figure.value}
                   </dd>
                 </div>

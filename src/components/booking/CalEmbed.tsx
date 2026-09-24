@@ -62,6 +62,9 @@ export default function CalEmbed({ calLink, redirectTo, onBookingSuccessful }: C
     getCalApi().then((api) => {
       if (cancelled) return;
       cal = api;
+      // Brief v4 §8.1: ay görünümü, açık tema, marka rengi Ink. Hex burada
+      // stil değil üçüncü taraf ayar değeri (izin verilen tek hex).
+      cal("ui", { theme: "light", layout: "month_view", cssVarsPerTheme: { light: { "cal-brand": "#17150F" }, dark: { "cal-brand": "#17150F" } } });
       cal("on", { action: "bookingSuccessfulV2", callback: handleBookingSuccessful });
     });
 
@@ -75,7 +78,7 @@ export default function CalEmbed({ calLink, redirectTo, onBookingSuccessful }: C
     <Cal
       calLink={calLink}
       style={{ width: "100%", height: "100%" }}
-      config={{ theme: "light" }}
+      config={{ theme: "light", layout: "month_view" }}
     />
   );
 }

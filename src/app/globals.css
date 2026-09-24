@@ -349,6 +349,32 @@ body {
   .group:hover .text-link-line { animation: none; }
 }
 
+/* Randevu penceresi (brief §10): zemin 160ms, pencere 12px yükselerek
+   220ms; mobilde tam ekran katman aşağıdan 260ms. */
+.booking-backdrop {
+  animation: fade-in-from-zero 160ms var(--ease-brand);
+}
+.booking-window {
+  animation: sheet-in-up 260ms var(--ease-brand);
+}
+@media (min-width: 900px) {
+  .booking-window {
+    animation: window-rise 220ms var(--ease-brand);
+  }
+}
+@keyframes fade-in-from-zero {
+  from { opacity: 0; }
+}
+@keyframes sheet-in-up {
+  from { transform: translateY(100%); }
+}
+@keyframes window-rise {
+  from { opacity: 0; transform: translateY(12px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .booking-backdrop, .booking-window { animation: none; }
+}
+
 /* Mobil menü sağdan kayarak gelir, 240ms (brief v4 §10). */
 .sheet-in-right {
   animation: sheet-in-right 240ms var(--ease-brand);
