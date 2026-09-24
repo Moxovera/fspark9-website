@@ -93,3 +93,4 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 - Logo paketindeki `favicon.ico`'nun PNG'leri RGB'ydi, Next çözemedi; RGBA olarak yeniden üretildi.
 - GROQ `*[_id == "x"]` typegen'de bütün belge tiplerinin birleşimini üretiyor; sorgulara `_type == "x"` filtresi eklenir.
 - Unicode ok karakterleri mobilde emoji sunumuyla kalın çıkıyor; her ok inline SVG.
+- next-intl varsayılan olarak HTTP `Link` başlığına hreflang yazıyor ve dile göre değişen slug'ları (Spark) bilmiyor; `alternateLinks: false`, hreflang sadece HTML ve sitemap'te.
