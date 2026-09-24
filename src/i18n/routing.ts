@@ -4,6 +4,10 @@ export const routing = defineRouting({
   locales: ['en', 'tr'],
   defaultLocale: 'en',
   localePrefix: 'as-needed',
+  // hreflang HTML'de (toMetadata) ve sitemap'te. next-intl'in Link
+  // başlığı dile göre değişen Spark slug'larını bilmiyor, yanlış TR/EN
+  // adresi yazıyordu; kapalı.
+  alternateLinks: false,
   // dc.html'in routes tablosuyla doğrulandı — impressum EN/TR'de aynı,
   // terms/privacy/cookies'in TR path'leri farklı.
   pathnames: {
