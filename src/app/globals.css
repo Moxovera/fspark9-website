@@ -226,6 +226,32 @@ body {
   from { fill: var(--rule); }
 }
 
+/* Sonuç kartı kadranı: 40ms arayla, dokuzuncu dilim en son (brief §10). */
+.js .reveal:not(.is-visible) .dial-fill-result [data-lit] {
+  fill: var(--rule);
+}
+.js .reveal:not(.is-visible) .dial-fill-result [data-slice="9"] {
+  opacity: 0;
+}
+.reveal.is-visible .dial-fill-result [data-lit] {
+  animation: dial-lit 240ms var(--ease-brand) both;
+  animation-delay: calc(var(--slice-i) * 40ms);
+}
+.reveal.is-visible .dial-fill-result [data-slice="9"] {
+  animation: fade-in 240ms var(--ease-brand) 360ms both;
+}
+
+/* Marker block: görünür olunca soldan açılır, 600ms (brief §10). */
+.js .marker-wipe.reveal:not(.is-visible) {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+.marker-wipe.reveal.is-visible {
+  animation: marker-wipe 600ms var(--ease-brand) both;
+}
+@keyframes marker-wipe {
+  from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+}
+
 /* Hover (160ms): satır okları 4px sağa, metin linkinin alt çizgisi
    soldan yeniden çizilir. */
 .go-arrow {
@@ -253,7 +279,7 @@ body {
   .ring-draw [data-slice="9"] { animation: none; opacity: 1; }
   .portrait-in { animation: none; opacity: 1; }
   .cut-wipe, .js .reveal:not(.is-visible) .cut-wipe { animation: none; clip-path: polygon(0 0, 100% 0, calc(100% - 0.32em) 100%, 0 100%); }
-  .dial-fill.is-visible [data-lit] { animation: none; }
+  .dial-fill.is-visible [data-lit], .reveal.is-visible .dial-fill-result [data-lit], .reveal.is-visible .dial-fill-result [data-slice="9"], .marker-wipe.reveal.is-visible { animation: none; }
   .go-arrow { transition: none; }
   .group:hover .go-arrow, .group:focus-visible .go-arrow { transform: none; }
   .group:hover .text-link-line { animation: none; }

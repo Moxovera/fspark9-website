@@ -1446,11 +1446,14 @@ export interface CaseContent {
   seo: PageSeoCopy
   name: string
   subtitle: string
+  /** Pazar / şehir (board: "Germany", "Germany, Austria, UK"). */
+  market: string
   tags: string
   services: ServiceSlug[]
-  problem: { label: string; body: string }
+  /** Kart deseni (brand book "Story card"): ilk cümle büyük (lead), gerisi metin. */
+  problem: { label: string; lead: string; body: string }
   actions: { label: string; items: string[] }
-  delivered: { label: string; body: string }
+  delivered: { label: string; lead: string; body: string }
   figures?: FigureItem[]
   proof: FigureItem
   sources: string[]
@@ -1459,9 +1462,15 @@ export interface CaseContent {
 export interface WorkPageContent {
   seo: PageSeoCopy
   backLabel: string
+  label: string
   heading: string
   lead: string
   readLabel: string
+  /** Vaka sayfası etiketleri (board CaseInsha). */
+  caseLabel: string
+  caseBackLabel: string
+  sourcesLabel: string
+  nextCaseLabel: string
 }
 
 export interface AboutContent {

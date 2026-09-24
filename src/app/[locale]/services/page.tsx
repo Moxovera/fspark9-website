@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ServiceOpening from "@/components/services/ServiceOpening";
+import PageOpening from "@/components/blocks/PageOpening";
 import ServicePicker from "@/components/home/ServicePicker";
 import NextStep from "@/components/blocks/NextStep";
 import { servicesIndex } from "@/content/services";
@@ -32,7 +32,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
 
   return (
     <main>
-      <ServiceOpening
+      <PageOpening
         backHref="/"
         backLabel={content.backLabel}
         label={content.opening.label}

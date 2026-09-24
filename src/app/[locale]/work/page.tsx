@@ -1,107 +1,47 @@
 import type { Metadata } from "next";
-import SubpageHero from "@/components/subpages/SubpageHero";
-import SubpageClosingCta from "@/components/subpages/SubpageClosingCta";
-import CaseCard from "@/components/sections/CaseCard";
-import { en as enHome, siteSettings as enSettings } from "@/content/en";
-import { tr as trHome, siteSettings as trSettings } from "@/content/tr";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import {
-  WORK_PAGE_QUERY,
-  toWorkPage,
-  WORK_PAGE_SEO_QUERY,
-  toWorkPageSeo,
-  SITE_SEO_QUERY,
-  toSiteSeo,
-  CASE_STUDIES_LIST_QUERY,
-  toCaseStudies,
-  SITE_SUBPAGE_CTA_QUERY,
-  toSubpageCta,
-} from "@/sanity/lib/queries";
-import { toMetadata } from "@/lib/metadata";
+import PageOpening from "@/components/blocks/PageOpening";
+import IntroText from "@/components/blocks/IntroText";
+import NextStep from "@/components/blocks/NextStep";
+import CaseRow from "@/components/work/CaseRow";
+import Reveal from "@/components/ui/Reveal";
+import { cases, workPage } from "@/content/work";
+import { nextStep } from "@/content/chrome";
 import { getPathname } from "@/i18n/navigation";
-import type {
-  WORK_PAGE_QUERYResult,
-  WORK_PAGE_SEO_QUERYResult,
-  SITE_SEO_QUERYResult,
-  CASE_STUDIES_LIST_QUERYResult,
-  SITE_SUBPAGE_CTA_QUERYResult,
-} from "@/sanity/types";
+import { toMetadata } from "@/lib/metadata";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
+import type { SITE_SEO_QUERYResult } from "@/sanity/types";
+import type { Locale } from "@/types/content";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+// v2 /work (brief v4 §7.4, board WorkList / WorkListM). Also şeridi yok.
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const [seoResult, siteSeoResult] = await Promise.all([
-    sanityFetch<WORK_PAGE_SEO_QUERYResult>({
-      query: WORK_PAGE_SEO_QUERY,
-      params: { locale },
-      tags: ["workPage"],
-    }),
-    sanityFetch<SITE_SEO_QUERYResult>({
-      query: SITE_SEO_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-  ]);
-
+  const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
+    query: SITE_SEO_QUERY,
+    params: { locale },
+    tags: ["siteSettings"],
+  });
   const paths = { en: getPathname({ href: "/work", locale: "en" }), tr: getPathname({ href: "/work", locale: "tr" }) };
-
-  return toMetadata(toWorkPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
+  return toMetadata(workPage[locale].seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
-/**
- * dc.html: page.hasCaseIndex (satır 796-820). Kendi heading/intro'su
- * yok — SubpageHero yeterli. Kartlar artık caseStudy koleksiyonundan
- * geliyor, CaseCard'ı rounded=true ile çağırıyor (bkz. CaseCard.tsx —
- * Home'un köşeli kartından tek farkı bu). linkLabel hâlâ content/en.ts
- * + tr.ts'teki HomePage.caseStudies'ten — Sanity'de bu alan var ve ana
- * sayfa onu kullanıyor, ama /work henüz kendi sorgusuyla çekmiyor,
- * ayrı bir senkron adımı.
- */
-export default async function WorkPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function WorkPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const home = locale === "tr" ? trHome : enHome;
-  const settings = locale === "tr" ? trSettings : enSettings;
-  const { linkLabel } = home.caseStudies;
-
-  const [heroResult, caseStudiesResult, subpageCtaResult] = await Promise.all([
-    sanityFetch<WORK_PAGE_QUERYResult>({
-      query: WORK_PAGE_QUERY,
-      params: { locale },
-      tags: ["workPage"],
-    }),
-    sanityFetch<CASE_STUDIES_LIST_QUERYResult>({
-      query: CASE_STUDIES_LIST_QUERY,
-      params: { locale },
-      tags: ["caseStudy"],
-    }),
-    sanityFetch<SITE_SUBPAGE_CTA_QUERYResult>({
-      query: SITE_SUBPAGE_CTA_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-  ]);
-  const page = toWorkPage(heroResult);
-  const items = toCaseStudies(caseStudiesResult);
-  const subpageCta = toSubpageCta(subpageCtaResult);
+  const content = workPage[locale];
 
   return (
     <main>
-      <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
-      <section className="bg-ivory px-7 py-[88px]">
-        <div className="mx-auto grid max-w-[1100px] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] gap-[26px]">
-          {items.map((item) => (
-            <CaseCard key={item.slug} item={item} linkLabel={linkLabel} rounded />
+      <PageOpening variant="work" backHref="/" backLabel={content.backLabel} label={content.label} heading={content.heading} />
+      <IntroText text={content.lead} />
+      <section className="bg-paper px-5 pt-8 pb-[72px] min-[900px]:px-8 min-[900px]:pt-14 min-[900px]:pb-[136px] min-[1280px]:px-16">
+        <Reveal className="flex flex-col border-b border-rule">
+          {cases[locale].map((item) => (
+            <CaseRow key={item.slug} item={item} readLabel={content.readLabel} />
           ))}
-        </div>
+        </Reveal>
       </section>
-      <SubpageClosingCta content={subpageCta} />
+      <NextStep content={nextStep[locale]} />
     </main>
   );
 }

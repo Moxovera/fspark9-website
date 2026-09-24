@@ -37,9 +37,14 @@ export const workPage: Record<Locale, WorkPageContent> = {
         "Built, launched, live. Each case shows where the client was stuck, what we did and what happened next.",
     },
     backLabel: "Home",
+    label: "Work",
     heading: "Built, launched, live.",
     lead: "Real work, newest first. Each case shows where the client was stuck, what we did and what happened next.",
     readLabel: "Read the case",
+    caseLabel: "Case",
+    caseBackLabel: "Work",
+    sourcesLabel: "Sources",
+    nextCaseLabel: "Next case",
   },
   tr: {
     seo: {
@@ -48,13 +53,22 @@ export const workPage: Record<Locale, WorkPageContent> = {
         "Kuruldu, çıktı, canlıda. Her vakada müşterinin nerede tıkandığı, ne yaptığımız ve sonra ne olduğu var.",
     },
     backLabel: "Ana sayfa",
+    label: "İşler",
     heading: "Kuruldu, çıktı, canlıda.",
     lead: "Gerçek işler, en yenisi en üstte. Her vakada müşterinin nerede tıkandığı, ne yaptığımız ve sonra ne olduğu var.",
     readLabel: "Vakayı okuyun",
+    caseLabel: "Vaka",
+    caseBackLabel: "İşler",
+    sourcesLabel: "Kaynaklar",
+    nextCaseLabel: "Sonraki vaka",
   },
 };
 
-/** Copy §3.2, §3.3 ve §6c. Sıra: en yeni en üstte, copy'deki sırayla. */
+/**
+ * Copy §3.2, §3.3 ve §6c. Sıra: en yeni en üstte, copy'deki sırayla.
+ * Kartların ilk cümlesi lead olarak ayrıldı (board CaseInsha). insha EN
+ * "What happened" board'daki sözcüklerle; pazar satırı board'dan.
+ */
 export const cases: Record<Locale, CaseContent[]> = {
   en: [
     {
@@ -66,11 +80,13 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       name: "insha",
       subtitle: "Europe’s first interest free, digital only bank.",
+      market: "Germany",
       tags: "Zero to Live",
       services: ["zero-to-live"],
       problem: {
         label: "Where they were stuck",
-        body: "Albaraka Türk wanted to serve Europe’s Muslim community. All it had was the intention. No product, no infrastructure, no European partner and no local trust.",
+        lead: "Albaraka Türk wanted to serve Europe’s Muslim community.",
+        body: "All it had was the intention. No product, no infrastructure, no European partner and no local trust.",
       },
       actions: {
         label: "What we did",
@@ -83,7 +99,8 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       delivered: {
         label: "What happened",
-        body: "Europe’s first interest free digital only bank went live in Germany, on solarisBank with a Mastercard debit card. It went live six months after we started. Users grew more than 300% through 2020 to over 40,000.",
+        lead: "It went live in Germany, on solarisBank with a Mastercard debit card.",
+        body: "Europe’s first interest free digital only bank. It went live six months after we started. Users grew more than 300% through 2020 to over 40,000.",
       },
       figures: [
         { value: "300%+", label: "user growth through 2020" },
@@ -101,11 +118,13 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       name: "RUUT",
       subtitle: "From a money transfer app to a digital bank, now live in the UK.",
+      market: "Germany, Austria, UK",
       tags: "Zero to Live, Expansion & GTM",
       services: ["zero-to-live", "expansion-gtm"],
       problem: {
         label: "Where they were stuck",
-        body: "RUUT was a single purpose transfer app for Turks in Germany and Austria. The board wanted a full digital bank for the diaspora across Europe, and then the UK. That meant a new proposition, new products, new partners, a new regulatory position and a new market, all at once.",
+        lead: "RUUT was a single purpose transfer app for Turks in Germany and Austria.",
+        body: "The board wanted a full digital bank for the diaspora across Europe, and then the UK. That meant a new proposition, new products, new partners, a new regulatory position and a new market, all at once.",
       },
       actions: {
         label: "What we did",
@@ -118,7 +137,8 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       delivered: {
         label: "What happened",
-        body: "A digital banking brand with cross border payments open to all EU citizens and residents. And a service now live in the UK for a Turkish community of close to one million people, with retail and business accounts, cards and remittances.",
+        lead: "A digital banking brand with cross border payments open to all EU citizens and residents.",
+        body: "And a service now live in the UK for a Turkish community of close to one million people, with retail and business accounts, cards and remittances.",
       },
       proof: { value: "UK", label: "live today" },
       sources: ["FinTech Futures", "UKTN", "Tech.eu"],
@@ -134,11 +154,13 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       name: "insha",
       subtitle: "Avrupa’nın ilk faizsiz ve sadece dijital bankası.",
+      market: "Almanya",
       tags: "Sıfırdan Canlıya",
       services: ["zero-to-live"],
       problem: {
         label: "Nerede tıkanmışlardı",
-        body: "Albaraka Türk, Avrupa’daki Müslüman topluluğa ulaşmak istiyordu. Elde sadece niyet vardı. Ürün yok, altyapı yok, Avrupa’da partner yok, yerel güven yok.",
+        lead: "Albaraka Türk, Avrupa’daki Müslüman topluluğa ulaşmak istiyordu.",
+        body: "Elde sadece niyet vardı. Ürün yok, altyapı yok, Avrupa’da partner yok, yerel güven yok.",
       },
       actions: {
         label: "Ne yaptık",
@@ -151,7 +173,8 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       delivered: {
         label: "Ne oldu",
-        body: "Avrupa’nın ilk faizsiz ve sadece dijital bankası Almanya’da solarisBank altyapısıyla ve Mastercard banka kartıyla canlıya çıktı. Başladıktan altı ay sonra canlıdaydı. Kullanıcı sayısı 2020 boyunca %300’ün üzerinde artarak 40.000’i geçti.",
+        lead: "Avrupa’nın ilk faizsiz ve sadece dijital bankası Almanya’da solarisBank altyapısıyla ve Mastercard banka kartıyla canlıya çıktı.",
+        body: "Başladıktan altı ay sonra canlıdaydı. Kullanıcı sayısı 2020 boyunca %300’ün üzerinde artarak 40.000’i geçti.",
       },
       figures: [
         { value: "%300+", label: "2020 boyunca kullanıcı artışı" },
@@ -169,11 +192,13 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       name: "RUUT",
       subtitle: "Para transferi uygulamasından dijital bankaya, şimdi İngiltere’de canlıda.",
+      market: "Almanya, Avusturya, İngiltere",
       tags: "Sıfırdan Canlıya, Açılım ve Pazara Çıkış",
       services: ["zero-to-live", "expansion-gtm"],
       problem: {
         label: "Nerede tıkanmışlardı",
-        body: "RUUT, Almanya ve Avusturya’daki Türkler için tek işlevli bir transfer uygulamasıydı. Yönetim önce Avrupa’daki diaspora, sonra İngiltere için tam bir dijital banka istiyordu. Bu da aynı anda yeni bir önerme, yeni ürünler, yeni partnerler, yeni bir regülasyon pozisyonu ve yeni bir pazar demekti.",
+        lead: "RUUT, Almanya ve Avusturya’daki Türkler için tek işlevli bir transfer uygulamasıydı.",
+        body: "Yönetim önce Avrupa’daki diaspora, sonra İngiltere için tam bir dijital banka istiyordu. Bu da aynı anda yeni bir önerme, yeni ürünler, yeni partnerler, yeni bir regülasyon pozisyonu ve yeni bir pazar demekti.",
       },
       actions: {
         label: "Ne yaptık",
@@ -186,7 +211,8 @@ export const cases: Record<Locale, CaseContent[]> = {
       },
       delivered: {
         label: "Ne oldu",
-        body: "Tüm AB vatandaşlarına ve AB’de yaşayanlara açık sınır ötesi ödemeleri olan bir dijital bankacılık markası. Ve bir milyona yakın Türk topluluğuna bireysel ve ticari hesap, kart ve para transferi sunan, İngiltere’de canlıda bir hizmet.",
+        lead: "Tüm AB vatandaşlarına ve AB’de yaşayanlara açık sınır ötesi ödemeleri olan bir dijital bankacılık markası.",
+        body: "Ve bir milyona yakın Türk topluluğuna bireysel ve ticari hesap, kart ve para transferi sunan, İngiltere’de canlıda bir hizmet.",
       },
       proof: { value: "İngiltere", label: "bugün canlıda" },
       sources: ["FinTech Futures", "UKTN", "Tech.eu"],
