@@ -1368,7 +1368,10 @@ export const SPARK_EPISODE_SLUGS_QUERY = defineQuery(`
     "episodeEn": slug.en.current,
     "episodeTr": slug.tr.current,
     "formatEn": format->slug.en.current,
-    "formatTr": format->slug.tr.current
+    "formatTr": format->slug.tr.current,
+    status,
+    lastCheckedAt,
+    _updatedAt
   }
 `);
 
@@ -1378,7 +1381,10 @@ export const SPARK_EPISODE_SEO_QUERY = defineQuery(`
     && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug
   ][0]{
     "title": subject,
-    "description": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en)
+    "description": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),
+    publishedAt,
+    lastCheckedAt,
+    _updatedAt
   }
 `);
 

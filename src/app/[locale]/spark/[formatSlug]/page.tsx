@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
@@ -65,6 +67,12 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
+      <JsonLd
+        data={breadcrumbJsonLd(locale, [
+          { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
+          { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
+        ])}
+      />
       {altFormatSlug && <SparkAltSlugRegistrar formatSlug={altFormatSlug} />}
       <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
 

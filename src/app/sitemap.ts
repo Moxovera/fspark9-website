@@ -1,23 +1,21 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { getPathname } from "@/i18n/navigation";
+import { servicePages } from "@/content/services";
+import { cases } from "@/content/work";
+import { spark } from "@/content/spark";
+import { staticAltSlug } from "@/lib/spark";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import {
-  CASE_STUDY_SLUGS_QUERY,
-  SPARK_FORMAT_SLUGS_QUERY,
-  SPARK_EPISODE_SLUGS_QUERY,
-} from "@/sanity/lib/queries";
-import type {
-  CASE_STUDY_SLUGS_QUERYResult,
-  SPARK_FORMAT_SLUGS_QUERYResult,
-  SPARK_EPISODE_SLUGS_QUERYResult,
-} from "@/sanity/types";
+import { SPARK_EPISODE_SLUGS_QUERY } from "@/sanity/lib/queries";
+import type { SPARK_EPISODE_SLUGS_QUERYResult } from "@/sanity/types";
 
-// Statik rota listesi routing.ts'teki pathnames haritasıyla aynı
-// kaynaktan (getPathname) besleniyor — TR çevirileri (kullanim-sartlari,
-// gizlilik, cerezler) burada AYRICA yazılmıyor. /thank-you kasıtlı
-// dışarıda: dönüşüm sonrası sayfa, özgün içerik taşımıyor. /(locked)
-// ve /studio da dışarıda — ikisi de zaten public arama sonucu için değil.
+// Sitemap (brief v4 §11). Rota listesi routing.ts'teki pathnames
+// haritasıyla aynı kaynaktan (getPathname), TR çevirileri ayrıca
+// yazılmıyor. Hizmetler, vakalar ve formatlar src/content'ten (Sanity
+// pass'e kadar statik); bölümler Sanity'den, yalnızca yayındakiler.
+// /thank-you kasıtlı dışarıda (dönüşüm sonrası sayfa), /(locked) ve
+// /studio da. lastModified sadece gerçek bir tarihi olan bölümlerde:
+// statik sayfalara uydurma tarih yazılmıyor.
 const STATIC_HREFS = [
   "/",
   "/services",
@@ -30,41 +28,46 @@ const STATIC_HREFS = [
   "/cookies",
 ] as const;
 
-function entry(en: string, tr: string): MetadataRoute.Sitemap[number] {
+function entry(en: string, tr: string, lastModified?: string | null): MetadataRoute.Sitemap[number] {
   return {
-    url: `${SITE_URL}${en}`,
-    alternates: { languages: { en: `${SITE_URL}${en}`, tr: `${SITE_URL}${tr}` } },
+    url: `${SITE_URL}${en === "/" ? "" : en}`,
+    ...(lastModified ? { lastModified } : {}),
+    alternates: { languages: { en: `${SITE_URL}${en === "/" ? "" : en}`, tr: `${SITE_URL}${tr}` } },
   };
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [caseStudySlugs, formatSlugs, episodeSlugs] = await Promise.all([
-    sanityFetch<CASE_STUDY_SLUGS_QUERYResult>({ query: CASE_STUDY_SLUGS_QUERY, tags: ["caseStudy"] }),
-    sanityFetch<SPARK_FORMAT_SLUGS_QUERYResult>({ query: SPARK_FORMAT_SLUGS_QUERY, tags: ["sparkFormat"] }),
-    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({ query: SPARK_EPISODE_SLUGS_QUERY, tags: ["sparkEpisode"] }),
-  ]);
+  const episodeSlugs = await sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
+    query: SPARK_EPISODE_SLUGS_QUERY,
+    tags: ["sparkEpisode"],
+  });
 
   const staticEntries = STATIC_HREFS.map((href) =>
     entry(getPathname({ href, locale: "en" }), getPathname({ href, locale: "tr" })),
   );
 
-  const caseStudyEntries = caseStudySlugs.map((slug) =>
+  const serviceEntries = servicePages.en.map(({ slug }) => {
+    const href = { pathname: "/services/[slug]" as const, params: { slug } };
+    return entry(getPathname({ href, locale: "en" }), getPathname({ href, locale: "tr" }));
+  });
+
+  const caseEntries = cases.en.map(({ slug }) => {
+    const href = { pathname: "/work/[slug]" as const, params: { slug } };
+    return entry(getPathname({ href, locale: "en" }), getPathname({ href, locale: "tr" }));
+  });
+
+  const formatEntries = spark.en.formats.map(({ slug }) =>
     entry(
-      getPathname({ href: { pathname: "/work/[slug]", params: { slug } }, locale: "en" }),
-      getPathname({ href: { pathname: "/work/[slug]", params: { slug } }, locale: "tr" }),
+      getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: slug } }, locale: "en" }),
+      getPathname({
+        href: { pathname: "/spark/[formatSlug]", params: { formatSlug: staticAltSlug(spark, "en", slug) ?? slug } },
+        locale: "tr",
+      }),
     ),
   );
 
-  const formatEntries = formatSlugs
-    .filter((format) => format.en && format.tr)
-    .map((format) =>
-      entry(
-        getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: format.en! } }, locale: "en" }),
-        getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: format.tr! } }, locale: "tr" }),
-      ),
-    );
-
   const episodeEntries = episodeSlugs
+    .filter((episode) => episode.status === "published")
     .filter((episode) => episode.formatEn && episode.episodeEn && episode.formatTr && episode.episodeTr)
     .map((episode) =>
       entry(
@@ -82,8 +85,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           },
           locale: "tr",
         }),
+        episode.lastCheckedAt ?? episode._updatedAt,
       ),
     );
 
-  return [...staticEntries, ...caseStudyEntries, ...formatEntries, ...episodeEntries];
+  return [...staticEntries, ...serviceEntries, ...caseEntries, ...formatEntries, ...episodeEntries];
 }

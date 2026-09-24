@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import type { PageSeo } from "@/types/content";
 import { SITE_URL } from "@/lib/site";
+import { home } from "@/content/home";
 
-const DEFAULT_TITLE = "fspark9";
-const DEFAULT_DESCRIPTION = "Trust isn't marketed. It's built.";
+// Ana sayfa çifti (brief v4 §11, copy §6c), metin tek kaynaktan.
+const DEFAULT_TITLE = home.en.seo.title;
+const DEFAULT_DESCRIPTION = home.en.seo.description;
 
 // Bir sayfanın iki locale'deki tam pathname'i — canonical (mevcut
 // locale'inki) ve hreflang alternates (ikisi birden) bunlardan

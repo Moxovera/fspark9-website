@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { epilogue, hanken, splineMono } from "@/lib/fonts";
 import { toMetadata } from "@/lib/metadata";
-import { SITE_URL } from "@/lib/site";
+import { GOOGLE_SITE_VERIFICATION, SITE_URL } from "@/lib/site";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import Header from "@/components/chrome/Header";
@@ -55,7 +55,7 @@ export async function generateMetadata({
     ...metadata,
     verification: {
       ...metadata.verification,
-      google: "Q0aqMhmoUFw2Uu97Q40akGlm1utCKdpNPq1Lwe4UQSw",
+      google: GOOGLE_SITE_VERIFICATION,
     },
   };
 }
@@ -102,7 +102,7 @@ export default async function LocaleLayout({
     "@type": "Organization",
     name: "fspark9",
     url: SITE_URL,
-    logo: logo?.url ?? `${SITE_URL}/assets/lockup-reversed.svg`,
+    logo: logo?.url ?? `${SITE_URL}/assets/brand/fspark9-icon-512.png`,
     email: chrome.footer.email,
     sameAs: [chrome.footer.linkedinHref],
   };

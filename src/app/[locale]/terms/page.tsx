@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import LegalPageView from "@/components/subpages/LegalPageView";
 import { chrome } from "@/content/chrome";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -11,6 +13,7 @@ import {
   toSiteSeo,
 } from "@/sanity/lib/queries";
 import { toMetadata } from "@/lib/metadata";
+import { legalSeo } from "@/content/seo";
 import { getPathname } from "@/i18n/navigation";
 import type {
   LEGAL_PAGE_QUERYResult,
@@ -39,7 +42,9 @@ export async function generateMetadata({
 
   const paths = { en: getPathname({ href: "/terms", locale: "en" }), tr: getPathname({ href: "/terms", locale: "tr" }) };
 
-  return toMetadata(toLegalPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
+  // Copy §6c başlığı; Sanity alanı boşsa bile doğru başlık çıkıyor.
+  const seo = { ...toLegalPageSeo(seoResult), ...legalSeo[locale === "tr" ? "tr" : "en"].terms };
+  return toMetadata(seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function TermsPage({
@@ -56,5 +61,13 @@ export default async function TermsPage({
   });
   const page = toLegalPage(result);
 
-  return <LegalPageView page={page} legal={chrome[locale === "tr" ? "tr" : "en"].legal} current="/terms" />;
+  const loc = locale === "tr" ? "tr" : "en";
+  const legal = chrome[loc].legal;
+  const tab = legal.tabs.find((t) => t.href === "/terms");
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(loc, [{ name: tab?.label ?? page.hero.title, path: getPathname({ href: "/terms", locale: loc }) }])} />
+      <LegalPageView page={page} legal={legal} current="/terms" />
+    </>
+  );
 }

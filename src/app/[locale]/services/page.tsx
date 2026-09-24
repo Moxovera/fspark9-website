@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import PageOpening from "@/components/blocks/PageOpening";
 import ServicePicker from "@/components/home/ServicePicker";
 import NextStep from "@/components/blocks/NextStep";
 import { servicesIndex } from "@/content/services";
-import { services, nextStep } from "@/content/chrome";
+import { chrome, services, nextStep } from "@/content/chrome";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -32,6 +34,7 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
 
   return (
     <main>
+      <JsonLd data={breadcrumbJsonLd(locale, [{ name: chrome[locale].servicesLabel, path: getPathname({ href: "/services", locale }) }])} />
       <PageOpening
         backHref="/"
         backLabel={content.backLabel}

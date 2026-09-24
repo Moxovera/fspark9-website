@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import PageOpening from "@/components/blocks/PageOpening";
 import IntroText from "@/components/blocks/IntroText";
@@ -6,7 +8,7 @@ import StepTiles from "@/components/services/StepTiles";
 import OtherServices from "@/components/services/OtherServices";
 import ServiceClose from "@/components/services/ServiceClose";
 import { servicePages } from "@/content/services";
-import { services } from "@/content/chrome";
+import { chrome, services } from "@/content/chrome";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -48,9 +50,20 @@ export default async function ServicePage({ params }: { params: Params }) {
   if (!page) notFound();
   const summary = services[locale].find((s) => s.slug === slug);
   const others = services[locale].filter((s) => s.slug !== slug);
+  const path = getPathname({ href: { pathname: "/services/[slug]", params: { slug } }, locale });
+  const name = summary?.name ?? page.opening.label;
 
   return (
     <main>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd(locale, [
+            { name: chrome[locale].servicesLabel, path: getPathname({ href: "/services", locale }) },
+            { name, path },
+          ]),
+          serviceJsonLd(name, page.seo.description, path),
+        ]}
+      />
       <PageOpening
         backHref="/"
         backLabel={page.backLabel}

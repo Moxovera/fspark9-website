@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import PageOpening from "@/components/blocks/PageOpening";
 import IntroText from "@/components/blocks/IntroText";
 import NextStep from "@/components/blocks/NextStep";
 import CaseRow from "@/components/work/CaseRow";
 import Reveal from "@/components/ui/Reveal";
 import { cases, workPage } from "@/content/work";
-import { nextStep } from "@/content/chrome";
+import { chrome, nextStep } from "@/content/chrome";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -32,6 +34,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: L
 
   return (
     <main>
+      <JsonLd data={breadcrumbJsonLd(locale, [{ name: chrome[locale].nav[0].label, path: getPathname({ href: "/work", locale }) }])} />
       <PageOpening variant="work" backHref="/" backLabel={content.backLabel} label={content.label} heading={content.heading} />
       <IntroText text={content.lead} />
       <section className="bg-paper px-5 pt-8 pb-[72px] min-[900px]:px-8 min-[900px]:pt-14 min-[900px]:pb-[136px] min-[1280px]:px-16">

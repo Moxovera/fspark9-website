@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
@@ -9,7 +11,7 @@ import MarkerFigures from "@/components/work/MarkerFigures";
 import { Link } from "@/i18n/navigation";
 import { ArrowRightIcon } from "@/components/icons";
 import { cases, workPage } from "@/content/work";
-import { nextStep, services } from "@/content/chrome";
+import { chrome, nextStep, services } from "@/content/chrome";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -65,8 +67,19 @@ export default async function CasePage({ params }: { params: Params }) {
     ...new Set(services[locale].filter((s) => item.services.includes(s.slug)).flatMap((s) => [...s.slices])),
   ];
 
+  const path = getPathname({ href: { pathname: "/work/[slug]", params: { slug } }, locale });
+
   return (
     <main>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd(locale, [
+            { name: chrome[locale].nav[0].label, path: getPathname({ href: "/work", locale }) },
+            { name: item.name, path },
+          ]),
+          articleJsonLd(locale, { headline: item.subtitle, description: item.seo.description, path, about: item.name }),
+        ]}
+      />
       <section className="on-ink bg-ink pt-16 min-[900px]:pt-[84px]">
         <div className="flex flex-col gap-5 px-5 pt-6 pb-16 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-center min-[900px]:gap-x-6 min-[900px]:px-8 min-[900px]:pt-20 min-[900px]:pb-24 min-[1280px]:px-16">
           <div className="flex flex-col gap-5 min-[900px]:col-span-8 min-[900px]:gap-7">

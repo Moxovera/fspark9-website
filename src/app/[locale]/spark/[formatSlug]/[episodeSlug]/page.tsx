@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
+import { episodeSeo } from "@/content/seo";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
@@ -103,7 +106,9 @@ export async function generateMetadata({
         }
       : undefined;
 
-  return toMetadata(toSparkEpisodeSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
+  // Copy §6c başlık/açıklaması varsa o, yoksa Sanity'deki konu ve giriş.
+  const seo = { ...toSparkEpisodeSeo(seoResult), ...episodeSeo[locale === "tr" ? "tr" : "en"][episodeSlug] };
+  return toMetadata(seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**
@@ -171,10 +176,35 @@ export default async function SparkEpisodePageRoute({
   const numberLabel = `Nº ${String(episode.number).padStart(2, "0")}`;
   const { issues } = await loadFormatIssues(locale, format, hub);
   const next = issues.find((issue) => issue.number === episode.number + 1);
+  const seoResult = await sanityFetch<SPARK_EPISODE_SEO_QUERYResult>({
+    query: SPARK_EPISODE_SEO_QUERY,
+    params: { locale, formatSlug, episodeSlug },
+    tags: ["sparkEpisode"],
+  });
+  const seo = { ...toSparkEpisodeSeo(seoResult), ...episodeSeo[locale][episodeSlug] };
+  const formatPath = getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale });
+  const path = getPathname({ href: { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug, episodeSlug } }, locale });
   const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] uppercase min-[900px]:text-[12px]";
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
+      <JsonLd
+        data={[
+          breadcrumbJsonLd(locale, [
+            { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
+            { name: format.name, path: formatPath },
+            { name: episode.subject, path },
+          ]),
+          articleJsonLd(locale, {
+            headline: seo.title.split(" | ")[0],
+            description: seo.description,
+            path,
+            datePublished: seoResult?.publishedAt,
+            dateModified: seoResult?.lastCheckedAt ?? seoResult?._updatedAt,
+            isPartOf: format.name,
+          }),
+        ]}
+      />
       {episode.altFormatSlug && (
         <SparkAltSlugRegistrar formatSlug={episode.altFormatSlug} episodeSlug={episode.altEpisodeSlug ?? undefined} />
       )}

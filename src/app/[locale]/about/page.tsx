@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonLd";
 import BackLink from "@/components/brand/BackLink";
 import CutHeadline from "@/components/brand/CutHeadline";
 import Label from "@/components/brand/Label";
@@ -6,7 +8,7 @@ import NextStep from "@/components/blocks/NextStep";
 import PairAndResult from "@/components/blocks/PairAndResult";
 import RingStage from "@/components/blocks/RingStage";
 import { about } from "@/content/about";
-import { nextStep } from "@/content/chrome";
+import { chrome, nextStep } from "@/content/chrome";
 import { EIGHT_SLICES } from "@/lib/dial";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -35,6 +37,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <main>
+      <JsonLd data={[breadcrumbJsonLd(locale, [{ name: chrome[locale].nav[1].label, path: getPathname({ href: "/about", locale }) }]), personJsonLd(locale, getPathname({ href: "/about", locale }))]} />
       <RingStage
         portraitAlt={content.portraitAlt}
         textClassName="gap-5 pt-6 min-[900px]:gap-8 min-[900px]:pt-[120px]"

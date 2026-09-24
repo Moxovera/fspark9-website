@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import HomeScrollMemory from "@/components/ui/HomeScrollMemory";
 import HomeOpening from "@/components/home/HomeOpening";
 import StartWhereYouAre from "@/components/home/StartWhereYouAre";
@@ -40,6 +42,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <main>
+      <JsonLd data={breadcrumbJsonLd(locale, [])} />
       <HomeScrollMemory locale={locale} />
       <HomeOpening content={content.opening} />
       <StartWhereYouAre content={content.startWhereYouAre} />

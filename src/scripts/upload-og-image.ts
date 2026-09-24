@@ -1,8 +1,8 @@
 /**
  * Tek seferlik script.
  *
- * src/app/og/route.tsx (renderOgImage() — Playfair Display "fspark9" +
- * bronz çizgi + Inter tagline, brandbook tokenlarıyla, 1200x630) bir
+ * src/app/og/route.tsx (renderOgImage() — v2 marka: Ink zemin, Paper
+ * wordmark, halka ve Flare dilim, ana sayfa başlığı, 1200x630) bir
  * Next.js sunucusundan HTTP ile çeker, Sanity'ye image asset olarak
  * yükler ve siteSettings.seo.ogImage alanına bağlar.
  *

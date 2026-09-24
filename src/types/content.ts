@@ -1624,3 +1624,7 @@ export interface EpisodeContext {
   labels: SparkEpisodeLabels
   vocabulary: SparkMechanicVocabulary
 }
+
+export interface JsonLdProps {
+  data: Record<string, unknown> | Record<string, unknown>[]
+}
