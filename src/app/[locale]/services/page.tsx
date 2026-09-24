@@ -1,98 +1,54 @@
 import type { Metadata } from "next";
-import SubpageHero from "@/components/subpages/SubpageHero";
-import ServicesDetailTabs from "@/components/subpages/ServicesDetailTabs";
-import ServicesDetailAccordion from "@/components/subpages/ServicesDetailAccordion";
-import SubpageClosingCta from "@/components/subpages/SubpageClosingCta";
-import { en as enHome, siteSettings as enSettings } from "@/content/en";
-import { tr as trHome, siteSettings as trSettings } from "@/content/tr";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import {
-  SERVICES_PAGE_QUERY,
-  toServicesPage,
-  SERVICES_PAGE_SEO_QUERY,
-  toServicesPageSeo,
-  SITE_SEO_QUERY,
-  toSiteSeo,
-  SITE_SUBPAGE_CTA_QUERY,
-  toSubpageCta,
-} from "@/sanity/lib/queries";
-import { toMetadata } from "@/lib/metadata";
+import ServiceOpening from "@/components/services/ServiceOpening";
+import ServicePicker from "@/components/home/ServicePicker";
+import NextStep from "@/components/blocks/NextStep";
+import { servicesIndex } from "@/content/services";
+import { services, nextStep } from "@/content/chrome";
 import { getPathname } from "@/i18n/navigation";
-import type {
-  SERVICES_PAGE_QUERYResult,
-  SERVICES_PAGE_SEO_QUERYResult,
-  SITE_SEO_QUERYResult,
-  SITE_SUBPAGE_CTA_QUERYResult,
-} from "@/sanity/types";
+import { toMetadata } from "@/lib/metadata";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
+import type { SITE_SEO_QUERYResult } from "@/sanity/types";
+import type { Locale } from "@/types/content";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+// v2 /services index (brief v4 §7.6): board'u yok, mevcut parçalardan.
+// Açılış hizmet sayfası deseniyle, altında ana sayfanın kadran ve satır
+// bloğu (her satır kendi sayfasına), sonra NextStep.
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const [seoResult, siteSeoResult] = await Promise.all([
-    sanityFetch<SERVICES_PAGE_SEO_QUERYResult>({
-      query: SERVICES_PAGE_SEO_QUERY,
-      params: { locale },
-      tags: ["servicesPage"],
-    }),
-    sanityFetch<SITE_SEO_QUERYResult>({
-      query: SITE_SEO_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-  ]);
-
+  const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
+    query: SITE_SEO_QUERY,
+    params: { locale },
+    tags: ["siteSettings"],
+  });
   const paths = { en: getPathname({ href: "/services", locale: "en" }), tr: getPathname({ href: "/services", locale: "tr" }) };
-
-  return toMetadata(toServicesPageSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
+  return toMetadata(servicesIndex[locale].seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
-/**
- * dc.html: page.hasBlocks (satır 727-793). Satır/panel içeriği Home'un
- * HomePage.services'inden (aynı Service[] + labels) geliyor —
- * ServicesDetailTabs/Accordion, Home'un ServicesTabs/Accordion'ıyla AYNI
- * bileşen değil (bkz. o dosyalardaki yorum: ikon seti, numara rozeti ve
- * panel satır sayısı/stili dc.html'de gerçekten farklı).
- */
-export default async function ServicesPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ServicesIndexPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
-  const home = locale === "tr" ? trHome : enHome;
-  const settings = locale === "tr" ? trSettings : enSettings;
-  const { items, labels } = home.services;
-
-  const [heroResult, subpageCtaResult] = await Promise.all([
-    sanityFetch<SERVICES_PAGE_QUERYResult>({
-      query: SERVICES_PAGE_QUERY,
-      params: { locale },
-      tags: ["servicesPage"],
-    }),
-    sanityFetch<SITE_SUBPAGE_CTA_QUERYResult>({
-      query: SITE_SUBPAGE_CTA_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-  ]);
-  const page = toServicesPage(heroResult);
-  const subpageCta = toSubpageCta(subpageCtaResult);
+  const content = servicesIndex[locale];
 
   return (
     <main>
-      <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
-      <section className="bg-ivory px-7 py-[88px]">
-        <div className="mx-auto hidden max-w-[1200px] min-[900px]:block">
-          <ServicesDetailTabs items={items} labels={labels} />
-        </div>
-        <div className="mx-auto max-w-[1000px] min-[900px]:hidden">
-          <ServicesDetailAccordion items={items} labels={labels} />
-        </div>
+      <ServiceOpening
+        backHref="/"
+        backLabel={content.backLabel}
+        label={content.opening.label}
+        heading={content.opening.heading}
+      />
+      <section className="bg-paper px-5 py-16 min-[900px]:px-8 min-[900px]:py-[136px] min-[1280px]:px-16">
+        <ServicePicker
+          services={services[locale]}
+          intro={
+            <p className="m-0 text-[20px] leading-[1.5] text-ink min-[900px]:max-w-[520px] min-[900px]:text-[26px] min-[900px]:leading-[1.45]">
+              {content.opening.intro}
+            </p>
+          }
+        />
       </section>
-      <SubpageClosingCta content={subpageCta} />
+      <NextStep content={nextStep[locale]} />
     </main>
   );
 }

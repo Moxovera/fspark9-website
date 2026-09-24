@@ -213,6 +213,19 @@ body {
   from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
 }
 
+/* Kadran dolması: .dial-fill (Reveal) görünür olunca yanık dilimler
+   Rule'dan kendi renklerine, 80ms arayla. Görünmeden önce hepsi Rule. */
+.js .dial-fill.reveal:not(.is-visible) [data-lit] {
+  fill: var(--rule);
+}
+.dial-fill.is-visible [data-lit] {
+  animation: dial-lit 240ms var(--ease-brand) both;
+  animation-delay: calc(var(--slice-i) * 80ms);
+}
+@keyframes dial-lit {
+  from { fill: var(--rule); }
+}
+
 /* Hover (160ms): satır okları 4px sağa, metin linkinin alt çizgisi
    soldan yeniden çizilir. */
 .go-arrow {
@@ -240,6 +253,7 @@ body {
   .ring-draw [data-slice="9"] { animation: none; opacity: 1; }
   .portrait-in { animation: none; opacity: 1; }
   .cut-wipe, .js .reveal:not(.is-visible) .cut-wipe { animation: none; clip-path: polygon(0 0, 100% 0, calc(100% - 0.32em) 100%, 0 100%); }
+  .dial-fill.is-visible [data-lit] { animation: none; }
   .go-arrow { transition: none; }
   .group:hover .go-arrow, .group:focus-visible .go-arrow { transform: none; }
   .group:hover .text-link-line { animation: none; }

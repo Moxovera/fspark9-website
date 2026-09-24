@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { EIGHT_SLICES, slicePath } from "@/lib/dial";
 import type { DialProps } from "@/types/content";
 
@@ -6,8 +7,9 @@ import type { DialProps } from "@/types/content";
  * Flare. Diğer sekizi `lit` içindeyse Ink (Ink zeminde Paper), değilse
  * Rule (Ink zeminde InkRule). Tamamen dekoratif.
  *
- * Her path `data-slice` taşıyor: StepTiles ve sonuç kartındaki "görünürken
- * sırayla dolma" animasyonu (brief §10) bu attribute'a CSS ile bağlanacak.
+ * Her path `data-slice` ve sırası (`--slice-i`) taşıyor: `.dial-fill`
+ * içindeki kadranlar görünür olunca dilim dilim dolar (brief §10,
+ * globals.css).
  */
 export default function Dial({ lit, size, tone = "paper", className }: DialProps) {
   const litFill = tone === "ink" ? "fill-paper" : "fill-ink";
@@ -28,6 +30,7 @@ export default function Dial({ lit, size, tone = "paper", className }: DialProps
           d={slicePath(i)}
           data-slice={i}
           data-lit={lit.includes(i) ? "" : undefined}
+          style={{ "--slice-i": i - 1 } as CSSProperties}
           className={lit.includes(i) ? litFill : offFill}
         />
       ))}
