@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import LegalPageView from "@/components/subpages/LegalPageView";
@@ -50,6 +51,7 @@ export default async function CookiesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   const result = await sanityFetch<LEGAL_PAGE_QUERYResult>({
     query: LEGAL_PAGE_QUERY,

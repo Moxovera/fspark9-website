@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import HomeScrollMemory from "@/components/ui/HomeScrollMemory";
@@ -36,6 +37,7 @@ export async function generateMetadata({
 
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [home, site] = await Promise.all([getHome(), getChrome()]);
   const content = home[locale];
   const { chrome, services, nextStep } = site[locale];

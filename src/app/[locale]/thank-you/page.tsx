@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Dial from "@/components/brand/Dial";
 import GoButton from "@/components/brand/GoButton";
@@ -17,6 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ThankYouRoute({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const page = locale === "tr" ? tr : en;
 
   return (

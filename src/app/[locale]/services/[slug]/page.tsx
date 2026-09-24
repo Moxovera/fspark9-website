@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
@@ -46,6 +47,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function ServicePage({ params }: { params: Params }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const page = await find(locale, slug);
   if (!page) notFound();
   const { chrome, services } = (await getChrome())[locale];

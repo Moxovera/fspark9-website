@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
@@ -135,6 +136,7 @@ export default async function SparkEpisodePageRoute({
   params: Promise<{ locale: string; formatSlug: string; episodeSlug: string }>;
 }) {
   const { locale: rawLocale, formatSlug, episodeSlug } = await params;
+  setRequestLocale(rawLocale);
   const locale = rawLocale === "tr" ? "tr" : "en";
   const [spark, site, home] = await Promise.all([getSparkHub(), getChrome(), getHome()]);
   const hub = spark[locale];

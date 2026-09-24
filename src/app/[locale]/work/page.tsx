@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import PageOpening from "@/components/blocks/PageOpening";
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 
 export default async function WorkPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [workPage, cases, site] = await Promise.all([getWorkPage(), getCases(), getChrome()]);
   const content = workPage[locale];
   const { chrome, nextStep } = site[locale];

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
@@ -55,6 +56,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function SparkFormatPage({ params }: { params: Params }) {
   const { locale, formatSlug } = await params;
+  setRequestLocale(locale);
   const [spark, site] = await Promise.all([getSparkHub(), getChrome()]);
   const { chrome, nextStep } = site[locale];
   const hub = spark[locale];

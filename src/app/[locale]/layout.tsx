@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -61,6 +62,8 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  // Statik render için (next-intl): locale headers()'tan değil buradan.
+  setRequestLocale(locale);
 
   // Çerçeve (header, menü, footer, randevu penceresi) siteSettings ve
   // servicePage belgelerinden.

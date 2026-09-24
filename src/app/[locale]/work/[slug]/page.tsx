@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
@@ -45,6 +46,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function CasePage({ params }: { params: Params }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const [cases, workPage, site, home] = await Promise.all([getCases(), getWorkPage(), getChrome(), getHome()]);
   const { chrome, services, nextStep } = site[locale];
   const list = cases[locale];
