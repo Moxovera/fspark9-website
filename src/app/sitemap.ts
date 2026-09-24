@@ -22,7 +22,7 @@ const STATIC_HREFS = [
   "/",
   "/services",
   "/work",
-  "/story",
+  "/about",
   "/spark",
   "/book",
   "/impressum",

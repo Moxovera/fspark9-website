@@ -11,7 +11,7 @@ export const en: ThankYouPage = {
       "The invite is in your inbox. Two things that make the call more useful: reply to the invite with two or three lines about where you are, it saves us ten minutes. And if there is a deck, a flow or a partner proposal you would like me to look at, send it over. I will read it before we talk. If something comes up, move it from the invite. No need to apologise, it happens.",
   },
   links: [
-    { label: "Two minutes on why I do this", href: "/story" },
+    { label: "Two minutes on why I do this", href: "/about" },
     { label: "What was actually built", href: "/work" },
   ],
 };
@@ -24,7 +24,7 @@ export const tr: ThankYouPage = {
       "Davet e-postanıza düştü. Görüşmeyi daha verimli yapacak iki şey: davete cevap olarak nerede olduğunuzu iki üç satır yazın, bize on dakika kazandırır. Bakmamı istediğiniz bir sunum, akış ya da partner teklifi varsa gönderin, görüşmeden önce okurum. Bir şey çıkarsa daveti oradan öteleyebilirsiniz.",
   },
   links: [
-    { label: "Bunu neden yaptığım üzerine iki dakika", href: "/story" },
+    { label: "Bunu neden yaptığım üzerine iki dakika", href: "/about" },
     { label: "Gerçekte ne kuruldu", href: "/work" },
   ],
 };

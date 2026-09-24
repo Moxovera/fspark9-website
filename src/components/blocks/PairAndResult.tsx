@@ -16,8 +16,13 @@ interface PairAndResultProps {
   result: StoryCardContent;
   /** Sonuç kartındaki tam kadranın yanık dilimleri. */
   slices: readonly number[];
-  /** Kartların altına (ör. kaynak satırı). */
+  /** Kartların altına (ör. kaynak satırı, Why nine). */
   footer?: ReactNode;
+  /**
+   * Board farkları: vaka sayfasında sonuç kartı 56px aşağıda, bölüm alt
+   * boşluğu 96px; About'ta 24px ve 120px.
+   */
+  variant?: "case" | "about";
 }
 
 /**
@@ -25,11 +30,13 @@ interface PairAndResultProps {
  * story card yan yana (2px Ink üst çizgi), altında daha geniş sonuç kartı
  * (4px Ink çizgi, tam kadran, daha büyük ilk cümle). Mobilde alt alta.
  */
-export default function PairAndResult({ pair, result, slices, footer }: PairAndResultProps) {
+export default function PairAndResult({ pair, result, slices, footer, variant = "case" }: PairAndResultProps) {
   return (
-    <section className="bg-paper px-5 pt-14 pb-16 min-[900px]:px-8 min-[900px]:pt-[112px] min-[900px]:pb-24 min-[1280px]:px-16">
+    <section
+      className={`bg-paper px-5 pt-14 pb-16 min-[900px]:px-8 min-[900px]:pt-[112px] min-[1280px]:px-16 ${variant === "about" ? "min-[900px]:pb-[120px]" : "min-[900px]:pb-24"}`}
+    >
       <Reveal className="flex flex-col gap-6 min-[900px]:gap-8">
-        <div className="flex flex-col gap-4 min-[900px]:gap-8">
+        <div className={`flex flex-col gap-4 ${variant === "about" ? "min-[900px]:gap-6" : "min-[900px]:gap-14"}`}>
           <div className="flex flex-col gap-4 min-[900px]:grid min-[900px]:grid-cols-2 min-[900px]:gap-6">
             {pair.map((card) => (
               <div key={card.label} className="flex flex-col gap-4 border-t-2 border-ink bg-white px-5 pt-6 pb-7 min-[900px]:gap-5 min-[900px]:px-8 min-[900px]:pt-8 min-[900px]:pb-10">
@@ -54,7 +61,7 @@ export default function PairAndResult({ pair, result, slices, footer }: PairAndR
             ))}
           </div>
 
-          <div className="flex flex-col gap-[14px] border-t-4 border-ink bg-white px-5 pt-6 pb-7 min-[900px]:mt-6 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-center min-[900px]:gap-x-6 min-[900px]:px-10 min-[900px]:pt-10 min-[900px]:pb-11">
+          <div className="flex flex-col gap-[14px] border-t-4 border-ink bg-white px-5 pt-6 pb-7 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-center min-[900px]:gap-x-6 min-[900px]:px-10 min-[900px]:pt-10 min-[900px]:pb-11">
             <div className="dial-fill-result flex items-center gap-3 min-[900px]:col-span-2">
               <Dial lit={slices} size={32} className="min-[900px]:size-28" />
               <Label strong className="min-[900px]:hidden">

@@ -49,6 +49,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/legal", destination: "/impressum", permanent: true },
       { source: "/tr/legal", destination: "/tr/impressum", permanent: true },
+      // v2 (brief v4 §3, §11): /story artık /about.
+      { source: "/story", destination: "/about", permanent: true },
+      { source: "/tr/story", destination: "/tr/about", permanent: true },
     ];
   },
 };

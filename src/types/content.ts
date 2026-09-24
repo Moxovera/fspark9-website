@@ -1476,9 +1476,11 @@ export interface WorkPageContent {
 export interface AboutContent {
   seo: PageSeoCopy
   backLabel: string
+  label: string
   hero: HeadlineWithCut
-  pair: { label: string; body: string }[]
-  result: { label: string; body: string }
+  /** Story card'lar: ilk cümle büyük (lead), gerisi metin (board About). */
+  pair: { label: string; lead: string; body: string }[]
+  result: { label: string; lead: string; body: string }
   whyNine: { label: string; text: string }
   portraitAlt: string
 }

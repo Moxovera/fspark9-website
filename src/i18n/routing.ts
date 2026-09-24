@@ -13,8 +13,7 @@ export const routing = defineRouting({
     '/services/[slug]': '/services/[slug]',
     '/work': '/work',
     '/work/[slug]': '/work/[slug]',
-    '/story': '/story',
-    // v2: /story'nin yeni adı. Sayfa Adım 6'da gelecek, /story 301'i Adım 8'de.
+    // v2: /story'nin yeni adı (brief v4 §3). /story 301'i next.config.ts'te.
     '/about': '/about',
     '/spark': '/spark',
     // formatSlug'un kendisi zaten locale'e göre farklı değer taşıyor
