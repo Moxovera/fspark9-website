@@ -26,7 +26,7 @@ export function computeDayCount(
 /**
  * Bir tarihin launch'a göre gün numarası — launch günü "day 000" (SIFIR
  * indeksli, final interaction brief'in referans tablosuyla doğrulandı:
- * 27 Kas 2019 → 000, 1 May 2020 → 156). Launch'tan ÖNCEKİ bir tarih
+ * 27 Kas 2019 = 000, 1 May 2020 = 156). Launch'tan ÖNCEKİ bir tarih
  * negatif döner ("-026"), pozitif tarafta sıfır doldurmalı 3 hane.
  * Bu fonksiyon episode bloklarındaki HER "day" damgası için kullanılır
  * — hiçbir blok elle girilmiş bir gün numarası taşımaz, hepsi kendi

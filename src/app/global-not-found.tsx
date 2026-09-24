@@ -29,7 +29,7 @@ export default function GlobalNotFound() {
           <NotFoundBlock
             content={both}
             top={
-              <NextLink href="/" aria-label="fspark9 home" className="block self-start text-paper">
+              <NextLink href="/" aria-label="fspark9 home" className="flex min-h-11 items-center self-start text-paper">
                 <Logo label="fspark9" className="h-[22px] min-[900px]:h-[27px]" />
               </NextLink>
             }

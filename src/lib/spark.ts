@@ -55,6 +55,17 @@ export async function loadFormatIssues(
   return { issues, altFormatSlug: page?.altFormatSlug ?? null };
 }
 
+/**
+ * Diğer dilin slug'ı bu dilde istenmişse (ör. TR çerezli ziyaretçi EN
+ * adresine gelip /tr/spark/the-last-day'e yönlenince) bu dilin doğru
+ * slug'ı. Yoksa null.
+ */
+export function slugFromOtherLocale(spark: Record<Locale, SparkHubContent>, locale: Locale, slug: string): string | null {
+  const other: Locale = locale === "tr" ? "en" : "tr";
+  const index = spark[other].formats.findIndex((f) => f.slug === slug);
+  return index >= 0 ? (spark[locale].formats[index]?.slug ?? null) : null;
+}
+
 /** Formatın diğer dildeki slug'ı, Sanity'de yoksa statik içerikten. */
 export function staticAltSlug(spark: Record<Locale, SparkHubContent>, locale: Locale, slug: string): string | null {
   const other: Locale = locale === "tr" ? "en" : "tr";

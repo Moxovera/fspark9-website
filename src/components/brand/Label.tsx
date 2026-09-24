@@ -12,7 +12,7 @@ export default function Label({ children, ground = "paper", strong = false, as: 
     : ground === "ink" ? "text-dust" : "text-stone";
 
   return (
-    <Tag className={`font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] uppercase ${color} ${className ?? ""}`}>
+    <Tag className={`m-0 font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] uppercase ${color} ${className ?? ""}`}>
       {children}
     </Tag>
   );

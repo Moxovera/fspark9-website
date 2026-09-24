@@ -18,7 +18,7 @@ interface StepTilesProps {
 export default function StepTiles({ label, steps }: StepTilesProps) {
   return (
     <section className="flex flex-col gap-5 bg-paper px-5 pt-12 pb-[72px] min-[900px]:gap-8 min-[900px]:px-8 min-[900px]:pt-24 min-[900px]:pb-[136px] min-[1280px]:px-16">
-      <Label>{label}</Label>
+      <Label as="h2">{label}</Label>
       <Reveal className="dial-fill flex flex-col gap-2 border-t-2 border-ink pt-3 min-[900px]:grid min-[900px]:grid-cols-3 min-[900px]:gap-6 min-[900px]:pt-6">
         {steps.map((step, i) => (
           <div key={step.line} className="flex flex-col gap-[10px] bg-white px-5 pt-5 pb-[22px] min-[900px]:gap-[14px] min-[900px]:px-8 min-[900px]:pt-8 min-[900px]:pb-9">

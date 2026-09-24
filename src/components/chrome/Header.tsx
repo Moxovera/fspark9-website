@@ -35,7 +35,7 @@ export default function Header({ chrome, services, locale }: HeaderProps) {
         <Link
           href="/"
           aria-label={chrome.homeLabel}
-          className="block text-paper group-data-[tone=light]/header:text-ink"
+          className="flex min-h-11 items-center text-paper group-data-[tone=light]/header:text-ink"
         >
           <Logo label={chrome.brandName} className="h-[22px] min-[900px]:h-[27px]" />
         </Link>

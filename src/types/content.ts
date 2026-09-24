@@ -1252,7 +1252,7 @@ export interface LabelProps {
   /** Zemin: `ink` ise Dust, `paper` ise Stone. `strong`: Ink (ya da Ink zeminde Paper). */
   ground?: BrandGround
   strong?: boolean
-  as?: 'div' | 'span' | 'p'
+  as?: 'div' | 'span' | 'p' | 'h2'
   className?: string
 }
 

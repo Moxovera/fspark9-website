@@ -4,8 +4,8 @@ import type { PhonePairProps } from "@/types/content";
 /**
  * İki telefon çerçevesi ve arkalarında yukarı açılan Flare ışın (brand
  * book v3 §5 "Beam": sayfa başına en fazla bir kez, marker block ile aynı
- * sayfada değil). Board ölçüleri: masaüstü 520 × 540 alan, 210 × 432
- * telefonlar; mobil 335 × 380 alan, 146 × 300 telefonlar. Telefon
+ * sayfada değil). Board ölçüleri: masaüstü 520 x 540 alan, 210 x 432
+ * telefonlar; mobil 335 x 380 alan, 146 x 300 telefonlar. Telefon
  * çerçevesi ve yuvarlak köşe marka kitabındaki iki istisnadan biri.
  */
 export default function PhonePair({ screens, className }: PhonePairProps) {

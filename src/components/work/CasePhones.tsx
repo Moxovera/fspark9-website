@@ -7,8 +7,8 @@ interface CasePhonesProps {
 }
 
 /**
- * Vaka açılışındaki iki telefon (board CaseInsha: 480 × 470 alan, 210 ×
- * 432 telefonlar; mobil 330px yükseklik, 146 × 300). Işın yok: bu sayfada
+ * Vaka açılışındaki iki telefon (board CaseInsha: 480 x 470 alan, 210 x
+ * 432 telefonlar; mobil 330px yükseklik, 146 x 300). Işın yok: bu sayfada
  * marker block var, ikisi aynı sayfada olmaz (brand book §5). Ekranlar
  * Sanity'deki caseStudy.screens'ten.
  */

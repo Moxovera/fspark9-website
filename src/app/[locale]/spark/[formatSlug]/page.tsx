@@ -9,7 +9,8 @@ import EpisodeList from "@/components/spark/format/EpisodeList";
 import Reveal from "@/components/ui/Reveal";
 import { spark } from "@/content/spark";
 import { nextStep } from "@/content/chrome";
-import { loadFormatIssues, staticAltSlug } from "@/lib/spark";
+import { loadFormatIssues, slugFromOtherLocale, staticAltSlug } from "@/lib/spark";
+import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -54,7 +55,11 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   const { locale, formatSlug } = await params;
   const hub = spark[locale];
   const format = find(locale, formatSlug);
-  if (!format) notFound();
+  if (!format) {
+    const fixed = slugFromOtherLocale(spark, locale, formatSlug);
+    if (fixed) redirect({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: fixed } }, locale });
+    notFound();
+  }
   const { issues } = await loadFormatIssues(locale, format, hub);
   const altFormatSlug = staticAltSlug(spark, locale, formatSlug);
 

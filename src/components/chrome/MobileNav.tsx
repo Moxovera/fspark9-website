@@ -62,7 +62,7 @@ export default function MobileNav({ chrome, services, locale }: MobileNavProps) 
           className="on-ink sheet-in-right fixed inset-0 z-[110] flex flex-col overflow-y-auto bg-ink min-[900px]:hidden"
         >
           <div className="flex h-16 flex-none items-center justify-between border-b border-headrule px-5">
-            <Link href="/" aria-label={chrome.homeLabel} className="block">
+            <Link href="/" aria-label={chrome.homeLabel} className="flex min-h-11 items-center">
               <Logo tone="paper" label={chrome.brandName} className="h-[22px]" />
             </Link>
             <button

@@ -58,7 +58,7 @@ export default function EpisodeRuler({ blocks, ctx }: EpisodeRulerProps) {
 
   return (
     <section className="flex flex-col gap-[14px] bg-white px-5 pt-7 pb-8 min-[900px]:gap-[18px] min-[900px]:px-8 min-[900px]:pt-10 min-[900px]:pb-11 min-[1280px]:px-16">
-      <div className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">{ctx.labels.rulerLabel}</div>
+      <h2 className="m-0 font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">{ctx.labels.rulerLabel}</h2>
       <div className="relative h-24" aria-hidden="true">
         <div className="absolute inset-x-0 top-7 h-[2px] bg-ink" />
         <div className="absolute top-[22px] left-[-1px] h-[14px] w-[2px] bg-ink" />

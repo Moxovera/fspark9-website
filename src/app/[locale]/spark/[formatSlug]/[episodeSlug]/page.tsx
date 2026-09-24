@@ -13,7 +13,8 @@ import { computeDayCount } from "@/components/spark/day/dayMath";
 import { spark } from "@/content/spark";
 import { nextStep } from "@/content/chrome";
 import { fill, formatShortDate } from "@/lib/format";
-import { loadFormatIssues } from "@/lib/spark";
+import { loadFormatIssues, slugFromOtherLocale } from "@/lib/spark";
+import { redirect } from "@/i18n/navigation";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   SPARK_EPISODE_SLUGS_QUERY,
@@ -136,6 +137,15 @@ export default async function SparkEpisodePageRoute({
   const locale = rawLocale === "tr" ? "tr" : "en";
   const hub = spark[locale];
   const format = hub.formats.find((f) => f.slug === formatSlug);
+  if (!format) {
+    const fixed = slugFromOtherLocale(spark, locale, formatSlug);
+    if (fixed) {
+      redirect({
+        href: { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug: fixed, episodeSlug } },
+        locale,
+      });
+    }
+  }
 
   const result = await sanityFetch<SPARK_EPISODE_QUERYResult>({
     query: SPARK_EPISODE_QUERY,
