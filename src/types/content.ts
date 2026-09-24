@@ -83,13 +83,6 @@ export interface StoryPage {
   prose: ProseBlock[]
 }
 
-// dc.html: page.book — hero'nun dışında sadece underCal (Cal embed'inin
-// altındaki not metni). calLink SiteSettings.booking'ten reuse ediliyor,
-// burada tekrarlanmıyor.
-export interface BookPage {
-  hero: PageHero
-  underCal: string
-}
 
 // dc.html: is404 (satır 1030-1039) — SubpageHero YOK. dc.html'in
 // kendisinde Header/Footer/mobil bar is404'te de render ediliyor
@@ -98,17 +91,26 @@ export interface BookPage {
 // layout'unu bypass ediyor — bkz. o dosyadaki yorum). "Ana sayfaya dön"
 // linkinin href'i her zaman "/" — SubpageHero'daki "Geri" linkiyle aynı
 // gerekçeyle veri olarak taşınmıyor, bileşende sabit.
+/** 404 metni (v2, board NotFound). Sanity kapsamı dışında (CLAUDE.md). */
 export interface NotFoundPage {
-  title: string
-  linkLabel: string
+  seoTitle: string
+  label: string
+  heading: string
+  /** Global 404'te ikinci dilin satırı; locale 404'ünde yok. */
+  secondLine?: { text: string; lang: string }
+  links: { label: string; href: string; lang?: string }[]
 }
 
 // dc.html: page.hasLinks (satır 1005-1016) — sadece label + href, ok
 // (→) veriden gelmiyor, statik. Genel Link tipiyle birebir örtüştüğü
 // için ayrı bir kart tipi gerekmedi.
+/** /thank-you (v2, board ThankYou). Sanity kapsamı dışında (CLAUDE.md). */
 export interface ThankYouPage {
-  hero: PageHero
-  links: Link[]
+  seo: PageSeoCopy
+  label: string
+  heading: string
+  paragraphs: string[]
+  links: { label: string; sublabel: string; href: NavHref }[]
 }
 
 // Revizyon v2 (bkz. Spark section revision brief v2): lastDayFormat/
@@ -1308,6 +1310,12 @@ export interface SiteChrome {
     linkedinLabel: string
     legalLinks: NavItem[]
     copyright: string
+  }
+  /** Yasal sayfaların sekmeleri ve geri linki (board Legal). */
+  legal: {
+    backLabel: string
+    tabsLabel: string
+    tabs: NavItem[]
   }
 }
 

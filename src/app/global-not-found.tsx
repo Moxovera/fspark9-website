@@ -1,56 +1,39 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { epilogue, hanken, splineMono } from "@/lib/fonts";
-import { en } from "@/content/not-found";
+import { both } from "@/content/not-found";
+import NotFoundBlock from "@/components/blocks/NotFoundBlock";
+import Logo from "@/components/brand/Logo";
+import NextLink from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "fspark9",
-  description: "This page does not exist. The other ones do.",
+  title: both.seoTitle,
+  robots: { index: false, follow: false },
 };
 
 /**
- * dc.html: is404 (satır 1030-1039) — DİKKAT, bilinçli bir sapma burada.
- * dc.html'in kendi <header>/<footer>'ı (satır 33, 1042) is404 dahil HER
- * sayfada koşulsuz render ediliyor, sc-if is404 sadece <main>'i
- * değiştiriyor — yani dc.html'in gerçek 404'ü chrome'lu. Kullanıcıyla
- * bu netleştirildikten sonra kasıtlı olarak chrome'suz, tam izole bir
- * sayfa tercih edildi.
- *
- * `[locale]/layout.tsx` kök `<html><body>`'sini kurduğu için (kök
- * app/layout.tsx yok, top-level dinamik segment) bu dosya onu bypass
- * ediyor — Next.js dokümantasyonu bu senaryo için `global-not-found.js`
- * kullanılmasını öneriyor (next.config.ts: experimental.globalNotFound).
- * Kendi <html><body>'sini kuruyor, global stil/font'ları kendi import
- * ediyor — [locale] layout'undan (dolayısıyla Header/Footer/
- * MobileBookingBar/BookingOverlay'den) hiçbir şey miras almıyor.
+ * Global 404 (brief v4 §7.8, board NotFound / NotFoundM). Hiçbir route'a
+ * uymayan URL'ler buraya düşüyor ve `[locale]/layout.tsx`'i tamamen
+ * atlıyor (next.config.ts experimental.globalNotFound): kendi
+ * <html><body>'si, fontları, Analytics ve Speed Insights'ı var. Dili
+ * bilemediği için iki dili birden gösteriyor, chrome'suz; sol üstte logo
+ * ana sayfaya gidiyor.
  */
 export default function GlobalNotFound() {
   return (
     <html lang="en">
       <body className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} font-sans antialiased`}>
-        <main className="flex min-h-[100svh] items-center bg-navy px-7 pt-[150px] pb-20">
-          <div className="mx-auto max-w-[1000px]">
-            <Image
-              src="/assets/symbol-reversed.svg"
-              alt=""
-              width={64}
-              height={100}
-              className="mb-10 h-16 w-auto opacity-80"
-            />
-            <h1 className="mb-7 max-w-[22ch] font-display text-[clamp(2.2rem,5vw,4rem)] leading-[1.08] font-medium text-ivory">
-              {en.title}
-            </h1>
-            <Link
-              href="/"
-              className="inline-block border-b border-bronze/45 pb-1 font-mono text-sm tracking-[0.06em] text-ivory"
-            >
-              {en.linkLabel}
-            </Link>
-          </div>
+        <main>
+          <NotFoundBlock
+            content={both}
+            top={
+              <NextLink href="/" aria-label="fspark9 home" className="block self-start text-paper">
+                <Logo label="fspark9" className="h-[22px] min-[900px]:h-[27px]" />
+              </NextLink>
+            }
+          />
         </main>
         <Analytics />
         <SpeedInsights />

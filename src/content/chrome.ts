@@ -34,6 +34,16 @@ export const chrome: Record<Locale, SiteChrome> = {
       legalLinks: [{ label: "Imprint", href: "/impressum" }],
       copyright: "© 2026 fspark9",
     },
+    legal: {
+      backLabel: "Home",
+      tabsLabel: "Legal pages",
+      tabs: [
+        { label: "Imprint", href: "/impressum" },
+        { label: "Privacy", href: "/privacy" },
+        { label: "Cookies", href: "/cookies" },
+        { label: "Terms of use", href: "/terms" },
+      ],
+    },
   },
   tr: {
     brandName: "fspark9",
@@ -58,6 +68,16 @@ export const chrome: Record<Locale, SiteChrome> = {
       linkedinLabel: "linkedin.com/in/mdikmen",
       legalLinks: [{ label: "Künye", href: "/impressum" }],
       copyright: "© 2026 fspark9",
+    },
+    legal: {
+      backLabel: "Ana sayfa",
+      tabsLabel: "Yasal sayfalar",
+      tabs: [
+        { label: "Künye", href: "/impressum" },
+        { label: "Gizlilik", href: "/privacy" },
+        { label: "Çerezler", href: "/cookies" },
+        { label: "Kullanım şartları", href: "/terms" },
+      ],
     },
   },
 };

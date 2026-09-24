@@ -20,11 +20,11 @@ export const en: LegalPage = {
       head: ["Name", "Set by", "What it does", "Type", "Lifetime"],
       rows: [
         [
-          "lang",
+          "NEXT_LOCALE",
           "This site",
           "Remembers your language choice",
           "Strictly necessary",
-          "12 months",
+          "Session",
         ],
       ],
     },
@@ -35,7 +35,7 @@ export const en: LegalPage = {
     { type: "h", text: "The booking tool" },
     {
       type: "b",
-      text: "The booking tool comes from Cal.com. It is not loaded with the page. Until you click to open it, no request goes to Cal.com, no cookie from them is set, and they learn nothing about your visit.",
+      text: "The booking tool comes from Cal.com. It is not loaded with the page. Until you click Book a call, no request goes to Cal.com, no cookie from them is set, and they learn nothing about your visit.",
     },
     {
       type: "b",
@@ -48,7 +48,7 @@ export const en: LegalPage = {
     { type: "h", text: "Everything else is served from here" },
     {
       type: "b",
-      text: "All fonts, scripts, and images come from this site’s own domain. Nothing is loaded from Google Fonts, a CDN, or any other third party, so reading a page sends no data anywhere except to my hosting provider.",
+      text: "All fonts, scripts, and images come from this site’s own domain. Nothing is loaded from Google Fonts or a font CDN. Visits are counted with Vercel Web Analytics, which sets no cookies and stores nothing on your device.",
     },
     { type: "h", text: "If this changes" },
     {
@@ -88,11 +88,11 @@ export const tr: LegalPage = {
       head: ["Ad", "Kim yerleştiriyor", "Ne yapıyor", "Tür", "Ömrü"],
       rows: [
         [
-          "lang",
+          "NEXT_LOCALE",
           "Bu site",
           "Dil tercihinizi hatırlıyor",
           "Kesinlikle gerekli",
-          "12 ay",
+          "Oturum",
         ],
       ],
     },
@@ -103,7 +103,7 @@ export const tr: LegalPage = {
     { type: "h", text: "Randevu aracı" },
     {
       type: "b",
-      text: "Randevu aracı Cal.com’dan geliyor. Sayfayla birlikte yüklenmiyor. Siz açmak için tıklayana kadar Cal.com’a hiçbir istek gitmiyor, onlara ait hiçbir çerez yerleşmiyor ve ziyaretiniz hakkında hiçbir şey öğrenmiyorlar.",
+      text: "Randevu aracı Cal.com’dan geliyor. Sayfayla birlikte yüklenmiyor. Görüşme ayarla butonuna basana kadar Cal.com’a hiçbir istek gitmiyor, onlara ait hiçbir çerez yerleşmiyor ve ziyaretiniz hakkında hiçbir şey öğrenmiyorlar.",
     },
     {
       type: "b",
@@ -116,7 +116,7 @@ export const tr: LegalPage = {
     { type: "h", text: "Geri kalan her şey buradan sunuluyor" },
     {
       type: "b",
-      text: "Tüm fontlar, scriptler ve görseller bu sitenin kendi alan adından geliyor. Google Fonts, CDN ya da başka bir üçüncü taraftan hiçbir şey yüklenmiyor. Yani bir sayfayı okumanız, hosting sağlayıcım dışında hiçbir yere veri göndermiyor.",
+      text: "Tüm fontlar, scriptler ve görseller bu sitenin kendi alan adından geliyor. Google Fonts ya da bir font CDN’inden hiçbir şey yüklenmiyor. Ziyaretler Vercel Web Analytics ile sayılıyor, bu araç çerez yerleştirmiyor ve cihazınızda hiçbir şey saklamıyor.",
     },
     { type: "h", text: "Bu değişirse" },
     {

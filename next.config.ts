@@ -49,9 +49,13 @@ const nextConfig: NextConfig = {
     return [
       { source: "/legal", destination: "/impressum", permanent: true },
       { source: "/tr/legal", destination: "/tr/impressum", permanent: true },
-      // v2 (brief v4 §3, §11): /story artık /about.
-      { source: "/story", destination: "/about", permanent: true },
-      { source: "/tr/story", destination: "/tr/about", permanent: true },
+      // v2 (brief v4 §3, §11): /story artık /about. Brief 301 istiyor;
+      // `permanent: true` 308 veriyor, bu yüzden statusCode açıkça 301.
+      { source: "/story", destination: "/about", statusCode: 301 },
+      { source: "/tr/story", destination: "/tr/about", statusCode: 301 },
+      // /book kalktı: eski linkler randevu penceresini açsın (BookingProvider ?book=1).
+      { source: "/book", destination: "/?book=1", statusCode: 301 },
+      { source: "/tr/book", destination: "/tr?book=1", statusCode: 301 },
     ];
   },
 };

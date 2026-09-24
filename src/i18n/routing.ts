@@ -22,7 +22,6 @@ export const routing = defineRouting({
     // segment adı iki dilde de aynı, gerçek çeviri route param'ında.
     '/spark/[formatSlug]': '/spark/[formatSlug]',
     '/spark/[formatSlug]/[episodeSlug]': '/spark/[formatSlug]/[episodeSlug]',
-    '/book': '/book',
     '/thank-you': '/thank-you',
     '/impressum': '/impressum',
     '/terms': { en: '/terms', tr: '/kullanim-sartlari' },

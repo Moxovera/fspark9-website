@@ -69,12 +69,29 @@ export const en: LegalPage = {
     },
     {
       type: "b",
-      text: "All fonts, scripts, and images are served from this site’s own domain. Nothing loads from Google Fonts, a CDN, or any other third party server, so simply reading a page sends no data to anyone but my host.",
+      text: "All fonts, scripts, and images are served from this site’s own domain. Nothing loads from Google Fonts or a font CDN. The site counts visits with Vercel Web Analytics, described below, which sets no cookies.",
+    },
+    {
+      type: "b",
+      text: "To see how many people visit and which pages load slowly, the site uses Vercel Web Analytics and Vercel Speed Insights, both run by my hosting provider. They set no cookies. With each page view they record the page, the page you came from, your country, region and city, your browser, operating system and device type, and how fast the page loaded. They do not record who you are. Within a single day a visit is recognised through a hash of the request, and that hash is discarded after 24 hours. I only ever see totals.",
+    },
+    { type: "field", label: "Why", lines: ["To understand which pages are read and to keep the site fast."] },
+    {
+      type: "field",
+      label: "Legal basis",
+      lines: [
+        "Article 6(1)(f) GDPR, my legitimate interest in knowing how the site is used and keeping it fast. Nothing is read from or stored on your device, so § 25 TDDDG does not apply.",
+      ],
+    },
+    {
+      type: "field",
+      label: "Retention",
+      lines: ["The figures are shown to me for one month. The visit hash is discarded after 24 hours."],
     },
     { type: "h", text: "4. When you book a call" },
     {
       type: "b",
-      text: "The booking tool is provided by Cal.com, Inc. It does not load when the page loads. You see a placeholder, and Cal.com is only contacted after you click it. Until you click, nothing from Cal.com runs in your browser and Cal.com learns nothing about your visit.",
+      text: "The booking tool is provided by Cal.com, Inc. It does not load when the page loads. It loads only when you click Book a call, which opens the booking window on this site. Until you click, nothing from Cal.com runs in your browser and Cal.com learns nothing about your visit.",
     },
     {
       type: "b",
@@ -89,7 +106,7 @@ export const en: LegalPage = {
       type: "field",
       label: "Legal basis",
       lines: [
-        "Article 6(1)(b) GDPR, steps taken at your request before entering into a contract. For loading the tool itself, Article 6(1)(a) GDPR and § 25(1) TDDDG, your consent, given by clicking to open it.",
+        "Article 6(1)(b) GDPR, steps taken at your request before entering into a contract. For loading the tool itself, Article 6(1)(a) GDPR and § 25(1) TDDDG, your consent, given by clicking Book a call.",
       ],
     },
     {
@@ -146,6 +163,7 @@ export const en: LegalPage = {
       head: ["Provider", "What for", "Where"],
       rows: [
         ["Vercel Inc.", "Serving the website", "United States"],
+        ["Vercel Inc.", "Visit counts and page speed, without cookies", "United States"],
         ["Cal.com, Inc.", "Scheduling calls, after you click", "EU / US"],
         ["Google (Gmail)", "Business email and calendar", "United States"],
       ],
@@ -157,7 +175,7 @@ export const en: LegalPage = {
     { type: "h", text: "7. What this site does not do" },
     {
       type: "b",
-      text: "No advertising cookies. No retargeting pixels. No social media tracking. No analytics. No automated decision making or profiling under Article 22 GDPR. No selling or renting of data.",
+      text: "No advertising cookies. No retargeting pixels. No social media tracking. No analytics cookies. No automated decision making or profiling under Article 22 GDPR. No selling or renting of data.",
     },
     {
       type: "b",
@@ -277,12 +295,29 @@ export const tr: LegalPage = {
     },
     {
       type: "b",
-      text: "Tüm fontlar, scriptler ve görseller bu sitenin kendi alan adından sunuluyor. Google Fonts, CDN ya da başka bir üçüncü taraf sunucudan hiçbir şey yüklenmiyor. Yani bir sayfayı okumanız, hosting sağlayıcım dışında kimseye veri göndermiyor.",
+      text: "Tüm fontlar, scriptler ve görseller bu sitenin kendi alan adından sunuluyor. Google Fonts ya da bir font CDN’inden hiçbir şey yüklenmiyor. Ziyaretler aşağıda anlatılan Vercel Web Analytics ile sayılıyor, bu araç çerez yerleştirmiyor.",
+    },
+    {
+      type: "b",
+      text: "Siteyi kaç kişinin ziyaret ettiğini ve hangi sayfaların yavaş yüklendiğini görmek için, hosting sağlayıcımın sunduğu Vercel Web Analytics ve Vercel Speed Insights kullanılıyor. Çerez yerleştirmiyorlar. Her sayfa görüntülemesinde sayfayı, geldiğiniz sayfayı, ülkenizi, bölgenizi ve şehrinizi, tarayıcınızı, işletim sisteminizi, cihaz türünüzü ve sayfanın ne kadar hızlı yüklendiğini kaydediyorlar. Kim olduğunuzu kaydetmiyorlar. Aynı gün içinde bir ziyaret, isteğin bir özetiyle tanınıyor ve bu özet 24 saat sonra siliniyor. Ben sadece toplamları görüyorum.",
+    },
+    { type: "field", label: "Neden", lines: ["Hangi sayfaların okunduğunu anlamak ve siteyi hızlı tutmak için."] },
+    {
+      type: "field",
+      label: "Hukuki dayanak",
+      lines: [
+        "GDPR 6(1)(f), sitenin nasıl kullanıldığını bilme ve siteyi hızlı tutma konusundaki meşru menfaatim. Cihazınızdan hiçbir şey okunmadığı ve cihazınızda hiçbir şey saklanmadığı için TDDDG § 25 uygulanmıyor.",
+      ],
+    },
+    {
+      type: "field",
+      label: "Saklama",
+      lines: ["Rakamlar bana bir ay boyunca gösteriliyor. Ziyaret özeti 24 saat sonra siliniyor."],
     },
     { type: "h", text: "4. Görüşme talebi oluşturduğunuzda" },
     {
       type: "b",
-      text: "Randevu aracını Cal.com, Inc. sağlıyor. Sayfa açıldığında yüklenmiyor. Bir yer tutucu görüyorsunuz ve Cal.com’a ancak siz tıkladıktan sonra bağlanılıyor. Siz tıklayana kadar Cal.com’a ait hiçbir şey tarayıcınızda çalışmıyor ve Cal.com ziyaretiniz hakkında hiçbir şey öğrenmiyor.",
+      text: "Randevu aracını Cal.com, Inc. sağlıyor. Sayfa açıldığında yüklenmiyor. Sadece Görüşme ayarla butonuna bastığınızda, bu sitede açılan randevu penceresinde yükleniyor. Siz tıklayana kadar Cal.com’a ait hiçbir şey tarayıcınızda çalışmıyor ve Cal.com ziyaretiniz hakkında hiçbir şey öğrenmiyor.",
     },
     {
       type: "b",
@@ -297,7 +332,7 @@ export const tr: LegalPage = {
       type: "field",
       label: "Hukuki dayanak",
       lines: [
-        "GDPR 6(1)(b), talebiniz üzerine atılan sözleşme öncesi adımlar. Aracın yüklenmesi için GDPR 6(1)(a) ve § 25(1) TDDDG, yani tıklayarak verdiğiniz rıza.",
+        "GDPR 6(1)(b), sözleşme öncesinde sizin talebinizle atılan adımlar. Aracın yüklenmesi için GDPR 6(1)(a) ve TDDDG § 25(1), Görüşme ayarla butonuna basarak verdiğiniz onay.",
       ],
     },
     {
@@ -354,6 +389,7 @@ export const tr: LegalPage = {
       head: ["Sağlayıcı", "Ne için", "Nerede"],
       rows: [
         ["Vercel Inc.", "Siteyi sunmak", "ABD"],
+        ["Vercel Inc.", "Çerezsiz ziyaret sayımı ve sayfa hızı", "ABD"],
         ["Cal.com, Inc.", "Randevu, siz tıkladıktan sonra", "AB / ABD"],
         ["Google (Gmail)", "Kurumsal e-posta ve takvim", "ABD"],
       ],
@@ -365,7 +401,7 @@ export const tr: LegalPage = {
     { type: "h", text: "7. Bu sitenin yapmadıkları" },
     {
       type: "b",
-      text: "Reklam çerezi yok. Yeniden hedefleme pikseli yok. Sosyal medya takibi yok. Analitik yok. GDPR 22. madde kapsamında otomatik karar verme ve profilleme yok. Veri satışı ve kiralaması yok.",
+      text: "Reklam çerezi yok. Yeniden hedefleme pikseli yok. Sosyal medya takibi yok. Analiz çerezi yok. GDPR 22. madde kapsamında otomatik karar ya da profilleme yok. Veri satışı ya da kiralama yok.",
     },
     {
       type: "b",

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import SubpageHero from "@/components/subpages/SubpageHero";
-import LegalBlocks from "@/components/subpages/LegalBlocks";
-import { siteSettings as enSettings } from "@/content/en";
-import { siteSettings as trSettings } from "@/content/tr";
+import LegalPageView from "@/components/subpages/LegalPageView";
+import { chrome } from "@/content/chrome";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import {
   LEGAL_PAGE_QUERY,
@@ -50,7 +48,6 @@ export default async function TermsPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const settings = locale === "tr" ? trSettings : enSettings;
 
   const result = await sanityFetch<LEGAL_PAGE_QUERYResult>({
     query: LEGAL_PAGE_QUERY,
@@ -59,10 +56,5 @@ export default async function TermsPage({
   });
   const page = toLegalPage(result);
 
-  return (
-    <main>
-      <SubpageHero hero={page.hero} backLabel={settings.backLabel} />
-      <LegalBlocks blocks={page.blocks} />
-    </main>
-  );
+  return <LegalPageView page={page} legal={chrome[locale === "tr" ? "tr" : "en"].legal} current="/terms" />;
 }
