@@ -29,7 +29,10 @@ export const metadata: Metadata = {
 
 export default function LockedLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" suppressHydrationWarning>
+    // Font değişkenleri <html>'de: locked-report.css :root'ta
+    // --f-display: var(--font-epilogue) çözüyor, değişken :root'ta tanımlı
+    // olmalı (body'de olursa :root'ta boş kalır ve sistem fontuna düşer).
+    <html lang="tr" className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable}`} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -38,7 +41,7 @@ export default function LockedLayout({ children }: { children: React.ReactNode }
         />
       </head>
       <body
-        className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} antialiased`}
+        className="antialiased"
       >
         {/* "9" sembolünün paylaşılan tanımları: HouseIllustration içinde ve
             BrandSymbolIcon (Wordmark.tsx, Note.tsx) üzerinden <use> ile
