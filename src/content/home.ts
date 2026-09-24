@@ -13,7 +13,7 @@ export const home: Record<Locale, HomeContent> = {
     seo: {
       title: "fspark9 · Fintech and digital banking advisory, Berlin",
       description:
-        "I’ve built two digital banks. I work with fintechs, banks and companies that want to launch a financial product, and stay until it’s live.",
+        "I help teams get financial products live. I’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking", "Berlin"],
@@ -147,7 +147,7 @@ export const home: Record<Locale, HomeContent> = {
     seo: {
       title: "fspark9 · Fintech ve dijital bankacılık danışmanlığı, Berlin",
       description:
-        "İki dijital banka kurdum. Finansal ürün çıkarmak isteyen fintechler, bankalar ve şirketlerle çalışıyorum, ürün canlıya çıkana kadar kalıyorum.",
+        "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum. İki dijital banka kurdum. Fintechler, bankalar ve şirketlerle lansmana kadar çalışıyorum.",
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık", "Berlin"],

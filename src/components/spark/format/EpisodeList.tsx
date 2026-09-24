@@ -91,7 +91,7 @@ function EpisodeRow({ issue, daysUnit }: { issue: SparkIssue; daysUnit: string }
         <span className="font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">{issue.statusLabel}</span>
       </span>
       <span className="flex flex-none justify-end min-[900px]:col-span-1">
-        {href ? <GoButton size={44} className="min-[900px]:size-12 min-[900px]:text-[20px]" /> : <span className="w-11 min-[900px]:w-12" />}
+        {href ? <GoButton size={44} className="go-flare min-[900px]:size-12 min-[900px]:text-[20px]" /> : <span className="w-11 min-[900px]:w-12" />}
       </span>
     </>
   );

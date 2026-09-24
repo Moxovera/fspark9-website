@@ -20,7 +20,7 @@ export default function Dial({ lit, size, tone = "paper", className }: DialProps
       viewBox="0 0 100 100"
       width={size}
       height={size}
-      className={`dial-live block flex-none ${className ?? ""}`}
+      className={`dial-live block flex-none overflow-visible ${className ?? ""}`}
       aria-hidden="true"
       focusable="false"
     >

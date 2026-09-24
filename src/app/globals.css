@@ -347,3 +347,58 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .slice-live, .flare-hover::before { transition: none; }
 }
+
+/* Spark açılışındaki büyük "Spark": üzerine gelince ya da dokununca harflerin
+   içi soldan Flare ile dolar (240ms), çekilince Paper'a döner. */
+.spark-fill {
+  color: transparent;
+  background: linear-gradient(90deg, var(--flare) 50%, var(--paper) 50%) right / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 240ms var(--ease-brand);
+  /* satır yüksekliği 0.85: dolgu harflerin tamamını (p'nin kuyruğu dahil) kapsasın */
+  padding-block: 0.08em 0.16em;
+  margin-block: -0.08em -0.16em;
+}
+@media (hover: hover) {
+  .spark-fill:hover { background-position: left; }
+}
+.spark-fill:active { background-position: left; }
+
+/* Spark şeridi: üzerine gelince (Marquee durdururken) her parça kıvılcım
+   gibi kısa bir titremeyle Flare'e döner, sırayla. Çekilince Paper'a
+   döner, şerit yeniden hızlanır. */
+.ticker-spark .ticker-item {
+  transition: color 160ms var(--ease-brand);
+}
+@media (hover: hover) {
+  .ticker-spark:hover .ticker-item {
+    color: var(--flare);
+    animation: spark-flicker 420ms steps(1, end) both;
+    animation-delay: calc(var(--i, 0) * 60ms);
+  }
+}
+.ticker-spark:active .ticker-item { color: var(--flare); }
+@keyframes spark-flicker {
+  0% { color: var(--paper); }
+  20% { color: var(--flare); }
+  35% { color: var(--paper); }
+  55% { color: var(--flare); }
+  70% { color: var(--paper); }
+  100% { color: var(--flare); }
+}
+
+/* Spark listelerindeki "Read" karesi: satırın üzerine gelince Flare'e
+   döner, ok Ink olur. */
+.go-flare {
+  transition: background-color 160ms var(--ease-brand), color 160ms var(--ease-brand);
+}
+@media (hover: hover) {
+  .group:hover .go-flare { background-color: var(--flare); color: var(--ink); }
+}
+.group:active .go-flare, .group:focus-visible .go-flare { background-color: var(--flare); color: var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .spark-fill, .ticker-spark .ticker-item, .go-flare { transition: none; }
+  .ticker-spark:hover .ticker-item { animation: none; }
+}

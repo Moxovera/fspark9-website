@@ -36,7 +36,7 @@ export default function IssueRow({ issue, readLabel, first }: IssueRowProps) {
       {published && (
         <span className="inline-flex items-center gap-[10px] text-[14px] leading-[normal] font-bold whitespace-nowrap text-ink">
           {readLabel}
-          <GoButton size={40} className="max-[900px]:size-9" />
+          <GoButton size={40} className="go-flare max-[900px]:size-9" />
         </span>
       )}
     </>

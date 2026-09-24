@@ -18,7 +18,7 @@ export default function RingStage({ portraitAlt, portraitSrc, children, textClas
         <div className={`pointer-events-auto flex flex-col min-[900px]:col-span-7 ${textClassName}`}>{children}</div>
       </div>
       <div
-        className={`relative mx-5 h-[452px] overflow-hidden min-[900px]:absolute min-[900px]:inset-0 min-[900px]:mx-0 min-[900px]:mt-0 min-[900px]:h-auto ${ringClassName}`}
+        className={`relative mx-5 h-[452px] [clip-path:inset(-24px_0_0_0)] min-[900px]:absolute min-[900px]:inset-0 min-[900px]:mx-0 min-[900px]:mt-0 min-[900px]:h-auto ${ringClassName}`}
       >
         <div className="absolute top-0 left-[-10px] size-[420px] min-[900px]:top-[112px] min-[900px]:right-[-5.833vw] min-[900px]:left-auto min-[900px]:size-[clamp(460px,48.61vw,700px)]">
           <RingOutline animate className="absolute inset-0 z-[1] size-full" />

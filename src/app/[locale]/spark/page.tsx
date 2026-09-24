@@ -49,7 +49,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
           <div className="flex flex-col gap-[18px] min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-12">
             <span
               aria-hidden="true"
-              className="font-display text-[96px] leading-[0.85] font-extrabold tracking-[-0.055em] text-paper min-[900px]:-ml-[10px] min-[900px]:text-[clamp(160px,18.056vw,260px)] min-[900px]:leading-[0.8] min-[900px]:tracking-[-0.06em]"
+              className="spark-fill font-display text-[96px] leading-[0.85] font-extrabold tracking-[-0.055em] min-[900px]:-ml-[10px] min-[900px]:text-[clamp(160px,18.056vw,260px)] min-[900px]:leading-[0.8] min-[900px]:tracking-[-0.06em]"
             >
               {hub.bigWord}
             </span>
