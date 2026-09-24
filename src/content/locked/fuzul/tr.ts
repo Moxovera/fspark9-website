@@ -1896,7 +1896,7 @@ export const fuzulReportTr = {
   "workingTogether": {
     "pageTitle": "fspark9 · Çalışma önerisi",
     "eyebrow": "fspark9 · Öneri",
-    "heroTitle": "Fspark9, Fuzul Katılım Bankası için nasıl değer üretebilir?",
+    "heroTitle": "fspark9, Fuzul Katılım Bankası için nasıl değer üretebilir?",
     "metaLine": "Mehmet Burak Dikmen · fspark9 · Eylül 2026",
     "summaryHeading": "Özet",
     "summaryBody": "Grubun şirketleri arasındaki sinerji ve Holding'in tasarruf finansmanından gelen derin tecrübesi, doğru kurgulandığında bankaya gerçek bir deneyim ve edge fırsatı sunuyor. Ama bankacılık regüle bir alan, güven en önemli konu, bu potansiyeli karmaşaya değil ürüne çevirmek kritik. Çok ürünlü karmaşık bankacılık uygulamalarının karşısında niş ve odaklı bir dijital deneyim inşa etmek de ayrı bir avantaj doğuracaktır.",
@@ -1938,7 +1938,7 @@ export const fuzulReportTr = {
     "ctaUrl": "https://cal.com/mburakdikmen/quick-chat",
     "ctaUrlDisplay": "cal.com/mburakdikmen/quick-chat",
     "bioName": "Mehmet Burak Dikmen",
-    "bioTitle": "KURUCU, FSPARK9",
+    "bioTitle": "Kurucu, fspark9",
     "bioBody": "Albaraka Türk Strateji ekibinde grubun fintech ve girişimcilik alanındaki öncü projelerinde yer aldım. Ardından Berlin'de insha'yı sıfırdan kurup ölçekleyen projeleri hayata geçirdim ve önce ürün ve partner tarafının yöneticisi, daha sonra ise Almanya ülke müdürü olarak görev yaptım. Sonrasında İşbank grubuna geçerek şirketin dijital bankacılık markası RUUT'u Almanya ve diğer Avrupa ülkelerinde lanse ettim ve ardından RUUT'un ürün, partner, regülasyon ve uyum süreçlerine İngiltere için de uçtan uca liderlik ederek markanın İngiltere'ye açılmasını sağladım. Bugün fspark9 markasıyla Almanya, İngiltere ve Türkiye'de daha fazla şirketin değer üretmesine katkıda bulunmak için bağımsız çalışıyorum.",
     "nextStepBadge": "SIRADAKİ ADIM",
     "nextStepText": "30 dakikalık bir görüşmede nerede durduğunuzu ve zamanlamayı konuşuruz."
@@ -2093,7 +2093,7 @@ export const fuzulReportTr = {
       "zone": "Evin bankası alanı",
       "xl": "Günlük, küçük işlem",
       "xr": "Hayat boyu, büyük karar",
-      "x": "Müşteri ilişkisinin süresi ve büyüklüğü →",
+      "x": "Müşteri ilişkisinin süresi ve büyüklüğü",
       "yb": "Tamamen dijital",
       "yt": "Geniş fiziki ağ",
       "pts": {

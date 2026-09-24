@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BrandCase } from "./BrandCase";
 import type { Locale, LockedReportContent } from "@/types/content";
 import { WorkingTogetherTopBar } from "./WorkingTogetherTopBar";
 import { NextLine } from "./NextLine";
@@ -25,7 +26,7 @@ export function WorkingTogether({
     <>
       <WorkingTogetherTopBar client={client} lang={lang} backLabel={content.charts.backToReport} />
       <main className="wrap" style={{ paddingBlock: "64px 96px" }}>
-        <p className="eyebrow">{t.eyebrow}</p>
+        <p className="eyebrow"><BrandCase text={t.eyebrow} /></p>
         <h2 style={{ maxWidth: 760 }}>{t.heroTitle}</h2>
         <p className="lede">{t.metaLine}</p>
 
@@ -63,7 +64,7 @@ export function WorkingTogether({
             <Image src="/assets/portrait.jpg" alt={t.bioName} fill style={{ objectFit: "cover" }} />
           </div>
           <div>
-            <div className="k">{t.bioTitle}</div>
+            <div className="k"><BrandCase text={t.bioTitle} /></div>
             <h4 style={{ marginTop: 2, marginBottom: 6 }}>{t.bioName}</h4>
             <p style={{ margin: 0 }}>{t.bioBody}</p>
           </div>

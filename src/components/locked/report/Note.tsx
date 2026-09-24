@@ -13,7 +13,7 @@ export function Note({ html, label, ariaLabel }: { html: string; label: string; 
       </div>
       <div>
         <div className="lab">
-          fspark9 <i>· {label}</i>
+          <span className="nt">fspark9</span> <i>· {label}</i>
         </div>
         <p dangerouslySetInnerHTML={{ __html: html }} />
       </div>

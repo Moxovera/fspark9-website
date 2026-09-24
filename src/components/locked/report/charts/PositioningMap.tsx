@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState } from "react";
 import { useChartTooltip, tipHandlers } from "../ChartTooltip";
 import { useChartWidth } from "../useChartWidth";
 import { isNarrow } from "../chart-helpers";
@@ -27,6 +28,14 @@ export function PositioningMap({ strings, ariaLabel }: ChartComponentProps) {
   const w = width || 320;
   const narrow = isNarrow(w);
   const m = strings.map;
+  // Eksen etiketinin SVG birimindeki genişliği (ok onun hemen sağına).
+  const axisRef = useRef<SVGTextElement>(null);
+  const [axisW, setAxisW] = useState(0);
+  useLayoutEffect(() => {
+    const measure = () => setAxisW(axisRef.current?.getComputedTextLength() ?? 0);
+    measure();
+    document.fonts?.ready.then(measure);
+  }, [w, m.x]);
 
   const h = narrow ? 400 : 460;
   const L = narrow ? 22 : 34;
@@ -60,9 +69,22 @@ export function PositioningMap({ strings, ariaLabel }: ChartComponentProps) {
           <text className="axis-t" x={w - R} y={h - B + 18} textAnchor="end">
             {m.xr}
           </text>
-          <text className="axis-t" x={L + pw / 2} y={h - 6} textAnchor="middle">
+          <text ref={axisRef} className="axis-t" x={L + pw / 2 - 8} y={h - 6} textAnchor="middle">
             {m.x}
           </text>
+          {/* Eksen yönü oku: metin karakteri yerine çizim, etiketin ölçülen
+              genişliğine göre hemen sağında. */}
+          {axisW > 0 && (
+            <path
+              d={`M${L + pw / 2 - 8 + axisW / 2 + 6} ${h - 9.5}h9m-3.5 -3.5 3.5 3.5 -3.5 3.5`}
+              fill="none"
+              stroke="var(--muted)"
+              strokeWidth={1.2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            />
+          )}
           <text className="axis-t" transform={`translate(${L - 10},${TT + ph}) rotate(-90)`}>
             {m.yb}
           </text>

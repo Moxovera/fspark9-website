@@ -114,6 +114,7 @@ h3{font-size:clamp(22px,2.4vw,27px); line-height:1.15; font-weight:700; letter-s
 h4{font-weight:700; letter-spacing:-.015em}
 p{margin:0 0 18px}
 .lede{font-size:clamp(18px,1.9vw,20px); color:var(--ink-2); max-width:680px; margin-top:18px; line-height:1.5}
+.nt{text-transform:none}
 .src{font-family:var(--f-mono); font-size:.68em; font-weight:500; color:var(--muted); white-space:nowrap; vertical-align:1px}
 .src a{text-decoration:none}
 .src a:hover{color:var(--ink); text-decoration:underline}

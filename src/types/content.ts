@@ -1349,3 +1349,8 @@ export interface LockedMarkProps {
   height: number
   className?: string
 }
+
+/** Etiket metni; içindeki fspark9 büyük harf dönüşümünden muaf. */
+export interface BrandCaseProps {
+  text: string
+}

@@ -1938,7 +1938,7 @@ export const fuzulReportEn = {
     "ctaUrl": "https://cal.com/mburakdikmen/quick-chat",
     "ctaUrlDisplay": "cal.com/mburakdikmen/quick-chat",
     "bioName": "Mehmet Burak Dikmen",
-    "bioTitle": "FOUNDER, FSPARK9",
+    "bioTitle": "Founder, fspark9",
     "bioBody": "I was part of the group's pioneering fintech and entrepreneurship projects on Albaraka Türk's Strategy team. I then built and scaled insha from scratch in Berlin, first leading product and partnerships, then serving as country manager for Germany. I moved on to the İşbank group, where I launched the company's digital banking brand RUUT in Germany and other European countries, then led RUUT's product, partnership, regulatory and compliance work end to end for the UK, taking the brand into the UK market. Today I work independently under the fspark9 brand, helping more companies create value across Germany, the UK and Türkiye.",
     "nextStepBadge": "NEXT STEP",
     "nextStepText": "In a 30 minute call, we discuss where things stand and timing."
@@ -2093,7 +2093,7 @@ export const fuzulReportEn = {
       "zone": "Space for a bank for home",
       "xl": "Everyday, small ticket",
       "xr": "Lifetime, large decision",
-      "x": "Length and size of the customer relationship →",
+      "x": "Length and size of the customer relationship",
       "yb": "Fully digital",
       "yt": "Wide physical network",
       "pts": {
