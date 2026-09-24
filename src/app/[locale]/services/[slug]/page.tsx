@@ -76,8 +76,8 @@ export default async function ServicePage({ params }: { params: Params }) {
       />
       <IntroText text={page.opening.intro} />
       <StepTiles label={page.stepsLabel} steps={page.steps} />
-      <OtherServices label={page.otherServicesLabel} services={others} />
       <ServiceClose label={page.keepLabel} text={page.keep} ctaLabel={page.ctaLabel} />
+      <OtherServices label={page.otherServicesLabel} services={others} />
     </main>
   );
 }

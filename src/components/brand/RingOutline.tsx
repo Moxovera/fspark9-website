@@ -15,7 +15,7 @@ export default function RingOutline({ className, animate = false }: RingOutlineP
   return (
     <svg
       viewBox="0 0 100 100"
-      className={`block overflow-visible ${animate ? "ring-draw" : ""} ${className ?? ""}`}
+      className={`dial-live block overflow-visible ${animate ? "ring-draw" : ""} ${className ?? ""}`}
       aria-hidden="true"
       focusable="false"
     >
@@ -31,7 +31,7 @@ export default function RingOutline({ className, animate = false }: RingOutlineP
           strokeWidth="0.6"
         />
       ))}
-      <path d={slicePath(9, 50, 35)} data-slice={9} className="fill-flare" />
+      <path d={slicePath(9, 50, 35)} data-slice={9} className="slice-live fill-flare" />
     </svg>
   );
 }

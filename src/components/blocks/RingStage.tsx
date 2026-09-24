@@ -11,9 +11,11 @@ import type { RingStageProps } from "@/types/content";
  */
 export default function RingStage({ portraitAlt, portraitSrc, children, textClassName, ringClassName = "mt-10" }: RingStageProps) {
   return (
-    <section className="on-ink relative overflow-hidden bg-ink pt-16 min-[900px]:h-[900px] min-[900px]:pt-[84px]">
-      <div className="relative z-[2] px-5 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6 min-[900px]:px-8 min-[1280px]:px-16">
-        <div className={`flex flex-col min-[900px]:col-span-7 ${textClassName}`}>{children}</div>
+    <section className="on-ink relative overflow-hidden bg-ink pt-16 min-[900px]:min-h-[900px] min-[900px]:pt-[84px] min-[900px]:pb-24">
+      {/* Izgara tam genişlikte halkanın üstünde: fare olaylarını halkaya
+          geçiriyor (dokuzuncu dilimin hover'ı), metin sütunu tıklanabilir. */}
+      <div className="pointer-events-none relative z-[2] px-5 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6 min-[900px]:px-8 min-[1280px]:px-16">
+        <div className={`pointer-events-auto flex flex-col min-[900px]:col-span-7 ${textClassName}`}>{children}</div>
       </div>
       <div
         className={`relative mx-5 h-[452px] overflow-hidden min-[900px]:absolute min-[900px]:inset-0 min-[900px]:mx-0 min-[900px]:mt-0 min-[900px]:h-auto ${ringClassName}`}

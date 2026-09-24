@@ -20,7 +20,7 @@ export default function Dial({ lit, size, tone = "paper", className }: DialProps
       viewBox="0 0 100 100"
       width={size}
       height={size}
-      className={`block flex-none ${className ?? ""}`}
+      className={`dial-live block flex-none ${className ?? ""}`}
       aria-hidden="true"
       focusable="false"
     >
@@ -34,7 +34,7 @@ export default function Dial({ lit, size, tone = "paper", className }: DialProps
           className={lit.includes(i) ? litFill : offFill}
         />
       ))}
-      <path d={slicePath(9)} data-slice={9} className="fill-flare" />
+      <path d={slicePath(9)} data-slice={9} className="slice-live fill-flare" />
     </svg>
   );
 }

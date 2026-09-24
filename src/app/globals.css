@@ -307,3 +307,43 @@ body {
     transition: none;
   }
 }
+
+/* Dokuzuncu dilim canlı: kadranın üzerine gelince ya da dokununca Flare
+   dilim kendi yönünde (saat 11:20, dilimin açıortayı) hafifçe dışarı
+   çıkıp büyür, bırakınca yerine döner. Bağımsız translate/scale:
+   açılış halkasının yükleme animasyonundaki transform'u ezmiyor. SVG
+   içinde px = viewBox birimi (100'lük kadranda 2.6 birim). */
+.slice-live {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: translate 240ms var(--ease-brand), scale 240ms var(--ease-brand);
+}
+@media (hover: hover) {
+  .dial-live:hover .slice-live { translate: -0.89px -2.44px; scale: 1.08; }
+}
+.dial-live:active .slice-live { translate: -0.89px -2.44px; scale: 1.08; }
+
+/* "Start where you are" kartları: kartın üzerine gelince Flare kesim
+   başlığın arkasına soldan dolar (240ms), çıkınca geri çekilir. */
+.flare-hover {
+  position: relative;
+  z-index: 0;
+}
+.flare-hover::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.02em -0.36em -0.06em -0.1em;
+  background: var(--flare);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.32em) 100%, 0 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms var(--ease-brand);
+}
+@media (hover: hover) {
+  .group\/card:hover .flare-hover::before { transform: scaleX(1); }
+}
+.group\/card:active .flare-hover::before { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .slice-live, .flare-hover::before { transition: none; }
+}

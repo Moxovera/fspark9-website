@@ -24,10 +24,16 @@ export async function renderOgImage(locale: Locale = "en") {
   const [epilogue, mono] = await Promise.all([loadGoogleFont("Epilogue", 800), loadGoogleFont("Spline Sans Mono", 500)]);
   const home = await getHome();
   const { headlineSentences, cutWord, eyebrowParts } = home[locale].opening;
-  const last = headlineSentences[headlineSentences.length - 1];
-  const at = last.lastIndexOf(cutWord);
-  const cut = last.slice(at);
-  const lines = [...headlineSentences.slice(0, -1), last.slice(0, at).trim()].filter(Boolean);
+  // Her cümle kendi satırında ve kelime kelime sarılıyor; cutWord son
+  // geçtiği yerde tek parça Flare kesim (CutHeadline ile aynı kural).
+  const cutIndex = headlineSentences.findLastIndex((sentence) => sentence.includes(cutWord));
+  type Token = { text: string; cut?: boolean };
+  const lines: Token[][] = headlineSentences.map((sentence, i) => {
+    const words = (text: string) => text.split(/\s+/).filter(Boolean).map((w) => ({ text: w }));
+    if (i !== cutIndex) return words(sentence);
+    const at = sentence.lastIndexOf(cutWord);
+    return [...words(sentence.slice(0, at)), { text: cutWord, cut: true }, ...words(sentence.slice(at + cutWord.length))];
+  });
   const footer = [eyebrowParts[1], eyebrowParts[2], "fspark9.com"].map((p) => p.toLocaleUpperCase(locale === "tr" ? "tr-TR" : "en-GB"));
 
   return new ImageResponse(
@@ -51,20 +57,27 @@ export async function renderOgImage(locale: Locale = "en") {
             <path d={LOGO_NINE_BODY[1]} fill={BRAND.paper} />
           </g>
         </svg>
-        <div style={{ position: "absolute", left: 64, top: 162, display: "flex", flexDirection: "column", color: BRAND.paper, fontSize: 60, lineHeight: 1, letterSpacing: -2.7 }}>
-          {lines.map((line) => (
-            <div key={line} style={{ display: "flex", marginBottom: 2 }}>
-              {line}
+        <div style={{ position: "absolute", left: 64, top: 162, width: 730, display: "flex", flexDirection: "column", color: BRAND.paper, fontSize: 60, lineHeight: 1, letterSpacing: -2.7 }}>
+          {lines.map((line, li) => (
+            <div key={li} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", marginBottom: 2 }}>
+              {line.map((token, ti) =>
+                token.cut ? (
+                  <div key={ti} style={{ display: "flex", marginTop: 2, marginBottom: 2, marginRight: 14 }}>
+                    <div style={{ display: "flex", height: 66, padding: "4px 4px 0 8px", backgroundColor: BRAND.flare, color: BRAND.ink, whiteSpace: "nowrap" }}>
+                      {token.text}
+                    </div>
+                    <svg width="24" height="66" viewBox="0 0 24 66">
+                      <polygon points="0,0 24,0 0,66" fill={BRAND.flare} />
+                    </svg>
+                  </div>
+                ) : (
+                  <div key={ti} style={{ display: "flex", marginRight: 15, height: 62, alignItems: "center" }}>
+                    {token.text}
+                  </div>
+                ),
+              )}
             </div>
           ))}
-          <div style={{ display: "flex", marginTop: 4 }}>
-            <div style={{ display: "flex", height: 66, padding: "4px 4px 0 8px", backgroundColor: BRAND.flare, color: BRAND.ink, whiteSpace: "nowrap" }}>
-              {cut}
-            </div>
-            <svg width="24" height="66" viewBox="0 0 24 66">
-              <polygon points="0,0 24,0 0,66" fill={BRAND.flare} />
-            </svg>
-          </div>
         </div>
         <div style={{ position: "absolute", left: 64, top: 558, display: "flex", gap: 30, fontFamily: "Spline Sans Mono", fontSize: 16, letterSpacing: "0.1em", color: BRAND.dust }}>
           {footer.map((part) => (

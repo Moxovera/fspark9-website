@@ -17,8 +17,8 @@ export const home: Record<Locale, HomeContent> = {
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking", "Berlin"],
-      headlineSentences: ["I’ve built two digital banks.", "I’ll tell you what breaks first."],
-      cutWord: "breaks first.",
+      headlineSentences: ["I help teams get financial products live."],
+      cutWord: "live.",
       intro:
         "I work with fintechs, banks and companies that want to launch a financial product. I join your team and stay until it’s live.",
       ctaLabel: "Book a call",
@@ -151,8 +151,8 @@ export const home: Record<Locale, HomeContent> = {
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık", "Berlin"],
-      headlineSentences: ["İki dijital banka kurdum.", "Önce neyin kırılacağını söylerim."],
-      cutWord: "kırılacağını söylerim.",
+      headlineSentences: ["Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum."],
+      cutWord: "canlıya",
       intro:
         "Finansal ürün çıkarmak isteyen fintechler, bankalar ve şirketlerle çalışıyorum. Ekibinize katılıyorum ve ürün canlıya çıkana kadar kalıyorum.",
       ctaLabel: "Görüşme ayarla",

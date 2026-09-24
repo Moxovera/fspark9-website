@@ -16,8 +16,8 @@ export const about: Record<Locale, AboutContent> = {
     backLabel: "Home",
     label: "About",
     hero: {
-      headlineSentences: ["I’m Mehmet Burak Dikmen.", "I help teams get financial products live."],
-      cutWord: "live.",
+      headlineSentences: ["I’ve built two digital banks.", "I’ll tell you what breaks first."],
+      cutWord: "breaks first.",
     },
     pair: [
       {
@@ -51,11 +51,8 @@ export const about: Record<Locale, AboutContent> = {
     backLabel: "Ana sayfa",
     label: "Hakkımda",
     hero: {
-      headlineSentences: [
-        "Ben Mehmet Burak Dikmen.",
-        "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum.",
-      ],
-      cutWord: "canlıya",
+      headlineSentences: ["İki dijital banka kurdum.", "Önce neyin kırılacağını söylerim."],
+      cutWord: "kırılacağını söylerim.",
     },
     pair: [
       {

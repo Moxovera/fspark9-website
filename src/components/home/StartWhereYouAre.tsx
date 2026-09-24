@@ -25,9 +25,9 @@ export default function StartWhereYouAre({ content }: StartWhereYouAreProps) {
 
         <div className="flex flex-col gap-12 min-[900px]:grid min-[900px]:grid-cols-3 min-[900px]:gap-x-6">
           {content.items.map((item) => (
-            <div key={item.title} className="flex flex-col gap-[14px] border-t-2 border-ink pt-5 min-[900px]:gap-4 min-[900px]:pt-6">
+            <div key={item.title} className="group/card flex flex-col gap-[14px] border-t-2 border-ink pt-5 min-[900px]:gap-4 min-[900px]:pt-6">
               <h3 className="m-0 font-display text-[26px] leading-[1.05] font-extrabold tracking-[-0.03em] text-ink min-[900px]:text-[32px]">
-                {item.title}
+                <span className="flare-hover">{item.title}</span>
               </h3>
               <p className="m-0 text-[17px] leading-[1.55] text-ink">{item.text}</p>
             </div>

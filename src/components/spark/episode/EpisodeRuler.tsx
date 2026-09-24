@@ -1,4 +1,5 @@
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
+import { formatShortDate } from "@/lib/format";
 import type { EpisodeRulerProps } from "@/types/content";
 
 // Etiketler arası en az %20 (board: 0, 23.7, 44.9, 100). Daha sıkıysa
@@ -10,7 +11,7 @@ const MIN_GAP = 0.2;
  * gününe tek çizgi, her blok tarihi için bir çentik. Etiketler sadece
  * başlığı olan kayıtlarda ve yer oldukça (masaüstü); mobilde ilk, orta ve
  * son. Kapanış çentiği bu görünümün tek Flare öğesi. Kapanıştan sonraki
- * ilk kayıt çizginin ardında "Then, a year later · Day 573 · ..." olarak.
+ * ilk kayıt çizginin ardında "Then, a year later · tarih · ..." olarak (gün numarası yok).
  */
 export default function EpisodeRuler({ blocks, ctx }: EpisodeRulerProps) {
   const closure = Number(dayNumberLabel(ctx.closureDate, ctx.launchDate));
@@ -42,7 +43,7 @@ export default function EpisodeRuler({ blocks, ctx }: EpisodeRulerProps) {
   );
   const after = blocks
     .filter((b) => b._type === "sparkRecord" && dayOf(b.date) > closure)
-    .map((b) => ({ day: dayOf(b.date), heading: b._type === "sparkRecord" ? b.heading : "" }))[0];
+    .map((b) => ({ date: b.date, heading: b._type === "sparkRecord" ? b.heading : "" }))[0];
 
   const dayText = (d: number) => `${ctx.dayLabel} ${String(d).padStart(3, "0")}`;
   const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] uppercase";
@@ -85,7 +86,7 @@ export default function EpisodeRuler({ blocks, ctx }: EpisodeRulerProps) {
           <span className={`${mono} whitespace-nowrap text-stone`}>{ctx.labels.afterClosureLabel}</span>
           <span aria-hidden="true" className="h-[2px] w-10 bg-rule" />
           <span className={`${mono} text-ink`}>
-            {dayText(after.day)} · {after.heading}
+            {formatShortDate(after.date, ctx.locale)} · {after.heading}
           </span>
         </div>
       )}
