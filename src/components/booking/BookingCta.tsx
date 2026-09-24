@@ -1,12 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useBooking } from "@/hooks/useBooking";
-
-interface BookingCtaProps {
-  className?: string;
-  children: ReactNode;
-}
+import type { BookingCtaProps } from "@/types/content";
 
 /**
  * dc.html'de bu CTA'lar hep <button onClick={openBooking}> — <a href>

@@ -1,19 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
 import { ArrowRightIcon } from "@/components/icons";
 import { EIGHT_SLICES } from "@/lib/dial";
-import type { ServiceSummary } from "@/types/content";
-
-interface ServicePickerProps {
-  services: ServiceSummary[];
-  /** Sol sütunun üst kısmı (etiket, başlık, metin), server'da üretilir. */
-  intro: ReactNode;
-}
+import type { ServicePickerProps } from "@/types/content";
 
 /**
  * Four services etkileşimi (brief v4 §7.2, board Main #services).

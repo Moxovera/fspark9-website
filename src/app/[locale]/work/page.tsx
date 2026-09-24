@@ -6,8 +6,7 @@ import IntroText from "@/components/blocks/IntroText";
 import NextStep from "@/components/blocks/NextStep";
 import CaseRow from "@/components/work/CaseRow";
 import Reveal from "@/components/ui/Reveal";
-import { cases, workPage } from "@/content/work";
-import { chrome, nextStep } from "@/content/chrome";
+import { getCases, getChrome, getWorkPage } from "@/sanity/lib/content";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -19,22 +18,23 @@ import type { Locale } from "@/types/content";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
-    query: SITE_SEO_QUERY,
-    params: { locale },
-    tags: ["siteSettings"],
-  });
+  const [siteSeoResult, workPage] = await Promise.all([
+    sanityFetch<SITE_SEO_QUERYResult>({ query: SITE_SEO_QUERY, params: { locale }, tags: ["siteSettings"] }),
+    getWorkPage(),
+  ]);
   const paths = { en: getPathname({ href: "/work", locale: "en" }), tr: getPathname({ href: "/work", locale: "tr" }) };
   return toMetadata(workPage[locale].seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function WorkPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  const [workPage, cases, site] = await Promise.all([getWorkPage(), getCases(), getChrome()]);
   const content = workPage[locale];
+  const { chrome, nextStep } = site[locale];
 
   return (
     <main>
-      <JsonLd data={breadcrumbJsonLd(locale, [{ name: chrome[locale].nav[0].label, path: getPathname({ href: "/work", locale }) }])} />
+      <JsonLd data={breadcrumbJsonLd(locale, chrome, [{ name: chrome.nav[0].label, path: getPathname({ href: "/work", locale }) }])} />
       <PageOpening variant="work" backHref="/" backLabel={content.backLabel} label={content.label} heading={content.heading} />
       <IntroText text={content.lead} />
       <section className="bg-paper px-5 pt-8 pb-[72px] min-[900px]:px-8 min-[900px]:pt-14 min-[900px]:pb-[136px] min-[1280px]:px-16">
@@ -44,7 +44,7 @@ export default async function WorkPage({ params }: { params: Promise<{ locale: L
           ))}
         </Reveal>
       </section>
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

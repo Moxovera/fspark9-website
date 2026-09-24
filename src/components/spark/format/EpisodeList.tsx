@@ -5,12 +5,7 @@ import { Link } from "@/i18n/navigation";
 import GoButton from "@/components/brand/GoButton";
 import Label from "@/components/brand/Label";
 import { ArrowDownIcon } from "@/components/icons";
-import type { SparkFormatContent, SparkIssue } from "@/types/content";
-
-interface EpisodeListProps {
-  issues: SparkIssue[];
-  labels: Pick<SparkFormatContent, "episodesLabel" | "columns" | "showAllTemplate" | "daysUnit">;
-}
+import type { EpisodeListProps, SparkIssue } from "@/types/content";
 
 const INITIAL = 10;
 

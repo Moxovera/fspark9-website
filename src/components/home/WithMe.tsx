@@ -1,11 +1,7 @@
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
 import Portrait from "@/components/brand/Portrait";
-import type { HomeContent } from "@/types/content";
-
-interface WithMeProps {
-  content: HomeContent["withMe"];
-}
+import type { WithMeProps } from "@/types/content";
 
 /**
  * "What you get with me" (board Main #why / HomeMobile). Paper zemin,
@@ -28,6 +24,7 @@ export default function WithMe({ content }: WithMeProps) {
           </div>
           <Portrait
             alt={content.portraitAlt}
+            src={content.portraitSrc}
             sizes="(min-width: 900px) 400px, 200px"
             className="relative size-[200px] min-[900px]:col-span-4 min-[900px]:col-start-9 min-[900px]:size-auto min-[900px]:aspect-square min-[900px]:w-full min-[900px]:max-w-[400px]"
           />

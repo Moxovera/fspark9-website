@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
+import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
@@ -10,29 +10,28 @@ import CasePhones from "@/components/work/CasePhones";
 import MarkerFigures from "@/components/work/MarkerFigures";
 import { Link } from "@/i18n/navigation";
 import { ArrowRightIcon } from "@/components/icons";
-import { cases, workPage } from "@/content/work";
-import { chrome, nextStep, services } from "@/content/chrome";
+import { getCases, getChrome, getHome, getWorkPage } from "@/sanity/lib/content";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { CASE_STUDY_QUERY, SITE_SEO_QUERY, toCaseStudyDetail, toSiteSeo } from "@/sanity/lib/queries";
-import type { CASE_STUDY_QUERYResult, SITE_SEO_QUERYResult } from "@/sanity/types";
+import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
+import type { SITE_SEO_QUERYResult } from "@/sanity/types";
 import type { Locale } from "@/types/content";
 
-// v2 vaka sayfası (brief v4 §7.4, board CaseInsha / CaseInshaM). Metin
-// src/content/work.ts'ten; ekran görüntüleri Sanity caseStudy.screens'ten
-// (brief: staging mevcut Sanity görsellerini okuyor).
+// v2 vaka sayfası (brief v4 §7.4, board CaseInsha / CaseInshaM). İçerik
+// ve ekran görüntüleri Sanity caseStudy belgesinden, etiketler workPage'ten.
 
 type Params = Promise<{ locale: Locale; slug: string }>;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const cases = await getCases();
   return routing.locales.flatMap((locale) => cases[locale].map(({ slug }) => ({ locale, slug })));
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const item = cases[locale].find((c) => c.slug === slug);
+  const item = (await getCases())[locale].find((c) => c.slug === slug);
   if (!item) return {};
   const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
     query: SITE_SEO_QUERY,
@@ -46,6 +45,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function CasePage({ params }: { params: Params }) {
   const { locale, slug } = await params;
+  const [cases, workPage, site, home] = await Promise.all([getCases(), getWorkPage(), getChrome(), getHome()]);
+  const { chrome, services, nextStep } = site[locale];
   const list = cases[locale];
   const index = list.findIndex((c) => c.slug === slug);
   if (index < 0) notFound();
@@ -53,18 +54,11 @@ export default async function CasePage({ params }: { params: Params }) {
   const next = list[(index + 1) % list.length];
   const labels = workPage[locale];
 
-  const sanityCase = toCaseStudyDetail(
-    await sanityFetch<CASE_STUDY_QUERYResult>({
-      query: CASE_STUDY_QUERY,
-      params: { locale, slug },
-      tags: [`caseStudy:${slug}`],
-    }),
-  );
-  const screens = (sanityCase?.screens ?? []).slice(0, 2);
+  const screens = item.screens ?? [];
 
   // Sonuç kadranı: vakanın hizmetlerinin dilim birleşimi (brief §6.1).
   const slices = [
-    ...new Set(services[locale].filter((s) => item.services.includes(s.slug)).flatMap((s) => [...s.slices])),
+    ...new Set(services.filter((s) => item.services.includes(s.slug)).flatMap((s) => [...s.slices])),
   ];
 
   const path = getPathname({ href: { pathname: "/work/[slug]", params: { slug } }, locale });
@@ -73,11 +67,11 @@ export default async function CasePage({ params }: { params: Params }) {
     <main>
       <JsonLd
         data={[
-          breadcrumbJsonLd(locale, [
-            { name: chrome[locale].nav[0].label, path: getPathname({ href: "/work", locale }) },
+          breadcrumbJsonLd(locale, chrome, [
+            { name: chrome.nav[0].label, path: getPathname({ href: "/work", locale }) },
             { name: item.name, path },
           ]),
-          articleJsonLd(locale, { headline: item.subtitle, description: item.seo.description, path, about: item.name }),
+          articleJsonLd(locale, personInfo(home[locale], chrome), { headline: item.subtitle, description: item.seo.description, path, about: item.name }),
         ]}
       />
       <section className="on-ink bg-ink pt-16 min-[900px]:pt-[84px]">
@@ -142,7 +136,7 @@ export default async function CasePage({ params }: { params: Params }) {
         </Link>
       )}
 
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

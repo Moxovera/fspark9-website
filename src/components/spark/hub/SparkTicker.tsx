@@ -1,8 +1,5 @@
 import Marquee from "@/components/effects/Marquee";
-
-interface SparkTickerProps {
-  items: string[];
-}
+import type { SparkTickerProps } from "@/types/content";
 
 /**
  * Spark açılışının kayan şeridi (brief v4 §7.7, board SparkIndex): sayılar

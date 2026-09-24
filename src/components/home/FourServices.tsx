@@ -1,11 +1,6 @@
 import Label from "@/components/brand/Label";
 import ServicePicker from "@/components/home/ServicePicker";
-import type { HomeContent, ServiceSummary } from "@/types/content";
-
-interface FourServicesProps {
-  content: HomeContent["fourServices"];
-  services: ServiceSummary[];
-}
+import type { FourServicesProps } from "@/types/content";
 
 /**
  * Four services (board Main #services / HomeMobile). Metin server'da,

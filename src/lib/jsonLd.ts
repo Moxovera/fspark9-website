@@ -1,7 +1,5 @@
 import { SITE_URL } from "@/lib/site";
-import { chrome } from "@/content/chrome";
-import { home } from "@/content/home";
-import type { Locale } from "@/types/content";
+import type { HomeContent, Locale, SiteChrome } from "@/types/content";
 
 // JSON-LD (brief v4 §11, copy §6c). Her alan sitede zaten görünen
 // içerikten türetiliyor, burada ikinci kez metin yazılmıyor.
@@ -15,21 +13,37 @@ function absolute(path: string) {
   return path === "/" ? SITE_URL : `${SITE_URL}${path}`;
 }
 
-function person(locale: Locale): JsonLdObject {
-  const [name, jobTitle, city] = home[locale].opening.eyebrowParts;
+/** Kişi bilgisi ana sayfanın etiket satırından (ad, alan, şehir) ve footer'daki LinkedIn'den. */
+export interface PersonInfo {
+  name: string;
+  jobTitle: string;
+  city: string;
+  linkedin: string;
+}
+
+export function personInfo(home: HomeContent, chrome: SiteChrome): PersonInfo {
+  const [name = "", jobTitle = "", city = ""] = home.opening.eyebrowParts;
+  return { name, jobTitle, city, linkedin: chrome.footer.linkedinHref };
+}
+
+function person(info: PersonInfo): JsonLdObject {
   return {
     "@type": "Person",
-    name,
-    jobTitle,
+    name: info.name,
+    jobTitle: info.jobTitle,
     worksFor: ORGANIZATION_REF,
-    sameAs: [chrome[locale].footer.linkedinHref],
-    address: { "@type": "PostalAddress", addressLocality: city },
+    sameAs: [info.linkedin],
+    address: { "@type": "PostalAddress", addressLocality: info.city },
   };
 }
 
-/** Home › ... Ana sayfa adımı her zaman ekleniyor; `trail` onun ardından. */
-export function breadcrumbJsonLd(locale: Locale, trail: { name: string; path: string }[]): JsonLdObject {
-  const items = [{ name: chrome[locale].legal.backLabel, path: locale === "tr" ? "/tr" : "/" }, ...trail];
+/** Home › ... Ana sayfa adımı (yasal sayfaların geri linki "Home") her zaman ekleniyor. */
+export function breadcrumbJsonLd(
+  locale: Locale,
+  chrome: SiteChrome,
+  trail: { name: string; path: string }[],
+): JsonLdObject {
+  const items = [{ name: chrome.legal.backLabel, path: locale === "tr" ? "/tr" : "/" }, ...trail];
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -42,8 +56,8 @@ export function breadcrumbJsonLd(locale: Locale, trail: { name: string; path: st
   };
 }
 
-export function personJsonLd(locale: Locale, path: string): JsonLdObject {
-  return { "@context": "https://schema.org", ...person(locale), url: absolute(path) };
+export function personJsonLd(info: PersonInfo, path: string): JsonLdObject {
+  return { "@context": "https://schema.org", ...person(info), url: absolute(path) };
 }
 
 export function serviceJsonLd(name: string, description: string, path: string): JsonLdObject {
@@ -64,6 +78,7 @@ export function serviceJsonLd(name: string, description: string, path: string): 
 
 export function articleJsonLd(
   locale: Locale,
+  author: PersonInfo,
   article: {
     headline: string;
     description: string;
@@ -82,7 +97,7 @@ export function articleJsonLd(
     url: absolute(article.path),
     mainEntityOfPage: absolute(article.path),
     inLanguage: locale,
-    author: person(locale),
+    author: person(author),
     publisher: { ...ORGANIZATION_REF, logo: { "@type": "ImageObject", url: `${SITE_URL}/assets/brand/fspark9-icon-512.png` } },
     ...(article.about ? { about: { "@type": "Organization", name: article.about } } : {}),
     ...(article.datePublished ? { datePublished: article.datePublished } : {}),

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useEffect, useMemo, useState } from "react";
-import type { ReactNode } from "react";
+import type { BookingProviderProps } from "@/types/content";
 
 interface BookingContextValue {
   isOpen: boolean;
@@ -10,10 +10,6 @@ interface BookingContextValue {
 }
 
 export const BookingContext = createContext<BookingContextValue | null>(null);
-
-interface BookingProviderProps {
-  children: ReactNode;
-}
 
 /**
  * Randevu penceresinin açık/kapalı durumu. Server children'ı (Header,

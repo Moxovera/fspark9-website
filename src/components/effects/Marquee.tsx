@@ -1,15 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { CSSProperties, ReactNode } from "react";
-
-interface MarqueeProps {
-  className?: string;
-  style?: CSSProperties;
-  /** Bir tam turun süresi (brief v4 §10: Spark şeridi 40 saniye). */
-  loopSeconds?: number;
-  children: ReactNode;
-}
+import type { MarqueeProps } from "@/types/content";
 
 /**
  * Sonsuz döngülü kayan şerit. children iki kopya halinde (aynı liste iki

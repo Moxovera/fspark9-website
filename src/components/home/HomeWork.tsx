@@ -4,11 +4,7 @@ import TextLink from "@/components/brand/TextLink";
 import PhonePair from "@/components/blocks/PhonePair";
 import { Link } from "@/i18n/navigation";
 import { ArrowRightIcon } from "@/components/icons";
-import type { HomeContent } from "@/types/content";
-
-interface HomeWorkProps {
-  content: HomeContent["work"];
-}
+import type { HomeWorkProps } from "@/types/content";
 
 const H2 =
   "m-0 font-display text-[36px] leading-[1.02] font-extrabold tracking-[-0.035em] text-ink min-[900px]:text-[56px] min-[900px]:leading-none";

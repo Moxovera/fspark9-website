@@ -1,9 +1,9 @@
 import type { Locale, PageSeo } from "@/types/content";
 
 // Copy §6c: yasal sayfaların ve bölümlerin başlık/açıklamaları.
-// Sayfa gövdeleri Sanity'den ya da src/content/legal'dan geliyor, SEO
-// çiftleri Sanity pass'e kadar burada. Bölüm anahtarı EN bölüm slug'ı,
-// her iki dilde de aynı ("01-bo").
+// Site bunları Sanity'den (legalPage.seo, sparkEpisode.seo) okuyor; bu
+// dosya seed-v3'ün kaynağı ve check:drift'in aynası. Bölüm anahtarı EN
+// bölüm slug'ı, iki dilde de aynı ("01-bo").
 type LegalSlug = "impressum" | "privacy" | "cookies" | "terms";
 
 export const legalSeo: Record<Locale, Record<LegalSlug, PageSeo>> = {

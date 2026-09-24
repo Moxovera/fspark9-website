@@ -1,10 +1,5 @@
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
-import type { EpisodeContext, SparkEpisodeBlock } from "@/types/content";
-
-interface EpisodeRulerProps {
-  blocks: SparkEpisodeBlock[];
-  ctx: EpisodeContext;
-}
+import type { EpisodeRulerProps } from "@/types/content";
 
 // Etiketler arası en az %20 (board: 0, 23.7, 44.9, 100). Daha sıkıysa
 // dar masaüstünde (900px) iki etiket üst üste biniyordu.

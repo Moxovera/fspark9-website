@@ -1,7 +1,7 @@
 import type { ReportHeroContent, ReportSummaryContent } from "@/types/content";
 import { Wordmark } from "@/components/locked/Wordmark";
 import { HouseIllustration } from "./HouseIllustration";
-import { ArrowRightIcon } from "@/components/sections/ServicesAccordion";
+import { ArrowRightIcon } from "@/components/locked/report/ArrowRightIcon";
 import { ReportSummary } from "./ReportSummary";
 import { NextLine } from "./NextLine";
 

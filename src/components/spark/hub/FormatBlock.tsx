@@ -2,13 +2,7 @@ import { Link } from "@/i18n/navigation";
 import IssueRow from "@/components/spark/hub/IssueRow";
 import Label from "@/components/brand/Label";
 import TextLink from "@/components/brand/TextLink";
-import type { SparkFormatContent, SparkIssue } from "@/types/content";
-
-interface FormatBlockProps {
-  format: SparkFormatContent;
-  issues: SparkIssue[];
-  readLabel: string;
-}
+import type { FormatBlockProps } from "@/types/content";
 
 const MAX_ISSUES = 3;
 

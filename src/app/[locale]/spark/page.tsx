@@ -7,8 +7,7 @@ import NextStep from "@/components/blocks/NextStep";
 import FormatBlock from "@/components/spark/hub/FormatBlock";
 import SparkTicker from "@/components/spark/hub/SparkTicker";
 import Reveal from "@/components/ui/Reveal";
-import { spark } from "@/content/spark";
-import { nextStep } from "@/content/chrome";
+import { getChrome, getSparkHub } from "@/sanity/lib/content";
 import { loadFormatIssues } from "@/lib/spark";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -22,17 +21,18 @@ import type { Locale } from "@/types/content";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
-    query: SITE_SEO_QUERY,
-    params: { locale },
-    tags: ["siteSettings"],
-  });
+  const [siteSeoResult, spark] = await Promise.all([
+    sanityFetch<SITE_SEO_QUERYResult>({ query: SITE_SEO_QUERY, params: { locale }, tags: ["siteSettings"] }),
+    getSparkHub(),
+  ]);
   const paths = { en: getPathname({ href: "/spark", locale: "en" }), tr: getPathname({ href: "/spark", locale: "tr" }) };
   return toMetadata(spark[locale].seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function SparkPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  const [spark, site] = await Promise.all([getSparkHub(), getChrome()]);
+  const { chrome, nextStep } = site[locale];
   const hub = spark[locale];
   const formats = await Promise.all(
     hub.formats.map(async (format) => ({ format, ...(await loadFormatIssues(locale, format, hub)) })),
@@ -40,7 +40,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
 
   return (
     <main>
-      <JsonLd data={breadcrumbJsonLd(locale, [{ name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) }])} />
+      <JsonLd data={breadcrumbJsonLd(locale, chrome, [{ name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) }])} />
       <section className="on-ink bg-ink pt-16 min-[900px]:pt-[84px]">
         <div className="flex flex-col gap-[18px] px-5 pt-6 pb-11 min-[900px]:gap-5 min-[900px]:px-8 min-[900px]:pt-14 min-[900px]:pb-20 min-[1280px]:px-16">
           <BackLink href="/" label={hub.backLabel} ground="ink" className="-mb-2" />
@@ -68,7 +68,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
         </Reveal>
       </section>
 
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

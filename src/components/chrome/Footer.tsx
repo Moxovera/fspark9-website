@@ -1,10 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import Logo from "@/components/brand/Logo";
-import type { SiteChrome } from "@/types/content";
-
-interface FooterProps {
-  chrome: SiteChrome;
-}
+import type { FooterProps } from "@/types/content";
 
 /**
  * Footer (board Main, Legal, HomeMobile): Ink zemin, üstte InkRule çizgi.

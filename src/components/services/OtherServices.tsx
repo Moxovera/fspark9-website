@@ -2,12 +2,7 @@ import { Link } from "@/i18n/navigation";
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
 import { ArrowRightIcon } from "@/components/icons";
-import type { ServiceSummary } from "@/types/content";
-
-interface OtherServicesProps {
-  label: string;
-  services: ServiceSummary[];
-}
+import type { OtherServicesProps } from "@/types/content";
 
 /** Diğer üç hizmete geçiş şeridi (board ServiceZTL / ServiceZTLM). */
 export default function OtherServices({ label, services }: OtherServicesProps) {

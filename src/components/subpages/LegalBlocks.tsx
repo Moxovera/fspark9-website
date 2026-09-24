@@ -1,8 +1,4 @@
-import type { LegalBlock } from "@/types/content";
-
-interface LegalBlocksProps {
-  blocks: LegalBlock[];
-}
+import type { LegalBlock, LegalBlocksProps } from "@/types/content";
 
 type Group = { heading: string | null; blocks: LegalBlock[] };
 

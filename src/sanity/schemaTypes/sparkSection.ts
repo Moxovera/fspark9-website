@@ -1,41 +1,54 @@
 import { defineField, defineType } from "sanity";
+import { group, ls, lsList, singletonTitle } from "./fields";
 
-// /spark ve /tr/spark'ın kendisi — hub. Kasıtlı olarak dar: kısa bir
-// hero (eyebrow/title/purpose line) + format vitrini. Format listesi
-// burada SAKLANMAZ, sparkFormat koleksiyonundan sorgulanır (bkz.
-// queries.ts). Ribbon (episodes/days counted/markets toplamı) BİLEREK
-// yok — tek formatla, format satırındaki envanterin tekrarından
-// ibaretti, kullanıcı geri bildirimiyle kaldırıldı.
+// Spark hub ve her bölüm sayfasının ortak etiketleri. Formatlar ve
+// bölümler kendi belgelerinde.
+
 export default defineType({
   name: "sparkSection",
-  title: "Spark Section",
+  title: "Spark",
   type: "document",
-  fields: [
-    defineField({
-      name: "title",
-      title: "Internal title",
-      type: "string",
-      initialValue: "Spark Section",
-      readOnly: true,
-    }),
-    defineField({ name: "seo", title: "SEO", type: "seo" }),
-    defineField({
-      name: "hero",
-      title: "Hero",
-      description:
-        "eyebrow \"fspark9\", title \"Spark\", intro = purpose line (tek cümle, uzun standfirst DEĞİL).",
-      type: "pageHero",
-    }),
-    defineField({
-      name: "homeLinkLabel",
-      title: "Homepage module link label (e.g. \"Explore Spark\")",
-      type: "localeString",
-    }),
-    defineField({
-      name: "comingSoonLabel",
-      title: "Coming soon label (e.g. \"Coming Soon\")",
-      description: "Format listesindeki son, tıklanamaz yer tutucu kartın etiketi.",
-      type: "localeString",
-    }),
+  groups: [
+    { name: "hub", title: "Hub", default: true },
+    { name: "episode", title: "Episode page" },
+    { name: "seo", title: "SEO" },
   ],
+  fields: [
+    singletonTitle("Spark"),
+    defineField({ name: "seo", title: "SEO", type: "seo", group: "seo" }),
+    ls("bigWord", "Big word", { group: "hub" }),
+    ls("heading", "Heading", { group: "hub" }),
+    lsList("tickerItems", "Ticker items", { group: "hub" }),
+    ls("tickerTail", "Ticker last item", { group: "hub" }),
+    ls("formatsLabel", "Formats label", { group: "hub" }),
+    ls("readLabel", "Read link", { group: "hub" }),
+    ls("backLabel", "Back link (to home)", { group: "hub" }),
+    ls("sparkLabel", "Spark link (format and episode pages)", { group: "hub" }),
+    ls("launchDateLabel", "Date placeholder", {
+      group: "hub",
+      description: "Bir bölümün yayın tarihi (publishedAt) boşsa bu yazı görünür.",
+    }),
+    group(
+      "episode",
+      "Episode page labels",
+      [
+        ls("daysOpenLabel", "Days open"),
+        ls("daysOpenShortLabel", "Days open (short)"),
+        ls("dateRangeTemplate", "Date range ({from}, {to})"),
+        ls("rulerLabel", "Ruler label"),
+        ls("afterClosureLabel", "After closure label"),
+        ls("builtFromLabel", "Built from label"),
+        ls("evidenceTakenLabel", "Evidence taken ({date})"),
+        ls("lastCheckedLabel", "Last checked ({date})"),
+        ls("clockDayLabel", "Clock day"),
+        ls("clockOfTemplate", "Clock of ({n})"),
+        ls("readingResultLabel", "Reading result"),
+        ls("scorecardLabel", "Scorecard label"),
+        ls("nextTemplate", "Next ({format})"),
+        ls("sourceLabel", "Source"),
+      ],
+      { group: "episode" },
+    ),
+  ],
+  preview: { prepare: () => ({ title: "Spark" }) },
 });

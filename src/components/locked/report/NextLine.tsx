@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRightIcon } from "@/components/sections/ServicesAccordion";
+import { ArrowRightIcon } from "@/components/locked/report/ArrowRightIcon";
 
 // Quiet link from the report to the working-together page. The reference
 // put this above the fspark9/Mehmet Burak Dikmen byline in the hero; moved

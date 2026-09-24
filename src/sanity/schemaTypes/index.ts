@@ -5,44 +5,8 @@ import localeText from "./objects/localeText";
 import localeSlug from "./objects/localeSlug";
 import statHighlight from "./objects/statHighlight";
 import noteHighlight from "./objects/noteHighlight";
-import localeBody from "./objects/localeBody";
-import link from "./objects/link";
 import seo from "./objects/seo";
-import footer from "./objects/footer";
-import hero from "./objects/hero";
 import pageHero from "./objects/pageHero";
-import proseHead from "./objects/proseHead";
-import proseBody from "./objects/proseBody";
-import frameworkStep from "./objects/frameworkStep";
-import framework from "./objects/framework";
-import proofItem from "./objects/proofItem";
-import proofStrip from "./objects/proofStrip";
-import familiarPoint from "./objects/familiarPoint";
-import familiarSection from "./objects/familiarSection";
-import caseStudiesSection from "./objects/caseStudiesSection";
-import service from "./objects/service";
-import servicesSection from "./objects/servicesSection";
-import caseStudyAction from "./objects/caseStudyAction";
-import comparisonValue from "./objects/comparisonValue";
-import comparisonRow from "./objects/comparisonRow";
-import comparisonTable from "./objects/comparisonTable";
-import approachBlock from "./objects/approachBlock";
-import approachSection from "./objects/approachSection";
-import audienceCard from "./objects/audienceCard";
-import audienceSection from "./objects/audienceSection";
-import storyMedia from "./objects/storyMedia";
-import storySection from "./objects/storySection";
-import testimonial from "./objects/testimonial";
-import testimonialSection from "./objects/testimonialSection";
-import mediaItem from "./objects/mediaItem";
-import mediaSection from "./objects/mediaSection";
-import processStep from "./objects/processStep";
-import processSection from "./objects/processSection";
-import faqItem from "./objects/faqItem";
-import faqSection from "./objects/faqSection";
-import closingCta from "./objects/closingCta";
-import bookingSection from "./objects/bookingSection";
-import subpageCta from "./objects/subpageCta";
 import legalBlockDiv from "./objects/legalBlockDiv";
 import legalBlockHeading from "./objects/legalBlockHeading";
 import legalBlockSubheading from "./objects/legalBlockSubheading";
@@ -52,15 +16,19 @@ import legalBlockList from "./objects/legalBlockList";
 import legalBlockTable from "./objects/legalBlockTable";
 import siteSettings from "./siteSettings";
 import homePage from "./homePage";
-import workPage from "./workPage";
 import servicesPage from "./servicesPage";
-import storyPage from "./storyPage";
-import legalPage from "./legalPage";
+import servicePage from "./servicePage";
+import workPage from "./workPage";
 import caseStudy from "./caseStudy";
+import aboutPage from "./aboutPage";
+import legalPage from "./legalPage";
 import sparkSection from "./sparkSection";
 import sparkFormat from "./sparkFormat";
 import sparkEpisode from "./sparkEpisode";
 import { sparkEpisodeBlockTypes } from "./sparkEpisodeBlocks";
+
+/** Tek belgeli tipler: Studio'da liste değil doğrudan belge açılır, yeni oluşturulamaz. */
+export const SINGLETONS = ["siteSettings", "homePage", "servicesPage", "workPage", "aboutPage", "sparkSection"] as const;
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -69,44 +37,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     localeSlug,
     statHighlight,
     noteHighlight,
-    localeBody,
-    link,
     seo,
-    footer,
-    hero,
     pageHero,
-    proseHead,
-    proseBody,
-    frameworkStep,
-    framework,
-    proofItem,
-    proofStrip,
-    familiarPoint,
-    familiarSection,
-    caseStudiesSection,
-    service,
-    servicesSection,
-    caseStudyAction,
-    comparisonValue,
-    comparisonRow,
-    comparisonTable,
-    approachBlock,
-    approachSection,
-    audienceCard,
-    audienceSection,
-    storyMedia,
-    storySection,
-    testimonial,
-    testimonialSection,
-    mediaItem,
-    mediaSection,
-    processStep,
-    processSection,
-    faqItem,
-    faqSection,
-    closingCta,
-    bookingSection,
-    subpageCta,
     legalBlockDiv,
     legalBlockHeading,
     legalBlockSubheading,
@@ -116,11 +48,12 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     legalBlockTable,
     siteSettings,
     homePage,
-    workPage,
     servicesPage,
-    storyPage,
-    legalPage,
+    servicePage,
+    workPage,
     caseStudy,
+    aboutPage,
+    legalPage,
     sparkSection,
     sparkFormat,
     sparkEpisode,

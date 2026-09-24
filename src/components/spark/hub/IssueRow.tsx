@@ -1,12 +1,6 @@
 import { Link } from "@/i18n/navigation";
 import GoButton from "@/components/brand/GoButton";
-import type { SparkIssue } from "@/types/content";
-
-interface IssueRowProps {
-  issue: SparkIssue;
-  readLabel: string;
-  first: boolean;
-}
+import type { IssueRowProps } from "@/types/content";
 
 /**
  * Hub'da format altındaki sayı satırı (board SparkIndex): Nº, konu, tarih

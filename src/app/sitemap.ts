@@ -1,9 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { getPathname } from "@/i18n/navigation";
-import { servicePages } from "@/content/services";
-import { cases } from "@/content/work";
-import { spark } from "@/content/spark";
+import { getCases, getServicePages, getSparkHub } from "@/sanity/lib/content";
 import { staticAltSlug } from "@/lib/spark";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SPARK_EPISODE_SLUGS_QUERY } from "@/sanity/lib/queries";
@@ -11,8 +9,8 @@ import type { SPARK_EPISODE_SLUGS_QUERYResult } from "@/sanity/types";
 
 // Sitemap (brief v4 §11). Rota listesi routing.ts'teki pathnames
 // haritasıyla aynı kaynaktan (getPathname), TR çevirileri ayrıca
-// yazılmıyor. Hizmetler, vakalar ve formatlar src/content'ten (Sanity
-// pass'e kadar statik); bölümler Sanity'den, yalnızca yayındakiler.
+// yazılmıyor. Hizmetler, vakalar, formatlar ve bölümler Sanity'den;
+// bölümlerden yalnızca yayındakiler.
 // /thank-you kasıtlı dışarıda (dönüşüm sonrası sayfa), /(locked) ve
 // /studio da. lastModified sadece gerçek bir tarihi olan bölümlerde:
 // statik sayfalara uydurma tarih yazılmıyor.
@@ -37,10 +35,12 @@ function entry(en: string, tr: string, lastModified?: string | null): MetadataRo
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const episodeSlugs = await sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
-    query: SPARK_EPISODE_SLUGS_QUERY,
-    tags: ["sparkEpisode"],
-  });
+  const [episodeSlugs, servicePages, cases, spark] = await Promise.all([
+    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({ query: SPARK_EPISODE_SLUGS_QUERY, tags: ["sparkEpisode"] }),
+    getServicePages(),
+    getCases(),
+    getSparkHub(),
+  ]);
 
   const staticEntries = STATIC_HREFS.map((href) =>
     entry(getPathname({ href, locale: "en" }), getPathname({ href, locale: "tr" })),

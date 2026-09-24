@@ -1,10 +1,5 @@
 import Image from "next/image";
-import type { SanityImage } from "@/types/content";
-
-interface CasePhonesProps {
-  screens: SanityImage[];
-  className?: string;
-}
+import type { CasePhonesProps } from "@/types/content";
 
 /**
  * Vaka açılışındaki iki telefon (board CaseInsha: 480 x 470 alan, 210 x

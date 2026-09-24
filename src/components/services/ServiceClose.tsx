@@ -1,12 +1,7 @@
 import CutButton from "@/components/brand/CutButton";
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
-
-interface ServiceCloseProps {
-  label: string;
-  text: string;
-  ctaLabel: string;
-}
+import type { ServiceCloseProps } from "@/types/content";
 
 /**
  * Hizmet sayfasının Ink kapanışı (board ServiceZTL): "What you walk away

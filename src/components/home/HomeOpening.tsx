@@ -3,11 +3,7 @@ import CutButton from "@/components/brand/CutButton";
 import Label from "@/components/brand/Label";
 import TextLink from "@/components/brand/TextLink";
 import RingStage from "@/components/blocks/RingStage";
-import type { HomeContent } from "@/types/content";
-
-interface HomeOpeningProps {
-  content: HomeContent["opening"];
-}
+import type { HomeOpeningProps } from "@/types/content";
 
 /**
  * Ana sayfa açılışı (board Main / HomeMobile, brief v4 §7.2): halka ve
@@ -19,7 +15,7 @@ export default function HomeOpening({ content }: HomeOpeningProps) {
   const last = rest[rest.length - 1];
 
   return (
-    <RingStage portraitAlt={content.portraitAlt} textClassName="gap-6 pt-12 min-[900px]:gap-8 min-[900px]:pt-[112px]">
+    <RingStage portraitAlt={content.portraitAlt} portraitSrc={content.portraitSrc} textClassName="gap-6 pt-12 min-[900px]:gap-8 min-[900px]:pt-[112px]">
       <Label ground="ink">
         <span className="min-[900px]:hidden">{[first, last].join(" · ")}</span>
         <span className="hidden min-[900px]:inline">{content.eyebrowParts.join(" · ")}</span>

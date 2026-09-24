@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { group, ls, lsList, lt } from "./fields";
 
 // Revizyon v2: lastDayFormat'ın yerini aldı — isim "spark" olarak
 // genelleştirildi çünkü format 02 (ve sonrakiler) "The Last Day"
@@ -21,17 +22,8 @@ export default defineType({
       validation: (r) => r.required().integer().positive(),
     }),
     defineField({ name: "name", title: "Name", type: "localeString" }),
+    ls("singularName", "Singular name (home cards)", { description: "Ör. \"Sector report\". Boşsa Name." }),
     defineField({ name: "slug", title: "Slug", type: "localeSlug" }),
-    defineField({
-      name: "subjectLine",
-      title: "Subject line (hub row)",
-      type: "localeText",
-    }),
-    defineField({
-      name: "whatIsInside",
-      title: "What is inside (hub row)",
-      type: "localeText",
-    }),
     defineField({
       name: "status",
       title: "Status",
@@ -40,38 +32,24 @@ export default defineType({
       validation: (r) => r.required(),
     }),
     defineField({
-      name: "statusLineSingular",
-      title: "Status line word, singular (e.g. \"episode published.\")",
-      description:
-        "Yayınlanmış bölüm SAYISI ile birleştirilir (sayı elle yazılmaz, yayınlanmış sparkEpisode " +
-        "dokümanlarından sayılır): \"1 \" + bu alan = \"1 episode published.\" Henüz taahhüt " +
-        "edilmemiş bir tarih YOK.",
-      type: "localeString",
-    }),
-    defineField({
-      name: "statusLinePlural",
-      title: "Status line word, plural (e.g. \"episodes published.\")",
-      description: "Sayı 1'den farklıyken kullanılır: \"3 \" + bu alan = \"3 episodes published.\"",
-      type: "localeString",
-    }),
-    defineField({
       name: "orderRank",
       title: "Order rank (hub sıralaması)",
       type: "number",
       validation: (r) => r.required(),
     }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
-    defineField({
-      name: "hero",
-      title: "Hero (list page)",
-      description: "eyebrow \"Spark\", title = name, intro = list page'in purpose line'ı.",
-      type: "pageHero",
-    }),
-    defineField({
-      name: "hookLabel",
-      title: "\"Read the record\" link label",
-      type: "localeString",
-    }),
+    lt("description", "Description line"),
+    ls("openLabel", "Open link (live formats)"),
+    ls("preparingLine", "Line instead of the link (preparing formats)"),
+    ls("comingLabel", "Status of the next issue (\"Coming next\", \"In preparation\")"),
+    ls("aboutLabel", "About label"),
+    lsList("aboutLines", "About lines"),
+    ls("showAllLabel", "Show all (hub)"),
+    ls("allIssuesLabel", "All issues ({n})"),
+    ls("daysUnit", "Days unit"),
+    ls("episodesLabel", "Episode list label"),
+    group("columns", "List columns", [ls("number", "Number"), ls("company", "Company"), ls("days", "Days"), ls("published", "Published")]),
+    ls("showAllTemplate", "Show all ({n})"),
     defineField({
       name: "dayCountSingular",
       title: "Day count word (singular, e.g. \"day\")",

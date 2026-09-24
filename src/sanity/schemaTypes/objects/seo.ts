@@ -16,6 +16,13 @@ export default defineType({
       type: "image",
       fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
     }),
+    defineField({
+      name: "ogImageTr",
+      title: "OG image (Turkish pages)",
+      description: "Boşsa Türkçe sayfalarda da yukarıdaki görsel kullanılır.",
+      type: "image",
+      fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+    }),
     defineField({ name: "noIndex", title: "No index", type: "boolean" }),
   ],
   preview: {

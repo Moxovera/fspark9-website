@@ -1,6 +1,5 @@
-interface IntroTextProps {
-  text: string;
-}
+
+import type { IntroTextProps } from "@/types/content";
 
 /** Açılışın altındaki büyük giriş paragrafı (board ServiceZTL, WorkList): Paper, 26px (mobil 20px). */
 export default function IntroText({ text }: IntroTextProps) {

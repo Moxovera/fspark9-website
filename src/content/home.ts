@@ -2,10 +2,11 @@ import type { HomeContent, Locale } from "@/types/content";
 
 /**
  * Ana sayfa (v2). Kaynak: `_design/v2/fspark9-site-copy-v2.md` §1 ve §6c.
- * Sanity pass'e kadar statik; sonra homePage singleton'ı (brief v4 §6.1).
+ * Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
+ * check:drift'in karşılaştırdığı ayna.
  *
- * Canlıya çıkış tarihi henüz belli değil (brief §15). Bó kartındaki tarih
- * board'daki gibi yer tutucu; tarih kesinleşince tek yerden değişecek.
+ * Spark kartları Sanity'de bölümlerden kuruluyor; Bó kartındaki tarih
+ * publishedAt'ten, buradaki değer aynı tarihin yazılı hali.
  */
 export const home: Record<Locale, HomeContent> = {
   en: {
@@ -118,7 +119,7 @@ export const home: Record<Locale, HomeContent> = {
           number: "Nº 01",
           title: "Bó",
           line: "NatWest’s digital bank, read from the public record up to its last day of trading.",
-          date: "[Launch date]",
+          date: "24 Sep 2026",
           linkLabel: "Read the episode",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
@@ -254,7 +255,7 @@ export const home: Record<Locale, HomeContent> = {
           number: "Nº 01",
           title: "Bó",
           line: "NatWest’in dijital bankası, kamu kayıtlarından son işlem gününe kadar.",
-          date: "[Canlıya çıkış tarihi]",
+          date: "24 Eyl 2026",
           linkLabel: "Bölümü okuyun",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",

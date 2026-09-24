@@ -1,5 +1,5 @@
 import type { TrioBlock } from "@/types/content";
-import { ArrowRightIcon } from "@/components/sections/ServicesAccordion";
+import { ArrowRightIcon } from "@/components/locked/report/ArrowRightIcon";
 
 // Covers both the brief's altın-comparison trio and ComparisonCards
 // (Germany/Brazil/Türkiye) — same .trio/.card markup in the reference.

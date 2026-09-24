@@ -1,13 +1,16 @@
-/** Kısa tarih ("27 Nov 2019" / "27 Kas 2019"), mono etiketler için. */
+/**
+ * Kısa tarih ("27 Nov 2019" / "27 Kas 2019"), mono etiketler için. EN'de
+ * ay adı en-US'ten: en-GB Eylül'ü "Sept" yazıyor, diğer aylar gibi üç
+ * harf olsun.
+ */
 export function formatShortDate(iso: string, locale: string): string {
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat(locale === "tr" ? "tr-TR" : "en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
+  if (locale === "tr") {
+    return new Intl.DateTimeFormat("tr-TR", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date);
+  }
+  const month = new Intl.DateTimeFormat("en-US", { month: "short", timeZone: "UTC" }).format(date);
+  return `${date.getUTCDate()} ${month} ${date.getUTCFullYear()}`;
 }
 
 /** "{key}" yer tutucularını doldurur. */

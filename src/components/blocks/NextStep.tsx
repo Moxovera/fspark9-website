@@ -2,13 +2,7 @@ import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
-import type { NextStepContent } from "@/types/content";
-
-interface NextStepProps {
-  content: NextStepContent;
-  /** Sadece ana sayfada numaralı etiket (kullanıcı kararı, 24 Eylül 2026). */
-  numbered?: boolean;
-}
+import type { NextStepProps } from "@/types/content";
 
 /**
  * Ink kapanış bloğu (brief v4 §5 NextStep, board Main #next / HomeMobile).

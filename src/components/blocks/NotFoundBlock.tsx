@@ -1,16 +1,7 @@
-import type { ReactNode } from "react";
 import NextLink from "next/link";
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
-import type { NotFoundPage } from "@/types/content";
-
-interface NotFoundBlockProps {
-  content: NotFoundPage;
-  /** Global 404'te sol üstte logo (header yok). */
-  top?: ReactNode;
-  /** Header'lı sayfada fixed header'ın altından başlamak için. */
-  underHeader?: boolean;
-}
+import type { NotFoundBlockProps } from "@/types/content";
 
 /**
  * 404 bloğu (brief v4 §7.8, board NotFound / NotFoundM): Ink zemin, hiç

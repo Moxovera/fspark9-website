@@ -1,86 +1,53 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
+import { figureFields, figureList, group, ls, lsList, lt, uniqueSlug } from "./fields";
 
-// content.ts: CaseStudy — bağımsız bir koleksiyon. /work index'i (kart
-// özeti: name/subtitle/body/coverImage/tags) ve /work/[slug] detay
-// sayfası (problem/actions/delivered/screens + detailEyebrow/
-// detailIntro'dan türeyen SubpageHero) AYNI dokümanı okur. coverImage/
-// logo/screens görsel alanları storyMedia.image'daki gibi düz `alt`
-// taşır — proofItem.logo/mediaItem ile aynı desen, locale'e göre
-// ayrılmıyor.
+// Bir vaka. Halkada yanan dilimler seçilen hizmetlerin dilimlerinin
+// birleşimi, ayrıca yazılmıyor.
+
 export default defineType({
   name: "caseStudy",
-  title: "Case Study",
+  title: "Case",
   type: "document",
+  groups: [
+    { name: "summary", title: "Summary", default: true },
+    { name: "story", title: "Story" },
+    { name: "proof", title: "Proof" },
+    { name: "seo", title: "SEO" },
+  ],
+  orderings: [{ title: "Order", name: "order", by: [{ field: "order", direction: "asc" }] }],
   fields: [
+    { ...uniqueSlug("caseStudy"), group: "summary" },
+    defineField({ name: "order", title: "Order", type: "number", group: "summary" }),
+    ls("name", "Name", { group: "summary", required: true }),
+    lt("subtitle", "One line", { group: "summary" }),
+    ls("market", "Market", { group: "summary" }),
     defineField({
-      name: "slug",
-      title: "Slug",
-      type: "string",
-      validation: (Rule) =>
-        Rule.required().custom(async (slug, context) => {
-          if (!slug) return true;
-          const { document, getClient } = context;
-          const client = getClient({ apiVersion: "2024-01-01" });
-          const id = document?._id.replace(/^drafts\./, "") ?? "";
-          const isUnique = await client.fetch(
-            `!defined(*[!(_id in [$draft, $published]) && _type == "caseStudy" && slug == $slug][0]._id)`,
-            { draft: `drafts.${id}`, published: id, slug },
-          );
-          return isUnique || "Bu slug başka bir Case Study dokümanında zaten kullanılıyor.";
-        }),
-    }),
-    defineField({ name: "name", title: "Name", type: "localeString" }),
-    defineField({ name: "location", title: "Location", type: "localeString" }),
-    defineField({ name: "subtitle", title: "Subtitle", type: "localeString" }),
-    defineField({ name: "body", title: "Body", type: "localeText" }),
-    defineField({
-      name: "coverImage",
-      title: "Cover image",
-      type: "image",
-      fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
-    }),
-    defineField({ name: "problemHeading", title: "Problem heading", type: "localeString" }),
-    defineField({ name: "problem", title: "Problem", type: "localeText" }),
-    defineField({ name: "actionsHeading", title: "Actions heading", type: "localeString" }),
-    defineField({
-      name: "actions",
-      title: "Actions",
+      name: "services",
+      title: "Services",
       type: "array",
-      of: [{ type: "caseStudyAction" }],
+      group: "summary",
+      of: [defineArrayMember({ type: "reference", to: [{ type: "servicePage" }] })],
     }),
-    defineField({ name: "deliveredHeading", title: "Delivered heading", type: "localeString" }),
-    defineField({ name: "delivered", title: "Delivered", type: "localeText" }),
-    defineField({
-      name: "tags",
-      title: "Tags",
-      type: "object",
-      fields: [
-        defineField({ name: "en", title: "English", type: "array", of: [{ type: "string" }] }),
-        defineField({ name: "tr", title: "Turkish", type: "array", of: [{ type: "string" }] }),
-      ],
-    }),
+    ls("tags", "Tags line", { group: "summary", description: "Satırda görünen hizmet adları." }),
+    group("problem", "Where they were stuck", [ls("label", "Label"), lt("lead", "Lead"), lt("body", "Body")], { group: "story" }),
+    group("actions", "What we did", [ls("label", "Label"), lsList("items", "Bullets")], { group: "story" }),
+    group("delivered", "What happened", [ls("label", "Label"), lt("lead", "Lead"), lt("body", "Body")], { group: "story" }),
+    figureList("figures", "Figures (three, optional)", { group: "proof" }),
+    group("proof", "Proof on Work", figureFields, { group: "proof" }),
+    defineField({ name: "sources", title: "Sources", type: "array", of: [{ type: "string" }], group: "proof" }),
     defineField({
       name: "screens",
-      title: "Screens",
+      title: "Screens (first two are shown)",
       type: "array",
+      group: "summary",
       of: [
-        {
+        defineArrayMember({
           type: "image",
           fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
-        },
+        }),
       ],
     }),
-    defineField({ name: "detailEyebrow", title: "Detail eyebrow", type: "localeString" }),
-    defineField({ name: "detailIntro", title: "Detail intro", type: "localeText" }),
-    defineField({
-      name: "logo",
-      title: "Logo",
-      type: "image",
-      fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
-    }),
-    defineField({ name: "order", title: "Order", type: "number" }),
+    defineField({ name: "seo", title: "SEO", type: "seo", group: "seo" }),
   ],
-  preview: {
-    select: { title: "name.en", subtitle: "slug" },
-  },
+  preview: { select: { title: "name.en", subtitle: "slug" } },
 });

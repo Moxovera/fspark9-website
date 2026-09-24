@@ -2,8 +2,8 @@ import type { Locale, NextStepContent, ServiceSummary, SiteChrome } from "@/type
 
 /**
  * v2 site çerçevesinin metni. Kaynak: `_design/v2/fspark9-site-copy-v2.md`
- * §0 (menü, buton, footer) ve §1.3 (dört hizmet). Sanity pass'e kadar
- * statik (brief v4 "Staging first, Sanity last").
+ * §0 (menü, buton, footer) ve §1.3 (dört hizmet). Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
+ * check:drift'in karşılaştırdığı ayna.
  *
  * Copy dosyasında olmayan tek metinler ekran okuyucu etiketleri
  * (homeLabel, menuLabel, menuOpenLabel, menuCloseLabel): görünmüyorlar, board'daki

@@ -11,7 +11,8 @@
  * runtime'ı otomatik enjekte ediliyor) güvenilir çalışıyor, bağımsız
  * bir tsx script'inde "React is not defined" hatası veriyor. Bu yüzden
  * önce bir Next.js sunucusu (dev ya da build+start) çalışıyor olmalı;
- * script /og route'unu HTTP ile çekiyor.
+ * script /og ve /og?locale=tr route'larını HTTP ile çekiyor; EN görsel
+ * seo.ogImage'a, TR görsel seo.ogImageTr'ye yazılıyor.
  *
  * seed-content.ts bu alana DOKUNMAZ (bkz. o dosyadaki
  * existingSeoOgImage notu) — bu script tekrar çalıştırılana kadar
@@ -40,39 +41,32 @@ const ogImageUrl = process.env.OG_IMAGE_URL ?? "http://localhost:3000/og";
 
 const client = createClient({ projectId, dataset, apiVersion, useCdn: false, token });
 
-async function main() {
-  const response = await fetch(ogImageUrl);
+async function upload(locale: "en" | "tr") {
+  const url = locale === "tr" ? `${ogImageUrl}?locale=tr` : ogImageUrl;
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(
-      `Could not fetch ${ogImageUrl} (HTTP ${response.status}). Is a Next.js server running? ` +
+      `Could not fetch ${url} (HTTP ${response.status}). Is a Next.js server running? ` +
         "Start one with npm run dev, or point OG_IMAGE_URL at a running instance.",
     );
   }
   const buffer = Buffer.from(await response.arrayBuffer());
+  return client.assets.upload("image", buffer, { filename: `og-image-${locale}.png`, contentType: "image/png" });
+}
 
-  const asset = await client.assets.upload("image", buffer, {
-    filename: "og-image.png",
-    contentType: "image/png",
-  });
-
-  const siteSettingsId =
-    (await client.fetch<string | null>(`*[_type == "siteSettings"][0]._id`)) ?? "siteSettings";
+async function main() {
+  const [en, tr] = [await upload("en"), await upload("tr")];
+  const image = (id: string, alt: string) => ({ _type: "image", asset: { _type: "reference", _ref: id }, alt });
 
   const result = await client
-    .patch(siteSettingsId)
+    .patch("siteSettings")
     .set({
-      "seo.ogImage": {
-        _type: "image",
-        asset: { _type: "reference", _ref: asset._id },
-        alt: "fspark9 — Trust isn't marketed. It's built.",
-      },
+      "seo.ogImage": image(en._id, "fspark9: I’ve built two digital banks. I’ll tell you what breaks first."),
+      "seo.ogImageTr": image(tr._id, "fspark9: İki dijital banka kurdum. Önce neyin kırılacağını söylerim."),
     })
     .commit();
 
-  console.log(
-    `Asset uploaded: ${asset._id} (${asset.metadata?.dimensions?.width}x${asset.metadata?.dimensions?.height})`,
-  );
-  console.log(`siteSettings.seo.ogImage set on ${result._id}`);
+  console.log(`Uploaded ${en._id} (EN) and ${tr._id} (TR), set on ${result._id}`);
 }
 
 main().catch((err) => {

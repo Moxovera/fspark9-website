@@ -15,21 +15,10 @@ import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
 import { SparkAltSlugProvider } from "@/components/chrome/SparkAltSlugContext";
 import { MobileMenuProvider } from "@/components/chrome/MobileMenuContext";
-import { chrome as chromeCopy, services as serviceCopy } from "@/content/chrome";
+import { getChrome } from "@/sanity/lib/content";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import {
-  SITE_SEO_QUERY,
-  SITE_BOOKING_QUERY,
-  SITE_LOGO_QUERY,
-  toSiteSeo,
-  toBookingSection,
-  toSiteLogo,
-} from "@/sanity/lib/queries";
-import type {
-  SITE_SEO_QUERYResult,
-  SITE_BOOKING_QUERYResult,
-  SITE_LOGO_QUERYResult,
-} from "@/sanity/types";
+import { SITE_SEO_QUERY, SITE_LOGO_QUERY, toSiteSeo, toSiteLogo } from "@/sanity/lib/queries";
+import type { SITE_SEO_QUERYResult, SITE_LOGO_QUERYResult } from "@/sanity/types";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -73,23 +62,16 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // v2 çerçeve metni statik (src/content/chrome.ts), Sanity pass'e kadar.
-  // Sanity'den sadece calLink'li booking ve JSON-LD logosu okunuyor.
-  const chrome = chromeCopy[locale];
-  const services = serviceCopy[locale];
-
-  const [bookingResult, logoResult] = await Promise.all([
-    sanityFetch<SITE_BOOKING_QUERYResult>({
-      query: SITE_BOOKING_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
+  // Çerçeve (header, menü, footer, randevu penceresi) siteSettings ve
+  // servicePage belgelerinden.
+  const [site, logoResult] = await Promise.all([
+    getChrome(),
     sanityFetch<SITE_LOGO_QUERYResult>({
       query: SITE_LOGO_QUERY,
       tags: ["siteSettings"],
     }),
   ]);
-  const booking = toBookingSection(bookingResult);
+  const { chrome, services, calLink } = site[locale];
   const logo = toSiteLogo(logoResult);
 
   // Site kimliği için Organization JSON-LD — SEO'nun beklediği tek
@@ -134,7 +116,7 @@ export default async function LocaleLayout({
                 {children}
                 <Footer chrome={chrome} />
                 <MobileBookingBar label={chrome.bookLabel} />
-                <BookingOverlay calLink={booking.calLink} labels={chrome.booking} />
+                <BookingOverlay calLink={calLink} labels={chrome.booking} />
               </MobileMenuProvider>
             </BookingProvider>
           </SparkAltSlugProvider>

@@ -1,8 +1,9 @@
 import type { AboutContent, Locale } from "@/types/content";
 
 /**
- * About (v2, /about). Copy §4 ve §6c. Sanity pass'e kadar statik, sonra
- * aboutPage singleton'ı. Flare kesimi board'daki gibi son kelimede; TR'de
+ * About (v2, /about). Copy §4 ve §6c. Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
+ * check:drift'in karşılaştırdığı ayna.
+ * Flare kesimi board'daki gibi son kelimede; TR'de
  * copy işaretlemiyor, "live." karşılığı seçildi.
  */
 export const about: Record<Locale, AboutContent> = {

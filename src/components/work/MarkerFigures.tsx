@@ -1,11 +1,6 @@
 import Reveal from "@/components/ui/Reveal";
 import CountUpValue from "@/components/work/CountUpValue";
-import type { FigureItem } from "@/types/content";
-
-interface MarkerFiguresProps {
-  figures: FigureItem[];
-  locale: string;
-}
+import type { MarkerFiguresProps } from "@/types/content";
 
 /**
  * Vaka rakamları (brand book v3 §5 "Marker block", board CaseInsha): sayfanın

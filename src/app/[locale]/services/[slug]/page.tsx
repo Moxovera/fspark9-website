@@ -7,8 +7,7 @@ import IntroText from "@/components/blocks/IntroText";
 import StepTiles from "@/components/services/StepTiles";
 import OtherServices from "@/components/services/OtherServices";
 import ServiceClose from "@/components/services/ServiceClose";
-import { servicePages } from "@/content/services";
-import { chrome, services } from "@/content/chrome";
+import { getChrome, getServicePages } from "@/sanity/lib/content";
 import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -18,21 +17,22 @@ import type { SITE_SEO_QUERYResult } from "@/sanity/types";
 import type { Locale } from "@/types/content";
 
 // v2 hizmet sayfası (brief v4 §7.3, board ServiceZTL / ServiceZTLM).
-// Metin src/content/services.ts'ten, Sanity pass'e kadar statik.
+// İçerik Sanity servicePage belgelerinden, ortak etiketler servicesPage'ten.
 
 type Params = Promise<{ locale: Locale; slug: string }>;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const servicePages = await getServicePages();
   return routing.locales.flatMap((locale) => servicePages[locale].map(({ slug }) => ({ locale, slug })));
 }
 
-function find(locale: Locale, slug: string) {
-  return servicePages[locale].find((page) => page.slug === slug);
+async function find(locale: Locale, slug: string) {
+  return (await getServicePages())[locale].find((page) => page.slug === slug);
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const page = find(locale, slug);
+  const page = await find(locale, slug);
   if (!page) return {};
   const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
     query: SITE_SEO_QUERY,
@@ -46,10 +46,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function ServicePage({ params }: { params: Params }) {
   const { locale, slug } = await params;
-  const page = find(locale, slug);
+  const page = await find(locale, slug);
   if (!page) notFound();
-  const summary = services[locale].find((s) => s.slug === slug);
-  const others = services[locale].filter((s) => s.slug !== slug);
+  const { chrome, services } = (await getChrome())[locale];
+  const summary = services.find((s) => s.slug === slug);
+  const others = services.filter((s) => s.slug !== slug);
   const path = getPathname({ href: { pathname: "/services/[slug]", params: { slug } }, locale });
   const name = summary?.name ?? page.opening.label;
 
@@ -57,8 +58,8 @@ export default async function ServicePage({ params }: { params: Params }) {
     <main>
       <JsonLd
         data={[
-          breadcrumbJsonLd(locale, [
-            { name: chrome[locale].servicesLabel, path: getPathname({ href: "/services", locale }) },
+          breadcrumbJsonLd(locale, chrome, [
+            { name: chrome.servicesLabel, path: getPathname({ href: "/services", locale }) },
             { name, path },
           ]),
           serviceJsonLd(name, page.seo.description, path),

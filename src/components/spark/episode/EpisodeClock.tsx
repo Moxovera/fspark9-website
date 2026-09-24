@@ -3,11 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { dayNumberLabel } from "@/components/spark/day/dayMath";
 import { fill, formatShortDate } from "@/lib/format";
-import type { EpisodeContext } from "@/types/content";
-
-interface EpisodeClockProps {
-  ctx: Pick<EpisodeContext, "launchDate" | "closureDate" | "locale" | "labels">;
-}
+import type { EpisodeClockProps } from "@/types/content";
 
 /**
  * Gün saati (brief v4 §7.7, board Episode / EpisodeM). Masaüstünde sol iki

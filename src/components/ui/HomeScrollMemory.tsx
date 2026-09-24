@@ -1,10 +1,7 @@
 "use client";
 
 import { useHomeScrollMemory } from "@/hooks/useHomeScrollMemory";
-
-interface HomeScrollMemoryProps {
-  locale: string;
-}
+import type { HomeScrollMemoryProps } from "@/types/content";
 
 // Görünmez client-leaf — Home'un page.tsx'i (Server Component) tamamen
 // client'a çevrilmeden useHomeScrollMemory'yi bağlar. bkz. o hook'un yorumu.

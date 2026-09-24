@@ -1,12 +1,7 @@
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
-import type { ServiceStep } from "@/types/content";
-
-interface StepTilesProps {
-  label: string;
-  steps: ServiceStep[];
-}
+import type { StepTilesProps } from "@/types/content";
 
 /**
  * "What we do together" (board ServiceZTL, brand book "Work tile"): White

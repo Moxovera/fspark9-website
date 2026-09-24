@@ -2,10 +2,10 @@ import type { Locale, SparkHubContent } from "@/types/content";
 
 /**
  * Spark hub ve format sayfalarının metni (v2). Copy §5, §6 ve §6c.
- * Yayındaki bölümler (Bó) Sanity'den geliyor: konu, gün sayısı
- * (computeDayCount), tarih. Burada sadece etiketler ve henüz yayında
- * olmayan satırlar (Nuri, Sector reports Nº 01) var; bunlar Sanity'ye
- * canlıya çıkış günü `coming` durumuyla girecek (brief v4 §6.3).
+ * Bölümler (Bó) Sanity'de: konu, gün sayısı (computeDayCount), tarih.
+ * Buradaki sıradaki sayılar (Nuri, Sector reports Nº 01) Sanity'de
+ * `coming` durumlu bölümler olarak duruyor. Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
+ * check:drift'in karşılaştırdığı ayna.
  *
  * Copy'de TR karşılığı olmayan etiketler (readLabel, showAllLabel,
  * allIssuesLabel) teslim notunda onaya sunuldu.
@@ -37,8 +37,8 @@ export const spark: Record<Locale, SparkHubContent> = {
       rulerLabel: "The record, day by day",
       afterClosureLabel: "Then, a year later",
       builtFromLabel: "Built from the public record",
-      evidenceTakenLabel: "Evidence taken [go live date]",
-      lastCheckedLabel: "Last checked [date]",
+      evidenceTakenLabel: "Evidence taken {date}",
+      lastCheckedLabel: "Last checked {date}",
       clockDayLabel: "Day",
       clockOfTemplate: "of {n}",
       readingResultLabel: "Your reading, not scored.",
@@ -124,8 +124,8 @@ export const spark: Record<Locale, SparkHubContent> = {
       rulerLabel: "Gün gün kayıt",
       afterClosureLabel: "Bir yıl sonra",
       builtFromLabel: "Kamuya açık kayıtlardan",
-      evidenceTakenLabel: "Kanıt tarihi [tarih]",
-      lastCheckedLabel: "Son kontrol [tarih]",
+      evidenceTakenLabel: "Kanıt tarihi {date}",
+      lastCheckedLabel: "Son kontrol {date}",
       clockDayLabel: "Gün",
       clockOfTemplate: "{n} içinden",
       readingResultLabel: "Sizin okumanız, puanlanmıyor.",

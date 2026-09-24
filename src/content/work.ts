@@ -1,32 +1,4 @@
-import type { CaseContent, Locale, WorkPage, WorkPageContent } from "@/types/content";
-
-// dc.html: t.pages.work (satır 1338/1626, hero). Kart içeriği
-// content/en.ts + content/tr.ts'teki HomePage.caseStudies'ten geliyor —
-// burada tekrarlanmıyor.
-export const en: WorkPage = {
-  hero: {
-    eyebrow: "Case studies",
-    title: "What was actually built.",
-    intro:
-      "Two brands, two different problems. What they had in common is that each one needed somebody who could decide, set it up and ship it without handing the work to somebody else halfway through.",
-  },
-};
-
-export const tr: WorkPage = {
-  hero: {
-    eyebrow: "Vaka İncelemeleri",
-    title: "Gerçekte ne kuruldu.",
-    intro:
-      "İki marka, iki farklı problem. Ortak noktaları, her birinin karar veren, kuran ve işi yarı yolda başkasına devretmeden çıkaran birine ihtiyacı olmasıydı.",
-  },
-};
-
-// ─────────────────────────────────────────────
-// v2 (brief v4 §7.4). Yukarıdaki WorkPage eski /work sayfasının, o sayfa
-// v2'ye geçince silinecek. Ekran görüntüleri Sanity'deki caseStudy
-// screens[]'ten okunmaya devam ediyor (brief "Staging reads only existing
-// Sanity documents").
-// ─────────────────────────────────────────────
+import type { CaseContent, Locale, WorkPageContent } from "@/types/content";
 
 /** Copy §3.1 ve §6c. */
 export const workPage: Record<Locale, WorkPageContent> = {

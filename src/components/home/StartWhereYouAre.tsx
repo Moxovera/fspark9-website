@@ -1,10 +1,6 @@
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
-import type { HomeContent } from "@/types/content";
-
-interface StartWhereYouAreProps {
-  content: HomeContent["startWhereYouAre"];
-}
+import type { StartWhereYouAreProps } from "@/types/content";
 
 /**
  * "Start where you are" (board Main #start / HomeMobile). Üç kart, link

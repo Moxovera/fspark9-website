@@ -1,29 +1,7 @@
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
-import type { ReactNode } from "react";
-
-interface StoryCardContent {
-  label: string;
-  lead?: string;
-  body?: string;
-  /** Madde listesi (7px Ink kareler, numara yok). */
-  items?: string[];
-}
-
-interface PairAndResultProps {
-  pair: StoryCardContent[];
-  result: StoryCardContent;
-  /** Sonuç kartındaki tam kadranın yanık dilimleri. */
-  slices: readonly number[];
-  /** Kartların altına (ör. kaynak satırı, Why nine). */
-  footer?: ReactNode;
-  /**
-   * Board farkları: vaka sayfasında sonuç kartı 56px aşağıda, bölüm alt
-   * boşluğu 96px; About'ta 24px ve 120px.
-   */
-  variant?: "case" | "about";
-}
+import type { PairAndResultProps } from "@/types/content";
 
 /**
  * Pair and result (brand book v3 §6, board CaseInsha / About): iki White

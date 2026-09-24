@@ -7,13 +7,7 @@ import HeaderFrame from "@/components/chrome/HeaderFrame";
 import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import MobileNav from "@/components/chrome/MobileNav";
 import { ServicesMenuButton, ServicesMenuPanel } from "@/components/chrome/ServicesMenu";
-import type { ServiceSummary, SiteChrome } from "@/types/content";
-
-interface HeaderProps {
-  chrome: SiteChrome;
-  services: ServiceSummary[];
-  locale: string;
-}
+import type { HeaderProps } from "@/types/content";
 
 const NAV_LINK =
   "border-b-2 border-transparent pt-[6px] pb-1 text-[15px] leading-[normal] font-medium text-paper no-underline group-data-[tone=light]/header:text-ink";

@@ -3,10 +3,7 @@
 import CutButton from "@/components/brand/CutButton";
 import { useBooking } from "@/hooks/useBooking";
 import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
-
-interface MobileBookingBarProps {
-  label: string;
-}
+import type { MobileBookingBarProps } from "@/types/content";
 
 /**
  * Mobilde tek randevu girişi (brief v4 §5): mobil header'da buton yok.

@@ -1,21 +1,29 @@
 import { defineField, defineType } from "sanity";
+import { group, ls, lt, singletonTitle } from "./fields";
 
-// content.ts: ServicesPage — sadece hero. Satır/panel içeriği
-// (ServicesSection) homePage.services'ten AYNEN yeniden kullanılıyor,
-// burada tekrarlanmıyor.
+// /services sayfası ve dört hizmet sayfasının ortak etiketleri.
+
 export default defineType({
   name: "servicesPage",
-  title: "Services Page",
+  title: "Services page",
   type: "document",
   fields: [
-    defineField({
-      name: "title",
-      title: "Internal title",
-      type: "string",
-      initialValue: "Services Page",
-      readOnly: true,
-    }),
+    singletonTitle("Services page"),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
-    defineField({ name: "hero", title: "Hero", type: "pageHero" }),
+    ls("backLabel", "Back link"),
+    group("opening", "Opening", [ls("label", "Label"), ls("heading", "Heading"), lt("intro", "Intro")]),
+    group(
+      "servicePageLabels",
+      "Labels on every service page",
+      [
+        ls("backLabel", "Back link"),
+        ls("stepsLabel", "Steps label"),
+        ls("otherServicesLabel", "Other services label"),
+        ls("keepLabel", "Closing label"),
+        ls("ctaLabel", "Closing button"),
+      ],
+      { description: "Dört hizmet sayfasında aynı; bir kez yazılıyor." },
+    ),
   ],
+  preview: { prepare: () => ({ title: "Services page" }) },
 });

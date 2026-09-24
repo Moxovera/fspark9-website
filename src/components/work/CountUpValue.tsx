@@ -1,13 +1,7 @@
 "use client";
 
 import { useCountUp } from "@/hooks/useCountUp";
-
-interface CountUpValueProps {
-  value: string;
-  /** "tr" ise binlik ayraç nokta (40.000), değilse virgül (40,000). */
-  locale: string;
-  className?: string;
-}
+import type { CountUpValueProps } from "@/types/content";
 
 /**
  * Rakamın sayısal kısmını sayar; önündeki ve arkasındaki işaretler

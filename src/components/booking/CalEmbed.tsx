@@ -3,25 +3,13 @@
 import { useEffect } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import { useRouter } from "@/i18n/navigation";
+import type { CalEmbedProps } from "@/types/content";
 
 // router.push'un href parametresi Link'in href'iyle aynı GÖRÜNEN ama
 // aslında hafifçe farklı bir union (query alanı QueryParams vs
 // ParsedUrlQueryInput) — bkz. Header.tsx'teki LinkHref deseni, burada
 // router.push'a özel türetildi.
 type PushHref = Parameters<ReturnType<typeof useRouter>["push"]>[0];
-
-interface CalEmbedProps {
-  calLink: string;
-  // Verilirse, rezervasyon tamamlanınca (Cal'in bookingSuccessfulV2
-  // event'i) buraya yönlendirilir. Verilmezse hiç dinleyici kurulmaz —
-  // mevcut davranış (Cal'in kendi iframe içi onay ekranı) korunur.
-  redirectTo?: string;
-  // BookingOverlay.tsx gibi kendi açık/kapalı state'ini tutan çağıranlar
-  // için — yönlendirmeden HEMEN önce çağrılır (overlay kapanıp state
-  // temizlensin, sonra sayfa değişsin). /book sayfası gibi zaten kendi
-  // başına bir sayfa olan çağıranlarda gerekmez.
-  onBookingSuccessful?: () => void;
-}
 
 /**
  * @calcom/embed-react'in <Cal> bileşeni kendi içinde hook kullanıyor

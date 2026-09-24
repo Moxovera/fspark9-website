@@ -1,12 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import GoButton from "@/components/brand/GoButton";
 import Label from "@/components/brand/Label";
-import type { CaseContent } from "@/types/content";
-
-interface CaseRowProps {
-  item: CaseContent;
-  readLabel: string;
-}
+import type { CaseRowProps } from "@/types/content";
 
 /**
  * Work listesinde bir vaka (board WorkList / WorkListM). Satırın tamamı

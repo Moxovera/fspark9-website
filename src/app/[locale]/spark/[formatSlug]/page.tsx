@@ -9,8 +9,7 @@ import SparkSubnav from "@/components/spark/SparkSubnav";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import EpisodeList from "@/components/spark/format/EpisodeList";
 import Reveal from "@/components/ui/Reveal";
-import { spark } from "@/content/spark";
-import { nextStep } from "@/content/chrome";
+import { getChrome, getSparkHub } from "@/sanity/lib/content";
 import { loadFormatIssues, slugFromOtherLocale, staticAltSlug } from "@/lib/spark";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -19,25 +18,26 @@ import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
 import type { SITE_SEO_QUERYResult } from "@/sanity/types";
-import type { Locale } from "@/types/content";
+import type { Locale, SparkHubContent } from "@/types/content";
 
 // v2 format sayfası (brief v4 §7.7, board LastDay / LastDay10 ve
-// mobilleri). Formatlar src/content/spark.ts'ten (Sector reports Sanity'ye
-// canlıya çıkış günü giriyor), yayındaki bölümler Sanity'den.
+// mobilleri). Format, bölümler ve sıradaki sayılar Sanity'den.
 
 type Params = Promise<{ locale: Locale; formatSlug: string }>;
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const spark = await getSparkHub();
   return routing.locales.flatMap((locale) => spark[locale].formats.map(({ slug }) => ({ locale, formatSlug: slug })));
 }
 
-function find(locale: Locale, slug: string) {
+function find(spark: Record<Locale, SparkHubContent>, locale: Locale, slug: string) {
   return spark[locale].formats.find((f) => f.slug === slug);
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, formatSlug } = await params;
-  const format = find(locale, formatSlug);
+  const spark = await getSparkHub();
+  const format = find(spark, locale, formatSlug);
   if (!format) return {};
   const alt = staticAltSlug(spark, locale, formatSlug) ?? formatSlug;
   const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
@@ -55,8 +55,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function SparkFormatPage({ params }: { params: Params }) {
   const { locale, formatSlug } = await params;
+  const [spark, site] = await Promise.all([getSparkHub(), getChrome()]);
+  const { chrome, nextStep } = site[locale];
   const hub = spark[locale];
-  const format = find(locale, formatSlug);
+  const format = find(spark, locale, formatSlug);
   if (!format) {
     const fixed = slugFromOtherLocale(spark, locale, formatSlug);
     if (fixed) redirect({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: fixed } }, locale });
@@ -68,7 +70,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
       <JsonLd
-        data={breadcrumbJsonLd(locale, [
+        data={breadcrumbJsonLd(locale, chrome, [
           { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
           { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
         ])}
@@ -122,7 +124,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
         </section>
       )}
 
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

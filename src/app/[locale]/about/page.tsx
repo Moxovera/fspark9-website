@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, personJsonLd } from "@/lib/jsonLd";
+import { breadcrumbJsonLd, personInfo, personJsonLd } from "@/lib/jsonLd";
 import BackLink from "@/components/brand/BackLink";
 import CutHeadline from "@/components/brand/CutHeadline";
 import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
 import PairAndResult from "@/components/blocks/PairAndResult";
 import RingStage from "@/components/blocks/RingStage";
-import { about } from "@/content/about";
-import { chrome, nextStep } from "@/content/chrome";
+import { getAbout, getChrome, getHome } from "@/sanity/lib/content";
 import { EIGHT_SLICES } from "@/lib/dial";
 import { getPathname } from "@/i18n/navigation";
 import { toMetadata } from "@/lib/metadata";
@@ -22,24 +21,32 @@ import type { Locale } from "@/types/content";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  const siteSeoResult = await sanityFetch<SITE_SEO_QUERYResult>({
-    query: SITE_SEO_QUERY,
-    params: { locale },
-    tags: ["siteSettings"],
-  });
+  const [siteSeoResult, about] = await Promise.all([
+    sanityFetch<SITE_SEO_QUERYResult>({ query: SITE_SEO_QUERY, params: { locale }, tags: ["siteSettings"] }),
+    getAbout(),
+  ]);
   const paths = { en: getPathname({ href: "/about", locale: "en" }), tr: getPathname({ href: "/about", locale: "tr" }) };
   return toMetadata(about[locale].seo, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
+  const [about, site, home] = await Promise.all([getAbout(), getChrome(), getHome()]);
   const content = about[locale];
+  const { chrome, nextStep } = site[locale];
+  const path = getPathname({ href: "/about", locale });
 
   return (
     <main>
-      <JsonLd data={[breadcrumbJsonLd(locale, [{ name: chrome[locale].nav[1].label, path: getPathname({ href: "/about", locale }) }]), personJsonLd(locale, getPathname({ href: "/about", locale }))]} />
+      <JsonLd
+        data={[
+          breadcrumbJsonLd(locale, chrome, [{ name: chrome.nav[1].label, path }]),
+          personJsonLd(personInfo(home[locale], chrome), path),
+        ]}
+      />
       <RingStage
         portraitAlt={content.portraitAlt}
+        portraitSrc={content.portraitSrc}
         textClassName="gap-5 pt-6 min-[900px]:gap-8 min-[900px]:pt-[120px]"
         ringClassName="mt-8"
       >
@@ -69,7 +76,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         }
       />
 
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

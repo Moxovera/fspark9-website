@@ -4,15 +4,7 @@ import { useParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useSparkAltSlug } from "@/components/chrome/SparkAltSlugContext";
 import type { ComponentProps } from "react";
-
-interface LocaleSwitcherProps {
-  locale: string;
-  /**
-   * `header`: rengini header'ın tonundan alır (koyu: Paper/Dust, açık:
-   * Ink/Stone). `ink`: her zaman koyu zemin (mobil menü).
-   */
-  ground?: "header" | "ink";
-}
+import type { LocaleSwitcherProps } from "@/types/content";
 
 // usePathname()'in dönüş tipi /work/[slug], /spark/[formatSlug] gibi
 // dinamik route KALIPLARINI (köşeli parantezli literal template) döner,

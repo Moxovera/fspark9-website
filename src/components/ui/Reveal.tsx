@@ -1,12 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { useReveal } from "@/hooks/useReveal";
-
-interface RevealProps {
-  className?: string;
-  children: ReactNode;
-}
+import type { RevealProps } from "@/types/content";
 
 /**
  * globals.css'teki .reveal/.js/.is-visible kurallarını useReveal() ile

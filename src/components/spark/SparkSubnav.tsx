@@ -1,11 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import type { SparkFormatContent } from "@/types/content";
-
-interface SparkSubnavProps {
-  sparkLabel: string;
-  formats: SparkFormatContent[];
-  currentSlug: string;
-}
+import type { SparkSubnavProps } from "@/types/content";
 
 /**
  * Format ve bölüm sayfalarında header altındaki Spark şeridi (brand book

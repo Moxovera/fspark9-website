@@ -1,20 +1,7 @@
-import type { ReactNode } from "react";
 import BackLink from "@/components/brand/BackLink";
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
-import type { NavHref } from "@/types/content";
-
-interface PageOpeningProps {
-  backHref: NavHref;
-  backLabel: string;
-  label: string;
-  heading: string;
-  /** `service`: board ServiceZTL (88/44px başlık). `work`: board WorkList (96/48px). */
-  variant?: "service" | "work";
-  /** Verilirse sağda (mobilde altta) hizmetin kendi dilimleriyle büyük kadran. */
-  slices?: readonly number[];
-  children?: ReactNode;
-}
+import type { PageOpeningProps } from "@/types/content";
 
 const HEADING = {
   service:

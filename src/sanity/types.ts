@@ -146,14 +146,16 @@ export type SparkEpisode = {
   };
   number: number;
   slug?: LocaleSlug;
-  subject?: string;
+  seo?: Seo;
+  subject?: LocaleString;
   parent?: string;
   country?: string;
   launchDate?: string;
   closureDate?: string;
   standfirst?: LocaleText;
   hook?: LocaleText;
-  status: "published" | "draft";
+  status: "published" | "coming" | "draft";
+  cardLine?: LocaleText;
   publishedAt?: string;
   evidenceTakenAt?: string;
   lastCheckedAt?: string;
@@ -190,6 +192,39 @@ export type LocaleText = {
   tr?: string;
 };
 
+export type Seo = {
+  _type: "seo";
+  title?: LocaleString;
+  description?: LocaleText;
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  ogImageTr?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  noIndex?: boolean;
+};
+
 export type LocaleSlug = {
   _type: "localeSlug";
   en: Slug;
@@ -204,16 +239,30 @@ export type SparkFormat = {
   _rev: string;
   number: number;
   name?: LocaleString;
+  singularName?: LocaleString;
   slug?: LocaleSlug;
-  subjectLine?: LocaleText;
-  whatIsInside?: LocaleText;
   status: "live" | "preparing";
-  statusLineSingular?: LocaleString;
-  statusLinePlural?: LocaleString;
   orderRank: number;
   seo?: Seo;
-  hero?: PageHero;
-  hookLabel?: LocaleString;
+  description?: LocaleText;
+  openLabel?: LocaleString;
+  preparingLine?: LocaleString;
+  comingLabel?: LocaleString;
+  aboutLabel?: LocaleString;
+  aboutLines?: Array<{
+    _key: string;
+  } & LocaleString>;
+  showAllLabel?: LocaleString;
+  allIssuesLabel?: LocaleString;
+  daysUnit?: LocaleString;
+  episodesLabel?: LocaleString;
+  columns?: {
+    number?: LocaleString;
+    company?: LocaleString;
+    days?: LocaleString;
+    published?: LocaleString;
+  };
+  showAllTemplate?: LocaleString;
   dayCountSingular?: LocaleString;
   dayCountPlural?: LocaleString;
   dayLabel?: LocaleString;
@@ -242,33 +291,6 @@ export type SparkFormat = {
   scorecardPrivacyLine?: LocaleString;
 };
 
-export type PageHero = {
-  _type: "pageHero";
-  eyebrow?: LocaleString;
-  title?: LocaleString;
-  intro?: LocaleText;
-};
-
-export type Seo = {
-  _type: "seo";
-  title?: LocaleString;
-  description?: LocaleText;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  noIndex?: boolean;
-};
-
 export type SparkSection = {
   _id: string;
   _type: "sparkSection";
@@ -277,93 +299,33 @@ export type SparkSection = {
   _rev: string;
   title?: string;
   seo?: Seo;
-  hero?: PageHero;
-  homeLinkLabel?: LocaleString;
-  comingSoonLabel?: LocaleString;
-};
-
-export type CaseStudy = {
-  _id: string;
-  _type: "caseStudy";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  slug: string;
-  name?: LocaleString;
-  location?: LocaleString;
-  subtitle?: LocaleString;
-  body?: LocaleText;
-  coverImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  problemHeading?: LocaleString;
-  problem?: LocaleText;
-  actionsHeading?: LocaleString;
-  actions?: Array<{
+  bigWord?: LocaleString;
+  heading?: LocaleString;
+  tickerItems?: Array<{
     _key: string;
-  } & CaseStudyAction>;
-  deliveredHeading?: LocaleString;
-  delivered?: LocaleText;
-  tags?: {
-    en?: Array<string>;
-    tr?: Array<string>;
+  } & LocaleString>;
+  tickerTail?: LocaleString;
+  formatsLabel?: LocaleString;
+  readLabel?: LocaleString;
+  backLabel?: LocaleString;
+  sparkLabel?: LocaleString;
+  launchDateLabel?: LocaleString;
+  episode?: {
+    daysOpenLabel?: LocaleString;
+    daysOpenShortLabel?: LocaleString;
+    dateRangeTemplate?: LocaleString;
+    rulerLabel?: LocaleString;
+    afterClosureLabel?: LocaleString;
+    builtFromLabel?: LocaleString;
+    evidenceTakenLabel?: LocaleString;
+    lastCheckedLabel?: LocaleString;
+    clockDayLabel?: LocaleString;
+    clockOfTemplate?: LocaleString;
+    readingResultLabel?: LocaleString;
+    scorecardLabel?: LocaleString;
+    nextTemplate?: LocaleString;
+    sourceLabel?: LocaleString;
   };
-  screens?: Array<{
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-    _key: string;
-  }>;
-  detailEyebrow?: LocaleString;
-  detailIntro?: LocaleText;
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  order?: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
 };
 
 export type LegalPage = {
@@ -392,27 +354,301 @@ export type LegalPage = {
   } & LegalBlockTable>;
 };
 
-export type StoryPage = {
+export type PageHero = {
+  _type: "pageHero";
+  eyebrow?: LocaleString;
+  title?: LocaleString;
+  intro?: LocaleText;
+};
+
+export type AboutPage = {
   _id: string;
-  _type: "storyPage";
+  _type: "aboutPage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title?: string;
   seo?: Seo;
-  hero?: PageHero;
-  media?: StoryMedia;
-  prose?: Array<{
+  backLabel?: LocaleString;
+  label?: LocaleString;
+  hero?: {
+    headlineSentences?: Array<{
+      _key: string;
+    } & LocaleString>;
+    cutWord?: LocaleString;
+  };
+  pair?: Array<{
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+    _type: "storyCard";
     _key: string;
-  } & ProseHead | {
-    _key: string;
-  } & ProseBody>;
+  }>;
+  result?: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  };
+  whyNine?: {
+    label?: LocaleString;
+    text?: LocaleText;
+  };
+  portraitAlt?: LocaleString;
+  portrait?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
-export type StoryMedia = {
-  _type: "storyMedia";
-  type: "image" | "youtube";
-  image?: {
+export type WorkPage = {
+  _id: string;
+  _type: "workPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: Seo;
+  backLabel?: LocaleString;
+  label?: LocaleString;
+  heading?: LocaleString;
+  lead?: LocaleText;
+  readLabel?: LocaleString;
+  caseLabel?: LocaleString;
+  caseBackLabel?: LocaleString;
+  sourcesLabel?: LocaleString;
+  nextCaseLabel?: LocaleString;
+};
+
+export type ServicePage = {
+  _id: string;
+  _type: "servicePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug: string;
+  order: number;
+  name: LocaleString;
+  shortLine?: LocaleText;
+  audience?: LocaleString;
+  slices?: Array<number>;
+  seo?: Seo;
+  opening?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
+  };
+  steps?: Array<{
+    title?: LocaleString;
+    line?: LocaleText;
+    slices?: Array<number>;
+    _type: "serviceStep";
+    _key: string;
+  }>;
+  keep?: LocaleText;
+};
+
+export type ServicesPage = {
+  _id: string;
+  _type: "servicesPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: Seo;
+  backLabel?: LocaleString;
+  opening?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
+  };
+  servicePageLabels?: {
+    backLabel?: LocaleString;
+    stepsLabel?: LocaleString;
+    otherServicesLabel?: LocaleString;
+    keepLabel?: LocaleString;
+    ctaLabel?: LocaleString;
+  };
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  seo?: Seo;
+  opening?: {
+    eyebrowParts?: Array<{
+      _key: string;
+    } & LocaleString>;
+    headlineSentences?: Array<{
+      _key: string;
+    } & LocaleString>;
+    cutWord?: LocaleString;
+    intro?: LocaleText;
+    ctaLabel?: LocaleString;
+    secondaryLinkLabel?: LocaleString;
+    portraitAlt?: LocaleString;
+    portrait?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+  startWhereYouAre?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    items?: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }>;
+  };
+  fourServices?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
+  };
+  work?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    allLinkLabel?: LocaleString;
+    featured?: {
+      caseStudy?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "caseStudy";
+      };
+      label?: LocaleString;
+      heading?: LocaleString;
+      text?: LocaleText;
+      figures?: Array<{
+        value?: LocaleString;
+        label?: LocaleString;
+        _type: "figure";
+        _key: string;
+      }>;
+      linkLabel?: LocaleString;
+    };
+    rows?: Array<{
+      caseStudy?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "caseStudy";
+      };
+      line?: LocaleText;
+      tags?: LocaleString;
+      _type: "caseRow";
+      _key: string;
+    }>;
+    alsoLabel?: LocaleString;
+    also?: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }>;
+  };
+  withMe?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    points?: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }>;
+    portraitAlt?: LocaleString;
+    portrait?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+  spark?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    linkLabel?: LocaleString;
+    cardLinkLabel?: LocaleString;
+  };
+};
+
+export type CaseStudy = {
+  _id: string;
+  _type: "caseStudy";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  slug: string;
+  order?: number;
+  name: LocaleString;
+  subtitle?: LocaleText;
+  market?: LocaleString;
+  services?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "servicePage";
+  }>;
+  tags?: LocaleString;
+  problem?: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  };
+  actions?: {
+    label?: LocaleString;
+    items?: Array<{
+      _key: string;
+    } & LocaleString>;
+  };
+  delivered?: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  };
+  figures?: Array<{
+    value?: LocaleString;
+    label?: LocaleString;
+    _type: "figure";
+    _key: string;
+  }>;
+  proof?: {
+    value?: LocaleString;
+    label?: LocaleString;
+  };
+  sources?: Array<string>;
+  screens?: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -424,220 +660,25 @@ export type StoryMedia = {
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  };
-  youtubeId?: string;
-  caption?: LocaleText;
-};
-
-export type ServicesPage = {
-  _id: string;
-  _type: "servicesPage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
+    _key: string;
+  }>;
   seo?: Seo;
-  hero?: PageHero;
 };
 
-export type WorkPage = {
-  _id: string;
-  _type: "workPage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  seo?: Seo;
-  hero?: PageHero;
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
-export type HomePage = {
-  _id: string;
-  _type: "homePage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  seo?: Seo;
-  hero?: Hero;
-  framework?: Framework;
-  proofStrip?: ProofStrip;
-  familiar?: FamiliarSection;
-  caseStudies?: CaseStudiesSection;
-  services?: ServicesSection;
-  comparison?: ComparisonTable;
-  approach?: ApproachSection;
-  audience?: AudienceSection;
-  story?: StorySection;
-  testimonials?: TestimonialSection;
-  media?: MediaSection;
-  process?: ProcessSection;
-  faq?: FaqSection;
-  closingCta?: ClosingCta;
-};
-
-export type ClosingCta = {
-  _type: "closingCta";
-  quote?: LocaleText;
-  quoteAttribution?: LocaleString;
-  headline?: LocaleString;
-  body?: LocaleText;
-  ctaLabel?: LocaleString;
-  ctaHref?: string;
-  note?: LocaleText;
-};
-
-export type FaqSection = {
-  _type: "faqSection";
-  heading?: LocaleString;
-  items?: Array<{
-    _key: string;
-  } & FaqItem>;
-};
-
-export type ProcessSection = {
-  _type: "processSection";
-  heading?: LocaleString;
-  steps?: Array<{
-    _key: string;
-  } & ProcessStep>;
-  ctaLabel?: LocaleString;
-  ctaHref?: string;
-};
-
-export type MediaSection = {
-  _type: "mediaSection";
-  heading?: LocaleString;
-  intro?: LocaleText;
-  items?: Array<{
-    _key: string;
-  } & MediaItem>;
-};
-
-export type TestimonialSection = {
-  _type: "testimonialSection";
-  heading?: LocaleString;
-  items?: Array<{
-    _key: string;
-  } & Testimonial>;
-};
-
-export type StorySection = {
-  _type: "storySection";
-  heading?: LocaleString;
-  lead?: LocaleText;
-  paragraphs?: {
-    en?: Array<string>;
-    tr?: Array<string>;
-  };
-  link?: Link;
-  media?: StoryMedia;
-};
-
-export type AudienceSection = {
-  _type: "audienceSection";
-  heading?: LocaleString;
-  labels?: {
-    problem?: LocaleString;
-    do?: LocaleString;
-    result?: LocaleString;
-  };
-  cards?: Array<{
-    _key: string;
-  } & AudienceCard>;
-};
-
-export type ApproachSection = {
-  _type: "approachSection";
-  heading?: LocaleString;
-  blocks?: Array<{
-    _key: string;
-  } & ApproachBlock>;
-};
-
-export type ComparisonTable = {
-  _type: "comparisonTable";
-  heading?: LocaleString;
-  intro?: LocaleText;
-  scrollHint?: LocaleString;
-  columnLabels?: {
-    decide?: LocaleString;
-    setup?: LocaleString;
-    ship?: LocaleString;
-  };
-  rows?: Array<{
-    _key: string;
-  } & ComparisonRow>;
-};
-
-export type ServicesSection = {
-  _type: "servicesSection";
-  heading?: LocaleString;
-  intro?: LocaleText;
-  labels?: {
-    problem?: LocaleString;
-    action?: LocaleString;
-    outcome?: LocaleString;
-    rightDoor?: LocaleString;
-    notRightDoor?: LocaleString;
-    duration?: LocaleString;
-    runsOn?: LocaleString;
-  };
-  items?: Array<{
-    _key: string;
-  } & Service>;
-  fullEngagementHeading?: LocaleString;
-  fullEngagementBody?: LocaleText;
-  link?: Link;
-};
-
-export type CaseStudiesSection = {
-  _type: "caseStudiesSection";
-  heading?: LocaleString;
-  intro?: LocaleText;
-  linkLabel?: LocaleString;
-};
-
-export type FamiliarSection = {
-  _type: "familiarSection";
-  heading?: LocaleString;
-  points?: Array<{
-    _key: string;
-  } & FamiliarPoint>;
-  closingLine?: LocaleText;
-};
-
-export type ProofStrip = {
-  _type: "proofStrip";
-  kicker?: LocaleString;
-  roles?: LocaleString;
-  items?: Array<{
-    _key: string;
-  } & ProofItem>;
-  link?: Link;
-};
-
-export type Framework = {
-  _type: "framework";
-  steps?: Array<{
-    _key: string;
-  } & FrameworkStep>;
-};
-
-export type Hero = {
-  _type: "hero";
-  eyebrow?: LocaleString;
-  headlinePrimary?: LocaleString;
-  headlineAccent?: LocaleString;
-  bullets?: {
-    en?: Array<string>;
-    tr?: Array<string>;
-  };
-  closingLine?: LocaleText;
-  ctaLabel?: LocaleString;
-  ctaHref?: string;
-  ctaNote?: LocaleText;
-  scrollLabel?: LocaleString;
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SiteSettings = {
@@ -661,46 +702,62 @@ export type SiteSettings = {
     alt?: string;
     _type: "image";
   };
+  brandName?: string;
+  homeLabel?: LocaleString;
+  servicesLabel?: LocaleString;
   nav?: Array<{
+    label?: LocaleString;
+    href?: "/work" | "/about" | "/spark" | "/impressum" | "/privacy" | "/cookies" | "/terms";
+    _type: "navLink";
     _key: string;
-  } & Link>;
-  booking?: BookingSection;
-  subpageCta?: SubpageCta;
-  footer?: Footer;
-};
-
-export type Footer = {
-  _type: "footer";
-  tagline?: LocaleString;
-  nine?: LocaleString;
-  signature?: LocaleString;
-  email?: string;
-  linkedin?: string;
-  nav?: Array<{
-    _key: string;
-  } & Link>;
-  legalLinks?: Array<{
-    _key: string;
-  } & Link>;
-  legal?: LocaleString;
-  copyright?: LocaleString;
-};
-
-export type SubpageCta = {
-  _type: "subpageCta";
-  headline?: LocaleString;
-  body?: LocaleText;
-  ctaLabel?: LocaleString;
-  ctaHref?: string;
-};
-
-export type BookingSection = {
-  _type: "bookingSection";
-  calLink?: string;
-  title?: LocaleString;
-  body?: LocaleText;
-  meta1?: LocaleString;
-  meta2?: LocaleString;
+  }>;
+  servicesMenu?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+  };
+  bookLabel?: LocaleString;
+  menuLabel?: LocaleString;
+  menuOpenLabel?: LocaleString;
+  menuCloseLabel?: LocaleString;
+  footer?: {
+    email?: string;
+    linkedinHref?: string;
+    linkedinLabel?: string;
+    legalLinks?: Array<{
+      label?: LocaleString;
+      href?: "/work" | "/about" | "/spark" | "/impressum" | "/privacy" | "/cookies" | "/terms";
+      _type: "navLink";
+      _key: string;
+    }>;
+    copyright?: string;
+  };
+  booking?: {
+    calLink?: string;
+    title?: LocaleString;
+    meta?: LocaleString;
+    closeLabel?: LocaleString;
+    poweredBy?: LocaleString;
+  };
+  nextStep?: {
+    label?: LocaleString;
+    homeLabel?: LocaleString;
+    headlineLead?: LocaleString;
+    headlineCut?: LocaleString;
+    steps?: Array<{
+      _key: string;
+    } & LocaleString>;
+    ctaLabel?: LocaleString;
+  };
+  legal?: {
+    backLabel?: LocaleString;
+    tabsLabel?: LocaleString;
+    tabs?: Array<{
+      label?: LocaleString;
+      href?: "/work" | "/about" | "/spark" | "/impressum" | "/privacy" | "/cookies" | "/terms";
+      _type: "navLink";
+      _key: string;
+    }>;
+  };
 };
 
 export type LegalBlockTable = {
@@ -758,190 +815,6 @@ export type LegalBlockHeading = {
 export type LegalBlockDiv = {
   _type: "legalBlockDiv";
   text?: LocaleText;
-};
-
-export type FaqItem = {
-  _type: "faqItem";
-  question?: LocaleString;
-  answer?: LocaleText;
-  order?: number;
-};
-
-export type ProcessStep = {
-  _type: "processStep";
-  number?: number;
-  title?: LocaleString;
-  description?: LocaleText;
-  detail?: LocaleText;
-};
-
-export type MediaItem = {
-  _type: "mediaItem";
-  source?: string;
-  headline?: LocaleString;
-  description?: LocaleText;
-  note?: LocaleString;
-  href?: string;
-  isVideo?: boolean;
-  order?: number;
-};
-
-export type Testimonial = {
-  _type: "testimonial";
-  headline?: LocaleString;
-  quote?: LocaleText;
-  attribution?: LocaleString;
-  ctaLabel?: LocaleString;
-  order?: number;
-};
-
-export type Link = {
-  _type: "link";
-  label?: LocaleString;
-  href?: string;
-  external?: boolean;
-};
-
-export type AudienceCard = {
-  _type: "audienceCard";
-  title?: LocaleString;
-  problem?: LocaleText;
-  do?: LocaleText;
-  result?: LocaleText;
-};
-
-export type ApproachBlock = {
-  _type: "approachBlock";
-  number?: number;
-  title?: LocaleString;
-  body?: LocaleText;
-};
-
-export type ComparisonRow = {
-  _type: "comparisonRow";
-  label?: LocaleString;
-  isUs?: boolean;
-  decide?: ComparisonValue;
-  setup?: ComparisonValue;
-  ship?: ComparisonValue;
-};
-
-export type ComparisonValue = {
-  _type: "comparisonValue";
-  state: "yes" | "no" | "partial";
-  note?: LocaleString;
-};
-
-export type CaseStudyAction = {
-  _type: "caseStudyAction";
-  label?: LocaleString;
-  description?: LocaleText;
-};
-
-export type Service = {
-  _type: "service";
-  slug?: string;
-  number?: number;
-  title?: LocaleString;
-  tag?: LocaleString;
-  problem?: LocaleText;
-  action?: LocaleText;
-  outcome?: LocaleText;
-  rightDoor?: LocaleText;
-  notRightDoor?: LocaleText;
-  duration?: LocaleText;
-  runsOn?: LocaleText;
-};
-
-export type FamiliarPoint = {
-  _type: "familiarPoint";
-  text?: LocaleText;
-  order?: number;
-};
-
-export type ProofItem = {
-  _type: "proofItem";
-  name?: string;
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
-  line?: LocaleText;
-  order?: number;
-};
-
-export type FrameworkStep = {
-  _type: "frameworkStep";
-  id: "decide" | "setup" | "ship";
-  label?: LocaleString;
-  description?: LocaleText;
-};
-
-export type ProseBody = {
-  _type: "proseBody";
-  text?: LocaleText;
-};
-
-export type ProseHead = {
-  _type: "proseHead";
-  text?: LocaleString;
-};
-
-export type LocaleBody = {
-  _type: "localeBody";
-  en?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    _key: string;
-  } & StatHighlight | {
-    _key: string;
-  } & NoteHighlight>;
-  tr?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    _key: string;
-  } & StatHighlight | {
-    _key: string;
-  } & NoteHighlight>;
 };
 
 export type NoteHighlight = {
@@ -1057,253 +930,424 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = SparkAllocation | SparkSecondOpinion | SparkSignal | SparkWeigh | SparkEstimate | SparkCall | SparkNote | SparkReading | SparkRecord | SparkInlineReading | SparkSource | SparkEpisode | LocaleString | LocaleText | LocaleSlug | SparkFormat | PageHero | Seo | SparkSection | CaseStudy | SanityImageCrop | SanityImageHotspot | LegalPage | StoryPage | StoryMedia | ServicesPage | WorkPage | HomePage | ClosingCta | FaqSection | ProcessSection | MediaSection | TestimonialSection | StorySection | AudienceSection | ApproachSection | ComparisonTable | ServicesSection | CaseStudiesSection | FamiliarSection | ProofStrip | Framework | Hero | SiteSettings | Footer | SubpageCta | BookingSection | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | FaqItem | ProcessStep | MediaItem | Testimonial | Link | AudienceCard | ApproachBlock | ComparisonRow | ComparisonValue | CaseStudyAction | Service | FamiliarPoint | ProofItem | FrameworkStep | ProseBody | ProseHead | LocaleBody | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = SparkAllocation | SparkSecondOpinion | SparkSignal | SparkWeigh | SparkEstimate | SparkCall | SparkNote | SparkReading | SparkRecord | SparkInlineReading | SparkSource | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/sanity/lib/queries.ts
-// Variable: HOME_HERO_QUERY
-// Query: *[_type == "homePage"][0].hero{    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),    "headlinePrimary": select($locale == "tr" => coalesce(headlinePrimary.tr, headlinePrimary.en), headlinePrimary.en),    "headlineAccent": select($locale == "tr" => coalesce(headlineAccent.tr, headlineAccent.en), headlineAccent.en),    "bullets": select($locale == "tr" => coalesce(bullets.tr, bullets.en), bullets.en),    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en),    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    "ctaHref": ctaHref,    "ctaNote": select($locale == "tr" => coalesce(ctaNote.tr, ctaNote.en), ctaNote.en),    "scrollLabel": select($locale == "tr" => coalesce(scrollLabel.tr, scrollLabel.en), scrollLabel.en)  }
-export type HOME_HERO_QUERYResult = {
-  eyebrow: string | null;
-  headlinePrimary: string | null;
-  headlineAccent: string | null;
-  bullets: Array<string> | null;
-  closingLine: string | null;
-  ctaLabel: string | null;
-  ctaHref: string | null;
-  ctaNote: string | null;
-  scrollLabel: string | null;
-} | null;
-// Variable: HOME_FRAMEWORK_QUERY
-// Query: *[_type == "homePage"][0].framework{    steps[]{      id,      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    }  }
-export type HOME_FRAMEWORK_QUERYResult = {
-  steps: Array<{
-    id: "decide" | "setup" | "ship";
-    label: string | null;
-    description: string | null;
-  }> | null;
-} | null;
-// Variable: HOME_PROOF_STRIP_QUERY
-// Query: *[_type == "homePage"][0].proofStrip{    "kicker": select($locale == "tr" => coalesce(kicker.tr, kicker.en), kicker.en),    "roles": select($locale == "tr" => coalesce(roles.tr, roles.en), roles.en),    "items": items[] | order(order asc) {      name,      "logo": logo{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en),      order    },    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    }  }
-export type HOME_PROOF_STRIP_QUERYResult = {
-  kicker: string | null;
-  roles: string | null;
-  items: Array<{
-    name: string | null;
-    logo: {
-      url: string | null;
-      alt: string | "";
-      width: number | null;
-      height: number | null;
-      lqip: string | null;
+// Source: ./src/sanity/lib/content.ts
+// Variable: SITE_CHROME_QUERY
+// Query: {  "site": *[_type == "siteSettings" && _id == "siteSettings"][0]{    brandName, homeLabel, servicesLabel, nav, servicesMenu, bookLabel,    menuLabel, menuOpenLabel, menuCloseLabel, footer, booking, nextStep, legal  },  "services": *[_type == "servicePage"] | order(order asc){ slug, name, shortLine, audience, slices }}
+export type SITE_CHROME_QUERYResult = {
+  site: {
+    brandName: string | null;
+    homeLabel: LocaleString | null;
+    servicesLabel: LocaleString | null;
+    nav: Array<{
+      label?: LocaleString;
+      href?: "/about" | "/cookies" | "/impressum" | "/privacy" | "/spark" | "/terms" | "/work";
+      _type: "navLink";
+      _key: string;
+    }> | null;
+    servicesMenu: {
+      label?: LocaleString;
+      heading?: LocaleString;
     } | null;
-    line: string | null;
-    order: number | null;
-  }> | null;
-  link: {
-    label: string | null;
-    href: string | null;
-    external: boolean | null;
+    bookLabel: LocaleString | null;
+    menuLabel: LocaleString | null;
+    menuOpenLabel: LocaleString | null;
+    menuCloseLabel: LocaleString | null;
+    footer: {
+      email?: string;
+      linkedinHref?: string;
+      linkedinLabel?: string;
+      legalLinks?: Array<{
+        label?: LocaleString;
+        href?: "/about" | "/cookies" | "/impressum" | "/privacy" | "/spark" | "/terms" | "/work";
+        _type: "navLink";
+        _key: string;
+      }>;
+      copyright?: string;
+    } | null;
+    booking: {
+      calLink?: string;
+      title?: LocaleString;
+      meta?: LocaleString;
+      closeLabel?: LocaleString;
+      poweredBy?: LocaleString;
+    } | null;
+    nextStep: {
+      label?: LocaleString;
+      homeLabel?: LocaleString;
+      headlineLead?: LocaleString;
+      headlineCut?: LocaleString;
+      steps?: Array<{
+        _key: string;
+      } & LocaleString>;
+      ctaLabel?: LocaleString;
+    } | null;
+    legal: {
+      backLabel?: LocaleString;
+      tabsLabel?: LocaleString;
+      tabs?: Array<{
+        label?: LocaleString;
+        href?: "/about" | "/cookies" | "/impressum" | "/privacy" | "/spark" | "/terms" | "/work";
+        _type: "navLink";
+        _key: string;
+      }>;
+    } | null;
+  } | null;
+  services: Array<{
+    slug: string;
+    name: LocaleString;
+    shortLine: LocaleText | null;
+    audience: LocaleString | null;
+    slices: Array<number> | null;
+  }>;
+};
+// Variable: HOME_PAGE_QUERY
+// Query: *[_type == "homePage" && _id == "homePage"][0]{  seo{ title, description },  opening{ ..., "portraitUrl": portrait.asset->url },  startWhereYouAre,  fourServices,  work{    label, heading, allLinkLabel, alsoLabel, also,    featured{      label, heading, text, figures, linkLabel,      "slug": caseStudy->slug,      "screens": caseStudy->screens[0...2]{ "src": asset->url, alt }    },    rows[]{ line, tags, "slug": caseStudy->slug, "name": caseStudy->name }  },  withMe{ ..., "portraitUrl": portrait.asset->url },  spark}
+export type HOME_PAGE_QUERYResult = {
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  opening: {
+    eyebrowParts?: Array<{
+      _key: string;
+    } & LocaleString>;
+    headlineSentences?: Array<{
+      _key: string;
+    } & LocaleString>;
+    cutWord?: LocaleString;
+    intro?: LocaleText;
+    ctaLabel?: LocaleString;
+    secondaryLinkLabel?: LocaleString;
+    portraitAlt?: LocaleString;
+    portrait?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    portraitUrl: string | null;
+  } | null;
+  startWhereYouAre: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    items?: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }>;
+  } | null;
+  fourServices: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
+  } | null;
+  work: {
+    label: LocaleString | null;
+    heading: LocaleString | null;
+    allLinkLabel: LocaleString | null;
+    alsoLabel: LocaleString | null;
+    also: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }> | null;
+    featured: {
+      label: LocaleString | null;
+      heading: LocaleString | null;
+      text: LocaleText | null;
+      figures: Array<{
+        value?: LocaleString;
+        label?: LocaleString;
+        _type: "figure";
+        _key: string;
+      }> | null;
+      linkLabel: LocaleString | null;
+      slug: string | null;
+      screens: Array<{
+        src: string | null;
+        alt: string | null;
+      }> | null;
+    } | null;
+    rows: Array<{
+      line: LocaleText | null;
+      tags: LocaleString | null;
+      slug: string | null;
+      name: LocaleString | null;
+    }> | null;
+  } | null;
+  withMe: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    points?: Array<{
+      title?: LocaleString;
+      text?: LocaleText;
+      _type: "titleText";
+      _key: string;
+    }>;
+    portraitAlt?: LocaleString;
+    portrait?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    portraitUrl: string | null;
+  } | null;
+  spark: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    text?: LocaleText;
+    linkLabel?: LocaleString;
+    cardLinkLabel?: LocaleString;
   } | null;
 } | null;
-// Variable: HOME_SERVICES_QUERY
-// Query: *[_type == "homePage"][0].services{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "labels": {      "problem": select($locale == "tr" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),      "action": select($locale == "tr" => coalesce(labels.action.tr, labels.action.en), labels.action.en),      "outcome": select($locale == "tr" => coalesce(labels.outcome.tr, labels.outcome.en), labels.outcome.en),      "rightDoor": select($locale == "tr" => coalesce(labels.rightDoor.tr, labels.rightDoor.en), labels.rightDoor.en),      "notRightDoor": select($locale == "tr" => coalesce(labels.notRightDoor.tr, labels.notRightDoor.en), labels.notRightDoor.en),      "duration": select($locale == "tr" => coalesce(labels.duration.tr, labels.duration.en), labels.duration.en),      "runsOn": select($locale == "tr" => coalesce(labels.runsOn.tr, labels.runsOn.en), labels.runsOn.en)    },    "items": items[] | order(number asc) {      slug,      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "tag": select($locale == "tr" => coalesce(tag.tr, tag.en), tag.en),      "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),      "action": select($locale == "tr" => coalesce(action.tr, action.en), action.en),      "outcome": select($locale == "tr" => coalesce(outcome.tr, outcome.en), outcome.en),      "rightDoor": select($locale == "tr" => coalesce(rightDoor.tr, rightDoor.en), rightDoor.en),      "notRightDoor": select($locale == "tr" => coalesce(notRightDoor.tr, notRightDoor.en), notRightDoor.en),      "duration": select($locale == "tr" => coalesce(duration.tr, duration.en), duration.en),      "runsOn": select($locale == "tr" => coalesce(runsOn.tr, runsOn.en), runsOn.en)    },    "fullEngagementHeading": select($locale == "tr" => coalesce(fullEngagementHeading.tr, fullEngagementHeading.en), fullEngagementHeading.en),    "fullEngagementBody": select($locale == "tr" => coalesce(fullEngagementBody.tr, fullEngagementBody.en), fullEngagementBody.en),    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    }  }
-export type HOME_SERVICES_QUERYResult = {
-  heading: string | null;
-  intro: string | null;
-  labels: {
-    problem: string | null;
-    action: string | null;
-    outcome: string | null;
-    rightDoor: string | null;
-    notRightDoor: string | null;
-    duration: string | null;
-    runsOn: string | null;
+// Variable: SPARK_CARDS_QUERY
+// Query: *[_type == "sparkEpisode" && status in ["published", "coming"]]  | order(format->orderRank asc, number asc)[0...3]{    number, subject, hook, cardLine, status, publishedAt,    "episodeSlug": slug,    "format": format->{ name, singularName, slug, comingLabel }  }
+export type SPARK_CARDS_QUERYResult = Array<{
+  number: number;
+  subject: LocaleString | null;
+  hook: LocaleText | null;
+  cardLine: LocaleText | null;
+  status: "coming" | "draft" | "published";
+  publishedAt: string | null;
+  episodeSlug: LocaleSlug | null;
+  format: {
+    name: LocaleString | null;
+    singularName: LocaleString | null;
+    slug: LocaleSlug | null;
+    comingLabel: LocaleString | null;
   };
-  items: Array<{
-    slug: string | null;
-    number: number | null;
-    title: string | null;
-    tag: string | null;
-    problem: string | null;
-    action: string | null;
-    outcome: string | null;
-    rightDoor: string | null;
-    notRightDoor: string | null;
-    duration: string | null;
-    runsOn: string | null;
-  }> | null;
-  fullEngagementHeading: string | null;
-  fullEngagementBody: string | null;
-  link: {
-    label: string | null;
-    href: string | null;
-    external: boolean | null;
-  } | null;
-} | null;
-// Variable: HOME_COMPARISON_QUERY
-// Query: *[_type == "homePage"][0].comparison{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "scrollHint": select($locale == "tr" => coalesce(scrollHint.tr, scrollHint.en), scrollHint.en),    "columnLabels": {      "decide": select($locale == "tr" => coalesce(columnLabels.decide.tr, columnLabels.decide.en), columnLabels.decide.en),      "setup": select($locale == "tr" => coalesce(columnLabels.setup.tr, columnLabels.setup.en), columnLabels.setup.en),      "ship": select($locale == "tr" => coalesce(columnLabels.ship.tr, columnLabels.ship.en), columnLabels.ship.en)    },    "rows": rows[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      isUs,      "decide": decide{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) },      "setup": setup{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) },      "ship": ship{ state, "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en) }    }  }
-export type HOME_COMPARISON_QUERYResult = {
-  heading: string | null;
-  intro: string | null;
-  scrollHint: string | null;
-  columnLabels: {
-    decide: string | null;
-    setup: string | null;
-    ship: string | null;
-  };
-  rows: Array<{
-    label: string | null;
-    isUs: boolean | null;
-    decide: {
-      state: "no" | "partial" | "yes";
-      note: string | null;
-    } | null;
-    setup: {
-      state: "no" | "partial" | "yes";
-      note: string | null;
-    } | null;
-    ship: {
-      state: "no" | "partial" | "yes";
-      note: string | null;
-    } | null;
-  }> | null;
-} | null;
-// Variable: HOME_APPROACH_QUERY
-// Query: *[_type == "homePage"][0].approach{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "blocks": blocks[] | order(number asc) {      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)    }  }
-export type HOME_APPROACH_QUERYResult = {
-  heading: string | null;
-  blocks: Array<{
-    number: number | null;
-    title: string | null;
-    body: string | null;
-  }> | null;
-} | null;
-// Variable: HOME_AUDIENCE_QUERY
-// Query: *[_type == "homePage"][0].audience{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "labels": {      "problem": select($locale == "tr" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),      "do": select($locale == "tr" => coalesce(labels.do.tr, labels.do.en), labels.do.en),      "result": select($locale == "tr" => coalesce(labels.result.tr, labels.result.en), labels.result.en)    },    "cards": cards[]{      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),      "do": select($locale == "tr" => coalesce(do.tr, do.en), do.en),      "result": select($locale == "tr" => coalesce(result.tr, result.en), result.en)    }  }
-export type HOME_AUDIENCE_QUERYResult = {
-  heading: string | null;
-  labels: {
-    problem: string | null;
-    do: string | null;
-    result: string | null;
-  };
-  cards: Array<{
-    title: string | null;
-    problem: string | null;
-    do: string | null;
-    result: string | null;
-  }> | null;
-} | null;
-// Variable: HOME_STORY_QUERY
-// Query: *[_type == "homePage"][0].story{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "lead": select($locale == "tr" => coalesce(lead.tr, lead.en), lead.en),    "paragraphs": select($locale == "tr" => coalesce(paragraphs.tr, paragraphs.en), paragraphs.en),    "link": link{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "media": media{      type,      "image": image{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      youtubeId,      "caption": select($locale == "tr" => coalesce(caption.tr, caption.en), caption.en)    }  }
-export type HOME_STORY_QUERYResult = {
-  heading: string | null;
-  lead: string | null;
-  paragraphs: Array<string> | null;
-  link: {
-    label: string | null;
-    href: string | null;
-    external: boolean | null;
-  } | null;
-  media: {
-    type: "image" | "youtube";
-    image: {
-      url: string | null;
-      alt: string | "";
-      width: number | null;
-      height: number | null;
-      lqip: string | null;
-    } | null;
-    youtubeId: string | null;
-    caption: string | null;
-  } | null;
-} | null;
-// Variable: HOME_TESTIMONIALS_QUERY
-// Query: *[_type == "homePage"][0].testimonials{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "items": items[] | order(order asc) {      "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),      "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),      "attribution": select($locale == "tr" => coalesce(attribution.tr, attribution.en), attribution.en),      "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),      order    }  }
-export type HOME_TESTIMONIALS_QUERYResult = {
-  heading: string | null;
-  items: Array<{
-    headline: string | null;
-    quote: string | null;
-    attribution: string | null;
-    ctaLabel: string | null;
-    order: number | null;
-  }> | null;
-} | null;
-// Variable: HOME_MEDIA_QUERY
-// Query: *[_type == "homePage"][0].media{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "items": items[] | order(order asc) {      source,      "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),      "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en),      href,      isVideo,      order    }  }
-export type HOME_MEDIA_QUERYResult = {
-  heading: string | null;
-  intro: string | null;
-  items: Array<{
-    source: string | null;
-    headline: string | null;
-    description: string | null;
-    note: string | null;
-    href: string | null;
-    isVideo: boolean | null;
-    order: number | null;
-  }> | null;
-} | null;
-// Variable: SITE_BOOKING_QUERY
-// Query: *[_type == "siteSettings"][0].booking{    calLink,    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "meta1": select($locale == "tr" => coalesce(meta1.tr, meta1.en), meta1.en),    "meta2": select($locale == "tr" => coalesce(meta2.tr, meta2.en), meta2.en)  }
-export type SITE_BOOKING_QUERYResult = {
-  calLink: string | null;
-  title: string | null;
-  body: string | null;
-  meta1: string | null;
-  meta2: string | null;
-} | null;
-// Variable: SITE_SUBPAGE_CTA_QUERY
-// Query: *[_type == "siteSettings"][0].subpageCta{    "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref  }
-export type SITE_SUBPAGE_CTA_QUERYResult = {
-  headline: string | null;
-  body: string | null;
-  ctaLabel: string | null;
-  ctaHref: string | null;
-} | null;
-// Variable: WORK_PAGE_QUERY
-// Query: *[_type == "workPage"][0].hero{    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)  }
-export type WORK_PAGE_QUERYResult = {
-  eyebrow: string | null;
-  title: string | null;
-  intro: string | null;
-} | null;
+}>;
 // Variable: SERVICES_PAGE_QUERY
-// Query: *[_type == "servicesPage"][0].hero{    "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)  }
+// Query: *[_type == "servicesPage" && _id == "servicesPage"][0]{  seo{ title, description }, backLabel, opening, servicePageLabels}
 export type SERVICES_PAGE_QUERYResult = {
-  eyebrow: string | null;
-  title: string | null;
-  intro: string | null;
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  backLabel: LocaleString | null;
+  opening: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
+  } | null;
+  servicePageLabels: {
+    backLabel?: LocaleString;
+    stepsLabel?: LocaleString;
+    otherServicesLabel?: LocaleString;
+    keepLabel?: LocaleString;
+    ctaLabel?: LocaleString;
+  } | null;
 } | null;
-// Variable: STORY_PAGE_QUERY
-// Query: *[_type == "storyPage"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "media": media{      type,      "image": image{        "url": asset->url,        "alt": coalesce(alt, ""),        "width": asset->metadata.dimensions.width,        "height": asset->metadata.dimensions.height,        "lqip": asset->metadata.lqip      },      youtubeId,      "caption": select($locale == "tr" => coalesce(caption.tr, caption.en), caption.en)    },    "prose": prose[]{      _type,      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en)    }  }
-export type STORY_PAGE_QUERYResult = {
-  hero: {
-    eyebrow: string | null;
-    title: string | null;
-    intro: string | null;
+// Variable: SERVICE_PAGES_QUERY
+// Query: *[_type == "servicePage"] | order(order asc){  slug, seo{ title, description }, opening, steps[]{ title, line, slices }, keep}
+export type SERVICE_PAGES_QUERYResult = Array<{
+  slug: string;
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
   } | null;
-  media: {
-    type: "image" | "youtube";
-    image: {
-      url: string | null;
-      alt: string | "";
-      width: number | null;
-      height: number | null;
-      lqip: string | null;
-    } | null;
-    youtubeId: string | null;
-    caption: string | null;
+  opening: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    intro?: LocaleText;
   } | null;
-  prose: Array<{
-    _type: "proseBody";
-    text: string | null;
-  } | {
-    _type: "proseHead";
-    text: string | null;
+  steps: Array<{
+    title: LocaleString | null;
+    line: LocaleText | null;
+    slices: Array<number> | null;
   }> | null;
+  keep: LocaleText | null;
+}>;
+// Variable: WORK_PAGE_QUERY
+// Query: *[_type == "workPage" && _id == "workPage"][0]{  seo{ title, description }, backLabel, label, heading, lead, readLabel,  caseLabel, caseBackLabel, sourcesLabel, nextCaseLabel}
+export type WORK_PAGE_QUERYResult = {
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  backLabel: LocaleString | null;
+  label: LocaleString | null;
+  heading: LocaleString | null;
+  lead: LocaleText | null;
+  readLabel: LocaleString | null;
+  caseLabel: LocaleString | null;
+  caseBackLabel: LocaleString | null;
+  sourcesLabel: LocaleString | null;
+  nextCaseLabel: LocaleString | null;
 } | null;
+// Variable: CASES_QUERY
+// Query: *[_type == "caseStudy"] | order(order asc){  slug, seo{ title, description }, name, subtitle, market, tags,  "services": services[]->slug,  problem, actions, delivered, figures, proof, sources,  "screens": screens[0...2]{ "url": asset->url, alt, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height }}
+export type CASES_QUERYResult = Array<{
+  slug: string;
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  name: LocaleString;
+  subtitle: LocaleText | null;
+  market: LocaleString | null;
+  tags: LocaleString | null;
+  services: Array<string> | null;
+  problem: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  } | null;
+  actions: {
+    label?: LocaleString;
+    items?: Array<{
+      _key: string;
+    } & LocaleString>;
+  } | null;
+  delivered: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  } | null;
+  figures: Array<{
+    value?: LocaleString;
+    label?: LocaleString;
+    _type: "figure";
+    _key: string;
+  }> | null;
+  proof: {
+    value?: LocaleString;
+    label?: LocaleString;
+  } | null;
+  sources: Array<string> | null;
+  screens: Array<{
+    url: string | null;
+    alt: string | null;
+    width: number | null;
+    height: number | null;
+  }> | null;
+}>;
+// Variable: ABOUT_PAGE_QUERY
+// Query: *[_type == "aboutPage" && _id == "aboutPage"][0]{  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,  "portraitUrl": portrait.asset->url}
+export type ABOUT_PAGE_QUERYResult = {
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  backLabel: LocaleString | null;
+  label: LocaleString | null;
+  hero: {
+    headlineSentences?: Array<{
+      _key: string;
+    } & LocaleString>;
+    cutWord?: LocaleString;
+  } | null;
+  pair: Array<{
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+    _type: "storyCard";
+    _key: string;
+  }> | null;
+  result: {
+    label?: LocaleString;
+    lead?: LocaleText;
+    body?: LocaleText;
+  } | null;
+  whyNine: {
+    label?: LocaleString;
+    text?: LocaleText;
+  } | null;
+  portraitAlt: LocaleString | null;
+  portraitUrl: string | null;
+} | null;
+// Variable: SPARK_HUB_QUERY
+// Query: {  "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode  },  "formats": *[_type == "sparkFormat"] | order(orderRank asc){    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,    columns, showAllTemplate,    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){      number, subject, hook    }  }}
+export type SPARK_HUB_QUERYResult = {
+  section: {
+    seo: {
+      title: LocaleString | null;
+      description: LocaleText | null;
+    } | null;
+    bigWord: LocaleString | null;
+    heading: LocaleString | null;
+    tickerItems: Array<{
+      _key: string;
+    } & LocaleString> | null;
+    tickerTail: LocaleString | null;
+    readLabel: LocaleString | null;
+    backLabel: LocaleString | null;
+    sparkLabel: LocaleString | null;
+    formatsLabel: LocaleString | null;
+    launchDateLabel: LocaleString | null;
+    episode: {
+      daysOpenLabel?: LocaleString;
+      daysOpenShortLabel?: LocaleString;
+      dateRangeTemplate?: LocaleString;
+      rulerLabel?: LocaleString;
+      afterClosureLabel?: LocaleString;
+      builtFromLabel?: LocaleString;
+      evidenceTakenLabel?: LocaleString;
+      lastCheckedLabel?: LocaleString;
+      clockDayLabel?: LocaleString;
+      clockOfTemplate?: LocaleString;
+      readingResultLabel?: LocaleString;
+      scorecardLabel?: LocaleString;
+      nextTemplate?: LocaleString;
+      sourceLabel?: LocaleString;
+    } | null;
+  } | null;
+  formats: Array<{
+    number: number;
+    name: LocaleString | null;
+    slug: LocaleSlug | null;
+    status: "live" | "preparing";
+    seo: {
+      title: LocaleString | null;
+      description: LocaleText | null;
+    } | null;
+    description: LocaleText | null;
+    openLabel: LocaleString | null;
+    preparingLine: LocaleString | null;
+    comingLabel: LocaleString | null;
+    aboutLabel: LocaleString | null;
+    aboutLines: Array<{
+      _key: string;
+    } & LocaleString> | null;
+    showAllLabel: LocaleString | null;
+    allIssuesLabel: LocaleString | null;
+    daysUnit: LocaleString | null;
+    episodesLabel: LocaleString | null;
+    columns: {
+      number?: LocaleString;
+      company?: LocaleString;
+      days?: LocaleString;
+      published?: LocaleString;
+    } | null;
+    showAllTemplate: LocaleString | null;
+    coming: Array<{
+      number: number;
+      subject: LocaleString | null;
+      hook: LocaleText | null;
+    }>;
+  }>;
+};
+
+// Source: ./src/sanity/lib/queries.ts
 // Variable: LEGAL_PAGE_QUERY
 // Query: *[_type == "legalPage" && slug == $slug][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "blocks": blocks[]{      _type,      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "lines": select($locale == "tr" => coalesce(lines.tr, lines.en), lines.en),      "items": select($locale == "tr" => coalesce(items.tr, items.en), items.en),      "head": select($locale == "tr" => coalesce(head.tr, head.en), head.en),      "rows": select($locale == "tr" => coalesce(rows.tr, rows.en), rows.en)    }  }
 export type LEGAL_PAGE_QUERYResult = {
@@ -1374,205 +1418,9 @@ export type LEGAL_PAGE_QUERYResult = {
     }> | null;
   }> | null;
 } | null;
-// Variable: CASE_STUDIES_LIST_QUERY
-// Query: *[_type == "caseStudy"] | order(order asc) {    slug,    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "coverImage": coverImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),    "actions": actions[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    },    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),    "screens": screens[]{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),    "logo": logo{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    order  }
-export type CASE_STUDIES_LIST_QUERYResult = Array<{
-  slug: string;
-  name: string | null;
-  location: string | null;
-  subtitle: string | null;
-  body: string | null;
-  coverImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  problemHeading: string | null;
-  problem: string | null;
-  actionsHeading: string | null;
-  actions: Array<{
-    label: string | null;
-    description: string | null;
-  }> | null;
-  deliveredHeading: string | null;
-  delivered: string | null;
-  tags: Array<string> | null;
-  screens: Array<{
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  }> | null;
-  detailEyebrow: string | null;
-  detailIntro: string | null;
-  logo: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  order: number | null;
-}>;
-// Variable: CASE_STUDY_QUERY
-// Query: *[_type == "caseStudy" && slug == $slug][0]{    slug,    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "location": select($locale == "tr" => coalesce(location.tr, location.en), location.en),    "subtitle": select($locale == "tr" => coalesce(subtitle.tr, subtitle.en), subtitle.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "coverImage": coverImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "problemHeading": select($locale == "tr" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),    "problem": select($locale == "tr" => coalesce(problem.tr, problem.en), problem.en),    "actionsHeading": select($locale == "tr" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),    "actions": actions[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en)    },    "deliveredHeading": select($locale == "tr" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),    "delivered": select($locale == "tr" => coalesce(delivered.tr, delivered.en), delivered.en),    "tags": select($locale == "tr" => coalesce(tags.tr, tags.en), tags.en),    "screens": screens[]{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    "detailEyebrow": select($locale == "tr" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),    "detailIntro": select($locale == "tr" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),    "logo": logo{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    order  }
-export type CASE_STUDY_QUERYResult = {
-  slug: string;
-  name: string | null;
-  location: string | null;
-  subtitle: string | null;
-  body: string | null;
-  coverImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  problemHeading: string | null;
-  problem: string | null;
-  actionsHeading: string | null;
-  actions: Array<{
-    label: string | null;
-    description: string | null;
-  }> | null;
-  deliveredHeading: string | null;
-  delivered: string | null;
-  tags: Array<string> | null;
-  screens: Array<{
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  }> | null;
-  detailEyebrow: string | null;
-  detailIntro: string | null;
-  logo: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  order: number | null;
-} | null;
-// Variable: CASE_STUDY_SLUGS_QUERY
-// Query: *[_type == "caseStudy"].slug
-export type CASE_STUDY_SLUGS_QUERYResult = Array<string>;
-// Variable: HOME_FAMILIAR_QUERY
-// Query: *[_type == "homePage"][0].familiar{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "points": points[] | order(order asc) {      "text": select($locale == "tr" => coalesce(text.tr, text.en), text.en),      order    },    "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)  }
-export type HOME_FAMILIAR_QUERYResult = {
-  heading: string | null;
-  points: Array<{
-    text: string | null;
-    order: number | null;
-  }> | null;
-  closingLine: string | null;
-} | null;
-// Variable: HOME_CASE_STUDIES_SECTION_QUERY
-// Query: *[_type == "homePage"][0].caseStudies{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en),    "linkLabel": select($locale == "tr" => coalesce(linkLabel.tr, linkLabel.en), linkLabel.en)  }
-export type HOME_CASE_STUDIES_SECTION_QUERYResult = {
-  heading: string | null;
-  intro: string | null;
-  linkLabel: string | null;
-} | null;
-// Variable: HOME_PROCESS_QUERY
-// Query: *[_type == "homePage"][0].process{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "steps": steps[] | order(number asc) {      number,      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),      "detail": select($locale == "tr" => coalesce(detail.tr, detail.en), detail.en)    },    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref  }
-export type HOME_PROCESS_QUERYResult = {
-  heading: string | null;
-  steps: Array<{
-    number: number | null;
-    title: string | null;
-    description: string | null;
-    detail: string | null;
-  }> | null;
-  ctaLabel: string | null;
-  ctaHref: string | null;
-} | null;
-// Variable: HOME_FAQ_QUERY
-// Query: *[_type == "homePage"][0].faq{    "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),    "items": items[] | order(order asc) {      "question": select($locale == "tr" => coalesce(question.tr, question.en), question.en),      "answer": select($locale == "tr" => coalesce(answer.tr, answer.en), answer.en),      order    }  }
-export type HOME_FAQ_QUERYResult = {
-  heading: string | null;
-  items: Array<{
-    question: string | null;
-    answer: string | null;
-    order: number | null;
-  }> | null;
-} | null;
-// Variable: HOME_CLOSING_CTA_QUERY
-// Query: *[_type == "homePage"][0].closingCta{    "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),    "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),    "headline": select($locale == "tr" => coalesce(headline.tr, headline.en), headline.en),    "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),    "ctaLabel": select($locale == "tr" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),    ctaHref,    "note": select($locale == "tr" => coalesce(note.tr, note.en), note.en)  }
-export type HOME_CLOSING_CTA_QUERYResult = {
-  quote: string | null;
-  quoteAttribution: string | null;
-  headline: string | null;
-  body: string | null;
-  ctaLabel: string | null;
-  ctaHref: string | null;
-  note: string | null;
-} | null;
-// Variable: HOME_SEO_QUERY
-// Query: *[_type == "homePage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type HOME_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
 // Variable: SITE_SEO_QUERY
-// Query: *[_type == "siteSettings"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
+// Query: *[_type == "siteSettings"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": select($locale == "tr" && defined(ogImageTr.asset) => ogImageTr, ogImage){      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
 export type SITE_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
-// Variable: WORK_PAGE_SEO_QUERY
-// Query: *[_type == "workPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type WORK_PAGE_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
-// Variable: SERVICES_PAGE_SEO_QUERY
-// Query: *[_type == "servicesPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type SERVICES_PAGE_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
-// Variable: STORY_PAGE_SEO_QUERY
-// Query: *[_type == "storyPage"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type STORY_PAGE_SEO_QUERYResult = {
   title: string | null;
   description: string | null;
   ogImage: {
@@ -1598,34 +1446,6 @@ export type LEGAL_PAGE_SEO_QUERYResult = {
   } | null;
   noIndex: boolean | null;
 } | null;
-// Variable: SITE_NAV_QUERY
-// Query: *[_type == "siteSettings"][0].nav[]{    "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),    href,    external  }
-export type SITE_NAV_QUERYResult = Array<{
-  label: string | null;
-  href: string | null;
-  external: boolean | null;
-}> | null;
-// Variable: SITE_FOOTER_QUERY
-// Query: *[_type == "siteSettings"][0].footer{    "tagline": select($locale == "tr" => coalesce(tagline.tr, tagline.en), tagline.en),    "nine": select($locale == "tr" => coalesce(nine.tr, nine.en), nine.en),    "signature": select($locale == "tr" => coalesce(signature.tr, signature.en), signature.en),    email,    linkedin,    "nav": nav[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "legalLinks": legalLinks[]{      "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),      href,      external    },    "legal": select($locale == "tr" => coalesce(legal.tr, legal.en), legal.en),    "copyright": select($locale == "tr" => coalesce(copyright.tr, copyright.en), copyright.en)  }
-export type SITE_FOOTER_QUERYResult = {
-  tagline: string | null;
-  nine: string | null;
-  signature: string | null;
-  email: string | null;
-  linkedin: string | null;
-  nav: Array<{
-    label: string | null;
-    href: string | null;
-    external: boolean | null;
-  }> | null;
-  legalLinks: Array<{
-    label: string | null;
-    href: string | null;
-    external: boolean | null;
-  }> | null;
-  legal: string | null;
-  copyright: string | null;
-} | null;
 // Variable: SITE_LOGO_QUERY
 // Query: *[_type == "siteSettings"][0].logo{    "url": asset->url,    "alt": coalesce(alt, ""),    "width": asset->metadata.dimensions.width,    "height": asset->metadata.dimensions.height,    "lqip": asset->metadata.lqip  }
 export type SITE_LOGO_QUERYResult = {
@@ -1635,104 +1455,17 @@ export type SITE_LOGO_QUERYResult = {
   height: number | null;
   lqip: string | null;
 } | null;
-// Variable: SPARK_SEO_QUERY
-// Query: *[_type == "sparkSection"][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type SPARK_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
-// Variable: SPARK_SECTION_QUERY
-// Query: *[_type == "sparkSection"][0]{    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "homeLinkLabel": select($locale == "tr" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en),    "comingSoonLabel": select($locale == "tr" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en)  }
-export type SPARK_SECTION_QUERYResult = {
-  hero: {
-    eyebrow: string | null;
-    title: string | null;
-    intro: string | null;
-  } | null;
-  homeLinkLabel: string | null;
-  comingSoonLabel: string | null;
-} | null;
-// Variable: SPARK_FORMAT_SLUGS_QUERY
-// Query: *[_type == "sparkFormat" && defined(slug.en.current) && defined(slug.tr.current)]{    "en": slug.en.current,    "tr": slug.tr.current  }
-export type SPARK_FORMAT_SLUGS_QUERYResult = Array<{
-  en: string;
-  tr: string;
-}>;
-// Variable: SPARK_FORMATS_HUB_QUERY
-// Query: *[_type == "sparkFormat" && status == "live"] | order(orderRank asc){    number,    "name": select($locale == "tr" => coalesce(name.tr, name.en), name.en),    "slug": select($locale == "tr" => slug.tr.current, slug.en.current),    "subjectLine": select($locale == "tr" => coalesce(subjectLine.tr, subjectLine.en), subjectLine.en),    "whatIsInside": select($locale == "tr" => coalesce(whatIsInside.tr, whatIsInside.en), whatIsInside.en),    "statusLineSingular": select($locale == "tr" => coalesce(statusLineSingular.tr, statusLineSingular.en), statusLineSingular.en),    "statusLinePlural": select($locale == "tr" => coalesce(statusLinePlural.tr, statusLinePlural.en), statusLinePlural.en),    "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){      number,      subject,      country,      launchDate,      closureDate,      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
-export type SPARK_FORMATS_HUB_QUERYResult = Array<{
-  number: number;
-  name: string | null;
-  slug: string | null;
-  subjectLine: string | null;
-  whatIsInside: string | null;
-  statusLineSingular: string | null;
-  statusLinePlural: string | null;
-  dayCountSingular: string | null;
-  dayCountPlural: string | null;
-  dayNotEstablishedLabel: string | null;
-  episodes: Array<{
-    number: number;
-    subject: string | null;
-    country: string | null;
-    launchDate: string | null;
-    closureDate: string | null;
-    hook: string | null;
-    slug: string | null;
-  }>;
-}>;
-// Variable: SPARK_TEASER_EPISODE_QUERY
-// Query: *[_type == "sparkEpisode" && status == "published" && defined(publishedAt)] | order(publishedAt desc)[0]{    "line": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),    launchDate,    closureDate,    "episodeSlug": select($locale == "tr" => slug.tr.current, slug.en.current),    "formatSlug": select($locale == "tr" => format->slug.tr.current, format->slug.en.current),    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en)  }
-export type SPARK_TEASER_EPISODE_QUERYResult = {
-  line: string | null;
-  launchDate: string | null;
-  closureDate: string | null;
-  episodeSlug: string | null;
-  formatSlug: string | null;
-  dayCountSingular: string | null;
-  dayCountPlural: string | null;
-} | null;
-// Variable: SPARK_FORMAT_SEO_QUERY
-// Query: *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{    "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),    "description": select($locale == "tr" => coalesce(description.tr, description.en), description.en),    "ogImage": ogImage{      "url": asset->url,      "alt": coalesce(alt, ""),      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height,      "lqip": asset->metadata.lqip    },    noIndex  }
-export type SPARK_FORMAT_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  ogImage: {
-    url: string | null;
-    alt: string | "";
-    width: number | null;
-    height: number | null;
-    lqip: string | null;
-  } | null;
-  noIndex: boolean | null;
-} | null;
 // Variable: SPARK_FORMAT_QUERY
-// Query: *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{    "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "hero": hero{      "eyebrow": select($locale == "tr" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),      "title": select($locale == "tr" => coalesce(title.tr, title.en), title.en),      "intro": select($locale == "tr" => coalesce(intro.tr, intro.en), intro.en)    },    "hookLabel": select($locale == "tr" => coalesce(hookLabel.tr, hookLabel.en), hookLabel.en),    "dayCountSingular": select($locale == "tr" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){      number,      subject,      country,      launchDate,      closureDate,      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
+// Query: *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{    "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){      number,      "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),      country,      launchDate,      closureDate,      publishedAt,      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
 export type SPARK_FORMAT_QUERYResult = {
   altFormatSlug: string | null;
-  hero: {
-    eyebrow: string | null;
-    title: string | null;
-    intro: string | null;
-  } | null;
-  hookLabel: string | null;
-  dayCountSingular: string | null;
-  dayCountPlural: string | null;
-  dayNotEstablishedLabel: string | null;
   episodes: Array<{
     number: number;
     subject: string | null;
     country: string | null;
     launchDate: string | null;
     closureDate: string | null;
+    publishedAt: string | null;
     hook: string | null;
     slug: string | null;
   }>;
@@ -1744,12 +1477,12 @@ export type SPARK_EPISODE_SLUGS_QUERYResult = Array<{
   episodeTr: string;
   formatEn: string | null;
   formatTr: string | null;
-  status: "draft" | "published";
+  status: "coming" | "draft" | "published";
   lastCheckedAt: string | null;
   _updatedAt: string;
 }>;
 // Variable: SPARK_EPISODE_SEO_QUERY
-// Query: *[_type == "sparkEpisode"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    "title": subject,    "description": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),    publishedAt,    lastCheckedAt,    _updatedAt  }
+// Query: *[_type == "sparkEpisode" && status == "published"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    "title": coalesce(select($locale == "tr" => coalesce(seo.title.tr, seo.title.en), seo.title.en), select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en)),    "description": coalesce(      select($locale == "tr" => coalesce(seo.description.tr, seo.description.en), seo.description.en),      select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en)    ),    publishedAt,    lastCheckedAt,    _updatedAt  }
 export type SPARK_EPISODE_SEO_QUERYResult = {
   title: string | null;
   description: string | null;
@@ -1758,10 +1491,13 @@ export type SPARK_EPISODE_SEO_QUERYResult = {
   _updatedAt: string;
 } | null;
 // Variable: SPARK_EPISODE_QUERY
-// Query: *[_type == "sparkEpisode"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    number,    subject,    parent,    country,    launchDate,    closureDate,    "altFormatSlug": select($locale == "tr" => format->slug.en.current, format->slug.tr.current),    "altEpisodeSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),    "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),    "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),    "recordLabel": select($locale == "tr" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),    "readingLabel": select($locale == "tr" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),    "callLabel": select($locale == "tr" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),    "estimateLabel": select($locale == "tr" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),    "weighLabel": select($locale == "tr" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),    "signalLabel": select($locale == "tr" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),    "secondOpinionLabel": select($locale == "tr" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),    "allocationLabel": select($locale == "tr" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),    "callOptionRuleLabel": select($locale == "tr" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),    "callOptionDecisionLabel": select($locale == "tr" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),    "callMatchLabel": select($locale == "tr" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),    "callMismatchLabel": select($locale == "tr" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),    "callUnsettledLabel": select($locale == "tr" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),    "allocationCommitLabel": select($locale == "tr" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),    "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),    "scorecardHeading": select($locale == "tr" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),    "scorecardUnansweredLabel": select($locale == "tr" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),    "scorecardYourReadingLabel": select($locale == "tr" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),    "scorecardCrossEpisodeLabel": select($locale == "tr" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),    "scorecardShareLabel": select($locale == "tr" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),    "scorecardCopiedLabel": select($locale == "tr" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),    "scorecardPrivacyLine": select($locale == "tr" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),    "blocks": blocks[]{      _type,      _type == "sparkRecord" => {        blockId,        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),        "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),        "source": source{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          url,          kind        }      },      _type == "sparkReading" => {        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        restsOn      },      _type == "sparkNote" => {        date,        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)      },      _type == "sparkCall" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        answer,        "reveal": reveal{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkEstimate" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "brackets": brackets[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          min,          max        },        actualValue,        "actualLabel": select($locale == "tr" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),        "insideBracketLabel": select($locale == "tr" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),        "belowBracketLabel": select($locale == "tr" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),        "aboveBracketLabel": select($locale == "tr" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),        "derivedReading": derivedReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkWeigh" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "disclaimer": select($locale == "tr" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),        "options": options[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en)        },        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSignal" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSecondOpinion" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "readingA": readingA{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "readingB": readingB{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)      },      _type == "sparkAllocation" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "categoryALabel": select($locale == "tr" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),        "categoryBLabel": select($locale == "tr" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      }    }  }
+// Query: *[_type == "sparkEpisode" && status == "published"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    number,    "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),    publishedAt,    evidenceTakenAt,    lastCheckedAt,    parent,    country,    launchDate,    closureDate,    "altFormatSlug": select($locale == "tr" => format->slug.en.current, format->slug.tr.current),    "altEpisodeSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),    "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),    "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),    "recordLabel": select($locale == "tr" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),    "readingLabel": select($locale == "tr" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),    "callLabel": select($locale == "tr" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),    "estimateLabel": select($locale == "tr" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),    "weighLabel": select($locale == "tr" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),    "signalLabel": select($locale == "tr" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),    "secondOpinionLabel": select($locale == "tr" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),    "allocationLabel": select($locale == "tr" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),    "callOptionRuleLabel": select($locale == "tr" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),    "callOptionDecisionLabel": select($locale == "tr" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),    "callMatchLabel": select($locale == "tr" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),    "callMismatchLabel": select($locale == "tr" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),    "callUnsettledLabel": select($locale == "tr" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),    "allocationCommitLabel": select($locale == "tr" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),    "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),    "scorecardHeading": select($locale == "tr" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),    "scorecardUnansweredLabel": select($locale == "tr" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),    "scorecardYourReadingLabel": select($locale == "tr" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),    "scorecardCrossEpisodeLabel": select($locale == "tr" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),    "scorecardShareLabel": select($locale == "tr" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),    "scorecardCopiedLabel": select($locale == "tr" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),    "scorecardPrivacyLine": select($locale == "tr" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),    "blocks": blocks[]{      _type,      _type == "sparkRecord" => {        blockId,        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),        "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),        "source": source{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          url,          kind        }      },      _type == "sparkReading" => {        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        restsOn      },      _type == "sparkNote" => {        date,        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)      },      _type == "sparkCall" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        answer,        "reveal": reveal{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkEstimate" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "brackets": brackets[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          min,          max        },        actualValue,        "actualLabel": select($locale == "tr" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),        "insideBracketLabel": select($locale == "tr" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),        "belowBracketLabel": select($locale == "tr" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),        "aboveBracketLabel": select($locale == "tr" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),        "derivedReading": derivedReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkWeigh" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "disclaimer": select($locale == "tr" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),        "options": options[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en)        },        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSignal" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSecondOpinion" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "readingA": readingA{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "readingB": readingB{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)      },      _type == "sparkAllocation" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "categoryALabel": select($locale == "tr" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),        "categoryBLabel": select($locale == "tr" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      }    }  }
 export type SPARK_EPISODE_QUERYResult = {
   number: number;
   subject: string | null;
+  publishedAt: string | null;
+  evidenceTakenAt: string | null;
+  lastCheckedAt: string | null;
   parent: string | null;
   country: string | null;
   launchDate: string | null;
@@ -1908,48 +1644,22 @@ export type SPARK_EPISODE_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"homePage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"headlinePrimary\": select($locale == \"tr\" => coalesce(headlinePrimary.tr, headlinePrimary.en), headlinePrimary.en),\n    \"headlineAccent\": select($locale == \"tr\" => coalesce(headlineAccent.tr, headlineAccent.en), headlineAccent.en),\n    \"bullets\": select($locale == \"tr\" => coalesce(bullets.tr, bullets.en), bullets.en),\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    \"ctaHref\": ctaHref,\n    \"ctaNote\": select($locale == \"tr\" => coalesce(ctaNote.tr, ctaNote.en), ctaNote.en),\n    \"scrollLabel\": select($locale == \"tr\" => coalesce(scrollLabel.tr, scrollLabel.en), scrollLabel.en)\n  }\n": HOME_HERO_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].framework{\n    steps[]{\n      id,\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    }\n  }\n": HOME_FRAMEWORK_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].proofStrip{\n    \"kicker\": select($locale == \"tr\" => coalesce(kicker.tr, kicker.en), kicker.en),\n    \"roles\": select($locale == \"tr\" => coalesce(roles.tr, roles.en), roles.en),\n    \"items\": items[] | order(order asc) {\n      name,\n      \"logo\": logo{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      \"line\": select($locale == \"tr\" => coalesce(line.tr, line.en), line.en),\n      order\n    },\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    }\n  }\n": HOME_PROOF_STRIP_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].services{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"labels\": {\n      \"problem\": select($locale == \"tr\" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),\n      \"action\": select($locale == \"tr\" => coalesce(labels.action.tr, labels.action.en), labels.action.en),\n      \"outcome\": select($locale == \"tr\" => coalesce(labels.outcome.tr, labels.outcome.en), labels.outcome.en),\n      \"rightDoor\": select($locale == \"tr\" => coalesce(labels.rightDoor.tr, labels.rightDoor.en), labels.rightDoor.en),\n      \"notRightDoor\": select($locale == \"tr\" => coalesce(labels.notRightDoor.tr, labels.notRightDoor.en), labels.notRightDoor.en),\n      \"duration\": select($locale == \"tr\" => coalesce(labels.duration.tr, labels.duration.en), labels.duration.en),\n      \"runsOn\": select($locale == \"tr\" => coalesce(labels.runsOn.tr, labels.runsOn.en), labels.runsOn.en)\n    },\n    \"items\": items[] | order(number asc) {\n      slug,\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"tag\": select($locale == \"tr\" => coalesce(tag.tr, tag.en), tag.en),\n      \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n      \"action\": select($locale == \"tr\" => coalesce(action.tr, action.en), action.en),\n      \"outcome\": select($locale == \"tr\" => coalesce(outcome.tr, outcome.en), outcome.en),\n      \"rightDoor\": select($locale == \"tr\" => coalesce(rightDoor.tr, rightDoor.en), rightDoor.en),\n      \"notRightDoor\": select($locale == \"tr\" => coalesce(notRightDoor.tr, notRightDoor.en), notRightDoor.en),\n      \"duration\": select($locale == \"tr\" => coalesce(duration.tr, duration.en), duration.en),\n      \"runsOn\": select($locale == \"tr\" => coalesce(runsOn.tr, runsOn.en), runsOn.en)\n    },\n    \"fullEngagementHeading\": select($locale == \"tr\" => coalesce(fullEngagementHeading.tr, fullEngagementHeading.en), fullEngagementHeading.en),\n    \"fullEngagementBody\": select($locale == \"tr\" => coalesce(fullEngagementBody.tr, fullEngagementBody.en), fullEngagementBody.en),\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    }\n  }\n": HOME_SERVICES_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].comparison{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"scrollHint\": select($locale == \"tr\" => coalesce(scrollHint.tr, scrollHint.en), scrollHint.en),\n    \"columnLabels\": {\n      \"decide\": select($locale == \"tr\" => coalesce(columnLabels.decide.tr, columnLabels.decide.en), columnLabels.decide.en),\n      \"setup\": select($locale == \"tr\" => coalesce(columnLabels.setup.tr, columnLabels.setup.en), columnLabels.setup.en),\n      \"ship\": select($locale == \"tr\" => coalesce(columnLabels.ship.tr, columnLabels.ship.en), columnLabels.ship.en)\n    },\n    \"rows\": rows[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      isUs,\n      \"decide\": decide{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) },\n      \"setup\": setup{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) },\n      \"ship\": ship{ state, \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en) }\n    }\n  }\n": HOME_COMPARISON_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].approach{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"blocks\": blocks[] | order(number asc) {\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n    }\n  }\n": HOME_APPROACH_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].audience{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"labels\": {\n      \"problem\": select($locale == \"tr\" => coalesce(labels.problem.tr, labels.problem.en), labels.problem.en),\n      \"do\": select($locale == \"tr\" => coalesce(labels.do.tr, labels.do.en), labels.do.en),\n      \"result\": select($locale == \"tr\" => coalesce(labels.result.tr, labels.result.en), labels.result.en)\n    },\n    \"cards\": cards[]{\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n      \"do\": select($locale == \"tr\" => coalesce(do.tr, do.en), do.en),\n      \"result\": select($locale == \"tr\" => coalesce(result.tr, result.en), result.en)\n    }\n  }\n": HOME_AUDIENCE_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].story{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"lead\": select($locale == \"tr\" => coalesce(lead.tr, lead.en), lead.en),\n    \"paragraphs\": select($locale == \"tr\" => coalesce(paragraphs.tr, paragraphs.en), paragraphs.en),\n    \"link\": link{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"media\": media{\n      type,\n      \"image\": image{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      youtubeId,\n      \"caption\": select($locale == \"tr\" => coalesce(caption.tr, caption.en), caption.en)\n    }\n  }\n": HOME_STORY_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].testimonials{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"items\": items[] | order(order asc) {\n      \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n      \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n      \"attribution\": select($locale == \"tr\" => coalesce(attribution.tr, attribution.en), attribution.en),\n      \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n      order\n    }\n  }\n": HOME_TESTIMONIALS_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].media{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"items\": items[] | order(order asc) {\n      source,\n      \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n      \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en),\n      href,\n      isVideo,\n      order\n    }\n  }\n": HOME_MEDIA_QUERYResult;
-    "\n  *[_type == \"siteSettings\"][0].booking{\n    calLink,\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"meta1\": select($locale == \"tr\" => coalesce(meta1.tr, meta1.en), meta1.en),\n    \"meta2\": select($locale == \"tr\" => coalesce(meta2.tr, meta2.en), meta2.en)\n  }\n": SITE_BOOKING_QUERYResult;
-    "\n  *[_type == \"siteSettings\"][0].subpageCta{\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref\n  }\n": SITE_SUBPAGE_CTA_QUERYResult;
-    "\n  *[_type == \"workPage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n  }\n": WORK_PAGE_QUERYResult;
-    "\n  *[_type == \"servicesPage\"][0].hero{\n    \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n  }\n": SERVICES_PAGE_QUERYResult;
-    "\n  *[_type == \"storyPage\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"media\": media{\n      type,\n      \"image\": image{\n        \"url\": asset->url,\n        \"alt\": coalesce(alt, \"\"),\n        \"width\": asset->metadata.dimensions.width,\n        \"height\": asset->metadata.dimensions.height,\n        \"lqip\": asset->metadata.lqip\n      },\n      youtubeId,\n      \"caption\": select($locale == \"tr\" => coalesce(caption.tr, caption.en), caption.en)\n    },\n    \"prose\": prose[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en)\n    }\n  }\n": STORY_PAGE_QUERYResult;
+    "{\n  \"site\": *[_type == \"siteSettings\" && _id == \"siteSettings\"][0]{\n    brandName, homeLabel, servicesLabel, nav, servicesMenu, bookLabel,\n    menuLabel, menuOpenLabel, menuCloseLabel, footer, booking, nextStep, legal\n  },\n  \"services\": *[_type == \"servicePage\"] | order(order asc){ slug, name, shortLine, audience, slices }\n}": SITE_CHROME_QUERYResult;
+    "*[_type == \"homePage\" && _id == \"homePage\"][0]{\n  seo{ title, description },\n  opening{ ..., \"portraitUrl\": portrait.asset->url },\n  startWhereYouAre,\n  fourServices,\n  work{\n    label, heading, allLinkLabel, alsoLabel, also,\n    featured{\n      label, heading, text, figures, linkLabel,\n      \"slug\": caseStudy->slug,\n      \"screens\": caseStudy->screens[0...2]{ \"src\": asset->url, alt }\n    },\n    rows[]{ line, tags, \"slug\": caseStudy->slug, \"name\": caseStudy->name }\n  },\n  withMe{ ..., \"portraitUrl\": portrait.asset->url },\n  spark\n}": HOME_PAGE_QUERYResult;
+    "*[_type == \"sparkEpisode\" && status in [\"published\", \"coming\"]]\n  | order(format->orderRank asc, number asc)[0...3]{\n    number, subject, hook, cardLine, status, publishedAt,\n    \"episodeSlug\": slug,\n    \"format\": format->{ name, singularName, slug, comingLabel }\n  }": SPARK_CARDS_QUERYResult;
+    "*[_type == \"servicesPage\" && _id == \"servicesPage\"][0]{\n  seo{ title, description }, backLabel, opening, servicePageLabels\n}": SERVICES_PAGE_QUERYResult;
+    "*[_type == \"servicePage\"] | order(order asc){\n  slug, seo{ title, description }, opening, steps[]{ title, line, slices }, keep\n}": SERVICE_PAGES_QUERYResult;
+    "*[_type == \"workPage\" && _id == \"workPage\"][0]{\n  seo{ title, description }, backLabel, label, heading, lead, readLabel,\n  caseLabel, caseBackLabel, sourcesLabel, nextCaseLabel\n}": WORK_PAGE_QUERYResult;
+    "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
+    "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
+    "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,\n    columns, showAllTemplate,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
-    "\n  *[_type == \"caseStudy\"] | order(order asc) {\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDIES_LIST_QUERYResult;
-    "\n  *[_type == \"caseStudy\" && slug == $slug][0]{\n    slug,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"location\": select($locale == \"tr\" => coalesce(location.tr, location.en), location.en),\n    \"subtitle\": select($locale == \"tr\" => coalesce(subtitle.tr, subtitle.en), subtitle.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"coverImage\": coverImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"problemHeading\": select($locale == \"tr\" => coalesce(problemHeading.tr, problemHeading.en), problemHeading.en),\n    \"problem\": select($locale == \"tr\" => coalesce(problem.tr, problem.en), problem.en),\n    \"actionsHeading\": select($locale == \"tr\" => coalesce(actionsHeading.tr, actionsHeading.en), actionsHeading.en),\n    \"actions\": actions[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en)\n    },\n    \"deliveredHeading\": select($locale == \"tr\" => coalesce(deliveredHeading.tr, deliveredHeading.en), deliveredHeading.en),\n    \"delivered\": select($locale == \"tr\" => coalesce(delivered.tr, delivered.en), delivered.en),\n    \"tags\": select($locale == \"tr\" => coalesce(tags.tr, tags.en), tags.en),\n    \"screens\": screens[]{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    \"detailEyebrow\": select($locale == \"tr\" => coalesce(detailEyebrow.tr, detailEyebrow.en), detailEyebrow.en),\n    \"detailIntro\": select($locale == \"tr\" => coalesce(detailIntro.tr, detailIntro.en), detailIntro.en),\n    \"logo\": logo{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    order\n  }\n": CASE_STUDY_QUERYResult;
-    "\n  *[_type == \"caseStudy\"].slug\n": CASE_STUDY_SLUGS_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].familiar{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"points\": points[] | order(order asc) {\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      order\n    },\n    \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en)\n  }\n": HOME_FAMILIAR_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].caseStudies{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en),\n    \"linkLabel\": select($locale == \"tr\" => coalesce(linkLabel.tr, linkLabel.en), linkLabel.en)\n  }\n": HOME_CASE_STUDIES_SECTION_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].process{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"steps\": steps[] | order(number asc) {\n      number,\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n      \"detail\": select($locale == \"tr\" => coalesce(detail.tr, detail.en), detail.en)\n    },\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref\n  }\n": HOME_PROCESS_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].faq{\n    \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n    \"items\": items[] | order(order asc) {\n      \"question\": select($locale == \"tr\" => coalesce(question.tr, question.en), question.en),\n      \"answer\": select($locale == \"tr\" => coalesce(answer.tr, answer.en), answer.en),\n      order\n    }\n  }\n": HOME_FAQ_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].closingCta{\n    \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n    \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n    \"headline\": select($locale == \"tr\" => coalesce(headline.tr, headline.en), headline.en),\n    \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n    \"ctaLabel\": select($locale == \"tr\" => coalesce(ctaLabel.tr, ctaLabel.en), ctaLabel.en),\n    ctaHref,\n    \"note\": select($locale == \"tr\" => coalesce(note.tr, note.en), note.en)\n  }\n": HOME_CLOSING_CTA_QUERYResult;
-    "\n  *[_type == \"homePage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": HOME_SEO_QUERYResult;
-    "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
-    "\n  *[_type == \"workPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": WORK_PAGE_SEO_QUERYResult;
-    "\n  *[_type == \"servicesPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SERVICES_PAGE_SEO_QUERYResult;
-    "\n  *[_type == \"storyPage\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": STORY_PAGE_SEO_QUERYResult;
+    "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": select($locale == \"tr\" && defined(ogImageTr.asset) => ogImageTr, ogImage){\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;
-    "\n  *[_type == \"siteSettings\"][0].nav[]{\n    \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n    href,\n    external\n  }\n": SITE_NAV_QUERYResult;
-    "\n  *[_type == \"siteSettings\"][0].footer{\n    \"tagline\": select($locale == \"tr\" => coalesce(tagline.tr, tagline.en), tagline.en),\n    \"nine\": select($locale == \"tr\" => coalesce(nine.tr, nine.en), nine.en),\n    \"signature\": select($locale == \"tr\" => coalesce(signature.tr, signature.en), signature.en),\n    email,\n    linkedin,\n    \"nav\": nav[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legalLinks\": legalLinks[]{\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      href,\n      external\n    },\n    \"legal\": select($locale == \"tr\" => coalesce(legal.tr, legal.en), legal.en),\n    \"copyright\": select($locale == \"tr\" => coalesce(copyright.tr, copyright.en), copyright.en)\n  }\n": SITE_FOOTER_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
-    "\n  *[_type == \"sparkSection\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SPARK_SEO_QUERYResult;
-    "\n  *[_type == \"sparkSection\"][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"homeLinkLabel\": select($locale == \"tr\" => coalesce(homeLinkLabel.tr, homeLinkLabel.en), homeLinkLabel.en),\n    \"comingSoonLabel\": select($locale == \"tr\" => coalesce(comingSoonLabel.tr, comingSoonLabel.en), comingSoonLabel.en)\n  }\n": SPARK_SECTION_QUERYResult;
-    "\n  *[_type == \"sparkFormat\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"en\": slug.en.current,\n    \"tr\": slug.tr.current\n  }\n": SPARK_FORMAT_SLUGS_QUERYResult;
-    "\n  *[_type == \"sparkFormat\" && status == \"live\"] | order(orderRank asc){\n    number,\n    \"name\": select($locale == \"tr\" => coalesce(name.tr, name.en), name.en),\n    \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"subjectLine\": select($locale == \"tr\" => coalesce(subjectLine.tr, subjectLine.en), subjectLine.en),\n    \"whatIsInside\": select($locale == \"tr\" => coalesce(whatIsInside.tr, whatIsInside.en), whatIsInside.en),\n    \"statusLineSingular\": select($locale == \"tr\" => coalesce(statusLineSingular.tr, statusLineSingular.en), statusLineSingular.en),\n    \"statusLinePlural\": select($locale == \"tr\" => coalesce(statusLinePlural.tr, statusLinePlural.en), statusLinePlural.en),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),\n    \"dayNotEstablishedLabel\": select($locale == \"tr\" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"published\"] | order(number asc){\n      number,\n      subject,\n      country,\n      launchDate,\n      closureDate,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMATS_HUB_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\" && status == \"published\" && defined(publishedAt)] | order(publishedAt desc)[0]{\n    \"line\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n    launchDate,\n    closureDate,\n    \"episodeSlug\": select($locale == \"tr\" => slug.tr.current, slug.en.current),\n    \"formatSlug\": select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en)\n  }\n": SPARK_TEASER_EPISODE_QUERYResult;
-    "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SPARK_FORMAT_SEO_QUERYResult;
-    "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"altFormatSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"hookLabel\": select($locale == \"tr\" => coalesce(hookLabel.tr, hookLabel.en), hookLabel.en),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(dayCountSingular.tr, dayCountSingular.en), dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(dayCountPlural.tr, dayCountPlural.en), dayCountPlural.en),\n    \"dayNotEstablishedLabel\": select($locale == \"tr\" => coalesce(dayNotEstablishedLabel.tr, dayNotEstablishedLabel.en), dayNotEstablishedLabel.en),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"published\"] | order(number asc){\n      number,\n      subject,\n      country,\n      launchDate,\n      closureDate,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMAT_QUERYResult;
+    "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"altFormatSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"published\"] | order(number asc){\n      number,\n      \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n      country,\n      launchDate,\n      closureDate,\n      publishedAt,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMAT_QUERYResult;
     "\n  *[_type == \"sparkEpisode\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"episodeEn\": slug.en.current,\n    \"episodeTr\": slug.tr.current,\n    \"formatEn\": format->slug.en.current,\n    \"formatTr\": format->slug.tr.current,\n    status,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SLUGS_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    \"title\": subject,\n    \"description\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n    publishedAt,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SEO_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    number,\n    subject,\n    parent,\n    country,\n    launchDate,\n    closureDate,\n    \"altFormatSlug\": select($locale == \"tr\" => format->slug.en.current, format->slug.tr.current),\n    \"altEpisodeSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"standfirst\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n    \"formatName\": select($locale == \"tr\" => coalesce(format->name.tr, format->name.en), format->name.en),\n    \"dayLabel\": select($locale == \"tr\" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),\n    \"dayNotEstablishedLabel\": select($locale == \"tr\" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),\n    \"recordLabel\": select($locale == \"tr\" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),\n    \"readingLabel\": select($locale == \"tr\" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),\n    \"callLabel\": select($locale == \"tr\" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),\n    \"estimateLabel\": select($locale == \"tr\" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),\n    \"weighLabel\": select($locale == \"tr\" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),\n    \"signalLabel\": select($locale == \"tr\" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),\n    \"secondOpinionLabel\": select($locale == \"tr\" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),\n    \"allocationLabel\": select($locale == \"tr\" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),\n    \"callOptionRuleLabel\": select($locale == \"tr\" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),\n    \"callOptionDecisionLabel\": select($locale == \"tr\" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),\n    \"callMatchLabel\": select($locale == \"tr\" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),\n    \"callMismatchLabel\": select($locale == \"tr\" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),\n    \"callUnsettledLabel\": select($locale == \"tr\" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),\n    \"allocationCommitLabel\": select($locale == \"tr\" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),\n    \"noteLabel\": select($locale == \"tr\" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),\n    \"scorecardHeading\": select($locale == \"tr\" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),\n    \"scorecardUnansweredLabel\": select($locale == \"tr\" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),\n    \"scorecardYourReadingLabel\": select($locale == \"tr\" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),\n    \"scorecardCrossEpisodeLabel\": select($locale == \"tr\" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),\n    \"scorecardShareLabel\": select($locale == \"tr\" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),\n    \"scorecardCopiedLabel\": select($locale == \"tr\" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),\n    \"scorecardPrivacyLine\": select($locale == \"tr\" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),\n    \"blocks\": blocks[]{\n      _type,\n      _type == \"sparkRecord\" => {\n        blockId,\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n        \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n        \"source\": source{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          url,\n          kind\n        }\n      },\n      _type == \"sparkReading\" => {\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        restsOn\n      },\n      _type == \"sparkNote\" => {\n        date,\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n      },\n      _type == \"sparkCall\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        answer,\n        \"reveal\": reveal{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkEstimate\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"brackets\": brackets[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          min,\n          max\n        },\n        actualValue,\n        \"actualLabel\": select($locale == \"tr\" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),\n        \"insideBracketLabel\": select($locale == \"tr\" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),\n        \"belowBracketLabel\": select($locale == \"tr\" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),\n        \"aboveBracketLabel\": select($locale == \"tr\" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),\n        \"derivedReading\": derivedReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkWeigh\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"disclaimer\": select($locale == \"tr\" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),\n        \"options\": options[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          \"line\": select($locale == \"tr\" => coalesce(line.tr, line.en), line.en)\n        },\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSignal\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSecondOpinion\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"readingA\": readingA{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"readingB\": readingB{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en)\n      },\n      _type == \"sparkAllocation\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"categoryALabel\": select($locale == \"tr\" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),\n        \"categoryBLabel\": select($locale == \"tr\" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      }\n    }\n  }\n": SPARK_EPISODE_QUERYResult;
+    "\n  *[_type == \"sparkEpisode\" && status == \"published\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    \"title\": coalesce(select($locale == \"tr\" => coalesce(seo.title.tr, seo.title.en), seo.title.en), select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en)),\n    \"description\": coalesce(\n      select($locale == \"tr\" => coalesce(seo.description.tr, seo.description.en), seo.description.en),\n      select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en)\n    ),\n    publishedAt,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SEO_QUERYResult;
+    "\n  *[_type == \"sparkEpisode\" && status == \"published\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    number,\n    \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n    publishedAt,\n    evidenceTakenAt,\n    lastCheckedAt,\n    parent,\n    country,\n    launchDate,\n    closureDate,\n    \"altFormatSlug\": select($locale == \"tr\" => format->slug.en.current, format->slug.tr.current),\n    \"altEpisodeSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"standfirst\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n    \"formatName\": select($locale == \"tr\" => coalesce(format->name.tr, format->name.en), format->name.en),\n    \"dayLabel\": select($locale == \"tr\" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),\n    \"dayNotEstablishedLabel\": select($locale == \"tr\" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),\n    \"recordLabel\": select($locale == \"tr\" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),\n    \"readingLabel\": select($locale == \"tr\" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),\n    \"callLabel\": select($locale == \"tr\" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),\n    \"estimateLabel\": select($locale == \"tr\" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),\n    \"weighLabel\": select($locale == \"tr\" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),\n    \"signalLabel\": select($locale == \"tr\" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),\n    \"secondOpinionLabel\": select($locale == \"tr\" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),\n    \"allocationLabel\": select($locale == \"tr\" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),\n    \"callOptionRuleLabel\": select($locale == \"tr\" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),\n    \"callOptionDecisionLabel\": select($locale == \"tr\" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),\n    \"callMatchLabel\": select($locale == \"tr\" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),\n    \"callMismatchLabel\": select($locale == \"tr\" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),\n    \"callUnsettledLabel\": select($locale == \"tr\" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),\n    \"allocationCommitLabel\": select($locale == \"tr\" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),\n    \"noteLabel\": select($locale == \"tr\" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),\n    \"scorecardHeading\": select($locale == \"tr\" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),\n    \"scorecardUnansweredLabel\": select($locale == \"tr\" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),\n    \"scorecardYourReadingLabel\": select($locale == \"tr\" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),\n    \"scorecardCrossEpisodeLabel\": select($locale == \"tr\" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),\n    \"scorecardShareLabel\": select($locale == \"tr\" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),\n    \"scorecardCopiedLabel\": select($locale == \"tr\" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),\n    \"scorecardPrivacyLine\": select($locale == \"tr\" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),\n    \"blocks\": blocks[]{\n      _type,\n      _type == \"sparkRecord\" => {\n        blockId,\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n        \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n        \"source\": source{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          url,\n          kind\n        }\n      },\n      _type == \"sparkReading\" => {\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        restsOn\n      },\n      _type == \"sparkNote\" => {\n        date,\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n      },\n      _type == \"sparkCall\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        answer,\n        \"reveal\": reveal{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkEstimate\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"brackets\": brackets[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          min,\n          max\n        },\n        actualValue,\n        \"actualLabel\": select($locale == \"tr\" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),\n        \"insideBracketLabel\": select($locale == \"tr\" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),\n        \"belowBracketLabel\": select($locale == \"tr\" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),\n        \"aboveBracketLabel\": select($locale == \"tr\" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),\n        \"derivedReading\": derivedReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkWeigh\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"disclaimer\": select($locale == \"tr\" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),\n        \"options\": options[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          \"line\": select($locale == \"tr\" => coalesce(line.tr, line.en), line.en)\n        },\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSignal\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSecondOpinion\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"readingA\": readingA{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"readingB\": readingB{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en)\n      },\n      _type == \"sparkAllocation\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"categoryALabel\": select($locale == \"tr\" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),\n        \"categoryBLabel\": select($locale == \"tr\" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      }\n    }\n  }\n": SPARK_EPISODE_QUERYResult;
   }
 }

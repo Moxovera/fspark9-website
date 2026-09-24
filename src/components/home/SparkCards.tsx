@@ -3,11 +3,7 @@ import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
 import TextLink from "@/components/brand/TextLink";
 import { ArrowRightIcon } from "@/components/icons";
-import type { HomeContent, SparkCardContent } from "@/types/content";
-
-interface SparkCardsProps {
-  content: HomeContent["spark"];
-}
+import type { SparkCardContent, SparkCardsProps } from "@/types/content";
 
 /**
  * Ana sayfa Spark bölümü (board Main #spark / HomeMobile). En son üç

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { BRAND } from "@/lib/brandColors";
 import { EIGHT_SLICES, slicePath } from "@/lib/dial";
-import { home } from "@/content/home";
+import { getHome } from "@/sanity/lib/content";
 import { LOGO_LETTERS, LOGO_NINE_BODY, LOGO_NINE_SLICE, LOGO_NINE_TRANSFORM } from "@/components/brand/Logo";
 import type { Locale } from "@/types/content";
 
@@ -22,6 +22,7 @@ async function loadGoogleFont(family: string, weight: number) {
 
 export async function renderOgImage(locale: Locale = "en") {
   const [epilogue, mono] = await Promise.all([loadGoogleFont("Epilogue", 800), loadGoogleFont("Spline Sans Mono", 500)]);
+  const home = await getHome();
   const { headlineSentences, cutWord, eyebrowParts } = home[locale].opening;
   const last = headlineSentences[headlineSentences.length - 1];
   const at = last.lastIndexOf(cutWord);

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
-import { episodeSeo } from "@/content/seo";
+import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
@@ -13,8 +12,7 @@ import EpisodeRuler from "@/components/spark/episode/EpisodeRuler";
 import Scorecard from "@/components/spark/episode/Scorecard";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import { computeDayCount } from "@/components/spark/day/dayMath";
-import { spark } from "@/content/spark";
-import { nextStep } from "@/content/chrome";
+import { getChrome, getHome, getSparkHub } from "@/sanity/lib/content";
 import { fill, formatShortDate } from "@/lib/format";
 import { loadFormatIssues, slugFromOtherLocale } from "@/lib/spark";
 import { redirect } from "@/i18n/navigation";
@@ -43,7 +41,7 @@ export async function generateStaticParams() {
     tags: ["sparkEpisode"],
   });
 
-  return episodes.flatMap((episode) => {
+  return episodes.filter((episode) => episode.status === "published").flatMap((episode) => {
     const params: { locale: string; formatSlug: string; episodeSlug: string }[] = [];
     if (episode.formatEn && episode.episodeEn) {
       params.push({ locale: "en", formatSlug: episode.formatEn, episodeSlug: episode.episodeEn });
@@ -106,9 +104,7 @@ export async function generateMetadata({
         }
       : undefined;
 
-  // Copy §6c başlık/açıklaması varsa o, yoksa Sanity'deki konu ve giriş.
-  const seo = { ...toSparkEpisodeSeo(seoResult), ...episodeSeo[locale === "tr" ? "tr" : "en"][episodeSlug] };
-  return toMetadata(seo, toSiteSeo(siteSeoResult), locale, paths);
+  return toMetadata(toSparkEpisodeSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
 /**
@@ -140,7 +136,9 @@ export default async function SparkEpisodePageRoute({
 }) {
   const { locale: rawLocale, formatSlug, episodeSlug } = await params;
   const locale = rawLocale === "tr" ? "tr" : "en";
+  const [spark, site, home] = await Promise.all([getSparkHub(), getChrome(), getHome()]);
   const hub = spark[locale];
+  const { chrome, nextStep } = site[locale];
   const format = hub.formats.find((f) => f.slug === formatSlug);
   if (!format) {
     const fixed = slugFromOtherLocale(spark, locale, formatSlug);
@@ -181,7 +179,13 @@ export default async function SparkEpisodePageRoute({
     params: { locale, formatSlug, episodeSlug },
     tags: ["sparkEpisode"],
   });
-  const seo = { ...toSparkEpisodeSeo(seoResult), ...episodeSeo[locale][episodeSlug] };
+  const seo = toSparkEpisodeSeo(seoResult);
+  const dateOf = (iso: string | null) => (iso ? formatShortDate(iso, locale) : hub.launchDateLabel);
+  const recordLine = [
+    hub.episode.builtFromLabel,
+    fill(hub.episode.evidenceTakenLabel, { date: dateOf(episode.evidenceTakenAt ?? episode.publishedAt) }),
+    fill(hub.episode.lastCheckedLabel, { date: dateOf(episode.lastCheckedAt) }),
+  ];
   const formatPath = getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale });
   const path = getPathname({ href: { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug, episodeSlug } }, locale });
   const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] uppercase min-[900px]:text-[12px]";
@@ -190,12 +194,12 @@ export default async function SparkEpisodePageRoute({
     <main className="pt-16 min-[900px]:pt-[84px]">
       <JsonLd
         data={[
-          breadcrumbJsonLd(locale, [
+          breadcrumbJsonLd(locale, chrome, [
             { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
             { name: format.name, path: formatPath },
             { name: episode.subject, path },
           ]),
-          articleJsonLd(locale, {
+          articleJsonLd(locale, personInfo(home[locale], chrome), {
             headline: seo.title.split(" | ")[0],
             description: seo.description,
             path,
@@ -262,7 +266,7 @@ export default async function SparkEpisodePageRoute({
               {episode.standfirst}
             </p>
             <div className="flex flex-wrap gap-x-4 gap-y-2 min-[900px]:gap-6">
-              {[hub.episode.builtFromLabel, hub.episode.evidenceTakenLabel, hub.episode.lastCheckedLabel].map((item) => (
+              {recordLine.map((item) => (
                 <span key={item} className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">
                   {item}
                 </span>
@@ -301,7 +305,7 @@ export default async function SparkEpisodePageRoute({
         </section>
       )}
 
-      <NextStep content={nextStep[locale]} />
+      <NextStep content={nextStep} />
     </main>
   );
 }

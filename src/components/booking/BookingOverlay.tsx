@@ -7,12 +7,7 @@ import { CloseIcon } from "@/components/icons";
 import { useBooking } from "@/hooks/useBooking";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
 import { EIGHT_SLICES } from "@/lib/dial";
-import type { SiteChrome } from "@/types/content";
-
-interface BookingOverlayProps {
-  calLink: string;
-  labels: SiteChrome["booking"];
-}
+import type { BookingOverlayProps } from "@/types/content";
 
 /**
  * Randevu penceresi (brief v4 §8.1, board Booking / BookingMobile).

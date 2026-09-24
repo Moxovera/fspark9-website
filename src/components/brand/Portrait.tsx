@@ -8,11 +8,11 @@ import type { PortraitProps } from "@/types/content";
  * (relative ya da absolute) kullanan yerden className ile gelir: next/image
  * `fill` konumlu bir kapsayıcı istiyor.
  */
-export default function Portrait({ alt, sizes, priority = false, className }: PortraitProps) {
+export default function Portrait({ alt, src, sizes, priority = false, className }: PortraitProps) {
   return (
     <div className={`overflow-hidden rounded-full bg-portrait ${className ?? ""}`}>
       <Image
-        src="/assets/portrait.jpg"
+        src={src ?? "/assets/portrait.jpg"}
         alt={alt}
         fill
         sizes={sizes}

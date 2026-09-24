@@ -2,13 +2,7 @@ import { Link } from "@/i18n/navigation";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
 import LegalBlocks from "@/components/subpages/LegalBlocks";
-import type { LegalBlock, LegalPage, NavHref, SiteChrome } from "@/types/content";
-
-interface LegalPageViewProps {
-  page: LegalPage;
-  legal: SiteChrome["legal"];
-  current: NavHref;
-}
+import type { LegalBlock, LegalPageViewProps } from "@/types/content";
 
 /**
  * Yasal sayfa şablonu (brief v4 §7.8, board Legal / LegalM): açık header,

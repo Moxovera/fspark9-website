@@ -9,13 +9,7 @@ import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
 import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
-import type { ServiceSummary, SiteChrome } from "@/types/content";
-
-interface MobileNavProps {
-  chrome: SiteChrome;
-  services: ServiceSummary[];
-  locale: string;
-}
+import type { MobileNavProps } from "@/types/content";
 
 const BIG_LINK =
   "block border-b border-inkrule py-[18px] font-display text-[28px] leading-[normal] font-extrabold tracking-[-0.03em] text-paper no-underline";

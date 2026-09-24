@@ -10,11 +10,11 @@
     "sanity:schema": "sanity schema extract --enforce-required-fields",
     "sanity:typegen": "sanity typegen generate",
     "typegen": "npm run sanity:schema && npm run sanity:typegen",
-    "seed": "tsx --env-file=.env.local src/scripts/seed-content.ts",
-    "seed:spark": "tsx --env-file=.env.local src/scripts/seed-spark.ts",
-    "check:spark-drift": "tsx --env-file=.env.local src/scripts/check-spark-drift.ts",
-    "upload-logo": "tsx --env-file=.env.local src/scripts/upload-logo.ts",
-    "upload-og-image": "tsx --env-file=.env.local src/scripts/upload-og-image.ts"
+    "check:spark-drift": "npm run check:drift",
+    "upload-og-image": "tsx --env-file=.env.local src/scripts/upload-og-image.ts",
+    "seed:v3": "tsx --env-file=.env.local src/scripts/seed-v3.ts",
+    "check:drift": "tsx --conditions=react-server --env-file=.env.local src/scripts/check-drift.ts",
+    "cleanup:v3": "tsx --env-file=.env.local src/scripts/cleanup-v3.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
