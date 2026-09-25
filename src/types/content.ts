@@ -1354,3 +1354,8 @@ export interface LockedMarkProps {
 export interface BrandCaseProps {
   text: string
 }
+
+/** Büyük rakam, sondaki kelime birimi küçük (src/components/brand/FigureValue.tsx). */
+export interface FigureValueProps {
+  value: string
+}

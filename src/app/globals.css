@@ -402,3 +402,11 @@ body {
   .spark-fill, .ticker-spark .ticker-item, .go-flare { transition: none; }
   .ticker-spark:hover .ticker-item { animation: none; }
 }
+
+/* Rakamın kelime birimi ("6 months"): aynı satırda, taban çizgisinde,
+   rakamın ~%42'si (FigureValue, CountUpValue). */
+.figure-unit {
+  margin-left: 0.14em;
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+}

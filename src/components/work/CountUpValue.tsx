@@ -1,6 +1,7 @@
 "use client";
 
 import { useCountUp } from "@/hooks/useCountUp";
+import { splitFigureUnit } from "@/lib/format";
 import type { CountUpValueProps } from "@/types/content";
 
 /**
@@ -16,6 +17,8 @@ export default function CountUpValue({ value, locale, className }: CountUpValueP
 
   if (!match) return <span className={className}>{value}</span>;
   const formatted = current.toLocaleString(locale === "tr" ? "tr-TR" : "en-GB");
+  // Sondaki kelime birimi ("months") küçük ve aynı satırda (FigureValue ile aynı kural).
+  const { main: suffix, unit } = splitFigureUnit(`0${match[3]}`);
 
   return (
     <span ref={ref} className={className}>
@@ -23,7 +26,8 @@ export default function CountUpValue({ value, locale, className }: CountUpValueP
       <span aria-hidden="true">
         {match[1]}
         {formatted}
-        {match[3]}
+        {suffix.slice(1)}
+        {unit && <span className="figure-unit">{unit}</span>}
       </span>
     </span>
   );

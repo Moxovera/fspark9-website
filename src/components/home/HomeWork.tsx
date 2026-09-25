@@ -1,4 +1,5 @@
 import Label from "@/components/brand/Label";
+import FigureValue from "@/components/brand/FigureValue";
 import Reveal from "@/components/ui/Reveal";
 import TextLink from "@/components/brand/TextLink";
 import PhonePair from "@/components/blocks/PhonePair";
@@ -51,7 +52,7 @@ export default function HomeWork({ content }: HomeWorkProps) {
                     {figure.label}
                   </dt>
                   <dd className="order-first m-0 font-display text-[36px] leading-none font-extrabold tracking-[-0.03em] text-ink min-[900px]:text-[clamp(30px,3.472vw,50px)]">
-                    {figure.value}
+                    <FigureValue value={figure.value} />
                   </dd>
                 </div>
               ))}

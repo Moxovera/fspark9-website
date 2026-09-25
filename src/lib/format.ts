@@ -17,3 +17,12 @@ export function formatShortDate(iso: string, locale: string): string {
 export function fill(template: string, values: Record<string, string | number>): string {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => String(values[key] ?? ""));
 }
+
+/**
+ * Rakamın sonundaki kelime birimini ayırır ("6 months" → "6" + "months",
+ * "6 ay" → "6" + "ay"). İşaretler (%, +) rakamın parçası sayılır, ayrılmaz.
+ */
+export function splitFigureUnit(value: string): { main: string; unit: string } {
+  const match = value.match(/^(.*?\d[^\s]*)\s+(\p{L}[\p{L}\s]*)$/u);
+  return match ? { main: match[1], unit: match[2] } : { main: value, unit: "" };
+}
