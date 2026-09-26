@@ -72,9 +72,8 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 
 ## Açık işler
 
-- **Son Gün v3 (2026-09-26, staging'de):** format sayfası ve Bó yeniden tasarlandı (brief `_design/v2/claude-code-son-gun-v3.md`, prototip `_design/v2/boards/son-gun-01-bo-v3.html`). Eski mekanikler, gün saati, cetvel, localStorage ve Day 573 içeriği koddan silindi. Sanity'deki eski alanlar (Bó `blocks`, eski format ve etiket alanları) canlıdaki eski kod okuyabilsin diye yerinde; main'e geçtikten sonra `npm run cleanup:v3 -- --confirm` ile silinecek.
-- Studio'daki ana sayfa, Work sayfası ve bir TR hizmet adı düzenlemeleri aynaya (`src/content`) işlenmedi; `check:drift` bunları gösteriyor. Bu yüzden tam `npm run seed:v3` çalıştırılmamalı (Studio düzenlemelerini ezer); Spark için `npm run seed:v3 -- --only=spark`.
-
+- **Son Gün v3 canlıda (2026-09-26):** format sayfası ve Bó yeniden tasarlandı (brief `_design/v2/claude-code-son-gun-v3.md`, prototip `_design/v2/boards/son-gun-01-bo-v3.html`). Eski mekanikler, gün saati, cetvel, localStorage ve Day 573 içeriği koddan, eski alanlar Sanity'den silindi (`cleanup:v3 --confirm --fields-only`). v1'den kalan 3 belge ve referanssız görseller hâlâ duruyor (aşağıdaki madde).
+- Sadece Spark belgelerini yazmak için `npm run seed:v3 -- --only=spark`; tam seed Studio'daki düzenlemeleri aynadan ezer, önce `check:drift` temiz olmalı.
 - `npm run cleanup:v3 -- --confirm`: v1'den kalan 3 belge (eski ana sayfa, taslağı, storyPage) ve referanssız görseller. Geri alınamaz; yedek alındı (Sanity'nin JSON dökümü).
 - Search Console: sitemap gönderimi, ana sayfa, dört hizmet, `/work`, `/about`, `/spark` (EN ve TR) için indeksleme isteği; bir hafta sonra Pages raporu.
 - Rich Results Test: her şablon için (Service, Article, Person, BreadcrumbList).
