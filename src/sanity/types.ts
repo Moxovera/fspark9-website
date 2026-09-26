@@ -13,123 +13,77 @@
  */
 
 // Source: schema.json
-export type SparkAllocation = {
-  _type: "sparkAllocation";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  notScoredLabel: LocaleString;
-  categoryALabel: LocaleString;
-  categoryBLabel: LocaleString;
-  revealReading: SparkInlineReading;
-};
-
-export type SparkSecondOpinion = {
-  _type: "sparkSecondOpinion";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  notScoredLabel: LocaleString;
-  options: Array<{
-    _key: string;
-  } & LocaleString>;
-  readingA: SparkInlineReading;
-  readingB: SparkInlineReading;
-  closingLine: LocaleText;
-};
-
-export type SparkSignal = {
-  _type: "sparkSignal";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  notScoredLabel: LocaleString;
-  options: Array<{
-    _key: string;
-  } & LocaleString>;
-  revealReading: SparkInlineReading;
-};
-
-export type SparkWeigh = {
-  _type: "sparkWeigh";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  disclaimer: LocaleString;
-  options: Array<{
-    label: LocaleString;
-    line: LocaleString;
-    _type: "weighOption";
-    _key: string;
-  }>;
-  revealReading: SparkInlineReading;
-};
-
-export type SparkEstimate = {
-  _type: "sparkEstimate";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  brackets: Array<{
-    label: LocaleString;
-    min: number;
-    max?: number;
-    _type: "estimateBracket";
-    _key: string;
-  }>;
-  actualValue: number;
-  actualLabel: LocaleString;
-  insideBracketLabel: LocaleString;
-  belowBracketLabel: LocaleString;
-  aboveBracketLabel: LocaleString;
-  derivedReading: SparkInlineReading;
-};
-
-export type SparkCall = {
-  _type: "sparkCall";
-  blockId: string;
-  date: string;
-  prompt: LocaleText;
-  answer: "rule" | "decision" | "unsettled";
-  reveal: SparkInlineReading;
-};
-
-export type SparkNote = {
-  _type: "sparkNote";
-  date: string;
-  body: LocaleText;
-};
-
-export type SparkReading = {
-  _type: "sparkReading";
-  date: string;
-  heading: LocaleString;
-  body: LocaleText;
-  restsOn: Array<string>;
-};
-
-export type SparkRecord = {
-  _type: "sparkRecord";
-  blockId: string;
-  date: string;
-  heading: LocaleString;
-  body: LocaleText;
-  quote?: LocaleText;
-  quoteAttribution?: LocaleString;
-  source: SparkSource;
-};
-
-export type SparkInlineReading = {
-  _type: "sparkInlineReading";
-  heading: LocaleString;
-  body: LocaleText;
-};
-
 export type SparkSource = {
   _type: "sparkSource";
-  label: LocaleString;
-  url: string;
-  kind: "regulator" | "filing" | "company" | "court" | "press";
+  n: number;
+  links?: Array<{
+    label?: LocaleString;
+    href?: string;
+    _type: "sparkSourceLink";
+    _key: string;
+  }>;
+};
+
+export type SparkFinalOption = {
+  _type: "sparkFinalOption";
+  text?: LocaleText;
+  service: "zero-to-live" | "product-strategy" | "embedded-finance" | "expansion-gtm";
+  serviceName?: LocaleString;
+  heading?: LocaleString;
+  body?: LocaleText;
+};
+
+export type SparkChapter = {
+  _type: "sparkChapter";
+  id: string;
+  label?: LocaleString;
+  title?: LocaleString;
+  lead?: LocaleText;
+  paragraphs?: Array<{
+    _key: string;
+  } & LocaleText>;
+  card?: SparkStoryCard;
+  decision?: SparkDecision;
+};
+
+export type SparkDecision = {
+  _type: "sparkDecision";
+  label?: LocaleString;
+  question?: LocaleText;
+  options?: Array<{
+    _key: string;
+  } & SparkDecisionOption>;
+  didLabel?: LocaleString;
+  didTitle?: LocaleText;
+  didBody?: Array<{
+    _key: string;
+  } & LocaleText>;
+  note?: LocaleText;
+  services?: Array<{
+    _key: string;
+  } & SparkServiceTag>;
+};
+
+export type SparkDecisionOption = {
+  _type: "sparkDecisionOption";
+  key: string;
+  text?: LocaleText;
+  answer?: LocaleText;
+};
+
+export type SparkServiceTag = {
+  _type: "sparkServiceTag";
+  name?: LocaleString;
+  service: "zero-to-live" | "product-strategy" | "embedded-finance" | "expansion-gtm";
+};
+
+export type SparkStoryCard = {
+  _type: "sparkStoryCard";
+  mode: "draft" | "live" | "flipped" | "closed";
+  day: string;
+  state?: LocaleString;
+  caption?: LocaleString;
+  barTitle?: LocaleString;
 };
 
 export type SparkEpisode = {
@@ -148,36 +102,56 @@ export type SparkEpisode = {
   slug?: LocaleSlug;
   seo?: Seo;
   subject?: LocaleString;
-  parent?: string;
   country?: string;
   launchDate?: string;
   closureDate?: string;
-  standfirst?: LocaleText;
   hook?: LocaleText;
   status: "published" | "coming" | "draft";
   cardLine?: LocaleText;
   publishedAt?: string;
-  evidenceTakenAt?: string;
   lastCheckedAt?: string;
-  blocks?: Array<{
+  hero?: {
+    label?: LocaleString;
+    title?: LocaleText;
+    sub?: LocaleText;
+    invite?: LocaleText;
+    startLabel?: LocaleString;
+    cardDay?: string;
+    cardState?: LocaleString;
+  };
+  chapters?: Array<{
     _key: string;
-  } & SparkRecord | {
+  } & SparkChapter>;
+  interlude?: {
+    afterChapter?: string;
+    text?: LocaleText;
+    card?: SparkStoryCard;
+  };
+  lessons?: Array<{
+    heading?: LocaleString;
+    body?: LocaleText;
+    _type: "sparkLesson";
     _key: string;
-  } & SparkReading | {
+  }>;
+  finalQuestion?: {
+    label?: LocaleString;
+    title?: LocaleText;
+    ctaLabel?: LocaleString;
+    options?: Array<{
+      _key: string;
+    } & SparkFinalOption>;
+  };
+  next?: {
+    number?: string;
+    name?: LocaleString;
+    line?: LocaleText;
+  };
+  sourcesLabel?: LocaleString;
+  sources?: Array<{
     _key: string;
-  } & SparkNote | {
-    _key: string;
-  } & SparkCall | {
-    _key: string;
-  } & SparkEstimate | {
-    _key: string;
-  } & SparkWeigh | {
-    _key: string;
-  } & SparkSignal | {
-    _key: string;
-  } & SparkSecondOpinion | {
-    _key: string;
-  } & SparkAllocation>;
+  } & SparkSource>;
+  correctionLine?: LocaleText;
+  closeHeading?: LocaleString;
 };
 
 export type LocaleString = {
@@ -248,47 +222,21 @@ export type SparkFormat = {
   openLabel?: LocaleString;
   preparingLine?: LocaleString;
   comingLabel?: LocaleString;
-  aboutLabel?: LocaleString;
-  aboutLines?: Array<{
-    _key: string;
-  } & LocaleString>;
-  showAllLabel?: LocaleString;
   allIssuesLabel?: LocaleString;
   daysUnit?: LocaleString;
+  label?: LocaleString;
+  line?: LocaleText;
+  startLabel?: LocaleString;
+  howLabel?: LocaleString;
+  howHeading?: LocaleString;
+  howSteps?: Array<{
+    title?: LocaleString;
+    body?: LocaleText;
+    _type: "sparkHowStep";
+    _key: string;
+  }>;
   episodesLabel?: LocaleString;
-  columns?: {
-    number?: LocaleString;
-    company?: LocaleString;
-    days?: LocaleString;
-    published?: LocaleString;
-  };
-  showAllTemplate?: LocaleString;
-  dayCountSingular?: LocaleString;
-  dayCountPlural?: LocaleString;
-  dayLabel?: LocaleString;
-  dayNotEstablishedLabel?: LocaleString;
-  noteLabel?: LocaleString;
-  recordLabel?: LocaleString;
-  readingLabel?: LocaleString;
-  callLabel?: LocaleString;
-  estimateLabel?: LocaleString;
-  weighLabel?: LocaleString;
-  signalLabel?: LocaleString;
-  secondOpinionLabel?: LocaleString;
-  allocationLabel?: LocaleString;
-  callOptionRuleLabel?: LocaleString;
-  callOptionDecisionLabel?: LocaleString;
-  callMatchLabel?: LocaleString;
-  callMismatchLabel?: LocaleString;
-  callUnsettledLabel?: LocaleString;
-  allocationCommitLabel?: LocaleString;
-  scorecardHeading?: LocaleString;
-  scorecardUnansweredLabel?: LocaleString;
-  scorecardYourReadingLabel?: LocaleString;
-  scorecardCrossEpisodeLabel?: LocaleString;
-  scorecardShareLabel?: LocaleString;
-  scorecardCopiedLabel?: LocaleString;
-  scorecardPrivacyLine?: LocaleString;
+  closeHeading?: LocaleString;
 };
 
 export type SparkSection = {
@@ -311,20 +259,14 @@ export type SparkSection = {
   sparkLabel?: LocaleString;
   launchDateLabel?: LocaleString;
   episode?: {
-    daysOpenLabel?: LocaleString;
-    daysOpenShortLabel?: LocaleString;
-    dateRangeTemplate?: LocaleString;
-    rulerLabel?: LocaleString;
-    afterClosureLabel?: LocaleString;
-    builtFromLabel?: LocaleString;
-    evidenceTakenLabel?: LocaleString;
-    lastCheckedLabel?: LocaleString;
-    clockDayLabel?: LocaleString;
-    clockOfTemplate?: LocaleString;
-    readingResultLabel?: LocaleString;
-    scorecardLabel?: LocaleString;
+    yourPickTemplate?: LocaleString;
+    roadTemplate?: LocaleString;
+    otherRoadsLabel?: LocaleString;
+    noteLabel?: LocaleString;
+    dayTemplate?: LocaleString;
     nextTemplate?: LocaleString;
-    sourceLabel?: LocaleString;
+    footnoteTemplate?: LocaleString;
+    sourceJoiner?: LocaleString;
   };
 };
 
@@ -930,7 +872,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = SparkAllocation | SparkSecondOpinion | SparkSignal | SparkWeigh | SparkEstimate | SparkCall | SparkNote | SparkReading | SparkRecord | SparkInlineReading | SparkSource | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = SparkSource | SparkFinalOption | SparkChapter | SparkDecision | SparkDecisionOption | SparkServiceTag | SparkStoryCard | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/content.ts
 // Variable: SITE_CHROME_QUERY
@@ -1278,7 +1220,7 @@ export type ABOUT_PAGE_QUERYResult = {
   portraitUrl: string | null;
 } | null;
 // Variable: SPARK_HUB_QUERY
-// Query: {  "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode  },  "formats": *[_type == "sparkFormat"] | order(orderRank asc){    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,    columns, showAllTemplate,    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){      number, subject, hook    }  }}
+// Query: {  "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,    backLabel, sparkLabel, formatsLabel, launchDateLabel,    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }  },  "formats": *[_type == "sparkFormat"] | order(orderRank asc){    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,    comingLabel, allIssuesLabel, daysUnit, label, line, startLabel, howLabel, howHeading,    "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){      number, subject, hook    }  }}
 export type SPARK_HUB_QUERYResult = {
   section: {
     seo: {
@@ -1297,20 +1239,14 @@ export type SPARK_HUB_QUERYResult = {
     formatsLabel: LocaleString | null;
     launchDateLabel: LocaleString | null;
     episode: {
-      daysOpenLabel?: LocaleString;
-      daysOpenShortLabel?: LocaleString;
-      dateRangeTemplate?: LocaleString;
-      rulerLabel?: LocaleString;
-      afterClosureLabel?: LocaleString;
-      builtFromLabel?: LocaleString;
-      evidenceTakenLabel?: LocaleString;
-      lastCheckedLabel?: LocaleString;
-      clockDayLabel?: LocaleString;
-      clockOfTemplate?: LocaleString;
-      readingResultLabel?: LocaleString;
-      scorecardLabel?: LocaleString;
-      nextTemplate?: LocaleString;
-      sourceLabel?: LocaleString;
+      yourPickTemplate: LocaleString | null;
+      roadTemplate: LocaleString | null;
+      otherRoadsLabel: LocaleString | null;
+      noteLabel: LocaleString | null;
+      dayTemplate: LocaleString | null;
+      nextTemplate: LocaleString | null;
+      footnoteTemplate: LocaleString | null;
+      sourceJoiner: LocaleString | null;
     } | null;
   } | null;
   formats: Array<{
@@ -1326,21 +1262,19 @@ export type SPARK_HUB_QUERYResult = {
     openLabel: LocaleString | null;
     preparingLine: LocaleString | null;
     comingLabel: LocaleString | null;
-    aboutLabel: LocaleString | null;
-    aboutLines: Array<{
-      _key: string;
-    } & LocaleString> | null;
-    showAllLabel: LocaleString | null;
     allIssuesLabel: LocaleString | null;
     daysUnit: LocaleString | null;
+    label: LocaleString | null;
+    line: LocaleText | null;
+    startLabel: LocaleString | null;
+    howLabel: LocaleString | null;
+    howHeading: LocaleString | null;
+    howSteps: Array<{
+      title: LocaleString | null;
+      body: LocaleText | null;
+    }> | Array<never>;
     episodesLabel: LocaleString | null;
-    columns: {
-      number?: LocaleString;
-      company?: LocaleString;
-      days?: LocaleString;
-      published?: LocaleString;
-    } | null;
-    showAllTemplate: LocaleString | null;
+    closeHeading: LocaleString | null;
     coming: Array<{
       number: number;
       subject: LocaleString | null;
@@ -1348,6 +1282,74 @@ export type SPARK_HUB_QUERYResult = {
     }>;
   }>;
 };
+// Variable: SPARK_EPISODES_QUERY
+// Query: *[_type == "sparkEpisode" && status == "published"  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,    "slug": slug, "formatSlug": format->slug,    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, [])  }
+export type SPARK_EPISODES_QUERYResult = Array<{
+  number: number;
+  subject: LocaleString | null;
+  hook: LocaleText | null;
+  seo: {
+    title: LocaleString | null;
+    description: LocaleText | null;
+  } | null;
+  publishedAt: string | null;
+  lastCheckedAt: string | null;
+  _updatedAt: string;
+  slug: LocaleSlug;
+  formatSlug: LocaleSlug | null;
+  hero: {
+    label?: LocaleString;
+    title?: LocaleText;
+    sub?: LocaleText;
+    invite?: LocaleText;
+    startLabel?: LocaleString;
+    cardDay?: string;
+    cardState?: LocaleString;
+  } | null;
+  interlude: {
+    afterChapter?: string;
+    text?: LocaleText;
+    card?: SparkStoryCard;
+  } | null;
+  finalQuestion: {
+    label?: LocaleString;
+    title?: LocaleText;
+    ctaLabel?: LocaleString;
+    options?: Array<{
+      _key: string;
+    } & SparkFinalOption>;
+  } | null;
+  next: {
+    number?: string;
+    name?: LocaleString;
+    line?: LocaleText;
+  } | null;
+  sourcesLabel: LocaleString | null;
+  correctionLine: LocaleText | null;
+  closeHeading: LocaleString | null;
+  chapters: Array<{
+    id: string;
+    label: LocaleString | null;
+    title: LocaleString | null;
+    lead: LocaleText | null;
+    paragraphs: Array<{
+      _key: string;
+    } & LocaleText> | Array<never>;
+    card: SparkStoryCard | null;
+    decision: SparkDecision | null;
+  }> | Array<never>;
+  lessons: Array<{
+    heading: LocaleString | null;
+    body: LocaleText | null;
+  }> | Array<never>;
+  sources: Array<{
+    n: number;
+    links: Array<{
+      label: LocaleString | null;
+      href: string | null;
+    }> | Array<never>;
+  }> | Array<never>;
+}>;
 
 // Source: ./src/sanity/lib/queries.ts
 // Variable: LEGAL_PAGE_QUERY
@@ -1483,164 +1485,6 @@ export type SPARK_EPISODE_SLUGS_QUERYResult = Array<{
   lastCheckedAt: string | null;
   _updatedAt: string;
 }>;
-// Variable: SPARK_EPISODE_SEO_QUERY
-// Query: *[_type == "sparkEpisode" && status == "published"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    "title": coalesce(select($locale == "tr" => coalesce(seo.title.tr, seo.title.en), seo.title.en), select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en)),    "description": coalesce(      select($locale == "tr" => coalesce(seo.description.tr, seo.description.en), seo.description.en),      select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en)    ),    publishedAt,    lastCheckedAt,    _updatedAt  }
-export type SPARK_EPISODE_SEO_QUERYResult = {
-  title: string | null;
-  description: string | null;
-  publishedAt: string | null;
-  lastCheckedAt: string | null;
-  _updatedAt: string;
-} | null;
-// Variable: SPARK_EPISODE_QUERY
-// Query: *[_type == "sparkEpisode" && status == "published"    && select($locale == "tr" => slug.tr.current, slug.en.current) == $episodeSlug    && select($locale == "tr" => format->slug.tr.current, format->slug.en.current) == $formatSlug  ][0]{    number,    "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),    publishedAt,    evidenceTakenAt,    lastCheckedAt,    parent,    country,    launchDate,    closureDate,    "altFormatSlug": select($locale == "tr" => format->slug.en.current, format->slug.tr.current),    "altEpisodeSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "standfirst": select($locale == "tr" => coalesce(standfirst.tr, standfirst.en), standfirst.en),    "formatName": select($locale == "tr" => coalesce(format->name.tr, format->name.en), format->name.en),    "dayLabel": select($locale == "tr" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),    "dayCountSingular": select($locale == "tr" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),    "dayCountPlural": select($locale == "tr" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),    "dayNotEstablishedLabel": select($locale == "tr" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),    "recordLabel": select($locale == "tr" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),    "readingLabel": select($locale == "tr" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),    "callLabel": select($locale == "tr" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),    "estimateLabel": select($locale == "tr" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),    "weighLabel": select($locale == "tr" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),    "signalLabel": select($locale == "tr" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),    "secondOpinionLabel": select($locale == "tr" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),    "allocationLabel": select($locale == "tr" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),    "callOptionRuleLabel": select($locale == "tr" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),    "callOptionDecisionLabel": select($locale == "tr" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),    "callMatchLabel": select($locale == "tr" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),    "callMismatchLabel": select($locale == "tr" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),    "callUnsettledLabel": select($locale == "tr" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),    "allocationCommitLabel": select($locale == "tr" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),    "noteLabel": select($locale == "tr" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),    "scorecardHeading": select($locale == "tr" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),    "scorecardUnansweredLabel": select($locale == "tr" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),    "scorecardYourReadingLabel": select($locale == "tr" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),    "scorecardCrossEpisodeLabel": select($locale == "tr" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),    "scorecardShareLabel": select($locale == "tr" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),    "scorecardCopiedLabel": select($locale == "tr" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),    "scorecardPrivacyLine": select($locale == "tr" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),    "blocks": blocks[]{      _type,      _type == "sparkRecord" => {        blockId,        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        "quote": select($locale == "tr" => coalesce(quote.tr, quote.en), quote.en),        "quoteAttribution": select($locale == "tr" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),        "source": source{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          url,          kind        }      },      _type == "sparkReading" => {        date,        "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en),        restsOn      },      _type == "sparkNote" => {        date,        "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)      },      _type == "sparkCall" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        answer,        "reveal": reveal{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkEstimate" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "brackets": brackets[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          min,          max        },        actualValue,        "actualLabel": select($locale == "tr" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),        "insideBracketLabel": select($locale == "tr" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),        "belowBracketLabel": select($locale == "tr" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),        "aboveBracketLabel": select($locale == "tr" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),        "derivedReading": derivedReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkWeigh" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "disclaimer": select($locale == "tr" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),        "options": options[]{          "label": select($locale == "tr" => coalesce(label.tr, label.en), label.en),          "line": select($locale == "tr" => coalesce(line.tr, line.en), line.en)        },        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSignal" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      },      _type == "sparkSecondOpinion" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "options": options[]{"value": select($locale == "tr" => coalesce(tr, en), en)}.value,        "readingA": readingA{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "readingB": readingB{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        },        "closingLine": select($locale == "tr" => coalesce(closingLine.tr, closingLine.en), closingLine.en)      },      _type == "sparkAllocation" => {        blockId,        date,        "prompt": select($locale == "tr" => coalesce(prompt.tr, prompt.en), prompt.en),        "notScoredLabel": select($locale == "tr" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),        "categoryALabel": select($locale == "tr" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),        "categoryBLabel": select($locale == "tr" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),        "revealReading": revealReading{          "heading": select($locale == "tr" => coalesce(heading.tr, heading.en), heading.en),          "body": select($locale == "tr" => coalesce(body.tr, body.en), body.en)        }      }    }  }
-export type SPARK_EPISODE_QUERYResult = {
-  number: number;
-  subject: string | null;
-  publishedAt: string | null;
-  evidenceTakenAt: string | null;
-  lastCheckedAt: string | null;
-  parent: string | null;
-  country: string | null;
-  launchDate: string | null;
-  closureDate: string | null;
-  altFormatSlug: string | null;
-  altEpisodeSlug: string | null;
-  standfirst: string | null;
-  formatName: string | null;
-  dayLabel: string | null;
-  dayCountSingular: string | null;
-  dayCountPlural: string | null;
-  dayNotEstablishedLabel: string | null;
-  recordLabel: string | null;
-  readingLabel: string | null;
-  callLabel: string | null;
-  estimateLabel: string | null;
-  weighLabel: string | null;
-  signalLabel: string | null;
-  secondOpinionLabel: string | null;
-  allocationLabel: string | null;
-  callOptionRuleLabel: string | null;
-  callOptionDecisionLabel: string | null;
-  callMatchLabel: string | null;
-  callMismatchLabel: string | null;
-  callUnsettledLabel: string | null;
-  allocationCommitLabel: string | null;
-  noteLabel: string | null;
-  scorecardHeading: string | null;
-  scorecardUnansweredLabel: string | null;
-  scorecardYourReadingLabel: string | null;
-  scorecardCrossEpisodeLabel: string | null;
-  scorecardShareLabel: string | null;
-  scorecardCopiedLabel: string | null;
-  scorecardPrivacyLine: string | null;
-  blocks: Array<{
-    _type: "sparkAllocation";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    notScoredLabel: string | null;
-    categoryALabel: string | null;
-    categoryBLabel: string | null;
-    revealReading: {
-      heading: string | null;
-      body: string | null;
-    };
-  } | {
-    _type: "sparkCall";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    answer: "decision" | "rule" | "unsettled";
-    reveal: {
-      heading: string | null;
-      body: string | null;
-    };
-  } | {
-    _type: "sparkEstimate";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    brackets: Array<{
-      label: string | null;
-      min: number;
-      max: number | null;
-    }>;
-    actualValue: number;
-    actualLabel: string | null;
-    insideBracketLabel: string | null;
-    belowBracketLabel: string | null;
-    aboveBracketLabel: string | null;
-    derivedReading: {
-      heading: string | null;
-      body: string | null;
-    };
-  } | {
-    _type: "sparkNote";
-    date: string;
-    body: string | null;
-  } | {
-    _type: "sparkReading";
-    date: string;
-    heading: string | null;
-    body: string | null;
-    restsOn: Array<string>;
-  } | {
-    _type: "sparkRecord";
-    blockId: string;
-    date: string;
-    heading: string | null;
-    body: string | null;
-    quote: string | null;
-    quoteAttribution: string | null;
-    source: {
-      label: string | null;
-      url: string;
-      kind: "company" | "court" | "filing" | "press" | "regulator";
-    };
-  } | {
-    _type: "sparkSecondOpinion";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    notScoredLabel: string | null;
-    options: Array<string | null>;
-    readingA: {
-      heading: string | null;
-      body: string | null;
-    };
-    readingB: {
-      heading: string | null;
-      body: string | null;
-    };
-    closingLine: string | null;
-  } | {
-    _type: "sparkSignal";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    notScoredLabel: string | null;
-    options: Array<string | null>;
-    revealReading: {
-      heading: string | null;
-      body: string | null;
-    };
-  } | {
-    _type: "sparkWeigh";
-    blockId: string;
-    date: string;
-    prompt: string | null;
-    disclaimer: string | null;
-    options: Array<{
-      label: string | null;
-      line: string | null;
-    }>;
-    revealReading: {
-      heading: string | null;
-      body: string | null;
-    };
-  }> | null;
-} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -1654,14 +1498,13 @@ declare module "@sanity/client" {
     "*[_type == \"workPage\" && _id == \"workPage\"][0]{\n  seo{ title, description }, backLabel, label, heading, lead, readLabel,\n  caseLabel, caseBackLabel, sourcesLabel, nextCaseLabel\n}": WORK_PAGE_QUERYResult;
     "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"publishedAt\": _createdAt, \"modifiedAt\": _updatedAt,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
     "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
-    "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,\n    columns, showAllTemplate,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
+    "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel,\n    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, allIssuesLabel, daysUnit, label, line, startLabel, howLabel, howHeading,\n    \"howSteps\": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
+    "*[_type == \"sparkEpisode\" && status == \"published\"\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, [])\n  }": SPARK_EPISODES_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": select($locale == \"tr\" && defined(ogImageTr.asset) => ogImageTr, ogImage){\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
     "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"altFormatSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"published\"] | order(number asc){\n      number,\n      \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n      country,\n      launchDate,\n      closureDate,\n      publishedAt,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMAT_QUERYResult;
     "\n  *[_type == \"sparkEpisode\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"episodeEn\": slug.en.current,\n    \"episodeTr\": slug.tr.current,\n    \"formatEn\": format->slug.en.current,\n    \"formatTr\": format->slug.tr.current,\n    status,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SLUGS_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\" && status == \"published\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    \"title\": coalesce(select($locale == \"tr\" => coalesce(seo.title.tr, seo.title.en), seo.title.en), select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en)),\n    \"description\": coalesce(\n      select($locale == \"tr\" => coalesce(seo.description.tr, seo.description.en), seo.description.en),\n      select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en)\n    ),\n    publishedAt,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SEO_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\" && status == \"published\"\n    && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $episodeSlug\n    && select($locale == \"tr\" => format->slug.tr.current, format->slug.en.current) == $formatSlug\n  ][0]{\n    number,\n    \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n    publishedAt,\n    evidenceTakenAt,\n    lastCheckedAt,\n    parent,\n    country,\n    launchDate,\n    closureDate,\n    \"altFormatSlug\": select($locale == \"tr\" => format->slug.en.current, format->slug.tr.current),\n    \"altEpisodeSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"standfirst\": select($locale == \"tr\" => coalesce(standfirst.tr, standfirst.en), standfirst.en),\n    \"formatName\": select($locale == \"tr\" => coalesce(format->name.tr, format->name.en), format->name.en),\n    \"dayLabel\": select($locale == \"tr\" => coalesce(format->dayLabel.tr, format->dayLabel.en), format->dayLabel.en),\n    \"dayCountSingular\": select($locale == \"tr\" => coalesce(format->dayCountSingular.tr, format->dayCountSingular.en), format->dayCountSingular.en),\n    \"dayCountPlural\": select($locale == \"tr\" => coalesce(format->dayCountPlural.tr, format->dayCountPlural.en), format->dayCountPlural.en),\n    \"dayNotEstablishedLabel\": select($locale == \"tr\" => coalesce(format->dayNotEstablishedLabel.tr, format->dayNotEstablishedLabel.en), format->dayNotEstablishedLabel.en),\n    \"recordLabel\": select($locale == \"tr\" => coalesce(format->recordLabel.tr, format->recordLabel.en), format->recordLabel.en),\n    \"readingLabel\": select($locale == \"tr\" => coalesce(format->readingLabel.tr, format->readingLabel.en), format->readingLabel.en),\n    \"callLabel\": select($locale == \"tr\" => coalesce(format->callLabel.tr, format->callLabel.en), format->callLabel.en),\n    \"estimateLabel\": select($locale == \"tr\" => coalesce(format->estimateLabel.tr, format->estimateLabel.en), format->estimateLabel.en),\n    \"weighLabel\": select($locale == \"tr\" => coalesce(format->weighLabel.tr, format->weighLabel.en), format->weighLabel.en),\n    \"signalLabel\": select($locale == \"tr\" => coalesce(format->signalLabel.tr, format->signalLabel.en), format->signalLabel.en),\n    \"secondOpinionLabel\": select($locale == \"tr\" => coalesce(format->secondOpinionLabel.tr, format->secondOpinionLabel.en), format->secondOpinionLabel.en),\n    \"allocationLabel\": select($locale == \"tr\" => coalesce(format->allocationLabel.tr, format->allocationLabel.en), format->allocationLabel.en),\n    \"callOptionRuleLabel\": select($locale == \"tr\" => coalesce(format->callOptionRuleLabel.tr, format->callOptionRuleLabel.en), format->callOptionRuleLabel.en),\n    \"callOptionDecisionLabel\": select($locale == \"tr\" => coalesce(format->callOptionDecisionLabel.tr, format->callOptionDecisionLabel.en), format->callOptionDecisionLabel.en),\n    \"callMatchLabel\": select($locale == \"tr\" => coalesce(format->callMatchLabel.tr, format->callMatchLabel.en), format->callMatchLabel.en),\n    \"callMismatchLabel\": select($locale == \"tr\" => coalesce(format->callMismatchLabel.tr, format->callMismatchLabel.en), format->callMismatchLabel.en),\n    \"callUnsettledLabel\": select($locale == \"tr\" => coalesce(format->callUnsettledLabel.tr, format->callUnsettledLabel.en), format->callUnsettledLabel.en),\n    \"allocationCommitLabel\": select($locale == \"tr\" => coalesce(format->allocationCommitLabel.tr, format->allocationCommitLabel.en), format->allocationCommitLabel.en),\n    \"noteLabel\": select($locale == \"tr\" => coalesce(format->noteLabel.tr, format->noteLabel.en), format->noteLabel.en),\n    \"scorecardHeading\": select($locale == \"tr\" => coalesce(format->scorecardHeading.tr, format->scorecardHeading.en), format->scorecardHeading.en),\n    \"scorecardUnansweredLabel\": select($locale == \"tr\" => coalesce(format->scorecardUnansweredLabel.tr, format->scorecardUnansweredLabel.en), format->scorecardUnansweredLabel.en),\n    \"scorecardYourReadingLabel\": select($locale == \"tr\" => coalesce(format->scorecardYourReadingLabel.tr, format->scorecardYourReadingLabel.en), format->scorecardYourReadingLabel.en),\n    \"scorecardCrossEpisodeLabel\": select($locale == \"tr\" => coalesce(format->scorecardCrossEpisodeLabel.tr, format->scorecardCrossEpisodeLabel.en), format->scorecardCrossEpisodeLabel.en),\n    \"scorecardShareLabel\": select($locale == \"tr\" => coalesce(format->scorecardShareLabel.tr, format->scorecardShareLabel.en), format->scorecardShareLabel.en),\n    \"scorecardCopiedLabel\": select($locale == \"tr\" => coalesce(format->scorecardCopiedLabel.tr, format->scorecardCopiedLabel.en), format->scorecardCopiedLabel.en),\n    \"scorecardPrivacyLine\": select($locale == \"tr\" => coalesce(format->scorecardPrivacyLine.tr, format->scorecardPrivacyLine.en), format->scorecardPrivacyLine.en),\n    \"blocks\": blocks[]{\n      _type,\n      _type == \"sparkRecord\" => {\n        blockId,\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        \"quote\": select($locale == \"tr\" => coalesce(quote.tr, quote.en), quote.en),\n        \"quoteAttribution\": select($locale == \"tr\" => coalesce(quoteAttribution.tr, quoteAttribution.en), quoteAttribution.en),\n        \"source\": source{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          url,\n          kind\n        }\n      },\n      _type == \"sparkReading\" => {\n        date,\n        \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en),\n        restsOn\n      },\n      _type == \"sparkNote\" => {\n        date,\n        \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n      },\n      _type == \"sparkCall\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        answer,\n        \"reveal\": reveal{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkEstimate\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"brackets\": brackets[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          min,\n          max\n        },\n        actualValue,\n        \"actualLabel\": select($locale == \"tr\" => coalesce(actualLabel.tr, actualLabel.en), actualLabel.en),\n        \"insideBracketLabel\": select($locale == \"tr\" => coalesce(insideBracketLabel.tr, insideBracketLabel.en), insideBracketLabel.en),\n        \"belowBracketLabel\": select($locale == \"tr\" => coalesce(belowBracketLabel.tr, belowBracketLabel.en), belowBracketLabel.en),\n        \"aboveBracketLabel\": select($locale == \"tr\" => coalesce(aboveBracketLabel.tr, aboveBracketLabel.en), aboveBracketLabel.en),\n        \"derivedReading\": derivedReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkWeigh\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"disclaimer\": select($locale == \"tr\" => coalesce(disclaimer.tr, disclaimer.en), disclaimer.en),\n        \"options\": options[]{\n          \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n          \"line\": select($locale == \"tr\" => coalesce(line.tr, line.en), line.en)\n        },\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSignal\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      },\n      _type == \"sparkSecondOpinion\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"options\": options[]{\"value\": select($locale == \"tr\" => coalesce(tr, en), en)}.value,\n        \"readingA\": readingA{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"readingB\": readingB{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        },\n        \"closingLine\": select($locale == \"tr\" => coalesce(closingLine.tr, closingLine.en), closingLine.en)\n      },\n      _type == \"sparkAllocation\" => {\n        blockId,\n        date,\n        \"prompt\": select($locale == \"tr\" => coalesce(prompt.tr, prompt.en), prompt.en),\n        \"notScoredLabel\": select($locale == \"tr\" => coalesce(notScoredLabel.tr, notScoredLabel.en), notScoredLabel.en),\n        \"categoryALabel\": select($locale == \"tr\" => coalesce(categoryALabel.tr, categoryALabel.en), categoryALabel.en),\n        \"categoryBLabel\": select($locale == \"tr\" => coalesce(categoryBLabel.tr, categoryBLabel.en), categoryBLabel.en),\n        \"revealReading\": revealReading{\n          \"heading\": select($locale == \"tr\" => coalesce(heading.tr, heading.en), heading.en),\n          \"body\": select($locale == \"tr\" => coalesce(body.tr, body.en), body.en)\n        }\n      }\n    }\n  }\n": SPARK_EPISODE_QUERYResult;
   }
 }

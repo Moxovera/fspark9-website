@@ -7,8 +7,8 @@
  * döndürüyor. src/content/*.ts aynı tiplerin statik aynası: seed-v3'ün
  * kaynağı ve check:drift'in karşılaştırdığı yer.
  *
- * Bölüm blokları (SparkEpisodeBlock) tek paylaşılan dizi, alanlar
- * içeride {en, tr} taşıyor.
+ * Spark bölüm hikâyesi (SparkEpisodeStory) Sanity'de tek belge, bölüm
+ * ve karar dizileri paylaşılan, alanlar içeride {en, tr} taşıyor.
  */
 
 import type { CSSProperties, ReactNode } from "react";
@@ -124,199 +124,111 @@ export interface SparkFormatPage {
 // Spark · Bölüm sayfası (/spark/the-last-day/01-bo)
 // ─────────────────────────────────────────────
 
-// Final interaction brief (17 Eylül 2026), kullanıcının açık onayıyla:
-// serbest biçimli Portable Text gövdesi yerini Record/Reading/Gap +
-// altı mekanik modeline bıraktı (bkz. sanity/schemaTypes/
-// sparkEpisodeBlocks.ts). Hiçbir blok elle girilmiş bir "day" taşımıyor
-// — gün numarası HER ZAMAN launchDate + bloğun date'inden hesaplanır
-// (bkz. dayMath.ts:dayNumberLabel).
+// Son Gün v3 (2026-09-26, prototip _design/v2/boards/son-gun-01-bo-v3.html):
+// bölüm bir hikâye. Bölümler (chapter) sırayla akar, her biri yandaki
+// kartın durumunu taşır; ilk dördünde bir karar anı var. Hiçbir şey
+// tarayıcıda saklanmaz, puanlanmaz, gönderilmez.
 
-export interface SparkSource {
-  label: string
-  url: string
-  kind: 'regulator' | 'filing' | 'company' | 'court' | 'press'
+/** Yandaki kartın hali: taslak (kesikli), canlı (Flare), arka yüz, kapalı (Rule). */
+export type SparkCardMode = 'draft' | 'live' | 'flipped' | 'closed'
+
+export interface SparkStoryCard {
+  mode: SparkCardMode
+  /** Kartın büyük rakamı ("000", "037"); lansmandan önce "?". */
+  day: string
+  /** Kartın mono satırı ("27 November 2019"). */
+  state: string
+  /** Kartın altındaki küçük yazı (geniş ekranda). */
+  caption: string
+  /** Dar ekrandaki ince şeridin başlığı. */
+  barTitle: string
 }
 
-export interface SparkInlineReading {
+export interface SparkServiceTag {
+  name: string
+  service: ServiceSlug
+}
+
+export interface SparkDecisionOption {
+  /** "A", "B", "C" */
+  key: string
+  text: string
+  answer: string
+}
+
+export interface SparkDecision {
+  label: string
+  question: string
+  options: SparkDecisionOption[]
+  didLabel: string
+  didTitle: string
+  /** Paragraflar; "[n]" kaynak dipnotu olur. */
+  didBody: string[]
+  note: string
+  services: SparkServiceTag[]
+}
+
+export interface SparkChapter {
+  /** Sayfa içi çapa ("ch1"). */
+  id: string
+  label: string
+  title: string
+  lead: string
+  /** Paragraflar; "[n]" kaynak dipnotu olur. */
+  paragraphs: string[]
+  card: SparkStoryCard
+  decision?: SparkDecision
+}
+
+export interface SparkFinalOption {
+  text: string
+  service: ServiceSlug
+  serviceName: string
   heading: string
   body: string
 }
 
-export interface SparkRecordBlock {
-  _type: 'sparkRecord'
-  blockId: string
-  date: string
-  heading: string
-  body: string
-  quote?: string
-  quoteAttribution?: string
-  source: SparkSource
-}
-
-export interface SparkReadingBlock {
-  _type: 'sparkReading'
-  date: string
-  heading: string
-  body: string
-  restsOn: string[]
-}
-
-export type SparkCallAnswer = 'rule' | 'decision' | 'unsettled'
-
-export interface SparkCallBlock {
-  _type: 'sparkCall'
-  blockId: string
-  date: string
-  prompt: string
-  answer: SparkCallAnswer
-  reveal: SparkInlineReading
-}
-
-export interface SparkEstimateBracket {
+export interface SparkSourceLink {
   label: string
-  min: number
-  max: number | null // null = açık uçlu en üst aralık
+  href: string
 }
 
-// Okuyucu bracket'ı seçtiği anda actualValue/derivedReading AYNI yerde
-// açılır — ayrı, sayfa sonuna kadar tutulan bir reveal bloğu YOK (18
-// Eylül 2026, kullanıcı talebi: "cevapları hemen görsün").
-export interface SparkEstimateBlock {
-  _type: 'sparkEstimate'
-  blockId: string
-  date: string
-  prompt: string
-  brackets: SparkEstimateBracket[] // her zaman 5, düşükten yükseğe sıralı
-  actualValue: number
-  actualLabel: string
-  insideBracketLabel: string
-  belowBracketLabel: string
-  aboveBracketLabel: string
-  derivedReading: SparkInlineReading
+export interface SparkStorySource {
+  n: number
+  /** Birden fazla link varsa etiketlerdeki sourceJoiner ile birleşir. */
+  links: SparkSourceLink[]
 }
 
-export interface SparkWeighOption {
-  label: string
-  line: string
-}
-
-export interface SparkWeighBlock {
-  _type: 'sparkWeigh'
-  blockId: string
-  date: string
-  prompt: string
-  disclaimer: string
-  options: SparkWeighOption[] // her zaman 3
-  revealReading: SparkInlineReading
-}
-
-export interface SparkSignalBlock {
-  _type: 'sparkSignal'
-  blockId: string
-  date: string
-  prompt: string
-  notScoredLabel: string
-  options: string[] // her zaman 3
-  revealReading: SparkInlineReading
-}
-
-export interface SparkSecondOpinionBlock {
-  _type: 'sparkSecondOpinion'
-  blockId: string
-  date: string
-  prompt: string
-  notScoredLabel: string
-  options: string[] // her zaman 3
-  readingA: SparkInlineReading
-  readingB: SparkInlineReading
-  closingLine: string
-}
-
-export interface SparkAllocationBlock {
-  _type: 'sparkAllocation'
-  blockId: string
-  date: string
-  prompt: string
-  notScoredLabel: string
-  categoryALabel: string
-  categoryBLabel: string
-  revealReading: SparkInlineReading
-}
-
-// fspark9'un kendi sesi — bölüm akışının ilgili noktasına gömülü (18
-// Eylül 2026, kullanıcı talebi: "en sona eklemeyelim"), sayfa sonunda
-// konsolide bir bölüm YOK.
-export interface SparkNoteBlock {
-  _type: 'sparkNote'
-  date: string
-  body: string
-}
-
-export type SparkEpisodeBlock =
-  | SparkRecordBlock
-  | SparkReadingBlock
-  | SparkNoteBlock
-  | SparkCallBlock
-  | SparkEstimateBlock
-  | SparkWeighBlock
-  | SparkSignalBlock
-  | SparkSecondOpinionBlock
-  | SparkAllocationBlock
-
-// Format seviyesinde, mekaniklerin sabit arayüz kelime dağarcığı —
-// bölüme özel değil (bkz. sparkFormat.ts şeması). SparkFormatPage
-// bunu taşır, episode sayfası format'tan okur.
-export interface SparkMechanicVocabulary {
-  recordLabel: string
-  readingLabel: string
-  callLabel: string
-  estimateLabel: string
-  weighLabel: string
-  signalLabel: string
-  secondOpinionLabel: string
-  allocationLabel: string
-  callOptionRuleLabel: string
-  callOptionDecisionLabel: string
-  callMatchLabel: string
-  callMismatchLabel: string
-  callUnsettledLabel: string
-  allocationCommitLabel: string
-  noteLabel: string
-  scorecardHeading: string
-  scorecardUnansweredLabel: string
-  scorecardYourReadingLabel: string
-  scorecardCrossEpisodeLabel: string
-  scorecardShareLabel: string
-  scorecardCopiedLabel: string
-  scorecardPrivacyLine: string
-}
-
-// Bölüm sayfası — final interaction brief ile yeniden kuruldu. `blocks`
-// TEK bir sıralı dizi (locale başına ayrı diziler DEĞİL, bkz.
-// sparkEpisode.ts şema yorumu), çünkü mekanik sırası ve state anahtarları
-// (blockId) dilden bağımsız kalmalı.
-export interface SparkEpisodePage extends SparkMechanicVocabulary {
+export interface SparkEpisodeStory {
   number: number
   subject: string
-  publishedAt: string | null
-  evidenceTakenAt: string | null
-  lastCheckedAt: string | null
-  parent?: string
-  country: string
-  launchDate: string | null
-  closureDate: string | null
-  // Bu bölümün ve format'ının DİĞER locale'deki slug'ları — bkz.
-  // SparkFormatPage.altFormatSlug yorumu, aynı gerekçe.
-  altFormatSlug: string | null
-  altEpisodeSlug: string | null
-  formatName: string
-  standfirst: string
-  blocks: SparkEpisodeBlock[]
-  dayLabel: string // "DAY" / "GÜN"
-  dayCountSingular: string
-  dayCountPlural: string
-  dayNotEstablishedLabel: string
-  backHref: { formatSlug: string } // /spark/[formatSlug]'a next-intl typed pathname ile geri döner
+  /** Format sayfasındaki satırın tek cümlesi. */
+  hook: string
+  seo: PageSeoCopy
+  hero: {
+    label: string
+    title: string
+    sub: string
+    invite: string
+    startLabel: string
+    cardDay: string
+    cardState: string
+  }
+  chapters: SparkChapter[]
+  interlude: {
+    /** Bu id'li bölümden sonra gelir. */
+    afterChapter: string
+    text: string
+    card: SparkStoryCard
+  }
+  lessons: { heading: string; body: string }[]
+  finalQuestion: { label: string; title: string; ctaLabel: string; options: SparkFinalOption[] }
+  next: { number: string; name: string; line: string }
+  sourcesLabel: string
+  sources: SparkStorySource[]
+  correctionLine: string
+  /** NextStep başlığı bu sayfada. */
+  closeHeading: string
 }
 
 export interface PageSeo {
@@ -679,6 +591,8 @@ export interface CutButtonProps {
   label: string
   tone?: 'flare' | 'paper' | 'ink'
   size?: 'default' | 'header'
+  /** Verilirse randevu penceresi yerine bu sayfaya giden link. */
+  href?: NavHref
   className?: string
 }
 
@@ -983,16 +897,20 @@ export interface SparkFormatContent {
   comingIssues: SparkComingIssue[]
   /** Hub'daki "preparing" formatın açma linki yerine gösterdiği satır (board SparkIndex). */
   preparingLine?: string
-  aboutLabel: string
-  aboutLines: string[]
-  showAllLabel: string
   allIssuesLabel: string
   daysUnit: string
-  /** Format sayfası liste başlığı ve sütunları (board LastDay). */
+  /** Format sayfası (Son Gün v3): Ink açılışın etiketi ve tek satırı. */
+  label: string
+  line: string
+  /** İlk yayındaki bölüme giden Flare buton ("First story: Bó"). */
+  startLabel?: string
+  /** "Nasıl okunur" bölümü; adım yoksa bölüm çıkmaz. */
+  howLabel?: string
+  howHeading?: string
+  howSteps: { title: string; body: string }[]
   episodesLabel: string
-  columns: { number: string; company: string; days: string; published: string }
-  /** "{n}" yerine toplam bölüm sayısı gelir. */
-  showAllTemplate: string
+  /** Sayfa sonundaki NextStep başlığı; boşsa sitenin başlığı. */
+  closeHeading?: string
 }
 
 export interface SparkHubContent {
@@ -1015,24 +933,32 @@ export interface SparkHubContent {
   episode: SparkEpisodeLabels
 }
 
+/** Yayındaki bir bölüm, bu dildeki ve diğer dildeki slug'larıyla (getSparkEpisodes). */
+export interface SparkEpisodeEntry {
+  story: SparkEpisodeStory
+  slug: string
+  altSlug: string
+  formatSlug: string
+  altFormatSlug: string
+  publishedAt: string | null
+  modifiedAt: string | null
+}
+
+/** Bölüm sayfasının ortak etiketleri (Son Gün v3). "{x}" yer tutucuları kodda doldurulur. */
 export interface SparkEpisodeLabels {
-  daysOpenLabel: string
-  daysOpenShortLabel: string
-  /** "{from}" ve "{to}" tarihlerle dolar. */
-  dateRangeTemplate: string
-  rulerLabel: string
-  afterClosureLabel: string
-  builtFromLabel: string
-  evidenceTakenLabel: string
-  lastCheckedLabel: string
-  clockDayLabel: string
-  /** "{n}" kapanış günüyle dolar. */
-  clockOfTemplate: string
-  readingResultLabel: string
-  scorecardLabel: string
-  /** "{format}" format adıyla dolar. */
+  /** "{key}" seçilen yolun harfi. */
+  yourPickTemplate: string
+  roadTemplate: string
+  otherRoadsLabel: string
+  noteLabel: string
+  /** Dar ekran şeridinde "{n}" kartın günü. */
+  dayTemplate: string
+  /** "{name}" sıradaki bölümün konusu. */
   nextTemplate: string
-  sourceLabel: string
+  /** Dipnot linkinin erişilebilir adı, "{n}" kaynak numarası. */
+  footnoteTemplate: string
+  /** Bir kaynaktaki iki linkin arası (", and " / " ve "). */
+  sourceJoiner: string
 }
 
 export interface TextLinkProps {
@@ -1075,16 +1001,6 @@ export interface SparkIssue {
   statusLabel: string
 }
 
-/** Bölüm bloklarının ortak bağlamı (tarih hesabı, dil, etiketler). */
-export interface EpisodeContext {
-  launchDate: string
-  closureDate: string
-  dayLabel: string
-  locale: Locale
-  labels: SparkEpisodeLabels
-  vocabulary: SparkMechanicVocabulary
-}
-
 export interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[]
 }
@@ -1101,6 +1017,8 @@ export interface NextStepProps {
   content: NextStepContent;
   /** Sadece ana sayfada numaralı etiket (kullanıcı kararı, 24 Eylül 2026). */
   numbered?: boolean;
+  /** Sayfaya özel başlık (Son Gün format ve bölüm sayfaları); kesimsiz, daha küçük. */
+  heading?: string;
 }
 
 export interface NotFoundBlockProps {
@@ -1273,18 +1191,65 @@ export interface SparkSubnavProps {
   currentSlug: string;
 }
 
-export interface EpisodeClockProps {
-  ctx: Pick<EpisodeContext, "launchDate" | "closureDate" | "locale" | "labels">;
+export interface SparkEpisodeRowProps {
+  title: string;
+  line: string;
+  /** Mono satır ("Nº 01 · 156 days"); dar ekranda gizli. */
+  meta: string;
+  /** Yayındaki bölüm: link, Flare kart ve kare ok. Yoksa Stone, linksiz, kesikli kart. */
+  href?: NavHref;
 }
 
-export interface EpisodeRulerProps {
-  blocks: SparkEpisodeBlock[];
-  ctx: EpisodeContext;
+export interface StoryCardFace {
+  day: string;
+  state: string;
 }
 
-export interface EpisodeListProps {
-  issues: SparkIssue[];
-  labels: Pick<SparkFormatContent, "episodesLabel" | "columns" | "showAllTemplate" | "daysUnit">;
+export interface StoryCardProps {
+  mode: SparkCardMode;
+  front: StoryCardFace;
+  /** Arka yüz (flipped/closed); açılıştaki kartta yok. */
+  back?: StoryCardFace;
+  className?: string;
+}
+
+export interface StoryProviderProps {
+  /** Sırayla her durağın kartı (bölümler ve ara bölüm, sayfadaki sırayla). */
+  stops: SparkStoryCard[];
+  children: ReactNode;
+}
+
+export interface StoryStopProps {
+  /** stops dizisindeki sıra. */
+  index: number;
+  id?: string;
+  as?: "section" | "div";
+  className?: string;
+  children: ReactNode;
+}
+
+export interface StoryBarProps {
+  dayTemplate: string;
+}
+
+export interface EpisodeStoryProps {
+  story: SparkEpisodeStory;
+  labels: SparkEpisodeLabels;
+}
+
+export interface FootnoteTextProps {
+  text: string;
+  /** "{n}" kaynak numarası (linkin erişilebilir adı). */
+  template: string;
+}
+
+export interface DecisionTableProps {
+  decision: SparkDecision;
+  labels: SparkEpisodeLabels;
+}
+
+export interface FinalQuestionProps {
+  content: SparkEpisodeStory["finalQuestion"];
 }
 
 export interface FormatBlockProps {

@@ -118,7 +118,7 @@ export const home: Record<Locale, HomeContent> = {
           format: "The Last Day",
           number: "Nº 01",
           title: "Bó",
-          line: "NatWest’s digital bank, read from the public record up to its last day of trading.",
+          line: "A bank built a new bank inside itself. 156 days later it closed.",
           date: "24 Sep 2026",
           linkLabel: "Read the episode",
           href: {
@@ -254,7 +254,7 @@ export const home: Record<Locale, HomeContent> = {
           format: "Son Gün",
           number: "Nº 01",
           title: "Bó",
-          line: "NatWest’in dijital bankası, kamu kayıtlarından son işlem gününe kadar.",
+          line: "Bir banka kendi içinden yeni bir banka çıkardı. 156 gün sonra kapandı.",
           date: "24 Eyl 2026",
           linkLabel: "Bölümü okuyun",
           href: {

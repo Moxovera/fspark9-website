@@ -4,11 +4,12 @@ import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/brand/BackLink";
+import CutButton from "@/components/brand/CutButton";
 import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
 import SparkSubnav from "@/components/spark/SparkSubnav";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
-import EpisodeList from "@/components/spark/format/EpisodeList";
+import SparkEpisodeRow from "@/components/spark/SparkEpisodeRow";
 import Reveal from "@/components/ui/Reveal";
 import { getChrome, getSparkHub } from "@/sanity/lib/content";
 import { loadFormatIssues, slugFromOtherLocale, staticAltSlug } from "@/lib/spark";
@@ -21,8 +22,9 @@ import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
 import type { SITE_SEO_QUERYResult } from "@/sanity/types";
 import type { Locale, SparkHubContent } from "@/types/content";
 
-// v2 format sayfası (brief v4 §7.7, board LastDay / LastDay10 ve
-// mobilleri). Format, bölümler ve sıradaki sayılar Sanity'den.
+// Format sayfası (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html
+// format görünümü): Ink açılış, "Nasıl okunur" kartları, bölüm satırları,
+// NextStep. Format, bölümler ve sıradaki sayılar Sanity'den.
 
 type Params = Promise<{ locale: Locale; formatSlug: string }>;
 
@@ -68,6 +70,9 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   }
   const { issues } = await loadFormatIssues(locale, format, hub);
   const altFormatSlug = staticAltSlug(spark, locale, formatSlug);
+  // Prototip: Nº 01 üstte, sıradakiler altta.
+  const rows = [...issues].sort((a, b) => a.number - b.number);
+  const first = rows.find((issue) => issue.status === "published" && issue.href);
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
@@ -80,53 +85,76 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
       {altFormatSlug && <SparkAltSlugRegistrar formatSlug={altFormatSlug} />}
       <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
 
-      <section className="on-ink bg-ink">
-        <div className="flex flex-col gap-4 px-5 pt-4 pb-10 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-end min-[900px]:gap-x-6 min-[900px]:px-8 min-[900px]:pt-10 min-[900px]:pb-16 min-[1280px]:px-16">
-          <div className="flex flex-col gap-4 min-[900px]:col-span-8 min-[900px]:gap-5">
-            <BackLink href="/spark" label={hub.sparkLabel} ground="ink" className="-mb-2" />
-            <div className="flex items-end justify-between">
-              <h1 className="m-0 font-display text-[44px] leading-[0.95] font-extrabold tracking-[-0.04em] text-paper min-[900px]:text-[clamp(64px,6.112vw,88px)] min-[900px]:leading-[0.92] min-[900px]:tracking-[-0.045em]">
-                {format.name}
-              </h1>
-              <span
-                aria-hidden="true"
-                className="text-outline-dust font-display text-[56px] leading-[0.8] font-extrabold tracking-[-0.06em] [-webkit-text-stroke-width:1.5px] min-[900px]:hidden"
-              >
-                {format.number}
-              </span>
-            </div>
-            <p className="m-0 max-w-[560px] text-[16px] leading-[1.5] text-paper min-[900px]:text-[19px]">{format.description}</p>
+      <section className="on-ink bg-ink px-5 pt-4 pb-[100px] min-[900px]:px-8 min-[1280px]:px-16">
+        <BackLink href="/spark" label={hub.sparkLabel} ground="ink" />
+        <div className="mt-10 grid grid-cols-1 gap-6 min-[761px]:mt-16 min-[761px]:grid-cols-12 min-[761px]:items-end">
+          <div className="min-[761px]:col-span-7">
+            <Label ground="ink" className="mb-[5px]">
+              {format.label}
+            </Label>
+            <h1 className="mt-0 mb-7 font-display text-[clamp(68px,11vw,168px)] leading-[0.88] font-extrabold tracking-[-0.05em] text-paper">
+              {format.name}
+            </h1>
+            <p className="mt-0 mb-9 max-w-[32ch] text-[21px] leading-[1.45] text-paper">{format.line}</p>
+            {format.startLabel && first?.href && <CutButton label={format.startLabel} href={first.href} />}
           </div>
           <span
             aria-hidden="true"
-            className="text-outline-dust hidden font-display text-[clamp(120px,12.5vw,180px)] leading-[0.78] font-extrabold tracking-[-0.07em] min-[900px]:col-span-4 min-[900px]:col-start-9 min-[900px]:block min-[900px]:justify-self-end"
+            className="text-outline-dust order-first font-display text-[110px] leading-[0.8] font-extrabold tracking-[-0.06em] min-[761px]:order-none min-[761px]:col-span-4 min-[761px]:col-start-9 min-[761px]:justify-self-end min-[761px]:text-[clamp(120px,17vw,250px)]"
           >
             {format.number}
           </span>
         </div>
       </section>
 
-      <section className="bg-white px-5 pt-10 pb-12 min-[900px]:px-8 min-[900px]:pt-[72px] min-[900px]:pb-20 min-[1280px]:px-16">
-        <Reveal>
-          <EpisodeList issues={issues} labels={format} />
-        </Reveal>
-      </section>
+      <div className="px-5 pb-[110px] min-[900px]:px-8 min-[1280px]:px-16">
+        {format.howSteps.length > 0 && (
+          <section className="pt-24">
+            <div className="border-t-2 border-ink pt-[18px]">
+              <Label strong>
+                {format.howLabel}
+              </Label>
+              <h2 className="mt-[10px] mb-0 max-w-[24ch] font-display text-[clamp(26px,3.2vw,36px)] leading-[1.1] font-bold tracking-[-0.025em] text-ink">
+                {format.howHeading}
+              </h2>
+            </div>
+            <Reveal className="mt-9 grid grid-cols-1 gap-6 min-[901px]:grid-cols-3">
+              {format.howSteps.map((step, i) => (
+                <div key={step.title} className="border-t-2 border-ink bg-white p-6">
+                  <Label as="span" strong>
+                    {String(i + 1)}
+                  </Label>
+                  <b className="mt-3 mb-2 block font-display text-[24px] leading-[1.15] font-bold tracking-[-0.02em] text-ink">
+                    {step.title}
+                  </b>
+                  <p className="m-0 text-[17px] leading-[1.6] text-stone">{step.body}</p>
+                </div>
+              ))}
+            </Reveal>
+          </section>
+        )}
 
-      {format.aboutLines.length > 0 && (
-        <section className="flex flex-col gap-2 bg-paper px-5 pt-9 pb-12 min-[900px]:gap-3 min-[900px]:px-8 min-[900px]:pt-12 min-[900px]:pb-16 min-[1280px]:px-16">
-          <Label>{format.aboutLabel}</Label>
-          <ul className="m-0 list-none p-0 min-[900px]:grid min-[900px]:grid-cols-3 min-[900px]:gap-x-6">
-            {format.aboutLines.map((line) => (
-              <li key={line} className="flex items-baseline gap-3 border-t border-rule py-3">
-                <span aria-hidden="true" className="size-[7px] flex-none -translate-y-[2px] bg-ink" />
-                <span className="text-[15px] leading-[1.5] text-ink">{line}</span>
-              </li>
+        <section className="pt-24">
+          <div className="border-t-2 border-ink pt-[18px]">
+            <Label strong>
+              {format.episodesLabel}
+            </Label>
+          </div>
+          <div className="mt-8 border-t border-rule">
+            {rows.map((issue) => (
+              <SparkEpisodeRow
+                key={issue.numberLabel}
+                title={issue.subject}
+                line={issue.hook}
+                meta={`${issue.numberLabel} · ${issue.days !== null ? `${issue.days} ${format.daysUnit}` : issue.statusLabel}`}
+                href={issue.status === "published" ? issue.href : undefined}
+              />
             ))}
-          </ul>
+          </div>
         </section>
-      )}
+      </div>
 
-      <NextStep content={nextStep} />
+      <NextStep content={nextStep} heading={format.closeHeading} />
     </main>
   );
 }

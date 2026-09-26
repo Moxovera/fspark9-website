@@ -9,8 +9,11 @@
  *   2. Hiçbir belgenin referans vermediği görseller (eski logo, eski OG,
  *      vaka kapak ve logo görselleri).
  *
- * Eski alanlar (caseStudy, sparkFormat, siteSettings) seed-v3 tarafından
- * zaten siliniyor; burada ayrıca kalan var mı diye kontrol edilir.
+ *   3. Şemadan çıkmış eski alanlar (OLD_FIELDS). Son Gün v3'ün (2026-09-26)
+ *      bıraktıkları dahil: Bó'nun blokları, eski format sütunları ve
+ *      mekanik etiketleri, eski bölüm etiketleri. seed-v3 bunları canlıdaki
+ *      eski kod okuyabilsin diye yerinde bırakıyor; yeni sayfalar main'e
+ *      geçtikten SONRA bu script'le silinir.
  *
  * Çalıştırma:
  *   npm run cleanup:v3              (sadece listeler)
@@ -32,10 +35,38 @@ const documentTypes = schema.types.filter((t) => t.type === "document").map((t) 
 /** Alanlar seed-v3'te siliniyor; burada kalmışsa rapor edilir. */
 const OLD_FIELDS: Record<string, string[]> = {
   caseStudy: ["location", "body", "coverImage", "problemHeading", "actionsHeading", "deliveredHeading", "detailEyebrow", "detailIntro", "logo"],
-  sparkFormat: ["subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero"],
-  sparkSection: ["hero", "homeLinkLabel", "comingSoonLabel"],
+  sparkFormat: [
+    "subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero",
+    // Son Gün v3
+    "aboutLabel", "aboutLines", "showAllLabel", "columns", "showAllTemplate",
+    "dayCountSingular", "dayCountPlural", "dayLabel", "dayNotEstablishedLabel", "noteLabel",
+    "recordLabel", "readingLabel", "callLabel", "estimateLabel", "weighLabel", "signalLabel", "secondOpinionLabel",
+    "allocationLabel", "callOptionRuleLabel", "callOptionDecisionLabel", "callMatchLabel", "callMismatchLabel",
+    "callUnsettledLabel", "allocationCommitLabel", "scorecardHeading", "scorecardUnansweredLabel",
+    "scorecardYourReadingLabel", "scorecardCrossEpisodeLabel", "scorecardShareLabel", "scorecardCopiedLabel",
+    "scorecardPrivacyLine",
+  ],
+  sparkSection: [
+    "hero", "homeLinkLabel", "comingSoonLabel",
+    // Son Gün v3
+    "episode.daysOpenLabel", "episode.daysOpenShortLabel", "episode.dateRangeTemplate", "episode.rulerLabel",
+    "episode.afterClosureLabel", "episode.builtFromLabel", "episode.evidenceTakenLabel", "episode.lastCheckedLabel",
+    "episode.clockDayLabel", "episode.clockOfTemplate", "episode.readingResultLabel", "episode.scorecardLabel",
+    "episode.sourceLabel",
+  ],
+  sparkEpisode: ["blocks", "standfirst", "parent", "evidenceTakenAt"],
   siteSettings: ["subpageCta"],
 };
+
+/** "a.b" yolundaki alan belgede var mı. */
+function has(doc: Record<string, unknown>, path: string): boolean {
+  let value: unknown = doc;
+  for (const part of path.split(".")) {
+    if (!value || typeof value !== "object" || !(part in value)) return false;
+    value = (value as Record<string, unknown>)[part];
+  }
+  return true;
+}
 
 async function main() {
   const stale = await client.fetch<{ _id: string; _type: string }[]>(
@@ -45,12 +76,22 @@ async function main() {
   console.log(`Documents to delete (${stale.length}):`);
   for (const doc of stale) console.log(`  ${doc._type}  ${doc._id}`);
 
+  const leftovers: { id: string; fields: string[] }[] = [];
   for (const [type, fields] of Object.entries(OLD_FIELDS)) {
     const docs = await client.fetch<Record<string, unknown>[]>(`*[_type == $type]`, { type });
     for (const doc of docs) {
-      const left = fields.filter((f) => f in doc);
-      if (left.length) console.log(`  leftover fields on ${String(doc._id)}: ${left.join(", ")}`);
+      const left = fields.filter((f) => has(doc, f));
+      if (left.length) {
+        leftovers.push({ id: String(doc._id), fields: left });
+        console.log(`  leftover fields on ${String(doc._id)}: ${left.join(", ")}`);
+      }
     }
+  }
+  if (confirm && leftovers.length) {
+    const tx = client.transaction();
+    for (const { id, fields } of leftovers) tx.patch(id, (patch) => patch.unset(fields));
+    await tx.commit();
+    console.log(`Unset old fields on ${leftovers.length} documents.`);
   }
 
   if (confirm && stale.length) {

@@ -182,47 +182,6 @@ body {
   transform: translateY(-6px);
 }
 
-/* The Allocation: gerçek range input, kare Ink tutamak (brief §7.7).
-   Doluluk --range-fill ile (bileşen inline veriyor). */
-.range-square {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 44px;
-  background: transparent;
-  cursor: pointer;
-}
-.range-square:disabled {
-  cursor: default;
-}
-.range-square::-webkit-slider-runnable-track {
-  height: 4px;
-  background: linear-gradient(var(--ink), var(--ink)) 0 0 / var(--range-fill, 50%) 100% no-repeat, var(--rule);
-}
-.range-square::-moz-range-track {
-  height: 4px;
-  background: var(--rule);
-}
-.range-square::-moz-range-progress {
-  height: 4px;
-  background: var(--ink);
-}
-.range-square::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 28px;
-  height: 28px;
-  margin-top: -12px;
-  background: var(--ink);
-  border: 0;
-  border-radius: 0;
-}
-.range-square::-moz-range-thumb {
-  width: 28px;
-  height: 28px;
-  background: var(--ink);
-  border: 0;
-  border-radius: 0;
-}
-
 /* Hover (160ms): satır okları 4px sağa, metin linkinin alt çizgisi
    soldan yeniden çizilir. */
 .go-arrow {
@@ -409,4 +368,110 @@ body {
   margin-left: 0.14em;
   font-size: 0.42em;
   letter-spacing: -0.01em;
+}
+
+/* Son Gün bölüm kartı (prototip son-gun-01-bo-v3 `.card`): hikâye boyunca
+   yanda duran tek parlak şey. data-mode: draft (kesikli Dust çerçeve),
+   live (Flare), flipped (arka yüz, 640ms rotateY), closed (arka yüz, Rule
+   zemin, Stone yazı). Renk geçişi 480ms. Açılıştaki kart bir kez yükselir. */
+.story-card {
+  position: relative;
+  aspect-ratio: 54 / 86;
+  perspective: 1200px;
+}
+.story-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 18px 16px;
+  background-color: var(--flare);
+  color: var(--ink);
+  border: 2px solid transparent;
+  backface-visibility: hidden;
+  transition: transform 640ms var(--ease-brand), background-color 480ms var(--ease-brand),
+    border-color 480ms var(--ease-brand), color 480ms var(--ease-brand);
+}
+.story-face-back {
+  transform: rotateY(180deg);
+}
+.story-card[data-mode="flipped"] .story-face-front,
+.story-card[data-mode="closed"] .story-face-front {
+  transform: rotateY(-180deg);
+}
+.story-card[data-mode="flipped"] .story-face-back,
+.story-card[data-mode="closed"] .story-face-back {
+  transform: rotateY(0);
+}
+.story-card[data-mode="draft"] .story-face {
+  background-color: transparent;
+  border: 2px dashed var(--dust);
+  color: var(--dust);
+}
+.story-card[data-mode="closed"] .story-face {
+  background-color: var(--rule);
+  color: var(--stone);
+}
+.story-chip {
+  position: relative;
+  width: 34px;
+  height: 26px;
+  border: 2px solid currentColor;
+}
+.story-chip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 10px;
+  width: 2px;
+  background: currentColor;
+}
+.story-mini {
+  background-color: var(--flare);
+  border: 2px solid transparent;
+  transition: background-color 480ms var(--ease-brand), border-color 480ms var(--ease-brand);
+}
+.story-mini[data-mode="draft"] {
+  background-color: transparent;
+  border: 2px dashed var(--dust);
+}
+.story-mini[data-mode="closed"] {
+  background-color: var(--rule);
+}
+.card-rise {
+  animation: card-rise 900ms var(--ease-brand) both;
+}
+@keyframes card-rise {
+  from { transform: translateY(40px) rotate(-6deg); opacity: 0; }
+}
+
+/* Karar anı: seçimden sonra cevap yükseklik ve saydamlıkla açılır (560ms).
+   İçteki kutu taşanı keser; kenardaki odak halkası sığsın diye 4px pay. */
+.decision-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 560ms var(--ease-brand), opacity 320ms var(--ease-brand);
+}
+.decision-answer.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition-delay: 120ms;
+}
+.decision-answer > * {
+  min-height: 0;
+  overflow: hidden;
+  margin: -4px;
+  padding: 4px;
+}
+.decision-option {
+  transition: border-color 160ms var(--ease-brand), background-color 160ms var(--ease-brand),
+    color 160ms var(--ease-brand), opacity 240ms var(--ease-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-face, .story-mini, .decision-answer, .decision-option { transition: none; }
+  .card-rise { animation: none; }
 }

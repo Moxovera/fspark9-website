@@ -3,12 +3,16 @@
  * staging'in render ettiği aynı nesneler. Tekrar çalıştırmak güvenli:
  * belgeleri src/content'teki hale getirir.
  *
- * Dokunmadıkları: görseller (vaka ekranları, portre, OG), bölüm blokları
- * (Bó'nun kaydı), Imprint ve Terms metni.
+ * Dokunmadıkları: görseller (vaka ekranları, portre, OG), Imprint ve
+ * Terms metni. Spark belgeleri yama ile yazılıyor: şemadan çıkmış eski
+ * alanlar (canlıdaki eski kod hâlâ okuyor olabilir) yerinde kalıyor,
+ * `npm run cleanup:v3` onları ayrıca siler.
  *
  * Çalıştırma:
- *   npm run seed:v3            (SANITY_API_WRITE_TOKEN .env.local'dan)
- *   npm run seed:v3 -- --dry   (sadece yazılacak belgeleri listeler)
+ *   npm run seed:v3                  (SANITY_API_WRITE_TOKEN .env.local'dan)
+ *   npm run seed:v3 -- --dry         (sadece yazılacak belgeleri listeler)
+ *   npm run seed:v3 -- --only=spark  (sadece Spark belgeleri; Studio'da
+ *                                     düzenlenmiş diğer sayfalara dokunmaz)
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -19,16 +23,17 @@ import { home } from "../content/home";
 import { servicePages, servicesIndex } from "../content/services";
 import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
-import { spark } from "../content/spark";
-import { episodeSeo, legalSeo } from "../content/seo";
+import { spark, sparkEpisodes } from "../content/spark";
+import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
-import type { LegalBlock, LegalPage, PageSeoCopy } from "../types/content";
+import type { LegalBlock, LegalPage, PageSeoCopy, SparkStoryCard, SparkEpisodeStory } from "../types/content";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (!token) throw new Error("Missing SANITY_API_WRITE_TOKEN (.env.local).");
 
 const dry = process.argv.includes("--dry");
+const onlySpark = process.argv.includes("--only=spark");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -320,29 +325,31 @@ function aboutDoc(): SanityDocumentStub {
   };
 }
 
-function sparkSectionDoc(): SanityDocumentStub {
+/** Spark bölümü yama ile: bölüm etiketleri tek tek (eski anahtarlar canlı kod için yerinde kalır). */
+function sparkSectionPatch() {
   const e = spark[EN];
   const t = spark[TR];
   const pick = (k: "bigWord" | "heading" | "tickerTail" | "formatsLabel" | "readLabel" | "backLabel" | "sparkLabel" | "launchDateLabel") =>
     ls(e[k], t[k]);
   const episode = Object.fromEntries(
-    (Object.keys(e.episode) as (keyof typeof e.episode)[]).map((k) => [k, ls(e.episode[k], t.episode[k])]),
+    (Object.keys(e.episode) as (keyof typeof e.episode)[]).map((k) => [`episode.${k}`, ls(e.episode[k], t.episode[k])]),
   );
   return {
-    _id: "sparkSection",
-    _type: "sparkSection",
-    title: "Spark",
-    seo: seo(e.seo, t.seo),
-    bigWord: pick("bigWord"),
-    heading: pick("heading"),
-    tickerItems: lsList(e.tickerItems, t.tickerItems),
-    tickerTail: pick("tickerTail"),
-    formatsLabel: pick("formatsLabel"),
-    readLabel: pick("readLabel"),
-    backLabel: pick("backLabel"),
-    sparkLabel: pick("sparkLabel"),
-    launchDateLabel: pick("launchDateLabel"),
-    episode,
+    id: "sparkSection",
+    set: {
+      title: "Spark",
+      seo: seo(e.seo, t.seo),
+      bigWord: pick("bigWord"),
+      heading: pick("heading"),
+      tickerItems: lsList(e.tickerItems, t.tickerItems),
+      tickerTail: pick("tickerTail"),
+      formatsLabel: pick("formatsLabel"),
+      readLabel: pick("readLabel"),
+      backLabel: pick("backLabel"),
+      sparkLabel: pick("sparkLabel"),
+      launchDateLabel: pick("launchDateLabel"),
+      ...episode,
+    },
   };
 }
 
@@ -367,21 +374,24 @@ function formatSets() {
         ...(opt(e.openLabel, t.openLabel) ? { openLabel: opt(e.openLabel, t.openLabel) } : {}),
         ...(opt(e.preparingLine, t.preparingLine) ? { preparingLine: opt(e.preparingLine, t.preparingLine) } : {}),
         comingLabel: ls(e.comingIssues[0]?.statusLabel ?? "", t.comingIssues[0]?.statusLabel ?? ""),
-        aboutLabel: ls(e.aboutLabel, t.aboutLabel),
-        aboutLines: lsList(e.aboutLines, t.aboutLines),
-        showAllLabel: ls(e.showAllLabel, t.showAllLabel),
         allIssuesLabel: ls(e.allIssuesLabel, t.allIssuesLabel),
         daysUnit: ls(e.daysUnit, t.daysUnit),
+        label: ls(e.label, t.label),
+        line: lt(e.line, t.line),
+        ...(opt(e.startLabel, t.startLabel) ? { startLabel: opt(e.startLabel, t.startLabel) } : {}),
+        ...(opt(e.howLabel, t.howLabel) ? { howLabel: opt(e.howLabel, t.howLabel) } : {}),
+        ...(opt(e.howHeading, t.howHeading) ? { howHeading: opt(e.howHeading, t.howHeading) } : {}),
+        howSteps: zip(e.howSteps, t.howSteps, (es, ts) => ({ _type: "sparkHowStep", title: ls(es.title, ts.title), body: lt(es.body, ts.body) })),
         episodesLabel: ls(e.episodesLabel, t.episodesLabel),
-        columns: {
-          number: ls(e.columns.number, t.columns.number),
-          company: ls(e.columns.company, t.columns.company),
-          days: ls(e.columns.days, t.columns.days),
-          published: ls(e.columns.published, t.columns.published),
-        },
-        showAllTemplate: ls(e.showAllTemplate, t.showAllTemplate),
+        ...(opt(e.closeHeading, t.closeHeading) ? { closeHeading: opt(e.closeHeading, t.closeHeading) } : {}),
       },
-      unset: ["subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero"],
+      unset: [
+        "subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero",
+        ...(e.startLabel ? [] : ["startLabel"]),
+        ...(e.howLabel ? [] : ["howLabel"]),
+        ...(e.howHeading ? [] : ["howHeading"]),
+        ...(e.closeHeading ? [] : ["closeHeading"]),
+      ],
     };
   });
 }
@@ -415,16 +425,103 @@ function comingEpisodeDocs(): SanityDocumentStub[] {
   });
 }
 
+const storyCard = (e: SparkStoryCard, t: SparkStoryCard) => ({
+  _type: "sparkStoryCard",
+  mode: e.mode,
+  day: e.day,
+  state: ls(e.state, t.state),
+  caption: ls(e.caption, t.caption),
+  barTitle: ls(e.barTitle, t.barTitle),
+});
+
+/** Bölüm hikâyesinin alanları (sparkEpisodeStory.ts), EN ve TR paralel. */
+function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
+  const texts = (en: string[], tr: string[]) => zip(en, tr, (a, b) => lt(a, b));
+  return {
+    subject: ls(e.subject, t.subject),
+    hook: lt(e.hook, t.hook),
+    seo: seo(e.seo, t.seo),
+    hero: {
+      label: ls(e.hero.label, t.hero.label),
+      title: lt(e.hero.title, t.hero.title),
+      sub: lt(e.hero.sub, t.hero.sub),
+      invite: lt(e.hero.invite, t.hero.invite),
+      startLabel: ls(e.hero.startLabel, t.hero.startLabel),
+      cardDay: e.hero.cardDay,
+      cardState: ls(e.hero.cardState, t.hero.cardState),
+    },
+    chapters: zip(e.chapters, t.chapters, (ec, tc) => ({
+      _type: "sparkChapter",
+      id: ec.id,
+      label: ls(ec.label, tc.label),
+      title: ls(ec.title, tc.title),
+      lead: lt(ec.lead, tc.lead),
+      paragraphs: texts(ec.paragraphs, tc.paragraphs),
+      card: storyCard(ec.card, tc.card),
+      ...(ec.decision && tc.decision
+        ? {
+            decision: {
+              _type: "sparkDecision",
+              label: ls(ec.decision.label, tc.decision.label),
+              question: lt(ec.decision.question, tc.decision.question),
+              options: zip(ec.decision.options, tc.decision.options, (eo, to) => ({
+                _type: "sparkDecisionOption",
+                key: eo.key,
+                text: lt(eo.text, to.text),
+                answer: lt(eo.answer, to.answer),
+              })),
+              didLabel: ls(ec.decision.didLabel, tc.decision.didLabel),
+              didTitle: lt(ec.decision.didTitle, tc.decision.didTitle),
+              didBody: texts(ec.decision.didBody, tc.decision.didBody),
+              note: lt(ec.decision.note, tc.decision.note),
+              services: zip(ec.decision.services, tc.decision.services, (es, ts) => ({
+                _type: "sparkServiceTag",
+                name: ls(es.name, ts.name),
+                service: es.service,
+              })),
+            },
+          }
+        : {}),
+    })),
+    interlude: {
+      afterChapter: e.interlude.afterChapter,
+      text: lt(e.interlude.text, t.interlude.text),
+      card: storyCard(e.interlude.card, t.interlude.card),
+    },
+    lessons: zip(e.lessons, t.lessons, (el, tl) => ({ _type: "sparkLesson", heading: ls(el.heading, tl.heading), body: lt(el.body, tl.body) })),
+    finalQuestion: {
+      label: ls(e.finalQuestion.label, t.finalQuestion.label),
+      title: lt(e.finalQuestion.title, t.finalQuestion.title),
+      ctaLabel: ls(e.finalQuestion.ctaLabel, t.finalQuestion.ctaLabel),
+      options: zip(e.finalQuestion.options, t.finalQuestion.options, (eo, to) => ({
+        _type: "sparkFinalOption",
+        text: lt(eo.text, to.text),
+        service: eo.service,
+        serviceName: ls(eo.serviceName, to.serviceName),
+        heading: ls(eo.heading, to.heading),
+        body: lt(eo.body, to.body),
+      })),
+    },
+    next: { number: e.next.number, name: ls(e.next.name, t.next.name), line: lt(e.next.line, t.next.line) },
+    sourcesLabel: ls(e.sourcesLabel, t.sourcesLabel),
+    sources: zip(e.sources, t.sources, (es, ts) => ({
+      _type: "sparkSource",
+      n: es.n,
+      links: zip(es.links, ts.links, (el, tl) => ({ _type: "sparkSourceLink", label: ls(el.label, tl.label), href: el.href })),
+    })),
+    correctionLine: lt(e.correctionLine, t.correctionLine),
+    closeHeading: ls(e.closeHeading, t.closeHeading),
+  };
+}
+
 function boPatch() {
   const card = [home.en.spark.cards[0], home.tr.spark.cards[0]];
   return {
     id: "sparkEpisode-01-bo",
     set: {
-      subject: ls("Bó", "Bó"),
+      ...storySet(sparkEpisodes.en["01-bo"], sparkEpisodes.tr["01-bo"]),
       publishedAt: LAUNCH_DATE,
-      evidenceTakenAt: LAUNCH_DATE,
       lastCheckedAt: LAUNCH_DATE,
-      seo: seo(episodeSeo.en["01-bo"], episodeSeo.tr["01-bo"]),
       cardLine: lt(card[0].line, card[1].line),
     },
   };
@@ -514,14 +611,18 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const creates = [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), sparkSectionDoc(), ...comingEpisodeDocs()];
-  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = [
-    { id: "siteSettings", set: siteSettingsPatch(), unset: ["subpageCta", "footer.tagline", "footer.nine", "footer.signature", "footer.nav", "footer.legal"] },
-    ...casePatches(),
-    ...formatSets(),
-    boPatch(),
-    ...legalPatches(),
-  ];
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch()];
+  const creates = onlySpark
+    ? comingEpisodeDocs()
+    : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
+  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = onlySpark
+    ? sparkPatches
+    : [
+        { id: "siteSettings", set: siteSettingsPatch(), unset: ["subpageCta", "footer.tagline", "footer.nine", "footer.signature", "footer.nav", "footer.legal"] },
+        ...casePatches(),
+        ...sparkPatches,
+        ...legalPatches(),
+      ];
 
   // Sector reports formatı yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
@@ -530,7 +631,7 @@ async function main() {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
     console.log("patch:", patches.map((p) => p.id).join(", "));
     console.log("missing formats:", FORMAT_IDS.filter((id) => !existingFormats.includes(id)).join(", ") || "none");
-    console.log(await uploadLogo());
+    if (!onlySpark) console.log(await uploadLogo());
     return;
   }
 
@@ -548,7 +649,7 @@ async function main() {
   }
   const result = await tx.commit();
   console.log(`committed ${result.results.length} mutations`);
-  console.log((await uploadLogo()) ?? "logo already current");
+  if (!onlySpark) console.log((await uploadLogo()) ?? "logo already current");
 }
 
 main().catch((error) => {

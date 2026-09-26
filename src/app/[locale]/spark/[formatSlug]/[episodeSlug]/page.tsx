@@ -1,144 +1,68 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import JsonLd from "@/components/seo/JsonLd";
-import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/seo/JsonLd";
 import BackLink from "@/components/brand/BackLink";
 import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
+import { ArrowDownIcon } from "@/components/icons";
 import SparkSubnav from "@/components/spark/SparkSubnav";
-import EpisodeClock from "@/components/spark/episode/EpisodeClock";
-import EpisodeBlocks from "@/components/spark/episode/EpisodeBlocks";
-import EpisodeRuler from "@/components/spark/episode/EpisodeRuler";
-import Scorecard from "@/components/spark/episode/Scorecard";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
-import { computeDayCount } from "@/components/spark/day/dayMath";
-import { getChrome, getHome, getSparkHub } from "@/sanity/lib/content";
-import { fill, formatShortDate } from "@/lib/format";
-import { loadFormatIssues, slugFromOtherLocale } from "@/lib/spark";
-import { redirect } from "@/i18n/navigation";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import {
-  SPARK_EPISODE_SLUGS_QUERY,
-  SPARK_EPISODE_SEO_QUERY,
-  SITE_SEO_QUERY,
-  SPARK_EPISODE_QUERY,
-  toSparkEpisodeSeo,
-  toSiteSeo,
-  toSparkEpisodePage,
-} from "@/sanity/lib/queries";
+import EpisodeStory from "@/components/spark/episode/EpisodeStory";
+import StoryCard from "@/components/spark/episode/StoryCard";
+import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
+import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
+import { slugFromOtherLocale } from "@/lib/spark";
 import { toMetadata } from "@/lib/metadata";
-import { getPathname } from "@/i18n/navigation";
-import type {
-  SPARK_EPISODE_SLUGS_QUERYResult,
-  SPARK_EPISODE_SEO_QUERYResult,
-  SITE_SEO_QUERYResult,
-  SPARK_EPISODE_QUERYResult,
-} from "@/sanity/types";
+import { getPathname, redirect } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
+import type { SITE_SEO_QUERYResult } from "@/sanity/types";
+import type { Locale, SparkEpisodeEntry } from "@/types/content";
+
+// Bölüm sayfası (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html
+// bölüm görünümü): tam ekran Ink açılış ve yükselen kart, sonra kartın
+// izlediği hikâye (EpisodeStory), NextStep. İçerik Sanity'den
+// (getSparkEpisodes); tarayıcıda hiçbir şey saklanmıyor.
+
+type Params = Promise<{ locale: Locale; formatSlug: string; episodeSlug: string }>;
 
 export async function generateStaticParams() {
-  const episodes = await sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
-    query: SPARK_EPISODE_SLUGS_QUERY,
-    tags: ["sparkEpisode"],
-  });
-
-  return episodes.filter((episode) => episode.status === "published").flatMap((episode) => {
-    const params: { locale: string; formatSlug: string; episodeSlug: string }[] = [];
-    if (episode.formatEn && episode.episodeEn) {
-      params.push({ locale: "en", formatSlug: episode.formatEn, episodeSlug: episode.episodeEn });
-    }
-    if (episode.formatTr && episode.episodeTr) {
-      params.push({ locale: "tr", formatSlug: episode.formatTr, episodeSlug: episode.episodeTr });
-    }
-    return params;
-  });
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; formatSlug: string; episodeSlug: string }>;
-}): Promise<Metadata> {
-  const { locale, formatSlug, episodeSlug } = await params;
-  const [seoResult, siteSeoResult, episodeSlugs] = await Promise.all([
-    sanityFetch<SPARK_EPISODE_SEO_QUERYResult>({
-      query: SPARK_EPISODE_SEO_QUERY,
-      params: { locale, formatSlug, episodeSlug },
-      tags: ["sparkEpisode"],
-    }),
-    sanityFetch<SITE_SEO_QUERYResult>({
-      query: SITE_SEO_QUERY,
-      params: { locale },
-      tags: ["siteSettings"],
-    }),
-    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
-      query: SPARK_EPISODE_SLUGS_QUERY,
-      tags: ["sparkEpisode"],
-    }),
-  ]);
-
-  // slug çiftleri en/tr'de farklı (the-last-day/01-bo vs son-gun/01-bo
-  // gibi) — hreflang için ikisini de generateStaticParams'ın kullandığı
-  // aynı listeden buluyoruz, ayrı bir sorgu şekli değiştirmeden.
-  const match = episodeSlugs.find((episode) =>
-    locale === "tr"
-      ? episode.formatTr === formatSlug && episode.episodeTr === episodeSlug
-      : episode.formatEn === formatSlug && episode.episodeEn === episodeSlug,
+  const episodes = await getSparkEpisodes();
+  return routing.locales.flatMap((locale) =>
+    episodes[locale].map((entry) => ({ locale, formatSlug: entry.formatSlug, episodeSlug: entry.slug })),
   );
-  const paths =
-    match && match.formatEn && match.episodeEn && match.formatTr && match.episodeTr
-      ? {
-          en: getPathname({
-            href: {
-              pathname: "/spark/[formatSlug]/[episodeSlug]",
-              params: { formatSlug: match.formatEn, episodeSlug: match.episodeEn },
-            },
-            locale: "en",
-          }),
-          tr: getPathname({
-            href: {
-              pathname: "/spark/[formatSlug]/[episodeSlug]",
-              params: { formatSlug: match.formatTr, episodeSlug: match.episodeTr },
-            },
-            locale: "tr",
-          }),
-        }
-      : undefined;
-
-  return toMetadata(toSparkEpisodeSeo(seoResult), toSiteSeo(siteSeoResult), locale, paths);
 }
 
-/**
- * Bölüm sayfası — final interaction brief (17 Eylül 2026) ile yeniden
- * kuruldu. Kullanıcının açık onayıyla Faz 3'te kaldırılan Record/Reading/
- * Call modeli ve altı mekanik geri getirildi (bkz. proje hafızası "spark
- * content philosophy" notu — bu, o kararın BİLİNÇLİ bir tersine
- * çevrilmesi). Canlıyı gördükten sonraki sadeleştirme talimatıyla (18
- * Eylül 2026) Ledger toggle, Gap block'ları ve sayfa sonu konsolide
- * Expert Notes bölümü kaldırıldı — her şey her zaman görünür, notlar
- * gövde akışının içinde (bkz. EpisodeBlocks.tsx'teki sparkNote case'i).
- *
- * SubpageHero ARTIK KULLANILMIYOR bu sayfada — brief §5: "The page
- * opens on the clock, not on a headline... The standfirst sits below
- * this." SubpageHero'nun sabit eyebrow→title→intro sırası saatin
- * başlıktan ÖNCE gelmesine izin vermiyor, bu yüzden bu sayfa kendi
- * header'ını kuruyor (geri butonu SubpageHero'yla aynı görsel dilde).
- */
-/**
- * v2 bölüm sayfası (brief v4 §7.7, board Episode / EpisodeM). İçerik, blok
- * sırası, mekanikler ve localStorage anahtarları (fspark9.lastday.v2)
- * aynen korunuyor; sadece sunum değişti. Gün sayıları her zaman
- * launchDate / closureDate / blok tarihlerinden hesaplanıyor.
- */
-export default async function SparkEpisodePageRoute({
-  params,
-}: {
-  params: Promise<{ locale: string; formatSlug: string; episodeSlug: string }>;
-}) {
-  const { locale: rawLocale, formatSlug, episodeSlug } = await params;
-  setRequestLocale(rawLocale);
-  const locale = rawLocale === "tr" ? "tr" : "en";
-  const [spark, site, home] = await Promise.all([getSparkHub(), getChrome(), getHome()]);
+function find(episodes: SparkEpisodeEntry[], formatSlug: string, episodeSlug: string) {
+  return episodes.find((entry) => entry.formatSlug === formatSlug && entry.slug === episodeSlug);
+}
+
+function episodePath(locale: Locale, formatSlug: string, episodeSlug: string) {
+  return getPathname({ href: { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug, episodeSlug } }, locale });
+}
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale, formatSlug, episodeSlug } = await params;
+  const [episodes, siteSeoResult] = await Promise.all([
+    getSparkEpisodes(),
+    sanityFetch<SITE_SEO_QUERYResult>({ query: SITE_SEO_QUERY, params: { locale }, tags: ["siteSettings"] }),
+  ]);
+  const entry = find(episodes[locale], formatSlug, episodeSlug);
+  if (!entry) return {};
+  const other: Locale = locale === "tr" ? "en" : "tr";
+  const paths = {
+    [locale]: episodePath(locale, entry.formatSlug, entry.slug),
+    [other]: episodePath(other, entry.altFormatSlug, entry.altSlug),
+  } as Record<Locale, string>;
+  return toMetadata(entry.story.seo, toSiteSeo(siteSeoResult), locale, paths);
+}
+
+export default async function SparkEpisodePage({ params }: { params: Params }) {
+  const { locale, formatSlug, episodeSlug } = await params;
+  setRequestLocale(locale);
+  const [spark, site, home, episodes] = await Promise.all([getSparkHub(), getChrome(), getHome(), getSparkEpisodes()]);
   const hub = spark[locale];
   const { chrome, nextStep } = site[locale];
   const format = hub.formats.find((f) => f.slug === formatSlug);
@@ -150,47 +74,12 @@ export default async function SparkEpisodePageRoute({
         locale,
       });
     }
+    notFound();
   }
-
-  const result = await sanityFetch<SPARK_EPISODE_QUERYResult>({
-    query: SPARK_EPISODE_QUERY,
-    params: { locale, formatSlug, episodeSlug },
-    tags: ["sparkEpisode", "sparkFormat"],
-  });
-  const episode = toSparkEpisodePage(result, formatSlug);
-  if (!episode || !episode.launchDate || !episode.closureDate || !format) notFound();
-
-  const ctx = {
-    launchDate: episode.launchDate,
-    closureDate: episode.closureDate,
-    dayLabel: episode.dayLabel,
-    locale,
-    labels: hub.episode,
-    vocabulary: episode,
-  } as const;
-  const days = computeDayCount(episode.launchDate, episode.closureDate);
-  const range = fill(hub.episode.dateRangeTemplate, {
-    from: formatShortDate(episode.launchDate, locale),
-    to: formatShortDate(episode.closureDate, locale),
-  });
-  const numberLabel = `Nº ${String(episode.number).padStart(2, "0")}`;
-  const { issues } = await loadFormatIssues(locale, format, hub);
-  const next = issues.find((issue) => issue.number === episode.number + 1);
-  const seoResult = await sanityFetch<SPARK_EPISODE_SEO_QUERYResult>({
-    query: SPARK_EPISODE_SEO_QUERY,
-    params: { locale, formatSlug, episodeSlug },
-    tags: ["sparkEpisode"],
-  });
-  const seo = toSparkEpisodeSeo(seoResult);
-  const dateOf = (iso: string | null) => (iso ? formatShortDate(iso, locale) : hub.launchDateLabel);
-  const recordLine = [
-    hub.episode.builtFromLabel,
-    fill(hub.episode.evidenceTakenLabel, { date: dateOf(episode.evidenceTakenAt ?? episode.publishedAt) }),
-    fill(hub.episode.lastCheckedLabel, { date: dateOf(episode.lastCheckedAt) }),
-  ];
-  const formatPath = getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale });
-  const path = getPathname({ href: { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug, episodeSlug } }, locale });
-  const mono = "font-mono text-[11px] leading-[normal] font-medium tracking-[0.08em] uppercase min-[900px]:text-[12px]";
+  const entry = find(episodes[locale], formatSlug, episodeSlug);
+  if (!entry) notFound();
+  const { story } = entry;
+  const path = episodePath(locale, formatSlug, episodeSlug);
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
@@ -198,116 +87,59 @@ export default async function SparkEpisodePageRoute({
         data={[
           breadcrumbJsonLd(locale, chrome, [
             { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
-            { name: format.name, path: formatPath },
-            { name: episode.subject, path },
+            { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
+            { name: story.subject, path },
           ]),
           articleJsonLd(locale, personInfo(home[locale], chrome), {
-            headline: seo.title.split(" | ")[0],
-            description: seo.description,
+            headline: story.seo.title.split(" | ")[0],
+            description: story.seo.description,
             path,
-            datePublished: seoResult?.publishedAt,
-            dateModified: seoResult?.lastCheckedAt ?? seoResult?._updatedAt,
+            datePublished: entry.publishedAt ?? undefined,
+            dateModified: entry.modifiedAt ?? undefined,
             isPartOf: format.name,
           }),
         ]}
       />
-      {episode.altFormatSlug && (
-        <SparkAltSlugRegistrar formatSlug={episode.altFormatSlug} episodeSlug={episode.altEpisodeSlug ?? undefined} />
-      )}
+      <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
       <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
 
-      <section className="on-ink bg-ink">
-        <div className="flex flex-col gap-4 px-5 pt-4 pb-9 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:items-end min-[900px]:gap-x-6 min-[900px]:px-8 min-[900px]:pt-10 min-[900px]:pb-16 min-[1280px]:px-16">
-          <div className="flex flex-col gap-4 min-[900px]:col-span-7 min-[900px]:gap-5">
-            <BackLink
-              href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }}
-              label={format.name}
-              ground="ink"
-              className="-mb-2"
-            />
-            <Label ground="ink">{`${format.name} · ${numberLabel}`}</Label>
-            <div className="flex items-end justify-between min-[900px]:block">
-              <h1 className="m-0 font-display text-[96px] leading-[0.85] font-extrabold tracking-[-0.06em] text-paper min-[900px]:-ml-2 min-[900px]:text-[clamp(160px,16.667vw,240px)] min-[900px]:leading-[0.8] min-[900px]:tracking-[-0.065em]">
-                {episode.subject}
+      <section className="on-ink flex min-h-[calc(100svh-109px)] flex-col overflow-hidden bg-ink min-[900px]:min-h-[calc(100svh-129px)]">
+        <div className="px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
+          <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
+        </div>
+        <div className="flex flex-1 px-5 min-[900px]:px-8 min-[1280px]:px-16">
+          <div className="grid w-full grid-cols-1 items-center gap-6 pt-6 pb-[72px] min-[901px]:grid-cols-12">
+            <div className="min-[901px]:col-span-7">
+              <Label ground="ink">
+                {story.hero.label}
+              </Label>
+              <h1 className="mt-[18px] mb-[26px] max-w-[15ch] font-display text-[clamp(42px,6vw,92px)] leading-[0.96] font-extrabold tracking-[-0.04em] text-paper">
+                {story.hero.title}
               </h1>
-              {days !== null && (
-                <span className="flex flex-col items-end gap-1 min-[900px]:hidden">
-                  <span className="font-display text-[56px] leading-[0.9] font-extrabold tracking-[-0.05em] text-paper">{days}</span>
-                  <span className={`${mono} text-dust`}>{hub.episode.daysOpenShortLabel}</span>
-                </span>
-              )}
+              <p className="mt-0 mb-[14px] max-w-[34ch] text-[21px] leading-[1.45] text-paper">{story.hero.sub}</p>
+              <p className="mt-0 mb-[38px] max-w-[40ch] text-[17px] leading-[1.6] text-dust">{story.hero.invite}</p>
+              <a
+                href={`#${story.chapters[0]?.id ?? ""}`}
+                className="inline-flex items-center gap-[10px] bg-paper px-6 py-4 text-[17px] leading-none font-bold text-ink no-underline"
+              >
+                {story.hero.startLabel}
+                <ArrowDownIcon className="size-4 flex-none" />
+              </a>
             </div>
-            <div
-              lang="en"
-              className="flex flex-col gap-[6px] border-t border-inkrule pt-[14px] min-[900px]:mt-2 min-[900px]:flex-row min-[900px]:gap-7 min-[900px]:pt-[18px]"
-            >
-              {episode.parent && <span className={`${mono} text-dust`}>{episode.parent}</span>}
-              <span className={`${mono} text-dust`}>{episode.country}</span>
-              <span lang={locale} className={`${mono} text-dust`}>
-                {range}
-              </span>
-            </div>
-          </div>
-          {days !== null && (
-            <div className="hidden min-[900px]:col-span-4 min-[900px]:col-start-9 min-[900px]:flex min-[900px]:flex-col min-[900px]:items-end min-[900px]:gap-[10px] min-[900px]:justify-self-end min-[900px]:pb-1">
-              <span className="text-outline-paper font-display text-[clamp(112px,11.112vw,160px)] leading-[0.8] font-extrabold tracking-[-0.06em]">
-                {days}
-              </span>
-              <span className={`${mono} text-dust`}>{hub.episode.daysOpenLabel}</span>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <EpisodeRuler blocks={episode.blocks} ctx={ctx} />
-
-      <section className="bg-paper px-5 pt-9 pb-2 min-[900px]:px-8 min-[900px]:pt-16 min-[900px]:pb-6 min-[1280px]:px-16">
-        <div className="flex flex-col gap-4 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6">
-          <div className="flex flex-col gap-4 min-[900px]:col-span-8 min-[900px]:col-start-4 min-[900px]:gap-6">
-            <p className="m-0 font-display text-[24px] leading-[1.25] font-bold tracking-[-0.02em] text-ink min-[900px]:text-[36px] min-[900px]:leading-[1.22] min-[900px]:tracking-[-0.025em]">
-              {episode.standfirst}
-            </p>
-            <div className="flex flex-wrap gap-x-4 gap-y-2 min-[900px]:gap-6">
-              {recordLine.map((item) => (
-                <span key={item} className="font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-stone uppercase">
-                  {item}
-                </span>
-              ))}
+            <div className="order-first flex justify-start min-[901px]:order-none min-[901px]:col-span-4 min-[901px]:col-start-9 min-[901px]:justify-center">
+              <StoryCard
+                mode="live"
+                front={{ day: story.hero.cardDay, state: story.hero.cardState }}
+                className="card-rise w-[220px]"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-paper px-5 pt-7 pb-8 min-[900px]:px-8 min-[900px]:pt-12 min-[900px]:pb-16 min-[1280px]:px-16">
-        <div className="grid grid-cols-1 gap-5 min-[900px]:grid-cols-12 min-[900px]:items-start min-[900px]:gap-x-6">
-          <EpisodeClock ctx={ctx} />
-          <div className="flex flex-col gap-4 min-[900px]:col-span-8 min-[900px]:col-start-4 min-[900px]:gap-6">
-            <EpisodeBlocks blocks={episode.blocks} ctx={ctx} />
-            <Scorecard subject={episode.subject} blocks={episode.blocks} ctx={ctx} />
-          </div>
-        </div>
-      </section>
+      <EpisodeStory story={story} labels={hub.episode} />
 
-      {next && (
-        <section className="bg-paper px-5 pb-16 min-[900px]:px-8 min-[900px]:pb-[104px] min-[1280px]:px-16">
-          <div className="min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6">
-            <div className="flex flex-col gap-[10px] border-t-2 border-ink pt-4 min-[900px]:col-span-8 min-[900px]:col-start-4">
-              <Label>{fill(hub.episode.nextTemplate, { format: format.name })}</Label>
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <span className="flex items-baseline gap-[14px]">
-                  <Label as="span">{next.numberLabel}</Label>
-                  <span className="font-display text-[34px] leading-[normal] font-extrabold tracking-[-0.035em] text-stone min-[900px]:text-[44px]">
-                    {next.subject}
-                  </span>
-                </span>
-                <Label as="span">{next.statusLabel}</Label>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <NextStep content={nextStep} />
+      <NextStep content={nextStep} heading={story.closeHeading} />
     </main>
   );
 }

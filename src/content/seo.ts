@@ -1,9 +1,8 @@
 import type { Locale, PageSeo } from "@/types/content";
 
-// Copy §6c: yasal sayfaların ve bölümlerin başlık/açıklamaları.
-// Site bunları Sanity'den (legalPage.seo, sparkEpisode.seo) okuyor; bu
-// dosya seed-v3'ün kaynağı ve check:drift'in aynası. Bölüm anahtarı EN
-// bölüm slug'ı, iki dilde de aynı ("01-bo").
+// Copy §6c: yasal sayfaların başlık/açıklamaları. Site bunları Sanity'den
+// (legalPage.seo) okuyor; bu dosya seed-v3'ün kaynağı ve check:drift'in
+// aynası. Spark bölümlerinin SEO'su hikâyeyle birlikte src/content/spark.ts'te.
 type LegalSlug = "impressum" | "privacy" | "cookies" | "terms";
 
 export const legalSeo: Record<Locale, Record<LegalSlug, PageSeo>> = {
@@ -18,22 +17,5 @@ export const legalSeo: Record<Locale, Record<LegalSlug, PageSeo>> = {
     privacy: { title: "Gizlilik | fspark9", description: "fspark9.com’u ziyaret ettiğinizde ya da görüşme ayarladığınızda verinize ne oluyor." },
     cookies: { title: "Çerezler | fspark9", description: "fspark9.com hangi çerezleri yerleştiriyor ve neden." },
     terms: { title: "Kullanım şartları | fspark9", description: "fspark9.com’un kullanım şartları." },
-  },
-};
-
-export const episodeSeo: Record<Locale, Record<string, PageSeo>> = {
-  en: {
-    "01-bo": {
-      title: "Bó: 156 days of NatWest’s digital bank | The Last Day",
-      description:
-        "A hundred million pounds and eighteen months to build. 11,413 customers when it closed. The record of Bó, from launch to its last day.",
-    },
-  },
-  tr: {
-    "01-bo": {
-      title: "Bó: NatWest’in dijital bankasının 156 günü | Son Gün",
-      description:
-        "Yüz milyon sterlin ve on sekiz aylık bir inşa. Kapandığında 11.413 müşteri. Bó’nun lansmandan son gününe kaydı.",
-    },
   },
 };

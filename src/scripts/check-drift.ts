@@ -7,10 +7,10 @@
  * Kapsam: siteSettings (çerçeve, hizmet özetleri, Next step, calLink),
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×2, legalPage ×4 (metin ve SEO),
- * Bó'nun SEO'su.
+ * yayındaki Spark bölümlerinin hikâyesi (Bó).
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
- * portre) ve bölüm blokları.
+ * portre).
  *
  * Studio'da metin değiştirildiğinde bu kontrol farkı gösterir: ya
  * src/content güncellenir ya da fark bilinçli kabul edilir.
@@ -22,23 +22,21 @@ import { home } from "../content/home";
 import { servicePages, servicesIndex } from "../content/services";
 import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
-import { spark } from "../content/spark";
-import { episodeSeo, legalSeo } from "../content/seo";
+import { spark, sparkEpisodes } from "../content/spark";
+import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
 import * as privacy from "../content/legal/privacy";
 import * as cookies from "../content/legal/cookies";
 import * as terms from "../content/legal/terms";
-import { getAbout, getCases, getChrome, getHome, getServicePages, getServicesIndex, getSparkHub, getWorkPage } from "../sanity/lib/content";
+import { getAbout, getCases, getChrome, getHome, getServicePages, getServicesIndex, getSparkEpisodes, getSparkHub, getWorkPage } from "../sanity/lib/content";
 import { sanityFetch } from "../sanity/lib/fetch";
 import {
   LEGAL_PAGE_QUERY,
   LEGAL_PAGE_SEO_QUERY,
-  SPARK_EPISODE_SEO_QUERY,
   toLegalPage,
   toLegalPageSeo,
-  toSparkEpisodeSeo,
 } from "../sanity/lib/queries";
-import type { LEGAL_PAGE_QUERYResult, LEGAL_PAGE_SEO_QUERYResult, SPARK_EPISODE_SEO_QUERYResult } from "../sanity/types";
+import type { LEGAL_PAGE_QUERYResult, LEGAL_PAGE_SEO_QUERYResult } from "../sanity/types";
 import type { Locale } from "../types/content";
 
 const LOCALES: Locale[] = ["en", "tr"];
@@ -115,14 +113,14 @@ async function main() {
     }
   }
 
+  // Spark bölüm hikâyeleri (anahtar EN bölüm slug'ı).
+  const episodesS = await getSparkEpisodes();
   for (const l of LOCALES) {
-    const formatSlug = spark[l].formats[0].slug;
-    const result = await sanityFetch<SPARK_EPISODE_SEO_QUERYResult>({
-      query: SPARK_EPISODE_SEO_QUERY,
-      params: { locale: l, formatSlug, episodeSlug: "01-bo" },
-    });
-    const { title, description } = toSparkEpisodeSeo(result);
-    compare(`episode.01-bo.seo.${l}`, { title, description }, episodeSeo[l]["01-bo"]);
+    for (const [slug, story] of Object.entries(sparkEpisodes[l])) {
+      const entry = episodesS.en.find((e) => e.slug === slug);
+      const local = episodesS[l].find((e) => e.story.number === entry?.story.number);
+      compare(`episode.${slug}.${l}`, local?.story, story);
+    }
   }
 
   if (diffs.length) {

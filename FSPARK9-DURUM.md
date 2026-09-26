@@ -4,7 +4,7 @@ Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalı
 
 **v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-09-24
+Son güncelleme: 2026-09-26
 
 ---
 
@@ -40,7 +40,7 @@ Son güncelleme: 2026-09-24
 
 ## Veri akışı
 
-- Sayfalar içeriği `src/sanity/lib/content.ts` yükleyicilerinden alıyor (`getChrome`, `getHome`, `getServicesIndex`, `getServicePages`, `getWorkPage`, `getCases`, `getAbout`, `getSparkHub`). Her biri tek sorguyla iki dili çekip `Record<Locale, T>` döndürüyor; `localize()` iki dilli alanları aktif dile indiriyor (TR boşsa EN).
+- Sayfalar içeriği `src/sanity/lib/content.ts` yükleyicilerinden alıyor (`getChrome`, `getHome`, `getServicesIndex`, `getServicePages`, `getWorkPage`, `getCases`, `getAbout`, `getSparkHub`, `getSparkEpisodes`). Her biri tek sorguyla iki dili çekip `Record<Locale, T>` döndürüyor; `localize()` iki dilli alanları aktif dile indiriyor (TR boşsa EN).
 - Legal, SEO, logo ve bölüm sayfası sorguları `src/sanity/lib/queries.ts`'te.
 - ISR 60 saniye: Studio'da yayınlanan değişiklik en geç bir dakikada sitede.
 - `src/content/*.ts` sitenin aynası: `npm run seed:v3` buradan Sanity'ye yazıyor, `npm run check:drift` Sanity'yi buna karşı alan alan karşılaştırıyor. Studio'da metin değiştirildikten sonra drift farkı normal: ya aynayı güncelle ya da farkı kabul et.
@@ -55,7 +55,7 @@ Studio `/studio`, menü `src/sanity/structure.ts`:
 - **Services**: Services page (tekil, ortak etiketler dahil) ve dört hizmet belgesi (ad, satır, kitle, dilimler, adımlar, kapanış).
 - **Work**: Work page (tekil) ve vakalar (hikaye, rakamlar, kaynaklar, ekranlar, hizmet referansları; dilimler hizmetlerden hesaplanıyor).
 - **About** (tekil).
-- **Spark**: hub ve bölüm sayfası etiketleri (tekil), formatlar, bölümler. Bölüm durumu `published`, `coming` (listede linksiz satır, sayfası 404, sitemap'te yok) ya da `draft`.
+- **Spark**: hub ve bölüm sayfası etiketleri (tekil), formatlar (format sayfası metni dahil), bölümler. Bölüm durumu `published`, `coming` (listede linksiz satır, sayfası 404, sitemap'te yok) ya da `draft`. Bölümün hikâyesi "Story" sekmesinde: açılış, bölümler (her birinin kartı ve isteğe bağlı kararı), ara bölüm, dersler, son soru, sıradaki, kaynaklar. Metinde `[n]` kaynağa dipnot olur.
 - **Legal pages** ×4.
 
 Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
@@ -71,6 +71,9 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 | `npm run typegen` | Şema çıkarır ve sorgu tiplerini üretir (`src/sanity/types.ts`) |
 
 ## Açık işler
+
+- **Son Gün v3 (2026-09-26, staging'de):** format sayfası ve Bó yeniden tasarlandı (brief `_design/v2/claude-code-son-gun-v3.md`, prototip `_design/v2/boards/son-gun-01-bo-v3.html`). Eski mekanikler, gün saati, cetvel, localStorage ve Day 573 içeriği koddan silindi. Sanity'deki eski alanlar (Bó `blocks`, eski format ve etiket alanları) canlıdaki eski kod okuyabilsin diye yerinde; main'e geçtikten sonra `npm run cleanup:v3 -- --confirm` ile silinecek.
+- Studio'daki ana sayfa, Work sayfası ve bir TR hizmet adı düzenlemeleri aynaya (`src/content`) işlenmedi; `check:drift` bunları gösteriyor. Bu yüzden tam `npm run seed:v3` çalıştırılmamalı (Studio düzenlemelerini ezer); Spark için `npm run seed:v3 -- --only=spark`.
 
 - `npm run cleanup:v3 -- --confirm`: v1'den kalan 3 belge (eski ana sayfa, taslağı, storyPage) ve referanssız görseller. Geri alınamaz; yedek alındı (Sanity'nin JSON dökümü).
 - Search Console: sitemap gönderimi, ana sayfa, dört hizmet, `/work`, `/about`, `/spark` (EN ve TR) için indeksleme isteği; bir hafta sonra Pages raporu.

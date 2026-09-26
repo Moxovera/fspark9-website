@@ -11,6 +11,7 @@ import type {
   SERVICES_PAGE_QUERYResult,
   SITE_CHROME_QUERYResult,
   SPARK_CARDS_QUERYResult,
+  SPARK_EPISODES_QUERYResult,
   SPARK_HUB_QUERYResult,
   WORK_PAGE_QUERYResult,
 } from "@/sanity/types";
@@ -27,6 +28,9 @@ import type {
   ServicesIndexContent,
   SiteChrome,
   SparkCardContent,
+  SparkCardMode,
+  SparkEpisodeEntry,
+  SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
 } from "@/types/content";
@@ -311,12 +315,13 @@ export async function getAbout(): Promise<Record<Locale, AboutContent>> {
 export const SPARK_HUB_QUERY = defineQuery(`{
   "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{
     seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,
-    backLabel, sparkLabel, formatsLabel, launchDateLabel, episode
+    backLabel, sparkLabel, formatsLabel, launchDateLabel,
+    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }
   },
   "formats": *[_type == "sparkFormat"] | order(orderRank asc){
     number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,
-    comingLabel, aboutLabel, aboutLines, showAllLabel, allIssuesLabel, daysUnit, episodesLabel,
-    columns, showAllTemplate,
+    comingLabel, allIssuesLabel, daysUnit, label, line, startLabel, howLabel, howHeading,
+    "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,
     "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){
       number, subject, hook
     }
@@ -332,13 +337,18 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
     const { section, formats } = localize(raw, locale);
     return {
       ...section,
-      formats: formats.map(({ coming, comingLabel, slug, number, status, openLabel, preparingLine, ...format }) => ({
+      formats: formats.map(
+        ({ coming, comingLabel, slug, number, status, openLabel, preparingLine, startLabel, howLabel, howHeading, closeHeading, ...format }) => ({
         ...format,
         number: String(number).padStart(2, "0"),
         slug: slug[locale].current,
         status: status === "preparing" ? "preparing" : "live",
         ...(openLabel ? { openLabel } : {}),
         ...(preparingLine ? { preparingLine } : {}),
+        ...(startLabel ? { startLabel } : {}),
+        ...(howLabel ? { howLabel } : {}),
+        ...(howHeading ? { howHeading } : {}),
+        ...(closeHeading ? { closeHeading } : {}),
         comingIssues: coming.map((issue) => ({
           number: pad(issue.number),
           subject: issue.subject,
@@ -348,4 +358,77 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
       })),
     };
   });
+}
+
+// Son Gün v3 bölüm hikâyesi. Tek sorgu, iki dil, yayındaki bütün bölümler;
+// sayfa, metadata ve generateStaticParams aynı sonucu kullanıyor.
+export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode" && status == "published"
+  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){
+    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,
+    "slug": slug, "formatSlug": format->slug,
+    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,
+    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
+    "lessons": coalesce(lessons[]{ heading, body }, []),
+    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, [])
+  }`);
+
+export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEntry[]>> {
+  const raw = await sanityFetch<SPARK_EPISODES_QUERYResult>({
+    query: SPARK_EPISODES_QUERY,
+    tags: ["sparkEpisode", "sparkFormat"],
+  });
+  return perLocale((locale) =>
+    raw.flatMap((doc) => {
+      const other: Locale = locale === "tr" ? "en" : "tr";
+      const { slug, formatSlug, publishedAt, lastCheckedAt, _updatedAt, ...rest } = doc;
+      if (!formatSlug) return [];
+      const e = localize(rest, locale);
+      const story: SparkEpisodeStory = {
+        number: e.number,
+        subject: e.subject,
+        hook: e.hook,
+        seo: e.seo,
+        hero: e.hero,
+        chapters: e.chapters.map(({ decision, card, ...chapter }) => ({
+          ...chapter,
+          card: { ...card, mode: toCardMode(card.mode) },
+          ...(decision
+            ? {
+                decision: {
+                  ...decision,
+                  didBody: decision.didBody ?? [],
+                  services: (decision.services ?? []).map((tag) => ({ name: tag.name, service: tag.service as ServiceSlug })),
+                },
+              }
+            : {}),
+        })),
+        interlude: { ...e.interlude, card: { ...e.interlude.card, mode: toCardMode(e.interlude.card.mode) } },
+        lessons: e.lessons,
+        finalQuestion: {
+          ...e.finalQuestion,
+          options: (e.finalQuestion.options ?? []).map((option) => ({ ...option, service: option.service as ServiceSlug })),
+        },
+        next: e.next,
+        sourcesLabel: e.sourcesLabel,
+        sources: e.sources,
+        correctionLine: e.correctionLine,
+        closeHeading: e.closeHeading,
+      };
+      return [
+        {
+          story,
+          slug: slug[locale].current,
+          altSlug: slug[other].current,
+          formatSlug: formatSlug[locale].current,
+          altFormatSlug: formatSlug[other].current,
+          publishedAt,
+          modifiedAt: lastCheckedAt ?? _updatedAt,
+        },
+      ];
+    }),
+  );
+}
+
+function toCardMode(mode: string): SparkCardMode {
+  return mode === "draft" || mode === "flipped" || mode === "closed" ? mode : "live";
 }

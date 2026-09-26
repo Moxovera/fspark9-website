@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bó: sarı kartın 156 günü | Son Gün | fspark9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=Hanken+Grotesk:wght@400;700&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F1EB;--ink:#17150F;--white:#FFFFFF;--stone:#5E594F;--rule:#D8D3C8;--flare:#FFC629;--dust:#A39D90;
+  --ease:cubic-bezier(0.2,0.7,0.2,1);
+  --display:"Epilogue",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --text:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,Menlo,Consolas,monospace;
+  --side:64px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (max-width:760px){:root{--side:20px}}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--text);font-size:18px;line-height:1.6}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--flare);outline-offset:3px}
+[hidden]{display:none!important}
+.mono{font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.wrap{max-width:1440px;margin:0 auto;padding:0 var(--side)}
+.ink{background:var(--ink);color:var(--paper)}
+
+/* header */
+.site-h{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{display:inline-flex;align-items:baseline;text-decoration:none;font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.035em;line-height:1}
+.logo svg{height:.72em;width:.46em;margin-left:.07em}
+.nav{display:flex;gap:28px;font-size:15px}
+.nav a{text-decoration:none;opacity:.78}
+.nav a[aria-current]{opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+@media (max-width:760px){.nav a:not([aria-current]){display:none}}
+.back{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--dust)}
+.back:hover{color:var(--paper)}
+.btn-cut{display:inline-flex;align-items:center;background:var(--flare);color:var(--ink);border:0;padding:17px 40px 17px 24px;font-weight:700;font-size:17px;text-decoration:none;clip-path:polygon(0 0,100% 0,calc(100% - 18px) 100%,0 100%);transition:transform 160ms var(--ease)}
+.btn-cut:hover{transform:translateX(3px)}
+.btn-ink{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border:0;padding:16px 24px;font-weight:700;font-size:17px;text-decoration:none}
+
+/* ============ FORMAT PAGE ============ */
+.f-hero{padding-bottom:100px}
+.f-hero .inner{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-top:64px}
+.f-hero .t{grid-column:1/8}
+.f-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(68px,11vw,168px);line-height:.88;letter-spacing:-.05em;margin:0 0 28px}
+.f-hero p{font-size:21px;line-height:1.45;max-width:32ch;margin:0 0 36px}
+.f-hero .num{grid-column:9/13;justify-self:end;font-family:var(--display);font-weight:800;font-size:clamp(120px,17vw,250px);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:2px var(--dust)}
+@media (max-width:760px){.f-hero .t,.f-hero .num{grid-column:1/-1}.f-hero .num{justify-self:start;order:-1;font-size:110px}}
+.f-sec{padding:96px 0 0}
+.f-sec h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,3.2vw,36px);line-height:1.1;letter-spacing:-.025em;margin:10px 0 0;max-width:24ch}
+.group{border-top:2px solid var(--ink);padding-top:18px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.how div{background:var(--white);border-top:2px solid var(--ink);padding:24px}
+.how b{display:block;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.02em;line-height:1.15;margin:12px 0 8px}
+.how p{margin:0;color:var(--stone);font-size:17px}
+@media (max-width:900px){.how{grid-template-columns:1fr}}
+.eps{margin:32px 0 0;border-top:1px solid var(--rule)}
+.ep{display:grid;grid-template-columns:72px 1fr auto 52px;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--rule);text-decoration:none}
+.ep .mini{width:40px;height:62px;background:var(--flare);position:relative}
+.ep .mini::after{content:"";position:absolute;left:7px;top:10px;width:11px;height:9px;border:1.5px solid var(--ink)}
+.ep.soon .mini{background:none;border:2px dashed var(--rule)}
+.ep.soon .mini::after{display:none}
+.ep strong{display:block;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.02em;line-height:1.1}
+.ep .d{color:var(--stone);font-size:16px}
+.go{width:48px;height:48px;background:var(--ink);color:var(--paper);display:grid;place-items:center;transition:transform 160ms var(--ease)}
+.ep:hover .go{transform:translateX(4px)}
+.ep.soon{color:var(--stone)}
+@media (max-width:760px){.ep{grid-template-columns:48px 1fr 44px}.ep .meta{display:none}.go{width:44px;height:44px}}
+
+.closing{padding:110px 0 0;margin-top:110px}
+.closing h2{font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,60px);line-height:1;letter-spacing:-.035em;margin:16px 0 18px;max-width:17ch}
+.closing p{font-size:19px;margin:0 0 34px;max-width:40ch}
+.foot{border-top:1px solid rgba(243,241,235,.14);margin-top:100px;padding:24px 0 32px;display:flex;gap:24px;flex-wrap:wrap;color:var(--dust);font-size:14px}
+.foot a{color:var(--dust)}
+
+/* ============ EPISODE ============ */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
+.hero .stage{flex:1;display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:center;padding:24px 0 72px}
+.hero .copy{grid-column:1/8}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(42px,6vw,92px);line-height:.96;letter-spacing:-.04em;margin:18px 0 26px;max-width:15ch}
+.hero .sub{font-size:21px;line-height:1.45;margin:0 0 14px;max-width:34ch}
+.hero .inv{color:var(--dust);font-size:17px;margin:0 0 38px;max-width:40ch}
+.hero .cardspot{grid-column:9/13;display:flex;justify-content:center}
+@media (max-width:900px){.hero .copy{grid-column:1/-1}.hero .cardspot{grid-column:1/-1;order:-1;justify-content:flex-start}}
+
+/* the card: the one bright thing that lives through the story */
+.card{width:220px;aspect-ratio:54/86;position:relative;perspective:1200px}
+.card .face{position:absolute;inset:0;transition:transform 640ms var(--ease),background 480ms var(--ease),border-color 480ms var(--ease);backface-visibility:hidden;padding:18px 18px 16px;display:flex;flex-direction:column;justify-content:space-between}
+.card .front{background:var(--flare);color:var(--ink)}
+.card .back2{background:var(--flare);color:var(--ink);transform:rotateY(180deg)}
+.card.flipped .front{transform:rotateY(-180deg)}
+.card.flipped .back2{transform:rotateY(0)}
+.card .chip{width:34px;height:26px;border:2px solid var(--ink);position:relative}
+.card .chip::after{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--ink)}
+.card .dayno{font-family:var(--display);font-weight:800;font-size:44px;line-height:.9;letter-spacing:-.04em}
+.card .state{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.card.ghost .face{background:transparent;border:2px dashed var(--dust);color:var(--dust)}
+.card.ghost .chip{border-color:var(--dust)}.card.ghost .chip::after{background:var(--dust)}
+.card.closed .face{background:var(--rule);color:var(--stone)}
+.card.closed .chip{border-color:var(--stone)}.card.closed .chip::after{background:var(--stone)}
+.card.enter{animation:rise 900ms var(--ease) both}
+@keyframes rise{from{transform:translateY(40px) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+
+/* story layout with sticky card */
+.story{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-top:40px}
+.rail{grid-column:1/4;position:relative}
+.rail .stick{position:sticky;top:110px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.rail .stick .card{width:170px}
+.rail .cap{color:var(--stone);max-width:18ch}
+.flow{grid-column:5/12}
+@media (max-width:1000px){.rail{display:none}.flow{grid-column:1/-1}}
+
+/* mobile mini bar */
+.minibar{display:none;position:sticky;top:0;z-index:30;background:var(--paper);border-bottom:2px solid var(--ink);padding-top:env(safe-area-inset-top,0px)}
+.minibar .wrap{display:flex;align-items:center;gap:14px;height:60px}
+.minibar .m{width:26px;height:40px;background:var(--flare);flex:none;transition:background 480ms var(--ease)}
+.minibar .m.ghost{background:none;border:2px dashed var(--dust)}
+.minibar .m.closed{background:var(--rule)}
+.minibar b{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+@media (max-width:1000px){.minibar{display:block}}
+
+.ch{padding:120px 0 0}
+.ch:first-child{padding-top:40px}
+.ch .when{color:var(--stone)}
+.ch h2{font-family:var(--display);font-weight:800;font-size:clamp(40px,5.4vw,76px);line-height:.95;letter-spacing:-.04em;margin:12px 0 30px}
+.tale p{margin:0 0 20px;max-width:60ch}
+.tale p.big{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.4vw,28px);line-height:1.3;letter-spacing:-.015em;max-width:30ch}
+.fn{font-family:var(--mono);font-size:11px;vertical-align:super;text-decoration:none;color:var(--stone);margin-left:2px}
+
+/* the table: decision moment */
+.table{background:var(--white);border-top:4px solid var(--ink);padding:28px 28px 30px;margin:44px 0 0}
+.table .lab{display:flex;align-items:center;gap:10px}
+.table .lab::before{content:"";width:10px;height:10px;background:var(--ink)}
+.table .q{font-family:var(--display);font-weight:800;font-size:clamp(24px,2.8vw,33px);line-height:1.12;letter-spacing:-.025em;margin:12px 0 22px;max-width:26ch}
+.opts{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;text-align:left;background:var(--paper);border:2px solid transparent;padding:16px 18px;font-size:17px;line-height:1.45;transition:border-color 160ms var(--ease),background 160ms var(--ease),opacity 240ms var(--ease)}
+.opt:hover{border-color:var(--ink)}
+.opt .k{font-family:var(--display);font-weight:800;font-size:18px}
+.opt[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.picked .opt[aria-pressed=false]{opacity:.5}
+.answer{overflow:hidden;max-height:0;opacity:0;transition:max-height 560ms var(--ease),opacity 320ms var(--ease)}
+.answer.open{max-height:1400px;opacity:1}
+.yours{margin:22px 0 0;padding:18px 0 0;border-top:1px solid var(--rule)}
+.yours p{margin:14px 0 0;max-width:58ch;padding:2px 0 2px 16px;border-left:3px solid transparent}
+.yours p .tag{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--stone)}
+.yours p.mine{border-left-color:var(--ink)}
+.yours p.mine .tag{color:var(--ink)}
+.yours p.other{color:var(--stone);border-left-color:var(--rule);font-size:16px}
+.others{background:none;border:0;padding:12px 0 0;color:var(--stone);text-decoration:underline;text-underline-offset:4px;font-size:15px}
+
+.happened{margin:34px 0 0;padding:26px 0 0;border-top:2px solid var(--ink)}
+.happened h3{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.02em;line-height:1.15;margin:8px 0 12px}
+.happened p{margin:0 0 14px;max-width:60ch}
+.take{margin:34px 0 0;padding:22px 26px;background:var(--ink);color:var(--paper)}
+.take p{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.35;letter-spacing:-.012em;margin:8px 0 14px;max-width:40ch}
+.take .svc{color:var(--dust)}
+
+.pause{margin:120px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(34px,4.6vw,60px);line-height:1.02;letter-spacing:-.035em;max-width:16ch}
+
+.three{display:grid;gap:0;margin:34px 0 0;border-top:2px solid var(--ink)}
+.three div{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.three .n{font-family:var(--display);font-weight:800;font-size:34px;letter-spacing:-.03em;line-height:1}
+.three b{display:block;font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}
+.three p{margin:0;color:var(--stone)}
+
+.note{margin:90px 0 0;display:grid;grid-template-columns:72px 1fr;gap:20px}
+.note .ph{width:72px;height:72px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px}
+.note p{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.38;letter-spacing:-.012em;margin:0 0 14px;max-width:38ch}
+.note .who{color:var(--stone)}
+
+.yourtable{margin:90px 0 0;background:var(--white);border-top:4px solid var(--ink);padding:28px}
+.yourtable h3{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1.08;letter-spacing:-.025em;margin:10px 0 20px;max-width:22ch}
+.fit{margin-top:22px;padding-top:20px;border-top:1px solid var(--rule)}
+.fit b{display:block;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.02em;margin:6px 0 8px}
+.fit p{margin:0 0 20px;max-width:56ch}
+
+.nextup{margin:90px 0 0;border-top:1px solid var(--rule)}
+.sources{margin:70px 0 110px;color:var(--stone);font-size:14px}
+.sources ol{margin:10px 0 0;padding-left:22px}
+.sources li{margin:4px 0}
+
+.rise{opacity:0;transform:translateY(16px);transition:opacity 560ms var(--ease),transform 560ms var(--ease)}
+.rise.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .rise{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="nine-paper" viewBox="18 0 64 100"><path d="M51.400 0.031 A32 32 0 1 1 28.378 8.410 L38.037 19.921 A17 17 0 1 0 51.400 15.058 Z" fill="#F3F1EB"/><path d="M30.523 6.610 A32 32 0 0 1 48.600 0.031 L48.600 15.058 A17 17 0 0 0 40.182 18.122 Z" fill="#FFC629"/><path d="M82 32 C82 56 78.8 80 65.2 100 L49.6 100 C58 86 64.6 72 69.605 55.364 A30.5 30.5 0 0 0 80.500 32.000 Z" fill="#F3F1EB"/></symbol>
+</defs></svg>
+
+<!-- ============================ FORMAT PAGE ============================ -->
+<div id="v-format">
+  <section class="ink f-hero">
+    <div class="wrap">
+      <header class="site-h">
+        <a class="logo" href="#son-gun">fspark<svg viewBox="18 0 64 100" aria-hidden="true"><use href="#nine-paper"/></svg></a>
+        <nav class="nav"><a href="#son-gun">Hizmetler</a><a href="#son-gun">İşler</a><a href="#son-gun">Hakkımda</a><a href="#son-gun" aria-current="page">Spark</a></nav>
+      </header>
+      <a class="back mono" href="#son-gun">← Spark</a>
+      <div class="inner">
+        <div class="t">
+          <span class="mono" style="color:var(--dust)">Spark · 01</span>
+          <h1>Son Gün</h1>
+          <p>Kapanan fintech ve bankaların hikâyeleri. Her bölümde kritik kararları siz veriyorsunuz.</p>
+          <a class="btn-cut" href="#bo">İlk hikâye: Bó</a>
+        </div>
+        <div class="num" aria-hidden="true">01</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="f-sec">
+      <div class="group"><span class="mono">Nasıl okunur</span><h2>On dakikalık bir hikâye. Arada birkaç zor karar.</h2></div>
+      <div class="how">
+        <div><span class="mono">1</span><b>Hikâyeyi okuyun.</b><p>Bir ürünün fikirden son güne kadar yolu, kısa bölümler halinde.</p></div>
+        <div><span class="mono">2</span><b>Kararı siz verin.</b><p>Kritik anlarda duruyoruz. Şirket sizin olsaydı ne yapardınız? Seçiminize göre konuşuyoruz.</p></div>
+        <div><span class="mono">3</span><b>Kendi planınıza dönün.</b><p>Her bölüm, kendi ürününüz için işe yarayacak birkaç net dersle biter.</p></div>
+      </div>
+    </section>
+
+    <section class="f-sec">
+      <div class="group"><span class="mono">Bölümler</span></div>
+      <div class="eps">
+        <a class="ep" href="#bo">
+          <span class="mini" aria-hidden="true"></span>
+          <span><strong>Bó</strong><span class="d">Bir bankanın içinden çıkan dijital banka. Birleşik Krallık.</span></span>
+          <span class="meta mono">Nº 01 · 156 gün</span>
+          <span class="go" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+        </a>
+        <div class="ep soon">
+          <span class="mini" aria-hidden="true"></span>
+          <span><strong>Nuri</strong><span class="d">Eski adıyla Bitwala. Almanya.</span></span>
+          <span class="meta mono">Nº 02 · Sırada</span>
+          <span></span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="ink closing">
+    <div class="wrap">
+      <span class="mono" style="color:var(--dust)">Sonraki adım</span>
+      <h2>Kendi hikâyenizin başındaysanız konuşalım.</h2>
+      <p>30 dakikalık ücretsiz görüşme.</p>
+      <a class="btn-cut" href="https://cal.com/mburakdikmen/quick-chat" target="_blank" rel="noopener">Görüşme ayarla</a>
+      <div class="foot"><span>info@fspark9.com</span><a href="https://linkedin.com/in/mdikmen">linkedin.com/in/mdikmen</a><span>Künye</span><span>© 2026 fspark9</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ EPISODE ============================ -->
+<div id="v-ep" hidden>
+  <section class="ink hero">
+    <div class="wrap" style="width:100%">
+      <header class="site-h">
+        <a class="logo" href="#son-gun">fspark<svg viewBox="18 0 64 100" aria-hidden="true"><use href="#nine-paper"/></svg></a>
+        <nav class="nav"><a href="#son-gun">Hizmetler</a><a href="#son-gun">İşler</a><a href="#son-gun">Hakkımda</a><a href="#son-gun" aria-current="page">Spark</a></nav>
+      </header>
+      <a class="back mono" href="#son-gun">← Son Gün</a>
+    </div>
+    <div class="wrap" style="width:100%;flex:1;display:flex">
+      <div class="stage" style="width:100%">
+        <div class="copy">
+          <span class="mono" style="color:var(--dust)">Son Gün · Nº 01</span>
+          <h1>Bir banka, kendi içinden yeni bir banka çıkardı.</h1>
+          <p class="sub">Kartı sarı ve dikeydi. Sloganı Do Money Better'dı. 156 gün sonra kapandı.</p>
+          <p class="inv">Bu hikâyede bankayı siz kuruyorsunuz. Dört kritik anda son söz sizde. Önce siz karar verin, sonra ne olduğuna birlikte bakalım.</p>
+          <a class="btn-ink" href="#ch1" style="background:var(--paper);color:var(--ink)">Başlayalım <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v11M3 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+        </div>
+        <div class="cardspot">
+          <div class="card enter" aria-hidden="true">
+            <div class="face front"><span class="chip"></span><span><span class="dayno">000</span><br><span class="state">Gün 000 · 27.11.2019</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="minibar" aria-hidden="true"><div class="wrap"><span class="m" id="mb-card"></span><b id="mb-title">Fikir</b><span class="mono" id="mb-day" style="color:var(--stone);margin-left:auto">Lansmandan önce</span></div></div>
+
+  <div class="wrap">
+    <div class="story">
+      <aside class="rail" aria-hidden="true">
+        <div class="stick">
+          <div class="card ghost" id="railcard">
+            <div class="face front"><span class="chip"></span><span><span class="dayno" id="rc-day">?</span><br><span class="state" id="rc-state">Henüz yok</span></span></div>
+            <div class="face back2"><span class="chip"></span><span><span class="dayno" id="rc-day2">070</span><br><span class="state">Yeni kart</span></span></div>
+          </div>
+          <span class="cap mono" id="rc-cap">Lansmandan önce</span>
+        </div>
+      </aside>
+
+      <main class="flow">
+
+        <!-- 1 · IDEA -->
+        <section class="ch" id="ch1" data-card="ghost" data-day="?" data-state="Henüz yok" data-cap="Lansmandan önce" data-title="Fikir">
+          <span class="when mono">Bölüm 1 · Lansmandan önce</span>
+          <h2>Fikir</h2>
+          <div class="tale">
+            <p class="big">Birleşik Krallık'ta bankacılık telefona taşınıyordu. Monzo ve Starling gibi yeni isimler konuşuluyordu.</p>
+            <p>RBS grubu, bugünkü adıyla NatWest Group, kendi cevabını hazırlıyordu. Ayrı adı, ayrı markası, ayrı uygulaması olan bir dijital banka. Adı Bó olacaktı.</p>
+            <p>Burada ilk büyük soru çıkıyor. Ürünün ne olacağından önce, nasıl kurulacağı.</p>
+          </div>
+
+          <div class="table" data-t="t1">
+            <span class="lab mono">Bankayı siz kuruyorsunuz</span>
+            <p class="q">Yeni dijital bankayı nasıl kurardınız?</p>
+            <div class="opts">
+              <button class="opt" data-o="a" aria-pressed="false"><span class="k">A</span><span>Ana bankanın lisansıyla, grubun içinden.</span></button>
+              <button class="opt" data-o="b" aria-pressed="false"><span class="k">B</span><span>Ayrı lisans, ayrı şirket. Sıfırdan.</span></button>
+              <button class="opt" data-o="c" aria-pressed="false"><span class="k">C</span><span>Hazır bir fintech'le ortaklık ya da satın alma.</span></button>
+            </div>
+            <div class="answer">
+              <div class="yours">
+                                <p data-r="a">Hızlı yol. Lisans beklemezsiniz, bilanço ve güven hazır. Ama ana bankanın süreçleri de pakete dahil: uyum, risk, onay zincirleri. Hız kazanırsınız, çeviklikten biraz verirsiniz.</p>
+                <p data-r="b">Temiz sayfa. Kendi kültürünüz, kendi hızınız. Bedeli zaman: lisans süreci takvimi uzatır, lansman günü ileri kayar ve o sırada pazar beklemez.</p>
+                <p data-r="c">En hızlı yol olabilir. Ama başkasının ürününü, teknik borcunu ve kültürünü de satın alırsınız. Burada partner seçimi her şeydir.</p>
+              </div>
+              <button class="others">Diğer yolları da göster</button>
+              <div class="happened">
+                <span class="mono">Bó ne yaptı</span>
+                <h3>A yolunu seçti.</h3>
+                <p>Bó, ana bankanın lisansıyla çalıştı. Bulut üzerinde kurulmuştu ve kendi Faster Payments bağlantısı vardı. Geliştirmenin 18 ay sürdüğü, bütçenin 100 milyon sterlin olduğu basına yansıdı.<a class="fn" href="#s1">1</a></p>
+                <p>27 Kasım 2019'da, çalışanlarla yapılan bir beta döneminin ardından herkese açıldı.<a class="fn" href="#s1">1</a></p>
+              </div>
+              <div class="take">
+                <span class="mono" style="color:var(--dust)">fspark9 notu</span>
+                <p>Üç yolun da iyi örnekleri var. Asıl mesele hangisinin sizin hedefinize uyduğu: hız mı, bağımsızlık mı, hazır müşteri mi? Bu cevap lansmandan önce yazılı değilse, ilk zorlukta aynı tartışma yeniden açılır.</p>
+                <span class="svc mono">Zero to Live · Partner seçimi</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 · PROMISE -->
+        <section class="ch" id="ch2" data-card="live" data-day="000" data-state="27 Kasım 2019" data-cap="Lansman günü" data-title="Vaat">
+          <span class="when mono">Bölüm 2 · Gün 000</span>
+          <h2>Vaat</h2>
+          <div class="tale">
+            <p class="big">Lansman günü elinizde parlak sarı, dikey bir kart var. Vaat net: Do Money Better.</p>
+            <p>Hedef, parasını yönetmekte zorlanan insanlara yardım etmek.<a class="fn" href="#s4">4</a> Uygulamada anlık harcama bildirimleri, birikim için bir kumbara ve yurt dışında ücretsiz kart kullanımı var.<a class="fn" href="#s5">5</a> Kredili hesap ve ortak hesap ise yok.<a class="fn" href="#s1">1</a></p>
+            <p>Aynı dönemde Monzo ve Starling'in uygulamalarında da benzer özellikler bulunuyor.<a class="fn" href="#s5">5</a> Yani sahne kalabalık.</p>
+          </div>
+
+          <div class="table" data-t="t2">
+            <span class="lab mono">Vaadi siz yazıyorsunuz</span>
+            <p class="q">Kalabalık bir pazara giriyorsunuz. Neyle öne çıkardınız?</p>
+            <div class="opts">
+              <button class="opt" data-o="a" aria-pressed="false"><span class="k">A</span><span>Aynı özellikler, daha iyi bir deneyim.</span></button>
+              <button class="opt" data-o="b" aria-pressed="false"><span class="k">B</span><span>Dar ve net bir kitle seçer, onun derdini herkesten iyi çözerim.</span></button>
+              <button class="opt" data-o="c" aria-pressed="false"><span class="k">C</span><span>Ana bankanın mevcut müşterilerinden başlarım.</span></button>
+            </div>
+            <div class="answer">
+              <div class="yours">
+                                <p data-r="a">Deneyim fark yaratır, ama kopyalanması da kolaydır. Rakip bir sonraki sürümde yetişir. Bu yolda hızınız ürününüz kadar önemli.</p>
+                <p data-r="b">Küçük başlar, derine inersiniz. Belli bir kitlenin derdini en iyi çözen ürün ağızdan ağıza büyür. Zor tarafı, ilk aylarda sayıların küçük görünmesine sabretmek.</p>
+                <p data-r="c">En büyük kozunuz zaten elinizde: güven ve dağıtım. Zor tarafı, iki markanın birbirinin müşterisini çekiştirmesini yönetmek.</p>
+              </div>
+              <button class="others">Diğer yolları da göster</button>
+              <div class="happened">
+                <span class="mono">Bó ne yaptı</span>
+                <h3>Herkese açık bir uygulama olarak mağazalara çıktı.</h3>
+                <p>App Store ve Google Play'de, kendi markası ve kendi vaadiyle.<a class="fn" href="#s1">1</a></p>
+              </div>
+              <div class="take">
+                <span class="mono" style="color:var(--dust)">fspark9 notu</span>
+                <p>Dijital bankacılıkta özellik listesi tek başına fark yaratmıyor. Fark, müşterinin ilk haftada hissettiği şey. Güçlü bir vaadin zor tarafı şu: rakip de aynı cümleyi kurabilir. Bu yüzden vaadin arkasında, başkasının kolayca yapamayacağı bir şey durmalı.</p>
+                <span class="svc mono">Product &amp; Strategy</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 · CALENDAR (twist) -->
+        <section class="ch" id="ch3" data-card="live" data-day="037" data-state="3 Ocak 2020" data-cap="Takvimde bir çizgi" data-title="Takvim">
+          <span class="when mono">Bölüm 3 · Gün 037</span>
+          <h2>Takvimdeki çizgi</h2>
+          <div class="tale">
+            <p class="big">Lansmandan 37 gün sonra takvimde bir tarih var: 3 Ocak 2020.</p>
+            <p>Avrupa'nın ödeme kuralı PSD2 ve onun güçlü müşteri doğrulaması şartı kartları da kapsıyor. Bu tarihten sonra basılan kartlar yeni şartlara uygun. Öncesindekiler değil.<a class="fn" href="#s2">2</a></p>
+            <p>Yani ilk haftalarda gelen, ürüne en çok inanan müşterilerin cebindeki kart değişmek zorunda.</p>
+          </div>
+
+          <div class="table" data-t="t3">
+            <span class="lab mono">Bu karar sizin</span>
+            <p class="q">İlk müşterilerinizin kartı değişecek. Nasıl yönetirdiniz?</p>
+            <div class="opts">
+              <button class="opt" data-o="a" aria-pressed="false"><span class="k">A</span><span>Yeni kartı gönderir, eskisini bir tarihte kapatırım. Temiz ve hızlı.</span></button>
+              <button class="opt" data-o="b" aria-pressed="false"><span class="k">B</span><span>Bunu bir fırsata çeviririm. Yeni kartla birlikte küçük bir sürpriz, kişisel bir mesaj.</span></button>
+              <button class="opt" data-o="c" aria-pressed="false"><span class="k">C</span><span>Lansman tarihini baştan bu çizgiye göre kurarım.</span></button>
+            </div>
+            <div class="answer">
+              <div class="yours">
+                                <p data-r="a">Operasyonel olarak en sade yol. Ama müşteri gözünden yeni gelmiş biri, alışmadan ikinci kez aktivasyon yapıyor. Her ek adım, vazgeçilebilecek bir kapı.</p>
+                <p data-r="b">Zorunlu bir işi ilişkiye çevirmek. Maliyeti biraz artar ama ilk müşteriler bir markanın en iyi elçileridir. Bu yol onları kazanmanın yolu olabilir.</p>
+                <p data-r="c">En ucuz çözüm takvimde önceden görülen çözümdür. Bazen birkaç haftalık kayma demek, bazen hiç sorun çıkmaz. Önemli olan tarihin baştan planda durması.</p>
+              </div>
+              <button class="others">Diğer yolları da göster</button>
+              <div class="happened">
+                <span class="mono">Bó ne yaptı</span>
+                <h3>6.000 kart yeniden basıldı.</h3>
+                <p>5 Şubat 2020'de duyuruldu. 3 Ocak'tan sonra hesap açanlara uyumlu kart zaten gitmişti. Önceki kartlar 14 Mart 2020'de kapandı.<a class="fn" href="#s2">2</a></p>
+              </div>
+              <div class="take">
+                <span class="mono" style="color:var(--dust)">fspark9 notu</span>
+                <p>Kart yenilemek plastik maliyeti gibi görünür. Asıl bedel müşteri tarafında ödenir. Bir lansman planının yanında her zaman bir uyum takvimi durmalı: önümüzdeki on iki ayda hangi kural, hangi kartı, hangi akışı değiştiriyor? Kart ve ödeme partnerleriyle bu konuşma lansmandan önce yapılır.</p>
+                <span class="svc mono">Uyum köprüsü · Partner yönetimi</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="ch" id="flipmark" data-card="flip" data-day="070" data-state="Yeni kart" data-cap="6.000 kart yenilendi" data-title="Yeni kart" style="padding-top:60px">
+          <p class="pause">Kartlar değişti. Hikâye devam ediyor.</p>
+        </div>
+
+        <!-- 4 · SPRING -->
+        <section class="ch" id="ch4" data-card="flip" data-day="108" data-state="14 Mart 2020" data-cap="Dünya değişiyor" data-title="Bahar">
+          <span class="when mono">Bölüm 4 · Gün 108</span>
+          <h2>Bahar</h2>
+          <div class="tale">
+            <p class="big">Mart 2020. Eski kartlar kapanıyor ve dünya da bir anda değişiyor.</p>
+            <p>Birleşik Krallık 23 Mart'ta evlere kapanıyor. Ürün henüz dört aylık bile değil.</p>
+          </div>
+
+          <div class="table" data-t="t4">
+            <span class="lab mono">Direksiyon sizde</span>
+            <p class="q">Ürün 108 günlük ve her şey belirsiz. Ne yapardınız?</p>
+            <div class="opts">
+              <button class="opt" data-o="a" aria-pressed="false"><span class="k">A</span><span>Gaza basarım. Herkes evde, dijital bankacılığın tam zamanı.</span></button>
+              <button class="opt" data-o="b" aria-pressed="false"><span class="k">B</span><span>Yavaşlar, masrafı keser, belirsizliğin geçmesini beklerim.</span></button>
+              <button class="opt" data-o="c" aria-pressed="false"><span class="k">C</span><span>Ekibi ve teknolojiyi grubun daha büyük bir hedefine taşırım.</span></button>
+            </div>
+            <div class="answer">
+              <div class="yours">
+                                <p data-r="a">Cesur ve bazen doğru. Ama belirsizlikte büyümeye yüklenmek, bütçeyi en zor günlerde en çok yakan yoldur. Önce hangi sayının neyi kanıtlayacağını bilmek gerekir.</p>
+                <p data-r="b">Nakit ve sabır kazanırsınız. Bedeli ivme: yavaşlayan bir üründe ekip de, müşteri de hikâyeye olan inancını kaybedebilir.</p>
+                <p data-r="c">Ürünün kendisini değil, ürünü kurarken biriken şeyi korumak. Ekip, altyapı, öğrenilenler. Bir grubun içinde olmanın en büyük avantajı bu.</p>
+              </div>
+              <button class="others">Diğer yolları da göster</button>
+              <div class="happened">
+                <span class="mono">Ne oldu</span>
+                <h3>Gün 156. 1 Mayıs 2020.</h3>
+                <p>NatWest Group ilk çeyrek sonuçlarını açıkladığı gün Bó'nun kapanacağını da duyurdu. O gün 11.413 müşteri vardı. Müşterilere paralarını taşımaları için 60 gün verildi.<a class="fn" href="#s3">3</a></p>
+                <p>Ekip, grubun işletme bankacılığı uygulaması Mettle'a geçti.<a class="fn" href="#s3">3</a> NatWest'in o dönemki CEO'su Alison Rose gazetecilere Bó'nun başarısız olmadığını, Mettle ile birleşeceğini söyledi.<a class="fn" href="#s5">5</a></p>
+              </div>
+              <div class="take">
+                <span class="mono" style="color:var(--dust)">fspark9 notu</span>
+                <p>Kapatmak da bir karardır ve çoğu zaman en zoru. Bu hikâyede ekip ve teknoloji yok olmadı, başka bir ürüne taşındı. Hangi sayı hangi tarihte görülmezse ne yapılacağını baştan yazan ekip, bu anı panikle değil planla yaşar.</p>
+                <span class="svc mono">Product &amp; Strategy</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 · WHAT REMAINS -->
+        <section class="ch" id="ch5" data-card="closed" data-day="156" data-state="Son gün" data-cap="1 Mayıs 2020" data-title="Son gün">
+          <span class="when mono">Bölüm 5 · Gün 156</span>
+          <h2>156 günden kalanlar</h2>
+          <div class="tale">
+            <p class="big">Sarı kart artık kimsenin cebinde değil. Ama o 156 günde verilen kararlar bugün de birçok ekibin önünde.</p>
+          </div>
+          <div class="three">
+            <div><span class="n">1</span><span><b>Yol, üründen önce gelir.</b><p>Lisans, yapı ve partner seçimi ürünün hızını, maliyetini ve esnekliğini ilk günden belirler.</p></span></div>
+            <div><span class="n">2</span><span><b>Vaat ilk haftada hissedilmeli.</b><p>Kalabalık bir pazarda müşteri özellikleri karşılaştırmaz. Kendini nerede daha iyi hissettiğine bakar.</p></span></div>
+            <div><span class="n">3</span><span><b>Takvimde kuralların tarihi de olmalı.</b><p>Lansman planı ile uyum takvimi birlikte okunmalı. Aksi halde en sadık müşteri iki kez kapıdan geçer.</p></span></div>
+          </div>
+
+          <div class="yourtable" id="yt">
+            <span class="mono">Son bir soru</span>
+            <h3>Peki şu an sizin önünüzde ne var?</h3>
+            <div class="opts">
+              <button class="opt" data-f="zero" aria-pressed="false"><span class="k">→</span><span>Sıfırdan bir fintech ya da dijital banka kuruyorum.</span></button>
+              <button class="opt" data-f="prod" aria-pressed="false"><span class="k">→</span><span>Mevcut bankamızda ya da fintech'imizde yeni bir ürün çıkarıyoruz.</span></button>
+              <button class="opt" data-f="emb" aria-pressed="false"><span class="k">→</span><span>Müşterilerimize kendi markamızla finansal bir ürün sunmak istiyoruz.</span></button>
+              <button class="opt" data-f="exp" aria-pressed="false"><span class="k">→</span><span>Yeni bir pazara açılıyoruz.</span></button>
+            </div>
+            <div class="fit" id="fit" hidden aria-live="polite">
+              <span class="mono" id="fit-svc"></span>
+              <b id="fit-h"></b>
+              <p id="fit-p"></p>
+              <a class="btn-cut" href="https://cal.com/mburakdikmen/quick-chat" target="_blank" rel="noopener">Görüşme ayarla</a>
+            </div>
+          </div>
+
+          <div class="nextup">
+            <div class="ep soon">
+              <span class="mini" aria-hidden="true"></span>
+              <span><strong>Sıradaki: Nuri</strong><span class="d">Eski adıyla Bitwala. Almanya'dan bir hikâye.</span></span>
+              <span class="meta mono">Nº 02</span><span></span>
+            </div>
+          </div>
+
+          <div class="sources">
+            <span class="mono">Bu hikâye kamuya açık haberlerden derlendi</span>
+            <ol>
+              <li id="s1"><a href="https://www.finextra.com/newsarticle/34850/natwest-launches-digital-challenger-b" target="_blank" rel="noopener">Finextra, lansman haberi</a> ve <a href="https://en.wikipedia.org/wiki/B%C3%B3_(bank)" target="_blank" rel="noopener">Wikipedia, Bó (bank)</a></li>
+              <li id="s2"><a href="https://www.fintechfutures.com/challenger-banks/rbs-neobank-b-reissues-cards-due-to-authentication-issue" target="_blank" rel="noopener">FinTech Futures, 5 Şubat 2020</a></li>
+              <li id="s3"><a href="https://techcrunch.com/2020/05/01/bo-shutter/" target="_blank" rel="noopener">TechCrunch, 1 Mayıs 2020</a></li>
+              <li id="s4"><a href="https://www.computerweekly.com/news/252482560/NatWest-Bank-shutters-its-app-based-bank-after-five-months" target="_blank" rel="noopener">Computer Weekly, Mayıs 2020</a></li>
+              <li id="s5"><a href="https://www.verdict.co.uk/bo-digital-bank-rbs-natwest/" target="_blank" rel="noopener">Verdict, Mayıs 2020</a></li>
+            </ol>
+            <p style="margin-top:14px">Bir yerde hata görürseniz info@fspark9.com adresine yazın, düzeltip notunu düşeriz.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <section class="ink closing" style="margin-top:0">
+    <div class="wrap">
+      <span class="mono" style="color:var(--dust)">Sonraki adım</span>
+      <h2>Sizin hikâyeniz daha başındaysa, birlikte kuralım.</h2>
+      <p>30 dakikalık ücretsiz görüşme.</p>
+      <a class="btn-cut" href="https://cal.com/mburakdikmen/quick-chat" target="_blank" rel="noopener">Görüşme ayarla</a>
+      <div class="foot"><span>info@fspark9.com</span><a href="https://linkedin.com/in/mdikmen">linkedin.com/in/mdikmen</a><span>Künye</span><span>© 2026 fspark9</span></div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var vF=document.getElementById("v-format"),vE=document.getElementById("v-ep");
+  function route(){
+    var h=location.hash;
+    var ep=h==="#bo"||/^#(ch|s\d|flipmark|yt)/.test(h);
+    vF.hidden=ep;vE.hidden=!ep;
+    document.title=ep?"Bó: sarı kartın 156 günü | Son Gün | fspark9":"Son Gün: kapanan fintech ve bankaların hikâyeleri | fspark9";
+    if(h==="#bo"||h===""||h==="#son-gun")window.scrollTo(0,0);
+  }
+  addEventListener("hashchange",route);route();
+
+  /* decision tables */
+  [].forEach.call(document.querySelectorAll(".table"),function(t){
+    var opts=t.querySelectorAll(".opt"),ans=t.querySelector(".answer"),rs=t.querySelectorAll("[data-r]"),oth=t.querySelector(".others");
+    var box=t.querySelector(".yours");
+    [].forEach.call(rs,function(p){var tg=document.createElement("span");tg.className="tag";p.insertBefore(tg,p.firstChild);});
+    function show(o){
+      [].forEach.call(rs,function(p){
+        var r=p.getAttribute("data-r"),mine=r===o,L=r.toUpperCase();
+        p.hidden=!mine;p.classList.toggle("mine",mine);p.classList.toggle("other",!mine);
+        p.querySelector(".tag").textContent=mine?("Sizin seçiminiz · "+L):(L+" yolu");
+      });
+      var m=box.querySelector('[data-r="'+o+'"]');box.insertBefore(m,box.firstChild);
+    }
+    [].forEach.call(opts,function(b){
+      b.addEventListener("click",function(){
+        var o=b.getAttribute("data-o");
+        [].forEach.call(opts,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+        t.classList.add("picked");show(o);oth.hidden=false;oth.textContent="Diğer yolları da göster";
+        if(reduce)ans.classList.add("open");else setTimeout(function(){ans.classList.add("open")},120);
+      });
+    });
+    oth.addEventListener("click",function(){[].forEach.call(rs,function(p){p.hidden=false});oth.hidden=true;});
+  });
+
+  /* your table */
+  var FIT={
+    zero:["Zero to Live","Fikirden ilk canlı ürüne.","Yapı, lisans ve partner seçiminden lansmana kadar ekibinizle birlikte çalışırım. Bu hikâyedeki ilk karar, bizim ilk haftamız olur."],
+    prod:["Product & Strategy","Yeni ürün, net bir vaat.","Kime, neden ve neyle öne çıkacağınızı birlikte yazarız. Hangi sayının hangi tarihte neyi kanıtlayacağı da bu planın parçası."],
+    emb:["Embedded Finance","Müşteriniz zaten sizde.","Finansal ürünü markanızın içine sessizce yerleştiririz. Doğru partner, doğru akış ve gelire dokunan bir iş modeliyle."],
+    exp:["Expansion & GTM","Yeni pazar, yeni kurallar.","Evde işe yarayan her şey yeni pazarda işe yaramaz. Kuralları, partnerleri ve pazara giriş planını lansmandan önce netleştiririz."]
+  };
+  var yb=document.querySelectorAll("#yt .opt");
+  [].forEach.call(yb,function(b){b.addEventListener("click",function(){
+    [].forEach.call(yb,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+    var f=FIT[b.getAttribute("data-f")];
+    document.getElementById("fit-svc").textContent=f[0];document.getElementById("fit-h").textContent=f[1];document.getElementById("fit-p").textContent=f[2];
+    document.getElementById("fit").hidden=false;
+  });});
+
+  /* the card follows the story */
+  var card=document.getElementById("railcard"),rcDay=document.getElementById("rc-day"),rcState=document.getElementById("rc-state"),rcCap=document.getElementById("rc-cap"),rcDay2=document.getElementById("rc-day2");
+  var mb=document.getElementById("mb-card"),mbT=document.getElementById("mb-title"),mbD=document.getElementById("mb-day");
+  function setCard(el){
+    var mode=el.getAttribute("data-card"),day=el.getAttribute("data-day"),st=el.getAttribute("data-state");
+    card.classList.toggle("ghost",mode==="ghost");
+    card.classList.toggle("closed",mode==="closed");
+    card.classList.toggle("flipped",mode==="flip"||mode==="closed");
+    if(mode==="flip"||mode==="closed"){rcDay2.textContent=day;card.querySelector(".back2 .state").textContent=st;}
+    else{rcDay.textContent=day;rcState.textContent=st;}
+    rcCap.textContent=el.getAttribute("data-cap");
+    mb.className="m"+(mode==="ghost"?" ghost":mode==="closed"?" closed":"");
+    mbT.textContent=el.getAttribute("data-title");
+    mbD.textContent=day==="?"?"Lansmandan önce":"Gün "+day;
+  }
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setCard(e.target)})},{rootMargin:"-35% 0px -55% 0px"});
+    [].forEach.call(document.querySelectorAll("[data-card]"),function(s){io.observe(s)});
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");ro.unobserve(e.target)}})},{threshold:.15});
+    [].forEach.call(document.querySelectorAll(".tale,.table,.three,.note,.yourtable"),function(x){if(!reduce){x.classList.add("rise");ro.observe(x)}});
+  }
+})();
+</script>
+</body>
+</html>
