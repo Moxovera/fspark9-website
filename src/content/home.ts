@@ -17,7 +17,7 @@ export const home: Record<Locale, HomeContent> = {
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking", "Berlin"],
-      headlineSentences: ["I help teams get financial products live."],
+      headlineSentences: ["I help you get financial products live."],
       cutWord: "live.",
       intro:
         "I work with fintechs, banks and companies that want to launch a financial product. I join your team and stay until it’s live.",
@@ -31,28 +31,28 @@ export const home: Record<Locale, HomeContent> = {
       text: "Most people who call me are in one of three places.",
       items: [
         {
-          title: "I run a fintech",
-          text: "The product, the bank partner, the regulator and the app are all moving at different speeds. Someone has to pull them together.",
+          title: "Fintech",
+          text: "The product, partners, the regulator and the app are all moving at different speeds. Someone has to pull them together.",
         },
         {
-          title: "I run a bank",
-          text: "Your team spends the week on compliance. The new product you promised the board is still waiting.",
+          title: "Bank",
+          text: "Team spends the week on compliance. The new product you promised the board is still waiting.",
         },
         {
-          title: "I have customers",
+          title: "Non-Fintechs",
           text: "Thousands of people already trust you. There’s a financial product they would use, and you don’t offer it yet.",
         },
       ],
     },
     fourServices: {
       label: "02 · Four services",
-      heading: "One ring. Four ways in.",
+      heading: "One ring. Four offers",
       intro:
-        "Zero to Live is the whole ring. The other three take the slices they need. Finding the right partner and working with them is part of all four.",
+        "Zero to Live is the whole ring. The other three take the slices they need. ",
     },
     work: {
       label: "03 · Work",
-      heading: "Built, launched, live.",
+      heading: "Built and launched.",
       allLinkLabel: "All cases",
       featured: {
         slug: "insha",
@@ -81,16 +81,16 @@ export const home: Record<Locale, HomeContent> = {
       alsoLabel: "Also",
       also: [
         { title: "Turkcell", text: "Paycell and Financell, international expansion" },
-        { title: "Albaraka", text: "Digital strategy" },
+        { title: "Albaraka", text: "Strategy" },
       ],
     },
     withMe: {
       label: "04 · What you get with me",
       heading: "Money can’t be sold like chocolate. It’s earned through trust.",
-      text: "At insha we built a bank in a country where nobody knew our name. The team went to people’s weddings before anyone handed over their money. No deck teaches you that part. I lead every project myself, and a small delivery team builds with me.",
+      text: "We've built banks in a countries where nobody knew the brands. The team went to people’s weddings before anyone handed over their money. Grilled with them. No deck teaches you this part. ",
       points: [
         {
-          title: "Ten years at your table",
+          title: "+10 years intense experience",
           text: "I’ve spent more than ten years building fintech and digital banking products. You get that straight from me.",
         },
         {
@@ -151,7 +151,7 @@ export const home: Record<Locale, HomeContent> = {
     },
     opening: {
       eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık", "Berlin"],
-      headlineSentences: ["Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum."],
+      headlineSentences: ["Finansal ürünleri canlıya çıkarmanıza yardım ediyorum."],
       cutWord: "canlıya",
       intro:
         "Finansal ürün çıkarmak isteyen fintechler, bankalar ve şirketlerle çalışıyorum. Ekibinize katılıyorum ve ürün canlıya çıkana kadar kalıyorum.",
@@ -165,28 +165,28 @@ export const home: Record<Locale, HomeContent> = {
       text: "Beni arayanların çoğu şu üç durumdan birinde oluyor.",
       items: [
         {
-          title: "Fintech yönetiyorum",
-          text: "Ürün, banka partneri, regülatör ve uygulama ekibi farklı hızlarda ilerliyor. Birinin bunları bir araya getirmesi gerekiyor.",
+          title: "Fintech",
+          text: "Ürün, partnerler, regülatör ve uygulama ekibi farklı hızlarda ilerliyor. Birinin bunları bir araya getirmesi gerekiyor.",
         },
         {
-          title: "Banka yönetiyorum",
+          title: "Banka",
           text: "Ekibin haftası uyumla geçiyor. Yönetim kuruluna söz verilen yeni ürün hâlâ sırada bekliyor.",
         },
         {
-          title: "Müşterilerim var",
+          title: "Fintech harici şirketler",
           text: "Binlerce kişi size zaten güveniyor. Kullanacakları bir finansal ürün var ve siz onu henüz sunmuyorsunuz.",
         },
       ],
     },
     fourServices: {
       label: "02 · Dört hizmet",
-      heading: "Tek halka. Dört kapı.",
+      heading: "Tek halka. Dört teklif.",
       intro:
-        "Sıfırdan Canlıya halkanın tamamı. Diğer üçü ihtiyaç duydukları dilimleri alıyor. Doğru partneri bulmak ve onunla çalışmak dördünün de içinde.",
+        "Sıfırdan Canlıya halkanın tamamı. Diğer üçü ihtiyaç duydukları dilimleri alıyor. ",
     },
     work: {
       label: "03 · İşler",
-      heading: "Kuruldu, çıktı, canlıda.",
+      heading: "Kuruldu ve çıktı.",
       allLinkLabel: "Tüm işler",
       featured: {
         slug: "insha",
@@ -217,16 +217,16 @@ export const home: Record<Locale, HomeContent> = {
       alsoLabel: "Ayrıca",
       also: [
         { title: "Turkcell", text: "Paycell ve Financell, uluslararası açılım" },
-        { title: "Albaraka", text: "Dijital strateji" },
+        { title: "Albaraka", text: "Strateji" },
       ],
     },
     withMe: {
       label: "04 · Benimle çalışınca",
       heading: "Para çikolata gibi satılmaz. Güvenle kazanılır.",
-      text: "insha’yı adımızı kimsenin bilmediği bir ülkede kurduk. İnsanlar paralarını bize emanet etmeden önce ekip onların düğünlerine gitti. Bu kısmı hiçbir sunum öğretmiyor. Her projeyi kendim yönetiyorum, küçük bir ekip de benimle birlikte kuruyor.",
+      text: "Adını kimsenin bilmediği ülkelerde bankalar kurduk. İnsanlar paralarını bize emanet etmeden önce ekip onların düğünlerine gitti. Onlarla mangal yaptık. Bu detayları size hiçbir sunum öğretemez.",
       points: [
         {
-          title: "On yıl, masanızda",
+          title: "+10 yıllık yoğun tecrübe",
           text: "On yılı aşkın süredir fintech ve dijital bankacılık ürünleri kuruyorum. Bu tecrübe size doğrudan benden geliyor.",
         },
         {

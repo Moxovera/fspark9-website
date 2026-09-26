@@ -376,7 +376,6 @@ function formatSets() {
         comingLabel: ls(e.comingIssues[0]?.statusLabel ?? "", t.comingIssues[0]?.statusLabel ?? ""),
         allIssuesLabel: ls(e.allIssuesLabel, t.allIssuesLabel),
         daysUnit: ls(e.daysUnit, t.daysUnit),
-        label: ls(e.label, t.label),
         line: lt(e.line, t.line),
         ...(opt(e.startLabel, t.startLabel) ? { startLabel: opt(e.startLabel, t.startLabel) } : {}),
         ...(opt(e.howLabel, t.howLabel) ? { howLabel: opt(e.howLabel, t.howLabel) } : {}),
@@ -386,7 +385,7 @@ function formatSets() {
         ...(opt(e.closeHeading, t.closeHeading) ? { closeHeading: opt(e.closeHeading, t.closeHeading) } : {}),
       },
       unset: [
-        "subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero",
+        "subjectLine", "whatIsInside", "statusLineSingular", "statusLinePlural", "hookLabel", "hero", "label",
         ...(e.startLabel ? [] : ["startLabel"]),
         ...(e.howLabel ? [] : ["howLabel"]),
         ...(e.howHeading ? [] : ["howHeading"]),

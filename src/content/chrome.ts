@@ -154,7 +154,7 @@ export const services: Record<Locale, ServiceSummary[]> = {
     },
     {
       slug: "expansion-gtm",
-      name: "Açılım ve Pazara Çıkış",
+      name: "Genişleme ve Pazara Çıkış",
       shortLine: "Yeni bir pazara giriş yolu ve oradaki ilk müşterileriniz.",
       audience: "Fintechler, bankalar",
       slices: [3, 4, 7, 8],

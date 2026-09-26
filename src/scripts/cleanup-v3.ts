@@ -18,6 +18,9 @@
  * Çalıştırma:
  *   npm run cleanup:v3              (sadece listeler)
  *   npm run cleanup:v3 -- --confirm (siler)
+ *   npm run cleanup:v3 -- --confirm --fields-only
+ *                                   (sadece eski alanları siler; belge ve
+ *                                    görsel silmez)
  */
 import { createClient } from "next-sanity";
 
@@ -28,6 +31,7 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 if (!token) throw new Error("Missing SANITY_API_WRITE_TOKEN (.env.local).");
 
 const confirm = process.argv.includes("--confirm");
+const fieldsOnly = process.argv.includes("--fields-only");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false, perspective: "raw" });
 
 const documentTypes = schema.types.filter((t) => t.type === "document").map((t) => t.name);
@@ -94,7 +98,7 @@ async function main() {
     console.log(`Unset old fields on ${leftovers.length} documents.`);
   }
 
-  if (confirm && stale.length) {
+  if (confirm && !fieldsOnly && stale.length) {
     const tx = client.transaction();
     for (const doc of stale) tx.delete(doc._id);
     await tx.commit();
@@ -107,7 +111,7 @@ async function main() {
   console.log(`Unreferenced image assets (${orphans.length})${confirm ? "" : ", counted before any document is deleted"}:`);
   for (const a of orphans) console.log(`  ${a._id}  ${a.originalFilename ?? ""}  ${Math.round(a.size / 1024)} KB`);
 
-  if (confirm && orphans.length) {
+  if (confirm && !fieldsOnly && orphans.length) {
     const tx = client.transaction();
     for (const a of orphans) tx.delete(a._id);
     await tx.commit();

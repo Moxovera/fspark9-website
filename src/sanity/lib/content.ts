@@ -320,7 +320,7 @@ export const SPARK_HUB_QUERY = defineQuery(`{
   },
   "formats": *[_type == "sparkFormat"] | order(orderRank asc){
     number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,
-    comingLabel, allIssuesLabel, daysUnit, label, line, startLabel, howLabel, howHeading,
+    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,
     "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,
     "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){
       number, subject, hook

@@ -41,7 +41,6 @@ export default defineType({
     ls("allIssuesLabel", "All issues ({n})"),
     ls("daysUnit", "Days unit"),
     // Format sayfası (Son Gün v3, 2026-09-26).
-    ls("label", "Page label (\"Spark · 01\")"),
     lt("line", "Page line"),
     ls("startLabel", "Start button (to the first published episode)"),
     ls("howLabel", "How to read, label"),

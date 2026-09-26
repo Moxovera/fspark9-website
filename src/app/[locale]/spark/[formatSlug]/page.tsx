@@ -89,9 +89,6 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
         <BackLink href="/spark" label={hub.sparkLabel} ground="ink" />
         <div className="mt-10 grid grid-cols-1 gap-6 min-[761px]:mt-16 min-[761px]:grid-cols-12 min-[761px]:items-end">
           <div className="min-[761px]:col-span-7">
-            <Label ground="ink" className="mb-[5px]">
-              {format.label}
-            </Label>
             <h1 className="mt-0 mb-7 font-display text-[clamp(68px,11vw,168px)] leading-[0.88] font-extrabold tracking-[-0.05em] text-paper">
               {format.name}
             </h1>

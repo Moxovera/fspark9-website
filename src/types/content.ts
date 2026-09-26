@@ -899,8 +899,7 @@ export interface SparkFormatContent {
   preparingLine?: string
   allIssuesLabel: string
   daysUnit: string
-  /** Format sayfası (Son Gün v3): Ink açılışın etiketi ve tek satırı. */
-  label: string
+  /** Format sayfası (Son Gün v3): Ink açılışın tek satırı. */
   line: string
   /** İlk yayındaki bölüme giden Flare buton ("First story: Bó"). */
   startLabel?: string
