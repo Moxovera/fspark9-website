@@ -11,7 +11,7 @@ import type { HomeContent, Locale } from "@/types/content";
 export const home: Record<Locale, HomeContent> = {
   en: {
     seo: {
-      title: "fspark9 · Fintech and digital banking advisory, Berlin",
+      title: "fspark9 · Fintech and digital banking advisory",
       description:
         "I help teams get financial products live. I’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
     },
@@ -145,7 +145,7 @@ export const home: Record<Locale, HomeContent> = {
   },
   tr: {
     seo: {
-      title: "fspark9 · Fintech ve dijital bankacılık danışmanlığı, Berlin",
+      title: "fspark9 · Fintech ve dijital bankacılık danışmanlığı",
       description:
         "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum. İki dijital banka kurdum. Fintechler, bankalar ve şirketlerle lansmana kadar çalışıyorum.",
     },
