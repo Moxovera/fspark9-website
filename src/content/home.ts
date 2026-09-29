@@ -16,7 +16,7 @@ export const home: Record<Locale, HomeContent> = {
         "I help teams get financial products live. I’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
     },
     opening: {
-      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking consultancy"],
+      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking advisory"],
       headlineSentences: ["I help you get financial products live."],
       cutWord: "live.",
       intro:
