@@ -17,8 +17,9 @@ const field =
 const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 /**
- * Okur sorusu (prototip son-gun-02-nuri-v2 `.poll`): dört seçenek; A, B, C
- * e-posta alanını ve gönder düğmesini, D ayrıca serbest metni açar.
+ * Okur sorusu (prototip son-gun-02-nuri-v2 `.poll`): dört seçenek. A, B, C
+ * sadece seçimi işaretler, hiçbir şey gönderilmez. D serbest metni,
+ * e-posta alanını ve gönder düğmesini açar; metin yazılmadan gönderilmez.
  * Cevap tarayıcıdan doğrudan Web3Forms'a gider, bize e-postayla gelir;
  * tarayıcıda hiçbir şey saklanmaz, okura sonuç gösterilmez. `botcheck`
  * Web3Forms'un bal küpü alanı. Sayfa açılalı 3 saniye olmadan gönderilmez.
@@ -42,14 +43,14 @@ export default function ReaderPoll({ poll, episode, lang, questionId, subject }:
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!choice || phase === "sending" || !ACCESS_KEY) return;
-    const answer = free ? text.trim() : "";
-    if (free && countWords(answer) === 0) {
+    if (!free || phase === "sending" || !ACCESS_KEY) return;
+    const answer = text.trim();
+    if (countWords(answer) === 0) {
       setMessage(poll.emptyText);
       textRef.current?.focus();
       return;
     }
-    if (free && over) {
+    if (over) {
       setMessage(poll.tooLong);
       textRef.current?.focus();
       return;
@@ -124,7 +125,7 @@ export default function ReaderPoll({ poll, episode, lang, questionId, subject }:
               </p>
             </div>
           )}
-          {choice && (
+          {free && (
             <div className="mt-[18px] flex flex-col gap-2">
               <label htmlFor={`${id}-email`} className="text-[15px] font-semibold">
                 {poll.emailLabel}
