@@ -13,6 +13,59 @@
  */
 
 // Source: schema.json
+export type SparkRecordBlock = {
+  _type: "sparkRecordBlock";
+  date: string;
+  when?: LocaleString;
+  label?: LocaleString;
+  paragraphs?: Array<{
+    _key: string;
+  } & LocaleText>;
+  sources?: Array<{
+    label?: LocaleString;
+    href?: string;
+    _type: "sparkBlockSource";
+    _key: string;
+  }>;
+};
+
+export type SparkChoiceDecision = {
+  _type: "sparkChoiceDecision";
+  date: string;
+  when?: LocaleString;
+  label?: LocaleString;
+  title?: LocaleString;
+  paragraphs?: Array<{
+    _key: string;
+  } & LocaleText>;
+  options?: Array<{
+    _key: string;
+  } & SparkChoiceOption>;
+  record: string;
+  reveal?: Array<{
+    _key: string;
+  } & LocaleText>;
+  sources?: Array<{
+    label?: LocaleString;
+    href?: string;
+    _type: "sparkBlockSource";
+    _key: string;
+  }>;
+};
+
+export type SparkRulerTick = {
+  _type: "sparkRulerTick";
+  date: string;
+  label?: LocaleString;
+  caption?: LocaleString;
+};
+
+export type SparkChoiceOption = {
+  _type: "sparkChoiceOption";
+  key: string;
+  text?: LocaleText;
+};
+
 export type SparkSource = {
   _type: "sparkSource";
   n: number;
@@ -102,14 +155,19 @@ export type SparkEpisode = {
   slug?: LocaleSlug;
   seo?: Seo;
   subject?: LocaleString;
+  layout?: "story" | "decisions";
+  city?: string;
   country?: string;
   launchDate?: string;
+  launchPrecision?: "day" | "month";
+  durationLabel?: LocaleString;
   closureDate?: string;
   hook?: LocaleText;
   status: "published" | "coming" | "draft";
   cardLine?: LocaleText;
   publishedAt?: string;
   lastCheckedAt?: string;
+  previewLive?: boolean;
   hero?: {
     label?: LocaleString;
     title?: LocaleText;
@@ -152,6 +210,81 @@ export type SparkEpisode = {
   } & SparkSource>;
   correctionLine?: LocaleText;
   closeHeading?: LocaleString;
+  opening?: {
+    label?: LocaleString;
+    meta?: LocaleString;
+    figure?: string;
+    figureLabel?: LocaleString;
+  };
+  ruler?: {
+    ticks?: Array<{
+      _key: string;
+    } & SparkRulerTick>;
+    after?: LocaleText;
+  };
+  standfirst?: LocaleText;
+  provenance?: LocaleString;
+  clock?: {
+    rangeLabel?: LocaleString;
+    start: string;
+    end: string;
+  };
+  intro?: LocaleText;
+  labels?: {
+    ask?: LocaleString;
+    skip?: LocaleString;
+    match?: LocaleString;
+    noMatch?: LocaleString;
+    revealLabel?: LocaleString;
+    sourcesLabel?: LocaleString;
+  };
+  decisions?: Array<{
+    _key: string;
+  } & SparkChoiceDecision>;
+  records?: Array<{
+    _key: string;
+  } & SparkRecordBlock>;
+  twist?: {
+    date: string;
+    when?: LocaleString;
+    label?: LocaleString;
+    paragraphs?: Array<{
+      _key: string;
+    } & LocaleText>;
+    question?: LocaleText;
+    options?: Array<{
+      _key: string;
+    } & SparkChoiceOption>;
+    freeKey?: string;
+    freeLabel?: LocaleString;
+    freePlaceholder?: LocaleString;
+    counterTemplate?: LocaleString;
+    emailLabel?: LocaleString;
+    submitLabel?: LocaleString;
+    sendingLabel?: LocaleString;
+    privacyLine?: LocaleString;
+    thanks?: LocaleString;
+    tooLong?: LocaleString;
+    emptyText?: LocaleString;
+    error?: LocaleString;
+    sourceLabel?: LocaleString;
+    sourceHref?: string;
+  };
+  view?: {
+    date: string;
+    when?: LocaleString;
+    label?: LocaleString;
+    paragraphs?: Array<{
+      _key: string;
+    } & LocaleText>;
+  };
+  service?: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    body?: LocaleText;
+    ctaLabel?: LocaleString;
+    service?: "zero-to-live" | "product-strategy" | "embedded-finance" | "expansion-gtm";
+  };
 };
 
 export type LocaleString = {
@@ -871,7 +1004,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = SparkSource | SparkFinalOption | SparkChapter | SparkDecision | SparkDecisionOption | SparkServiceTag | SparkStoryCard | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = SparkRecordBlock | SparkChoiceDecision | SparkRulerTick | SparkChoiceOption | SparkSource | SparkFinalOption | SparkChapter | SparkDecision | SparkDecisionOption | SparkServiceTag | SparkStoryCard | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/content.ts
 // Variable: SITE_CHROME_QUERY
@@ -1061,14 +1194,14 @@ export type HOME_PAGE_QUERYResult = {
   } | null;
 } | null;
 // Variable: SPARK_CARDS_QUERY
-// Query: *[_type == "sparkEpisode" && status in ["published", "coming"]]  | order(format->orderRank asc, number asc)[0...3]{    number, subject, hook, cardLine, status, publishedAt,    "episodeSlug": slug,    "format": format->{ name, singularName, slug, comingLabel }  }
+// Query: *[_type == "sparkEpisode" && status in ["published", "coming"]]  | order(format->orderRank asc, number asc)[0...3]{    number, subject, hook, cardLine, publishedAt,    "status": select($preview && status == "coming" && previewLive == true => "published", status),    "episodeSlug": slug,    "format": format->{ name, singularName, slug, comingLabel }  }
 export type SPARK_CARDS_QUERYResult = Array<{
   number: number;
   subject: LocaleString | null;
   hook: LocaleText | null;
   cardLine: LocaleText | null;
-  status: "coming" | "draft" | "published";
   publishedAt: string | null;
+  status: "coming" | "draft" | "published";
   episodeSlug: LocaleSlug | null;
   format: {
     name: LocaleString | null;
@@ -1219,7 +1352,7 @@ export type ABOUT_PAGE_QUERYResult = {
   portraitUrl: string | null;
 } | null;
 // Variable: SPARK_HUB_QUERY
-// Query: {  "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,    backLabel, sparkLabel, formatsLabel, launchDateLabel,    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }  },  "formats": *[_type == "sparkFormat"] | order(orderRank asc){    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,    "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){      number, subject, hook    }  }}
+// Query: {  "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,    backLabel, sparkLabel, formatsLabel, launchDateLabel,    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }  },  "formats": *[_type == "sparkFormat"] | order(orderRank asc){    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,    "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"      && !($preview && previewLive == true)] | order(number asc){      number, subject, hook    }  }}
 export type SPARK_HUB_QUERYResult = {
   section: {
     seo: {
@@ -1281,7 +1414,7 @@ export type SPARK_HUB_QUERYResult = {
   }>;
 };
 // Variable: SPARK_EPISODES_QUERY
-// Query: *[_type == "sparkEpisode" && status == "published"  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,    "slug": slug, "formatSlug": format->slug,    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, [])  }
+// Query: *[_type == "sparkEpisode"  && (status == "published" || ($preview && status == "coming" && previewLive == true))  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt, layout,    launchDate, closureDate, durationLabel,    "slug": slug, "formatSlug": format->slug,    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),    opening, standfirst, provenance, clock, intro, labels, view, service,    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },    "decisions": coalesce(decisions[]{      date, when, label, title, record,      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),      "options": coalesce(options[]{ key, text }, []),      "sources": coalesce(sources[]{ label, href }, [])    }, []),    "records": coalesce(records[]{      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])    }, []),    "twist": twist{      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])    }  }
 export type SPARK_EPISODES_QUERYResult = Array<{
   number: number;
   subject: LocaleString | null;
@@ -1293,7 +1426,11 @@ export type SPARK_EPISODES_QUERYResult = Array<{
   publishedAt: string | null;
   lastCheckedAt: string | null;
   _updatedAt: string;
-  slug: LocaleSlug;
+  layout: "decisions" | "story" | null;
+  launchDate: string | null;
+  closureDate: string | null;
+  durationLabel: LocaleString | null;
+  slug: LocaleSlug | null;
   formatSlug: LocaleSlug | null;
   hero: {
     label?: LocaleString;
@@ -1347,6 +1484,111 @@ export type SPARK_EPISODES_QUERYResult = Array<{
       href: string | null;
     }> | Array<never>;
   }> | Array<never>;
+  opening: {
+    label?: LocaleString;
+    meta?: LocaleString;
+    figure?: string;
+    figureLabel?: LocaleString;
+  } | null;
+  standfirst: LocaleText | null;
+  provenance: LocaleString | null;
+  clock: {
+    rangeLabel?: LocaleString;
+    start: string;
+    end: string;
+  } | null;
+  intro: LocaleText | null;
+  labels: {
+    ask?: LocaleString;
+    skip?: LocaleString;
+    match?: LocaleString;
+    noMatch?: LocaleString;
+    revealLabel?: LocaleString;
+    sourcesLabel?: LocaleString;
+  } | null;
+  view: {
+    date: string;
+    when?: LocaleString;
+    label?: LocaleString;
+    paragraphs?: Array<{
+      _key: string;
+    } & LocaleText>;
+  } | null;
+  service: {
+    label?: LocaleString;
+    heading?: LocaleString;
+    body?: LocaleText;
+    ctaLabel?: LocaleString;
+    service?: "embedded-finance" | "expansion-gtm" | "product-strategy" | "zero-to-live";
+  } | null;
+  ruler: {
+    after: LocaleText | null;
+    ticks: Array<{
+      date: string;
+      label: LocaleString | null;
+      caption: LocaleString | null;
+    }> | Array<never>;
+  } | null;
+  decisions: Array<{
+    date: string;
+    when: LocaleString | null;
+    label: LocaleString | null;
+    title: LocaleString | null;
+    record: string;
+    paragraphs: Array<{
+      _key: string;
+    } & LocaleText> | Array<never>;
+    reveal: Array<{
+      _key: string;
+    } & LocaleText> | Array<never>;
+    options: Array<{
+      key: string;
+      text: LocaleText | null;
+    }> | Array<never>;
+    sources: Array<{
+      label: LocaleString | null;
+      href: string | null;
+    }> | Array<never>;
+  }> | Array<never>;
+  records: Array<{
+    date: string;
+    when: LocaleString | null;
+    label: LocaleString | null;
+    paragraphs: Array<{
+      _key: string;
+    } & LocaleText> | Array<never>;
+    sources: Array<{
+      label: LocaleString | null;
+      href: string | null;
+    }> | Array<never>;
+  }> | Array<never>;
+  twist: {
+    date: string;
+    when?: LocaleString;
+    label?: LocaleString;
+    paragraphs: Array<{
+      _key: string;
+    } & LocaleText> | Array<never>;
+    question?: LocaleText;
+    options: Array<{
+      key: string;
+      text: LocaleText | null;
+    }> | Array<never>;
+    freeKey?: string;
+    freeLabel?: LocaleString;
+    freePlaceholder?: LocaleString;
+    counterTemplate?: LocaleString;
+    emailLabel?: LocaleString;
+    submitLabel?: LocaleString;
+    sendingLabel?: LocaleString;
+    privacyLine?: LocaleString;
+    thanks?: LocaleString;
+    tooLong?: LocaleString;
+    emptyText?: LocaleString;
+    error?: LocaleString;
+    sourceLabel?: LocaleString;
+    sourceHref?: string;
+  } | null;
 }>;
 
 // Source: ./src/sanity/lib/queries.ts
@@ -1458,7 +1700,7 @@ export type SITE_LOGO_QUERYResult = {
   lqip: string | null;
 } | null;
 // Variable: SPARK_FORMAT_QUERY
-// Query: *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{    "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){      number,      "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),      country,      launchDate,      closureDate,      publishedAt,      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
+// Query: *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{    "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),    "episodes": *[_type == "sparkEpisode" && references(^._id)      && (status == "published" || ($preview && status == "coming" && previewLive == true))] | order(number asc){      number,      "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),      country,      launchDate,      closureDate,      publishedAt,      "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),      "durationLabel": select($locale == "tr" => coalesce(durationLabel.tr, durationLabel.en), durationLabel.en),      "slug": select($locale == "tr" => slug.tr.current, slug.en.current)    }  }
 export type SPARK_FORMAT_QUERYResult = {
   altFormatSlug: string | null;
   episodes: Array<{
@@ -1469,11 +1711,12 @@ export type SPARK_FORMAT_QUERYResult = {
     closureDate: string | null;
     publishedAt: string | null;
     hook: string | null;
+    durationLabel: string | null;
     slug: string | null;
   }>;
 } | null;
 // Variable: SPARK_EPISODE_SLUGS_QUERY
-// Query: *[_type == "sparkEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{    "episodeEn": slug.en.current,    "episodeTr": slug.tr.current,    "formatEn": format->slug.en.current,    "formatTr": format->slug.tr.current,    status,    lastCheckedAt,    _updatedAt  }
+// Query: *[_type == "sparkEpisode" && defined(slug.en.current) && defined(slug.tr.current)]{    "episodeEn": slug.en.current,    "episodeTr": slug.tr.current,    "formatEn": format->slug.en.current,    "formatTr": format->slug.tr.current,    "status": select($preview && status == "coming" && previewLive == true => "published", status),    lastCheckedAt,    _updatedAt  }
 export type SPARK_EPISODE_SLUGS_QUERYResult = Array<{
   episodeEn: string;
   episodeTr: string;
@@ -1490,19 +1733,19 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "{\n  \"site\": *[_type == \"siteSettings\" && _id == \"siteSettings\"][0]{\n    brandName, homeLabel, servicesLabel, nav, servicesMenu, bookLabel,\n    menuLabel, menuOpenLabel, menuCloseLabel, footer, booking, nextStep, legal\n  },\n  \"services\": *[_type == \"servicePage\"] | order(order asc){ slug, name, shortLine, audience, slices }\n}": SITE_CHROME_QUERYResult;
     "*[_type == \"homePage\" && _id == \"homePage\"][0]{\n  seo{ title, description },\n  opening{ ..., \"portraitUrl\": portrait.asset->url },\n  startWhereYouAre,\n  fourServices,\n  work{\n    label, heading, allLinkLabel, alsoLabel, also,\n    featured{\n      label, heading, text, figures, linkLabel,\n      \"slug\": caseStudy->slug,\n      \"screens\": caseStudy->screens[0...2]{ \"src\": asset->url, alt }\n    },\n    rows[]{ line, tags, \"slug\": caseStudy->slug, \"name\": caseStudy->name }\n  },\n  withMe{ ..., \"portraitUrl\": portrait.asset->url },\n  spark\n}": HOME_PAGE_QUERYResult;
-    "*[_type == \"sparkEpisode\" && status in [\"published\", \"coming\"]]\n  | order(format->orderRank asc, number asc)[0...3]{\n    number, subject, hook, cardLine, status, publishedAt,\n    \"episodeSlug\": slug,\n    \"format\": format->{ name, singularName, slug, comingLabel }\n  }": SPARK_CARDS_QUERYResult;
+    "*[_type == \"sparkEpisode\" && status in [\"published\", \"coming\"]]\n  | order(format->orderRank asc, number asc)[0...3]{\n    number, subject, hook, cardLine, publishedAt,\n    \"status\": select($preview && status == \"coming\" && previewLive == true => \"published\", status),\n    \"episodeSlug\": slug,\n    \"format\": format->{ name, singularName, slug, comingLabel }\n  }": SPARK_CARDS_QUERYResult;
     "*[_type == \"servicesPage\" && _id == \"servicesPage\"][0]{\n  seo{ title, description }, backLabel, opening, servicePageLabels\n}": SERVICES_PAGE_QUERYResult;
     "*[_type == \"servicePage\"] | order(order asc){\n  slug, seo{ title, description }, opening, steps[]{ title, line, slices }, keep\n}": SERVICE_PAGES_QUERYResult;
     "*[_type == \"workPage\" && _id == \"workPage\"][0]{\n  seo{ title, description }, backLabel, label, heading, lead, readLabel,\n  caseLabel, caseBackLabel, sourcesLabel, nextCaseLabel\n}": WORK_PAGE_QUERYResult;
     "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"publishedAt\": _createdAt, \"modifiedAt\": _updatedAt,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
     "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
-    "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel,\n    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,\n    \"howSteps\": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
-    "*[_type == \"sparkEpisode\" && status == \"published\"\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, [])\n  }": SPARK_EPISODES_QUERYResult;
+    "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, launchDateLabel,\n    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,\n    \"howSteps\": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"\n      && !($preview && previewLive == true)] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
+    "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status == \"coming\" && previewLive == true))\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt, layout,\n    launchDate, closureDate, durationLabel,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, []),\n    opening, standfirst, provenance, clock, intro, labels, view, service,\n    \"ruler\": ruler{ after, \"ticks\": coalesce(ticks[]{ date, label, caption }, []) },\n    \"decisions\": coalesce(decisions[]{\n      date, when, label, title, record,\n      \"paragraphs\": coalesce(paragraphs, []), \"reveal\": coalesce(reveal, []),\n      \"options\": coalesce(options[]{ key, text }, []),\n      \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"records\": coalesce(records[]{\n      date, when, label, \"paragraphs\": coalesce(paragraphs, []), \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"twist\": twist{\n      ..., \"paragraphs\": coalesce(paragraphs, []), \"options\": coalesce(options[]{ key, text }, [])\n    }\n  }": SPARK_EPISODES_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": select($locale == \"tr\" && defined(ogImageTr.asset) => ogImageTr, ogImage){\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].logo{\n    \"url\": asset->url,\n    \"alt\": coalesce(alt, \"\"),\n    \"width\": asset->metadata.dimensions.width,\n    \"height\": asset->metadata.dimensions.height,\n    \"lqip\": asset->metadata.lqip\n  }\n": SITE_LOGO_QUERYResult;
-    "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"altFormatSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"published\"] | order(number asc){\n      number,\n      \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n      country,\n      launchDate,\n      closureDate,\n      publishedAt,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMAT_QUERYResult;
-    "\n  *[_type == \"sparkEpisode\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"episodeEn\": slug.en.current,\n    \"episodeTr\": slug.tr.current,\n    \"formatEn\": format->slug.en.current,\n    \"formatTr\": format->slug.tr.current,\n    status,\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SLUGS_QUERYResult;
+    "\n  *[_type == \"sparkFormat\" && select($locale == \"tr\" => slug.tr.current, slug.en.current) == $formatSlug][0]{\n    \"altFormatSlug\": select($locale == \"tr\" => slug.en.current, slug.tr.current),\n    \"episodes\": *[_type == \"sparkEpisode\" && references(^._id)\n      && (status == \"published\" || ($preview && status == \"coming\" && previewLive == true))] | order(number asc){\n      number,\n      \"subject\": select($locale == \"tr\" => coalesce(subject.tr, subject.en), subject.en),\n      country,\n      launchDate,\n      closureDate,\n      publishedAt,\n      \"hook\": select($locale == \"tr\" => coalesce(hook.tr, hook.en), hook.en),\n      \"durationLabel\": select($locale == \"tr\" => coalesce(durationLabel.tr, durationLabel.en), durationLabel.en),\n      \"slug\": select($locale == \"tr\" => slug.tr.current, slug.en.current)\n    }\n  }\n": SPARK_FORMAT_QUERYResult;
+    "\n  *[_type == \"sparkEpisode\" && defined(slug.en.current) && defined(slug.tr.current)]{\n    \"episodeEn\": slug.en.current,\n    \"episodeTr\": slug.tr.current,\n    \"formatEn\": format->slug.en.current,\n    \"formatTr\": format->slug.tr.current,\n    \"status\": select($preview && status == \"coming\" && previewLive == true => \"published\", status),\n    lastCheckedAt,\n    _updatedAt\n  }\n": SPARK_EPISODE_SLUGS_QUERYResult;
   }
 }

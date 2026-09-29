@@ -20,7 +20,7 @@ const body = "text-[18px] leading-[1.6] text-ink";
  * Yapışkan kartın atalarında transform/overflow yok: Reveal sadece metin
  * bloklarını sarıyor (CLAUDE.md "Sticky").
  */
-export default function EpisodeStory({ story, labels }: EpisodeStoryProps) {
+export default function EpisodeStory({ story, labels, nextHref }: EpisodeStoryProps) {
   const interludeAt = story.chapters.findIndex((chapter) => chapter.id === story.interlude.afterChapter);
   // Duraklar sayfadaki sırayla: bölümler, ara bölüm kendi yerinde.
   const stops: SparkStoryCard[] = story.chapters.flatMap((chapter, i) =>
@@ -65,7 +65,7 @@ export default function EpisodeStory({ story, labels }: EpisodeStoryProps) {
                         <DecisionTable decision={chapter.decision} labels={labels} />
                       </Reveal>
                     )}
-                    {i === last && <Ending story={story} labels={labels} />}
+                    {i === last && <Ending story={story} labels={labels} nextHref={nextHref} />}
                   </StoryStop>
                   {i === interludeAt && (
                     <StoryStop index={i + 1} as="div" className="pt-[180px]">
@@ -84,7 +84,7 @@ export default function EpisodeStory({ story, labels }: EpisodeStoryProps) {
   );
 }
 
-function Ending({ story, labels }: EpisodeStoryProps) {
+function Ending({ story, labels, nextHref }: EpisodeStoryProps) {
   return (
     <>
       {story.lessons.length > 0 && (
@@ -114,6 +114,7 @@ function Ending({ story, labels }: EpisodeStoryProps) {
           title={fill(labels.nextTemplate, { name: story.next.name })}
           line={story.next.line}
           meta={story.next.number}
+          href={nextHref}
         />
       </div>
 

@@ -4,6 +4,7 @@ import { getPathname } from "@/i18n/navigation";
 import { getCases, getServicePages, getSparkHub } from "@/sanity/lib/content";
 import { staticAltSlug } from "@/lib/spark";
 import { sanityFetch } from "@/sanity/lib/fetch";
+import { PREVIEW_EPISODES } from "@/sanity/lib/preview";
 import { SPARK_EPISODE_SLUGS_QUERY } from "@/sanity/lib/queries";
 import type { SPARK_EPISODE_SLUGS_QUERYResult } from "@/sanity/types";
 
@@ -36,7 +37,11 @@ function entry(en: string, tr: string, lastModified?: string | null): MetadataRo
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [episodeSlugs, servicePages, cases, spark] = await Promise.all([
-    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({ query: SPARK_EPISODE_SLUGS_QUERY, tags: ["sparkEpisode"] }),
+    sanityFetch<SPARK_EPISODE_SLUGS_QUERYResult>({
+      query: SPARK_EPISODE_SLUGS_QUERY,
+      params: { preview: PREVIEW_EPISODES },
+      tags: ["sparkEpisode"],
+    }),
     getServicePages(),
     getCases(),
     getSparkHub(),

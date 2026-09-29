@@ -7,7 +7,7 @@
  * Kapsam: siteSettings (çerçeve, hizmet özetleri, Next step, calLink),
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×2, legalPage ×4 (metin ve SEO),
- * yayındaki Spark bölümlerinin hikâyesi (Bó).
+ * yayındaki Spark bölümlerinin hikâyesi (Bó) ve karar blokları (Nuri).
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
  * portre).
@@ -23,6 +23,7 @@ import { servicePages, servicesIndex } from "../content/services";
 import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
+import { nuri } from "../content/spark-nuri";
 import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
 import * as privacy from "../content/legal/privacy";
@@ -121,6 +122,8 @@ async function main() {
       const local = episodesS[l].find((e) => e.story.number === entry?.story.number);
       compare(`episode.${slug}.${l}`, local?.story, story);
     }
+    const nuriS = episodesS[l].find((e) => e.layout === "decisions" && e.story.number === 2);
+    compare(`episode.02-nuri.${l}`, nuriS?.story, nuri[l]);
   }
 
   if (diffs.length) {

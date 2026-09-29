@@ -3,6 +3,7 @@ import "server-only";
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { formatShortDate } from "@/lib/format";
+import { PREVIEW_EPISODES } from "@/sanity/lib/preview";
 import type {
   ABOUT_PAGE_QUERYResult,
   CASES_QUERYResult,
@@ -29,6 +30,7 @@ import type {
   SiteChrome,
   SparkCardContent,
   SparkCardMode,
+  SparkDecisionEpisode,
   SparkEpisodeEntry,
   SparkEpisodeStory,
   SparkHubContent,
@@ -164,7 +166,8 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
 
 export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode" && status in ["published", "coming"]]
   | order(format->orderRank asc, number asc)[0...3]{
-    number, subject, hook, cardLine, status, publishedAt,
+    number, subject, hook, cardLine, publishedAt,
+    "status": select($preview && status == "coming" && previewLive == true => "published", status),
     "episodeSlug": slug,
     "format": format->{ name, singularName, slug, comingLabel }
   }`);
@@ -172,7 +175,11 @@ export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode" && statu
 export async function getHome(): Promise<Record<Locale, HomeContent>> {
   const [raw, cards, spark] = await Promise.all([
     sanityFetch<HOME_PAGE_QUERYResult>({ query: HOME_PAGE_QUERY, tags: ["homePage", "caseStudy"] }),
-    sanityFetch<SPARK_CARDS_QUERYResult>({ query: SPARK_CARDS_QUERY, tags: ["sparkEpisode", "sparkFormat"] }),
+    sanityFetch<SPARK_CARDS_QUERYResult>({
+      query: SPARK_CARDS_QUERY,
+      params: { preview: PREVIEW_EPISODES },
+      tags: ["sparkEpisode", "sparkFormat"],
+    }),
     getSparkHub(),
   ]);
   return perLocale((locale) => {
@@ -322,7 +329,8 @@ export const SPARK_HUB_QUERY = defineQuery(`{
     number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,
     comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,
     "howSteps": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,
-    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"] | order(number asc){
+    "coming": *[_type == "sparkEpisode" && references(^._id) && status == "coming"
+      && !($preview && previewLive == true)] | order(number asc){
       number, subject, hook
     }
   }
@@ -331,6 +339,7 @@ export const SPARK_HUB_QUERY = defineQuery(`{
 export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
   const raw = await sanityFetch<SPARK_HUB_QUERYResult>({
     query: SPARK_HUB_QUERY,
+    params: { preview: PREVIEW_EPISODES },
     tags: ["sparkSection", "sparkFormat", "sparkEpisode"],
   });
   return perLocale((locale) => {
@@ -362,71 +371,128 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
 
 // Son Gün v3 bölüm hikâyesi. Tek sorgu, iki dil, yayındaki bütün bölümler;
 // sayfa, metadata ve generateStaticParams aynı sonucu kullanıyor.
-export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode" && status == "published"
+export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
+  && (status == "published" || ($preview && status == "coming" && previewLive == true))
   && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){
-    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt,
+    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt, layout,
+    launchDate, closureDate, durationLabel,
     "slug": slug, "formatSlug": format->slug,
     hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,
     "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
     "lessons": coalesce(lessons[]{ heading, body }, []),
-    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, [])
+    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
+    opening, standfirst, provenance, clock, intro, labels, view, service,
+    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },
+    "decisions": coalesce(decisions[]{
+      date, when, label, title, record,
+      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),
+      "options": coalesce(options[]{ key, text }, []),
+      "sources": coalesce(sources[]{ label, href }, [])
+    }, []),
+    "records": coalesce(records[]{
+      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])
+    }, []),
+    "twist": twist{
+      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])
+    }
   }`);
 
 export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEntry[]>> {
   const raw = await sanityFetch<SPARK_EPISODES_QUERYResult>({
     query: SPARK_EPISODES_QUERY,
+    params: { preview: PREVIEW_EPISODES },
     tags: ["sparkEpisode", "sparkFormat"],
   });
   return perLocale((locale) =>
-    raw.flatMap((doc) => {
+    raw.flatMap((doc): SparkEpisodeEntry[] => {
       const other: Locale = locale === "tr" ? "en" : "tr";
-      const { slug, formatSlug, publishedAt, lastCheckedAt, _updatedAt, ...rest } = doc;
-      if (!formatSlug) return [];
-      const e = localize(rest, locale);
-      const story: SparkEpisodeStory = {
-        number: e.number,
-        subject: e.subject,
-        hook: e.hook,
-        seo: e.seo,
-        hero: e.hero,
-        chapters: e.chapters.map(({ decision, card, ...chapter }) => ({
-          ...chapter,
-          card: { ...card, mode: toCardMode(card.mode) },
-          ...(decision
-            ? {
-                decision: {
-                  ...decision,
-                  didBody: decision.didBody ?? [],
-                  services: (decision.services ?? []).map((tag) => ({ name: tag.name, service: tag.service as ServiceSlug })),
-                },
-              }
-            : {}),
-        })),
-        interlude: { ...e.interlude, card: { ...e.interlude.card, mode: toCardMode(e.interlude.card.mode) } },
-        lessons: e.lessons,
-        finalQuestion: {
-          ...e.finalQuestion,
-          options: (e.finalQuestion.options ?? []).map((option) => ({ ...option, service: option.service as ServiceSlug })),
-        },
-        next: e.next,
-        sourcesLabel: e.sourcesLabel,
-        sources: e.sources,
-        correctionLine: e.correctionLine,
-        closeHeading: e.closeHeading,
+      const { slug, formatSlug, publishedAt, lastCheckedAt, _updatedAt, launchDate, closureDate, durationLabel, ...rest } = doc;
+      if (!formatSlug || !slug) return [];
+      const base = {
+        slug: slug[locale].current,
+        altSlug: slug[other].current,
+        formatSlug: formatSlug[locale].current,
+        altFormatSlug: formatSlug[other].current,
+        publishedAt,
+        modifiedAt: lastCheckedAt ?? _updatedAt,
+        launchDate,
+        closureDate,
+        durationLabel: localize(durationLabel, locale) || null,
       };
-      return [
-        {
-          story,
-          slug: slug[locale].current,
-          altSlug: slug[other].current,
-          formatSlug: formatSlug[locale].current,
-          altFormatSlug: formatSlug[other].current,
-          publishedAt,
-          modifiedAt: lastCheckedAt ?? _updatedAt,
-        },
-      ];
+      if (rest.layout === "decisions") return [{ ...base, layout: "decisions", story: toDecisionEpisode(rest, locale) }];
+      return [{ ...base, layout: "story", story: toStory(rest, locale) }];
     }),
   );
+}
+
+type EpisodeDoc = Omit<
+  SPARK_EPISODES_QUERYResult[number],
+  "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel"
+>;
+
+function toStory(doc: EpisodeDoc, locale: Locale): SparkEpisodeStory {
+  const e = localize(doc, locale);
+  return {
+    number: e.number,
+    subject: e.subject,
+    hook: e.hook,
+    seo: e.seo,
+    hero: e.hero,
+    chapters: e.chapters.map(({ decision, card, ...chapter }) => ({
+      ...chapter,
+      card: { ...card, mode: toCardMode(card.mode) },
+      ...(decision
+        ? {
+            decision: {
+              ...decision,
+              didBody: decision.didBody ?? [],
+              services: (decision.services ?? []).map((tag) => ({ name: tag.name, service: tag.service as ServiceSlug })),
+            },
+          }
+        : {}),
+    })),
+    interlude: { ...e.interlude, card: { ...e.interlude.card, mode: toCardMode(e.interlude.card.mode) } },
+    lessons: e.lessons,
+    finalQuestion: {
+      ...e.finalQuestion,
+      options: (e.finalQuestion.options ?? []).map((option) => ({ ...option, service: option.service as ServiceSlug })),
+    },
+    next: e.next,
+    sourcesLabel: e.sourcesLabel,
+    sources: e.sources,
+    correctionLine: e.correctionLine,
+    closeHeading: e.closeHeading,
+  };
+}
+
+function toDecisionEpisode(doc: EpisodeDoc, locale: Locale): SparkDecisionEpisode {
+  const e = localize(doc, locale);
+  const { date, when, label, paragraphs, question, options, freeKey, sourceHref, ...poll } = e.twist;
+  return {
+    number: e.number,
+    subject: e.subject,
+    hook: e.hook,
+    seo: e.seo,
+    opening: e.opening,
+    ruler: e.ruler,
+    standfirst: e.standfirst,
+    provenance: e.provenance,
+    clock: e.clock,
+    intro: e.intro,
+    labels: e.labels,
+    decisions: e.decisions,
+    records: e.records,
+    twist: {
+      date,
+      when,
+      label,
+      paragraphs,
+      sources: [],
+      poll: { question, options, freeKey, sourceHref, ...poll },
+    },
+    view: { ...e.view, paragraphs: e.view.paragraphs ?? [] },
+    service: { ...e.service, service: e.service.service as ServiceSlug },
+  };
 }
 
 function toCardMode(mode: string): SparkCardMode {

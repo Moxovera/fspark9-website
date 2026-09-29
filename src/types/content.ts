@@ -100,6 +100,8 @@ export interface SparkEpisodeSummary {
   closureDate: string | null
   publishedAt: string | null
   hook: string
+  /** Gün sayısı yerine gösterilen süre ("7 years"); boşsa gün sayısı hesaplanır. */
+  durationLabel: string | null
   formatSlug: string
   episodeSlug: string
 }
@@ -229,6 +231,120 @@ export interface SparkEpisodeStory {
   correctionLine: string
   /** NextStep başlığı bu sayfada. */
   closeHeading: string
+}
+
+// Son Gün Nº 02 (Nuri, prototip _design/v2/boards/son-gun-02-nuri-v2.html):
+// hikâye yerine karar blokları. Açılış, cetvel, standfirst, yapışkan saat,
+// beş karar (seç, gerçekte ne oldu), kayıt blokları, okur sorusu, görüş,
+// hizmet. Seçimler sadece bileşen state'inde; okur cevabı e-postayla gelir
+// (/api/spark-answer), hiçbir şey saklanmaz.
+
+/** Cetveldeki bir iz. Etiketi olmayan iz soluk, yazısız. */
+export interface SparkRulerTick {
+  /** "YYYY-MM-DD" */
+  date: string
+  /** Mono tarih ("Jan 2018"); boşsa iz etiketsiz. */
+  label: string
+  /** Altındaki satır ("The cards stop"). */
+  caption: string
+}
+
+export interface SparkChoiceOption {
+  /** "A", "B", "C", "D" */
+  key: string
+  text: string
+}
+
+/** Saatin izlediği bir blok: tarihi (ilerleme) ve saatte görünen yazısı. */
+export interface SparkClockStop {
+  /** "YYYY-MM-DD" */
+  date: string
+  when: string
+}
+
+export interface SparkRecordBlock extends SparkClockStop {
+  /** Üst satırın solu ("The countdown"). */
+  label: string
+  paragraphs: string[]
+  sources: SparkSourceLink[]
+}
+
+export interface SparkChoiceDecision extends SparkRecordBlock {
+  /** Karar başlığı (Epilogue 800). */
+  title: string
+  options: SparkChoiceOption[]
+  /** Kayıttaki seçim ("B"). */
+  record: string
+  /** "What really happened" paragrafları. */
+  reveal: string[]
+}
+
+export interface SparkReaderPoll {
+  question: string
+  options: SparkChoiceOption[]
+  /** Serbest metni açan seçenek ("D"). */
+  freeKey: string
+  freeLabel: string
+  freePlaceholder: string
+  /** "{n} / 250 words" */
+  counterTemplate: string
+  emailLabel: string
+  submitLabel: string
+  sendingLabel: string
+  privacyLine: string
+  thanks: string
+  tooLong: string
+  emptyText: string
+  error: string
+  sourceLabel: string
+  sourceHref: string
+}
+
+export interface SparkDecisionEpisode {
+  number: number
+  subject: string
+  hook: string
+  seo: PageSeoCopy
+  opening: {
+    label: string
+    meta: string
+    figure: string
+    figureLabel: string
+  }
+  ruler: {
+    ticks: SparkRulerTick[]
+    /** Çizginin altındaki mono not ("Nine months later · ..."). */
+    after: string
+  }
+  standfirst: string
+  provenance: string
+  clock: {
+    /** Başlangıç yazısı ve geniş ekranda çubuğun altı ("2015 to 2023"). */
+    rangeLabel: string
+    /** İlerleme çubuğunun başı ve sonu, "YYYY-MM-DD". */
+    start: string
+    end: string
+  }
+  intro: string
+  labels: {
+    ask: string
+    skip: string
+    match: string
+    noMatch: string
+    revealLabel: string
+    sourcesLabel: string
+  }
+  decisions: SparkChoiceDecision[]
+  records: SparkRecordBlock[]
+  twist: SparkRecordBlock & { poll: SparkReaderPoll }
+  view: SparkClockStop & { label: string; paragraphs: string[] }
+  service: {
+    label: string
+    heading: string
+    body: string
+    ctaLabel: string
+    service: ServiceSlug
+  }
 }
 
 export interface PageSeo {
@@ -932,9 +1048,19 @@ export interface SparkHubContent {
   episode: SparkEpisodeLabels
 }
 
-/** Yayındaki bir bölüm, bu dildeki ve diğer dildeki slug'larıyla (getSparkEpisodes). */
-export interface SparkEpisodeEntry {
-  story: SparkEpisodeStory
+/**
+ * Yayındaki bir bölüm, bu dildeki ve diğer dildeki slug'larıyla
+ * (getSparkEpisodes). `layout` sayfanın şablonunu seçer: Bó hikâye,
+ * Nuri karar blokları.
+ */
+export type SparkEpisodeEntry = SparkEpisodeEntryBase &
+  ({ layout: 'story'; story: SparkEpisodeStory } | { layout: 'decisions'; story: SparkDecisionEpisode })
+
+interface SparkEpisodeEntryBase {
+  launchDate: string | null
+  closureDate: string | null
+  /** "7 years"; boşsa gün sayısı tarihlerden. */
+  durationLabel: string | null
   slug: string
   altSlug: string
   formatSlug: string
@@ -995,6 +1121,8 @@ export interface SparkIssue {
   status: 'published' | 'coming'
   /** computeDayCount ile hesaplanır; gelecek sayılarda null. */
   days: number | null
+  /** Gün sayısının yerine geçen süre ("7 years"), bölümde yazılıysa. */
+  durationLabel?: string
   href?: NavHref
   /** Gelecek sayılarda durum ("Coming next"), yayındakilerde yayın tarihi. */
   statusLabel: string
@@ -1234,6 +1362,70 @@ export interface StoryBarProps {
 export interface EpisodeStoryProps {
   story: SparkEpisodeStory;
   labels: SparkEpisodeLabels;
+  /** Sıradaki sayı yayındaysa bölüm sonundaki satırın linki. */
+  nextHref?: NavHref;
+}
+
+export interface DecisionEpisodeProps {
+  episode: SparkDecisionEpisode;
+  /** Bölümün EN slug'ı ("02-nuri"): çapa id'leri ve okur cevabındaki bölüm. */
+  slug: string;
+  lang: Locale;
+}
+
+export interface EpisodeRulerProps {
+  ticks: SparkRulerTick[];
+  after: string;
+}
+
+export interface ClockProviderProps {
+  children: ReactNode;
+}
+
+export interface ClockStopProps {
+  /** EpisodeClock'a verilen `stops` dizisindeki sıra. */
+  index: number;
+  id?: string;
+  labelledBy?: string;
+  className?: string;
+  children: ReactNode;
+}
+
+export interface EpisodeClockProps {
+  stops: SparkClockStop[];
+  rangeLabel: string;
+  start: string;
+  end: string;
+}
+
+export interface ChoiceOptionsProps {
+  options: SparkChoiceOption[];
+  chosen: string | null;
+  onChoose: (key: string) => void;
+  /** Grubun erişilebilir adı; `labelledBy` verilirse o kullanılır. */
+  groupLabel?: string;
+  labelledBy?: string;
+}
+
+export interface ChoiceDecisionProps {
+  options: SparkChoiceOption[];
+  record: string;
+  labels: SparkDecisionEpisode["labels"];
+  /** "Gerçekte" içeriği, sunucuda render edilir. */
+  children: ReactNode;
+}
+
+export interface ReaderPollProps {
+  poll: SparkReaderPoll;
+  episode: string;
+  lang: Locale;
+  /** Sorunun başlığının id'si (seçenek grubunun adı). */
+  questionId: string;
+}
+
+export interface BlockSourcesProps {
+  label: string;
+  sources: SparkSourceLink[];
 }
 
 export interface FootnoteTextProps {

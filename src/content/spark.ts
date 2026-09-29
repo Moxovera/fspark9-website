@@ -2,9 +2,9 @@ import type { Locale, SparkEpisodeStory, SparkHubContent } from "@/types/content
 
 /**
  * Spark hub ve format sayfalarının metni (v2). Copy §5, §6 ve §6c.
- * Bölümler (Bó) Sanity'de: konu, gün sayısı (computeDayCount), tarih.
- * Buradaki sıradaki sayılar (Nuri, Sector reports Nº 01) Sanity'de
- * `coming` durumlu bölümler olarak duruyor. Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
+ * Bölümler (Bó, Nuri) Sanity'de: konu, gün sayısı (computeDayCount) ya
+ * da süre (durationLabel), tarih. Buradaki sıradaki sayılar (Sector
+ * reports Nº 01) Sanity'de `coming` durumlu bölümler olarak duruyor. Site bu metni Sanity'den okuyor; bu dosya seed-v3'ün kaynağı ve
  * check:drift'in karşılaştırdığı ayna.
  *
  * Copy'de TR karşılığı olmayan etiketler (readLabel, showAllLabel,
@@ -21,7 +21,7 @@ export const spark: Record<Locale, SparkHubContent> = {
     heading: "Short, sharp formats that get companies moving.",
     tickerItems: [
       "The Last Day Nº 01 · Bó",
-      "The Last Day Nº 02 · Nuri · Coming next",
+      "The Last Day Nº 02 · Nuri",
       "Sector report Nº 01 · In preparation",
     ],
     tickerTail: "Numbered and dated",
@@ -52,7 +52,7 @@ export const spark: Record<Locale, SparkHubContent> = {
         },
         description: "The last months of fintechs and banks that closed, read from the public record.",
         openLabel: "Open The Last Day",
-        comingIssues: [{ number: "Nº 02", subject: "Nuri", hook: "Formerly Bitwala. Germany.", statusLabel: "Coming next" }],
+        comingIssues: [],
         allIssuesLabel: "All {n} issues",
         daysUnit: "days",
         line: "Stories of fintechs and banks that closed. In every episode, the key calls are yours.",
@@ -105,7 +105,7 @@ export const spark: Record<Locale, SparkHubContent> = {
     heading: "Şirketleri harekete geçiren kısa ve net formatlar.",
     tickerItems: [
       "Son Gün Nº 01 · Bó",
-      "Son Gün Nº 02 · Nuri · Sırada",
+      "Son Gün Nº 02 · Nuri",
       "Sektör raporu Nº 01 · Hazırlanıyor",
     ],
     tickerTail: "Numaralı ve tarihli",
@@ -136,7 +136,7 @@ export const spark: Record<Locale, SparkHubContent> = {
         },
         description: "Kapanan fintech ve bankaların son aylarını kamuya açık kayıtlardan okuyoruz.",
         openLabel: "Son Gün’ü açın",
-        comingIssues: [{ number: "Nº 02", subject: "Nuri", hook: "Eski adıyla Bitwala. Almanya.", statusLabel: "Sırada" }],
+        comingIssues: [],
         allIssuesLabel: "{n} sayının tümü",
         daysUnit: "gün",
         line: "Kapanan fintech ve bankaların hikâyeleri. Her bölümde kritik kararları siz veriyorsunuz.",

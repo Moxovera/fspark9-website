@@ -13,6 +13,14 @@
  *   npm run seed:v3 -- --dry         (sadece yazılacak belgeleri listeler)
  *   npm run seed:v3 -- --only=spark  (sadece Spark belgeleri; Studio'da
  *                                     düzenlenmiş diğer sayfalara dokunmaz)
+ *
+ * Nuri (Nº 02) canlıya iki adımda çıkıyor; staging ve canlı aynı veri
+ * setini okuduğu için:
+ *   --preview-nuri   status coming + previewLive: staging yayındaki gibi
+ *                    gösterir, canlı "sırada" kalır; şerit (tickerItems)
+ *                    yazılmaz, canlıdaki "Coming next" yerinde durur.
+ *   --publish-nuri   status published, previewLive kalkar, şerit yazılır.
+ * İkisi de yoksa bölümün durumuna dokunulmaz.
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -24,20 +32,35 @@ import { servicePages, servicesIndex } from "../content/services";
 import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
+import { nuri } from "../content/spark-nuri";
 import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
-import type { LegalBlock, LegalPage, PageSeoCopy, SparkStoryCard, SparkEpisodeStory } from "../types/content";
+import type {
+  LegalBlock,
+  LegalPage,
+  PageSeoCopy,
+  SparkChoiceOption,
+  SparkDecisionEpisode,
+  SparkSourceLink,
+  SparkStoryCard,
+  SparkEpisodeStory,
+} from "../types/content";
 
 const token = process.env.SANITY_API_WRITE_TOKEN;
 if (!token) throw new Error("Missing SANITY_API_WRITE_TOKEN (.env.local).");
 
 const dry = process.argv.includes("--dry");
 const onlySpark = process.argv.includes("--only=spark");
+const previewNuri = process.argv.includes("--preview-nuri");
+const publishNuri = process.argv.includes("--publish-nuri");
+if (previewNuri && publishNuri) throw new Error("--preview-nuri and --publish-nuri are exclusive.");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
 const LAUNCH_DATE = "2026-09-24";
+/** Nuri'nin yayın tarihi (canlıya çıktığı gün; home.ts kartıyla aynı). */
+const NURI_PUBLISHED = "2026-09-29";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -341,7 +364,7 @@ function sparkSectionPatch() {
       seo: seo(e.seo, t.seo),
       bigWord: pick("bigWord"),
       heading: pick("heading"),
-      tickerItems: lsList(e.tickerItems, t.tickerItems),
+      ...(previewNuri ? {} : { tickerItems: lsList(e.tickerItems, t.tickerItems) }),
       tickerTail: pick("tickerTail"),
       formatsLabel: pick("formatsLabel"),
       readLabel: pick("readLabel"),
@@ -373,7 +396,9 @@ function formatSets() {
         description: lt(e.description, t.description),
         ...(opt(e.openLabel, t.openLabel) ? { openLabel: opt(e.openLabel, t.openLabel) } : {}),
         ...(opt(e.preparingLine, t.preparingLine) ? { preparingLine: opt(e.preparingLine, t.preparingLine) } : {}),
-        comingLabel: ls(e.comingIssues[0]?.statusLabel ?? "", t.comingIssues[0]?.statusLabel ?? ""),
+        ...(e.comingIssues[0] && t.comingIssues[0]
+          ? { comingLabel: ls(e.comingIssues[0].statusLabel, t.comingIssues[0].statusLabel) }
+          : {}),
         allIssuesLabel: ls(e.allIssuesLabel, t.allIssuesLabel),
         daysUnit: ls(e.daysUnit, t.daysUnit),
         line: lt(e.line, t.line),
@@ -526,6 +551,131 @@ function boPatch() {
   };
 }
 
+const sources = (en: SparkSourceLink[], tr: SparkSourceLink[]) =>
+  zip(en, tr, (el, tl) => ({ _type: "sparkBlockSource", label: ls(el.label, tl.label), href: el.href }));
+const options = (en: SparkChoiceOption[], tr: SparkChoiceOption[]) =>
+  zip(en, tr, (eo, to) => ({ _type: "sparkChoiceOption", key: eo.key, text: lt(eo.text, to.text) }));
+const texts = (en: string[], tr: string[]) => zip(en, tr, (a, b) => lt(a, b));
+
+/** Karar blokları şablonunun alanları (sparkEpisodeDecisions.ts), EN ve TR paralel. */
+function decisionSet(e: SparkDecisionEpisode, t: SparkDecisionEpisode) {
+  const { poll: ep } = e.twist;
+  const { poll: tp } = t.twist;
+  const pollText = (k: Exclude<keyof typeof ep, "question" | "options" | "freeKey" | "sourceHref">) => ls(ep[k], tp[k]);
+  return {
+    layout: "decisions",
+    subject: ls(e.subject, t.subject),
+    hook: lt(e.hook, t.hook),
+    seo: seo(e.seo, t.seo),
+    opening: {
+      label: ls(e.opening.label, t.opening.label),
+      meta: ls(e.opening.meta, t.opening.meta),
+      figure: e.opening.figure,
+      figureLabel: ls(e.opening.figureLabel, t.opening.figureLabel),
+    },
+    ruler: {
+      ticks: zip(e.ruler.ticks, t.ruler.ticks, (et, tt) => ({
+        _type: "sparkRulerTick",
+        date: et.date,
+        label: ls(et.label, tt.label),
+        caption: ls(et.caption, tt.caption),
+      })),
+      after: lt(e.ruler.after, t.ruler.after),
+    },
+    standfirst: lt(e.standfirst, t.standfirst),
+    provenance: ls(e.provenance, t.provenance),
+    clock: { rangeLabel: ls(e.clock.rangeLabel, t.clock.rangeLabel), start: e.clock.start, end: e.clock.end },
+    intro: lt(e.intro, t.intro),
+    labels: Object.fromEntries(
+      (Object.keys(e.labels) as (keyof typeof e.labels)[]).map((k) => [k, ls(e.labels[k], t.labels[k])]),
+    ),
+    decisions: zip(e.decisions, t.decisions, (ed, td) => ({
+      _type: "sparkChoiceDecision",
+      date: ed.date,
+      when: ls(ed.when, td.when),
+      label: ls(ed.label, td.label),
+      title: ls(ed.title, td.title),
+      paragraphs: texts(ed.paragraphs, td.paragraphs),
+      options: options(ed.options, td.options),
+      record: ed.record,
+      reveal: texts(ed.reveal, td.reveal),
+      sources: sources(ed.sources, td.sources),
+    })),
+    records: zip(e.records, t.records, (er, tr) => ({
+      _type: "sparkRecordBlock",
+      date: er.date,
+      when: ls(er.when, tr.when),
+      label: ls(er.label, tr.label),
+      paragraphs: texts(er.paragraphs, tr.paragraphs),
+      sources: sources(er.sources, tr.sources),
+    })),
+    twist: {
+      date: e.twist.date,
+      when: ls(e.twist.when, t.twist.when),
+      label: ls(e.twist.label, t.twist.label),
+      paragraphs: texts(e.twist.paragraphs, t.twist.paragraphs),
+      question: lt(ep.question, tp.question),
+      options: options(ep.options, tp.options),
+      freeKey: ep.freeKey,
+      freeLabel: pollText("freeLabel"),
+      freePlaceholder: pollText("freePlaceholder"),
+      counterTemplate: pollText("counterTemplate"),
+      emailLabel: pollText("emailLabel"),
+      submitLabel: pollText("submitLabel"),
+      sendingLabel: pollText("sendingLabel"),
+      privacyLine: pollText("privacyLine"),
+      thanks: pollText("thanks"),
+      tooLong: pollText("tooLong"),
+      emptyText: pollText("emptyText"),
+      error: pollText("error"),
+      sourceLabel: pollText("sourceLabel"),
+      sourceHref: ep.sourceHref,
+    },
+    view: {
+      date: e.view.date,
+      when: ls(e.view.when, t.view.when),
+      label: ls(e.view.label, t.view.label),
+      paragraphs: texts(e.view.paragraphs, t.view.paragraphs),
+    },
+    service: {
+      label: ls(e.service.label, t.service.label),
+      heading: ls(e.service.heading, t.service.heading),
+      body: lt(e.service.body, t.service.body),
+      ctaLabel: ls(e.service.ctaLabel, t.service.ctaLabel),
+      service: e.service.service,
+    },
+  };
+}
+
+/** Nº 02 Nuri. Belge v2'den beri `coming` olarak duruyordu; aynı belge dolduruluyor. */
+function nuriPatch() {
+  const card = [home.en.spark.cards[1], home.tr.spark.cards[1]];
+  const status = publishNuri
+    ? { status: "published" }
+    : previewNuri
+      ? { status: "coming", previewLive: true }
+      : {};
+  return {
+    id: "sparkEpisode-the-last-day-02",
+    set: {
+      ...decisionSet(nuri.en, nuri.tr),
+      ...status,
+      number: 2,
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "02-nuri" }, tr: { _type: "slug", current: "02-nuri" } },
+      city: "Berlin",
+      country: "Germany",
+      launchDate: "2015-10-01",
+      launchPrecision: "month",
+      closureDate: "2022-12-18",
+      durationLabel: ls("7 years", "7 yıl"),
+      publishedAt: NURI_PUBLISHED,
+      lastCheckedAt: "2026-09-28",
+      cardLine: lt(card[0].line, card[1].line),
+    },
+    unset: publishNuri ? ["previewLive"] : [],
+  };
+}
+
 // Legal: src/content/legal/*.ts → legalBlock* (yalnızca Privacy ve Cookies,
 // fspark9-legal-update-v2). Imprint ve Terms metnine dokunulmuyor.
 function toLegalBlock(en: LegalBlock, tr: LegalBlock) {
@@ -610,7 +760,7 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch()];
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch()];
   const creates = onlySpark
     ? comingEpisodeDocs()
     : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];

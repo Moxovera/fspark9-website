@@ -475,3 +475,16 @@ body {
   .story-face, .story-mini, .decision-answer, .decision-option { transition: none; }
   .card-rise { animation: none; }
 }
+
+/* Son Gün Nº 02 (karar blokları). "Gerçekte" sunucuda render ediliyor
+   (JS kapalıyken okunur, indekslenir); JS açıksa seçime ya da "Seçmeden
+   göster"e kadar gizli. Saatin çubuğu okunan bloğun tarihine kayar. */
+.js .choice-reveal:not([data-open]) {
+  display: none;
+}
+.clock-bar {
+  transition: width 250ms var(--ease-brand);
+}
+@media (prefers-reduced-motion: reduce) {
+  .clock-bar { transition: none; }
+}

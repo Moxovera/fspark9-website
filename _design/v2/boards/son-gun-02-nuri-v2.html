@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nuri · Son Gün Nº 02 · fspark9</title>
+<meta name="description" content="Bitwala olarak doğdu, Nuri olarak öldü, yine Bitwala olarak geri döndü. Berlinli kripto fintech&#x27;inin yedi yılı ve beş kararı. Masaya sen otur.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=Hanken+Grotesk:wght@400;600;700&family=Spline+Sans+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F3F1EB;--ink:#17150F;--white:#FFFFFF;--stone:#5E594F;--rule:#D8D3C8;--flare:#FFC629;--dust:#A39D90;
+--d:"Epilogue",system-ui,sans-serif;--t:"Hanken Grotesk",system-ui,sans-serif;--m:"Spline Sans Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper);color:var(--ink);font:17px/1.55 var(--t);-webkit-text-size-adjust:100%}
+body{min-height:100vh}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.opening :focus-visible,.next :focus-visible{outline-color:var(--paper)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.stand .narrow>*{max-width:820px}
+.mono{font:500 12.5px/1.5 var(--m);letter-spacing:.08em;text-transform:uppercase}
+.dust{color:var(--dust)} .stone{color:var(--stone)}
+.ext{width:9px;height:9px;margin-left:6px;vertical-align:1px}
+
+.site{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.site svg{height:24px;width:auto;display:block}
+.langsw{display:flex;border:2px solid var(--ink)}
+.langsw button{font:500 12px var(--m);letter-spacing:.08em;background:none;border:0;padding:8px 12px;cursor:pointer;color:var(--ink);min-height:36px}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+.subnav{border-bottom:1px solid var(--rule)}
+.subnav .wrap{display:flex;gap:28px;height:44px;align-items:center;overflow-x:auto}
+.subnav a{text-decoration:none;white-space:nowrap;color:var(--stone)}
+.subnav a.cur{color:var(--ink);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+.backlink{display:inline-flex;align-items:center;height:44px;text-decoration:none;color:var(--stone)}
+.backlink:hover{color:var(--ink)}
+
+.opening{background:var(--ink);color:var(--paper);padding:72px 0 64px}
+.op{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
+.opening h1{font:800 clamp(88px,15vw,208px)/.9 var(--d);letter-spacing:-.045em;margin:18px 0 22px}
+.count{display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
+.count .num{font:800 clamp(120px,16vw,220px)/.8 var(--d);letter-spacing:-.04em;color:transparent;-webkit-text-stroke:2px var(--paper)}
+
+.ruler{background:var(--white);padding:56px 0 76px}
+.line{position:relative;height:2px;background:var(--ink);margin:40px 8px 0}
+.tick{position:absolute;top:-9px;width:2px;height:20px;background:var(--ink);transform:translateX(-1px)}
+.tick.end{width:10px;height:28px;top:-13px;background:var(--flare);transform:translateX(-10px)}
+.tl{position:absolute;top:30px;display:flex;flex-direction:column;gap:2px;white-space:nowrap;font-size:14px;color:var(--stone)}
+.tl b{color:var(--ink)}
+.tl.left{left:0} .tl.right{right:0}
+.tick.end .tl{top:34px}
+.tick:not(.labeled){opacity:.45}
+
+.stand{padding:72px 0 24px}
+.standfirst{font:700 clamp(26px,3vw,36px)/1.18 var(--d);letter-spacing:-.02em;margin-bottom:22px}
+
+.body{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-top:40px;padding-bottom:96px}
+.clock{grid-column:1/3;position:sticky;top:96px;align-self:start;display:flex;flex-direction:column;gap:10px;padding-top:6px}
+.clock .bar{height:4px;background:var(--rule)} .clock .bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .25s}
+@media (prefers-reduced-motion:reduce){.clock .bar i{transition:none}}
+.col{grid-column:4/12;display:flex;flex-direction:column;gap:40px}
+.intro{font-size:20px;line-height:1.5}
+
+.block{background:var(--white);padding:32px 36px 36px}
+.block p+p{margin-top:14px}
+.decision{border-top:4px solid var(--ink)}
+.record{border-top:2px solid var(--ink)}
+.toprow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--stone);margin-bottom:18px}
+.block h2{font:800 clamp(28px,3vw,36px)/1.08 var(--d);letter-spacing:-.025em;margin-bottom:18px}
+.ask{font:800 22px/1.2 var(--d);letter-spacing:-.015em;margin-top:28px!important}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.opt{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;text-align:left;font:400 17px/1.45 var(--t);color:var(--ink);background:var(--white);border:2px solid var(--ink);padding:14px 16px;cursor:pointer;min-height:44px;transition:opacity .2s}
+.opt .k{padding-top:2px}
+.opt:hover{background:var(--paper)}
+.opt[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.decided .opt[aria-pressed="false"]{opacity:.45}
+.skip{background:none;border:0;color:var(--stone);text-decoration:underline;text-underline-offset:4px;margin-top:14px;cursor:pointer;min-height:44px;padding:0}
+.decided .skip{display:none}
+.reveal{border-top:1px solid var(--rule);margin-top:26px;padding-top:22px}
+.js .reveal:not(.open){display:none}
+.result{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.result i{width:10px;height:10px;background:var(--ink);display:inline-block}
+.result:empty,.result span:empty{display:none}
+.rl{color:var(--stone);margin-bottom:10px}
+.sources{margin-top:22px}
+.sources .mono{color:var(--stone);margin-bottom:8px}
+.sources ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px}
+.sources a{font:400 13px/1.5 var(--m);color:var(--stone);text-underline-offset:3px}
+.sources a:hover{color:var(--ink)}
+
+.twist .q{font:800 clamp(26px,3vw,34px)/1.12 var(--d);letter-spacing:-.02em;margin:26px 0 12px!important}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;font:600 16px var(--t);text-decoration:none;border:2px solid var(--ink)}
+.btn.outline{background:var(--white);color:var(--ink)}
+.btn.ink{background:var(--ink);color:var(--paper)}
+.btn.flare{background:var(--flare);color:var(--ink);border-color:var(--flare);margin-top:26px}
+
+.after{margin-top:88px;color:var(--stone);text-align:right}
+.poll{margin-top:8px}
+.free,.sendrow{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.free[hidden],.sendrow[hidden]{display:none}
+.poll label{font-weight:600;font-size:15px}
+.poll textarea,.poll input[type=email]{font:400 17px/1.5 var(--t);color:var(--ink);background:var(--white);border:2px solid var(--ink);border-radius:0;padding:12px 14px;width:100%}
+.poll textarea{resize:vertical;min-height:140px}
+.poll .count{text-align:right}
+.poll .count.over{color:var(--ink);font-weight:700}
+.poll .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.poll button[type=submit]{align-self:flex-start;margin-top:8px;cursor:pointer}
+.poll button[disabled]{opacity:.5;cursor:default}
+.small{font-size:14px}
+.msg{margin-top:14px;display:flex;gap:10px;align-items:baseline;font-size:16px}
+.msg:empty{display:none}
+.msg::before{content:"";width:10px;height:10px;background:var(--ink);flex:none}
+.poll.done .opts,.poll.done .free,.poll.done .sendrow{display:none}
+.service{background:var(--white);border-top:2px solid var(--ink);padding:32px 36px 36px}
+.service h2{font:800 clamp(26px,3vw,34px)/1.1 var(--d);letter-spacing:-.02em;margin:14px 0 14px}
+.service p:not(.mono){margin-bottom:22px}
+.view{border-top:1px solid var(--rule);padding-top:24px}
+.view .mono{color:var(--stone);margin-bottom:14px}
+.view p:not(.mono){font:700 22px/1.4 var(--d);letter-spacing:-.01em}
+.view p+p{margin-top:16px}
+
+.next{background:var(--ink);color:var(--paper);padding:88px 0}
+.nx{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end}
+.next h2{font:800 clamp(40px,5vw,64px)/1 var(--d);letter-spacing:-.035em;margin-top:14px}
+.next ol{list-style:none;display:flex;flex-direction:column;gap:12px;font-size:18px}
+.next li{display:flex;gap:14px;align-items:baseline;border-top:1px solid #3a372f;padding-top:12px}
+.foot{background:var(--ink);color:var(--dust);border-top:1px solid #3a372f}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;padding-top:22px;padding-bottom:28px}
+.foot a{color:var(--dust)}
+
+@media (max-width:1100px){.col{grid-column:3/13}}
+@media (max-width:860px){
+ .service{padding:24px 20px 28px}
+ .after{text-align:left;margin-top:88px}
+ .wrap{padding:0 20px}
+ .op{grid-template-columns:1fr;gap:28px}
+ .count{align-items:flex-start;text-align:left}
+ .body{display:block;padding-top:0}
+ .clock{position:sticky;top:64px;z-index:10;flex-direction:row;align-items:center;gap:12px;background:var(--paper);padding:10px 0;margin:0 -20px 24px;padding-left:20px;padding-right:20px;border-bottom:1px solid var(--rule)}
+ .clock .bar{flex:1} .clock .of{display:none}
+ .col{gap:28px}
+ .block{padding:24px 20px 28px}
+ .tick.labeled:not(:first-child):not(:last-child) .tl{display:none}
+ .tick.labeled:nth-child(4) .tl{display:flex;left:50%;transform:translateX(-50%);right:auto;top:30px}
+ .nx{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+ .tick.labeled:nth-child(4) .tl{display:none}
+ .tl{font-size:13px}
+}
+</style>
+</head>
+<body>
+<div class="site"><div class="wrap"><a href="#" aria-label="fspark9"><svg role="img" aria-label="fspark9" xmlns="http://www.w3.org/2000/svg" viewBox="0.0 -1577.0 7420.0 2014.0"><g fill="#17150F"><path d="M238 0V-792H21V-1062H238V-1114Q238 -1231 271.0 -1312.0Q304 -1393 359.0 -1445.0Q414 -1497 480.5 -1526.0Q547 -1555 615.5 -1566.0Q684 -1577 743 -1577Q815 -1577 848.5 -1569.0Q882 -1561 894 -1556V-1284Q882 -1288 851.0 -1293.5Q820 -1299 784 -1299Q729 -1299 692.0 -1285.5Q655 -1272 634.0 -1246.0Q613 -1220 603.5 -1184.5Q594 -1149 594 -1105V-1062H871V-792H594V0Z"/><path d="M1365.0 25Q1270.0 25 1180.5 3.0Q1091.0 -19 1018.5 -63.5Q946.0 -108 902.5 -175.0Q859.0 -242 859.0 -331Q859.0 -334 859.0 -338.0Q859.0 -342 859.0 -345H1213.0Q1213.0 -342 1213.0 -339.0Q1213.0 -336 1213.0 -333Q1213.0 -283 1256.5 -261.0Q1300.0 -239 1375.0 -239Q1409.0 -239 1444.5 -246.5Q1480.0 -254 1504.5 -271.5Q1529.0 -289 1529.0 -316Q1529.0 -359 1477.5 -377.0Q1426.0 -395 1304.0 -415Q1234.0 -426 1158.5 -448.0Q1083.0 -470 1018.0 -507.0Q953.0 -544 913.0 -601.0Q873.0 -658 873.0 -741Q873.0 -854 941.0 -929.5Q1009.0 -1005 1121.5 -1044.0Q1234.0 -1083 1369.0 -1083Q1497.0 -1083 1608.5 -1040.0Q1720.0 -997 1789.5 -917.0Q1859.0 -837 1859.0 -727Q1859.0 -725 1859.0 -721.5Q1859.0 -718 1859.0 -715H1509.0Q1509.0 -718 1509.0 -721.0Q1509.0 -724 1509.0 -726Q1509.0 -760 1487.5 -781.0Q1466.0 -802 1433.5 -812.0Q1401.0 -822 1367.0 -822Q1338.0 -822 1304.0 -815.5Q1270.0 -809 1246.0 -793.5Q1222.0 -778 1222.0 -748Q1222.0 -722 1250.0 -704.0Q1278.0 -686 1327.0 -674.5Q1376.0 -663 1439.0 -653Q1501.0 -644 1576.0 -625.0Q1651.0 -606 1719.0 -570.5Q1787.0 -535 1830.5 -476.0Q1874.0 -417 1874.0 -326Q1874.0 -230 1830.0 -163.0Q1786.0 -96 1711.5 -54.5Q1637.0 -13 1547.0 6.0Q1457.0 25 1365.0 25Z"/><path d="M1974.0 437V-1062H2331.0V437ZM2652.0 25Q2526.0 25 2421.5 -44.5Q2317.0 -114 2255.0 -231.5Q2193.0 -349 2193.0 -494Q2193.0 -498 2193.0 -502.5Q2193.0 -507 2193.0 -512L2331.0 -515Q2331.0 -512 2331.0 -508.5Q2331.0 -505 2331.0 -503Q2331.0 -433 2363.5 -382.5Q2396.0 -332 2447.5 -305.5Q2499.0 -279 2554.0 -279Q2643.0 -279 2712.0 -341.0Q2781.0 -403 2781.0 -537Q2781.0 -671 2712.5 -730.5Q2644.0 -790 2554.0 -790Q2500.0 -790 2448.5 -764.5Q2397.0 -739 2364.0 -690.5Q2331.0 -642 2331.0 -571L2193.0 -580Q2193.0 -726 2255.0 -839.0Q2317.0 -952 2421.5 -1017.5Q2526.0 -1083 2652.0 -1083Q2781.0 -1083 2894.5 -1020.0Q3008.0 -957 3078.5 -835.0Q3149.0 -713 3149.0 -537Q3149.0 -352 3080.0 -227.0Q3011.0 -102 2898.0 -38.5Q2785.0 25 2652.0 25Z"/><path d="M3605.0 23Q3490.0 23 3400.0 -13.5Q3310.0 -50 3258.0 -120.0Q3206.0 -190 3206.0 -290Q3206.0 -405 3271.0 -476.5Q3336.0 -548 3440.0 -585.5Q3544.0 -623 3660.0 -634Q3828.0 -650 3889.5 -662.5Q3951.0 -675 3951.0 -706Q3951.0 -707 3951.0 -707.5Q3951.0 -708 3951.0 -708Q3951.0 -756 3900.5 -786.0Q3850.0 -816 3762.0 -816Q3669.0 -816 3621.5 -782.5Q3574.0 -749 3574.0 -681H3222.0Q3222.0 -812 3294.5 -901.5Q3367.0 -991 3490.0 -1037.0Q3613.0 -1083 3765.0 -1083Q3909.0 -1083 4032.5 -1040.0Q4156.0 -997 4232.5 -909.0Q4309.0 -821 4309.0 -685Q4309.0 -664 4309.0 -643.0Q4309.0 -622 4309.0 -601V-249Q4309.0 -207 4311.0 -167.5Q4313.0 -128 4322.0 -95Q4333.0 -59 4349.5 -34.0Q4366.0 -9 4376.0 0H4027.0Q4019.0 -8 4003.5 -31.0Q3988.0 -54 3977.0 -84Q3964.0 -124 3958.0 -161.5Q3952.0 -199 3952.0 -251L4028.0 -199Q4000.0 -130 3936.5 -80.0Q3873.0 -30 3787.0 -3.5Q3701.0 23 3605.0 23ZM3707.0 -236Q3769.0 -236 3826.0 -261.0Q3883.0 -286 3920.0 -341.0Q3957.0 -396 3957.0 -488V-561L4047.0 -481Q3981.0 -458 3897.0 -442.5Q3813.0 -427 3733.0 -419Q3648.0 -410 3606.0 -390.0Q3564.0 -370 3564.0 -324Q3564.0 -280 3600.5 -258.0Q3637.0 -236 3707.0 -236Z"/><path d="M4447.0 0V-1062H4804.0V-682L4737.0 -730Q4751.0 -809 4781.0 -874.5Q4811.0 -940 4858.5 -986.5Q4906.0 -1033 4969.5 -1058.0Q5033.0 -1083 5113.0 -1083Q5178.0 -1083 5212.5 -1074.0Q5247.0 -1065 5256.0 -1060L5203.0 -745Q5194.0 -750 5163.0 -760.5Q5132.0 -771 5086.0 -771Q5007.0 -771 4952.5 -745.5Q4898.0 -720 4865.5 -677.0Q4833.0 -634 4818.5 -581.0Q4804.0 -528 4804.0 -475V0Z"/><path d="M5335.0 0V-1563H5673.0V-689L5608.0 -724L5978.0 -1062H6412.0L5880.0 -584L5953.0 -713L6398.0 0H6025.0L5719.0 -527L5813.0 -525L5638.0 -365L5673.0 -516V0Z"/></g><g transform="translate(6210.50 -1475.00) scale(14.7500)"><path d="M51.400 0.031 A32 32 0 1 1 28.378 8.410 L38.037 19.921 A17 17 0 1 0 51.400 15.058 Z" fill="#17150F"/><path d="M30.523 6.610 A32 32 0 0 1 48.600 0.031 L48.600 15.058 A17 17 0 0 0 40.182 18.122 Z" fill="#FFC629"/><path d="M82 32 C82 56 78.8 80 65.2 100 L49.6 100 C58 86 64.6 72 69.605 55.364 A30.5 30.5 0 0 0 80.500 32.000 Z" fill="#17150F"/></g></svg></a>
+<div class="langsw" role="group" aria-label="Language"><button type="button" data-l="tr" aria-pressed="true">TR</button><button type="button" data-l="en" aria-pressed="false">EN</button></div></div></div>
+
+<div class="lang" data-lang="tr" lang="tr">
+  <nav class="subnav" aria-label="Spark"><div class="wrap mono"><a href="#">Spark</a><a href="#" class="cur" aria-current="page">01 Son Gün</a><a href="#">02 Sektör raporları</a></div></nav>
+  <div class="wrap"><a class="backlink mono" href="#">&larr; Son Gün</a></div>
+
+  <header class="opening">
+    <div class="wrap op">
+      <div>
+        <p class="mono dust">Son Gün · Nº 02</p>
+        <h1>Nuri</h1>
+        <p class="mono dust meta">Eski adıyla Bitwala · Berlin · Ekim 2015 ile 18 Aralık 2022</p>
+      </div>
+      <div class="count"><span class="num">7</span><span class="mono dust">yıl, ilk günden son güne</span></div>
+    </div>
+  </header>
+
+  <section class="ruler" aria-label="timeline"><div class="wrap"><div class="line"><div class="tick labeled" style="left:0.0%"><span class="tl left"><b class="mono">Ekim 2015</b><span>Bitwala açılır</span></span></div><div class="tick labeled" style="left:31.39%"><span class="tl left"><b class="mono">Ocak 2018</b><span>Kartlar kapanır</span></span></div><div class="tick" style="left:43.3%"></div><div class="tick labeled" style="left:78.06%"><span class="tl right"><b class="mono">Mayıs 2021</b><span>Adı Nuri olur</span></span></div><div class="tick" style="left:88.92%"></div><div class="tick" style="left:92.83%"></div><div class="tick" style="left:95.03%"></div><div class="tick end labeled" style="left:100.0%"><span class="tl right"><b class="mono">18 Aralık 2022</b><span>Son gün</span></span></div></div><p class="after mono">Dokuz ay sonra · Eylül 2023 · Bitwala adıyla geri döner</p></div></section>
+
+  <section class="stand"><div class="wrap narrow">
+    <p class="standfirst">Almanya&#x27;da bitcoin ile euroyu aynı hesapta buluşturan ilk ürünü onlar yaptı. Bitwala olarak doğdu, Nuri olarak öldü, dokuz ay sonra yine Bitwala olarak doğdu. Arada beş karar var ve masada sen oturuyorsun.</p>
+    <p class="mono stone">Kamu kayıtlarından derlendi · Son kontrol 28 Eylül 2026</p>
+  </div></section>
+
+  <div class="wrap body">
+    <aside class="clock" aria-hidden="true"><p class="mono stone" data-clock-when>2015 ile 2023 arası</p><div class="bar"><i data-clock-bar></i></div><p class="mono stone of">2015 ile 2023 arası</p></aside>
+    <main class="col">
+      <p class="intro">Berlin&#x27;de Bitwala adında bir kripto fintech&#x27;i yönetiyorsun. Önünde beş karar var ve her birinden sonra gerçekte ne olduğunu göreceksin.</p>
+      
+<section class="block decision" id="tr-d1" data-date="2018-01-05" data-when="5 Ocak 2018" data-actual="B">
+  <div class="toprow mono"><span>Karar 1</span><span>5 Ocak 2018</span></div>
+  <h2>Kartlar bir sabah kapandı</h2>
+  <p>Müşterilerin bitcoinlerini bir Visa kartıyla harcıyor. Kartın arkasında Cebelitarık merkezli altyapı sağlayıcısı WaveCrest var. O sabah Visa, kurallarına defalarca uymadığı için WaveCrest&#x27;in üyeliğini sonlandırıyor ve kartların hepsi bir anda kapanıyor. Ne Visa ne WaveCrest sana hazırlanman için zaman tanıyor.</p>
+  <p class="ask">Ne yaparsın?</p>
+  <div class="opts" role="group" aria-label="Ne yaparsın?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Hemen başka bir kart altyapı sağlayıcısı bulur, ürünü birkaç ayda geri getirirsin.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Durursun. Her şeyi bir banka ortağıyla baştan kurarsın.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Kendi lisansın için yola çıkarsın. Yavaş ama kimseye bağlı değilsin.</span></button></div>
+  <button type="button" class="skip mono">Seçmeden göster</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Seçimin kayıttakiyle aynı." data-nomatch="Kayıt başka yöne gitti."></span></p>
+    <p class="mono rl">Gerçekte</p>
+    <p>Bitwala B&#x27;yi seçti ve Ekim 2018&#x27;de Solarisbank ile anlaştı. Kasım&#x27;da bitcoin ile euroyu tek bir Alman banka hesabında birleştiren ürünle yeniden açıldı. 2021 başına gelindiğinde 32 ülkede 200 binden fazla müşterisi vardı ve Almanya&#x27;nın üçüncü büyük neobankası olarak anılıyordu.</p>
+    <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://cointelegraph.com/news/visa-suspends-wavecrest-status-stopping-some-crypto-credit-cards" target="_blank" rel="noopener">Cointelegraph, 5 Ocak 2018<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.americanbanker.com/payments/news/why-did-visa-shut-down-multiple-crypto-cards-in-one-day" target="_blank" rel="noopener">American Banker, 8 Ocak 2018<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://en.wikipedia.org/wiki/Bitwala" target="_blank" rel="noopener">Wikipedia: Bitwala<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="tr-d2" data-date="2021-05-19" data-when="2021 baharı" data-actual="A">
+  <div class="toprow mono"><span>Karar 2</span><span>2021 baharı</span></div>
+  <h2>Nişten çıkmak mı, temeli sağlamlaştırmak mı?</h2>
+  <p>Nişinde herkesin bildiği isimsin. Bitcoin ile euroyu aynı hesapta tutan ilk Alman ürünü senin. 2020 kışında 15 milyon euroluk bir tur kapattın, 2021 ortasında üstüne 9 milyon euro daha geldi.</p>
+  <p class="ask">Ne yaparsın?</p>
+  <div class="opts" role="group" aria-label="Ne yaparsın?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Parayı büyümeye yatırırsın. Yeni isim, yeni tasarım, geniş kitle.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Parayı temele yatırırsın. Destek ekibini, operasyonu ve kendi lisans hazırlığını büyütürsün.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Nişinde kalır, bitcoin kullanıcılarına daha derin ürünler satarsın.</span></button></div>
+  <button type="button" class="skip mono">Seçmeden göster</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Seçimin kayıttakiyle aynı." data-nomatch="Kayıt başka yöne gitti."></span></p>
+    <p class="mono rl">Gerçekte</p>
+    <p>Bitwala A&#x27;yı seçti. Mayıs 2021&#x27;de adı Nuri oldu, tasarım renklendi ve hedef geniş, çeşitli bir kitleye finans ürünleri sunmak olarak açıklandı. İsim değiştiğinde henüz yeni bir özellik yoktu. CEO, yeni markanın gelecek ürünlerin temeli olacağını söylüyordu.</p><p>Büyüme de geldi. İsim değiştiğinde 250 bin olan müşteri sayısı bir yıl içinde 500 bine yaklaştı. Ama bu büyümeyi taşıyan yatırımcı parasıydı. Müşteri iki katına çıkarken ürün de gelir modeli de yerinde saydı. Parayla alınan büyüme, para kesildiğinde ne kadar ayakta kalır?</p><p>Faturanın bir kısmı da destek tarafına çıktı. İsim değişikliğiyle aynı hafta bir kullanıcı, destek taleplerinin cevapsız kaldığını ve ilk fırsatta ayrılacağını yazdı. Şirket de Trustpilot&#x27;taki cevaplarında yoğunluk yüzünden geç döndüğünü kabul ediyordu.</p><p>Para işinde müşteri sayısı büyürken destek aynı hızda büyümezse güven erimeye başlar. Parasını sana emanet eden birine cevap veremiyorsan sessiz kalıyorsun demektir. Sessiz kalırsan yavaşça ölürsün.</p>
+    <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://thepaypers.com/cryptocurrencies/nuri-raises-eur-9-mln--1250070" target="_blank" rel="noopener">The Paypers: 9 milyon euroluk ek tur<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.trendingtopics.eu/krypto-startup-bitwala-benennt-sich-in-nuri-um-und-setzt-auf-defi/" target="_blank" rel="noopener">Trending Topics, 19 Mayıs 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.btc-echo.de/schlagzeilen/rebranding-bitwala-heisst-ab-sofort-nuri-118997/" target="_blank" rel="noopener">BTC-ECHO, 20 Mayıs 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/nuri-celsius/" target="_blank" rel="noopener">Finance Forward, 13 Haziran 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.verbloggt.de/schlechte-erfahrung-mit-bitwala-your-coins-your-problems/" target="_blank" rel="noopener">verbloggt.de, 21 Mayıs 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://de.trustpilot.com/review/bitwala.com" target="_blank" rel="noopener">Trustpilot: Nuri<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="tr-d3" data-date="2021-05-20" data-when="Mayıs 2021" data-actual="A">
+  <div class="toprow mono"><span>Karar 3</span><span>Mayıs 2021</span></div>
+  <h2>Faiz, ama hangi faiz?</h2>
+  <p>Önce piyasaya bak. Alman bankaları mevduata faiz vermiyor, bazıları üstüne para kesiyor. Verivox&#x27;un saydığı 149 banka ve tasarruf sandığı bireysel müşterilere eksi faiz uyguluyor. ING bile Şubat 2021&#x27;den itibaren yeni hesaplarda 100 bin euronun üstüne yüzde 0,5 kesinti getiriyor.</p><p>Kripto tarafında tablo tersine dönüyor. Celsius kendi sitesinde bitcoine yıllık yüzde 6,2 veriyor, BlockFi 0,5 bitcoine kadar yüzde 5.</p><p>İnsanların çoğu ise ETF&#x27;lere yöneliyor. Trade Republic&#x27;in açtığı yoldan giden flatex ve ING, 2021 baharında ETF birikim planlarından ücret almayı bırakıyor. Almanya&#x27;da Nisan 2021&#x27;de 2,5 milyona yakın ETF birikim planı işleniyor, Eylül&#x27;de bu sayı 3 milyona dayanıyor. Geniş kitle sıfır faizden kaçmanın yolunu her ay düzenli ETF almakta buluyor.</p>
+  <p class="ask">Ne yaparsın?</p>
+  <div class="opts" role="group" aria-label="Ne yaparsın?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Bir kripto borç verme platformuyla ortak olur, bitcoin faizini kendi uygulamanda sunarsın.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Geniş kitlenin gittiği yere gidersin. Bitcoin ve ETF için düzenli birikim planları kurarsın.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>İkisini de yaparsın ama faiz ürününde tek bir ortağa bağlanmazsın.</span></button></div>
+  <button type="button" class="skip mono">Seçmeden göster</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Seçimin kayıttakiyle aynı." data-nomatch="Kayıt başka yöne gitti."></span></p>
+    <p class="mono rl">Gerçekte</p>
+    <p>Nuri önce A&#x27;yı seçti. Yüzde 3&#x27;e varan getiri vaat eden Bitcoin Ertragskonto&#x27;nun arkasında Celsius vardı. Nuri müşterinin bitcoinini Celsius&#x27;a aktarıyor, Celsius da bunları faizle başkalarına borç veriyordu. Nuri&#x27;nin kendi örnek hesabında oran yüzde 3,45&#x27;ti, yani müşteri Celsius&#x27;un kendi müşterisine verdiğinin yaklaşık yarısını alıyordu.</p><p>B sonradan geldi. Kripto birikim planı Ağustos 2021&#x27;de açıldı, ETF&#x27;leri bir araya getiren Nuri Pots ise ancak 2022&#x27;de, piyasa dönerken çıktı.</p><p>Geniş kitle her ay ETF alırken bitcoin faizi zaten bitcoin tutan insanlara sesleniyordu. Piyasanın istediği gerçekten bu muydu?</p><p>Üstelik bu hesapta mevduat güvencesi yoktu. Celsius batarsa müşteri parasını ABD&#x27;de Celsius&#x27;tan talep etmek zorunda kalacaktı.</p>
+    <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://www.t-online.de/finanzen/aktuelles/id_88877830/neue-konditionen-direktbank-ing-fuehrt-negativzinsen-fuer-hohe-guthaben-ein.html" target="_blank" rel="noopener">t-online, 4 Kasım 2020<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://benzinga.com/markets/cryptocurrency/21/02/19430335/5-cryptocurrency-wallets-that-pay-big-interest" target="_blank" rel="noopener">Benzinga, Şubat 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://thenextweb.com/news/crypto-savings-account-huge-interest-at-what-cost" target="_blank" rel="noopener">The Next Web, 8 Aralık 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.justetf.com/de/academy/das-etf-jahr-2021.html" target="_blank" rel="noopener">justETF: 2021 ETF yılı<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://cdn.extraetf.com/downloads/research/2021/extraETF-Research-ETF-Marktstatistik-Apr-2021.pdf" target="_blank" rel="noopener">extraETF, Nisan 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://cdn.extraetf.com/downloads/research/2021/extraETF-Studie-ETF-Marktstatistik-September-2021.pdf" target="_blank" rel="noopener">extraETF, Eylül 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/krypto-lending/" target="_blank" rel="noopener">Finance Forward, 2 Temmuz 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.geldanlageportal.de/angebot/nuri-geldanlage-in-kryptowaehrungen-bankkonto-krypto-wallet.html" target="_blank" rel="noopener">Geldanlageportal<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://decrypt.co/107141/german-crypto-bank-nuri-files-insolvency-says-all-funds-are-safe" target="_blank" rel="noopener">Decrypt, 10 Ağustos 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://kryptokenner.de/reviews/nuri/" target="_blank" rel="noopener">Kryptokenner<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="tr-d4" data-date="2022-03-01" data-when="Mart 2022" data-actual="A">
+  <div class="toprow mono"><span>Karar 4</span><span>Mart 2022</span></div>
+  <h2>Gelir modeline bakalım</h2>
+  <p>Hesap da kart da ücretsiz. Gelirin büyük kısmı her kripto alım satımından aldığın yüzde 1&#x27;den geliyor, yani insanlar işlem yaptıkça kazanıyorsun. İşlemler yavaşlayınca gelir de yavaşlıyor ama her müşteri için banka ortağına ödediğin para yerinde duruyor. Üründe düzenli gelir getiren başka bir şey yok.</p><p>Artık yarım milyona yakın müşterin var ve küçükken ucuz olan kiralık banka altyapısı bu ölçekte pahalıya geliyor. Kendi bankanı kurmaya karar verdin, dosyalar hazır. Sermaye ve yol parası için 50 milyon euro gerekiyor.</p><p>Series C turuna iki ay geç çıkıyorsun ve Ukrayna&#x27;da savaş başlıyor. Ocak&#x27;ta senden daha agresif bir büyüme planı isteyen fonlar, altı hafta sonra dört yıl yerine bir yılda kâra geçip geçemeyeceğini soruyor.</p>
+  <p class="ask">Ne yaparsın?</p>
+  <div class="opts" role="group" aria-label="Ne yaparsın?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Masrafları keser, ekibi küçültür, stratejiyi bir yılda kâra göre yeniden yazarsın.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Lisans planını rafa kaldırır, banka ortağınla fiyatı yeniden konuşursun.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Hesap ve kart için ücret almaya başlarsın. Bir kısım müşteriyi kaybetmeyi göze alırsın.</span></button></div>
+  <button type="button" class="skip mono">Seçmeden göster</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Seçimin kayıttakiyle aynı." data-nomatch="Kayıt başka yöne gitti."></span></p>
+    <p class="mono rl">Gerçekte</p>
+    <p>Nuri A&#x27;yı seçti. Mayıs sonunda çalışanların yüzde 20&#x27;siyle yollar ayrıldı ve kitlesel pazara dönük yeni bir ürün yol haritası çizildi. CEO bunun şirket tarihindeki en zor karar olduğunu yazdı.</p><p>Kendi lisansına geçmek için doğru zaman hangisiydi? 24 milyon euro yeni toplanmışken ve piyasa yükselirken mi, yoksa fonların geri çekildiği bu günlerde mi?</p>
+    <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://www.fintechfutures.com/blockchain-crypto-digital-assets/blockchain-focused-challenger-bitwala-raises-13m" target="_blank" rel="noopener">FinTech Futures, 2019<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://bitcoinblog.de/2023/10/02/die-berliner-bitcoin-app-bitwala-wagt-den-neustart/" target="_blank" rel="noopener">BitcoinBlog.de, 2 Ekim 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://sifted.eu/articles/nuri-berlin-crypto-bankrupt-lessons" target="_blank" rel="noopener">Sifted, 6 Haziran 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.theblock.co/post/151737/german-fintech-nuris-bitcoin-interest-product-affected-by-celsius-withdrawal-freeze" target="_blank" rel="noopener">The Block, 13 Haziran 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.linkedin.com/posts/kristina-walcker-mayer-b3760143_a-letter-from-our-ceo-kristina-activity-6935174808934465536-92mT" target="_blank" rel="noopener">CEO mektubu, Mayıs 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="tr-d5" data-date="2022-06-12" data-when="12 Haziran 2022, Pazar akşamı" data-actual="A">
+  <div class="toprow mono"><span>Karar 5</span><span>12 Haziran 2022, Pazar akşamı</span></div>
+  <h2>Celsius çekimleri durduruyor</h2>
+  <p>500 bine yakın müşterin var ve bir kısmının bitcoini şu an Celsius&#x27;ta kilitli. Bir yandan da yatırım turu için görüşmeler sürüyor.</p>
+  <p class="ask">Ne yaparsın?</p>
+  <div class="opts" role="group" aria-label="Ne yaparsın?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Faiz hesabını dondurur, müşteriye ne bildiğini açıkça yazar, yatırımcılarla görüşmeye devam edersin.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Kilitli bitcoinleri kendi kasandan karşılayacağını açıklarsın. Güveni korursun ama nakdi yakarsın.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Müşterilerin adına Celsius&#x27;un peşine düşersin. Alacak sürecini sen yürütür, her hafta nerede olduğunu yazarsın.</span></button></div>
+  <button type="button" class="skip mono">Seçmeden göster</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Seçimin kayıttakiyle aynı." data-nomatch="Kayıt başka yöne gitti."></span></p>
+    <p class="mono rl">Gerçekte</p>
+    <p>Nuri A&#x27;yı seçti. Faiz hesabında çekimler ve yeni yatırımlar durduruldu, diğer bütün özelliklerin çalıştığı duyuruldu. Yine de o hafta haberlerde iki şirketin adı yan yana geçti: Berlinli fintech Nuri ve çekimleri donduran Celsius.</p>
+    <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://www.theblock.co/post/151737/german-fintech-nuris-bitcoin-interest-product-affected-by-celsius-withdrawal-freeze" target="_blank" rel="noopener">The Block, 13 Haziran 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.startbase.com/news/turbulenzen-bei-nuri/" target="_blank" rel="noopener">Startbase, 14 Haziran 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/nuri-celsius/" target="_blank" rel="noopener">Finance Forward, 13 Haziran 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+
+      <section class="block record" data-date="2022-08-09" data-when="9 Ağustos 2022">
+        <div class="toprow mono"><span>Geri sayım</span><span>9 Ağustos 2022</span></div>
+        <p>Potansiyel yatırımcı Pavilion Capital de mevcut hissedarlar da kısa vadede gereken parayı bulamadı ve Nuri iflas başvurusu yaptı. Müşterilerin parası Solarisbank&#x27;ta durduğu için etkilenmedi.</p><p>Kapanış kararı 18 Ekim&#x27;de geldi. CEO veda mektubunda ana iş ortaklarından birinin iflasının şirketi uçurumdan ittiğini yazdı ve herkes bunun Celsius olduğunu düşündü.</p><p>Müşteriler Vivid Money&#x27;ye yönlendirildi, geçenlere yıl sonuna kadar ücretsiz premium üyelik sözü verildi. Kaç kişinin gerçekten geçtiğini ise kimse açıklamadı. Paralarını çekmek için 18 Aralık 2022&#x27;ye kadar vakitleri vardı ve Nuri&#x27;nin son günü o gün oldu.</p>
+        <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://www.startbase.com/news/nuri-meldet-insolvenz-an/" target="_blank" rel="noopener">Startbase, 10 Ağustos 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://decrypt.co/107141/german-crypto-bank-nuri-files-insolvency-says-all-funds-are-safe" target="_blank" rel="noopener">Decrypt, 10 Ağustos 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.financemagnates.com/fintech/nuri-previously-bitwala-is-closing-down/" target="_blank" rel="noopener">Finance Magnates, 19 Ekim 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.fondsprofessionell.de/news/unternehmen/headline/neobank-vivid-nimmt-kunden-von-insolventem-mitbewerber-auf-219355/" target="_blank" rel="noopener">FONDS professionell, 19 Ekim 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://thepaypers.com/online-mobile-banking/vivid-money-takes-over-customer-base-from-nuri--1258852" target="_blank" rel="noopener">The Paypers, 24 Ekim 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+      </section><section class="block record" data-date="2023-09-18" data-when="Eylül 2023">
+        <div class="toprow mono"><span>Yeniden Bitwala</span><span>Eylül 2023</span></div>
+        <p>Hikaye orada bitmedi. Eylül 2023&#x27;te kurucu ortak Jan Goslicki ile Nuri&#x27;nin eski alım satım sorumlusu Dennis Daiber, dokuz kişilik bir ekiple uygulamayı yeniden açtı. İsim yine Bitwala&#x27;ydı ve yola Nuri&#x27;nin iflas masasından devraldıkları bir parçayla çıkmışlardı.</p><p>Yeni Bitwala, Nuri&#x27;nin büyürken eklediği her şeyi geride bıraktı. Bankacılık ve borç verme kodunu uygulamadan tamamen çıkardılar. Kasım&#x27;da Estonyalı altyapı şirketi Striga ile anlaşıp 29 Avrupa ülkesinde bitcoin ve ether alım satımına döndüler. Goslicki&#x27;ye göre müşteriler zaten en çok bitcoin almak, satmak ve harcamak istiyordu.</p>
+        <div class="sources"><p class="mono">Kaynaklar</p><ul><li><a href="https://decrypt.co/197596/rising-from-ashes-berlin-crypto-veterans-bitwala-make-surprise-comeback" target="_blank" rel="noopener">Decrypt, 18 Eylül 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.boersen-zeitung.de/banken-finanzen/bitwala-setzt-comeback-mit-kartengeschaeft-fort" target="_blank" rel="noopener">Börsen-Zeitung, 9 Kasım 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.prnewswire.com/news-releases/striga-unterstutzt-bitwalas-comeback-in-der-europaischen-krypto-welt-301978916.html" target="_blank" rel="noopener">PR Newswire, 8 Kasım 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+      </section>
+
+      <section class="block record twist" data-date="2023-10-02" data-when="Ekim 2023">
+        <div class="toprow mono"><span>Başka bir hikaye</span><span>Ekim 2023</span></div>
+        <p>Yeniden açılışın ardından verdiği bir röportajda Daiber, herkesin bildiği hikayeye itiraz etti. Ona göre Celsius&#x27;un Nuri&#x27;ye ekonomik bir etkisi olmamıştı. Bitcoinler Celsius&#x27;taydı ve Nuri&#x27;nin bir sorumluluğu yoktu. Celsius&#x27;un verdiği zarar itibaraydı.</p><p>Finansta itibar her şeydir. Güven bir kez zedelendi mi yerine koymak çok zor.</p>
+        <p class="q" id="tr-q">Peki şirketi asıl durduran neydi? Sence fren neredeydi?</p>
+        <form class="poll" data-endpoint="/api/spark-answer" data-episode="02-nuri" data-lang="tr" novalidate>
+          <div class="opts" role="group" aria-labelledby="tr-q"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Celsius&#x27;un açtığı güven yarası</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Kapanmayan yatırım turu</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Banka ortağına bağımlılık</span></button><button type="button" class="opt" data-key="D" aria-pressed="false"><span class="k mono">D</span><span>Hiçbiri. Bence asıl sebep başka</span></button></div>
+          <div class="free" hidden>
+            <label for="tr-free">Sence asıl sebep neydi?</label>
+            <textarea id="tr-free" name="text" rows="6" placeholder="Aklından geçeni yaz. En fazla 250 kelime."></textarea>
+            <p class="mono stone count"><span data-wc>0</span> / 250 kelime</p>
+          </div>
+          <div class="sendrow" hidden>
+            <label for="tr-mail">E-postan (isteğe bağlı, cevap istersen)</label>
+            <input id="tr-mail" type="email" name="email" autocomplete="email">
+            <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn ink">Cevabımı gönder</button>
+            <p class="stone small">Cevabın bize e-posta olarak gelir, sitede yayınlanmaz.</p>
+          </div>
+          <p class="msg" role="status" aria-live="polite" data-too-long="250 kelimeyi geçtin. Biraz kısaltman gerekiyor." data-need="Birkaç kelimeyle de olsa yazman gerekiyor." data-thanks="Cevabın bize ulaştı, teşekkürler." data-error="Gönderilemedi. Birazdan tekrar dene ya da info@fspark9.com adresine yaz." data-demo="Prototip: gönderim sitede çalışacak." data-sending="Gönderiliyor"></p>
+        </form>
+        <div class="btns"><a class="btn outline" href="https://bitcoinblog.de/2023/10/02/die-berliner-bitcoin-app-bitwala-wagt-den-neustart/" target="_blank" rel="noopener">Kaynağa bak<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+      </section>
+
+      <section class="view" data-date="2023-11-30" data-when="Görüşümüz">
+        <p class="mono">fspark9 · Görüşümüz</p>
+        <p>Bitwala bitcoin kullanıcıları için doğdu ve yeniden doğduğunda yine onlara döndü. Aradaki yedi yılda geniş kitleye açılmak, faiz ürünü ve kendi banka hayali denendi. Hepsi makul fikirlerdi ama hepsi kiralık bir altyapının ve yatırımcı parasının üstüne kuruldu.</p><p>Kiralık banka altyapısı seni hızlı başlatır. Müşteri arttıkça maliyeti de artar ve ortağının her sorunu senin de sorunun olur. Bu yolda destek ekibi de müşteri kadar hızlı büyümeli, çünkü para işinde güven cevap hızıyla da ölçülür.</p>
+      </section>
+
+      <section class="service">
+        <p class="mono stone">Hizmet · Ürün ve Strateji</p>
+        <h2>Kendi lisansın ne zaman, hangi ortakla, hangi gelir modeliyle?</h2>
+        <p>Nuri&#x27;nin masasındaki kararlar bugün birçok fintech&#x27;in masasında duruyor. Kendi lisansına geçme zamanını, banka ortağı seçimini ve gelir modelinin bunları taşıyıp taşımadığını Ürün ve Strateji&#x27;de ekibinle birlikte, net bir öneriyle bağlıyoruz.</p>
+        <a class="btn outline" href="/tr/services/product-strategy">Ürün ve Strateji&#x27;ye göz at</a>
+      </section>
+    </main>
+  </div>
+
+  <section class="next"><div class="wrap nx">
+    <div><p class="mono dust">Sonraki adım</p><h2>Dokuzuncu adım canlıya çıkış.</h2></div>
+    <div><ol><li><span class="mono dust">01</span>30 dakikalık ücretsiz görüşme.</li><li><span class="mono dust">02</span>Fiyatıyla birlikte yazılı teklif.</li></ol>
+    <a class="btn flare" href="#">Görüşme ayarla</a></div>
+  </div></section>
+  <footer class="foot"><div class="wrap mono"><span>info@fspark9.com</span><span>linkedin.com/in/mdikmen</span><a href="#">Künye</a><span>&copy; 2026 fspark9</span></div></footer>
+</div>
+
+<div class="lang" data-lang="en" lang="en" hidden>
+  <nav class="subnav" aria-label="Spark"><div class="wrap mono"><a href="#">Spark</a><a href="#" class="cur" aria-current="page">01 The Last Day</a><a href="#">02 Sector reports</a></div></nav>
+  <div class="wrap"><a class="backlink mono" href="#">&larr; The Last Day</a></div>
+
+  <header class="opening">
+    <div class="wrap op">
+      <div>
+        <p class="mono dust">The Last Day · Nº 02</p>
+        <h1>Nuri</h1>
+        <p class="mono dust meta">Formerly Bitwala · Berlin · October 2015 to 18 December 2022</p>
+      </div>
+      <div class="count"><span class="num">7</span><span class="mono dust">years, first day to last</span></div>
+    </div>
+  </header>
+
+  <section class="ruler" aria-label="timeline"><div class="wrap"><div class="line"><div class="tick labeled" style="left:0.0%"><span class="tl left"><b class="mono">Oct 2015</b><span>Bitwala opens</span></span></div><div class="tick labeled" style="left:31.39%"><span class="tl left"><b class="mono">Jan 2018</b><span>The cards stop</span></span></div><div class="tick" style="left:43.3%"></div><div class="tick labeled" style="left:78.06%"><span class="tl right"><b class="mono">May 2021</b><span>It becomes Nuri</span></span></div><div class="tick" style="left:88.92%"></div><div class="tick" style="left:92.83%"></div><div class="tick" style="left:95.03%"></div><div class="tick end labeled" style="left:100.0%"><span class="tl right"><b class="mono">18 Dec 2022</b><span>The last day</span></span></div></div><p class="after mono">Nine months later · September 2023 · Back as Bitwala</p></div></section>
+
+  <section class="stand"><div class="wrap narrow">
+    <p class="standfirst">They built the first product in Germany that kept bitcoin and euros in the same account. Born as Bitwala, it died as Nuri, and nine months later it was born again as Bitwala. In between there are five decisions, and you are in the chair.</p>
+    <p class="mono stone">Built from the public record · Last checked 28 September 2026</p>
+  </div></section>
+
+  <div class="wrap body">
+    <aside class="clock" aria-hidden="true"><p class="mono stone" data-clock-when>2015 to 2023</p><div class="bar"><i data-clock-bar></i></div><p class="mono stone of">2015 to 2023</p></aside>
+    <main class="col">
+      <p class="intro">You run a crypto fintech in Berlin called Bitwala. Five decisions are in front of you, and after each one you&#x27;ll see what really happened.</p>
+      
+<section class="block decision" id="en-d1" data-date="2018-01-05" data-when="5 January 2018" data-actual="B">
+  <div class="toprow mono"><span>Decision 1</span><span>5 January 2018</span></div>
+  <h2>The cards stopped one morning</h2>
+  <p>Your customers spend their bitcoin with a Visa card. Behind the card sits WaveCrest, an infrastructure provider based in Gibraltar. That morning Visa ends WaveCrest&#x27;s membership for repeatedly breaking its rules, and every card stops at once. Neither Visa nor WaveCrest gives you time to prepare.</p>
+  <p class="ask">What do you do?</p>
+  <div class="opts" role="group" aria-label="What do you do?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Find another card infrastructure provider fast and bring the product back within months.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Stop. Rebuild everything with a bank partner.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Start working towards your own licence. Slow, but you depend on nobody.</span></button></div>
+  <button type="button" class="skip mono">Show without choosing</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Your call matches the record." data-nomatch="The record went the other way."></span></p>
+    <p class="mono rl">What really happened</p>
+    <p>Bitwala chose B and signed with Solarisbank in October 2018. In November it relaunched with a product that combined bitcoin and euros in one German bank account. By early 2021 it had more than 200,000 customers in 32 countries and was described as Germany&#x27;s third largest neobank.</p>
+    <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://cointelegraph.com/news/visa-suspends-wavecrest-status-stopping-some-crypto-credit-cards" target="_blank" rel="noopener">Cointelegraph, 5 January 2018<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.americanbanker.com/payments/news/why-did-visa-shut-down-multiple-crypto-cards-in-one-day" target="_blank" rel="noopener">American Banker, 8 January 2018<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://en.wikipedia.org/wiki/Bitwala" target="_blank" rel="noopener">Wikipedia: Bitwala<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="en-d2" data-date="2021-05-19" data-when="Spring 2021" data-actual="A">
+  <div class="toprow mono"><span>Decision 2</span><span>Spring 2021</span></div>
+  <h2>Leave the niche, or strengthen the base?</h2>
+  <p>Everyone in your niche knows your name. The first German product to hold bitcoin and euros in the same account is yours. You closed a €15 million round in winter 2020, and another €9 million came in on top in mid 2021.</p>
+  <p class="ask">What do you do?</p>
+  <div class="opts" role="group" aria-label="What do you do?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Spend it on growth. New name, new design, a broad audience.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Spend it on the base. Grow support, operations and the groundwork for your own licence.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Stay in your niche and sell deeper products to bitcoin users.</span></button></div>
+  <button type="button" class="skip mono">Show without choosing</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Your call matches the record." data-nomatch="The record went the other way."></span></p>
+    <p class="mono rl">What really happened</p>
+    <p>Bitwala chose A. In May 2021 it became Nuri, the design turned colourful, and the goal was announced as offering financial products to a broad, diverse audience. When the name changed there were no new features yet. The CEO said the new brand would be the foundation for the products to come.</p><p>The growth came too. The customer count, 250,000 at the rename, was close to 500,000 within a year. But what carried that growth was investor money. Customers doubled while the product and the revenue model stood still. How long does growth bought with money stand once the money stops?</p><p>Part of the bill landed on support. The same week as the rename, one user wrote that his support requests went unanswered and that he&#x27;d leave at the first chance. On Trustpilot, the company itself admitted in its replies that the load was slowing its answers.</p><p>In the money business, if support doesn&#x27;t grow as fast as the customer count, trust starts to wear away. If you can&#x27;t answer someone who trusted you with their money, you&#x27;re staying silent. Stay silent and you die slowly.</p>
+    <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://thepaypers.com/cryptocurrencies/nuri-raises-eur-9-mln--1250070" target="_blank" rel="noopener">The Paypers: the €9 million extension<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.trendingtopics.eu/krypto-startup-bitwala-benennt-sich-in-nuri-um-und-setzt-auf-defi/" target="_blank" rel="noopener">Trending Topics, 19 May 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.btc-echo.de/schlagzeilen/rebranding-bitwala-heisst-ab-sofort-nuri-118997/" target="_blank" rel="noopener">BTC-ECHO, 20 May 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/nuri-celsius/" target="_blank" rel="noopener">Finance Forward, 13 June 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.verbloggt.de/schlechte-erfahrung-mit-bitwala-your-coins-your-problems/" target="_blank" rel="noopener">verbloggt.de, 21 May 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://de.trustpilot.com/review/bitwala.com" target="_blank" rel="noopener">Trustpilot: Nuri<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="en-d3" data-date="2021-05-20" data-when="May 2021" data-actual="A">
+  <div class="toprow mono"><span>Decision 3</span><span>May 2021</span></div>
+  <h2>Interest, but which interest?</h2>
+  <p>Look at the market first. German banks pay no interest on deposits, and some charge for them. Verivox counts 149 banks and savings banks with negative rates for private customers. Even ING charges 0.5% above €100,000 on new accounts from February 2021.</p><p>Crypto turns the picture around. Celsius pays 6.2% a year on bitcoin on its own site, and BlockFi pays 5% on up to 0.5 bitcoin.</p><p>Most people, though, are heading into ETFs. Following Trade Republic, flatex and ING stop charging for ETF savings plans in spring 2021. In April 2021 almost 2.5 million ETF savings plans run in Germany, and by September the number is close to 3 million. The broad audience escapes zero interest by buying ETFs every month.</p>
+  <p class="ask">What do you do?</p>
+  <div class="opts" role="group" aria-label="What do you do?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Partner with a crypto lender and offer bitcoin interest inside your app.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Go where the broad audience is going. Build regular savings plans for bitcoin and ETFs.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Do both, but don&#x27;t tie the interest product to a single partner.</span></button></div>
+  <button type="button" class="skip mono">Show without choosing</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Your call matches the record." data-nomatch="The record went the other way."></span></p>
+    <p class="mono rl">What really happened</p>
+    <p>Nuri chose A first. Behind the Bitcoin Ertragskonto, which promised up to 3%, was Celsius. Nuri passed customers&#x27; bitcoin to Celsius, and Celsius lent it to others for interest. In Nuri&#x27;s own example the rate was 3.45%, so the customer got roughly half of what Celsius paid its own customers.</p><p>B came later. The crypto savings plan opened in August 2021, and Nuri Pots, which brought ETFs together, only arrived in 2022 as the market was turning.</p><p>While the broad audience bought ETFs every month, bitcoin interest spoke to people who already held bitcoin. Was this really what the market wanted?</p><p>On top of that, the account had no deposit protection. If Celsius failed, customers would have to claim their money from Celsius in the US.</p>
+    <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://www.t-online.de/finanzen/aktuelles/id_88877830/neue-konditionen-direktbank-ing-fuehrt-negativzinsen-fuer-hohe-guthaben-ein.html" target="_blank" rel="noopener">t-online, 4 November 2020<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://benzinga.com/markets/cryptocurrency/21/02/19430335/5-cryptocurrency-wallets-that-pay-big-interest" target="_blank" rel="noopener">Benzinga, February 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://thenextweb.com/news/crypto-savings-account-huge-interest-at-what-cost" target="_blank" rel="noopener">The Next Web, 8 December 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.justetf.com/de/academy/das-etf-jahr-2021.html" target="_blank" rel="noopener">justETF: the ETF year 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://cdn.extraetf.com/downloads/research/2021/extraETF-Research-ETF-Marktstatistik-Apr-2021.pdf" target="_blank" rel="noopener">extraETF, April 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://cdn.extraetf.com/downloads/research/2021/extraETF-Studie-ETF-Marktstatistik-September-2021.pdf" target="_blank" rel="noopener">extraETF, September 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/krypto-lending/" target="_blank" rel="noopener">Finance Forward, 2 July 2021<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.geldanlageportal.de/angebot/nuri-geldanlage-in-kryptowaehrungen-bankkonto-krypto-wallet.html" target="_blank" rel="noopener">Geldanlageportal<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://decrypt.co/107141/german-crypto-bank-nuri-files-insolvency-says-all-funds-are-safe" target="_blank" rel="noopener">Decrypt, 10 August 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://kryptokenner.de/reviews/nuri/" target="_blank" rel="noopener">Kryptokenner<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="en-d4" data-date="2022-03-01" data-when="March 2022" data-actual="A">
+  <div class="toprow mono"><span>Decision 4</span><span>March 2022</span></div>
+  <h2>Let&#x27;s look at the revenue model</h2>
+  <p>The account and the card are both free. Most of your revenue is the 1% you take on every crypto trade, so you earn when people trade. When trading slows, revenue slows, but what you pay your bank partner for each customer stays where it is. Nothing else in the product brings in regular income.</p><p>You now have close to half a million customers, and the rented banking infrastructure that was cheap when you were small is expensive at this scale. You&#x27;ve decided to build your own bank and the paperwork is ready. For capital and runway you need €50 million.</p><p>You go out to raise a Series C two months late, and the war in Ukraine begins. Funds that asked you in January for a more aggressive growth plan come back six weeks later asking whether you can be profitable in one year instead of four.</p>
+  <p class="ask">What do you do?</p>
+  <div class="opts" role="group" aria-label="What do you do?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Cut costs, shrink the team, rewrite the strategy around profit in one year.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Shelve the licence plan and renegotiate the price with your bank partner.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Start charging for the account and the card, and accept losing some customers.</span></button></div>
+  <button type="button" class="skip mono">Show without choosing</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Your call matches the record." data-nomatch="The record went the other way."></span></p>
+    <p class="mono rl">What really happened</p>
+    <p>Nuri chose A. At the end of May it parted ways with 20% of its staff and drew up a new product roadmap aimed at the mass market. The CEO wrote that it was the hardest decision in the company&#x27;s history.</p><p>When was the right time to move to your own licence? With €24 million freshly raised and the market rising, or in these weeks, as the funds pull back?</p>
+    <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://www.fintechfutures.com/blockchain-crypto-digital-assets/blockchain-focused-challenger-bitwala-raises-13m" target="_blank" rel="noopener">FinTech Futures, 2019<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://bitcoinblog.de/2023/10/02/die-berliner-bitcoin-app-bitwala-wagt-den-neustart/" target="_blank" rel="noopener">BitcoinBlog.de, 2 October 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://sifted.eu/articles/nuri-berlin-crypto-bankrupt-lessons" target="_blank" rel="noopener">Sifted, 6 June 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.theblock.co/post/151737/german-fintech-nuris-bitcoin-interest-product-affected-by-celsius-withdrawal-freeze" target="_blank" rel="noopener">The Block, 13 June 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.linkedin.com/posts/kristina-walcker-mayer-b3760143_a-letter-from-our-ceo-kristina-activity-6935174808934465536-92mT" target="_blank" rel="noopener">CEO letter, May 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+<section class="block decision" id="en-d5" data-date="2022-06-12" data-when="12 June 2022, Sunday evening" data-actual="A">
+  <div class="toprow mono"><span>Decision 5</span><span>12 June 2022, Sunday evening</span></div>
+  <h2>Celsius stops withdrawals</h2>
+  <p>You have close to 500,000 customers, and some of them have bitcoin locked at Celsius right now. At the same time, talks for a funding round are still going.</p>
+  <p class="ask">What do you do?</p>
+  <div class="opts" role="group" aria-label="What do you do?"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>Freeze the interest account, tell customers plainly what you know, and keep talking to investors.</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>Announce you&#x27;ll cover the locked bitcoin from your own funds. You protect trust but burn cash.</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Chase Celsius on your customers&#x27; behalf. Run the claims process for them and write every week about where it stands.</span></button></div>
+  <button type="button" class="skip mono">Show without choosing</button>
+  <div class="reveal" data-reveal>
+    <p class="result mono" aria-live="polite"><i></i><span data-match="Your call matches the record." data-nomatch="The record went the other way."></span></p>
+    <p class="mono rl">What really happened</p>
+    <p>Nuri chose A. Withdrawals and new investments in the interest account were paused, and it announced that all other features were working. Still, that week the headlines put two companies side by side: Nuri, the Berlin fintech, and Celsius, which had frozen withdrawals.</p>
+    <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://www.theblock.co/post/151737/german-fintech-nuris-bitcoin-interest-product-affected-by-celsius-withdrawal-freeze" target="_blank" rel="noopener">The Block, 13 June 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.startbase.com/news/turbulenzen-bei-nuri/" target="_blank" rel="noopener">Startbase, 14 June 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://financefwd.com/de/nuri-celsius/" target="_blank" rel="noopener">Finance Forward, 13 June 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+  </div>
+</section>
+
+      <section class="block record" data-date="2022-08-09" data-when="9 August 2022">
+        <div class="toprow mono"><span>The countdown</span><span>9 August 2022</span></div>
+        <p>Neither Pavilion Capital, seen as a possible investor, nor the existing shareholders could find the money needed in the short term, and Nuri filed for insolvency. Customer money was unaffected, because it sat with Solarisbank.</p><p>The decision to close came on 18 October. In her farewell letter the CEO wrote that the insolvency of one of the company&#x27;s main partners had pushed it over the edge, and everyone assumed it was Celsius.</p><p>Customers were pointed to Vivid Money, and those who moved were promised free premium membership until the end of the year. Nobody ever said how many actually moved. Customers had until 18 December 2022 to withdraw their money, and that became Nuri&#x27;s last day.</p>
+        <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://www.startbase.com/news/nuri-meldet-insolvenz-an/" target="_blank" rel="noopener">Startbase, 10 August 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://decrypt.co/107141/german-crypto-bank-nuri-files-insolvency-says-all-funds-are-safe" target="_blank" rel="noopener">Decrypt, 10 August 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.financemagnates.com/fintech/nuri-previously-bitwala-is-closing-down/" target="_blank" rel="noopener">Finance Magnates, 19 October 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.fondsprofessionell.de/news/unternehmen/headline/neobank-vivid-nimmt-kunden-von-insolventem-mitbewerber-auf-219355/" target="_blank" rel="noopener">FONDS professionell, 19 October 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://thepaypers.com/online-mobile-banking/vivid-money-takes-over-customer-base-from-nuri--1258852" target="_blank" rel="noopener">The Paypers, 24 October 2022<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+      </section><section class="block record" data-date="2023-09-18" data-when="September 2023">
+        <div class="toprow mono"><span>Bitwala again</span><span>September 2023</span></div>
+        <p>The story didn&#x27;t end there. In September 2023 co-founder Jan Goslicki and Nuri&#x27;s former head of trading, Dennis Daiber, reopened the app with a team of nine. The name was Bitwala again, and they started out with a piece of Nuri&#x27;s insolvency estate.</p><p>The new Bitwala left behind everything Nuri had added while growing. The team stripped all banking and lending code out of the app. In November it signed with Striga, an Estonian infrastructure company, and went back to buying and selling bitcoin and ether in 29 European countries. According to Goslicki, that was what customers wanted most anyway: to buy, sell and spend bitcoin.</p>
+        <div class="sources"><p class="mono">Sources</p><ul><li><a href="https://decrypt.co/197596/rising-from-ashes-berlin-crypto-veterans-bitwala-make-surprise-comeback" target="_blank" rel="noopener">Decrypt, 18 September 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.boersen-zeitung.de/banken-finanzen/bitwala-setzt-comeback-mit-kartengeschaeft-fort" target="_blank" rel="noopener">Börsen-Zeitung, 9 November 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li><li><a href="https://www.prnewswire.com/news-releases/striga-unterstutzt-bitwalas-comeback-in-der-europaischen-krypto-welt-301978916.html" target="_blank" rel="noopener">PR Newswire, 8 November 2023<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></li></ul></div>
+      </section>
+
+      <section class="block record twist" data-date="2023-10-02" data-when="October 2023">
+        <div class="toprow mono"><span>Another story</span><span>October 2023</span></div>
+        <p>In an interview after the relaunch, Daiber pushed back on the story everyone knew. In his view Celsius had no economic impact on Nuri. The bitcoin sat with Celsius, and Nuri carried no liability. The damage Celsius did was to the reputation.</p><p>In finance, reputation is everything. Once trust is damaged, it is very hard to put back.</p>
+        <p class="q" id="en-q">So what really stopped the company? Where do you think the brake was?</p>
+        <form class="poll" data-endpoint="/api/spark-answer" data-episode="02-nuri" data-lang="en" novalidate>
+          <div class="opts" role="group" aria-labelledby="en-q"><button type="button" class="opt" data-key="A" aria-pressed="false"><span class="k mono">A</span><span>The trust wound Celsius opened</span></button><button type="button" class="opt" data-key="B" aria-pressed="false"><span class="k mono">B</span><span>The funding round that never closed</span></button><button type="button" class="opt" data-key="C" aria-pressed="false"><span class="k mono">C</span><span>Dependence on the bank partner</span></button><button type="button" class="opt" data-key="D" aria-pressed="false"><span class="k mono">D</span><span>None of these. I think it was something else</span></button></div>
+          <div class="free" hidden>
+            <label for="en-free">What do you think it was?</label>
+            <textarea id="en-free" name="text" rows="6" placeholder="Write what&#x27;s on your mind. Up to 250 words."></textarea>
+            <p class="mono stone count"><span data-wc>0</span> / 250 words</p>
+          </div>
+          <div class="sendrow" hidden>
+            <label for="en-mail">Your email (optional, if you&#x27;d like a reply)</label>
+            <input id="en-mail" type="email" name="email" autocomplete="email">
+            <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button type="submit" class="btn ink">Send my answer</button>
+            <p class="stone small">Your answer reaches us by email. It is not published on the site.</p>
+          </div>
+          <p class="msg" role="status" aria-live="polite" data-too-long="You&#x27;re over 250 words. Please cut it down a little." data-need="Please write something, even a few words." data-thanks="Your answer reached us. Thank you." data-error="It didn&#x27;t go through. Try again in a moment or write to info@fspark9.com." data-demo="Prototype: sending will work on the site." data-sending="Sending"></p>
+        </form>
+        <div class="btns"><a class="btn outline" href="https://bitcoinblog.de/2023/10/02/die-berliner-bitcoin-app-bitwala-wagt-den-neustart/" target="_blank" rel="noopener">Read the source<svg class="ext" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1h6v6M9 1 1 9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></div>
+      </section>
+
+      <section class="view" data-date="2023-11-30" data-when="Our view">
+        <p class="mono">fspark9 · Our view</p>
+        <p>Bitwala was born for bitcoin users, and when it was born again it went back to them. In the seven years between, it tried a broad audience, an interest product and a bank of its own. Each was a reasonable idea, and each was built on rented infrastructure and investor money.</p><p>Rented banking infrastructure gets you going fast. As customers grow, so does its cost, and every problem your partner has becomes yours too. Along the way, support has to grow as fast as the customers, because in the money business trust is also measured by how fast you answer.</p>
+      </section>
+
+      <section class="service">
+        <p class="mono stone">Service · Product &amp; Strategy</p>
+        <h2>Your own licence: when, with which partner, on which revenue model?</h2>
+        <p>The decisions on Nuri&#x27;s table sit on many fintech tables today. In Product &amp; Strategy we settle them with your team and a clear recommendation: when to move to your own licence, which bank partner to choose, and whether the revenue model can carry both.</p>
+        <a class="btn outline" href="/services/product-strategy">See Product &amp; Strategy</a>
+      </section>
+    </main>
+  </div>
+
+  <section class="next"><div class="wrap nx">
+    <div><p class="mono dust">Next step</p><h2>Step nine is live.</h2></div>
+    <div><ol><li><span class="mono dust">01</span>A free 30 minute call.</li><li><span class="mono dust">02</span>A written proposal, with the price.</li></ol>
+    <a class="btn flare" href="#">Book a call</a></div>
+  </div></section>
+  <footer class="foot"><div class="wrap mono"><span>info@fspark9.com</span><span>linkedin.com/in/mdikmen</span><a href="#">Imprint</a><span>&copy; 2026 fspark9</span></div></footer>
+</div>
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  var T0=Date.parse('2015-10-01'),T1=Date.parse('2023-11-30');
+  function reveal(sec,key){
+    var r=sec.querySelector('[data-reveal]');r.classList.add('open');sec.classList.add('decided');
+    var span=sec.querySelector('.result span');
+    if(key){span.textContent=key===sec.dataset.actual?span.dataset.match:span.dataset.nomatch;}
+    else{span.textContent='';}
+  }
+  document.querySelectorAll('.decision').forEach(function(sec){
+    var opts=sec.querySelectorAll('.opt');
+    opts.forEach(function(b){b.addEventListener('click',function(){
+      opts.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      reveal(sec,b.dataset.key);
+    })});
+    sec.querySelector('.skip').addEventListener('click',function(){reveal(sec,null)});
+  });
+  // poll
+  function wc(t){var m=t.trim().match(/\S+/g);return m?m.length:0}
+  document.querySelectorAll('.poll').forEach(function(f){
+    var opts=f.querySelectorAll('.opt'),free=f.querySelector('.free'),send=f.querySelector('.sendrow'),
+        ta=f.querySelector('textarea'),wcEl=f.querySelector('[data-wc]'),cnt=f.querySelector('.count'),
+        msg=f.querySelector('.msg'),btn=f.querySelector('button[type=submit]'),choice=null,t0=Date.now();
+    opts.forEach(function(b){b.addEventListener('click',function(){
+      choice=b.dataset.key;
+      opts.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      f.classList.add('decided');free.hidden=choice!=='D';send.hidden=false;msg.textContent='';
+      if(choice==='D')ta.focus();
+    })});
+    ta.addEventListener('input',function(){var n=wc(ta.value);wcEl.textContent=n;cnt.classList.toggle('over',n>250)});
+    f.addEventListener('submit',function(e){
+      e.preventDefault();if(!choice)return;
+      var text=choice==='D'?ta.value.trim():'',n=wc(text);
+      if(choice==='D'&&n===0){msg.textContent=msg.dataset.need;return}
+      if(n>250){msg.textContent=msg.dataset.tooLong;return}
+      var payload={episode:f.dataset.episode,lang:f.dataset.lang,choice:choice,
+        choiceLabel:f.querySelector('.opt[data-key="'+choice+'"] span:last-child').textContent,
+        text:text,email:f.querySelector('input[type=email]').value.trim(),
+        company:f.querySelector('.hp').value,elapsedMs:Date.now()-t0,page:location.href};
+      btn.disabled=true;msg.textContent=msg.dataset.sending;
+      function ok(demo){f.classList.add('done');msg.textContent=msg.dataset.thanks+(demo?' '+msg.dataset.demo:'')}
+      if(location.protocol==='file:'){console.log('spark-answer payload',payload);setTimeout(function(){ok(true)},400);return}
+      fetch(f.dataset.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+        .then(function(r){if(!r.ok)throw 0;ok(false)})
+        .catch(function(){btn.disabled=false;msg.textContent=msg.dataset.error});
+    });
+  });
+  // language switch
+  var sw=document.querySelectorAll('.langsw button');
+  var titles={tr:"Nuri \u00b7 Son G\u00fcn N\u00ba 02 \u00b7 fspark9",en:"Nuri \u00b7 The Last Day N\u00ba 02 \u00b7 fspark9"};
+  function setLang(l){
+    document.querySelectorAll('.lang').forEach(function(x){x.hidden=x.dataset.lang!==l});
+    sw.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.l===l?'true':'false')});
+    document.documentElement.lang=l;document.title=titles[l];bindClock();
+  }
+  sw.forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.l)})});
+  // clock
+  var io;
+  function bindClock(){
+    if(io)io.disconnect();
+    var root=document.querySelector('.lang:not([hidden])');
+    var when=root.querySelector('[data-clock-when]'),bar=root.querySelector('[data-clock-bar]');
+    io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;var s=e.target;
+      when.textContent=s.dataset.when;
+      var p=Math.min(1,Math.max(0,(Date.parse(s.dataset.date)-T0)/(T1-T0)));bar.style.width=(p*100)+'%';
+    })},{rootMargin:'-35% 0px -55% 0px'});
+    root.querySelectorAll('[data-date]').forEach(function(s){io.observe(s)});
+  }
+  bindClock();
+})();
+</script>
+</body></html>

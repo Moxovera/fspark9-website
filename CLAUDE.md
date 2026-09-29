@@ -60,9 +60,9 @@ Harici animasyon kütüphanesi **kurulmayacak**. Tek easing: `--ease-brand` (`cu
 
 `<head>`'deki bloklayıcı script `<html>`'e `js` sınıfı ekler, gizleme bu sınıfa bağlı (`.js .reveal`). JS kapalıysa içerik görünür. Observer tek hook'ta: `src/hooks/useReveal.ts`, sarmalayıcı `src/components/ui/Reveal.tsx`. Görünür olunca `unobserve`. Bölümler kendi observer'ını kurmaz.
 
-Hareket sınıfları `globals.css`'te: `ring-draw`, `portrait-in`, `cut-wipe`, `dial-fill`, `dial-fill-result`, `marker-wipe`, `go-arrow`, `text-link-line`, `format-number`, `sheet-in-right`, `booking-backdrop`, `booking-window`, `story-card`/`story-face` (Son Gün kartı, dönüş), `story-mini`, `card-rise`, `decision-answer`, `decision-option`.
+Hareket sınıfları `globals.css`'te: `ring-draw`, `portrait-in`, `cut-wipe`, `dial-fill`, `dial-fill-result`, `marker-wipe`, `go-arrow`, `text-link-line`, `format-number`, `sheet-in-right`, `booking-backdrop`, `booking-window`, `story-card`/`story-face` (Son Gün kartı, dönüş), `story-mini`, `card-rise`, `decision-answer`, `decision-option`, `choice-reveal` (Nº 02 "Gerçekte", JS açıksa seçime kadar gizli), `clock-bar` (Nº 02 saatinin çubuğu).
 
-Son Gün bölüm sayfasındaki "kart hikâyeyi izler" gözlemcisi (`components/spark/episode/StoryTracker.tsx`) reveal değil, sürekli durum izleme; bu yüzden useReveal'dan ayrı.
+Son Gün bölüm sayfasındaki "kart hikâyeyi izler" gözlemcisi (`components/spark/episode/StoryTracker.tsx`) ve karar blokları şablonunun saati (`components/spark/decisions/ClockTracker.tsx`) reveal değil, sürekli durum izleme; bu yüzden useReveal'dan ayrı.
 
 ### Canvas ya da mouse efekti eklenirse
 
@@ -101,7 +101,8 @@ src/
                                  thank-you, impressum, privacy, cookies, terms)
   app/global-not-found.tsx     → dil bilmeyen 404 (kendi <html>'i)
   app/(locked)/                → kilitli müşteri raporları (kendi layout'u ve locked-report.css'i, v2 markası)
-  app/og/                      → OG görseli (EN, ?locale=tr)
+  app/og/                      → OG görseli (EN, ?locale=tr); og/episode?slug= bölüm görseli
+  app/api/spark-answer/        → Son Gün okur cevabı, Gmail SMTP ile e-posta (SMTP_USER, SMTP_PASS, SPARK_ANSWER_TO)
   components/
     brand/                     → Dial, RingOutline, Logo, CutButton, GoButton, Label, CutHeadline ...
     chrome/                    → Header, ServicesMenu, MobileNav, Footer, MobileBookingBar

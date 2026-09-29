@@ -9,6 +9,7 @@ import { ArrowDownIcon } from "@/components/icons";
 import SparkSubnav from "@/components/spark/SparkSubnav";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import EpisodeStory from "@/components/spark/episode/EpisodeStory";
+import DecisionEpisode from "@/components/spark/decisions/DecisionEpisode";
 import StoryCard from "@/components/spark/episode/StoryCard";
 import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
@@ -21,9 +22,12 @@ import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
 import type { SITE_SEO_QUERYResult } from "@/sanity/types";
 import type { Locale, SparkEpisodeEntry } from "@/types/content";
 
-// Bölüm sayfası (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html
-// bölüm görünümü): tam ekran Ink açılış ve yükselen kart, sonra kartın
-// izlediği hikâye (EpisodeStory), NextStep. İçerik Sanity'den
+// Bölüm sayfası. İki şablon, bölümün `layout` alanına göre:
+// story (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html):
+// tam ekran Ink açılış ve yükselen kart, sonra kartın izlediği hikâye
+// (EpisodeStory), NextStep.
+// decisions (Nº 02, prototip _design/v2/boards/son-gun-02-nuri-v2.html):
+// geri link, Ink açılış, cetvel, karar blokları (DecisionEpisode), NextStep. İçerik Sanity'den
 // (getSparkEpisodes); tarayıcıda hiçbir şey saklanmıyor.
 
 type Params = Promise<{ locale: Locale; formatSlug: string; episodeSlug: string }>;
@@ -56,7 +60,15 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     [locale]: episodePath(locale, entry.formatSlug, entry.slug),
     [other]: episodePath(other, entry.altFormatSlug, entry.altSlug),
   } as Record<Locale, string>;
-  return toMetadata(entry.story.seo, toSiteSeo(siteSeoResult), locale, paths);
+  // OG görseli bölümün kendisi (/og/episode): etiket, konu, süre.
+  const enSlug = locale === "en" ? entry.slug : entry.altSlug;
+  const ogImage = {
+    url: `/og/episode?slug=${encodeURIComponent(enSlug)}${locale === "tr" ? "&locale=tr" : ""}`,
+    alt: entry.story.seo.title,
+    width: 1200,
+    height: 630,
+  };
+  return toMetadata({ ...entry.story.seo, ogImage }, toSiteSeo(siteSeoResult), locale, paths);
 }
 
 export default async function SparkEpisodePage({ params }: { params: Params }) {
@@ -78,28 +90,45 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
   }
   const entry = find(episodes[locale], formatSlug, episodeSlug);
   if (!entry) notFound();
-  const { story } = entry;
   const path = episodePath(locale, formatSlug, episodeSlug);
+  const jsonLd = [
+    breadcrumbJsonLd(locale, chrome, [
+      { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
+      { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
+      { name: entry.story.subject, path },
+    ]),
+    articleJsonLd(locale, personInfo(home[locale], chrome), {
+      headline: entry.story.seo.title.split(" | ")[0],
+      description: entry.story.seo.description,
+      path,
+      datePublished: entry.publishedAt ?? undefined,
+      dateModified: entry.modifiedAt ?? undefined,
+      isPartOf: format.name,
+    }),
+  ];
+
+  if (entry.layout === "decisions") {
+    return (
+      <main className="pt-16 min-[900px]:pt-[84px]">
+        <JsonLd data={jsonLd} />
+        <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
+        <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+        <div className="mx-auto max-w-[1240px] px-5 min-[861px]:px-8">
+          <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="paper" />
+        </div>
+        <DecisionEpisode episode={entry.story} slug={locale === "en" ? entry.slug : entry.altSlug} lang={locale} />
+        <NextStep content={nextStep} />
+      </main>
+    );
+  }
+
+  const { story } = entry;
+  // Bölüm sonundaki "sıradaki" satırı: aynı formatta bir sonraki sayı yayındaysa link.
+  const next = episodes[locale].find((e) => e.formatSlug === formatSlug && e.story.number === story.number + 1);
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
-      <JsonLd
-        data={[
-          breadcrumbJsonLd(locale, chrome, [
-            { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
-            { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
-            { name: story.subject, path },
-          ]),
-          articleJsonLd(locale, personInfo(home[locale], chrome), {
-            headline: story.seo.title.split(" | ")[0],
-            description: story.seo.description,
-            path,
-            datePublished: entry.publishedAt ?? undefined,
-            dateModified: entry.modifiedAt ?? undefined,
-            isPartOf: format.name,
-          }),
-        ]}
-      />
+      <JsonLd data={jsonLd} />
       <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
       <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
 
@@ -137,7 +166,15 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      <EpisodeStory story={story} labels={hub.episode} />
+      <EpisodeStory
+        story={story}
+        labels={hub.episode}
+        nextHref={
+          next
+            ? { pathname: "/spark/[formatSlug]/[episodeSlug]", params: { formatSlug, episodeSlug: next.slug } }
+            : undefined
+        }
+      />
 
       <NextStep content={nextStep} heading={story.closeHeading} />
     </main>

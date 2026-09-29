@@ -4,6 +4,7 @@ import { EIGHT_SLICES, slicePath } from "@/lib/dial";
 import { getHome } from "@/sanity/lib/content";
 import { LOGO_LETTERS, LOGO_NINE_BODY, LOGO_NINE_SLICE, LOGO_NINE_TRANSFORM } from "@/components/brand/Logo";
 import type { Locale } from "@/types/content";
+import type { ReactNode } from "react";
 
 // OG görseli (brief v4 §11, referans _design/v2/fspark9-og-{en,tr}-v1.png):
 // Ink zemin, Paper wordmark (logo dosyasının path'leri), sağda çizgi
@@ -34,7 +35,7 @@ export async function renderOgImage(locale: Locale = "en") {
     const at = sentence.lastIndexOf(cutWord);
     return [...words(sentence.slice(0, at)), { text: cutWord, cut: true }, ...words(sentence.slice(at + cutWord.length))];
   });
-  const footer = [eyebrowParts[1], eyebrowParts[2], "fspark9.com"].map((p) => p.toLocaleUpperCase(locale === "tr" ? "tr-TR" : "en-GB"));
+  const footer = [...eyebrowParts.slice(1), "fspark9.com"].map((p) => p.toLocaleUpperCase(locale === "tr" ? "tr-TR" : "en-GB"));
 
   return new ImageResponse(
     (
@@ -94,5 +95,75 @@ export async function renderOgImage(locale: Locale = "en") {
         { name: "Spline Sans Mono", data: mono, weight: 500, style: "normal" },
       ],
     },
+  );
+}
+
+/** Paper wordmark, 9'un dilimi Flare (site OG görseliyle aynı yerde). */
+function Wordmark() {
+  return (
+    <svg width="125" height="34" viewBox="0 -1577 7420 2014" style={{ position: "absolute", left: 64, top: 56 }}>
+      <g fill={BRAND.paper}>
+        {LOGO_LETTERS.map((d) => (
+          <path key={d.slice(0, 12)} d={d} />
+        ))}
+      </g>
+      <g transform={LOGO_NINE_TRANSFORM}>
+        <path d={LOGO_NINE_BODY[0]} fill={BRAND.paper} />
+        <path d={LOGO_NINE_SLICE} fill={BRAND.flare} />
+        <path d={LOGO_NINE_BODY[1]} fill={BRAND.paper} />
+      </g>
+    </svg>
+  );
+}
+
+async function frame(children: ReactNode) {
+  const [epilogue, mono] = await Promise.all([loadGoogleFont("Epilogue", 800), loadGoogleFont("Spline Sans Mono", 500)]);
+  return new ImageResponse(
+    (
+      <div style={{ width: 1200, height: 630, display: "flex", position: "relative", backgroundColor: BRAND.ink, fontFamily: "Epilogue" }}>
+        <Wordmark />
+        {children}
+      </div>
+    ),
+    {
+      width: 1200,
+      height: 630,
+      fonts: [
+        { name: "Epilogue", data: epilogue, weight: 800, style: "normal" },
+        { name: "Spline Sans Mono", data: mono, weight: 500, style: "normal" },
+      ],
+    },
+  );
+}
+
+/**
+ * Spark bölümü OG görseli (bölüm sayfasının opengraph-image'ı): Ink
+ * zemin, wordmark, mono etiket ("The Last Day · Nº 02"), büyük konu ve
+ * sağda çerçeve rakam ve birimi ("7" · "years"; süre yazılı değilse gün
+ * sayısı). Bölüm açılışıyla aynı dil.
+ */
+export async function renderEpisodeOgImage({ label, subject, figure, unit, locale }: {
+  label: string;
+  subject: string;
+  figure: string;
+  unit: string;
+  locale: Locale;
+}) {
+  const upper = (text: string) => text.toLocaleUpperCase(locale === "tr" ? "tr-TR" : "en-GB");
+  const mono = { fontFamily: "Spline Sans Mono", fontSize: 22, letterSpacing: "0.08em", color: BRAND.dust } as const;
+  return frame(
+    <>
+      <div style={{ position: "absolute", left: 64, top: 220, display: "flex", flexDirection: "column" }}>
+        <div style={{ ...mono, display: "flex" }}>{upper(label)}</div>
+        <div style={{ display: "flex", marginTop: 18, fontSize: 200, lineHeight: 0.9, letterSpacing: -9, color: BRAND.paper }}>{subject}</div>
+      </div>
+      <div style={{ position: "absolute", left: 700, width: 436, top: 190, display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+        <div style={{ display: "flex", fontSize: 280, lineHeight: 0.8, letterSpacing: -11, color: BRAND.ink, WebkitTextStroke: `3px ${BRAND.paper}` }}>
+          {figure}
+        </div>
+        <div style={{ ...mono, display: "flex", marginTop: 20 }}>{upper(unit)}</div>
+      </div>
+      <div style={{ ...mono, position: "absolute", left: 64, top: 558, fontSize: 16, letterSpacing: "0.1em", display: "flex" }}>FSPARK9.COM</div>
+    </>,
   );
 }

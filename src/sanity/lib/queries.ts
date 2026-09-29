@@ -181,6 +181,7 @@ function toSparkEpisodeSummaries(
     closureDate: string | null;
     publishedAt: string | null;
     hook: string | null;
+    durationLabel: string | null;
     slug: string | null;
   }[],
   formatSlug: string,
@@ -195,6 +196,7 @@ function toSparkEpisodeSummaries(
       closureDate: episode.closureDate,
       publishedAt: episode.publishedAt,
       hook: episode.hook ?? "",
+      durationLabel: episode.durationLabel || null,
       formatSlug,
       episodeSlug: episode.slug ?? "",
     }));
@@ -203,7 +205,8 @@ function toSparkEpisodeSummaries(
 export const SPARK_FORMAT_QUERY = defineQuery(`
   *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
     "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),
-    "episodes": *[_type == "sparkEpisode" && references(^._id) && status == "published"] | order(number asc){
+    "episodes": *[_type == "sparkEpisode" && references(^._id)
+      && (status == "published" || ($preview && status == "coming" && previewLive == true))] | order(number asc){
       number,
       "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),
       country,
@@ -211,6 +214,7 @@ export const SPARK_FORMAT_QUERY = defineQuery(`
       closureDate,
       publishedAt,
       "hook": select($locale == "tr" => coalesce(hook.tr, hook.en), hook.en),
+      "durationLabel": select($locale == "tr" => coalesce(durationLabel.tr, durationLabel.en), durationLabel.en),
       "slug": select($locale == "tr" => slug.tr.current, slug.en.current)
     }
   }
@@ -236,7 +240,7 @@ export const SPARK_EPISODE_SLUGS_QUERY = defineQuery(`
     "episodeTr": slug.tr.current,
     "formatEn": format->slug.en.current,
     "formatTr": format->slug.tr.current,
-    status,
+    "status": select($preview && status == "coming" && previewLive == true => "published", status),
     lastCheckedAt,
     _updatedAt
   }

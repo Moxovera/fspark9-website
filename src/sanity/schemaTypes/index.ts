@@ -26,6 +26,7 @@ import sparkSection from "./sparkSection";
 import sparkFormat from "./sparkFormat";
 import sparkEpisode from "./sparkEpisode";
 import { sparkEpisodeStoryTypes } from "./sparkEpisodeStory";
+import { sparkEpisodeDecisionTypes } from "./sparkEpisodeDecisions";
 
 /** Tek belgeli tipler: Studio'da liste değil doğrudan belge açılır, yeni oluşturulamaz. */
 export const SINGLETONS = ["siteSettings", "homePage", "servicesPage", "workPage", "aboutPage", "sparkSection"] as const;
@@ -58,5 +59,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     sparkFormat,
     sparkEpisode,
     ...sparkEpisodeStoryTypes,
+    ...sparkEpisodeDecisionTypes,
   ],
 };

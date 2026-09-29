@@ -16,7 +16,7 @@ export const home: Record<Locale, HomeContent> = {
         "I help teams get financial products live. I’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
     },
     opening: {
-      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking", "Berlin"],
+      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking consultancy"],
       headlineSentences: ["I help you get financial products live."],
       cutWord: "live.",
       intro:
@@ -130,8 +130,13 @@ export const home: Record<Locale, HomeContent> = {
           format: "The Last Day",
           number: "Nº 02",
           title: "Nuri",
-          line: "Formerly Bitwala. The next company in the series.",
-          status: "Coming next",
+          line: "Formerly Bitwala. A Berlin crypto fintech, read from the public record up to its last day.",
+          date: "29 Sep 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "the-last-day", episodeSlug: "02-nuri" },
+          },
         },
         {
           format: "Sector report",
@@ -150,7 +155,7 @@ export const home: Record<Locale, HomeContent> = {
         "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum. İki dijital banka kurdum. Fintechler, bankalar ve şirketlerle lansmana kadar çalışıyorum.",
     },
     opening: {
-      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık", "Berlin"],
+      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık danışmanlığı"],
       headlineSentences: ["Finansal ürünleri canlıya çıkarmanıza yardım ediyorum."],
       cutWord: "canlıya",
       intro:
@@ -266,8 +271,13 @@ export const home: Record<Locale, HomeContent> = {
           format: "Son Gün",
           number: "Nº 02",
           title: "Nuri",
-          line: "Eski adıyla Bitwala. Serinin sıradaki şirketi.",
-          status: "Sırada",
+          line: "Eski adıyla Bitwala. Berlinli kripto fintech'i, kamu kayıtlarından son gününe kadar.",
+          date: "29 Eyl 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "son-gun", episodeSlug: "02-nuri" },
+          },
         },
         {
           format: "Sektör raporu",

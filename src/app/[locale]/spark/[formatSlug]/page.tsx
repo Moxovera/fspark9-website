@@ -143,7 +143,13 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
                 key={issue.numberLabel}
                 title={issue.subject}
                 line={issue.hook}
-                meta={`${issue.numberLabel} · ${issue.days !== null ? `${issue.days} ${format.daysUnit}` : issue.statusLabel}`}
+                meta={
+                  issue.status === "published"
+                    ? [issue.numberLabel, issue.durationLabel ?? (issue.days !== null ? `${issue.days} ${format.daysUnit}` : ""), issue.statusLabel]
+                        .filter(Boolean)
+                        .join(" · ")
+                    : `${issue.numberLabel} · ${issue.statusLabel}`
+                }
                 href={issue.status === "published" ? issue.href : undefined}
               />
             ))}

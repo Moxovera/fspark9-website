@@ -3,6 +3,7 @@ import { SPARK_FORMAT_QUERY, toSparkFormatPage } from "@/sanity/lib/queries";
 import type { SPARK_FORMAT_QUERYResult } from "@/sanity/types";
 import { computeDayCount } from "@/components/spark/day/dayMath";
 import { formatShortDate } from "@/lib/format";
+import { PREVIEW_EPISODES } from "@/sanity/lib/preview";
 import type { Locale, SparkFormatContent, SparkHubContent, SparkIssue } from "@/types/content";
 
 const pad = (n: number) => `Nº ${String(n).padStart(2, "0")}`;
@@ -20,7 +21,7 @@ export async function loadFormatIssues(
 ): Promise<{ issues: SparkIssue[]; altFormatSlug: string | null }> {
   const result = await sanityFetch<SPARK_FORMAT_QUERYResult>({
     query: SPARK_FORMAT_QUERY,
-    params: { locale, formatSlug: format.slug },
+    params: { locale, formatSlug: format.slug, preview: PREVIEW_EPISODES },
     tags: ["sparkFormat", "sparkEpisode"],
   });
   const page = result ? toSparkFormatPage(result, format.slug) : null;
@@ -32,6 +33,7 @@ export async function loadFormatIssues(
     hook: episode.hook,
     status: "published",
     days: computeDayCount(episode.launchDate, episode.closureDate),
+    ...(episode.durationLabel ? { durationLabel: episode.durationLabel } : {}),
     href: {
       pathname: "/spark/[formatSlug]/[episodeSlug]",
       params: { formatSlug: episode.formatSlug, episodeSlug: episode.episodeSlug },
