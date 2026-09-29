@@ -102,7 +102,6 @@ src/
   app/global-not-found.tsx     → dil bilmeyen 404 (kendi <html>'i)
   app/(locked)/                → kilitli müşteri raporları (kendi layout'u ve locked-report.css'i, v2 markası)
   app/og/                      → OG görseli (EN, ?locale=tr); og/episode?slug= bölüm görseli
-  app/api/spark-answer/        → Son Gün okur cevabı, Gmail SMTP ile e-posta (SMTP_USER, SMTP_PASS, SPARK_ANSWER_TO)
   components/
     brand/                     → Dial, RingOutline, Logo, CutButton, GoButton, Label, CutHeadline ...
     chrome/                    → Header, ServicesMenu, MobileNav, Footer, MobileBookingBar

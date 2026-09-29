@@ -17,9 +17,8 @@
  * Nuri (Nº 02) canlıya iki adımda çıkıyor; staging ve canlı aynı veri
  * setini okuduğu için:
  *   --preview-nuri   status coming + previewLive: staging yayındaki gibi
- *                    gösterir, canlı "sırada" kalır; şerit (tickerItems)
- *                    yazılmaz, canlıdaki "Coming next" yerinde durur.
- *   --publish-nuri   status published, previewLive kalkar, şerit yazılır.
+ *                    gösterir, canlı "sırada" kalır.
+ *   --publish-nuri   status published, previewLive kalkar.
  * İkisi de yoksa bölümün durumuna dokunulmaz.
  */
 import { createReadStream } from "node:fs";
@@ -364,7 +363,7 @@ function sparkSectionPatch() {
       seo: seo(e.seo, t.seo),
       bigWord: pick("bigWord"),
       heading: pick("heading"),
-      ...(previewNuri ? {} : { tickerItems: lsList(e.tickerItems, t.tickerItems) }),
+      tickerItems: lsList(e.tickerItems, t.tickerItems),
       tickerTail: pick("tickerTail"),
       formatsLabel: pick("formatsLabel"),
       readLabel: pick("readLabel"),

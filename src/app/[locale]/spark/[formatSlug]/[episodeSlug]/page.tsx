@@ -108,6 +108,10 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
   ];
 
   if (entry.layout === "decisions") {
+    // Okur cevabının e-posta konusu her dilde TR: "Son Gün Nº 02 · Nuri".
+    const trFormat = locale === "tr" ? format : spark.tr.formats.find((f) => f.slug === entry.altFormatSlug);
+    const trEntry = episodes.tr.find((e) => e.story.number === entry.story.number && e.formatSlug === (trFormat?.slug ?? ""));
+    const answerSubject = `${trFormat?.name ?? format.name} Nº ${String(entry.story.number).padStart(2, "0")} · ${trEntry?.story.subject ?? entry.story.subject}`;
     return (
       <main className="pt-16 min-[900px]:pt-[84px]">
         <JsonLd data={jsonLd} />
@@ -116,7 +120,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="mx-auto max-w-[1240px] px-5 min-[861px]:px-8">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="paper" />
         </div>
-        <DecisionEpisode episode={entry.story} slug={locale === "en" ? entry.slug : entry.altSlug} lang={locale} />
+        <DecisionEpisode episode={entry.story} answerSubject={answerSubject} slug={locale === "en" ? entry.slug : entry.altSlug} lang={locale} />
         <NextStep content={nextStep} />
       </main>
     );

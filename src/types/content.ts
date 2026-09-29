@@ -237,7 +237,7 @@ export interface SparkEpisodeStory {
 // hikâye yerine karar blokları. Açılış, cetvel, standfirst, yapışkan saat,
 // beş karar (seç, gerçekte ne oldu), kayıt blokları, okur sorusu, görüş,
 // hizmet. Seçimler sadece bileşen state'inde; okur cevabı e-postayla gelir
-// (/api/spark-answer), hiçbir şey saklanmaz.
+// (tarayıcıdan Web3Forms), hiçbir şey saklanmaz.
 
 /** Cetveldeki bir iz. Etiketi olmayan iz soluk, yazısız. */
 export interface SparkRulerTick {
@@ -709,6 +709,8 @@ export interface CutButtonProps {
   size?: 'default' | 'header'
   /** Verilirse randevu penceresi yerine bu sayfaya giden link. */
   href?: NavHref
+  /** Verilirse sayfa içi çapa (id, "#" olmadan). */
+  anchor?: string
   className?: string
 }
 
@@ -1017,7 +1019,7 @@ export interface SparkFormatContent {
   daysUnit: string
   /** Format sayfası (Son Gün v3): Ink açılışın tek satırı. */
   line: string
-  /** İlk yayındaki bölüme giden Flare buton ("First story: Bó"). */
+  /** Bölüm listesine kaydıran Flare buton ("Read the episodes"). */
   startLabel?: string
   /** "Nasıl okunur" bölümü; adım yoksa bölüm çıkmaz. */
   howLabel?: string
@@ -1319,11 +1321,13 @@ export interface SparkSubnavProps {
 }
 
 export interface SparkEpisodeRowProps {
+  /** Soldaki sayı ("Nº 01"). */
+  number: string;
   title: string;
   line: string;
-  /** Mono satır ("Nº 01 · 156 days"); dar ekranda gizli. */
+  /** Mono satır ("156 days · 24 Sep 2026"); dar ekranda gizli, boşsa yok. */
   meta: string;
-  /** Yayındaki bölüm: link, Flare kart ve kare ok. Yoksa Stone, linksiz, kesikli kart. */
+  /** Yayındaki bölüm: link ve kare ok. Yoksa Stone, linksiz, oksuz. */
   href?: NavHref;
 }
 
@@ -1368,6 +1372,8 @@ export interface EpisodeStoryProps {
 
 export interface DecisionEpisodeProps {
   episode: SparkDecisionEpisode;
+  /** Okur cevabı e-postasının konusu ("Son Gün Nº 02 · Nuri"). */
+  answerSubject: string;
   /** Bölümün EN slug'ı ("02-nuri"): çapa id'leri ve okur cevabındaki bölüm. */
   slug: string;
   lang: Locale;
@@ -1421,6 +1427,8 @@ export interface ReaderPollProps {
   lang: Locale;
   /** Sorunun başlığının id'si (seçenek grubunun adı). */
   questionId: string;
+  /** E-posta konusunun başı, her dilde TR ("Son Gün Nº 02 · Nuri"); sonuna " · cevap D". */
+  subject: string;
 }
 
 export interface BlockSourcesProps {

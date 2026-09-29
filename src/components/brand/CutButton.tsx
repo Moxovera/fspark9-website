@@ -19,10 +19,11 @@ const SIZE = {
  * Eğik sağ kenarlı buton (brand book v3 §5 "Cut", 18px eğim). Sitede tek
  * çağrı metni var ("Book a call") ve her örnek randevu penceresini açar,
  * bu yüzden bileşen BookingCta'yı sarıyor: kendisi server, sadece içteki
- * buton client. `href` verilirse aynı biçimde bir sayfa linki (Son Gün
- * format sayfasındaki "First story: Bó").
+ * buton client. `href` verilirse aynı biçimde bir sayfa linki, `anchor`
+ * verilirse sayfa içi çapa (Son Gün format sayfasındaki "Read the
+ * episodes").
  */
-export default function CutButton({ label, tone = "flare", size = "default", href, className }: CutButtonProps) {
+export default function CutButton({ label, tone = "flare", size = "default", href, anchor, className }: CutButtonProps) {
   const classes = `group inline-flex items-center gap-[14px] font-sans leading-none font-bold whitespace-nowrap no-underline [clip-path:polygon(0_0,100%_0,calc(100%-18px)_100%,0_100%)] ${TONE[tone]} ${SIZE[size]} ${className ?? ""}`;
   // Board'daki metin oku (mono, 0.6em ilerleme) yerine SVG ok: görsel
   // boyutu 1em, negatif yatay margin ile kapladığı yer 0.6em, böylece
@@ -33,6 +34,13 @@ export default function CutButton({ label, tone = "flare", size = "default", hre
       <ArrowRightIcon className="go-arrow -mx-[0.2em] size-[1em] flex-none" />
     </>
   );
+  if (anchor) {
+    return (
+      <a href={`#${anchor}`} className={classes}>
+        {content}
+      </a>
+    );
+  }
   return href ? (
     <Link href={href} className={classes}>
       {content}

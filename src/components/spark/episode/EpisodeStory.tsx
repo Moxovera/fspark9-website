@@ -111,9 +111,10 @@ function Ending({ story, labels, nextHref }: EpisodeStoryProps) {
 
       <div className="mt-[90px] border-t border-rule">
         <SparkEpisodeRow
+          number={story.next.number}
           title={fill(labels.nextTemplate, { name: story.next.name })}
           line={story.next.line}
-          meta={story.next.number}
+          meta=""
           href={nextHref}
         />
       </div>

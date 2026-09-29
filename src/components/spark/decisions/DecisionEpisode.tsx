@@ -29,7 +29,7 @@ const paragraphsOf = (items: string[]) => (
  * Saatin atalarında transform/overflow yok (CLAUDE.md "Sticky"); bu
  * yüzden bloklar Reveal ile sarılmıyor.
  */
-export default function DecisionEpisode({ episode, slug, lang }: DecisionEpisodeProps) {
+export default function DecisionEpisode({ episode, answerSubject, slug, lang }: DecisionEpisodeProps) {
   const { opening, labels, decisions, records, twist, view, service } = episode;
   const stops: SparkClockStop[] = [...decisions, ...records, twist, view].map(({ date, when }) => ({ date, when }));
   const questionId = `${slug}-question`;
@@ -115,7 +115,7 @@ export default function DecisionEpisode({ episode, slug, lang }: DecisionEpisode
               >
                 {twist.poll.question}
               </h2>
-              <ReaderPoll poll={twist.poll} episode={slug} lang={lang} questionId={questionId} />
+              <ReaderPoll poll={twist.poll} episode={slug} lang={lang} questionId={questionId} subject={answerSubject} />
               <div className="mt-[22px] flex flex-wrap gap-3">
                 <a
                   href={twist.poll.sourceHref}

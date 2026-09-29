@@ -42,7 +42,7 @@ export default defineType({
     ls("daysUnit", "Days unit"),
     // Format sayfası (Son Gün v3, 2026-09-26).
     lt("line", "Page line"),
-    ls("startLabel", "Start button (to the first published episode)"),
+    ls("startLabel", "Start button (scrolls to the episode list)"),
     ls("howLabel", "How to read, label"),
     ls("howHeading", "How to read, heading"),
     defineField({

@@ -1,10 +1,10 @@
 "use client";
 
-import { useId, useRef, useState, type FormEvent } from "react";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { ChoiceOptions } from "@/components/spark/decisions/ChoiceDecision";
 import { monoText } from "@/components/spark/decisions/styles";
 import { fill } from "@/lib/format";
-import { ANSWER_MAX_CHARS, ANSWER_MAX_WORDS, countWords } from "@/lib/sparkAnswer";
+import { ANSWER_MAX_CHARS, ANSWER_MAX_WORDS, ANSWER_MIN_ELAPSED_MS, WEB3FORMS_ENDPOINT, countWords } from "@/lib/sparkAnswer";
 import type { ReaderPollProps } from "@/types/content";
 
 type Phase = "idle" | "sending" | "done";
@@ -12,30 +12,37 @@ type Phase = "idle" | "sending" | "done";
 const field =
   "w-full rounded-none border-2 border-ink bg-white px-[14px] py-3 text-[17px] leading-[1.5] text-ink";
 
+// Web3Forms erişim anahtarı tasarım gereği herkese açık (form sadece
+// sahibinin adresine gönderir). Yoksa gönder düğmesi gizli.
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+
 /**
  * Okur sorusu (prototip son-gun-02-nuri-v2 `.poll`): dört seçenek; A, B, C
  * e-posta alanını ve gönder düğmesini, D ayrıca serbest metni açar.
- * Gönderim /api/spark-answer'a gider, sonuç e-postayla gelir; tarayıcıda
- * hiçbir şey saklanmaz, okura sonuç gösterilmez. `company` bal küpü
- * alanı, `elapsedMs` sayfa açılalı geçen süre (sunucu 3 saniyeden hızlıyı
- * reddeder).
+ * Cevap tarayıcıdan doğrudan Web3Forms'a gider, bize e-postayla gelir;
+ * tarayıcıda hiçbir şey saklanmaz, okura sonuç gösterilmez. `botcheck`
+ * Web3Forms'un bal küpü alanı. Sayfa açılalı 3 saniye olmadan gönderilmez.
  */
-export default function ReaderPoll({ poll, episode, lang, questionId }: ReaderPollProps) {
+export default function ReaderPoll({ poll, episode, lang, questionId, subject }: ReaderPollProps) {
   const [choice, setChoice] = useState<string | null>(null);
   const [text, setText] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [message, setMessage] = useState("");
   const textRef = useRef<HTMLTextAreaElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const companyRef = useRef<HTMLInputElement>(null);
+  const botRef = useRef<HTMLInputElement>(null);
   const id = useId();
   const free = choice === poll.freeKey;
   const words = countWords(text);
   const over = words > ANSWER_MAX_WORDS || text.length > ANSWER_MAX_CHARS;
 
+  useEffect(() => {
+    if (!ACCESS_KEY) console.warn("Spark reader poll: NEXT_PUBLIC_WEB3FORMS_KEY is not set, the send button is hidden.");
+  }, []);
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!choice || phase === "sending") return;
+    if (!choice || phase === "sending" || !ACCESS_KEY) return;
     const answer = free ? text.trim() : "";
     if (free && countWords(answer) === 0) {
       setMessage(poll.emptyText);
@@ -47,25 +54,33 @@ export default function ReaderPoll({ poll, episode, lang, questionId }: ReaderPo
       textRef.current?.focus();
       return;
     }
+    if (performance.now() < ANSWER_MIN_ELAPSED_MS) {
+      setMessage(poll.error);
+      return;
+    }
+    const email = emailRef.current?.value.trim() ?? "";
     setPhase("sending");
     setMessage("");
     try {
-      const response = await fetch("/api/spark-answer", {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `${subject} · cevap ${choice}`,
+          from_name: "fspark9 Spark",
+          botcheck: botRef.current?.checked ?? false,
           episode,
           lang,
           choice,
           choiceLabel: poll.options.find((option) => option.key === choice)?.text ?? "",
           text: answer,
-          email: emailRef.current?.value.trim() ?? "",
-          company: companyRef.current?.value ?? "",
-          elapsedMs: Math.round(performance.now()),
+          ...(email ? { email, replyto: email } : {}),
           page: window.location.href,
         }),
       });
-      if (!response.ok) throw new Error(String(response.status));
+      const result = (await response.json().catch(() => null)) as { success?: boolean } | null;
+      if (!response.ok || !result?.success) throw new Error(String(response.status));
       setPhase("done");
       setMessage(poll.thanks);
     } catch {
@@ -116,21 +131,23 @@ export default function ReaderPoll({ poll, episode, lang, questionId }: ReaderPo
               </label>
               <input ref={emailRef} id={`${id}-email`} type="email" name="email" autoComplete="email" className={field} />
               <input
-                ref={companyRef}
-                type="text"
-                name="company"
+                ref={botRef}
+                type="checkbox"
+                name="botcheck"
                 tabIndex={-1}
                 autoComplete="off"
                 aria-hidden="true"
-                className="absolute -left-[9999px] size-px opacity-0"
+                className="hidden"
               />
-              <button
-                type="submit"
-                disabled={phase === "sending"}
-                className="mt-2 inline-flex min-h-12 cursor-pointer items-center self-start border-2 border-ink bg-ink px-[22px] text-[16px] leading-[normal] font-semibold text-paper disabled:cursor-default disabled:opacity-50"
-              >
-                {phase === "sending" ? poll.sendingLabel : poll.submitLabel}
-              </button>
+              {ACCESS_KEY && (
+                <button
+                  type="submit"
+                  disabled={phase === "sending"}
+                  className="mt-2 inline-flex min-h-12 cursor-pointer items-center self-start border-2 border-ink bg-ink px-[22px] text-[16px] leading-[normal] font-semibold text-paper disabled:cursor-default disabled:opacity-50"
+                >
+                  {phase === "sending" ? poll.sendingLabel : poll.submitLabel}
+                </button>
+              )}
               <p className="m-0 text-[14px] text-stone">{poll.privacyLine}</p>
             </div>
           )}

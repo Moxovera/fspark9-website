@@ -72,7 +72,6 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   const altFormatSlug = staticAltSlug(spark, locale, formatSlug);
   // Prototip: Nº 01 üstte, sıradakiler altta.
   const rows = [...issues].sort((a, b) => a.number - b.number);
-  const first = rows.find((issue) => issue.status === "published" && issue.href);
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
@@ -93,7 +92,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
               {format.name}
             </h1>
             <p className="mt-0 mb-9 max-w-[32ch] text-[21px] leading-[1.45] text-paper">{format.line}</p>
-            {format.startLabel && first?.href && <CutButton label={format.startLabel} href={first.href} />}
+            {format.startLabel && rows.length > 0 && <CutButton label={format.startLabel} anchor="episodes" />}
           </div>
           <span
             aria-hidden="true"
@@ -131,7 +130,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
           </section>
         )}
 
-        <section className="pt-24">
+        <section id="episodes" className="scroll-mt-[140px] pt-24 min-[900px]:scroll-mt-[150px]">
           <div className="border-t-2 border-ink pt-[18px]">
             <Label strong>
               {format.episodesLabel}
@@ -141,14 +140,15 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
             {rows.map((issue) => (
               <SparkEpisodeRow
                 key={issue.numberLabel}
+                number={issue.numberLabel}
                 title={issue.subject}
                 line={issue.hook}
                 meta={
                   issue.status === "published"
-                    ? [issue.numberLabel, issue.durationLabel ?? (issue.days !== null ? `${issue.days} ${format.daysUnit}` : ""), issue.statusLabel]
+                    ? [issue.durationLabel ?? (issue.days !== null ? `${issue.days} ${format.daysUnit}` : ""), issue.statusLabel]
                         .filter(Boolean)
                         .join(" · ")
-                    : `${issue.numberLabel} · ${issue.statusLabel}`
+                    : issue.statusLabel
                 }
                 href={issue.status === "published" ? issue.href : undefined}
               />
