@@ -59,6 +59,14 @@ export default function ReaderPoll({ poll, episode, lang, questionId, subject }:
       setMessage(poll.error);
       return;
     }
+    // Bal küpü işaretliyse bot: teşekkür göster, hiçbir şey gönderme.
+    // Alan Web3Forms'a hiç gönderilmiyor; `botcheck` herhangi bir değerle
+    // gelirse (false dahil) cevap sessizce düşürülüyor.
+    if (botRef.current?.checked) {
+      setPhase("done");
+      setMessage(poll.thanks);
+      return;
+    }
     const email = emailRef.current?.value.trim() ?? "";
     setPhase("sending");
     setMessage("");
@@ -70,7 +78,6 @@ export default function ReaderPoll({ poll, episode, lang, questionId, subject }:
           access_key: ACCESS_KEY,
           subject: `${subject} · cevap ${choice}`,
           from_name: "fspark9 Spark",
-          botcheck: botRef.current?.checked ?? false,
           episode,
           lang,
           choice,
