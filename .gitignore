@@ -33,6 +33,8 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.example
+# Sadece herkese açık NEXT_PUBLIC_ değerleri (Web3Forms anahtarı); gizli değer yazılmaz.
+!.env.production
 
 # raw reference/working material for the locked report (brief, source
 # HTML, proposal doc) — not needed at runtime, the extracted content lives

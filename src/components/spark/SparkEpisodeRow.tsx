@@ -5,8 +5,9 @@ import type { SparkEpisodeRowProps } from "@/types/content";
 /**
  * Son Gün bölüm satırı (prototip son-gun-01-bo-v3 `.ep`): solda sayı (Nº,
  * Epilogue 800, Ink; eski Flare kartın yerinde), ad, tek satır, mono satır
- * ve kare ok. Yayındaki satır link, üzerine gelince ok 4px kayar. Sıradaki
- * satır Stone, linksiz, oksuz. Listede Flare yok. Format sayfası
+ * ve kare ok. Yayındaki satır link, üzerine gelince ya da tıklanınca ok
+ * Flare'e döner ve 4px kayar; Flare sadece bu etkileşimde. Sıradaki
+ * satır Stone, linksiz, oksuz. Format sayfası
  * listesinde ve bölüm sonundaki "sıradaki" satırında.
  */
 export default function SparkEpisodeRow({ number, title, line, meta, href }: SparkEpisodeRowProps) {
@@ -22,7 +23,7 @@ export default function SparkEpisodeRow({ number, title, line, meta, href }: Spa
       <span className="hidden font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] whitespace-nowrap uppercase min-[761px]:block">
         {meta}
       </span>
-      {href ? <GoButton size={44} className="min-[761px]:size-12 min-[761px]:text-[20px]" /> : <span />}
+      {href ? <GoButton size={44} className="go-flare min-[761px]:size-12 min-[761px]:text-[20px]" /> : <span />}
     </>
   );
   const row =
