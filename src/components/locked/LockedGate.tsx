@@ -11,17 +11,19 @@ export function LockedGate({
   client,
   initialLang,
   gate,
+  locales,
   returnPath,
 }: {
   client: string;
   initialLang: Locale;
-  gate: Record<Locale, LockedGateContent>;
+  gate: Partial<Record<Locale, LockedGateContent>>;
+  locales: readonly Locale[];
   returnPath: string;
 }) {
   const [lang, setLang] = useState<Locale>(initialLang);
   const [, startTransition] = useTransition();
   const [state, formAction, pending] = useActionState(unlockAction.bind(null, client, returnPath), initialState);
-  const t = gate[lang];
+  const t = gate[lang] ?? gate[locales[0]];
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -34,6 +36,8 @@ export function LockedGate({
       void setLockedLangAction(client, next);
     });
   }
+
+  if (!t) return null;
 
   return (
     <div className="gate">
@@ -57,14 +61,17 @@ export function LockedGate({
         <div className="err" role="alert">
           {state.error ? t.err : ""}
         </div>
-        <div className="lang-switch" role="group" aria-label="Dil / Language">
-          <button type="button" aria-pressed={lang === "tr"} onClick={() => changeLang("tr")}>
-            TR
-          </button>
-          <button type="button" aria-pressed={lang === "en"} onClick={() => changeLang("en")}>
-            EN
-          </button>
-        </div>
+        {/* Tek dilli raporda (Tahsildar) dil düğmesi yok. */}
+        {locales.length > 1 && (
+          <div className="lang-switch" role="group" aria-label="Dil / Language">
+            <button type="button" aria-pressed={lang === "tr"} onClick={() => changeLang("tr")}>
+              TR
+            </button>
+            <button type="button" aria-pressed={lang === "en"} onClick={() => changeLang("en")}>
+              EN
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );

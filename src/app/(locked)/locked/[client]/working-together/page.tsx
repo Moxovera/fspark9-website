@@ -15,7 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { client } = await params;
   const config = getLockedClient(client);
-  if (!config) return { title: LOCKED_NEUTRAL_TITLE };
+  if (!config || config.workingTogether === false) return { title: LOCKED_NEUTRAL_TITLE };
 
   const { lang: searchLang } = await searchParams;
   const { authed, lang } = await resolveLockedState(client, searchLang);
@@ -44,7 +44,9 @@ export default async function WorkingTogetherPage({
 }) {
   const { client } = await params;
   const config = getLockedClient(client);
-  if (!config) {
+  // Clients without a working together page (workingTogether: false, e.g.
+  // Tahsildar) 404 here, gate or no gate.
+  if (!config || config.workingTogether === false) {
     notFound();
   }
 
@@ -58,6 +60,7 @@ export default async function WorkingTogetherPage({
         client={client}
         initialLang={activeLang}
         gate={config.gate}
+        locales={config.locales}
         returnPath={`/locked/${client}/working-together`}
       />
     );

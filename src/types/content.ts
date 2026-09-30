@@ -1523,3 +1523,330 @@ export interface BrandCaseProps {
 export interface FigureValueProps {
   value: string
 }
+
+// ─────────────────────────────────────────────
+// Kilitli rapor: Tahsildar (/locked/tahsildar)
+// Kaynak: docs/locked/tahsildar-report.html. Metin src/content/locked/
+// tahsildar/tr.ts, yapılandırılmış veri data.ts. `html` alanları küçük,
+// geliştiricinin yazdığı zengin metin parçaları (strong, b ve
+// <span class="src"> kaynak etiketi), kullanıcı girdisi değil.
+// ─────────────────────────────────────────────
+
+export type TsdBarTone = "ink" | "flare" | "dust"
+
+export interface TsdBarRow {
+  label: string
+  value: number
+  valueLabel: string
+  tone: TsdBarTone
+}
+
+/** Yatay çubuklu şekil; çubuk genişliği value / max. */
+export interface TsdHBarsProps {
+  title: string
+  sub: string
+  rows: TsdBarRow[]
+  max: number
+  caption: string
+  /** Figür üst boşluğu sıfır (yan metinle aynı hizada). */
+  flush?: boolean
+}
+
+export interface TsdHundredGridProps {
+  title: string
+  sub: string
+  on: number
+  unit: string
+  ariaLabel: string
+  caption: string
+}
+
+export interface TsdStat {
+  value: string
+  small?: string
+  label: string
+  src: string
+}
+
+export interface TsdStatStripProps {
+  items: TsdStat[]
+}
+
+export interface TsdDecision {
+  lead: string
+  text: string
+}
+
+export interface TsdDecisionListProps {
+  items: TsdDecision[]
+}
+
+export interface TsdLever {
+  title: string
+  text: string
+}
+
+/** White kart, 4 px Ink üst çizgi: "Yol haritasının özü" ve "Asıl fırsat". */
+export interface TsdResultCardProps {
+  variant: "proposal" | "key"
+  tag: string
+  title: string
+  text: string
+  aside?: string
+  levers?: TsdLever[]
+}
+
+export interface TsdCard {
+  k: string
+  title: string
+  html: string
+  fz?: boolean
+  flow?: string[]
+}
+
+export type TsdCardVariant = "legs" | "trio" | "pay" | "wins" | "ctx"
+
+export interface TsdCardGridProps {
+  variant: TsdCardVariant
+  items: TsdCard[]
+  flowSep?: string
+}
+
+export interface TsdMatrixCell {
+  level: 0 | 2 | 3 | 4
+  label: string
+  note?: string
+}
+
+export interface TsdMatrixRow {
+  need: string
+  cells: TsdMatrixCell[]
+}
+
+/** Son sütun Tahsildar (Flare tonlu). */
+export interface TsdCapabilityMatrixProps {
+  head: string[]
+  rows: TsdMatrixRow[]
+}
+
+export interface TsdTableProps {
+  head: string[]
+  rows: string[][]
+}
+
+export interface TsdFact {
+  title: string
+  html: string
+}
+
+export interface TsdFactRowProps {
+  items: TsdFact[]
+  four?: boolean
+}
+
+export interface TsdStep {
+  lead: string
+  text: string
+}
+
+export interface TsdStepListProps {
+  items: TsdStep[]
+}
+
+export interface TsdRisk {
+  cat: string
+  title: string
+  text: string
+}
+
+export interface TsdRiskListProps {
+  items: TsdRisk[]
+}
+
+export interface TsdNoteProps {
+  html: string
+  label: string
+}
+
+export interface TsdRingSector {
+  cat: string
+  main: string
+  alts: string[]
+  title: string
+  text: string
+  alt: string
+}
+
+export interface TsdPartnerRingProps {
+  sectors: TsdRingSector[]
+  figureTitle: string
+  figureSub: string
+  ariaLabel: string
+  centerTitle: string
+  centerSub: string
+  /** "{cat}, ana ortak" kalıbındaki ek. */
+  detailSuffix: string
+  altsLabel: string
+}
+
+export interface TsdPhaseColumn {
+  heading: string
+  items: string[]
+}
+
+export interface TsdPhase {
+  num: string
+  when: string
+  left: number
+  title: string
+  goal: string
+  columns: TsdPhaseColumn[]
+  exit: string
+}
+
+export interface TsdRoadmapProps {
+  phases: TsdPhase[]
+  ariaLabel: string
+  exitLabel: string
+}
+
+export interface TsdUseCaseNode {
+  id: string
+  role: string
+  name: string
+}
+
+export interface TsdUseCaseStep {
+  title: string
+  nodes: string[]
+  text: string
+}
+
+export interface TsdUseCaseStepperProps {
+  chain: TsdUseCaseNode[]
+  partners: TsdUseCaseNode[]
+  steps: TsdUseCaseStep[]
+  labels: { prev: string; next: string; restart: string; play: string; stop: string }
+}
+
+export interface TsdMeeting {
+  phase: number
+  live: boolean
+  title: string
+  who: string
+  text: string
+}
+
+export interface TsdMeetingFilter {
+  key: "all" | "0" | "1" | "2"
+  label: string
+}
+
+export interface TsdMeetingListProps {
+  meetings: TsdMeeting[]
+  filters: TsdMeetingFilter[]
+  labels: {
+    filterAria: string
+    countSuffix: string
+    phase: string
+    live: string
+    firstFour: string
+  }
+}
+
+export type TsdBlock =
+  | { type: "h3"; text: string }
+  | { type: "prose"; paras: string[]; space?: "md" | "lg" }
+  | { type: "small"; html: string }
+  | { type: "pull"; text: string }
+  | { type: "note"; html: string }
+  | { type: "hbars"; figure: TsdHBarsProps }
+  | { type: "grid100"; figure: TsdHundredGridProps }
+  | { type: "two"; items: TsdBlock[] }
+  | { type: "result"; card: TsdResultCardProps }
+  | { type: "cards"; grid: TsdCardGridProps }
+  | { type: "matrix"; table: TsdCapabilityMatrixProps }
+  | { type: "table"; table: TsdTableProps }
+  | { type: "facts"; row: TsdFactRowProps }
+  | { type: "steps"; items: TsdStep[] }
+  | { type: "risks"; items: TsdRisk[] }
+  | { type: "ring"; ring: TsdPartnerRingProps }
+  | { type: "roadmap"; roadmap: TsdRoadmapProps }
+  | { type: "useCase"; useCase: TsdUseCaseStepperProps }
+  | { type: "meetings"; meetings: TsdMeetingListProps }
+
+export interface TsdChapter {
+  id: string
+  nav: string
+  eyebrow: string
+  title: string
+  lede: string
+  blocks: TsdBlock[]
+}
+
+export interface TsdChainHeroProps {
+  nodes: { title: string; sub: string }[]
+  bracket: string
+  legendGoods: string
+  legendMoney: string
+}
+
+export interface TsdCutWordProps {
+  text: string
+}
+
+export interface TsdHero {
+  id: string
+  eyebrow: string
+  titleLead: string
+  titleCut: string
+  sub: string
+  author: string
+  authorMeta: string
+  chain: TsdChainHeroProps
+  stats: TsdStat[]
+  summary: {
+    eyebrow: string
+    title: string
+    items: TsdDecision[]
+    result: TsdResultCardProps
+  }
+}
+
+export interface TsdHeroProps {
+  hero: TsdHero
+}
+
+export interface TsdClosingStageProps {
+  id: string
+  quote: string
+  lede: string
+  name: string
+  contact: string[]
+  method: string
+  sourcesLabel: string
+  sources: string[]
+}
+
+export interface TsdTopBarProps {
+  heroId: string
+  navLabel: string
+  chapters: { id: string; nav: string }[]
+}
+
+export interface TahsildarReportContent {
+  navLabel: string
+  noteLabel: string
+  hero: TsdHero
+  chapters: TsdChapter[]
+  closing: TsdClosingStageProps
+}
+
+export interface TahsildarReportProps {
+  content: TahsildarReportContent
+}
+
+export interface TsdBlockRendererProps {
+  block: TsdBlock
+  noteLabel: string
+}

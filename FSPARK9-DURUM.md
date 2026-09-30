@@ -4,7 +4,7 @@ Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalı
 
 **v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-09-29
+Son güncelleme: 2026-09-30
 
 ---
 
@@ -28,6 +28,7 @@ Son güncelleme: 2026-09-29
 - Fontlar `next/font`: Epilogue (başlık, rakam), Hanken Grotesk (metin), Spline Sans Mono (etiket). latin-ext şart.
 - Tek easing `--ease-brand`. Tüm hareketler reduced-motion'da kapalı.
 - `/locked` (Fuzul raporu) kendi kök layout'u ve CSS'iyle (`locked-report.css`) duruyor, 2026-09-24'te tasarımı v2 markasına geçti (Paper/Ink/Stone/Flare, Epilogue/Hanken/Spline, kare köşeler, v2 logo). İçerik ve mantık değişmedi: metin ve DOM önce/sonra birebir aynı (tek fark iki eski logo `<img>`'inin yerini tek `<svg>` logonun alması). Rapor tek temalı (açık).
+- `/locked/tahsildar` (2026-09-30): ikinci kilitli rapor, sadece TR, "birlikte çalışmak" sayfası yok (`workingTogether: false`, 404). Kaynak ve onaylı metin `docs/locked/tahsildar-report.html`. Metin `src/content/locked/tahsildar/tr.ts`, veri `data.ts`, bileşenler `components/locked/tahsildar/`, stil `tahsildar.css` (her seçici `.tsd` altında, Fuzul CSS'iyle çakışmıyor). Şifre Vercel'de `LOCKED_TAHSILDAR_PASSWORD`. Tek dilli istemcide şifre ekranında dil düğmesi yok, `?lang=` yok sayılıyor.
 - Apex domain birincil: `fspark9.com`, `www` ondan yönleniyor (Vercel domain ayarı).
 - NextStep etiketi sadece ana sayfada numaralı ("05 · Next step"), diğer sayfalarda numarasız. Services menüsünde "How they fit" linki yok.
 

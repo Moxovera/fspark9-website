@@ -4,7 +4,8 @@ import type { Locale } from "@/types/content";
 import { getLockedClient } from "@/content/locked/clients";
 import { LockedGate } from "@/components/locked/LockedGate";
 import { Report } from "@/components/locked/report/Report";
-import { LOCKED_NEUTRAL_TITLE, resolveLockedState, loadLockedReportData } from "@/lib/locked-report";
+import { TahsildarReport } from "@/components/locked/tahsildar/TahsildarReport";
+import { LOCKED_NEUTRAL_TITLE, resolveLockedState, loadLockedReportData, loadTahsildarReport } from "@/lib/locked-report";
 
 export async function generateMetadata({
   params,
@@ -26,7 +27,7 @@ export async function generateMetadata({
     // to link-preview crawlers (they never carry the unlock cookie, so
     // they always see this generated for the locked branch anyway) and
     // never rendered while the gate is showing (see acceptance check #1).
-    title: authed ? config.title[activeLang] : LOCKED_NEUTRAL_TITLE,
+    title: authed ? (config.title[activeLang] ?? LOCKED_NEUTRAL_TITLE) : LOCKED_NEUTRAL_TITLE,
     robots: {
       index: false,
       follow: false,
@@ -58,7 +59,19 @@ export default async function LockedClientPage({
   const activeLang: Locale = lang ?? config.defaultLocale;
 
   if (!authed) {
-    return <LockedGate client={client} initialLang={activeLang} gate={config.gate} returnPath={`/locked/${client}`} />;
+    return (
+      <LockedGate
+        client={client}
+        initialLang={activeLang}
+        gate={config.gate}
+        locales={config.locales}
+        returnPath={`/locked/${client}`}
+      />
+    );
+  }
+
+  if (client === "tahsildar") {
+    return <TahsildarReport content={await loadTahsildarReport()} />;
   }
 
   const data = await loadLockedReportData(client, activeLang);

@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Zinciri hızlandırmak: Tahsildar için Romanya yol haritası</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=Hanken+Grotesk:wght@400;700&family=Spline+Sans+Mono:wght@500&display=swap">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:17.5px; line-height:1.68; -webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze); outline-offset:3px; border-radius:2px}
+
+/* ---------- logo ---------- */
+.wm{display:inline-flex; align-items:flex-end; font-family:var(--f-logo); font-weight:700; line-height:1; color:var(--logo-ink); text-decoration:none}
+.wm .f{letter-spacing:.028em; display:inline-block; transform:scaleX(1.04); transform-origin:left bottom}
+.wm .n9{height:.7em; width:.448em; margin:0 0 .095em -.015em; flex:none}
+.sym-ink{fill:var(--logo-ink)}
+.sym-accent{fill:var(--bronze)}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:color-mix(in srgb, var(--ground) 90%, transparent); backdrop-filter:saturate(1.2) blur(10px); -webkit-backdrop-filter:saturate(1.2) blur(10px); border-bottom:1px solid var(--rule)}
+.topbar-inner{max-width:1120px; margin:0 auto; padding:0 20px; display:flex; align-items:center; gap:18px; height:56px}
+.topbar .wm{font-size:22px}
+.chapters{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; margin-left:auto; mask-image:linear-gradient(90deg,transparent 0,#000 12px,#000 calc(100% - 12px),transparent 100%)}
+.chapters::-webkit-scrollbar{display:none}
+.chapters a{font-family:var(--f-mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:6px 10px; border-radius:999px; white-space:nowrap}
+.chapters a:hover{color:var(--heading)}
+.chapters a.on{color:var(--heading); background:var(--surface-2)}
+.lang-switch{display:inline-flex; border:1px solid var(--rule-strong); border-radius:999px; padding:2px; flex:none}
+.lang-switch button{font:500 12px var(--f-mono); letter-spacing:.06em; color:var(--muted); background:transparent; border:0; border-radius:999px; padding:4px 9px; cursor:pointer}
+.lang-switch button[aria-pressed="true"]{background:var(--heading); color:var(--ground)}
+.progress{position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--bronze)}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1120px; margin:0 auto; padding-inline:20px}
+.prose{max-width:700px}
+section.chapter{padding-block:80px 32px; border-top:1px solid var(--rule)}
+.eyebrow{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--bronze-ink); display:flex; align-items:center; gap:10px; margin:0 0 14px}
+.eyebrow::before{content:""; width:28px; height:1px; background:var(--bronze)}
+h1,h2,h3,h4,h5{font-family:var(--f-display); color:var(--heading); text-wrap:balance; margin:0; font-optical-sizing:auto}
+h2{font-size:clamp(30px,4.2vw,46px); line-height:1.12; font-weight:500; letter-spacing:-.01em; max-width:820px}
+h3{font-size:clamp(23px,2.6vw,28px); line-height:1.25; font-weight:500; margin-top:64px; margin-bottom:14px}
+p{margin:0 0 18px}
+.lede{font-size:clamp(18px,2vw,20.5px); color:var(--ink-2); max-width:700px; margin-top:18px}
+.src{font-family:var(--f-mono); font-size:.7em; color:var(--muted); white-space:nowrap; vertical-align:1px}
+.src a{text-decoration:none}
+.src a:hover{color:var(--bronze-ink)}
+.small{font-size:14px; color:var(--muted); line-height:1.55}
+.num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+strong{font-weight:600; color:var(--heading)}
+.pull{font-family:var(--f-display); font-size:clamp(23px,2.7vw,30px); color:var(--heading); line-height:1.35; max-width:760px; margin:36px 0 22px; font-weight:400}
+ul.clean{list-style:none; padding:0; margin:0 0 18px; display:grid; gap:12px}
+ul.clean li{padding-left:22px; position:relative}
+ul.clean li::before{content:""; position:absolute; left:2px; top:.8em; width:8px; height:1px; background:var(--bronze)}
+
+/* ---------- bank logo slot ---------- */
+.bl{display:inline-block; width:22px; height:22px; border-radius:50%; vertical-align:-5px; margin-right:8px; background:var(--surface-2); border:1px solid var(--rule); overflow:hidden; flex:none}
+.bl img{width:100%; height:100%; object-fit:contain; display:block; background:#fff}
+.bl.pending{background:transparent; border:1px dashed var(--rule-strong)}
+.bl.lg{width:28px; height:28px; vertical-align:-8px}
+
+/* ---------- hero ---------- */
+.hero{padding-block:64px 40px}
+.hero-grid{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:48px; align-items:end}
+.hero h1{font-size:clamp(50px,8.4vw,108px); line-height:.98; font-weight:500; letter-spacing:-.02em}
+.hero h1 em{font-style:italic; font-weight:400; color:var(--bronze-ink)}
+.hero .sub{font-size:clamp(18px,2.1vw,22px); color:var(--ink-2); margin-top:22px; max-width:560px; line-height:1.5}
+.byline{margin-top:28px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 20px; font-size:15px; color:var(--ink-2)}
+.byline .wm{font-size:24px}
+.byline .who{border-left:1px solid var(--rule-strong); padding-left:20px}
+.byline .who b{font-weight:600; color:var(--heading); display:block}
+.byline .who span{font-family:var(--f-mono); font-size:12px; color:var(--muted); letter-spacing:.04em}
+.house{width:100%; max-width:420px; justify-self:end}
+.house svg{width:100%; height:auto; display:block}
+.stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--rule-strong); border-bottom:1px solid var(--rule); margin-top:48px}
+.stat{padding:20px 20px 22px 0}
+.stat + .stat{padding-left:20px; border-left:1px solid var(--rule)}
+.stat .v{font-family:var(--f-display); font-size:clamp(30px,3.6vw,42px); color:var(--heading); line-height:1.05; font-weight:500}
+.stat .v small{font-family:var(--f-body); font-size:.42em; font-weight:500; color:var(--muted); margin-left:4px}
+.stat .l{font-size:14.5px; color:var(--ink-2); margin-top:8px; line-height:1.45}
+
+.summary{margin-top:64px}
+.summary-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:26px}
+.summary-head h2{font-size:clamp(28px,3.4vw,36px)}
+.summary ol{margin:0; padding:0; list-style:none; counter-reset:t; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 48px}
+.summary li{counter-increment:t; position:relative; padding-left:40px; font-size:16px; line-height:1.6; color:var(--ink-2)}
+.summary li::before{content:counter(t); position:absolute; left:0; top:1px; font-family:var(--f-mono); font-size:12px; color:var(--bronze-ink); border:1px solid var(--rule-strong); border-radius:50%; width:26px; height:26px; display:grid; place-items:center; line-height:1}
+.summary li b{display:block; font-weight:600; color:var(--heading); font-size:16.5px; margin-bottom:3px}
+.proposal{margin-top:40px; background:var(--key-bg); color:var(--key-ink); border-radius:8px; padding:34px 36px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.9fr); gap:28px 48px; align-items:end}
+.proposal .tag{font-family:var(--f-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--key-accent); display:flex; align-items:center; gap:10px; margin-bottom:14px}
+.proposal .tag i{font-style:normal; width:26px; height:26px; border-radius:50%; border:1px solid var(--key-accent); display:grid; place-items:center; font-size:12px}
+.proposal h3{color:var(--key-ink); margin:0; font-size:clamp(26px,3.2vw,36px); line-height:1.2}
+.proposal p{margin:0; color:var(--key-ink); font-size:17px; line-height:1.6}
+.proposal .aside{grid-column:1 / -1; border-top:1px solid rgba(247,244,236,.18); padding-top:16px; font-size:14px; color:var(--key-muted)}
+
+/* ---------- note ---------- */
+.note{background:var(--note-bg); border:1px solid var(--note-line); box-shadow:var(--note-shadow); border-radius:6px; padding:20px 24px 20px 20px; margin:30px 0; display:grid; grid-template-columns:40px minmax(0,1fr); gap:16px; max-width:760px}
+.note + .note{margin-top:-14px}
+.note .ico{--logo-ink:var(--note-badge-ink); width:40px; height:40px; border-radius:50%; background:var(--note-badge); display:grid; place-items:center}
+.note .ico svg{width:15px; height:24px}
+.note .lab{font-family:var(--f-mono); font-size:13px; letter-spacing:.06em; color:var(--heading); font-weight:500; margin:2px 0 6px}
+.note .lab i{font-style:normal; color:var(--bronze-ink)}
+.note p{margin:0; font-family:var(--f-display); font-size:18.5px; line-height:1.52; color:var(--heading)}
+
+/* ---------- quiet link to the working together page ---------- */
+.next-line{margin-top:18px; font-size:16.5px; color:var(--ink-2); max-width:560px}
+.next-line a{color:var(--heading); text-decoration:underline; text-decoration-color:var(--bronze); text-decoration-thickness:1px; text-underline-offset:4px; transition:text-decoration-color .15s}
+.next-line a:hover{text-decoration-color:var(--heading)}
+.next-line a span{color:var(--bronze-ink); margin-left:4px; display:inline-block; transition:transform .15s}
+.next-line a:hover span{transform:translateX(3px)}
+@media (prefers-reduced-motion: reduce){.next-line a span{transition:none}}
+.next-line .later{display:block; font-size:13px; color:var(--muted); margin-top:4px}
+.closing .next-line{margin-top:26px}
+
+/* ---------- figures ---------- */
+figure{margin:40px 0 14px}
+.fig{background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:24px 24px 18px; box-shadow:var(--shadow)}
+.fig-head{display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:12px 24px; margin-bottom:14px}
+.fig-title{font-family:var(--f-body); font-weight:600; font-size:17px; color:var(--heading); line-height:1.35; margin:0}
+.fig-sub{font-size:14px; color:var(--muted); margin:4px 0 0}
+figcaption{font-size:13px; color:var(--muted); margin-top:12px; line-height:1.5}
+.chart{width:100%; position:relative}
+.chart svg{display:block; width:100%; height:auto; overflow:visible}
+.chart text{font-family:var(--f-body); fill:var(--ink-2)}
+.chart .axis-t{font-family:var(--f-mono); font-size:11px; fill:var(--muted)}
+.chart .lbl{font-size:13.5px; fill:var(--ink)}
+.chart .val{font-family:var(--f-mono); font-size:12px; fill:var(--ink)}
+.chart .val-strong{font-family:var(--f-mono); font-size:12.5px; fill:var(--heading); font-weight:500}
+.chart .grid{stroke:var(--grid); stroke-width:1}
+.chart .base{stroke:var(--rule-strong); stroke-width:1}
+.chart .mk:hover, .chart .mk:focus{filter:brightness(1.08)}
+.chart [data-tip]{outline:none}
+.legend{display:flex; flex-wrap:wrap; gap:6px 16px; font-size:13.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+.legend i{width:10px; height:10px; border-radius:50%; display:inline-block}
+.seg{display:inline-flex; border:1px solid var(--rule-strong); border-radius:999px; padding:3px; gap:2px; background:var(--ground)}
+.seg button{font:500 13px var(--f-body); color:var(--ink-2); background:transparent; border:0; border-radius:999px; padding:6px 14px; cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--heading); color:var(--ground)}
+.two{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px}
+.tip{position:fixed; z-index:50; pointer-events:none; max-width:290px; background:var(--heading); color:var(--ground); font-size:13.5px; line-height:1.45; padding:10px 12px; border-radius:4px; box-shadow:0 8px 24px -8px rgba(0,0,0,.35); opacity:0; transform:translateY(4px); transition:opacity .12s, transform .12s}
+.tip.show{opacity:1; transform:none}
+.tip b{font-weight:600; display:block; margin-bottom:2px}
+.tip .m{font-family:var(--f-mono); font-size:12px}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto; margin:22px 0; border:1px solid var(--rule); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:15px; min-width:560px}
+th,td{text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+th{font-family:var(--f-mono); font-weight:500; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:var(--f-mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+td.bank{white-space:nowrap}
+
+/* expandable data */
+details.data{margin-top:18px}
+details.data summary{cursor:pointer; list-style:none; display:flex; align-items:center; gap:12px; flex-wrap:wrap; border:1px dashed var(--rule-strong); border-radius:6px; padding:12px 16px; background:var(--surface)}
+details.data summary::-webkit-details-marker{display:none}
+details.data summary:hover{border-color:var(--bronze)}
+details.data .plus{width:24px; height:24px; border-radius:50%; background:var(--heading); color:var(--ground); display:grid; place-items:center; font:500 15px var(--f-mono); flex:none}
+details.data[open] .plus::before{content:"\2212"}
+details.data:not([open]) .plus::before{content:"+"}
+details.data .sum-t{font-weight:600; color:var(--heading)}
+details.data .sum-h{font-size:14px; color:var(--muted)}
+details.data[open] .sum-h{display:none}
+
+/* ---------- meter ---------- */
+.meter-track{position:relative; height:14px; background:var(--surface-2); border-radius:7px}
+.meter-fill{position:absolute; left:0; top:0; bottom:0; background:var(--s-ozel); border-radius:7px 3px 3px 7px}
+.meter-goal{position:absolute; top:-8px; bottom:-8px; width:2px; background:var(--bronze)}
+.meter-labels{position:relative; height:44px; font-size:13px}
+.meter-labels span{position:absolute; top:10px; white-space:nowrap; transform:translateX(-50%)}
+.meter-labels .g{color:var(--bronze-ink)}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative; margin:28px 0 8px; padding-left:28px}
+.timeline::before{content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--rule-strong)}
+.tl-item{position:relative; padding:0 0 24px}
+.tl-item::before{content:""; position:absolute; left:-27px; top:7px; width:11px; height:11px; border-radius:50%; background:var(--ground); border:2px solid var(--mark-muted)}
+.tl-item.fz::before{background:var(--bronze); border-color:var(--bronze)}
+.tl-date{font-family:var(--f-mono); font-size:12px; color:var(--muted); letter-spacing:.04em}
+.tl-item h4{margin:4px 0 2px; font-family:var(--f-body); font-weight:600; font-size:17px; color:var(--heading); display:flex; align-items:center}
+.tl-item p{margin:0; font-size:15px; color:var(--ink-2)}
+.tl-item.fz h4{font-family:var(--f-display); font-size:22px; font-weight:500}
+
+/* ---------- cards ---------- */
+.trio{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:24px}
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:22px}
+.card h4{font-size:22px; font-weight:500; margin:2px 0 6px}
+.card .k{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.card p{margin:0; font-size:15px; color:var(--ink-2)}
+.card dl{margin:14px 0 0; display:grid; gap:10px}
+.card dt{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.card dd{margin:2px 0 0; font-size:15px; line-height:1.5}
+.card.fz{border-color:var(--bronze); background:color-mix(in srgb, var(--bronze) 7%, var(--surface))}
+.flow{display:flex; align-items:center; gap:8px; margin-top:16px; flex-wrap:wrap; font-size:13px}
+.flow span{border:1px solid var(--rule-strong); border-radius:999px; padding:4px 10px; white-space:nowrap}
+.flow b{font-weight:400; color:var(--muted)}
+.card.fz .flow span{border-color:var(--bronze); color:var(--bronze-ink)}
+
+/* ---------- homes ---------- */
+.homes{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px}
+.grid100{display:grid; grid-template-columns:repeat(10,1fr); gap:4px; max-width:300px; margin:12px 0}
+.grid100 i{aspect-ratio:1; border-radius:2px; background:var(--surface-2); border:1px solid var(--rule)}
+.grid100 i.on{background:var(--s-ozel); border-color:var(--s-ozel)}
+.homes .big{font-family:var(--f-display); font-size:46px; color:var(--heading); font-weight:500; line-height:1}
+.homes .big small{font-family:var(--f-body); font-size:15px; color:var(--muted); font-weight:400; margin-left:6px}
+
+/* ---------- journey ---------- */
+.journey{margin-top:28px; background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:26px; box-shadow:var(--shadow)}
+.j-steps{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; list-style:none; margin:0; padding:0; counter-reset:j}
+.j-steps li{counter-increment:j; position:relative; padding-top:34px}
+.j-steps li::before{content:counter(j); position:absolute; top:0; left:0; width:24px; height:24px; border-radius:50%; background:var(--ground); border:1px solid var(--bronze); color:var(--bronze-ink); font:500 12px var(--f-mono); display:grid; place-items:center}
+.j-steps li::after{content:""; position:absolute; top:12px; left:30px; right:-4px; height:1px; background:var(--rule-strong)}
+.j-steps li:last-child::after{display:none}
+.j-steps h5{margin:0 0 6px; font:600 15px var(--f-body); color:var(--heading)}
+.j-steps p{margin:0; font-size:13px; color:var(--muted); line-height:1.45}
+.j-bank{margin-top:22px; border-top:1px dashed var(--bronze); padding-top:16px; display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center}
+.j-bank b{font-family:var(--f-display); font-size:23px; font-weight:500; color:var(--heading); display:flex; align-items:center}
+.j-bank span.t{color:var(--ink-2); font-size:15.5px}
+
+/* ---------- heat ---------- */
+.heat td.h{text-align:center; font-size:13px; white-space:nowrap}
+.heat td.h span{display:inline-block; min-width:92px; padding:5px 8px; border-radius:3px}
+.lv0{background:var(--heat-0); color:var(--muted)}
+.lv1{background:var(--heat-1); color:var(--heat-ink-dark)}
+.lv2{background:var(--heat-2); color:var(--heat-ink-dark)}
+.lv3{background:var(--heat-3); color:var(--heat-ink-light)}
+.lv4{background:var(--heat-4); color:var(--heat-ink-light)}
+.heat .fzc{background:color-mix(in srgb, var(--bronze) 12%, transparent)}
+.heat th.fzc{color:var(--bronze-ink)}
+.heat th{white-space:nowrap}
+
+/* ---------- moves ---------- */
+.move-block{margin-top:56px; max-width:860px}
+.move-block > h3{margin-top:0; display:flex; align-items:baseline; gap:14px}
+.move-block > h3 small{font-family:var(--f-mono); font-size:13px; color:var(--bronze-ink); font-weight:500; width:30px; height:30px; border:1px solid var(--bronze); border-radius:50%; display:inline-grid; place-items:center; flex:none; align-self:center}
+.move-block > p.intro{color:var(--muted); font-size:15.5px; margin:0 0 8px}
+.move{display:grid; grid-template-columns:56px minmax(0,1fr); gap:6px 18px; padding:30px 0; border-top:1px solid var(--rule)}
+.move .no{font-family:var(--f-display); font-size:34px; line-height:1; color:var(--bronze-ink); font-weight:400}
+.move h4{font-size:23px; font-weight:500; line-height:1.3; margin:2px 0 10px}
+.move p{margin:0; color:var(--ink-2); font-size:17px}
+.move .note{margin:18px 0 0; max-width:none}
+
+/* ---------- closing ---------- */
+.closing{padding-block:96px 56px; border-top:1px solid var(--rule)}
+.closing blockquote{margin:0; font-family:var(--f-display); font-size:clamp(27px,3.6vw,41px); line-height:1.3; color:var(--heading); max-width:920px; text-wrap:balance; font-weight:400}
+.closing blockquote em{color:var(--bronze-ink)}
+.closing .lede{max-width:780px}
+.sign{margin-top:44px; display:flex; flex-wrap:wrap; gap:18px 40px; align-items:center; border-top:1px solid var(--bronze); padding-top:22px; max-width:920px}
+.sign .wm{font-size:32px}
+.sign p{margin:0; font-size:15px; color:var(--ink-2); max-width:520px}
+.sign .contact{font-family:var(--f-mono); font-size:13px; color:var(--heading); line-height:1.8}
+.method{font-size:13.5px; color:var(--muted); max-width:780px; margin-top:22px}
+.refs{padding-block:8px 64px}
+.refs details summary{font-family:var(--f-mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; color:var(--heading)}
+.refs ol{list-style:none; padding:0; margin:18px 0 0; columns:2; column-gap:40px; font-size:13px; color:var(--muted)}
+.refs li{break-inside:avoid; margin-bottom:8px; line-height:1.45}
+.refs li span{font-family:var(--f-mono); color:var(--bronze-ink); margin-right:6px}
+.refs a{color:var(--ink-2); text-decoration:underline; text-decoration-color:var(--rule-strong); text-underline-offset:2px; word-break:break-word}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px){
+  .hero-grid{grid-template-columns:1fr; gap:28px}
+  .house{justify-self:start; max-width:280px; order:-1}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(3){padding-left:0; border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--rule)}
+  .proposal{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr}
+  .j-steps{grid-template-columns:1fr 1fr}
+  .j-steps li::after{display:none}
+  .two{grid-template-columns:1fr}
+}
+@media (max-width: 620px){
+  .note{grid-template-columns:1fr; gap:10px; padding:18px}
+  .note p{font-size:17px}
+  body{font-size:16.5px}
+  .wrap{padding-inline:16px}
+  .topbar-inner{padding:0 16px; gap:10px}
+  .topbar .wm{font-size:19px}
+  section.chapter{padding-block:56px 20px}
+  .summary ol{grid-template-columns:1fr}
+  .proposal{padding:26px 22px}
+  .fig{padding:18px 14px 14px}
+  .homes{grid-template-columns:1fr}
+  .refs ol{columns:1}
+  .stat .v{font-size:30px}
+  .move{grid-template-columns:1fr; gap:4px}
+  .move .no{font-size:26px}
+  .gate-row{flex-direction:column}
+}
+@media print{
+  .topbar{position:static}
+  .fig,.journey{box-shadow:none}
+}
+
+/* ---------- page safe areas ---------- */
+:root{box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0}
+.src{white-space:normal}
+
+/* ---------- hero chain ---------- */
+.chain-art{width:100%; max-width:400px; justify-self:end}
+.chain-art svg{width:100%; height:auto; display:block; overflow:visible}
+.chain-art .nd{fill:var(--surface); stroke:var(--heading); stroke-width:1.5}
+.chain-art .nd-n{font:500 13px var(--f-mono); fill:var(--heading)}
+.chain-art .nd-t{font:500 20px var(--f-display); fill:var(--heading)}
+.chain-art .nd-s{font:400 13px var(--f-body); fill:var(--muted)}
+.chain-art .ln{stroke:var(--rule-strong); stroke-width:1}
+.chain-art .goods{fill:var(--heading)}
+.chain-art .money{fill:var(--bronze)}
+.chain-art .br{stroke:var(--bronze); stroke-width:1.5; fill:none}
+.chain-art .br-t{font:500 12px var(--f-mono); fill:var(--bronze-ink); letter-spacing:.06em}
+.chain-art .lg-t{font:400 12.5px var(--f-body); fill:var(--ink-2)}
+@media (prefers-reduced-motion: reduce){.chain-art .goods,.chain-art .money{display:none}}
+
+/* ---------- reveal for data ---------- */
+.hb{display:grid; grid-template-columns:minmax(120px,190px) minmax(0,1fr); gap:10px 16px; align-items:center; margin:8px 0}
+.hb .k{font-size:14.5px; color:var(--ink-2); line-height:1.35}
+.hb .tr{position:relative; height:30px; background:var(--surface-2); border-radius:3px}
+.hb .fl{position:absolute; left:0; top:0; bottom:0; width:0; border-radius:3px; background:var(--s-ozel); transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.hb .fl.b{background:var(--bronze)}
+.hb .fl.m{background:var(--mark-muted)}
+.hb .v{position:absolute; top:50%; transform:translateY(-50%); left:10px; font:500 13px var(--f-mono); color:#fff; white-space:nowrap}
+.hb .v.out{color:var(--heading)}
+.in .hb .fl{width:var(--w)}
+@media (prefers-reduced-motion: reduce){.hb .fl{transition:none}}
+
+.grid100{grid-template-columns:repeat(10,1fr); max-width:260px}
+.grid100 i{transition:background-color .3s, border-color .3s}
+.grid100 i.on{background:var(--surface-2); border-color:var(--rule)}
+.in .grid100 i.on{background:var(--bronze); border-color:var(--bronze)}
+.bigfig{font-family:var(--f-display); font-size:52px; line-height:1; color:var(--heading); font-weight:500}
+.bigfig small{font-family:var(--f-body); font-size:15px; color:var(--muted); font-weight:400; margin-left:6px}
+.gridrow{display:grid; grid-template-columns:auto minmax(0,1fr); gap:24px; align-items:center}
+
+/* ---------- key block (asıl fırsat) ---------- */
+.key{margin-top:48px; background:var(--key-bg); color:var(--key-ink); border-radius:8px; padding:36px}
+.key .tag{font-family:var(--f-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--key-accent); margin-bottom:12px}
+.key h3{color:var(--key-ink); margin:0 0 12px; font-size:clamp(26px,3.2vw,36px); line-height:1.2; max-width:780px}
+.key > p{color:var(--key-muted); max-width:700px; margin:0 0 26px}
+.levers{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; list-style:none; padding:0; margin:0; counter-reset:lv}
+.levers li{counter-increment:lv; border-top:1px solid rgba(247,244,236,.22); padding-top:14px}
+.levers li::before{content:counter(lv); font:500 12px var(--f-mono); color:var(--key-accent); display:block; margin-bottom:6px}
+.levers b{display:block; font-family:var(--f-display); font-weight:500; font-size:19px; margin-bottom:6px; color:var(--key-ink)}
+.levers span{font-size:15px; color:var(--key-muted); line-height:1.5; display:block}
+
+/* ---------- legs ---------- */
+.legs{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:24px}
+.legs .card h4{font-size:22px}
+
+/* ---------- matrix ---------- */
+.mx td.h{text-align:center}
+.mx td.h span{display:inline-block; min-width:96px; padding:5px 8px; border-radius:3px; font-size:13px}
+.mx th.th{color:var(--bronze-ink)}
+.mx td.th{background:color-mix(in srgb, var(--bronze) 10%, transparent)}
+.mx td small{display:block; font-size:12px; color:var(--muted); margin-top:4px; line-height:1.35}
+
+/* ---------- facts row ---------- */
+.facts{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; margin-top:24px}
+.facts.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fact{border-top:2px solid var(--heading); padding-top:12px; font-size:15px; color:var(--ink-2); line-height:1.5}
+.fact b{display:block; font-family:var(--f-display); font-weight:500; font-size:18px; color:var(--heading); margin-bottom:6px; line-height:1.3}
+
+/* ---------- flow steps ---------- */
+.steps{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:0; counter-reset:st; max-width:820px}
+.steps li{counter-increment:st; display:grid; grid-template-columns:44px minmax(0,1fr); gap:14px; padding:14px 0; border-top:1px solid var(--rule)}
+.steps li::before{content:counter(st); width:30px; height:30px; border-radius:50%; border:1px solid var(--bronze); color:var(--bronze-ink); font:500 12.5px var(--f-mono); display:grid; place-items:center}
+.steps li p{margin:0; font-size:16.5px; color:var(--ink-2)}
+.steps li b{color:var(--heading); font-weight:600}
+
+/* ---------- pay methods ---------- */
+.pay{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:22px}
+.pay .card h4{font-family:var(--f-body); font-weight:600; font-size:17px}
+.pay .card .k{display:block; margin-bottom:6px}
+
+/* ---------- ring map ---------- */
+.ringwrap{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:28px; align-items:center}
+.ring svg{width:100%; height:auto; display:block; max-width:520px; margin:0 auto}
+.ring .sec{fill:var(--surface-2); stroke:var(--ground); stroke-width:3; cursor:pointer; transition:fill .2s}
+.ring .sec:hover{fill:color-mix(in srgb, var(--bronze) 18%, var(--surface-2))}
+.ring .sec.on{fill:color-mix(in srgb, var(--bronze) 28%, var(--surface-2))}
+.ring .ctr{fill:var(--heading)}
+.ring .ctr-t{font:500 17px var(--f-display); fill:var(--ground)}
+.ring .ctr-s{font:400 11px var(--f-mono); fill:var(--key-muted)}
+.ring .cat{font:500 12px var(--f-mono); fill:var(--bronze-ink); letter-spacing:.08em; pointer-events:none}
+.ring .main{font:600 18px var(--f-body); fill:var(--heading); pointer-events:none}
+.ring .alt{font:400 13.5px var(--f-body); fill:var(--muted); pointer-events:none}
+.ring-detail{background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:24px; min-height:250px}
+.ring-detail .k{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--bronze-ink)}
+.ring-detail h4{font-size:26px; font-weight:500; margin:6px 0 10px}
+.ring-detail p{font-size:15.5px; color:var(--ink-2); margin:0 0 12px}
+.ring-detail .alts{font-size:14.5px; color:var(--muted); border-top:1px solid var(--rule); padding-top:12px}
+.ring-detail .alts b{color:var(--heading); font-weight:600}
+
+/* ---------- win cards ---------- */
+.wins{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; margin-top:22px}
+.wins .card{padding:18px}
+.wins .card h4{font-size:19px}
+.wins .card p{font-size:14.5px}
+
+/* ---------- roadmap ---------- */
+.road{margin-top:34px; background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:28px 26px 26px; box-shadow:var(--shadow)}
+.road-track{position:relative; height:74px; margin:6px 56px 10px}
+.road-track .base-l{position:absolute; left:0; right:0; top:22px; height:2px; background:var(--rule-strong)}
+.road-track .prog{position:absolute; left:0; top:22px; height:2px; width:0; background:var(--bronze); transition:width 1.4s cubic-bezier(.3,.7,.2,1)}
+.road.in .road-track .prog{width:100%}
+.ms{position:absolute; top:0; transform:translateX(-50%); background:none; border:0; padding:0; cursor:pointer; text-align:center; color:var(--ink-2); font:inherit; width:120px}
+.ms .dot{width:46px; height:46px; margin:0 auto; border-radius:50%; background:var(--ground); border:2px solid var(--rule-strong); display:grid; place-items:center; font:500 13px var(--f-mono); color:var(--muted); transition:all .25s}
+.ms .when{display:block; font:500 11.5px var(--f-mono); color:var(--muted); margin-top:6px; letter-spacing:.03em}
+.ms[aria-selected="true"] .dot{background:var(--heading); border-color:var(--heading); color:var(--ground); transform:scale(1.08)}
+.road.in .ms .dot{border-color:var(--bronze); color:var(--bronze-ink)}
+.road.in .ms[aria-selected="true"] .dot{border-color:var(--heading); color:var(--ground)}
+.phase{display:none; margin-top:26px; border-top:1px solid var(--rule); padding-top:22px}
+.phase.on{display:block; animation:phin .35s ease}
+@keyframes phin{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){.phase.on{animation:none} .road-track .prog{transition:none}}
+.phase h3{margin:0 0 6px}
+.phase .goal{font-size:17.5px; color:var(--ink-2); max-width:760px; margin-bottom:20px}
+.ph-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px}
+.ph-grid h5{font:600 13px var(--f-mono); letter-spacing:.06em; color:var(--bronze-ink); margin:0 0 10px; text-transform:none}
+.ph-grid ul{margin:0}
+.ph-grid li{font-size:15.5px; line-height:1.5}
+.exit{margin-top:20px; background:var(--note-bg); border:1px solid var(--note-line); border-radius:6px; padding:14px 18px; font-size:15.5px; color:var(--heading)}
+.exit b{font-family:var(--f-mono); font-weight:500; font-size:12.5px; letter-spacing:.06em; color:var(--bronze-ink); margin-right:8px}
+
+/* ---------- use case stepper ---------- */
+.uc{margin-top:28px; background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:26px; box-shadow:var(--shadow)}
+.uc-chain{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; position:relative}
+.uc-node{border:1px solid var(--rule-strong); border-radius:6px; padding:12px 14px; background:var(--ground); transition:all .3s; position:relative}
+.uc-node .r{font:500 11px var(--f-mono); color:var(--muted); letter-spacing:.06em}
+.uc-node b{display:block; font-family:var(--f-display); font-weight:500; font-size:18px; color:var(--heading); line-height:1.25; margin-top:2px}
+.uc-node.on{border-color:var(--bronze); background:color-mix(in srgb, var(--bronze) 12%, var(--surface)); box-shadow:0 0 0 3px color-mix(in srgb, var(--bronze) 18%, transparent)}
+.uc-part{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:12px}
+.uc-part .uc-node{border-style:dashed}
+.uc-text{margin-top:22px; min-height:120px; display:grid; grid-template-columns:56px minmax(0,1fr); gap:16px}
+.uc-text .no{font-family:var(--f-display); font-size:40px; line-height:1; color:var(--bronze-ink)}
+.uc-text h4{font-size:22px; font-weight:500; margin:0 0 6px}
+.uc-text p{margin:0; color:var(--ink-2)}
+.uc-nav{display:flex; align-items:center; gap:10px; margin-top:18px; flex-wrap:wrap}
+.uc-nav button{font:600 14px var(--f-body); border:1px solid var(--rule-strong); background:var(--ground); color:var(--heading); border-radius:999px; padding:8px 16px; cursor:pointer}
+.uc-nav button.pri{background:var(--heading); color:var(--ground); border-color:var(--heading)}
+.uc-dots{display:flex; gap:6px; margin-left:auto}
+.uc-dots i{width:8px; height:8px; border-radius:50%; background:var(--rule-strong); transition:background .2s}
+.uc-dots i.on{background:var(--bronze)}
+
+/* ---------- risks ---------- */
+.risks{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 40px; margin-top:20px}
+.risk{display:grid; grid-template-columns:40px minmax(0,1fr); gap:14px; padding:20px 0; border-top:1px solid var(--rule)}
+.risk .no{font-family:var(--f-display); font-size:26px; color:var(--bronze-ink); line-height:1}
+.risk .cat{font:500 11.5px var(--f-mono); color:var(--muted); letter-spacing:.06em}
+.risk h4{font-size:19px; font-weight:500; margin:2px 0 6px; line-height:1.3}
+.risk p{margin:0; font-size:15.5px; color:var(--ink-2)}
+.ctx{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:26px}
+.ctx .card h4{font-family:var(--f-body); font-weight:600; font-size:16.5px}
+.ctx .card p{font-size:14.5px}
+
+/* ---------- meetings ---------- */
+.meet-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px; margin-top:26px}
+.meets{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:18px}
+.mt{background:var(--surface); border:1px solid var(--rule); border-radius:6px; padding:18px 20px; display:grid; grid-template-columns:34px minmax(0,1fr); gap:4px 14px}
+.mt .no{font:500 12px var(--f-mono); width:28px; height:28px; border-radius:50%; border:1px solid var(--rule-strong); display:grid; place-items:center; color:var(--muted)}
+.mt h4{font-family:var(--f-body); font-weight:600; font-size:17px; margin:2px 0 2px}
+.mt .who{font-size:14px; color:var(--muted); margin:0 0 8px}
+.mt p{margin:0; font-size:15px; color:var(--ink-2); line-height:1.5}
+.mt .tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px}
+.mt .tags span{font:500 11.5px var(--f-mono); border:1px solid var(--rule-strong); border-radius:999px; padding:2px 9px; color:var(--ink-2)}
+.mt .tags span.live{border-color:var(--s-kamu); color:var(--s-kamu)}
+.mt.first{border-color:var(--bronze)}
+.mt.first .no{border-color:var(--bronze); color:var(--bronze-ink)}
+.mt[hidden]{display:none}
+
+/* ---------- misc ---------- */
+.fig .src{font-size:12px}
+.pill{display:inline-block; font:500 11.5px var(--f-mono); border:1px solid var(--bronze); color:var(--bronze-ink); border-radius:999px; padding:1px 8px; vertical-align:2px; margin-left:6px}
+.srcs{font-size:13.5px; color:var(--muted); columns:2; column-gap:40px; margin-top:16px}
+.srcs p{margin:0 0 6px; break-inside:avoid}
+
+@media (max-width: 900px){
+  .chain-art{justify-self:start; max-width:340px}
+  .levers{grid-template-columns:1fr 1fr}
+  .legs{grid-template-columns:1fr}
+  .facts,.facts.four{grid-template-columns:1fr 1fr}
+  .ringwrap{grid-template-columns:1fr}
+  .wins{grid-template-columns:1fr 1fr}
+  .ph-grid{grid-template-columns:1fr}
+  .risks{grid-template-columns:1fr}
+  .ctx{grid-template-columns:1fr 1fr}
+  .meets{grid-template-columns:1fr}
+  .uc-chain{grid-template-columns:1fr 1fr}
+}
+@media (max-width: 620px){
+  .key{padding:26px 20px}
+  .levers{grid-template-columns:1fr}
+  .facts,.facts.four{grid-template-columns:1fr}
+  .wins{grid-template-columns:1fr}
+  .ctx{grid-template-columns:1fr}
+  .hb{grid-template-columns:1fr; gap:4px}
+  .gridrow{grid-template-columns:1fr}
+  .road{padding:22px 14px}
+  .ms{width:72px}
+  .road-track{margin:6px 30px 10px}
+  .ms .dot{width:38px; height:38px}
+  .ms .when{font-size:10.5px}
+  .uc{padding:18px 14px}
+  .uc-part{grid-template-columns:1fr 1fr 1fr}
+  .uc-node{padding:10px}
+  .uc-node b{font-size:15px}
+  .uc-text{grid-template-columns:1fr}
+  .uc-text .no{font-size:30px}
+  .srcs{columns:1}
+  .risk{grid-template-columns:32px minmax(0,1fr)}
+}
+
+/* =========================================================
+   fspark9 brand v2, The Ninth Slice. Tokens and overrides.
+   ========================================================= */
+:root{
+  color-scheme: light;
+  --paper:#F3F1EB; --ink-c:#17150F; --white:#FFFFFF; --stone:#5E594F; --rule-c:#D8D3C8; --flare:#FFC629; --dust:#A39D90;
+  --ground:var(--paper);
+  --surface:var(--white);
+  --surface-2:#E8E5DD;
+  --flare-tint:#FFF3CC;
+  --ink:var(--ink-c);
+  --ink-2:var(--ink-c);
+  --muted:var(--stone);
+  --heading:var(--ink-c);
+  --logo-ink:var(--ink-c);
+  --rule:var(--rule-c);
+  --rule-strong:var(--ink-c);
+  --line:var(--ink-c);
+  --on-ink:var(--paper);
+  --stage:var(--ink-c);
+  --f-display:"Epilogue", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"Spline Sans Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ease:cubic-bezier(0.2, 0.7, 0.2, 1);
+  --grid:rgba(23,21,15,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#17150F; --surface:#201E17; --surface-2:#2C2A22; --flare-tint:#3A3218;
+    --ink:#F3F1EB; --ink-2:#F3F1EB; --muted:#A39D90; --heading:#F3F1EB; --logo-ink:#F3F1EB;
+    --rule:#3A372F; --rule-strong:#F3F1EB; --line:#F3F1EB; --on-ink:#17150F; --stage:#0E0D09;
+    --grid:rgba(243,241,235,.08);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#17150F; --surface:#201E17; --surface-2:#2C2A22; --flare-tint:#3A3218;
+  --ink:#F3F1EB; --ink-2:#F3F1EB; --muted:#A39D90; --heading:#F3F1EB; --logo-ink:#F3F1EB;
+  --rule:#3A372F; --rule-strong:#F3F1EB; --line:#F3F1EB; --on-ink:#17150F; --stage:#0E0D09;
+  --grid:rgba(243,241,235,.08);
+}
+
+/* square corners, no shadows */
+*, *::before, *::after{border-radius:0 !important; box-shadow:none !important}
+body{background:var(--ground); color:var(--ink); font-family:var(--f-body); font-size:17px; line-height:1.55}
+:focus-visible{outline:2px solid var(--line); outline-offset:3px}
+strong{font-weight:700; color:var(--heading)}
+
+/* logo */
+.wm{display:inline-flex; align-items:center; color:var(--logo-ink); text-decoration:none; line-height:1}
+.wordmark{height:.8em; width:auto; display:block}
+.topbar .wm{font-size:24px}
+.byline .wm{font-size:26px}
+.sign .wm{font-size:36px; color:var(--paper)}
+
+/* type */
+h1,h2,h3,h4,h5{font-family:var(--f-display); color:var(--heading); font-weight:700}
+h2{font-size:clamp(28px,3.6vw,40px); line-height:1.08; letter-spacing:-.025em; font-weight:700}
+h3{font-size:clamp(22px,2.4vw,26px); line-height:1.15; letter-spacing:-.02em; font-weight:700}
+h4{letter-spacing:-.015em}
+.hero h1{font-size:clamp(52px,8.4vw,96px); line-height:.95; font-weight:800; letter-spacing:-.04em}
+.cut{display:inline-block; background:var(--flare); color:#17150F; padding:0 .38em .04em .08em; margin-left:-.08em; clip-path:polygon(0 0,100% 0,calc(100% - .32em) 100%,0 100%)}
+@media (prefers-reduced-motion: no-preference){
+  .cut{animation:cutin 480ms var(--ease) 240ms both}
+  @keyframes cutin{from{clip-path:polygon(0 0,0 0,0 100%,0 100%)} to{clip-path:polygon(0 0,100% 0,calc(100% - .32em) 100%,0 100%)}}
+}
+.hero .sub{color:var(--ink); font-size:clamp(18px,2vw,21px); line-height:1.5}
+.lede{color:var(--ink); font-size:clamp(18px,1.9vw,20px); line-height:1.5}
+.eyebrow{font-family:var(--f-mono); font-weight:500; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.eyebrow::before{width:10px; height:10px; background:var(--flare)}
+.src{font-family:var(--f-mono); color:var(--muted); font-size:.68em}
+.small{color:var(--muted)}
+.pull{font-family:var(--f-display); font-weight:700; letter-spacing:-.02em; font-size:clamp(24px,2.8vw,32px); line-height:1.2; color:var(--heading)}
+.byline .who{border-left:1px solid var(--rule)}
+.byline .who b{font-weight:700}
+.byline .who span{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.06em; font-size:11.5px}
+ul.clean li::before{width:6px; height:6px; top:.62em; left:2px; background:var(--line)}
+
+/* top bar */
+.topbar{background:color-mix(in srgb, var(--ground) 94%, transparent); border-bottom:1px solid var(--rule)}
+.chapters a{font-family:var(--f-mono); font-weight:500; font-size:11.5px; letter-spacing:.08em; color:var(--muted); padding:8px 10px; border-bottom:2px solid transparent}
+.chapters a.on{background:transparent; color:var(--heading); border-bottom-color:var(--line)}
+.progress{background:var(--flare); height:3px}
+
+/* stats and summary */
+.stats{border-top:2px solid var(--line); border-bottom:1px solid var(--rule)}
+.stat + .stat{border-left:1px solid var(--rule)}
+.stat .v{font-family:var(--f-display); font-weight:800; letter-spacing:-.03em; color:var(--heading)}
+.stat .v small{font-family:var(--f-body); font-weight:400; letter-spacing:0}
+.stat .l{color:var(--muted)}
+.summary li{color:var(--ink)}
+.summary li b{font-weight:700; color:var(--heading)}
+.summary li::before{font-family:var(--f-mono); border:1px solid var(--line); color:var(--heading)}
+.summary-head h2{font-size:clamp(26px,3vw,34px)}
+
+/* proposal and key: result cards on White, 4 px Ink rule */
+.proposal, .key{background:var(--surface); color:var(--ink); border-top:4px solid var(--line)}
+.proposal .tag, .key .tag{font-family:var(--f-mono); letter-spacing:.08em; color:var(--muted); display:flex; align-items:center; gap:10px}
+.proposal .tag::before, .key .tag::before{content:""; width:10px; height:10px; background:var(--flare); flex:none}
+.proposal h3, .key h3{color:var(--heading); font-weight:800; letter-spacing:-.03em}
+.proposal p{color:var(--ink)}
+.proposal .aside{border-top:1px solid var(--rule); color:var(--muted)}
+.key > p{color:var(--muted)}
+.levers li{border-top:2px solid var(--line)}
+.levers li::before{content:""; width:6px; height:6px; background:var(--line); margin-bottom:10px}
+.levers b{font-family:var(--f-display); font-weight:700; letter-spacing:-.015em; color:var(--heading)}
+.levers span{color:var(--muted)}
+
+/* notes: Görüşümüz */
+.note{background:var(--surface); border:0; border-top:2px solid var(--line); padding:20px 22px}
+.note .ico{background:var(--stage); color:var(--paper); width:40px; height:40px}
+.note .ico svg{width:16px; height:25px}
+.note .lab{font-family:var(--f-mono); font-weight:500; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.note p{font-family:var(--f-body); font-size:17.5px; line-height:1.55; color:var(--ink)}
+
+/* figures and charts */
+.fig{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.fig-title{font-family:var(--f-body); font-weight:700; color:var(--heading)}
+.fig-sub, figcaption{color:var(--muted)}
+.hb .k{color:var(--ink)}
+.hb .tr{background:var(--surface-2)}
+.hb .fl{background:var(--line); transition:width 480ms var(--ease)}
+.hb .fl.b{background:var(--flare)}
+.hb .fl.m{background:var(--dust)}
+.hb .v{font-family:var(--f-mono); color:var(--on-ink)}
+.hb .fl.b + .v{color:#17150F}
+.hb .v.out{color:var(--heading)}
+.bigfig{font-family:var(--f-display); font-weight:800; letter-spacing:-.03em}
+.grid100 i{background:var(--surface-2); border:1px solid var(--rule)}
+.grid100 i.on{background:var(--surface-2); border-color:var(--rule)}
+.in .grid100 i.on{background:var(--flare); border-color:#E0A800}
+
+/* hero chain */
+.chain-art .nd{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+.chain-art .nd-n{font-family:var(--f-mono); fill:var(--heading)}
+.chain-art .nd-t{font-family:var(--f-display); font-weight:700; font-size:21px; letter-spacing:-.02em; fill:var(--heading)}
+.chain-art .nd-s{font-family:var(--f-body); fill:var(--muted)}
+.chain-art .ln{stroke:var(--rule)}
+.chain-art .goods{fill:var(--line)}
+.chain-art .money{fill:var(--flare); stroke:#17150F; stroke-width:.8}
+.chain-art .br{stroke:var(--line)}
+.chain-art .br-t{font-family:var(--f-mono); fill:var(--muted); text-transform:uppercase; letter-spacing:.08em; font-size:11px}
+.chain-art .lg-t{font-family:var(--f-body); fill:var(--muted)}
+
+/* cards */
+.card{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.card.fz{background:var(--surface); border-color:var(--rule); border-top:4px solid var(--line)}
+.card .k{font-family:var(--f-mono); font-weight:500; letter-spacing:.08em; color:var(--muted); display:inline-flex; align-items:center; gap:8px}
+.card.fz .k::before{content:""; width:8px; height:8px; background:var(--flare)}
+.card h4{font-family:var(--f-display); font-weight:700; letter-spacing:-.02em}
+.card p{color:var(--ink)}
+.flow span{border:1px solid var(--line); color:var(--heading)}
+.card.fz .flow span{border-color:var(--line); color:var(--heading)}
+.flow b{color:var(--muted)}
+.pay .card h4, .ctx .card h4{font-family:var(--f-body); font-weight:700; letter-spacing:0}
+.fact{border-top:2px solid var(--line); color:var(--ink)}
+.fact b{font-family:var(--f-display); font-weight:700; letter-spacing:-.015em; color:var(--heading)}
+
+/* tables */
+.tbl-wrap{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+th{font-family:var(--f-mono); font-weight:500; letter-spacing:.08em; color:var(--muted); background:var(--surface)}
+th,td{border-bottom:1px solid var(--rule)}
+.lv0{background:var(--surface-2); color:var(--muted)}
+.lv1,.lv2{background:var(--rule-c); color:#17150F}
+.lv3{background:var(--stone); color:var(--paper)}
+.lv4{background:#17150F; color:var(--paper)}
+.mx th.th{color:var(--heading)}
+.mx td.th{background:var(--flare-tint)}
+.mx td small{color:var(--muted)}
+
+/* segmented controls */
+.seg{border:1px solid var(--line); background:var(--surface)}
+.seg button{font-family:var(--f-body); font-weight:700; color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--line); color:var(--on-ink)}
+
+/* steps */
+.steps li{border-top:1px solid var(--rule)}
+.steps li::before{border:1px solid var(--line); color:var(--heading); font-family:var(--f-mono)}
+.steps li p{color:var(--ink)}
+.steps li b{font-weight:700}
+
+/* ring map */
+.ring .sec{fill:var(--surface-2); stroke:var(--surface); transition:fill 240ms var(--ease)}
+.ring .sec:hover{fill:var(--rule)}
+.ring .sec.on{fill:var(--flare)}
+.ring .ctr{fill:#17150F}
+.ring .ctr-t{font-family:var(--f-display); font-weight:800; letter-spacing:-.02em; fill:var(--paper)}
+.ring .ctr-s{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; font-size:9.5px; fill:var(--dust)}
+.ring .cat{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; font-size:11px; fill:var(--muted)}
+.ring .main{font-family:var(--f-display); font-weight:700; letter-spacing:-.02em; fill:var(--heading)}
+.ring .alt{font-family:var(--f-body); fill:var(--muted)}
+.ring-detail{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.ring-detail .k{font-family:var(--f-mono); letter-spacing:.08em; color:var(--muted)}
+.ring-detail h4{font-family:var(--f-display); font-weight:700; letter-spacing:-.02em}
+.ring-detail p{color:var(--ink)}
+.ring-detail .alts{border-top:1px solid var(--rule); color:var(--muted)}
+
+/* roadmap */
+.road{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.road-track .base-l{background:var(--rule); height:2px}
+.road-track .prog{background:var(--flare); height:3px; top:21.5px; transition:width 480ms var(--ease)}
+.ms .dot{background:var(--surface); border:2px solid var(--rule); font-family:var(--f-mono); color:var(--muted)}
+.ms .when{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.06em; font-size:10.5px; color:var(--muted)}
+.road.in .ms .dot{border-color:var(--line); color:var(--heading)}
+.ms[aria-selected="true"] .dot, .road.in .ms[aria-selected="true"] .dot{background:var(--line); border-color:var(--line); color:var(--on-ink); transform:none}
+.ph-grid h5{font-family:var(--f-mono); font-weight:500; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.phase .goal{color:var(--ink)}
+.exit{background:var(--ground); border:0; border-left:6px solid var(--flare); color:var(--ink)}
+.exit b{font-family:var(--f-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+/* use case */
+.uc{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.uc-node{background:var(--ground); border:1px solid var(--rule); transition:background-color 240ms var(--ease), border-color 240ms var(--ease)}
+.uc-node .r{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; font-size:10.5px; color:var(--muted)}
+.uc-node b{font-family:var(--f-display); font-weight:700; letter-spacing:-.015em}
+.uc-node.on{background:var(--flare); border-color:#17150F}
+.uc-node.on b, .uc-node.on .r{color:#17150F}
+.uc-part .uc-node{border-style:dashed}
+.uc-part .uc-node.on{border-style:solid}
+.uc-text .no{font-family:var(--f-display); font-weight:800; color:var(--heading)}
+.uc-text h4{font-family:var(--f-display); font-weight:700}
+.uc-text p{color:var(--ink)}
+.uc-nav button{font-family:var(--f-body); font-weight:700; border:1px solid var(--line); background:var(--surface); color:var(--heading)}
+.uc-nav button.pri{background:var(--line); color:var(--on-ink)}
+.uc-nav button:disabled{opacity:.4; cursor:default}
+.uc-dots i{background:var(--rule)}
+.uc-dots i.on{background:var(--line)}
+
+/* risks and context */
+.risk{border-top:1px solid var(--rule)}
+.risk .no{font-family:var(--f-display); font-weight:800; color:var(--heading)}
+.risk .cat{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+.risk h4{font-family:var(--f-display); font-weight:700}
+.risk p{color:var(--ink)}
+.risks{border-top:2px solid var(--line)}
+.risks > .risk:nth-child(-n+2){border-top:0}
+
+/* meetings */
+.mt{background:var(--surface); border:1px solid var(--rule); border-top:2px solid var(--line)}
+.mt.first{border-color:var(--rule); border-top:4px solid var(--line)}
+.mt .no, .mt.first .no{border:1px solid var(--line); color:var(--heading); font-family:var(--f-mono)}
+.mt h4{font-family:var(--f-display); font-weight:700; letter-spacing:-.015em}
+.mt .who{color:var(--muted)}
+.mt p{color:var(--ink)}
+.mt .tags span{font-family:var(--f-mono); text-transform:uppercase; letter-spacing:.06em; font-size:10.5px; border:1px solid var(--line); color:var(--heading)}
+.mt .tags span.live{background:var(--flare); border-color:#17150F; color:#17150F}
+
+/* closing: Ink stage */
+.closing{background:#17150F; color:var(--paper); border-top:0; padding-block:96px 64px; margin-top:48px}
+.closing blockquote{font-family:var(--f-display); font-weight:700; letter-spacing:-.03em; color:var(--paper); line-height:1.12; font-size:clamp(28px,3.8vw,44px)}
+.closing .lede{color:var(--paper)}
+.sign{border-top:1px solid #3A372F}
+.sign p{color:var(--dust)}
+.sign .contact{font-family:var(--f-mono); color:var(--paper)}
+.method{color:var(--muted); margin:32px 0 18px}
+.refs summary{font-family:var(--f-mono); letter-spacing:.08em; color:var(--heading)}
+.srcs{color:var(--muted)}
+.tip{background:#17150F; color:var(--paper)}
+
+@media (prefers-reduced-motion: reduce){
+  .hb .fl, .road-track .prog, .uc-node, .ring .sec{transition:none}
+}
+@media (max-width: 900px){
+  .risks > .risk:nth-child(2){border-top:1px solid var(--rule)}
+}
+@media (max-width: 620px){
+  .topbar .wm{font-size:20px}
+  .hero h1{font-size:52px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<g id="fs9-sym"><path d="M51.400 0.031 A32 32 0 1 1 28.378 8.410 L38.037 19.921 A17 17 0 1 0 51.400 15.058 Z" fill="currentColor"/><path d="M30.523 6.610 A32 32 0 0 1 48.600 0.031 L48.600 15.058 A17 17 0 0 0 40.182 18.122 Z" fill="#FFC629"/><path d="M82 32 C82 56 78.8 80 65.2 100 L49.6 100 C58 86 64.6 72 69.605 55.364 A30.5 30.5 0 0 0 80.500 32.000 Z" fill="currentColor"/></g>
+<g id="fs9-word"><g fill="currentColor"><path d="M238 0V-792H21V-1062H238V-1114Q238 -1231 271.0 -1312.0Q304 -1393 359.0 -1445.0Q414 -1497 480.5 -1526.0Q547 -1555 615.5 -1566.0Q684 -1577 743 -1577Q815 -1577 848.5 -1569.0Q882 -1561 894 -1556V-1284Q882 -1288 851.0 -1293.5Q820 -1299 784 -1299Q729 -1299 692.0 -1285.5Q655 -1272 634.0 -1246.0Q613 -1220 603.5 -1184.5Q594 -1149 594 -1105V-1062H871V-792H594V0Z"/><path d="M1365.0 25Q1270.0 25 1180.5 3.0Q1091.0 -19 1018.5 -63.5Q946.0 -108 902.5 -175.0Q859.0 -242 859.0 -331Q859.0 -334 859.0 -338.0Q859.0 -342 859.0 -345H1213.0Q1213.0 -342 1213.0 -339.0Q1213.0 -336 1213.0 -333Q1213.0 -283 1256.5 -261.0Q1300.0 -239 1375.0 -239Q1409.0 -239 1444.5 -246.5Q1480.0 -254 1504.5 -271.5Q1529.0 -289 1529.0 -316Q1529.0 -359 1477.5 -377.0Q1426.0 -395 1304.0 -415Q1234.0 -426 1158.5 -448.0Q1083.0 -470 1018.0 -507.0Q953.0 -544 913.0 -601.0Q873.0 -658 873.0 -741Q873.0 -854 941.0 -929.5Q1009.0 -1005 1121.5 -1044.0Q1234.0 -1083 1369.0 -1083Q1497.0 -1083 1608.5 -1040.0Q1720.0 -997 1789.5 -917.0Q1859.0 -837 1859.0 -727Q1859.0 -725 1859.0 -721.5Q1859.0 -718 1859.0 -715H1509.0Q1509.0 -718 1509.0 -721.0Q1509.0 -724 1509.0 -726Q1509.0 -760 1487.5 -781.0Q1466.0 -802 1433.5 -812.0Q1401.0 -822 1367.0 -822Q1338.0 -822 1304.0 -815.5Q1270.0 -809 1246.0 -793.5Q1222.0 -778 1222.0 -748Q1222.0 -722 1250.0 -704.0Q1278.0 -686 1327.0 -674.5Q1376.0 -663 1439.0 -653Q1501.0 -644 1576.0 -625.0Q1651.0 -606 1719.0 -570.5Q1787.0 -535 1830.5 -476.0Q1874.0 -417 1874.0 -326Q1874.0 -230 1830.0 -163.0Q1786.0 -96 1711.5 -54.5Q1637.0 -13 1547.0 6.0Q1457.0 25 1365.0 25Z"/><path d="M1974.0 437V-1062H2331.0V437ZM2652.0 25Q2526.0 25 2421.5 -44.5Q2317.0 -114 2255.0 -231.5Q2193.0 -349 2193.0 -494Q2193.0 -498 2193.0 -502.5Q2193.0 -507 2193.0 -512L2331.0 -515Q2331.0 -512 2331.0 -508.5Q2331.0 -505 2331.0 -503Q2331.0 -433 2363.5 -382.5Q2396.0 -332 2447.5 -305.5Q2499.0 -279 2554.0 -279Q2643.0 -279 2712.0 -341.0Q2781.0 -403 2781.0 -537Q2781.0 -671 2712.5 -730.5Q2644.0 -790 2554.0 -790Q2500.0 -790 2448.5 -764.5Q2397.0 -739 2364.0 -690.5Q2331.0 -642 2331.0 -571L2193.0 -580Q2193.0 -726 2255.0 -839.0Q2317.0 -952 2421.5 -1017.5Q2526.0 -1083 2652.0 -1083Q2781.0 -1083 2894.5 -1020.0Q3008.0 -957 3078.5 -835.0Q3149.0 -713 3149.0 -537Q3149.0 -352 3080.0 -227.0Q3011.0 -102 2898.0 -38.5Q2785.0 25 2652.0 25Z"/><path d="M3605.0 23Q3490.0 23 3400.0 -13.5Q3310.0 -50 3258.0 -120.0Q3206.0 -190 3206.0 -290Q3206.0 -405 3271.0 -476.5Q3336.0 -548 3440.0 -585.5Q3544.0 -623 3660.0 -634Q3828.0 -650 3889.5 -662.5Q3951.0 -675 3951.0 -706Q3951.0 -707 3951.0 -707.5Q3951.0 -708 3951.0 -708Q3951.0 -756 3900.5 -786.0Q3850.0 -816 3762.0 -816Q3669.0 -816 3621.5 -782.5Q3574.0 -749 3574.0 -681H3222.0Q3222.0 -812 3294.5 -901.5Q3367.0 -991 3490.0 -1037.0Q3613.0 -1083 3765.0 -1083Q3909.0 -1083 4032.5 -1040.0Q4156.0 -997 4232.5 -909.0Q4309.0 -821 4309.0 -685Q4309.0 -664 4309.0 -643.0Q4309.0 -622 4309.0 -601V-249Q4309.0 -207 4311.0 -167.5Q4313.0 -128 4322.0 -95Q4333.0 -59 4349.5 -34.0Q4366.0 -9 4376.0 0H4027.0Q4019.0 -8 4003.5 -31.0Q3988.0 -54 3977.0 -84Q3964.0 -124 3958.0 -161.5Q3952.0 -199 3952.0 -251L4028.0 -199Q4000.0 -130 3936.5 -80.0Q3873.0 -30 3787.0 -3.5Q3701.0 23 3605.0 23ZM3707.0 -236Q3769.0 -236 3826.0 -261.0Q3883.0 -286 3920.0 -341.0Q3957.0 -396 3957.0 -488V-561L4047.0 -481Q3981.0 -458 3897.0 -442.5Q3813.0 -427 3733.0 -419Q3648.0 -410 3606.0 -390.0Q3564.0 -370 3564.0 -324Q3564.0 -280 3600.5 -258.0Q3637.0 -236 3707.0 -236Z"/><path d="M4447.0 0V-1062H4804.0V-682L4737.0 -730Q4751.0 -809 4781.0 -874.5Q4811.0 -940 4858.5 -986.5Q4906.0 -1033 4969.5 -1058.0Q5033.0 -1083 5113.0 -1083Q5178.0 -1083 5212.5 -1074.0Q5247.0 -1065 5256.0 -1060L5203.0 -745Q5194.0 -750 5163.0 -760.5Q5132.0 -771 5086.0 -771Q5007.0 -771 4952.5 -745.5Q4898.0 -720 4865.5 -677.0Q4833.0 -634 4818.5 -581.0Q4804.0 -528 4804.0 -475V0Z"/><path d="M5335.0 0V-1563H5673.0V-689L5608.0 -724L5978.0 -1062H6412.0L5880.0 -584L5953.0 -713L6398.0 0H6025.0L5719.0 -527L5813.0 -525L5638.0 -365L5673.0 -516V0Z"/></g><g transform="translate(6210.50 -1475.00) scale(14.7500)"><use href="#fs9-sym"/></g></g>
+</defs></svg>
+<header class="topbar" id="top">
+  <div class="topbar-inner">
+    <a class="wm" href="#giris" aria-label="fspark9"><svg class="wordmark" viewBox="0 -1577 7420 2014" aria-hidden="true"><use href="#fs9-word"/></svg></a>
+    <nav class="chapters" aria-label="Bölümler" id="chapters"></nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main class="report">
+
+<!-- ================= GİRİŞ ================= -->
+<div class="wrap hero" id="giris">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow">Tahsildar için Romanya yol haritası</p>
+      <h1>Zinciri<br><span class="cut">hızlandırmak</span></h1>
+      <p class="sub">Romanya pazarında dikkat çektiğimiz noktalar, Faz 1 planı, büyüme yolları, en çok dikkat edilmesi gereken yerler ve ilk görüşülecek kişiler. Hepsi tek bir yol haritasında.</p>
+      <div class="byline">
+        <span class="wm" aria-label="fspark9"><svg class="wordmark" viewBox="0 -1577 7420 2014" aria-hidden="true"><use href="#fs9-word"/></svg></span>
+        <div class="who"><b>Mehmet Burak Dikmen</b><span>Eylül 2026, kamuya açık kaynaklarla hazırlandı</span></div>
+      </div>
+    </div>
+    <div class="chain-art" data-chain aria-hidden="true"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">%83</div><div class="l">Vadesi geçmiş faturası olan Romen firma oranı <span class="src">Atradius 2026</span></div></div>
+    <div class="stat"><div class="v">%22 <small>AB'de %66</small></div><div class="l">Şirket kredilerinin milli gelire oranı <span class="src">BNR</span></div></div>
+    <div class="stat"><div class="v">9.500</div><div class="l">Nexent Bank'ın taksitli kart programındaki partner işyeri <span class="src">Forbes România</span></div></div>
+    <div class="stat"><div class="v">19.000+</div><div class="l">Romanya'daki Türk sermayeli şirket <span class="src">Forvis Mazars</span></div></div>
+  </div>
+
+  <div class="summary">
+    <div class="summary-head"><div><p class="eyebrow">Özet</p><h2>Altı karar, tek yön</h2></div></div>
+    <ol>
+      <li><b>Giriş kapısı esnek ödeme ve tahsilat.</b>Bankaların kapalı taksit programları var, ama ana bayinin her alt bayiye ayrı koşul tanımladığı bir sistem yok. Tahsildar bu boşluktan giriyor.</li>
+      <li><b>Lisans almadan, Token ile başlayın.</b>Kurulum belli: parayı Token işler, ekranı ve koşul motorunu Tahsildar sağlar. Alternatifler EuPlătesc ve Netopia.</li>
+      <li><b>Finansman ve taksitte ana ortak Nexent Bank.</b>Fiba'nın Romanya bankası, Temmuz 2025'e kadar adı Credit Europe Bank'tı. Tahsildar zaten Fiba ile görüşüyor. Alternatifler Banca Transilvania ve BCR.</li>
+      <li><b>Kredi riski Tahsildar'ın bilançosuna girmez.</b>Riski ya ana bayi kendi seçer ya da finansman ortağı taşır.</li>
+      <li><b>Faz 1 pilotu Türk kökenli bayi ağlarıyla.</b>Yapı malzemesi, mobilya ve oto servis ilk sektörler. Nexent Bank'ın taksitli kart programındaki 9.500 partner işyeri hazır bir havuz.</li>
+      <li><b>Her şeyden önce yazılı hukuk görüşü.</b>BNR, hangi iş için hangi yetkinin gerektiğini belirleme sorumluluğunu şirkete bırakıyor.</li>
+    </ol>
+
+    <div class="proposal">
+      <div>
+        <div class="tag">Yol haritasının özü</div>
+        <h3>Token ile ödeme, Nexent Bank ile finansman, Türk bayi ağlarıyla pilot</h3>
+      </div>
+      <p>İlk yılın işi pazarı büyütmek değil. Modeli iki üç gerçek bayi ağında çalışır hale getirmek, sonuçları ölçmek ve Romen distribütörlere o referansla gitmek.</p>
+      <div class="aside">Bu yol haritası kamuya açık kaynaklara ve Tahsildar'ın sürmekte olan görüşmelerine dayanıyor. Yorum olan yerleri ayrıca belirttik.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= I. PAZAR ================= -->
+<section class="chapter wrap" id="pazar" data-chapter data-nav="Pazar">
+  <p class="eyebrow">Bölüm I, pazar</p>
+  <h2>Dert burada Türkiye'den bile keskin</h2>
+  <p class="lede">Romanya'da bankalar firmalara yetmiyor. Bu yüzden firmalar birbirini finanse ediyor, bunu da çoğu zaman geç ödeyerek yapıyor.</p>
+
+  <div class="two">
+    <figure class="fig" data-reveal>
+      <div class="fig-head"><div><p class="fig-title">Şirket kredisinin milli gelire oranı</p><p class="fig-sub">Romanya ve AB ortalaması</p></div></div>
+      <div class="hb"><span class="k">Romanya</span><div class="tr"><div class="fl b" style="--w:33.3%"></div><span class="v out" style="left:calc(33.3% + 8px)">%22</span></div></div>
+      <div class="hb"><span class="k">AB ortalaması</span><div class="tr"><div class="fl" style="--w:100%"></div><span class="v">%66</span></div></div>
+      <figcaption>Kaynak: BNR. Aradaki fark tedarikçi kredisiyle, yani bayinin geç ödemesiyle kapanıyor.</figcaption>
+    </figure>
+    <figure class="fig" data-reveal>
+      <div class="fig-head"><div><p class="fig-title">Her 100 firmadan kaçının vadesi geçmiş faturası var</p><p class="fig-sub">Romanya, 2026</p></div></div>
+      <div class="gridrow">
+        <div><div class="bigfig">83<small>firma</small></div></div>
+        <div class="grid100" data-grid="83" role="img" aria-label="Her 100 firmadan 83'ünün vadesi geçmiş faturası var"></div>
+      </div>
+      <figcaption>Kaynak: Atradius 2026. Firmaların üçte birinden fazlası nakit sıkıntısı yüzünden tedarikçisine geç ödüyor.</figcaption>
+    </figure>
+  </div>
+
+  <figure class="fig" data-reveal>
+    <div class="fig-head"><div><p class="fig-title">Kanun ne diyor, pratikte ne oluyor</p><p class="fig-sub">Gün</p></div></div>
+    <div class="hb"><span class="k">Firmalar arası yasal vade üst sınırı</span><div class="tr"><div class="fl m" style="--w:16.9%"></div><span class="v out" style="left:calc(16.9% + 8px)">60 gün</span></div></div>
+    <div class="hb"><span class="k">Ortalama tahsil süresi</span><div class="tr"><div class="fl" style="--w:24%"></div><span class="v out" style="left:calc(24% + 8px)">85 gün</span></div></div>
+    <div class="hb"><span class="k">redBill'e bildirilen ödenmemiş faturada ortalama gecikme</span><div class="tr"><div class="fl b" style="--w:100%"></div><span class="v">354 gün</span></div></div>
+    <figcaption>Kaynak: Kanun 72/2013, Termene.ro (2018 verisi), StartupCafe ve Wall-Street.ro. İnşaatta bu gecikme 342 gün.</figcaption>
+  </figure>
+
+  <div class="prose" style="margin-top:34px">
+    <p>Kâğıt üzerinde alacaklının elinde güçlü araçlar var. Gecikme faizi kendiliğinden işliyor, her geciken alacak için en az 40 avro tazminat istenebiliyor ve ödeme emri denen hızlı bir mahkeme yolu var <span class="src">Kanun 72/2013, Fiscalitatea</span>. Ama çoğu firma bu hakları kullanmıyor, çünkü müşterisini kaybetmek istemiyor.</p>
+    <p>Ekonomi de işi kolaylaştırmıyor. Ülke iki çeyrektir daralıyor, enflasyon yüzde 10 civarında, leu hükümet krizinde euroya karşı rekor düşük seviyeyi gördü <span class="src">wiiw, Foreign Policy</span>. Bu, satış döngüsünü uzatır ama nakit sıkıntısını da büyütür.</p>
+  </div>
+
+  <div class="key">
+    <div class="tag">Raporun en kritik noktası</div>
+    <h3>Asıl fırsat geciktikten sonra kovalamak değil, hiç geciktirmemek</h3>
+    <p>Kanunun verdiği haklar kâğıt üzerinde kalıyor, çünkü alacaklı ilişkiyi bozmak istemiyor. Tahsildar'ın fırsatı gecikmeyi cezalandırmakta değil, gecikmeye yol açan nakit sıkışıklığını çözmekte.</p>
+    <ol class="levers">
+      <li><b>Esnek ödeme</b><span>Nakit sıkışan alt bayi borcunu kartla taksitlendirir. Ana bayi parasını peşin alır, taksit riskini banka taşır.</span></li>
+      <li><b>Bayiye özel koşul</b><span>İyi ödeyen alt bayiye daha uzun vade ya da daha çok taksit, yeni ya da riskli olana peşin.</span></li>
+      <li><b>Ana bayiye tam görünürlük</b><span>Bütün ağ, kimin ne kadar borcu olduğu ve kime hangi koşulun verildiği tek ekranda.</span></li>
+      <li><b>Alt bayinin kendi tahsilatı</b><span>Alt bayi son kullanıcıdan aynı sistemle tahsil eder. Parası hızlı gelir, ana bayiye de hızlı öder.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= II. FARK ================= -->
+<section class="chapter wrap" id="fark" data-chapter data-nav="Fark">
+  <p class="eyebrow">Bölüm II, konumlanma</p>
+  <h2>Tahsildar'ın farkı esneklik, pazardaki boşluk da tam orası</h2>
+  <p class="lede">Tahsildar sadece geç ödemeyi takip eden bir sistem değil. Ana firma ya da ana bayi, her bayisine ve alt bayisine ayrı ödeme yöntemi, taksit sayısı, oran ve limit tanımlayabiliyor.</p>
+
+  <div class="legs">
+    <div class="card fz">
+      <span class="k">Birinci bacak</span>
+      <h4>Ana bayi</h4>
+      <p>Bütün ağını tek ekranda görür. Hangi alt bayiye hangi koşulu vereceğine kendisi karar verir, riski kendi seçtiği ölçüde alır ve alt bayilerden tahsilatını yapar.</p>
+      <div class="flow"><span>Görür</span><b>+</b><span>Koşulu belirler</span><b>+</b><span>Tahsil eder</span></div>
+    </div>
+    <div class="card">
+      <span class="k">İkinci bacak</span>
+      <h4>Alt bayi</h4>
+      <p>Ana bayiden aldığı esneklik sayesinde son kullanıcıya daha rahat satar ve son kullanıcıdan tahsilatını da aynı sistem üzerinden yapar.</p>
+      <div class="flow"><span>Esnek öder</span><b>+</b><span>Rahat satar</span><b>+</b><span>Tahsil eder</span></div>
+    </div>
+  </div>
+
+  <h3>Kim neyi yapıyor, kim yapmıyor</h3>
+  <p class="prose">Romanya'da bankalar, ödeme kuruluşları ve fatura yazılımları zincirin bir parçasını çözüyor. Koşulu ana bayinin elinde tutan bir oyuncu görmedik.</p>
+  <div class="tbl-wrap">
+    <table class="mx">
+      <thead><tr><th>İhtiyaç</th><th>Bankaların taksit programları</th><th>Ödeme kuruluşları</th><th>Fatura yazılımları</th><th class="th">Tahsildar</th></tr></thead>
+      <tbody>
+        <tr><td>Her alt bayiye ayrı yöntem, taksit, oran ve limit</td><td class="h"><span class="lv0">Yok</span><small>Koşulu banka belirliyor</small></td><td class="h"><span class="lv0">Yok</span></td><td class="h"><span class="lv0">Yok</span></td><td class="h th"><span class="lv4">Var</span></td></tr>
+        <tr><td>Bütün bayi ağını tek ekranda görmek</td><td class="h"><span class="lv2">Kısmen</span><small>Sadece kendi hesabı</small></td><td class="h"><span class="lv2">Kısmen</span><small>İşlem listesi</small></td><td class="h"><span class="lv2">Kısmen</span><small>Kesilen faturalar</small></td><td class="h th"><span class="lv4">Var</span></td></tr>
+        <tr><td>Ödemeyi faturayla eşleştirip cari hesabı güncellemek</td><td class="h"><span class="lv0">Yok</span></td><td class="h"><span class="lv0">Yok</span></td><td class="h"><span class="lv2">Kısmen</span></td><td class="h th"><span class="lv4">Var</span></td></tr>
+        <tr><td>Taksit</td><td class="h"><span class="lv4">Var</span><small>Tek bankanın kartıyla</small></td><td class="h"><span class="lv2">Kısmen</span><small>Banka programları üzerinden</small></td><td class="h"><span class="lv0">Yok</span></td><td class="h th"><span class="lv3">Ortakla</span><small>Nexent Bank</small></td></tr>
+        <tr><td>Parayı lisanslı olarak taşımak</td><td class="h"><span class="lv4">Var</span></td><td class="h"><span class="lv4">Var</span></td><td class="h"><span class="lv0">Yok</span></td><td class="h th"><span class="lv3">Ortakla</span><small>Token</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">fspark9 değerlendirmesi, sahada doğrulanmalı. Kaynaklar: banka program yönetmelikleri, Revista Biz, HotNews, Forbes România.</p>
+
+  <p class="pull">Tahsildar'ın değeri, koşulu belirleme yetkisini bankadan alıp ana bayiye vermek.</p>
+
+  <div class="prose">
+    <p><strong>Bugün doğrudan rakip yok, ama yarın çıkabilir.</strong> EuPlătesc parayı taşıyor, cari hesabı ve bayiye özel koşulu yönetmiyor. Bir fatura yazılımı ya da ERP ile birleşip bayi ekranına inerse rakibe dönüşebilir. Netopia üye işyerlerine finansmana, SmartBill ise ödeme tarafına yaklaşıyor <span class="src">Economedia, HotNews</span>.</p>
+  </div>
+</section>
+
+<!-- ================= III. MODEL ================= -->
+<section class="chapter wrap" id="model" data-chapter data-nav="Model">
+  <p class="eyebrow">Bölüm III, lisans ve para akışı</p>
+  <h2>Token'ın lisansı, Tahsildar'ın ekranı</h2>
+  <p class="lede">Ödeme dünyasında bir kuruluşun lisansını kiralamak diye bir şey yok. Ama lisans almadan çalışmanın yasal yolları var. Kurulum da belli: doğrudan Token ile başlanıyor.</p>
+
+  <div class="prose">
+    <p>Parayı Token işler. Ana bayiler ve alt bayiler Token'ın üye işyeri ya da alt üye işyeri olarak kaydedilir. Tahsildar ödeme ekranını, fatura eşleştirmesini, bayiye özel koşulları, hatırlatmaları ve raporları sağlar, parayı hiçbir aşamada tutmaz. Sözleşmeye hangi kalıbın yazılacağı (teknik sağlayıcı, alt üye işyeri ya da temsilci) hukuk görüşüyle netleşir.</p>
+    <p>Token'ın lisansı bu kurguya uygun görünüyor. BNR, Ekim 2024'te Token'a online ve fiziki POS üzerinden ödeme kabulü ve ayrıca para transferi yetkisi verdi <span class="src">Odero blog, Business Forum</span>. Para transferi yetkisi, alt bayiden tahsil edip ana bayiye ve üreticiye dağıtan akışa imkân verebilir. Tam kapsamı Token'dan teyit edilmeli.</p>
+  </div>
+
+  <h3>Regülatör ne kadar sıkı</h3>
+  <div class="facts">
+    <div class="fact"><b>Lisans az ve yavaş</b>Netopia başvurusunu 2024 sonunda yaptı, lisansı Temmuz 2026'da aldı. <span class="src">Ziarul Financiar</span></div>
+    <div class="fact"><b>Lisans alıp beklemek yasak</b>12 ay içinde faaliyete geçmeyenin yetkisi geri alınabiliyor. <span class="src">Kanun 210/2019</span></div>
+    <div class="fact"><b>Pay değişikliği bildirilir</b>Yüzde 10 ve üstü değişiklik BNR'ye önceden bildiriliyor. <span class="src">DLA Piper</span></div>
+    <div class="fact"><b>Kara para cezaları ağır</b>BNR, OTP Bank'a müşteri tanıma eksikleri yüzünden rekor ceza verdi. <span class="src">Economedia</span></div>
+    <div class="fact"><b>Sorumluluk şirkette</b>"Teknik sağlayıcıyız" demek yetmiyor, hukuken belgelenmesi gerekiyor. <span class="src">BNR yönetmeliği, 2024</span></div>
+  </div>
+  <aside class="note" data-note><p>Birleşik Ödeme Romanya'da e-para lisansı için yola çıktı ve kamuya açık bir lisans izi yok. Sektörden duyduğumuz, regülatörün izin vermediği. Aynı sürprizi yaşamamak için model kurulmadan Bükreş'te fintech alanında çalışan bir hukuk bürosundan yazılı görüş alınmalı.</p></aside>
+
+  <h3>Para nasıl akar</h3>
+  <ol class="steps">
+    <li><p><b>Üretici ya da ana bayi Tahsildar'a abone olur.</b> Faturaları e-Factura üzerinden kendiliğinden Tahsildar'a düşer.</p></li>
+    <li><p><b>Ana bayi her alt bayi için koşulu tanımlar.</b> Hangi ödeme yöntemleri açık, kaç taksit, hangi oran, hangi limit.</p></li>
+    <li><p><b>Alt bayi borcunu Tahsildar ekranında görür ve öder.</b> Kart, taksitli kart, anlık transfer, havale ya da otomatik ödeme talimatı.</p></li>
+    <li><p><b>Kart ve anlık transferi Token işler.</b> Para doğrudan ana bayinin ya da üreticinin hesabına geçer.</p></li>
+    <li><p><b>Tahsildar ödemeyi faturayla eşleştirir.</b> Cari hesabı günceller, raporu üretir.</p></li>
+    <li><p><b>Alt bayi son kullanıcıdan aynı sistemle tahsil eder.</b> Tahsilat linki ya da Beko POS ile.</p></li>
+    <li><p><b>Vade ya da erken ödeme gerekirse finansmanı Nexent Bank verir.</b> Tahsildar veriyi ve ekranı sağlar.</p></li>
+  </ol>
+
+  <h3>Bayiler bugün nasıl ödüyor</h3>
+  <p class="prose">Firmalar arası nakit ödeme günde kişi başı 5.000 lei ile sınırlı, üstü bankadan gitmek zorunda <span class="src">Kanun 70/2015, ANAF rehberi</span>. Bu yüzden bayi ödemelerinin gövdesi banka üzerinden dönüyor. En yaygın yollar şunlar:</p>
+  <div class="pay">
+    <div class="card"><span class="k">En yaygın</span><h4>Banka havalesi</h4><p>Firmalar arası günlük ödemeler bankalar arası takas sistemiyle gidiyor. Hızlı ama taksit ve koşul yok.</p></div>
+    <div class="card"><span class="k">Sahada</span><h4>Temsilci tahsilatı</h4><p>Distribütörün satış temsilcisi siparişle birlikte eski borcu toplar. Yıllarca nakit, senet ya da söz ile yürüdü.</p></div>
+    <div class="card"><span class="k">Teminat</span><h4>Senet ve çek</h4><p>Hâlâ teminat olarak kullanılıyor, BNR'nin karşılıksız ödeme kayıt sistemi var.</p></div>
+    <div class="card"><span class="k">Yayılıyor</span><h4>Kart ve POS</h4><p>1 Ocak 2026'dan beri neredeyse tüm işletmeler elektronik ödeme kabul etmek zorunda. <span class="src">Factureaza.ro</span></p></div>
+    <div class="card"><span class="k">Yeni</span><h4>Anlık transfer</h4><p>Plăți Instant ve RoPay. Bugün ağırlıkla bireyler ve şahıs şirketleri kullanıyor.</p></div>
+  </div>
+  <aside class="note" data-note><p>Tahsildar'ın işi bunların yerine geçmek değil. Hepsini tek cari hesapta toplamak ve ana bayinin hangi alt bayiye hangisini açacağını seçmesini sağlamak.</p></aside>
+
+  <h3>Kredi riski nereye gider</h3>
+  <p class="prose">Tahsildar bayiye kendi kasasından vade ya da kredi açamaz. Bu Romanya'da banka dışı kredi kuruluşu statüsü ister ve riski tek şirkete yığar. Risk iki yoldan dağılır:</p>
+  <div class="legs">
+    <div class="card"><span class="k">Birinci yol</span><h4>Ana bayi riski kendi seçer</h4><p>Hangi alt bayiye ne kadar vade vereceğine kendisi karar verir. Bu, ana bayinin kendi ticari riskidir, Tahsildar'ın değil.</p></div>
+    <div class="card"><span class="k">İkinci yol</span><h4>Finansman ortağı taşır</h4><p>Alacak Nexent Bank'a devredilir ya da ödeme bankanın kredi kartıyla taksitlendirilir. Faktoring pazarının yüzde 89'u zaten rücusuz. <span class="src">Bursa.ro</span></p></div>
+  </div>
+
+  <h3>e-Factura işi hızlandırır</h3>
+  <p class="prose">Firmalar arası bütün faturalar 2024 başından beri devletin e-Factura sisteminden geçiyor ve yazılımlar için bir programlama arayüzü var <span class="src">Factureaza.ro, ANAF API belgeleri</span>. Tahsildar bundan dört yoldan faydalanır:</p>
+  <div class="facts four">
+    <div class="fact"><b>Faturalar kendiliğinden gelir</b>Ana bayi Tahsildar'ı ANAF'ta yetkilendirir. ERP projesi gerekmez, kurulum haftalardan günlere iner.</div>
+    <div class="fact"><b>Alacak tartışmasız olur</b>Devletin sisteminde kayıtlı fatura için "almadım" itirazı zayıflar.</div>
+    <div class="fact"><b>Eşleştirme otomatik olur</b>Ödeme gelince doğrudan e-Factura kaydıyla eşleşir, elle giriş kalmaz.</div>
+    <div class="fact"><b>Risk verisi doğar</b>Alt bayinin alım düzeni, Nexent Bank'ın limit verirken kullanacağı en temiz veri olur.</div>
+  </div>
+  <aside class="note" data-note><p>Alt bayinin bütün tedarikçi faturalarına erişmek ve bu veriyi bankayla paylaşmak açık rıza ve net bir sözleşme ister. Hukuki tarafına ayrıca bakılması gerekiyor.</p></aside>
+</section>
+
+<!-- ================= IV. ORTAKLAR ================= -->
+<section class="chapter wrap" id="ortaklar" data-chapter data-nav="Ortaklar">
+  <p class="eyebrow">Bölüm IV, ortaklar ve rakipler</p>
+  <h2>Her halkada bir ana ortak, arkasında bir yedek</h2>
+  <p class="lede">Tahsildar zaten Fiba ve Token ile görüşüyor. Yol haritası bu iki ortak üzerine kuruldu, diğerleri alternatif olarak hazırda duruyor.</p>
+
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Ortaklık haritası</p><p class="fig-sub">Bir alana tıklayın, ana ortağı ve alternatifleri görün</p></div></div>
+    <div class="ringwrap">
+      <div class="ring" data-ring role="group" aria-label="Ortaklık haritası"></div>
+      <div class="ring-detail" id="ring-detail" aria-live="polite"></div>
+    </div>
+  </figure>
+
+  <h3>Token ve rakipleri yan yana</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th></th><th>Token (Odero)</th><th>Netopia</th><th>EuPlătesc</th><th>PayU</th></tr></thead>
+      <tbody>
+        <tr><td>Lisans</td><td>Ödeme kuruluşu, Ekim 2024; ödeme kabulü ve para transferi</td><td>Ödeme kuruluşu, Temmuz 2026</td><td>Ödeme kuruluşu</td><td>Global grup, Romanya'da e-ticaret odaklı</td></tr>
+        <tr><td>Üye işyeri</td><td>Güncel sayı açıklanmadı; 2023'te hedef 15.000+</td><td>25.000+</td><td>15.000+ online mağaza (2022)</td><td>Kendini pazar lideri olarak tanımlıyor</td></tr>
+        <tr><td>Fiziki POS</td><td>Var, kendi üretimi Beko cihazları</td><td>Online ağırlıklı</td><td>Online ağırlıklı</td><td>Online ağırlıklı</td></tr>
+        <tr><td>Taksit</td><td>OderoPAY'de taksitli ve tekrarlayan ödeme</td><td>Banka programları üzerinden</td><td>9 bankayla ortak</td><td>Bazı mağazalarda cironun yüzde 30'u</td></tr>
+        <tr><td>RoPay</td><td>Doğrudan bağlantı izi yok</td><td>Planlarında var</td><td>Doğrudan bağlı, bu sonbahar PayFac</td><td>Bilgi yok</td></tr>
+        <tr><td>Türk bağlantısı</td><td>Var, Koç</td><td>Yok</td><td>Yok</td><td>Yok</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small">Kaynaklar: Odero blog, Economedia, Ziarul Financiar, Revista Biz, Mobilissimo, StartupCafe, Romania Insider.</p>
+  <aside class="note" data-note><p>Ödeme ortağında ölçeği üye işyeri sayısı gösterir. Token'ın bugünkü sayısı ve RoPay takvimi ilk görüşmede sorulacak iki soru. RoPay bağlantısı uzaksa anlık transfer için EuPlătesc ikinci ortak olarak devreye girer, kart ve POS Token'da kalır.</p></aside>
+
+  <h3>Bankalar neden masaya oturur</h3>
+  <div class="two">
+    <figure class="fig" data-reveal style="margin-top:0">
+      <div class="fig-head"><div><p class="fig-title">Varlık payı, 2025 sonu</p><p class="fig-sub">En büyük yedi banka</p></div></div>
+      <div id="banks"></div>
+      <figcaption>Kaynak: Romania Insider, BNR verisi. Raiffeisen, Garanti BBVA Romanya'yı da alıyor.</figcaption>
+    </figure>
+    <div class="prose">
+      <p>Bankalar 2026 sonuna kadar cirolarının yüzde 4'ünü ek vergi olarak ödüyor ve sektörün özkaynak getirisi 2023'teki yüzde 20'den 2026 başında yüzde 14'e indi <span class="src">Kinstellar, bne IntelliNews</span>. Böyle bir baskıda banka, ek sermaye bağlamadan gelir getiren kanallar arar.</p>
+      <p>Tahsildar tam böyle bir kanal: bankanın satış ekibi olmadan binlerce bayiyi bankanın ürünlerine bağlar. Bankayla iki gelir modeli konuşulabilir. Tahsildar ekranından finansmana giden her fatura için bir yönlendirme payı ve bayi ödemeleri bankanın altyapısından geçtiğinde üye işyeri komisyonundan bir pay.</p>
+    </div>
+  </div>
+
+  <h3>Nexent Bank neden ilk ortak</h3>
+  <div class="trio">
+    <div class="card fz"><span class="k">Taksitli kart</span><h4>Taksit programı</h4><p>Romanya'nın ilk taksitli kredi kartı bu bankadan çıktı. Kart bireylere veriliyor ve yaklaşık 9.500 partner işyerinde taksit yapılabiliyor, aralarında yapı malzemesi, mobilya ve oto servis de var. <span class="src">Forbes România, Efin</span></p></div>
+    <div class="card"><span class="k">Sahada tahsilat</span><h4>Avantaj SoftPOS</h4><p>Her Android telefonu POS'a çeviriyor. Banka hedef kitlesini açıkça "bayi ağından tahsilat yapan distribütörler" olarak sayıyor. <span class="src">Economica.net</span></p></div>
+    <div class="card"><span class="k">Yeni yapı</span><h4>Yeni isim, yeni şube</h4><p>Ocak 2025'ten beri Hollanda'daki ana bankanın Bükreş şubesi, Temmuz 2025'ten beri adı Nexent Bank. Banka dijital tarafı güçlendireceğini söylüyor. <span class="src">Economica.net, ZF</span></p></div>
+  </div>
+  <aside class="note" data-note><p>Taksit programının 9.500 partner işyeri içindeki yapı malzemesi, mobilya ve oto servis işyerleri Faz 1 için hazır bir havuz. Bu işyerleri son kullanıcıya taksitli satışı zaten biliyor. Eksikleri, kendi tedarikçileriyle aralarındaki bayiye özel koşul ve tahsilat ekranı.</p></aside>
+
+  <h3>Kim ne kazanır</h3>
+  <div class="wins">
+    <div class="card fz"><span class="k">Tahsildar</span><h4>Üç gelir</h4><p>Ana bayiden platform ücreti, Nexent Bank'tan kanal ücreti, POS ve interchange gelirinden pay.</p></div>
+    <div class="card"><span class="k">Nexent Bank</span><h4>Hazır bir ağ</h4><p>Yeni kart ve kredi müşterileri, yeni partner işyerleri, kart harcaması ve üye işyeri komisyonu.</p></div>
+    <div class="card"><span class="k">Token</span><h4>İşlem hacmi</h4><p>Bayi ağlarıyla gelen düzenli ödeme trafiği.</p></div>
+    <div class="card"><span class="k">Üretici ve ana bayi</span><h4>Peşin para</h4><p>Parasını peşin alır, ağına esneklik verir, satışı artar.</p></div>
+    <div class="card"><span class="k">Alt bayi</span><h4>Nefes</h4><p>Nakit sıkışınca finansman, son kullanıcıya taksit imkânı.</p></div>
+  </div>
+  <p class="prose" style="margin-top:24px"><strong>Açık soru:</strong> Bankanın kredi kartlarıyla yapılan taksit Token'ın kabul altyapısından çalışabiliyor mu, yoksa sadece bankanın kendi POS'unda ve SoftPOS'unda mı? Kurgunun hangi altyapıyla kurulacağını bu cevap belirler.</p>
+</section>
+
+<!-- ================= V. YOL HARİTASI ================= -->
+<section class="chapter wrap" id="yol" data-chapter data-nav="Yol haritası">
+  <p class="eyebrow">Bölüm V, yol haritası</p>
+  <h2>Hazırlıktan Macaristan'a dört faz</h2>
+  <p class="lede">Takvim önerimizdir, Token ve Nexent Bank görüşmelerinin hızına göre netleşir. Her fazın sonunda bir sonrakine geçmek için karşılanması gereken koşulları yazdık.</p>
+
+  <div class="road" data-reveal id="road">
+    <div class="road-track" role="tablist" aria-label="Fazlar">
+      <div class="base-l"></div><div class="prog"></div>
+      <button class="ms" role="tab" style="left:0%" data-ph="0" aria-selected="true"><span class="dot">0</span><span class="when">0 ile 2. ay</span></button>
+      <button class="ms" role="tab" style="left:33.3%" data-ph="1" aria-selected="false"><span class="dot">1</span><span class="when">3 ile 9. ay</span></button>
+      <button class="ms" role="tab" style="left:66.6%" data-ph="2" aria-selected="false"><span class="dot">2</span><span class="when">9 ile 18. ay</span></button>
+      <button class="ms" role="tab" style="left:100%" data-ph="3" aria-selected="false"><span class="dot">3</span><span class="when">18. aydan sonra</span></button>
+    </div>
+
+    <div class="phase on" role="tabpanel" data-panel="0">
+      <h3>Faz 0: Zemini kurmak</h3>
+      <p class="goal">Tek satır kod yazmadan önce hukuki çerçeveyi ve iki ana ortağı netleştirmek.</p>
+      <div class="ph-grid">
+        <div><h5>Ne yapılır</h5><ul class="clean"><li>Bükreş'te fintech hukukçusundan yazılı görüş</li><li>Romanya şirketi ve yerel yüz</li><li>Ürünün Romence, lei ve e-Factura bağlantısıyla uyarlanması</li></ul></div>
+        <div><h5>Kiminle</h5><ul class="clean"><li>Token: kalıp, para transferi yetkisinin kapsamı, RoPay takvimi</li><li>Nexent Bank: taksit, kredi kartı, limit verisi, gelir paylaşımı</li><li>Hukuk bürosu</li></ul></div>
+        <div><h5>Dikkat</h5><ul class="clean"><li>Tahsildar hiçbir akışta parayı tutmamalı</li><li>Ortak sözleşmelerinde müşteri ilişkisi ve verinin kimde kalacağı yazılmalı</li></ul></div>
+      </div>
+      <div class="exit"><b>Geçiş koşulu</b>İki ortakla imzalı sözleşme, yazılı hukuk görüşü ve test edilmiş e-Factura bağlantısı.</div>
+    </div>
+
+    <div class="phase" role="tabpanel" data-panel="1">
+      <h3>Faz 1: Türk kökenli bayi ağlarıyla pilot</h3>
+      <p class="goal">İki üç şirkette modeli uçtan uca çalıştırmak ve sonuçları ölçmek. Türkçe konuşan küçük bir ekip yeterli.</p>
+      <div class="ph-grid">
+        <div><h5>Nerede</h5><ul class="clean"><li>Yapı malzemesi ve levha</li><li>Mobilya</li><li>Oto servis</li><li>Taksit programının partner işyerleri içinde bu üç sektör</li></ul></div>
+        <div><h5>Aday şirketler</h5><ul class="clean"><li>Kastamonu Entegre ve Yıldız Entegre</li><li>Beko România</li><li>Pladis ve Eti'nin distribütörleri</li><li>TIAD üzerinden Türk sermayeli toptancılar</li></ul></div>
+        <div><h5>Ne ölçülür</h5><ul class="clean"><li>Tahsil süresi</li><li>Gecikme oranı</li><li>Taksitli ödemenin payı</li><li>Sistemi aktif kullanan alt bayi oranı</li></ul></div>
+      </div>
+      <div class="exit"><b>Geçiş koşulu</b>En az iki pilot canlıda, ölçülmüş bir iyileşme ve Romen distribütöre gösterilebilecek bir referans vaka.</div>
+    </div>
+
+    <div class="phase" role="tabpanel" data-panel="2">
+      <h3>Faz 2: Romen distribütörlere açılmak</h3>
+      <p class="goal">Pilotun referansıyla yerel pazara girmek. Bu fazda iş kişisel ilişkiyle yayılır.</p>
+      <div class="ph-grid">
+        <div><h5>Ekip</h5><ul class="clean"><li>Yapı malzemesi ya da FMCG dağıtımından gelen Romen saha satışçı</li><li>Telefonla destek veren bir kişi</li><li>Kırsal bayi için sade ekran</li></ul></div>
+        <div><h5>Kanal ve ürün</h5><ul class="clean"><li>SmartBill entegrasyonu ile dağıtım</li><li>RoPay için EuPlătesc</li><li>e-Factura ve ödeme verisiyle risk skoru</li></ul></div>
+        <div><h5>Sektör</h5><ul class="clean"><li>FMCG distribütörleri</li><li>Beyaz eşya</li><li>Tarım en son ve dikkatle</li></ul></div>
+      </div>
+      <div class="exit"><b>Geçiş koşulu</b>Romen müşteri sayısının Türk kökenli müşteriyi geçmesi ve en az bir alternatif finansman ortağının hazır olması.</div>
+    </div>
+
+    <div class="phase" role="tabpanel" data-panel="3">
+      <h3>Faz 3: Yeni dikeyler ve Macaristan</h3>
+      <p class="goal">Romanya'da oturmuş modeli yeni zincirlere ve ikinci ülkeye taşımak.</p>
+      <div class="ph-grid">
+        <div><h5>Dental</h5><ul class="clean"><li>Muayenehanelerin distribütörlerden vadeli alımı</li><li>Hastanın pahalı tedaviyi taksitle ödemesi</li><li>Pazar 7 milyar lei'yi geçmiş durumda <span class="src">Termene.ro</span></li></ul></div>
+        <div><h5>Diğer zincirler</h5><ul class="clean"><li>Türk müteahhitlerin taşeron hakedişleri</li><li>KoçZer ile tedarikçi ödemeleri</li><li>Trendyol'un Romen satıcıları</li></ul></div>
+        <div><h5>Macaristan</h5><ul class="clean"><li>Token lisansını uluslararası büyüme için kullanmayı planlıyor <span class="src">The Diplomat</span></li><li>Avro ve forint için SEPA baştan planlanmalı</li></ul></div>
+      </div>
+      <div class="exit"><b>Geçiş koşulu</b>Romanya'da kârlı çalışan bir birim ve Macaristan'da lisans kapsamı teyit edilmiş bir ödeme ortağı.</div>
+    </div>
+  </div>
+
+  <h3>Faz 1 aday listesi</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Şirket</th><th>Romanya'daki varlığı</th><th>Bayi yapısı</th><th>Uygunluk</th></tr></thead>
+      <tbody>
+        <tr><td>Kastamonu Entegre</td><td>Reghin'de levha fabrikası, 150 milyon avroluk yatırım <span class="src">Economica.net</span></td><td>Mobilya atölyeleri, yapı marketler, levha bayileri (yorum)</td><td><span class="lv4" style="padding:3px 8px;border-radius:3px">Yüksek</span></td></tr>
+        <tr><td>Yıldız Entegre</td><td>Ağaç işleme yatırımı <span class="src">Capital</span></td><td>Kastamonu'ya benzer (yorum)</td><td><span class="lv4" style="padding:3px 8px;border-radius:3px">Yüksek</span></td></tr>
+        <tr><td>Türk sermayeli toptancılar</td><td>Bükreş, Ilfov ve Köstence'de yoğun <span class="src">Revista Biz</span></td><td>Perakendecilere vadeli satış (yorum)</td><td><span class="lv4" style="padding:3px 8px;border-radius:3px">Yüksek</span></td></tr>
+        <tr><td>Beko România</td><td>Găești ve Ulmi fabrikaları, 37 noktalı servis ağı <span class="src">HotNews</span></td><td>İç pazarın bayi mi zincir mi olduğu bilinmiyor</td><td><span class="lv2" style="padding:3px 8px;border-radius:3px">Orta</span></td></tr>
+        <tr><td>Pladis ve Eti</td><td>Gıda üretimi ve dağıtımı <span class="src">CursDeGuvernare</span></td><td>Büyük distribütörler üzerinden (yorum)</td><td><span class="lv2" style="padding:3px 8px;border-radius:3px">Orta</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Bir örnek, uçtan uca: Kastamonu Entegre</h3>
+  <p class="prose">Yorumdur, gerçek bayi yapısı ilk görüşmede doğrulanmalı. Adımlar arasında ilerleyin, zincirin hangi halkasının devrede olduğunu görün.</p>
+  <div class="uc" id="uc">
+    <div class="uc-chain">
+      <div class="uc-node" data-n="u"><span class="r">Üretici</span><b>Kastamonu Romanya</b></div>
+      <div class="uc-node" data-n="a"><span class="r">Ana bayi</span><b>Cluj'daki levha bayisi</b></div>
+      <div class="uc-node" data-n="b"><span class="r">Alt bayi</span><b>60 mobilya atölyesi</b></div>
+      <div class="uc-node" data-n="s"><span class="r">Son kullanıcı</span><b>Dolap yaptıran ev sahibi</b></div>
+    </div>
+    <div class="uc-part">
+      <div class="uc-node" data-n="t"><span class="r">Ekran ve koşul</span><b>Tahsildar</b></div>
+      <div class="uc-node" data-n="k"><span class="r">Ödeme</span><b>Token</b></div>
+      <div class="uc-node" data-n="c"><span class="r">Taksit ve risk</span><b>Nexent Bank</b></div>
+    </div>
+    <div class="uc-text" aria-live="polite"><div class="no" id="uc-no">1</div><div><h4 id="uc-h"></h4><p id="uc-p"></p></div></div>
+    <div class="uc-nav">
+      <button type="button" id="uc-prev">Geri</button>
+      <button type="button" class="pri" id="uc-next">İleri</button>
+      <button type="button" id="uc-play">Otomatik oynat</button>
+      <div class="uc-dots" id="uc-dots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VI. DİKKAT ================= -->
+<section class="chapter wrap" id="dikkat" data-chapter data-nav="Dikkat">
+  <p class="eyebrow">Bölüm VI, dikkat edilecekler</p>
+  <h2>En çok dikkat edilmesi gereken on nokta</h2>
+  <p class="lede">Bunların çoğu ürünle değil, sözleşme, ortak seçimi ve dil ile ilgili. Hepsi baştan konuşulursa ucuz, sonradan düzeltilirse pahalı.</p>
+
+  <div class="risks">
+    <div class="risk"><span class="no">1</span><div><span class="cat">Hukuk</span><h4>Hukuk görüşü olmadan başlamayın</h4><p>Paraya dokunmak, ödeme başlatmak ya da bayiye vade açmak ayrı ayrı BNR konusu. Sorumluluk şirkette.</p></div></div>
+    <div class="risk"><span class="no">2</span><div><span class="cat">Risk</span><h4>Kredi riskini Tahsildar üstlenmesin</h4><p>Riski ana bayi kendi seçer ya da finansman ortağı taşır. Başka yolu yok.</p></div></div>
+    <div class="risk"><span class="no">3</span><div><span class="cat">Ortaklık</span><h4>Her ana ortağın bir yedeği olsun</h4><p>RoPay gibi eksik yetenekler için alternatif ödeme ortağı ve Nexent Bank dışında bir taksit ortağı hazır tutulmalı.</p></div></div>
+    <div class="risk"><span class="no">4</span><div><span class="cat">Ortaklık</span><h4>Ortak yarın rakip olabilir</h4><p>Netopia finansmana, SmartBill ödemeye yaklaşıyor. Müşteri ilişkisi ve verinin kimde kalacağı sözleşmede açık yazılmalı.</p></div></div>
+    <div class="risk"><span class="no">5</span><div><span class="cat">Veri</span><h4>e-Factura verisi rıza ister</h4><p>Alt bayinin tedarikçi faturalarına erişim ve bu verinin bankayla paylaşılması ayrı izin ve net sözleşme gerektirir.</p></div></div>
+    <div class="risk"><span class="no">6</span><div><span class="cat">Uyum</span><h4>Kara para uyumu Tahsildar'ın da işi</h4><p>Lisanslı ortak, bayi tanıma ve işlem izleme için Tahsildar'dan veri ve süreç desteği isteyecek.</p></div></div>
+    <div class="risk"><span class="no">7</span><div><span class="cat">Dil</span><h4>Güven dili abartısız olmalı</h4><p>Caritas ve FNI gibi büyük piramit çöküşlerini yaşamış bir ülkede cazip vaat şüphe uyandırır. "Paranız bankanızdan alacaklının bankasına gider, arada biz tutmayız" gibi sade cümleler güven verir.</p></div></div>
+    <div class="risk"><span class="no">8</span><div><span class="cat">Para</span><h4>Kur riski bayinin cebinden çıkmasın</h4><p>Geliri lei olan bayiye euro fiyat vermek her ay artan fatura demek. Fiyat lei, güncelleme yılda bir.</p></div></div>
+    <div class="risk"><span class="no">9</span><div><span class="cat">Portföy</span><h4>Tek sektöre yığılmayın</h4><p>Devlet özel alacaklara müdahale edebiliyor. Çiftçi borçlarının ertelenmesi bunun örneği, tarım en sona kalmalı.</p></div></div>
+    <div class="risk"><span class="no">10</span><div><span class="cat">İtibar</span><h4>Türk ağında taraf tutmayın</h4><p>Kurumsal kapılardan girin: TIAD, Forvis Mazars, Koç ve Fiba grupları. Aracı, çalışan ve pilot müşteri seçerken Gülen hareketiyle ilişkilendirilen çevreyle bağı sessizce kontrol edin.</p></div></div>
+  </div>
+
+  <h3>Ülkeyi dört cümlede okumak</h3>
+  <div class="ctx">
+    <div class="card"><span class="k">Siyaset</span><h4>Belirsizlik sürecek</h4><p>Hükümet Mayıs 2026'da düştü, yenisi güvenoyu arıyor. Anketlerde önde olan AUR erken seçim istiyor. Şirketi yerli bir şirket gibi kurmak, rüzgâr ne yöne eserse essin korur. <span class="src">Al Jazeera, Puterea, BZI</span></p></div>
+    <div class="card"><span class="k">Ekonomi</span><h4>Resesyon ve nakit sıkışıklığı</h4><p>"Alt bayinize esneklik verin, satışınız durmasın" mesajı tam bu ortamda güçlü.</p></div>
+    <div class="card"><span class="k">İnsan</span><h4>İki Romanya var</h4><p>Büyük şehirlerde güçlü bir beyaz yaka kitlesi var, ekip kurmak zor değil. Kırsal bayi ise başka bir dünya.</p></div>
+    <div class="card"><span class="k">Kültür</span><h4>Güven kişisel ilişkiyle kurulur</h4><p>İş kültürü resmiyete ve hiyerarşiye önem veriyor. Bu yüzden Faz 2'de Romen saha satışçı şart. <span class="src">Forvis Mazars</span></p></div>
+  </div>
+</section>
+
+<!-- ================= VII. GÖRÜŞMELER ================= -->
+<section class="chapter wrap" id="gorusmeler" data-chapter data-nav="Görüşmeler">
+  <p class="eyebrow">Bölüm VII, kimlerle görüşülmeli</p>
+  <h2>İlk görüşülecekler ve soruları</h2>
+  <p class="lede">Sıra önemli. İlk dört görüşme modelin kendisini belirliyor, sonrakiler pilotu ve büyümeyi.</p>
+
+  <div class="meet-head">
+    <div class="seg" role="group" aria-label="Faza göre süz" id="meet-filter">
+      <button type="button" data-f="all" aria-pressed="true">Hepsi</button>
+      <button type="button" data-f="0" aria-pressed="false">Faz 0</button>
+      <button type="button" data-f="1" aria-pressed="false">Faz 1</button>
+      <button type="button" data-f="2" aria-pressed="false">Faz 2 ve sonrası</button>
+    </div>
+    <span class="small" id="meet-count"></span>
+  </div>
+  <div class="meets" id="meets"></div>
+</section>
+
+<!-- ================= KAPANIŞ ================= -->
+<section class="closing" id="son"><div class="wrap">
+  <blockquote>Romanya'da bayiler birbirini finanse ediyor. Tahsildar bu finansmanı görünür, esnek ve güvenli hale getirdiği ölçüde büyür.</blockquote>
+  <p class="lede">Önerimiz net: Token ve Nexent Bank ile zemini kurmak, Türk kökenli bayi ağlarında modeli kanıtlamak ve o kanıtla Romen distribütörlere gitmek. Üzerine konuşalım.</p>
+  <div class="sign">
+    <span class="wm" aria-label="fspark9"><svg class="wordmark" viewBox="0 -1577 7420 2014" aria-hidden="true"><use href="#fs9-word"/></svg></span>
+    <p>Mehmet Burak Dikmen</p>
+    <div class="contact">info@fspark9.com<br>fspark9.com</div>
+  </div>
+</div></section>
+
+<div class="wrap refs">
+  <p class="method">Yöntem: Bu yol haritası 29 Eylül 2026 tarihli Romanya açılım raporundan türetildi. Rakamlar kamuya açık kaynaklardan geliyor, yorum olan yerler ayrıca belirtildi. Takvim bir öneridir. Hukuki konularda son söz Romanya'da yetkili bir hukuk bürosunundur.</p>
+  <details>
+    <summary>Kaynaklar</summary>
+    <div class="srcs">
+      <p>Atradius, Payment Practices Barometer 2026</p>
+      <p>BNR, Banca Națională a României, finansal istikrar ve kayıt verileri</p>
+      <p>Kanun 72/2013, Kanun 70/2015, Kanun 210/2019</p>
+      <p>ANAF, e-Factura ve nakit işlemler rehberi (StartupCafe aracılığıyla)</p>
+      <p>Factureaza.ro, e-Factura ve POS zorunluluğu</p>
+      <p>Termene.ro ve redBill verileri</p>
+      <p>Odero blog ve Business Forum, Token lisansı</p>
+      <p>Economedia, Ziarul Financiar, Profit.ro</p>
+      <p>Revista Biz, HotNews, Wall-Street.ro, StartupCafe</p>
+      <p>Forbes România, Economica.net, Romania Insider</p>
+      <p>Bursa.ro ve Agerpres, faktoring pazarı</p>
+      <p>Kinstellar, Mondaq, bne IntelliNews, bankacılık vergisi ve kârlılık</p>
+      <p>DLA Piper, Pavel Margarit &amp; Associates (Legal500)</p>
+      <p>Forvis Mazars Türk Masası, TIAD</p>
+      <p>CursDeGuvernare, Capital, The Diplomat</p>
+      <p>wiiw, Foreign Policy, Al Jazeera, Puterea, BZI</p>
+    </div>
+  </details>
+</div>
+
+</main>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+"use strict";
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const NS = "http://www.w3.org/2000/svg";
+const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- notes ---------- */
+$$("[data-note]").forEach(n => {
+  const ico = document.createElement("div");
+  ico.className = "ico";
+  ico.innerHTML = '<svg viewBox="18 0 64 100" aria-hidden="true"><use href="#fs9-sym"></use></svg>';
+  const body = document.createElement("div");
+  const lab = document.createElement("div");
+  lab.className = "lab";
+  lab.textContent = "Görüşümüz";
+  while (n.firstChild) body.appendChild(n.firstChild);
+  body.prepend(lab);
+  n.append(ico, body);
+  n.setAttribute("aria-label", "Görüşümüz");
+});
+
+/* ---------- hero chain ---------- */
+(function chain(){
+  const host = $("[data-chain]"); if (!host) return;
+  const ys = [50, 165, 280, 395];
+  const nodes = [
+    ["Üretici", "Faturayı keser"],
+    ["Ana bayi", "Koşulu belirler, tahsil eder"],
+    ["Alt bayi", "Esnek öder, rahat satar"],
+    ["Son kullanıcı", "Linkle ya da POS ile öder"]
+  ];
+  let s = '<svg viewBox="0 0 380 470" xmlns="http://www.w3.org/2000/svg">';
+  for (let i = 0; i < 3; i++) s += `<line class="ln" x1="46" y1="${ys[i]+26}" x2="46" y2="${ys[i+1]-26}"/>`;
+  if (!reduce) {
+    for (let k = 0; k < 3; k++) {
+      const d = (k * 1.4).toFixed(2);
+      s += `<circle class="goods" r="3.5"><animateMotion dur="4.2s" begin="-${d}s" repeatCount="indefinite" path="M39 ${ys[0]+28} L39 ${ys[3]-28}"/></circle>`;
+      s += `<circle class="money" r="4"><animateMotion dur="3.4s" begin="-${(k*1.13).toFixed(2)}s" repeatCount="indefinite" path="M53 ${ys[3]-28} L53 ${ys[0]+28}"/></circle>`;
+    }
+  }
+  nodes.forEach((n, i) => {
+    const y = ys[i];
+    s += `<circle class="nd" cx="46" cy="${y}" r="26"/>`;
+    s += `<text class="nd-n" x="46" y="${y+4.5}" text-anchor="middle">${i+1}</text>`;
+    s += `<text class="nd-t" x="90" y="${y-2}">${n[0]}</text>`;
+    s += `<text class="nd-s" x="90" y="${y+17}">${n[1]}</text>`;
+  });
+  s += '<path class="br" d="M322 34 H334 V411 H322"/>';
+  s += '<text class="br-t" transform="translate(356 222) rotate(90)" text-anchor="middle">Tahsildar her halkada</text>';
+  s += '<circle class="goods" cx="96" cy="452" r="3.5"/><text class="lg-t" x="106" y="456">Mal ve fatura</text>';
+  s += '<circle class="money" cx="206" cy="452" r="4"/><text class="lg-t" x="216" y="456">Para</text>';
+  s += '</svg>';
+  host.innerHTML = s;
+})();
+
+/* ---------- 100 grid ---------- */
+$$("[data-grid]").forEach(g => {
+  const n = +g.dataset.grid;
+  for (let i = 0; i < 100; i++) {
+    const c = document.createElement("i");
+    if (i < n) { c.className = "on"; if (!reduce) c.style.transitionDelay = (i * 9) + "ms"; }
+    g.appendChild(c);
+  }
+});
+
+/* ---------- banks ---------- */
+(function banks(){
+  const host = $("#banks"); if (!host) return;
+  const d = [["Banca Transilvania",22.0,"b"],["BCR",13.8],["CEC Bank",11.2],["UniCredit",10.8],["BRD",10.0],["Raiffeisen",9.3],["ING",8.4]];
+  host.innerHTML = d.map(([n,v,c]) => {
+    const w = (v / 22 * 100).toFixed(1);
+    const lab = "%" + String(v.toFixed(1)).replace(".", ",");
+    return `<div class="hb"><span class="k">${n}</span><div class="tr"><div class="fl ${c||""}" style="--w:${w}%"></div><span class="v${w < 55 ? " out" : ""}" style="${w < 55 ? `left:calc(${w}% + 8px)` : ""}">${lab}</span></div></div>`;
+  }).join("");
+})();
+
+/* ---------- reveal ---------- */
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+}, {threshold: .3}) : null;
+$$("[data-reveal]").forEach(el => io ? io.observe(el) : el.classList.add("in"));
+
+/* ---------- ring map ---------- */
+(function ring(){
+  const host = $("[data-ring]"); if (!host) return;
+  const det = $("#ring-detail");
+  const S = [
+    {cat:"Ödeme", main:"Token", alts:["EuPlătesc","Netopia","Smart Fintech"],
+     title:"Token (Odero)", text:"Ana ödeme ortağı. Ödeme kabulü ve para transferi yetkisi var, Beko POS cihazlarını kendisi üretiyor, arkasında Koç var. Tahsildar ona en çok ihtiyaç duyduğu şeyi getiriyor: bayi ağlarından gelen düzenli işlem hacmi.",
+     alt:"EuPlătesc özellikle RoPay ve anlık transfer için ikinci ortak adayı. Netopia ve Smart Fintech yedekte."},
+    {cat:"Finansman ve taksit", main:"Nexent Bank", alts:["Banca Transilvania","BCR","Instant Factoring"],
+     title:"Nexent Bank (Fiba)", text:"Ana finansman ve taksit ortağı. Romanya'daki en eksiksiz Türk kart modeli bu bankada: taksitli kart, 9.500 partner, SoftPOS ve mobil uygulama. Tahsildar zaten Fiba ile görüşüyor.",
+     alt:"Banca Transilvania (Star programı, ticari kart dahil) ve BCR (ticari kartla her yerde taksit). Faktoringde Instant Factoring."},
+    {cat:"Dağıtım", main:"Türk bayi ağları", alts:["SmartBill (Faz 2)","Taksitli kart ağı"],
+     title:"Türk kökenli bayi ağları", text:"Faz 1'in kapısı. Kastamonu, Yıldız Entegre, Beko ve Türk sermayeli toptancılar. Güven hazır, dil ortak, karar hızlı.",
+     alt:"Faz 2'de SmartBill: Romanya'nın en yaygın fatura yazılımı, 85 binden fazla aktif müşteri. Ortaklıkta verinin kimde kalacağı baştan yazılmalı."},
+    {cat:"Risk verisi", main:"Banka skoru", alts:["Ödeme geçmişi","e-Factura","Termene.ro, redBill"],
+     title:"Nexent Bank kredi değerlendirmesi", text:"Limit ve taksit kararını banka verir. Bu kararı Tahsildar'ın ödeme geçmişi ve e-Factura verisi besler. Zamanla bayiye özel koşul önerisi otomatik üretilebilir.",
+     alt:"Termene.ro ve redBill şirket bilgisi ve ödenmemiş fatura kaydı için alternatif kaynak."}
+  ];
+  const cx = 260, cy = 260, r0 = 82, r1 = 248;
+  const pt = (r, a) => [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  const arc = (a0, a1) => {
+    const [x0,y0] = pt(r1,a0), [x1,y1] = pt(r1,a1), [x2,y2] = pt(r0,a1), [x3,y3] = pt(r0,a0);
+    return `M${x0} ${y0} A${r1} ${r1} 0 0 1 ${x1} ${y1} L${x2} ${y2} A${r0} ${r0} 0 0 0 ${x3} ${y3}Z`;
+  };
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 520 520");
+  let inner = "";
+  S.forEach((s, i) => {
+    const a0 = Math.PI + i * Math.PI / 2, a1 = a0 + Math.PI / 2, am = (a0 + a1) / 2;
+    inner += `<path class="sec" d="${arc(a0,a1)}" data-i="${i}" tabindex="0" role="button" aria-label="${s.cat}: ${s.main}"/>`;
+    const [bx, by] = pt(150, am);
+    const top = by - (s.alts.length * 17 + 40) / 2;
+    inner += `<text class="cat" x="${bx}" y="${top + 10}" text-anchor="middle">${s.cat}</text>`;
+    inner += `<text class="main" x="${bx}" y="${top + 34}" text-anchor="middle">${s.main}</text>`;
+    s.alts.forEach((t, k) => {
+      inner += `<text class="alt" x="${bx}" y="${top + 56 + k * 17}" text-anchor="middle">${t}</text>`;
+    });
+  });
+  inner += `<circle class="ctr" cx="${cx}" cy="${cy}" r="${r0-8}"/>`;
+  inner += `<text class="ctr-t" x="${cx}" y="${cy+2}" text-anchor="middle">Tahsildar</text>`;
+  inner += `<text class="ctr-s" x="${cx}" y="${cy+20}" text-anchor="middle">ekran ve koşul</text>`;
+  svg.innerHTML = inner;
+  host.appendChild(svg);
+  const show = i => {
+    const s = S[i];
+    $$(".sec", svg).forEach(p => p.classList.toggle("on", +p.dataset.i === i));
+    det.innerHTML = `<span class="k">${s.cat}, ana ortak</span><h4>${s.title}</h4><p>${s.text}</p><div class="alts"><b>Alternatifler.</b> ${s.alt}</div>`;
+  };
+  $$(".sec", svg).forEach(p => {
+    p.addEventListener("click", () => show(+p.dataset.i));
+    p.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(+p.dataset.i); } });
+  });
+  show(0);
+})();
+
+/* ---------- roadmap ---------- */
+(function road(){
+  const ms = $$(".ms"); if (!ms.length) return;
+  const set = n => {
+    ms.forEach(m => m.setAttribute("aria-selected", String(m.dataset.ph === String(n))));
+    $$(".phase").forEach(p => p.classList.toggle("on", p.dataset.panel === String(n)));
+  };
+  ms.forEach(m => {
+    m.addEventListener("click", () => set(m.dataset.ph));
+    m.addEventListener("keydown", e => {
+      const i = ms.indexOf(m);
+      if (e.key === "ArrowRight" && ms[i+1]) { ms[i+1].focus(); set(ms[i+1].dataset.ph); }
+      if (e.key === "ArrowLeft" && ms[i-1]) { ms[i-1].focus(); set(ms[i-1].dataset.ph); }
+    });
+  });
+})();
+
+/* ---------- use case ---------- */
+(function uc(){
+  const box = $("#uc"); if (!box) return;
+  const steps = [
+    ["Fatura kendiliğinden düşer", ["u","a","t"], "Kastamonu, Cluj'daki ana bayisine ay başında 400 bin lei'lik levha faturası keser. Fatura e-Factura'dan geçer ve Tahsildar'a kendiliğinden düşer."],
+    ["Ana bayi koşulları tanımlar", ["a","b","t"], "Ana bayi levhaları bölgedeki 60 mobilya atölyesine satar. Beş yıldır hiç geciktirmeyen atölyeye kredi kartıyla 6 taksit ve 60 gün vade, yeni atölyeye peşin, sezonda büyük sipariş verene özel kampanya tanımlar."],
+    ["Atölye taksitle öder", ["b","a","k","c"], "Bir atölye 25 bin lei'lik siparişini Tahsildar ekranından kredi kartıyla 6 taksitle öder. Ödemeyi Token işler, ana bayinin hesabına 25 bin lei peşin geçer. Taksit riski Nexent Bank'ta."],
+    ["Atölye son kullanıcıdan tahsil eder", ["b","s","k","t"], "Atölye, dolap yaptırdığı ev sahibine Tahsildar'dan 18 bin lei'lik tahsilat linki gönderir. Ev sahibi kendi kartıyla ya da RoPay ile öder."],
+    ["Ana bayi bütün ağı görür", ["a","b","t"], "Ana bayi ekranında 60 atölyenin toplam borcunu, kimin hangi koşulla çalıştığını ve kimin geciktiğini görür. Geciken atölyeye otomatik hatırlatma gider, isterse o atölyenin koşulunu tek tıkla peşine çevirir."],
+    ["Üretici kampanya açar", ["u","a","b","c"], "Kastamonu, ana bayisinin kendisine zamanında ödediğini görür. Sezon başında bütün bayi ağına \"taksit maliyetini ben karşılıyorum\" kampanyası açabilir. Herkes kazanır: üretici satışını, ana bayi peşin parasını, atölye nefesini, Nexent Bank yeni müşterisini, Token hacmini."]
+  ];
+  const dots = $("#uc-dots");
+  dots.innerHTML = steps.map(() => "<i></i>").join("");
+  let i = 0, timer = null;
+  const render = () => {
+    const [h, on, p] = steps[i];
+    $("#uc-no").textContent = i + 1;
+    $("#uc-h").textContent = h;
+    $("#uc-p").textContent = p;
+    $$(".uc-node", box).forEach(n => n.classList.toggle("on", on.includes(n.dataset.n)));
+    $$("i", dots).forEach((d, k) => d.classList.toggle("on", k === i));
+    $("#uc-prev").disabled = i === 0;
+    $("#uc-next").textContent = i === steps.length - 1 ? "Başa dön" : "İleri";
+  };
+  const stop = () => { clearInterval(timer); timer = null; $("#uc-play").textContent = "Otomatik oynat"; };
+  $("#uc-next").addEventListener("click", () => { stop(); i = (i + 1) % steps.length; render(); });
+  $("#uc-prev").addEventListener("click", () => { stop(); if (i > 0) { i--; render(); } });
+  $("#uc-play").addEventListener("click", () => {
+    if (timer) return stop();
+    $("#uc-play").textContent = "Durdur";
+    timer = setInterval(() => { i = (i + 1) % steps.length; render(); if (i === steps.length - 1) stop(); }, 4200);
+  });
+  render();
+})();
+
+/* ---------- meetings ---------- */
+(function meets(){
+  const host = $("#meets"); if (!host) return;
+  const M = [
+    [0,true,"Token Payment Services","CEO Burak Yıldıran, Deputy CEO Nicoleta Ionescu","Ana ödeme ortağı. Güncel üye işyeri sayısı; alt üye işyeri ya da temsilci modeline açıklık; para transferi yetkisinin ana bayiye ve üreticiye dağıtan akışa izin verip vermediği; RoPay takvimi; bankanın kredi kartlarıyla yapılan taksitin kendi altyapısından geçip geçmeyeceği; lisansın Macaristan'a taşınması."],
+    [0,true,"Nexent Bank","Kart, SoftPOS ve KOBİ ekipleri","Ana finansman ve taksit ortağı. Alt bayiler taksit programına partner işyeri olarak nasıl girer, firmalara kredi kartı veriliyor mu; taksit maliyeti ve oranlar; SoftPOS distribütör deneyiminde kaç distribütör kullandı, hangi sektörde tuttu, nerede tökezledi; e-Factura verisiyle limit; gelir paylaşımı."],
+    [0,false,"Fintech hukukçusu","KPMG Legal (Toncescu și Asociații), Token'ın lisansında çalışmış","Para akışı teknik sağlayıcı sayılır mı, temsilci kaydı ne kadar sürer, e-Factura verisi hangi rızayla kullanılır, yeni AB ödeme kuralları neyi değiştirir. Yazılı görüş."],
+    [0,false,"Mert Kaftanoğlu","Forvis Mazars Romanya, Türk Masası lideri","Birleşik Ödeme'nin lisansı nerede takıldı, hangi hukuk bürosuyla çalıştılar. Türk kökenli bayi ağı olan şirketlere giriş."],
+    [1,false,"TIAD","Genel sekreter Barbaros Yıkar","Romanya'daki Türk İş İnsanları Derneği. Türk sermayeli toptancılara ve dağıtımcılara kurumsal kapı."],
+    [1,false,"Kastamonu Entegre Romanya","Reghin fabrikası","Bayi ve atölye yapısı, bugünkü tahsilat sorunu, pilot için ilk aday."],
+    [1,false,"Yıldız Entegre","Romanya operasyonu","Kastamonu'ya benzer bir bayi yapısı olup olmadığının teyidi."],
+    [1,false,"Beko România ve KoçZer","Koç Grubu","İç pazarda satış bayi mi zincir mi üzerinden gidiyor. KoçZer'in tedarikçi ödemeleri farklı bir kullanım olarak."],
+    [1,false,"Pladis ve Eti Romanya","Gıda üretimi ve dağıtımı","Hangi distribütörlerle çalışıyorlar. Distribütör pilotu ve üretici destekli taksit kampanyası."],
+    [2,false,"EuPlătesc","Ödeme kuruluşu","RoPay'e doğrudan bağlı ilk ödeme kuruluşu. Anlık transfer için ikinci ortak, PayFac takvimi."],
+    [2,false,"Netopia Payments","CEO Raluca Micu","Alternatif ödeme ortağı. Üye işyeri finansmanı planlarının Tahsildar ile çakışıp çakışmadığı."],
+    [2,false,"Banca Transilvania ve BCR","BT CEO'su Ömer Tetik ve Star ekibi","Alternatif taksit ve finansman ortakları. Ömer Tetik İzmir'de büyüdü, Finansbank ve Credit Europe'tan geliyor, ulaşılabilir bir ilişki."],
+    [2,false,"SmartBill","Fatura yazılımı","Faz 2 dağıtım kanalı. Entegrasyon, koşullu ödeme sayfası, yönlendirme payı ve verinin kimde kalacağı."],
+    [2,false,"Termene.ro (redBill)","Şirket bilgi platformu","Alternatif risk verisi ve ödenmemiş fatura kaydı."],
+    [3,false,"Dental distribütör ve Regina Maria Dental Clinics","Sonraki faz","Muayenehanelerin vadeli malzeme alımında ve hastanın taksitli ödemesinde sorunun doğrulanması."]
+  ];
+  host.innerHTML = M.map(([ph,live,t,who,p],k) => `
+    <article class="mt${k<4?" first":""}" data-ph="${ph}">
+      <span class="no">${k+1}</span>
+      <div><h4>${t}</h4><p class="who">${who}</p><p>${p}</p>
+      <div class="tags"><span>Faz ${ph}</span>${live?'<span class="live">Görüşme sürüyor</span>':""}${k<4?"<span>İlk dört</span>":""}</div></div>
+    </article>`).join("");
+  const count = $("#meet-count");
+  const apply = f => {
+    let n = 0;
+    $$(".mt", host).forEach(m => {
+      const ph = +m.dataset.ph;
+      const show = f === "all" || (f === "2" ? ph >= 2 : String(ph) === f);
+      m.hidden = !show; if (show) n++;
+    });
+    count.textContent = n + " görüşme";
+  };
+  $$("#meet-filter button").forEach(b => b.addEventListener("click", () => {
+    $$("#meet-filter button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    apply(b.dataset.f);
+  }));
+  apply("all");
+})();
+
+/* ---------- chapter nav + progress ---------- */
+(function nav(){
+  const nav = $("#chapters"), prog = $("#progress");
+  const secs = $$("[data-chapter]");
+  nav.innerHTML = secs.map(s => `<a href="#${s.id}">${s.dataset.nav}</a>`).join("");
+  const links = $$("a", nav);
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+    let cur = -1;
+    secs.forEach((s, i) => { if (s.getBoundingClientRect().top < 140) cur = i; });
+    links.forEach((a, i) => a.classList.toggle("on", i === cur));
+    if (cur >= 0 && links[cur] && nav.scrollWidth > nav.clientWidth) {
+      const a = links[cur];
+      const want = a.offsetLeft - nav.clientWidth / 2 + a.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - want) > 40) nav.scrollLeft = want;
+    }
+  };
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+})();
+
+})();
+
+</script>
+</body>
+</html>
