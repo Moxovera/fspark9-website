@@ -26,7 +26,7 @@ function brandCase(text: string) {
  * çizgi, soru ve üç yol. Seçilen yol Ink dolar, diğer ikisi yarıya iner;
  * altında sadece seçilen yolun cevabı açılır ("Your pick · B"). "Show the
  * other roads" diğer ikisini onun altında gösterir, okurun cevabı hep ilk
- * sırada. Sonra "What Bó did" ve Ink zeminde fspark9 notu. Seçim
+ * sırada. Sonra "What Bó did" ve (varsa) Ink zeminde fspark9 notu. Seçim
  * değiştirilebilir; hiçbir şey saklanmaz, puanlanmaz, gönderilmez.
  */
 export default function DecisionTable({ decision, labels }: DecisionTableProps) {
@@ -123,6 +123,7 @@ export default function DecisionTable({ decision, labels }: DecisionTableProps) 
             ))}
           </div>
 
+          {decision.note && (
           <div className="on-ink mt-[34px] bg-ink px-[26px] py-[22px] text-paper">
             <p className={`m-0 text-dust ${mono}`}>{brandCase(labels.noteLabel)}</p>
             <p className="mt-2 mb-[14px] max-w-[40ch] font-display text-[21px] leading-[1.35] font-bold tracking-[-0.012em]">
@@ -142,6 +143,7 @@ export default function DecisionTable({ decision, labels }: DecisionTableProps) 
               ))}
             </p>
           </div>
+          )}
         </div>
       </div>
     </div>

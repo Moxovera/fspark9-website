@@ -24,8 +24,8 @@ import type { Locale, SparkEpisodeEntry } from "@/types/content";
 
 // Bölüm sayfası. İki şablon, bölümün `layout` alanına göre:
 // story (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html):
-// tam ekran Ink açılış ve yükselen kart, sonra kartın izlediği hikâye
-// (EpisodeStory), NextStep.
+// tam ekran Ink açılış ve yükselen kart (Fidor'da kart yerine çerçeve gün
+// sayısı), sonra kartın ya da gün saatinin izlediği hikâye (EpisodeStory), NextStep.
 // decisions (Nº 02, prototip _design/v2/boards/son-gun-02-nuri-v2.html):
 // geri link, Ink açılış, cetvel, karar blokları (DecisionEpisode), NextStep. İçerik Sanity'den
 // (getSparkEpisodes); tarayıcıda hiçbir şey saklanmıyor.
@@ -159,13 +159,28 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
                 <ArrowDownIcon className="size-4 flex-none" />
               </a>
             </div>
-            <div className="order-first flex justify-start min-[901px]:order-none min-[901px]:col-span-4 min-[901px]:col-start-9 min-[901px]:justify-center">
-              <StoryCard
-                mode="live"
-                front={{ day: story.hero.cardDay, state: story.hero.cardState }}
-                className="card-rise w-[220px]"
-              />
-            </div>
+            {story.hero.figure ? (
+              // Nº 03 Fidor: kart yerine çerçeve gün sayısı (prototip son-gun-fidor `.bigcount`).
+              <div
+                aria-hidden="true"
+                className="order-first flex min-w-0 flex-col items-start gap-[10px] min-[901px]:order-none min-[901px]:col-span-5 min-[901px]:col-start-8 min-[901px]:items-end"
+              >
+                <span className="text-outline-dust font-display text-[96px] leading-[0.8] font-extrabold tracking-[-0.06em] min-[901px]:text-[clamp(96px,12vw,190px)]">
+                  {story.hero.figure}
+                </span>
+                <span className="font-mono text-[12.5px] leading-[1.5] font-medium tracking-[0.08em] text-dust uppercase">
+                  {story.hero.figureLabel}
+                </span>
+              </div>
+            ) : (
+              <div className="order-first flex justify-start min-[901px]:order-none min-[901px]:col-span-4 min-[901px]:col-start-9 min-[901px]:justify-center">
+                <StoryCard
+                  mode="live"
+                  front={{ day: story.hero.cardDay, state: story.hero.cardState }}
+                  className="card-rise w-[220px]"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>

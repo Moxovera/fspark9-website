@@ -20,6 +20,12 @@
  *                    gösterir, canlı "sırada" kalır.
  *   --publish-nuri   status published, previewLive kalkar.
  * İkisi de yoksa bölümün durumuna dokunulmaz.
+ *
+ * Fidor (Nº 03) aynı mantıkla, ama önizlemede `draft` (canlıda hiç
+ * görünmez, coming gibi linksiz satır da çıkmaz):
+ *   --only=fidor     sadece Fidor belgesi yazılır (yoksa draft + previewLive
+ *                    ile oluşturulur); diğer belgelere dokunulmaz.
+ *   --publish-fidor  status published, previewLive kalkar.
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -32,6 +38,7 @@ import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
+import { fidor } from "../content/spark-fidor";
 import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
@@ -54,12 +61,16 @@ const onlySpark = process.argv.includes("--only=spark");
 const previewNuri = process.argv.includes("--preview-nuri");
 const publishNuri = process.argv.includes("--publish-nuri");
 if (previewNuri && publishNuri) throw new Error("--preview-nuri and --publish-nuri are exclusive.");
+const onlyFidor = process.argv.includes("--only=fidor");
+const publishFidor = process.argv.includes("--publish-fidor");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
 const LAUNCH_DATE = "2026-09-24";
 /** Nuri'nin yayın tarihi (canlıya çıktığı gün; home.ts kartıyla aynı). */
 const NURI_PUBLISHED = "2026-09-29";
+/** Fidor'un yayın tarihi (staging'e çıktığı gün; canlıya çıkışta güncellenebilir). */
+const FIDOR_PUBLISHED = "2026-10-02";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -455,6 +466,8 @@ const storyCard = (e: SparkStoryCard, t: SparkStoryCard) => ({
   state: ls(e.state, t.state),
   caption: ls(e.caption, t.caption),
   barTitle: ls(e.barTitle, t.barTitle),
+  ...(e.progress !== undefined ? { progress: e.progress } : {}),
+  ...(e.barDay !== undefined ? { barDay: ls(e.barDay, t.barDay ?? "") } : {}),
 });
 
 /** Bölüm hikâyesinin alanları (sparkEpisodeStory.ts), EN ve TR paralel. */
@@ -472,7 +485,9 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
       startLabel: ls(e.hero.startLabel, t.hero.startLabel),
       cardDay: e.hero.cardDay,
       cardState: ls(e.hero.cardState, t.hero.cardState),
+      ...(e.hero.figure ? { figure: e.hero.figure, figureLabel: ls(e.hero.figureLabel ?? "", t.hero.figureLabel ?? "") } : {}),
     },
+    ...(e.dayClock && t.dayClock ? { dayClock: { label: ls(e.dayClock.label, t.dayClock.label), ofLabel: ls(e.dayClock.ofLabel, t.dayClock.ofLabel) } } : {}),
     chapters: zip(e.chapters, t.chapters, (ec, tc) => ({
       _type: "sparkChapter",
       id: ec.id,
@@ -506,15 +521,22 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
           }
         : {}),
     })),
-    interlude: {
-      afterChapter: e.interlude.afterChapter,
-      text: lt(e.interlude.text, t.interlude.text),
-      card: storyCard(e.interlude.card, t.interlude.card),
-    },
+    ...(e.interlude && t.interlude
+      ? {
+          interlude: {
+            afterChapter: e.interlude.afterChapter,
+            text: lt(e.interlude.text, t.interlude.text),
+            card: storyCard(e.interlude.card, t.interlude.card),
+          },
+        }
+      : {}),
     lessons: zip(e.lessons, t.lessons, (el, tl) => ({ _type: "sparkLesson", heading: ls(el.heading, tl.heading), body: lt(el.body, tl.body) })),
+    ...(e.note && t.note ? { note: { label: ls(e.note.label, t.note.label), paragraphs: texts(e.note.paragraphs, t.note.paragraphs) } } : {}),
+    ...(e.lastDay && t.lastDay ? { lastDay: { label: ls(e.lastDay.label, t.lastDay.label), text: lt(e.lastDay.text, t.lastDay.text) } } : {}),
     finalQuestion: {
       label: ls(e.finalQuestion.label, t.finalQuestion.label),
       title: lt(e.finalQuestion.title, t.finalQuestion.title),
+      ...(e.finalQuestion.lead ? { lead: lt(e.finalQuestion.lead, t.finalQuestion.lead ?? "") } : {}),
       ctaLabel: ls(e.finalQuestion.ctaLabel, t.finalQuestion.ctaLabel),
       options: zip(e.finalQuestion.options, t.finalQuestion.options, (eo, to) => ({
         _type: "sparkFinalOption",
@@ -525,7 +547,7 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
         body: lt(eo.body, to.body),
       })),
     },
-    next: { number: e.next.number, name: ls(e.next.name, t.next.name), line: lt(e.next.line, t.next.line) },
+    ...(e.next && t.next ? { next: { number: e.next.number, name: ls(e.next.name, t.next.name), line: lt(e.next.line, t.next.line) } } : {}),
     sourcesLabel: ls(e.sourcesLabel, t.sourcesLabel),
     sources: zip(e.sources, t.sources, (es, ts) => ({
       _type: "sparkSource",
@@ -675,6 +697,41 @@ function nuriPatch() {
   };
 }
 
+/** Nº 03 Fidor. Belge yoksa önizleme durumunda oluşturulur: draft + previewLive. */
+const FIDOR_ID = "sparkEpisode-the-last-day-03";
+
+function fidorStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: FIDOR_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[0] },
+    number: 3,
+    layout: "story",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function fidorPatch() {
+  return {
+    id: FIDOR_ID,
+    set: {
+      ...storySet(fidor.en, fidor.tr),
+      ...(publishFidor ? { status: "published" } : {}),
+      number: 3,
+      layout: "story",
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "fidor" }, tr: { _type: "slug", current: "fidor" } },
+      city: "Munich",
+      country: "Germany",
+      launchDate: "2016-07-28",
+      launchPrecision: "day",
+      closureDate: "2023-02-16",
+      publishedAt: FIDOR_PUBLISHED,
+    },
+    unset: publishFidor ? ["previewLive"] : [],
+  };
+}
+
 // Legal: src/content/legal/*.ts → legalBlock* (yalnızca Privacy ve Cookies,
 // fspark9-legal-update-v2). Imprint ve Terms metnine dokunulmuyor.
 function toLegalBlock(en: LegalBlock, tr: LegalBlock) {
@@ -759,11 +816,15 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch()];
-  const creates = onlySpark
-    ? comingEpisodeDocs()
-    : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
-  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = onlySpark
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch()];
+  const creates = onlyFidor
+    ? []
+    : onlySpark
+      ? comingEpisodeDocs()
+      : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
+  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = onlyFidor
+    ? [fidorPatch()]
+    : onlySpark
     ? sparkPatches
     : [
         { id: "siteSettings", set: siteSettingsPatch(), unset: ["subpageCta", "footer.tagline", "footer.nine", "footer.signature", "footer.nav", "footer.legal"] },
@@ -779,11 +840,12 @@ async function main() {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
     console.log("patch:", patches.map((p) => p.id).join(", "));
     console.log("missing formats:", FORMAT_IDS.filter((id) => !existingFormats.includes(id)).join(", ") || "none");
-    if (!onlySpark) console.log(await uploadLogo());
+    if (!onlySpark && !onlyFidor) console.log(await uploadLogo());
     return;
   }
 
   const tx = client.transaction();
+  tx.createIfNotExists(fidorStub());
   for (const id of FORMAT_IDS.filter((id) => !existingFormats.includes(id))) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });
   }
@@ -797,7 +859,7 @@ async function main() {
   }
   const result = await tx.commit();
   console.log(`committed ${result.results.length} mutations`);
-  if (!onlySpark) console.log((await uploadLogo()) ?? "logo already current");
+  if (!onlySpark && !onlyFidor) console.log((await uploadLogo()) ?? "logo already current");
 }
 
 main().catch((error) => {

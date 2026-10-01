@@ -28,6 +28,7 @@ export default function FinalQuestion({ content }: FinalQuestionProps) {
       >
         {content.title}
       </h3>
+      {content.lead && <p className="mt-0 mb-5 max-w-[56ch] text-[18px] leading-[1.6] text-stone">{content.lead}</p>}
       <div role="group" aria-labelledby={titleId} className="grid gap-[10px]">
         {content.options.map((option, i) => {
           const pressed = i === picked;

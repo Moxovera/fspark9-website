@@ -206,7 +206,7 @@ export const SPARK_FORMAT_QUERY = defineQuery(`
   *[_type == "sparkFormat" && select($locale == "tr" => slug.tr.current, slug.en.current) == $formatSlug][0]{
     "altFormatSlug": select($locale == "tr" => slug.en.current, slug.tr.current),
     "episodes": *[_type == "sparkEpisode" && references(^._id)
-      && (status == "published" || ($preview && status == "coming" && previewLive == true))] | order(number asc){
+      && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))] | order(number asc){
       number,
       "subject": select($locale == "tr" => coalesce(subject.tr, subject.en), subject.en),
       country,
@@ -240,7 +240,7 @@ export const SPARK_EPISODE_SLUGS_QUERY = defineQuery(`
     "episodeTr": slug.tr.current,
     "formatEn": format->slug.en.current,
     "formatTr": format->slug.tr.current,
-    "status": select($preview && status == "coming" && previewLive == true => "published", status),
+    "status": select($preview && status in ["coming", "draft"] && previewLive == true => "published", status),
     lastCheckedAt,
     _updatedAt
   }

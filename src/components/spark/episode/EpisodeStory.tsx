@@ -10,6 +10,8 @@ import { fill } from "@/lib/format";
 import type { EpisodeStoryProps, SparkStoryCard } from "@/types/content";
 
 const body = "text-[18px] leading-[1.6] text-ink";
+/** Ara bölüm ve son gün satırının büyük yazısı (prototip `.pause`). */
+const pause = "max-w-[16ch] font-display text-[clamp(34px,4.6vw,60px)] leading-[1.02] font-extrabold tracking-[-0.035em] text-ink";
 
 /**
  * Bölüm sayfasının hikâye kısmı (prototip son-gun-01-bo-v3 `.story`): 12
@@ -17,14 +19,19 @@ const body = "text-[18px] leading-[1.6] text-ink";
  * Altında kart gizli, header'ın altında ince şerit. Son bölümün içinde
  * dersler, son soru, sıradaki bölüm ve kaynaklar.
  *
+ * Nº 03 Fidor (prototip son-gun-fidor): kart yerine gün saati (dayClock),
+ * ara bölüm yok, derslerden sonra fspark9 notu ve son gün satırı, sıradaki
+ * satırı yok. Hepsi isteğe bağlı alanlar; Bó değişmiyor.
+ *
  * Yapışkan kartın atalarında transform/overflow yok: Reveal sadece metin
  * bloklarını sarıyor (CLAUDE.md "Sticky").
  */
 export default function EpisodeStory({ story, labels, nextHref }: EpisodeStoryProps) {
-  const interludeAt = story.chapters.findIndex((chapter) => chapter.id === story.interlude.afterChapter);
+  const { interlude } = story;
+  const interludeAt = interlude ? story.chapters.findIndex((chapter) => chapter.id === interlude.afterChapter) : -1;
   // Duraklar sayfadaki sırayla: bölümler, ara bölüm kendi yerinde.
   const stops: SparkStoryCard[] = story.chapters.flatMap((chapter, i) =>
-    i === interludeAt ? [chapter.card, story.interlude.card] : [chapter.card],
+    interlude && i === interludeAt ? [chapter.card, interlude.card] : [chapter.card],
   );
   const stopIndex = (i: number) => (interludeAt >= 0 && i > interludeAt ? i + 1 : i);
   const last = story.chapters.length - 1;
@@ -32,10 +39,10 @@ export default function EpisodeStory({ story, labels, nextHref }: EpisodeStoryPr
   return (
     <StoryProvider stops={stops}>
       <div>
-        <StoryBar dayTemplate={labels.dayTemplate} />
+        <StoryBar dayTemplate={labels.dayTemplate} clock={story.dayClock} />
         <div className="px-5 min-[900px]:px-8 min-[1280px]:px-16">
           <div className="grid grid-cols-1 gap-x-6 pt-10 min-[1000px]:grid-cols-12">
-            <StoryRail />
+            <StoryRail clock={story.dayClock} />
             <div className="min-w-0 min-[1000px]:col-span-7 min-[1000px]:col-start-5">
               {story.chapters.map((chapter, i) => (
                 <Fragment key={chapter.id}>
@@ -67,10 +74,10 @@ export default function EpisodeStory({ story, labels, nextHref }: EpisodeStoryPr
                     )}
                     {i === last && <Ending story={story} labels={labels} nextHref={nextHref} />}
                   </StoryStop>
-                  {i === interludeAt && (
+                  {interlude && i === interludeAt && (
                     <StoryStop index={i + 1} as="div" className="pt-[180px]">
-                      <p className="m-0 max-w-[16ch] font-display text-[clamp(34px,4.6vw,60px)] leading-[1.02] font-extrabold tracking-[-0.035em] text-ink">
-                        {story.interlude.text}
+                      <p className={`m-0 ${pause}`}>
+                        {interlude.text}
                       </p>
                     </StoryStop>
                   )}
@@ -105,19 +112,52 @@ function Ending({ story, labels, nextHref }: EpisodeStoryProps) {
         </Reveal>
       )}
 
+      {story.note && (
+        <Reveal>
+          <div className="mt-[90px] border-t border-rule pt-6">
+            <Label as="p">
+              {story.note.label}
+            </Label>
+            {story.note.paragraphs.map((paragraph, i) => (
+              <p
+                key={paragraph}
+                className={
+                  i === 0
+                    ? "mt-4 mb-4 max-w-[38ch] font-display text-[22px] leading-[1.38] font-bold tracking-[-0.012em] text-ink"
+                    : `mt-0 mb-4 max-w-[60ch] ${body}`
+                }
+              >
+                <FootnoteText text={paragraph} template={labels.footnoteTemplate} />
+              </p>
+            ))}
+          </div>
+        </Reveal>
+      )}
+
+      {story.lastDay && (
+        <div className="mt-[110px]">
+          <Label as="p">
+            {story.lastDay.label}
+          </Label>
+          <p className={`mt-[14px] mb-0 ${pause}`}>{story.lastDay.text}</p>
+        </div>
+      )}
+
       <Reveal>
         <FinalQuestion content={story.finalQuestion} />
       </Reveal>
 
-      <div className="mt-[90px] border-t border-rule">
-        <SparkEpisodeRow
-          number={story.next.number}
-          title={fill(labels.nextTemplate, { name: story.next.name })}
-          line={story.next.line}
-          meta=""
-          href={nextHref}
-        />
-      </div>
+      {story.next && (
+        <div className="mt-[90px] border-t border-rule">
+          <SparkEpisodeRow
+            number={story.next.number}
+            title={fill(labels.nextTemplate, { name: story.next.name })}
+            line={story.next.line}
+            meta=""
+            href={nextHref}
+          />
+        </div>
+      )}
 
       <div className="mt-[70px] mb-[110px] text-[14px] leading-[1.6] text-stone">
         <Label as="p">

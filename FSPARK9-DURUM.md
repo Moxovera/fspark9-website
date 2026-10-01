@@ -4,7 +4,7 @@ Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalı
 
 **v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-09-30
+Son güncelleme: 2026-10-02
 
 ---
 
@@ -72,6 +72,10 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 | `npm run typegen` | Şema çıkarır ve sorgu tiplerini üretir (`src/sanity/types.ts`) |
 
 ## Açık işler
+
+- **Son Gün Nº 03 Fidor Bank staging'de (2026-10-02), canlıda değil.** Prompt `Spark/Fidor/son-gun-fidor-claude-code-prompt.md`, metin `Spark/Fidor/son-gun-fidor-icerik-tr-en.md`, prototip `Spark/Fidor/son-gun-fidor.html` (kopyası `_design/v2/boards/son-gun-fidor.html`). Slug `fidor`, şablon `story` (Bó'nunki) ama kart yok: `dayClock` doluysa yandaki kartın yerine gün saati, açılışta kartın yerine çerçeve gün sayısı (`hero.figure`). Yeni isteğe bağlı alanlar: `hero.figure/figureLabel`, `dayClock`, kartta `progress/barDay`, `note`, `lastDay`, `finalQuestion.lead`; `interlude` ve `next` artık isteğe bağlı. Ayna `src/content/spark-fidor.ts` (prototipten çıkarıldı, her cümle metin dosyasına karşı doğrulandı).
+  - Önizleme: Sanity'de `status: draft` + `previewLive: true`. Canlı kod draft'ı hiç okumuyor (coming gibi linksiz satır da yok); staging kodu `draft` ya da `coming` + `previewLive`'ı yayındaki gibi gösteriyor.
+  - Sadece Fidor belgesini yazmak: `npm run seed:v3 -- --only=fidor`. Canlıya çıkış (main onaylandıktan sonra): `npm run seed:v3 -- --only=fidor --publish-fidor`, ardından `check:drift`.
 
 - **Son Gün Nº 02 Nuri canlıda (2026-09-29).** Brief `Spark/Nuri/son-gun-02-nuri-claude-code-brief-v2.md`, metin `Spark/Nuri/son-gun-02-nuri-metin-tr-en-v2.md`, prototip `_design/v2/boards/son-gun-02-nuri-v2.html`. Bölümün ikinci şablonu var: `sparkEpisode.layout` story (Bó) ya da decisions (Nuri, `components/spark/decisions/`). Okur cevabı tarayıcıdan doğrudan Web3Forms'a gidiyor (sunucu yok); anahtar `.env.production`'da (commit'li, herkese açık, tasarım gereği; Vercel'de aynı adla tanımlanırsa o geçerli). Anahtar yoksa gönder düğmesi gizli. OG görseli `/og/episode?slug=02-nuri&locale=tr`.
   - Sonraki bölümler için ön izleme: Sanity'de `status: coming` + `previewLive: true` bölümü sadece preview (staging) ve yerelde yayındaki gibi gösterir (`src/sanity/lib/preview.ts`, `VERCEL_ENV`). Şerit artık bölüm adı taşımıyor (format satırları), canlıya çıkışta değişmesi gerekmiyor.

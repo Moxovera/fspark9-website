@@ -30,6 +30,7 @@ import type {
   SiteChrome,
   SparkCardContent,
   SparkCardMode,
+  SparkStoryCard,
   SparkDecisionEpisode,
   SparkEpisodeEntry,
   SparkEpisodeStory,
@@ -167,7 +168,7 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
 export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode" && status in ["published", "coming"]]
   | order(format->orderRank asc, number asc)[0...3]{
     number, subject, hook, cardLine, publishedAt,
-    "status": select($preview && status == "coming" && previewLive == true => "published", status),
+    "status": select($preview && status in ["coming", "draft"] && previewLive == true => "published", status),
     "episodeSlug": slug,
     "format": format->{ name, singularName, slug, comingLabel }
   }`);
@@ -372,12 +373,13 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
 // Son Gün v3 bölüm hikâyesi. Tek sorgu, iki dil, yayındaki bütün bölümler;
 // sayfa, metadata ve generateStaticParams aynı sonucu kullanıyor.
 export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
-  && (status == "published" || ($preview && status == "coming" && previewLive == true))
+  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))
   && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){
     number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt, layout,
     launchDate, closureDate, durationLabel,
     "slug": slug, "formatSlug": format->slug,
-    hero, interlude, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,
+    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,
+    "note": note{ label, "paragraphs": coalesce(paragraphs, []) },
     "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
     "lessons": coalesce(lessons[]{ heading, body }, []),
     "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
@@ -430,17 +432,29 @@ type EpisodeDoc = Omit<
   "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel"
 >;
 
+/** Bó'da olmayan isteğe bağlı alanlar (Fidor) sonuçta hiç yer almasın, null da değil. */
+function optional<K extends string, V>(key: K, value: V | null | undefined): Partial<Record<K, V>> {
+  return value === null || value === undefined || value === "" ? {} : ({ [key]: value } as Record<K, V>);
+}
+
+function toCard(card: Localized<NonNullable<EpisodeDoc["interlude"]>>["card"]): SparkStoryCard {
+  const { progress, barDay, ...rest } = card;
+  return { ...rest, mode: toCardMode(card.mode), ...optional("progress", progress), ...optional("barDay", barDay) };
+}
+
 function toStory(doc: EpisodeDoc, locale: Locale): SparkEpisodeStory {
   const e = localize(doc, locale);
+  const { figure, figureLabel, ...hero } = e.hero;
   return {
     number: e.number,
     subject: e.subject,
     hook: e.hook,
     seo: e.seo,
-    hero: e.hero,
+    hero: { ...hero, ...optional("figure", figure), ...optional("figureLabel", figureLabel) },
+    ...optional("dayClock", e.dayClock),
     chapters: e.chapters.map(({ decision, card, ...chapter }) => ({
       ...chapter,
-      card: { ...card, mode: toCardMode(card.mode) },
+      card: toCard(card),
       ...(decision
         ? {
             decision: {
@@ -451,13 +465,15 @@ function toStory(doc: EpisodeDoc, locale: Locale): SparkEpisodeStory {
           }
         : {}),
     })),
-    interlude: { ...e.interlude, card: { ...e.interlude.card, mode: toCardMode(e.interlude.card.mode) } },
+    ...optional("interlude", e.interlude ? { ...e.interlude, card: toCard(e.interlude.card) } : null),
     lessons: e.lessons,
+    ...optional("note", e.note),
+    ...optional("lastDay", e.lastDay),
     finalQuestion: {
-      ...e.finalQuestion,
+      ...(({ lead, ...rest }) => ({ ...rest, ...optional("lead", lead) }))(e.finalQuestion),
       options: (e.finalQuestion.options ?? []).map((option) => ({ ...option, service: option.service as ServiceSlug })),
     },
-    next: e.next,
+    ...optional("next", e.next),
     sourcesLabel: e.sourcesLabel,
     sources: e.sources,
     correctionLine: e.correctionLine,

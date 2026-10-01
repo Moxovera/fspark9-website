@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import StoryCard from "@/components/spark/episode/StoryCard";
 import { fill } from "@/lib/format";
-import type { SparkStoryCard, StoryBarProps, StoryCardFace, StoryProviderProps, StoryStopProps } from "@/types/content";
+import type { SparkStoryCard, StoryBarProps, StoryCardFace, StoryProviderProps, StoryRailProps, StoryStopProps } from "@/types/content";
 
 /**
  * "Kart hikâyeyi izler" (Son Gün v3): her bölüm ve ara bölüm bir durak,
@@ -95,14 +95,37 @@ function useCardFaces() {
   return { current, front: face(frontStop), back: backStop ? face(backStop) : undefined };
 }
 
-/** Geniş ekranda (1000px ve üstü) sol sütunda yapışkan kart ve altındaki küçük yazı. */
-export function StoryRail() {
+const mono = "font-mono text-[12px] leading-[1.6] font-medium tracking-[0.08em] uppercase";
+
+/**
+ * Geniş ekranda (1000px ve üstü) sol sütunda yapışkan kart ve altındaki
+ * küçük yazı. `clock` varsa kartın yerine nötr gün saati (prototip
+ * son-gun-fidor `.clock`): gün, çubuk, "of 2394"; son günde gün Stone'a döner.
+ */
+export function StoryRail({ clock }: StoryRailProps) {
   const { current, front, back } = useCardFaces();
   return (
     <aside aria-hidden="true" className="hidden min-[1000px]:col-span-3 min-[1000px]:block">
       <div className="sticky top-[110px] flex flex-col items-start gap-[14px]">
-        <StoryCard mode={current.mode} front={front} back={back} className="w-[170px]" />
-        <span className="max-w-[18ch] font-mono text-[12px] leading-[1.6] font-medium tracking-[0.08em] text-stone uppercase">
+        {clock ? (
+          <div className="flex w-[190px] flex-col gap-[6px] border-t-2 border-ink pt-[14px]">
+            <span className={`${mono} text-ink`}>{clock.label}</span>
+            <span
+              className={`story-clock-day font-display text-[72px] leading-[0.9] font-extrabold tracking-[-0.05em] ${
+                current.mode === "closed" ? "text-stone" : "text-ink"
+              }`}
+            >
+              {current.day}
+            </span>
+            <span className="mt-2 mb-[2px] block h-1 bg-rule">
+              <i className="story-clock-bar block h-full bg-ink" style={{ width: `${current.progress ?? 0}%` }} />
+            </span>
+            <span className={`${mono} text-stone`}>{clock.ofLabel}</span>
+          </div>
+        ) : (
+          <StoryCard mode={current.mode} front={front} back={back} className="w-[170px]" />
+        )}
+        <span className={`max-w-[18ch] text-stone ${mono}`}>
           {current.caption}
         </span>
       </div>
@@ -110,14 +133,14 @@ export function StoryRail() {
   );
 }
 
-/** Dar ekranda header'ın altında ince yapışkan şerit: küçük kart, başlık, gün. */
-export function StoryBar({ dayTemplate }: StoryBarProps) {
+/** Dar ekranda header'ın altında ince yapışkan şerit: küçük kart (gün saatli bölümde yok), başlık, gün. */
+export function StoryBar({ dayTemplate, clock }: StoryBarProps) {
   const { current } = useCardFaces();
-  const day = current.day === "?" ? current.caption : fill(dayTemplate, { n: current.day });
+  const day = current.barDay ?? (current.day === "?" ? current.caption : fill(dayTemplate, { n: current.day }));
   return (
     <div aria-hidden="true" className="sticky top-16 z-30 border-b-2 border-ink bg-paper min-[900px]:top-[84px] min-[1000px]:hidden">
       <div className="flex h-[60px] items-center gap-[14px] px-5 min-[900px]:px-8">
-        <span data-mode={current.mode} className="story-mini h-10 w-[26px] flex-none" />
+        {!clock && <span data-mode={current.mode} className="story-mini h-10 w-[26px] flex-none" />}
         <b className="font-display text-[18px] leading-none font-extrabold tracking-[-0.02em] text-ink">{current.barTitle}</b>
         <span className="ml-auto font-mono text-[12px] leading-none font-medium tracking-[0.08em] whitespace-nowrap text-stone uppercase">
           {day}

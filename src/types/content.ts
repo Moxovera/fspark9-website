@@ -144,6 +144,10 @@ export interface SparkStoryCard {
   caption: string
   /** Dar ekrandaki ince şeridin başlığı. */
   barTitle: string
+  /** Gün saatli bölümlerde (dayClock) çubuğun doluluğu, yüzde. */
+  progress?: number
+  /** Şeritteki gün yazısı; boşsa dayTemplate ("Day 830"). */
+  barDay?: string
 }
 
 export interface SparkServiceTag {
@@ -215,17 +219,29 @@ export interface SparkEpisodeStory {
     startLabel: string
     cardDay: string
     cardState: string
+    /** Varsa kartın yerine çerçeve rakam ("2394", Fidor). */
+    figure?: string
+    figureLabel?: string
   }
+  /**
+   * Varsa yandaki kartın yerine nötr gün saati (Nº 03 Fidor): gün, çubuk
+   * (durağın progress'i), "of 2394". Kart sadece Bó'nun hikâyesine ait.
+   */
+  dayClock?: { label: string; ofLabel: string }
   chapters: SparkChapter[]
-  interlude: {
+  interlude?: {
     /** Bu id'li bölümden sonra gelir. */
     afterChapter: string
     text: string
     card: SparkStoryCard
   }
   lessons: { heading: string; body: string }[]
-  finalQuestion: { label: string; title: string; ctaLabel: string; options: SparkFinalOption[] }
-  next: { number: string; name: string; line: string }
+  /** Derslerden sonra fspark9 notu (Nuri'nin görüş bloğu gibi). */
+  note?: { label: string; paragraphs: string[] }
+  /** Son gün satırı, büyük yazı (ara bölüm tipografisi). */
+  lastDay?: { label: string; text: string }
+  finalQuestion: { label: string; title: string; lead?: string; ctaLabel: string; options: SparkFinalOption[] }
+  next?: { number: string; name: string; line: string }
   sourcesLabel: string
   sources: SparkStorySource[]
   correctionLine: string
@@ -1361,6 +1377,13 @@ export interface StoryStopProps {
 
 export interface StoryBarProps {
   dayTemplate: string;
+  /** Gün saatli bölümde şeritte küçük kart yok. */
+  clock?: SparkEpisodeStory["dayClock"];
+}
+
+export interface StoryRailProps {
+  /** Varsa kartın yerine gün saati. */
+  clock?: SparkEpisodeStory["dayClock"];
 }
 
 export interface EpisodeStoryProps {

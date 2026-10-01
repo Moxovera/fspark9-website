@@ -108,7 +108,7 @@ export default defineType({
       type: "boolean",
       group: "meta",
       description:
-        "Status coming iken sadece preview (staging) adresinde yayındaki gibi görünür; canlı sitede coming kalır. Canlıya çıkınca status published yapılır, bu alan kaldırılır.",
+        "Status coming ya da draft iken sadece preview (staging) adresinde yayındaki gibi görünür; canlı sitede coming (linksiz satır) ya da draft (hiç görünmez) kalır. Canlıya çıkınca status published yapılır, bu alan kaldırılır.",
     }),
     ...storyFields.map((field) => ({ ...field, hidden: isDecisions })),
     ...decisionFields.map((field) => ({ ...field, group: "decisions", hidden: isStory })),

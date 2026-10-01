@@ -36,6 +36,13 @@ export const sparkStoryCard = defineType({
     ls("state", "State line on the card"),
     ls("caption", "Caption under the card (wide screens)"),
     ls("barTitle", "Title in the thin bar (narrow screens)"),
+    defineField({
+      name: "progress",
+      title: "Day clock progress (%, only with a day clock)",
+      type: "number",
+      validation: (r) => r.min(0).max(100),
+    }),
+    ls("barDay", "Day in the thin bar (optional, replaces \"Day {n}\")"),
   ],
 });
 
@@ -159,7 +166,18 @@ export const storyFields = [
       ls("startLabel", "Start button"),
       str("cardDay", "Card day (\"000\")"),
       ls("cardState", "Card state line"),
+      str("figure", "Outlined figure instead of the card (\"2394\", optional)"),
+      ls("figureLabel", "Line under the figure"),
     ],
+  }),
+  defineField({
+    name: "dayClock",
+    title: "Day clock instead of the card (optional)",
+    description: "Doluysa yandaki kart yerine nötr gün saati; çubuk her kartın progress alanından.",
+    type: "object",
+    group: "story",
+    options: { collapsible: true, collapsed: true },
+    fields: [ls("label", "Label (\"Day\")"), ls("ofLabel", "Line under the bar (\"of 2394\")")],
   }),
   defineField({
     name: "chapters",
@@ -170,7 +188,7 @@ export const storyFields = [
   }),
   defineField({
     name: "interlude",
-    title: "Interlude (the card flips here)",
+    title: "Interlude (the card flips here, optional)",
     type: "object",
     group: "story",
     options: { collapsible: true, collapsed: true },
@@ -195,6 +213,25 @@ export const storyFields = [
     ],
   }),
   defineField({
+    name: "note",
+    title: "fspark9 note (optional, after the lessons)",
+    type: "object",
+    group: "story",
+    options: { collapsible: true, collapsed: true },
+    fields: [
+      ls("label", "Label"),
+      defineField({ name: "paragraphs", title: "Paragraphs", type: "array", of: [defineArrayMember({ type: "localeText" })] }),
+    ],
+  }),
+  defineField({
+    name: "lastDay",
+    title: "Last day line (optional)",
+    type: "object",
+    group: "story",
+    options: { collapsible: true, collapsed: true },
+    fields: [ls("label", "Label"), lt("text", "Line")],
+  }),
+  defineField({
     name: "finalQuestion",
     title: "Final question",
     type: "object",
@@ -203,13 +240,14 @@ export const storyFields = [
     fields: [
       ls("label", "Label"),
       lt("title", "Question"),
+      lt("lead", "Line under the question (optional)"),
       ls("ctaLabel", "Button"),
       defineField({ name: "options", title: "Options", type: "array", of: [defineArrayMember({ type: "sparkFinalOption" })] }),
     ],
   }),
   defineField({
     name: "next",
-    title: "Next episode row",
+    title: "Next episode row (optional)",
     type: "object",
     group: "story",
     options: { collapsible: true, collapsed: true },
