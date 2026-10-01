@@ -34,7 +34,7 @@ export const spark: Record<Locale, SparkHubContent> = {
     episode: {
       yourPickTemplate: "Your pick · {key}",
       roadTemplate: "Road {key}",
-      otherRoadsLabel: "Show the other roads",
+      otherRoadsLabel: "Show the other paths",
       noteLabel: "fspark9 note",
       dayTemplate: "Day {n}",
       nextTemplate: "Next: {name}",

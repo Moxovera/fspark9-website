@@ -720,7 +720,7 @@ function fidorPatch() {
       ...(publishFidor ? { status: "published" } : {}),
       number: 3,
       layout: "story",
-      slug: { _type: "localeSlug", en: { _type: "slug", current: "fidor" }, tr: { _type: "slug", current: "fidor" } },
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "03-fidor" }, tr: { _type: "slug", current: "03-fidor" } },
       city: "Munich",
       country: "Germany",
       launchDate: "2016-07-28",
