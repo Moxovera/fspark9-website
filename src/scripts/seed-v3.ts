@@ -217,7 +217,7 @@ function homeDoc(): SanityDocumentStub {
       heading: ls(e.spark.heading, t.spark.heading),
       text: lt(e.spark.text, t.spark.text),
       linkLabel: ls(e.spark.linkLabel, t.spark.linkLabel),
-      cardLinkLabel: ls(e.spark.cards[0].linkLabel ?? "", t.spark.cards[0].linkLabel ?? ""),
+      cardLinkLabel: ls(sparkCard(e, "Nº 01").linkLabel ?? "", sparkCard(t, "Nº 01").linkLabel ?? ""),
     },
   };
 }
@@ -559,8 +559,15 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
   };
 }
 
+/** Ana sayfa aynasında kartlar yayın tarihine göre sıralı; bölüm numarasıyla bulunur. */
+function sparkCard(h: typeof home.en, number: string) {
+  const card = h.spark.cards.find((c) => c.number === number && !c.status);
+  if (!card) throw new Error(`home.spark.cards: ${number} yok`);
+  return card;
+}
+
 function boPatch() {
-  const card = [home.en.spark.cards[0], home.tr.spark.cards[0]];
+  const card = [sparkCard(home.en, "Nº 01"), sparkCard(home.tr, "Nº 01")];
   return {
     id: "sparkEpisode-01-bo",
     set: {
@@ -670,7 +677,7 @@ function decisionSet(e: SparkDecisionEpisode, t: SparkDecisionEpisode) {
 
 /** Nº 02 Nuri. Belge v2'den beri `coming` olarak duruyordu; aynı belge dolduruluyor. */
 function nuriPatch() {
-  const card = [home.en.spark.cards[1], home.tr.spark.cards[1]];
+  const card = [sparkCard(home.en, "Nº 02"), sparkCard(home.tr, "Nº 02")];
   const status = publishNuri
     ? { status: "published" }
     : previewNuri

@@ -6,9 +6,10 @@ import { ArrowRightIcon } from "@/components/icons";
 import type { SparkCardContent, SparkCardsProps } from "@/types/content";
 
 /**
- * Ana sayfa Spark bölümü (board Main #spark / HomeMobile). En son üç
- * sayı kart olarak, mobilde iki. İlk kart masaüstünde büyük (6 sütun,
- * 72px başlık). Yayındaki kart bölüme gider, gelecek kartlar link değil.
+ * Ana sayfa Spark bölümü (board Main #spark / HomeMobile). Yayın tarihine
+ * göre en yeni üç yayın, format fark etmez; mobilde iki. İlk kart (en yeni)
+ * masaüstünde büyük (6 sütun, 72px başlık). Sıralama ve kart sayısı
+ * sorguda (SPARK_CARDS_QUERY); bileşen gelen kadar kart çizer, boş kart yok.
  */
 export default function SparkCards({ content }: SparkCardsProps) {
   return (

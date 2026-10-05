@@ -113,17 +113,18 @@ export const home: Record<Locale, HomeContent> = {
       heading: "Short, sharp formats that get companies moving.",
       text: "Postmortems of companies that stopped, and sector reports. Numbered and dated.",
       linkLabel: "Read Spark",
+      // Yayın tarihine göre yeniden eskiye (ilk kart büyük). Sanity'deki sıralamayla aynı.
       cards: [
         {
           format: "The Last Day",
-          number: "Nº 01",
-          title: "Bó",
-          line: "A bank built a new bank inside itself. 156 days later it closed.",
-          date: "24 Sep 2026",
+          number: "Nº 03",
+          title: "Fidor Bank",
+          line: "Germany's community bank.",
+          date: "2 Oct 2026",
           linkLabel: "Read the episode",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "01-bo" },
+            params: { formatSlug: "the-last-day", episodeSlug: "03-fidor" },
           },
         },
         {
@@ -140,14 +141,14 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           format: "The Last Day",
-          number: "Nº 03",
-          title: "Fidor Bank",
-          line: "Germany's community bank.",
-          date: "2 Oct 2026",
+          number: "Nº 01",
+          title: "Bó",
+          line: "A bank built a new bank inside itself. 156 days later it closed.",
+          date: "24 Sep 2026",
           linkLabel: "Read the episode",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "03-fidor" },
+            params: { formatSlug: "the-last-day", episodeSlug: "01-bo" },
           },
         },
       ],
@@ -259,17 +260,18 @@ export const home: Record<Locale, HomeContent> = {
       heading: "Şirketleri harekete geçiren kısa ve keskin formatlar.",
       text: "Kapanan şirketlerin son günleri ve sektör raporları. Numaralı ve tarihli.",
       linkLabel: "Spark’ı okuyun",
+      // Yayın tarihine göre yeniden eskiye (ilk kart büyük). Sanity'deki sıralamayla aynı.
       cards: [
         {
           format: "Son Gün",
-          number: "Nº 01",
-          title: "Bó",
-          line: "Bir banka kendi içinden yeni bir banka çıkardı. 156 gün sonra kapandı.",
-          date: "24 Eyl 2026",
+          number: "Nº 03",
+          title: "Fidor Bank",
+          line: "Almanya'nın topluluk bankası.",
+          date: "2 Eki 2026",
           linkLabel: "Bölümü okuyun",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "01-bo" },
+            params: { formatSlug: "son-gun", episodeSlug: "03-fidor" },
           },
         },
         {
@@ -286,14 +288,14 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           format: "Son Gün",
-          number: "Nº 03",
-          title: "Fidor Bank",
-          line: "Almanya'nın topluluk bankası.",
-          date: "2 Eki 2026",
+          number: "Nº 01",
+          title: "Bó",
+          line: "Bir banka kendi içinden yeni bir banka çıkardı. 156 gün sonra kapandı.",
+          date: "24 Eyl 2026",
           linkLabel: "Bölümü okuyun",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "03-fidor" },
+            params: { formatSlug: "son-gun", episodeSlug: "01-bo" },
           },
         },
       ],

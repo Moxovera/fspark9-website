@@ -165,8 +165,13 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
   spark
 }`);
 
-export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode" && status in ["published", "coming"]]
-  | order(format->orderRank asc, number asc)[0...3]{
+// Ana sayfa Spark kartları: bütün yayınlar (format fark etmez) yayın tarihine
+// göre yeniden eskiye. İlk kart büyük, kalanlar küçük; slice kart sayısı
+// (1 büyük + 2 küçük). Sığmayanlar ana sayfada görünmez, /spark'ta durur.
+// Henüz yayında olmayanlar ("coming") tarihsiz olduğu için kartlara girmez.
+export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
+  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))]
+  | order(coalesce(publishedAt, "9999-12-31") desc, format->orderRank asc, number desc)[0...3]{
     number, subject, hook, cardLine, publishedAt,
     "status": select($preview && status in ["coming", "draft"] && previewLive == true => "published", status),
     "episodeSlug": slug,
