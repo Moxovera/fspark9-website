@@ -21,6 +21,17 @@ export async function GET(request: Request) {
   const { main, unit } = entry.durationLabel
     ? splitFigureUnit(entry.durationLabel)
     : { main: days === null ? "" : String(days), unit: format.daysUnit };
+  if (entry.layout === "report") {
+    // Sektör raporu: etiket "Spark · 02 Sektör raporları", sayı yerine rapor numarası.
+    const { meta } = entry.story.hero;
+    return renderEpisodeOgImage({
+      label: `${meta[0]} · ${meta[1]}`,
+      subject: entry.story.subject,
+      figure: String(entry.story.number).padStart(2, "0"),
+      unit: meta[2],
+      locale,
+    });
+  }
   const label = entry.layout === "decisions" ? entry.story.opening.label : entry.story.hero.label;
   return renderEpisodeOgImage({ label, subject: entry.story.subject, figure: main, unit, locale });
 }

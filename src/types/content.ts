@@ -363,6 +363,189 @@ export interface SparkDecisionEpisode {
   }
 }
 
+// Sektör raporu (Spark Nº 01 Bauspar, prototip
+// Spark/sector reports/fspark9-sektor-raporu-bauspar.html): bir sayfalık
+// rapor. Metindeki "[n]" kaynak listesindeki n'inci kaynağa dipnot olur.
+// Sanity'de `reportBody` iki dilli JSON olarak durur; sayı, konu, kanca ve
+// SEO belgenin kendi alanlarından gelir.
+
+export type ReportSectionId =
+  | 'kisa'
+  | 'kullanici'
+  | 'pazar'
+  | 'model'
+  | 'tuketici'
+  | 'oyuncular'
+  | 'kullanim'
+  | 'iki-ulke'
+  | 'dersler'
+  | 'oneriler'
+  | 'gorus'
+  | 'kaynaklar'
+
+export interface ReportHead {
+  /** "01"; kaynaklarda boş. */
+  index: string
+  label: string
+  title: string
+  lede?: string
+}
+
+export interface ReportFigure {
+  value: string
+  label: string
+}
+
+/** Açılışta sayarak gelen rakam. `template` içinde "{n}" sayının yeri ("{n} mn"). */
+export interface ReportCountFigure extends ReportFigure {
+  to: number
+  decimals: number
+  template: string
+}
+
+export interface ReportCard {
+  tag: string
+  first: string
+  body: string
+}
+
+export interface ReportRow {
+  key: string
+  text: string
+}
+
+export interface ReportPreset {
+  key: 'early' | 'late'
+  name: string
+  down: number
+  month: number
+  usesInterest: boolean
+}
+
+/** Simülatörün dile bağlı cümleleri. {x} tutar, {n} plan ayı, {t} teslim ayı, {d} fark ay, {l} kredi. */
+export interface ReportSimTexts {
+  monthValue: string
+  hint: string
+  yesPositive: string
+  yesNegative: string
+  no: string
+  poolFee: string
+  ownSaved: string
+  ownLoan: string
+  ownNet: string
+  rentValue: string
+  difference: string
+  waiting: string
+  home: string
+  lastInstalment: string
+  signing: string
+  custom: string
+  /** "{x}" bölüm 2'deki sabit satır: "Ev 200.000 €, taksit ayda 1.000 €". */
+  constants: string
+}
+
+export interface ReportSource {
+  label: string
+  href?: string
+}
+
+export interface SparkReport {
+  number: number
+  subject: string
+  hook: string
+  seo: PageSeoCopy
+  nav: { id: ReportSectionId; label: string }[]
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    sub: string
+    left: { label: string; figures: ReportCountFigure[] }
+    right: { label: string; figures: ReportCountFigure[] }
+    simulatorLabel: string
+    proposalsLabel: string
+  }
+  short: { head: ReportHead; cards: ReportCard[]; view: { tag: string; first: string; linkLabel: string } }
+  simulator: {
+    head: ReportHead
+    storyLabel: string
+    /** Sabitler ve varsayımlar, iki dilde aynı. */
+    values: { price: number; monthly: number; feePct: number; bankRate: number; depositRate: number; rent: number }
+    presets: ReportPreset[]
+    interestLabel: string
+    yes: string
+    no: string
+    downLabel: string
+    monthLabel: string
+    feeLabel: string
+    moreLabel: string
+    bankRateLabel: string
+    depositRateLabel: string
+    rentLabel: string
+    note: string
+    stories: ReportCard[]
+    math: ReportCard
+    texts: ReportSimTexts
+  }
+  market: {
+    head: ReportHead
+    figures: ReportFigure[]
+    metrics: { key: 'contracts' | 'sum'; label: string; valueTemplate: string; decimals: number; title: string }[]
+    years: string[]
+    contracts: number[]
+    sum: number[]
+    caption: string
+    rows: ReportRow[]
+  }
+  model: {
+    head: ReportHead
+    stepLabel: string
+    steps: { title: string; body: string }[]
+    order: { heading: string; items: ReportRow[] }
+    earns: { heading: string; items: ReportRow[] }
+    risks: ReportCard[]
+  }
+  consumers: { head: ReportHead; figures: ReportFigure[] }
+  players: {
+    head: ReportHead
+    share: { label: string; basis: number }[]
+    legend: string
+    channelLabel: string
+    noteLabel: string
+    items: { name: string; group: string; channel: string; note: string }[]
+  }
+  uses: {
+    head: ReportHead
+    renovation: {
+      tag: string
+      first: string
+      meter: { label: string; value: string; width: number; target?: boolean }[]
+      paragraphs: string[]
+    }
+    vehicles: { tag: string; first: string; figures: ReportFigure[]; paragraphs: string[] }
+  }
+  compare: {
+    head: ReportHead
+    measureLabel: string
+    columns: string[]
+    rows: { measure: string; cells: string[] }[]
+    note: string
+  }
+  lessons: { head: ReportHead; groups: { heading: string; items: { title: string; body: string }[] }[] }
+  proposals: {
+    head: ReportHead
+    items: { tag: string; first: string; body: string; details: ReportRow[] }[]
+    bridge: { tag: string; first: string; points: string[] }
+  }
+  view: { head: ReportHead; paragraphs: string[]; expert: { tag: string; quote: string; body: string; signature: string; initials: string } }
+  close: { label: string; title: string; body: string; bookLabel: string; backLabel: string }
+  sources: { head: ReportHead; items: ReportSource[]; note: string }
+}
+
+/** Sanity'de duran gövde: sayı, konu, kanca ve SEO belgenin alanlarından gelir. */
+export type SparkReportBody = Omit<SparkReport, 'number' | 'subject' | 'hook' | 'seo'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -1072,7 +1255,11 @@ export interface SparkHubContent {
  * Nuri karar blokları.
  */
 export type SparkEpisodeEntry = SparkEpisodeEntryBase &
-  ({ layout: 'story'; story: SparkEpisodeStory } | { layout: 'decisions'; story: SparkDecisionEpisode })
+  (
+    | { layout: 'story'; story: SparkEpisodeStory }
+    | { layout: 'decisions'; story: SparkDecisionEpisode }
+    | { layout: 'report'; story: SparkReport }
+  )
 
 interface SparkEpisodeEntryBase {
   launchDate: string | null
@@ -1872,4 +2059,47 @@ export interface TahsildarReportProps {
 export interface TsdBlockRendererProps {
   block: TsdBlock
   noteLabel: string
+}
+
+// Sektör raporu bileşenleri (components/spark/report)
+export interface ReportEpisodeProps {
+  report: SparkReport
+  locale: Locale
+  /** "Source {n}" dipnot linkinin erişilebilir adı. */
+  footnoteTemplate: string
+}
+
+export interface ReportRefsProps {
+  text: string
+  template: string
+}
+
+export interface ReportHeadProps {
+  head: ReportHead
+  id: string
+}
+
+export interface ReportNavProps {
+  items: SparkReport['nav']
+}
+
+export interface ReportCountFigureProps {
+  figure: ReportCountFigure
+  locale: Locale
+}
+
+export interface PoolSimulatorProps {
+  content: SparkReport['simulator']
+  locale: Locale
+  footnoteTemplate: string
+}
+
+export interface TrendChartProps {
+  content: SparkReport['market']
+  locale: Locale
+  footnoteTemplate: string
+}
+
+export interface ReportLessonsProps {
+  groups: SparkReport['lessons']['groups']
 }

@@ -26,6 +26,13 @@
  *   --only=fidor     sadece Fidor belgesi yazılır (yoksa draft + previewLive
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-fidor  status published, previewLive kalkar.
+ *
+ * Sektör raporları Nº 01 (Bauspar) Fidor gibi önizlemeyle çıkar: ayrı
+ * belge, status draft + previewLive: staging yayındaki gibi gösterir,
+ * canlıda hiç görünmez; v2'den kalan "sırada" belgesi canlıda yerinde
+ * kalır. Her çalıştırmada bu durum yazılır:
+ *   --only=bauspar     sadece Bauspar belgesi yazılır; diğerlerine dokunulmaz.
+ *   --publish-bauspar  status published, previewLive kalkar, eski "sırada" belgesi silinir.
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -39,6 +46,7 @@ import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
 import { fidor } from "../content/spark-fidor";
+import { bauspar } from "../content/spark-bauspar";
 import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
@@ -48,6 +56,7 @@ import type {
   PageSeoCopy,
   SparkChoiceOption,
   SparkDecisionEpisode,
+  SparkReport,
   SparkSourceLink,
   SparkStoryCard,
   SparkEpisodeStory,
@@ -63,6 +72,8 @@ const publishNuri = process.argv.includes("--publish-nuri");
 if (previewNuri && publishNuri) throw new Error("--preview-nuri and --publish-nuri are exclusive.");
 const onlyFidor = process.argv.includes("--only=fidor");
 const publishFidor = process.argv.includes("--publish-fidor");
+const onlyBauspar = process.argv.includes("--only=bauspar");
+const publishBauspar = process.argv.includes("--publish-bauspar");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -71,6 +82,8 @@ const LAUNCH_DATE = "2026-09-24";
 const NURI_PUBLISHED = "2026-09-29";
 /** Fidor'un yayın tarihi (staging'e çıktığı gün; canlıya çıkışta güncellenebilir). */
 const FIDOR_PUBLISHED = "2026-10-02";
+/** Bauspar raporunun yayın tarihi (staging'e çıktığı gün; veriler 5 Ekim 2026'da kontrol edildi). */
+const BAUSPAR_PUBLISHED = "2026-10-05";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -560,8 +573,8 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
 }
 
 /** Ana sayfa aynasında kartlar yayın tarihine göre sıralı; bölüm numarasıyla bulunur. */
-function sparkCard(h: typeof home.en, number: string) {
-  const card = h.spark.cards.find((c) => c.number === number && !c.status);
+function sparkCard(h: typeof home.en, number: string, format?: string) {
+  const card = h.spark.cards.find((c) => c.number === number && !c.status && (!format || c.format === format));
   if (!card) throw new Error(`home.spark.cards: ${number} yok`);
   return card;
 }
@@ -739,6 +752,46 @@ function fidorPatch() {
   };
 }
 
+/**
+ * Sektör raporları Nº 01 Bauspar: ayrı belge, önizlemede draft + previewLive.
+ * v2'den kalan `coming` belgesine dokunulmuyor: canlıdaki "In preparation"
+ * satırı yayına kadar aynen kalıyor (staging'de aynı numaralı yayındaki
+ * sayı onu listede gizler). --publish-bauspar onu siler.
+ */
+const BAUSPAR_ID = "sparkEpisode-sector-reports-bauspar";
+/** v2'den kalan "Nº 01 In preparation" belgesi: canlı format sayfasındaki sırada satırı. Yayında silinir. */
+const BAUSPAR_COMING_ID = "sparkEpisode-sector-reports-01";
+
+/** Raporun gövdesi: sayı, konu, kanca ve SEO belgenin kendi alanlarında, gerisi dil başına JSON. */
+function reportBodyJson(report: SparkReport) {
+  const own = ["number", "subject", "hook", "seo"];
+  return JSON.stringify(Object.fromEntries(Object.entries(report).filter(([key]) => !own.includes(key))));
+}
+
+function bausparPatch() {
+  const card = [sparkCard(home.en, "Nº 01", "Sector reports"), sparkCard(home.tr, "Nº 01", "Sektör raporları")];
+  const e = bauspar.en;
+  const t = bauspar.tr;
+  return {
+    id: BAUSPAR_ID,
+    set: {
+      layout: "report",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
+      status: publishBauspar ? "published" : "draft",
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "bauspar" }, tr: { _type: "slug", current: "bauspar" } },
+      publishedAt: BAUSPAR_PUBLISHED,
+      lastCheckedAt: BAUSPAR_PUBLISHED,
+      cardLine: lt(card[0].line, card[1].line),
+      ...(publishBauspar ? {} : { previewLive: true }),
+    },
+    unset: publishBauspar ? ["previewLive"] : [],
+  };
+}
+
 // Legal: src/content/legal/*.ts → legalBlock* (yalnızca Privacy ve Cookies,
 // fspark9-legal-update-v2). Imprint ve Terms metnine dokunulmuyor.
 function toLegalBlock(en: LegalBlock, tr: LegalBlock) {
@@ -823,14 +876,15 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch()];
-  const creates = onlyFidor
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), bausparPatch()];
+  const only = onlyFidor || onlyBauspar;
+  const creates = only
     ? []
     : onlySpark
       ? comingEpisodeDocs()
       : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
-  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = onlyFidor
-    ? [fidorPatch()]
+  const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
+    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyBauspar ? [bausparPatch()] : [])]
     : onlySpark
     ? sparkPatches
     : [
@@ -847,16 +901,19 @@ async function main() {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
     console.log("patch:", patches.map((p) => p.id).join(", "));
     console.log("missing formats:", FORMAT_IDS.filter((id) => !existingFormats.includes(id)).join(", ") || "none");
-    if (!onlySpark && !onlyFidor) console.log(await uploadLogo());
+    if (!onlySpark && !only) console.log(await uploadLogo());
     return;
   }
 
   const tx = client.transaction();
   tx.createIfNotExists(fidorStub());
+  tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
   for (const id of FORMAT_IDS.filter((id) => !existingFormats.includes(id))) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });
   }
   for (const doc of creates) tx.createOrReplace(doc as SanityDocumentStub & { _id: string });
+  // Yayında v2'den kalan "sırada" belgesi gider (src/content/spark.ts'teki comingIssues de boşaltılır).
+  if (publishBauspar) tx.delete(BAUSPAR_COMING_ID);
   for (const p of patches) {
     tx.patch(p.id, (patch) => {
       let next = patch.set(p.set);
@@ -866,7 +923,7 @@ async function main() {
   }
   const result = await tx.commit();
   console.log(`committed ${result.results.length} mutations`);
-  if (!onlySpark && !onlyFidor) console.log((await uploadLogo()) ?? "logo already current");
+  if (!onlySpark && !only) console.log((await uploadLogo()) ?? "logo already current");
 }
 
 main().catch((error) => {

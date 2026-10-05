@@ -113,8 +113,20 @@ export const home: Record<Locale, HomeContent> = {
       heading: "Short, sharp formats that get companies moving.",
       text: "Postmortems of companies that stopped, and sector reports. Numbered and dated.",
       linkLabel: "Read Spark",
-      // Yayın tarihine göre yeniden eskiye (ilk kart büyük). Sanity'deki sıralamayla aynı.
+      // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
+        {
+          format: "Sector report",
+          number: "Nº 01",
+          title: "Bauspar",
+          line: "Two countries, one pool.",
+          date: "5 Oct 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "bauspar" },
+          },
+        },
         {
           format: "The Last Day",
           number: "Nº 03",
@@ -137,18 +149,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "the-last-day", episodeSlug: "02-nuri" },
-          },
-        },
-        {
-          format: "The Last Day",
-          number: "Nº 01",
-          title: "Bó",
-          line: "A bank built a new bank inside itself. 156 days later it closed.",
-          date: "24 Sep 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "01-bo" },
           },
         },
       ],
@@ -260,8 +260,20 @@ export const home: Record<Locale, HomeContent> = {
       heading: "Şirketleri harekete geçiren kısa ve keskin formatlar.",
       text: "Kapanan şirketlerin son günleri ve sektör raporları. Numaralı ve tarihli.",
       linkLabel: "Spark’ı okuyun",
-      // Yayın tarihine göre yeniden eskiye (ilk kart büyük). Sanity'deki sıralamayla aynı.
+      // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
+        {
+          format: "Sektör raporu",
+          number: "Nº 01",
+          title: "Bauspar",
+          line: "İki ülke, tek havuz.",
+          date: "5 Eki 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "bauspar" },
+          },
+        },
         {
           format: "Son Gün",
           number: "Nº 03",
@@ -284,18 +296,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "son-gun", episodeSlug: "02-nuri" },
-          },
-        },
-        {
-          format: "Son Gün",
-          number: "Nº 01",
-          title: "Bó",
-          line: "Bir banka kendi içinden yeni bir banka çıkardı. 156 gün sonra kapandı.",
-          date: "24 Eyl 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "01-bo" },
           },
         },
       ],

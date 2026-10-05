@@ -33,6 +33,8 @@ import type {
   SparkStoryCard,
   SparkDecisionEpisode,
   SparkEpisodeEntry,
+  SparkReport,
+  SparkReportBody,
   SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
@@ -388,7 +390,7 @@ export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
     "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
     "lessons": coalesce(lessons[]{ heading, body }, []),
     "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
-    opening, standfirst, provenance, clock, intro, labels, view, service,
+    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody,
     "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },
     "decisions": coalesce(decisions[]{
       date, when, label, title, record,
@@ -427,6 +429,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         durationLabel: localize(durationLabel, locale) || null,
       };
       if (rest.layout === "decisions") return [{ ...base, layout: "decisions", story: toDecisionEpisode(rest, locale) }];
+      if (rest.layout === "report") {
+        const report = toReport(rest, locale);
+        return report ? [{ ...base, layout: "report", story: report }] : [];
+      }
       return [{ ...base, layout: "story", story: toStory(rest, locale) }];
     }),
   );
@@ -514,6 +520,14 @@ function toDecisionEpisode(doc: EpisodeDoc, locale: Locale): SparkDecisionEpisod
     view: { ...e.view, paragraphs: e.view.paragraphs ?? [] },
     service: { ...e.service, service: e.service.service as ServiceSlug },
   };
+}
+
+/** Sektör raporu: gövde dil başına JSON, sayı, konu, kanca ve SEO belgenin alanlarından. */
+function toReport(doc: EpisodeDoc, locale: Locale): SparkReport | null {
+  const raw = doc.reportBody?.[locale];
+  if (!raw) return null;
+  const { number, subject, hook, seo } = localize(doc, locale);
+  return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkReportBody) };
 }
 
 function toCardMode(mode: string): SparkCardMode {

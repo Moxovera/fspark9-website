@@ -1,5 +1,6 @@
-import { defineField, defineType, type ConditionalPropertyCallback } from "sanity";
+import { defineField, defineType, type ConditionalPropertyCallback, type SanityDocument } from "sanity";
 import { decisionFields } from "./sparkEpisodeDecisions";
+import { reportFields } from "./sparkEpisodeReport";
 import { storyFields } from "./sparkEpisodeStory";
 
 // Bir Spark bölümü. Gün sayısı launchDate/closureDate'ten hesaplanır
@@ -14,8 +15,14 @@ import { storyFields } from "./sparkEpisodeStory";
 // Nº 02 (Nuri, 2026-09-29): ikinci şablon, karar blokları. `layout`
 // hangisinin kullanılacağını seçer; diğerinin sekmesi gizlenir
 // (sparkEpisodeDecisions.ts).
-const isDecisions: ConditionalPropertyCallback = ({ document }) => document?.layout === "decisions";
-const isStory: ConditionalPropertyCallback = ({ document }) => document?.layout !== "decisions";
+//
+// Sektör raporları Nº 01 (Bauspar, 2026-10-05): üçüncü şablon, `report`
+// (sparkEpisodeReport.ts). Her şablonun sekmesi sadece kendi layout'unda
+// görünür.
+const layoutOf = (document: SanityDocument | undefined) => document?.layout ?? "story";
+const hideUnlessStory: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "story";
+const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "decisions";
+const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "report";
 
 export default defineType({
   name: "sparkEpisode",
@@ -25,6 +32,7 @@ export default defineType({
     { name: "meta", title: "Episode", default: true },
     { name: "story", title: "Story" },
     { name: "decisions", title: "Decisions" },
+    { name: "report", title: "Report" },
   ],
   fields: [
     defineField({
@@ -50,8 +58,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları",
-      options: { list: ["story", "decisions"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu",
+      options: { list: ["story", "decisions", "report"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),
@@ -110,8 +118,9 @@ export default defineType({
       description:
         "Status coming ya da draft iken sadece preview (staging) adresinde yayındaki gibi görünür; canlı sitede coming (linksiz satır) ya da draft (hiç görünmez) kalır. Canlıya çıkınca status published yapılır, bu alan kaldırılır.",
     }),
-    ...storyFields.map((field) => ({ ...field, hidden: isDecisions })),
-    ...decisionFields.map((field) => ({ ...field, group: "decisions", hidden: isStory })),
+    ...storyFields.map((field) => ({ ...field, hidden: hideUnlessStory })),
+    ...decisionFields.map((field) => ({ ...field, group: "decisions", hidden: hideUnlessDecisions })),
+    ...reportFields.map((field) => ({ ...field, group: "report", hidden: hideUnlessReport })),
   ],
   preview: {
     select: { title: "subject.en", subtitle: "format.name.en" },

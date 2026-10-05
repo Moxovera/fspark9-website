@@ -14,6 +14,9 @@
   /* Board'larda brief'in listesi dışında kalan iki renk, birebir alındı: */
   --headrule: #2A2720; /* koyu header'ın alt çizgisi (tüm board'larda) */
   --portrait: #221F18; /* portre dairesinin görsel yüklenene kadarki zemini */
+  /* Sektör raporu simülatörünün sonuç rakamı (prototip --green, --red): artı yeşil, eksi kırmızı. */
+  --positive: #2F6B3A;
+  --negative: #9B2C1F;
 
   --background: var(--paper);
   --foreground: var(--ink);
@@ -31,6 +34,8 @@
   --color-ring: var(--ring);
   --color-headrule: var(--headrule);
   --color-portrait: var(--portrait);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -173,6 +178,11 @@ body {
 .text-outline-dust {
   color: transparent;
   -webkit-text-stroke: 2px var(--dust);
+}
+/* Sektör raporu açılışındaki dev numara: Ink zeminde ince, neredeyse sönük. */
+.text-outline-inkrule {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--inkrule);
 }
 /* Hub'da format numarası hover'da 6px yükselir, 240ms (brief §10). */
 .format-number {
@@ -495,4 +505,64 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .clock-bar { transition: none; }
+}
+
+/* ── Sektör raporu (Spark Nº 01 Bauspar) ── */
+
+/* Grafik çubukları görününce alttan büyür (480ms); metrik değişince
+   y ve height 480ms ile geçer. */
+.trend-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: y 480ms var(--ease-brand), height 480ms var(--ease-brand);
+}
+.js .reveal:not(.is-visible) .trend-bar {
+  transform: scaleY(0);
+}
+.reveal.is-visible .trend-bar {
+  animation: trend-grow 480ms var(--ease-brand) both;
+}
+@keyframes trend-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Tadilat ölçeri: çubuk görününce genişliğine 480ms ile dolar. */
+.meter-fill {
+  width: var(--w);
+  transition: width 480ms var(--ease-brand);
+}
+.js .reveal:not(.is-visible) .meter-fill {
+  width: 0;
+}
+
+/* Ders akordeonu ve simülatör zaman çubuğu. */
+.lesson-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms var(--ease-brand);
+}
+.lesson-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.timeline-part {
+  transition: flex-basis 240ms var(--ease-brand);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trend-bar,
+  .meter-fill,
+  .lesson-panel,
+  .timeline-part {
+    transition: none;
+  }
+  .reveal.is-visible .trend-bar {
+    animation: none;
+  }
+  .js .reveal:not(.is-visible) .trend-bar {
+    transform: none;
+  }
+  .js .reveal:not(.is-visible) .meter-fill {
+    width: var(--w);
+  }
 }

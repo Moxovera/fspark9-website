@@ -7,7 +7,8 @@
  * Kapsam: siteSettings (çerçeve, hizmet özetleri, Next step, calLink),
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×2, legalPage ×4 (metin ve SEO),
- * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor) ve karar blokları (Nuri).
+ * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor), karar blokları (Nuri) ve
+ * sektör raporu (Bauspar).
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
  * portre).
@@ -25,6 +26,7 @@ import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
 import { fidor } from "../content/spark-fidor";
+import { bauspar } from "../content/spark-bauspar";
 import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
 import * as privacy from "../content/legal/privacy";
@@ -128,6 +130,9 @@ async function main() {
     // Fidor taslakken (draft + previewLive) sadece önizleme ortamında okunur; yerelde de öyle.
     const fidorS = episodesS[l].find((e) => e.layout === "story" && e.story.number === 3);
     compare(`episode.fidor.${l}`, fidorS?.story, fidor[l]);
+    // Bauspar (sektör raporu) draft + previewLive iken sadece önizleme ortamında okunur.
+    const bausparS = episodesS[l].find((e) => e.layout === "report");
+    compare(`episode.bauspar.${l}`, bausparS?.story, bauspar[l]);
   }
 
   if (diffs.length) {
