@@ -769,7 +769,7 @@ function reportBodyJson(report: SparkReport) {
 }
 
 function bausparPatch() {
-  const card = [sparkCard(home.en, "Nº 01", "Sector reports"), sparkCard(home.tr, "Nº 01", "Sektör raporları")];
+  const card = [sparkCard(home.en, "Nº 01", "Sector report"), sparkCard(home.tr, "Nº 01", "Sektör raporu")];
   const e = bauspar.en;
   const t = bauspar.tr;
   return {
@@ -791,6 +791,7 @@ function bausparPatch() {
     unset: publishBauspar ? ["previewLive"] : [],
   };
 }
+// Sektör raporları formatı Bauspar ile canlı oluyor (preparing yerine live, açma linki); --only=bauspar bunu da yazar.
 
 // Legal: src/content/legal/*.ts → legalBlock* (yalnızca Privacy ve Cookies,
 // fspark9-legal-update-v2). Imprint ve Terms metnine dokunulmuyor.
@@ -884,7 +885,7 @@ async function main() {
       ? comingEpisodeDocs()
       : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
   const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
-    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyBauspar ? [bausparPatch()] : [])]
+    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : [])]
     : onlySpark
     ? sparkPatches
     : [
