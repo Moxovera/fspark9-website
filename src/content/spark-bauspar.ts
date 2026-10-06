@@ -129,7 +129,7 @@ export const bauspar: Record<Locale, SparkReport> = {
         {
           tag: "The bridge",
           first: "What one country lacks, the other already has.",
-          body: "Germany has no interest free home savings product. Türkiye has no pool for renovation and earthquake strengthening. Both can be built with a model the other country already knows.",
+          body: "Germany has no interest free home savings product. Türkiye has no pool for renovation and earthquake strengthening, because the law limits savings finance to buying a home, a workplace or a vehicle. Both can be solved with a model the other country already knows. [23]",
         },
       ],
       view: {
@@ -534,6 +534,13 @@ export const bauspar: Record<Locale, SparkReport> = {
           ],
         },
         {
+          measure: "Scope",
+          cells: [
+            "Buying, building, maintaining and improving homes [24]",
+            "Only buying a home, a covered workplace or a vehicle; renovation is excluded [23]",
+          ],
+        },
+        {
           measure: "Order",
           cells: [
             "Allocation by savings score",
@@ -600,7 +607,7 @@ export const bauspar: Record<Locale, SparkReport> = {
             },
             {
               title: "A focus on housing and renovation",
-              body: "The German model is tied to housing on purpose. In Türkiye, the weight on vehicles sped up growth and also made the regulator step on the brake. Renovation is still unused in Türkiye; combined with earthquake strengthening and energy efficiency it becomes a serious product.",
+              body: "German law opens Bauspar loans to any housing purpose; next to buying and building, that includes maintaining and improving a home. In Türkiye, Law No. 6361 limits savings finance to buying a home, a covered workplace or a vehicle, and renovation is excluded. The weight on vehicles sped up growth and also made the regulator step on the brake. Widening the scope to strengthening and energy efficiency, as in the German model, would give the sector growth that does not depend on interest rates.",
             },
             {
               title: "The bank channel",
@@ -640,20 +647,24 @@ export const bauspar: Record<Locale, SparkReport> = {
       items: [
         {
           tag: "For Türkiye",
-          first: "A renovation and earthquake strengthening pool",
-          body: "Take the savings finance model beyond buying and open it to strengthening and insulating the home people already have. No pool in Türkiye does this today.",
+          first: "An urban renewal and strengthening pool",
+          body: "Today the law limits savings finance to buying a home, a covered workplace or a vehicle; renovation and strengthening are excluded. The proposal has two stages: start now with urban renewal and a participation bank partnership, then widen the scope along the lines of the German model. [23][24]",
           details: [
             {
               key: "Who for",
               text: "Families who own a home but lack the savings to strengthen or insulate it, and building managements.",
             },
             {
-              key: "Taken from Germany",
-              text: "Long term loans built for renovation, and a transparent score that runs through the contract.",
+              key: "Now",
+              text: "Finance the new home in a building that is torn down and rebuilt, and offer strengthening and insulation together with a participation bank. Whether the extra payment in a renewal project is covered needs a legal opinion and a BDDK view first.",
             },
             {
-              key: "First step",
-              text: "Clarify how far the current licence covers renovation, and run a pilot with a contractor or building inspection network.",
+              key: "Next",
+              text: "Add strengthening and energy efficiency to the acquisition definition in Law No. 6361, with a separate amount cap, direct payment to the contractor, and proof by invoice and building inspection report.",
+            },
+            {
+              key: "Taken from Germany",
+              text: "The Bauspar law definition that covers maintenance and improvement, long terms built for renovation, and a transparent score.",
             },
           ],
         },
@@ -682,7 +693,7 @@ export const bauspar: Record<Locale, SparkReport> = {
         first:
           "Both products need the same thing: knowing both markets and interest free finance together.",
         points: [
-          "For a savings finance company in Türkiye, a renovation product is new growth the regulator is likely to welcome.",
+          "For a savings finance company in Türkiye, urban renewal is growth it can start on now, and strengthening is growth a change in the law would open.",
           "For a bank or Bausparkasse in Germany, an interest free pool opens a group of customers it cannot reach today.",
           "For a Turkish company expanding to Germany, the gap in this report is a ready starting point.",
         ],
@@ -697,12 +708,12 @@ export const bauspar: Record<Locale, SparkReport> = {
       },
       paragraphs: [
         "In Germany, Bausparkassen try to grow through mortgages, renovation finance and platform services instead of new contracts. Vehicles are outside the model. The model travels to other countries only with three things: long term trust, a steady flow of new savings and stable rules. When Hungary ended state support in 2018, its market shrank. [22]",
-        "Growth in Türkiye depends on high rates. Where demand goes when rates fall is this market's main question. Products tied to a need that does not depend on rates, like renovation, are less exposed to it.",
+        "Growth in Türkiye depends on high rates. Where demand goes when rates fall is this market's main question. Products tied to a need that does not depend on rates, like renovation, are less exposed to it, but first the law's scope has to widen.",
       ],
       expert: {
         tag: "Expert note",
         quote:
-          "Millions of families in Türkiye want to strengthen their homes, and no pool is built for it. I see a serious opportunity here.",
+          "Millions of families in Türkiye want to strengthen their homes, and today the law does not allow a pool for it. In Germany, the same model has financed renovation for a hundred years. I see a serious opportunity here.",
         body: "I have built two banks in Germany and launched banking and fintech products in Türkiye. I know both markets from the inside, and when I look at them closely I see the same thing: a problem one country has solved is still open in the other. Bauspar's transparent score answers the uncertainty of Türkiye's draw. Türkiye's speed and interest free model answer a German product that cannot leave the branch.",
         signature: "Mehmet Burak Dikmen, fspark9",
         initials: "MB",
@@ -807,6 +818,15 @@ export const bauspar: Record<Locale, SparkReport> = {
         {
           label:
             "bne IntelliNews and 444.hu, Hungary ends Bauspar subsidy, October 2018",
+        },
+        {
+          label:
+            "Law No. 6361, savings finance provisions added by Law No. 7292 (Art. 3 and 39/A), 2021",
+          href: "https://www.alomaliye.com/2021/03/07/7292-sayili-kanun-finansal-kiralama-faktoring/",
+        },
+        {
+          label: "Gesetz über Bausparkassen (BauSparkG), § 1",
+          href: "https://gesetze.legal/bund/bausparkg/1",
         },
       ],
       note: 'Data checked on 5 October 2026. Figures marked "about" or "estimate" are calculated from source data. The simulator and stories in section 2 are a model based on assumptions.',
@@ -931,7 +951,7 @@ export const bauspar: Record<Locale, SparkReport> = {
         {
           tag: "Köprü",
           first: "Her ülkenin eksiği, diğerinde var.",
-          body: "Almanya'da faizsiz bir konut tasarrufu yok. Türkiye'de tadilat ve deprem güçlendirmesi için bir havuz yok. İkisi de diğer ülkenin bildiği bir modelle kurulabilir.",
+          body: "Almanya'da faizsiz bir konut tasarrufu yok. Türkiye'de tadilat ve deprem güçlendirmesi için bir havuz yok, çünkü kanun tasarruf finansmanını konut, iş yeri ve taşıt edinimiyle sınırlıyor. İkisi de diğer ülkenin bildiği bir modelle çözülebilir. [23]",
         },
       ],
       view: {
@@ -1334,6 +1354,13 @@ export const bauspar: Record<Locale, SparkReport> = {
           ],
         },
         {
+          measure: "Kapsam",
+          cells: [
+            "Konutun alımı, yapımı, bakımı ve iyileştirilmesi [24]",
+            "Sadece konut, çatılı iş yeri ve taşıt edinimi; tadilat kapsam dışı [23]",
+          ],
+        },
+        {
           measure: "Sıra",
           cells: [
             "Birikim puanına göre tahsis",
@@ -1403,7 +1430,7 @@ export const bauspar: Record<Locale, SparkReport> = {
             },
             {
               title: "Konut ve tadilat odağı",
-              body: "Almanya modeli bilinçli olarak konuta bağlı. Türkiye'de taşıt ağırlığı büyümeyi hızlandırdı ama düzenleyiciyi frene bastırdı. Tadilat Türkiye'de henüz kullanılmayan bir alan; deprem güçlendirmesi ve enerji verimliliğiyle birleşince ciddi bir ürün olur.",
+              body: "Alman kanunu Bauspar kredisini konutla ilgili her işe açıyor; alım ve yapımın yanında bakım ve iyileştirme de buna dahil. Türkiye'de 6361 sayılı Kanun tasarruf finansmanını konut, çatılı iş yeri ve taşıt edinimiyle sınırlıyor, tadilat kapsam dışında. Taşıt ağırlığı büyümeyi hızlandırdı ama düzenleyiciyi frene bastırdı. Kapsamı Alman modeline göre güçlendirme ve enerji verimliliğine açmak, sektöre faizden bağımsız bir büyüme alanı verir.",
             },
             {
               title: "Banka kanalı",
@@ -1443,20 +1470,24 @@ export const bauspar: Record<Locale, SparkReport> = {
       items: [
         {
           tag: "Türkiye için",
-          first: "Tadilat ve deprem güçlendirme havuzu",
-          body: "Tasarruf finansman modelini alımdan çıkarıp mevcut evin güçlendirilmesine ve enerji verimliliğine açmak. Türkiye'de bugün bu amaçla çalışan bir havuz yok.",
+          first: "Kentsel dönüşüm ve güçlendirme havuzu",
+          body: "Kanun bugün tasarruf finansmanını konut, çatılı iş yeri ve taşıt edinimiyle sınırlıyor; tadilat ve güçlendirme kapsam dışında. Öneri iki aşamalı: bugün kentsel dönüşüm ve katılım bankası ortaklığıyla başlamak, yarın kapsamı Alman modeline göre genişletmek. [23][24]",
           details: [
             {
               key: "Kim için",
               text: "Evi olan ama güçlendirme ya da yalıtım için birikimi yetmeyen aileler, site yönetimleri.",
             },
             {
-              key: "Almanya'dan alınan",
-              text: "Tadilata özel, uzun vadeli kredi mantığı ve sözleşme boyunca işleyen şeffaf puan.",
+              key: "Bugün",
+              text: "Yıkılıp yeniden yapılan binada yeni konut edinimini finanse etmek, güçlendirme ve yalıtımı bir katılım bankasıyla ortak sunmak. Dönüşümdeki fark bedelinin kapsama girip girmediği için önce hukuki görüş ve BDDK görüşü alınmalı.",
             },
             {
-              key: "İlk adım",
-              text: "Mevcut lisans kapsamının tadilatı ne ölçüde taşıdığını netleştirmek ve bir müteahhit ya da yapı denetim ağıyla pilot kurmak.",
+              key: "Yarın",
+              text: "6361 sayılı Kanun'daki edinim tanımına güçlendirme ve enerji verimliliğini eklemek; ayrı tutar tavanı, yükleniciye doğrudan ödeme ve fatura ile yapı denetim raporuyla belgeleme şartıyla.",
+            },
+            {
+              key: "Almanya'dan alınan",
+              text: "Bakımı ve iyileştirmeyi de kapsayan Bauspar kanunu tanımı, tadilata özel uzun vade ve şeffaf puan.",
             },
           ],
         },
@@ -1485,7 +1516,7 @@ export const bauspar: Record<Locale, SparkReport> = {
         first:
           "İki ürünün de ortak noktası aynı: iki pazarı ve faizsiz finansı birlikte bilmek.",
         points: [
-          "Türkiye'deki bir tasarruf finansman şirketi için tadilat ürünü, yeni ve düzenleyicinin hoş karşılayacağı bir büyüme alanı.",
+          "Türkiye'deki bir tasarruf finansman şirketi için kentsel dönüşüm bugün başlanabilecek, güçlendirme ise kanun değişikliğiyle açılacak bir büyüme alanı.",
           "Almanya'daki bir banka ya da Bausparkasse için faizsiz havuz, bugün ulaşamadığı bir kitleye giriş.",
           "Türkiye'deki bir şirketin Almanya'ya açılması için bu rapordaki boşluk, hazır bir başlangıç noktası.",
         ],
@@ -1500,12 +1531,12 @@ export const bauspar: Record<Locale, SparkReport> = {
       },
       paragraphs: [
         "Almanya'da kasalar yeni sözleşme yerine konut kredisi, tadilat finansmanı ve platform hizmetleriyle büyümeye çalışıyor. Taşıt bu modelin dışında. Model başka ülkelere ancak üç koşulla taşınıyor: uzun vadeli güven, sürekli yeni birikim akışı ve istikrarlı düzenleme. Macaristan 2018'de devlet desteğini kaldırınca pazar küçüldü. [22]",
-        "Türkiye'deki büyüme yüksek faize bağlı. Faizler düştüğünde talebin nereye gideceği bu pazarın ana sorusu. Tadilat gibi faizden bağımsız bir ihtiyaca bağlanan ürünler bu sorudan daha az etkilenir.",
+        "Türkiye'deki büyüme yüksek faize bağlı. Faizler düştüğünde talebin nereye gideceği bu pazarın ana sorusu. Tadilat gibi faizden bağımsız bir ihtiyaca bağlanan ürünler bu sorudan daha az etkilenir, ama bunun için önce kanunun kapsamı genişlemeli.",
       ],
       expert: {
         tag: "Uzman notu",
         quote:
-          "Türkiye'de evini güçlendirmek isteyen milyonlarca aile var ve bunun için kurulmuş bir havuz yok. Ben burada ciddi bir fırsat görüyorum.",
+          "Türkiye'de evini güçlendirmek isteyen milyonlarca aile var ve kanun bugün bunun için bir havuz kurulmasına izin vermiyor. Almanya'da aynı model yüz yıldır tadilatı finanse ediyor. Ben burada ciddi bir fırsat görüyorum.",
         body: "Almanya'da iki banka kurdum, Türkiye'de bankacılık ve fintech ürünleri hayata geçirdim. İki pazarı da içeriden biliyorum ve ikisine yakından bakınca aynı şeyi görüyorum: bir ülkenin çözdüğü sorun, diğerinde hâlâ açık duruyor. Bauspar'ın şeffaf puanı Türkiye'nin kura belirsizliğine cevap. Türkiye'nin hızı ve faizsiz modeli de Almanya'da şube dışına çıkamayan bir ürüne.",
         signature: "Mehmet Burak Dikmen, fspark9",
         initials: "MB",
@@ -1611,6 +1642,15 @@ export const bauspar: Record<Locale, SparkReport> = {
         {
           label:
             "bne IntelliNews ve 444.hu, Macaristan'da Bauspar desteğinin kaldırılması, Ekim 2018",
+        },
+        {
+          label:
+            "6361 sayılı Kanun, 7292 sayılı Kanun ile eklenen tasarruf finansman hükümleri (md. 3 ve 39/A), 2021",
+          href: "https://www.alomaliye.com/2021/03/07/7292-sayili-kanun-finansal-kiralama-faktoring/",
+        },
+        {
+          label: "Gesetz über Bausparkassen (BauSparkG), § 1",
+          href: "https://gesetze.legal/bund/bausparkg/1",
         },
       ],
       note: 'Veriler 5 Ekim 2026 itibarıyla kontrol edildi. "Yaklaşık" ve "tahmin" olarak işaretli rakamlar kaynaklardaki verilerden hesaplandı. Bölüm 2\'deki simülatör ve hikayeler varsayımlara dayalı bir modeldir.',
