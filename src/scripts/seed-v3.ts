@@ -27,6 +27,11 @@
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-fidor  status published, previewLive kalkar.
  *
+ * Yolt (Nº 04) Fidor ile aynı:
+ *   --only=yolt      sadece Yolt belgesi yazılır (yoksa draft + previewLive
+ *                    ile oluşturulur); diğer belgelere dokunulmaz.
+ *   --publish-yolt   status published, previewLive kalkar.
+ *
  * Sektör raporları Nº 01 (Bauspar) Fidor gibi önizlemeyle çıkar: ayrı
  * belge, status draft + previewLive: staging yayındaki gibi gösterir,
  * canlıda hiç görünmez; v2'den kalan "sırada" belgesi canlıda yerinde
@@ -46,6 +51,7 @@ import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
 import { fidor } from "../content/spark-fidor";
+import { yolt } from "../content/spark-yolt";
 import { bauspar } from "../content/spark-bauspar";
 import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
@@ -72,6 +78,8 @@ const publishNuri = process.argv.includes("--publish-nuri");
 if (previewNuri && publishNuri) throw new Error("--preview-nuri and --publish-nuri are exclusive.");
 const onlyFidor = process.argv.includes("--only=fidor");
 const publishFidor = process.argv.includes("--publish-fidor");
+const onlyYolt = process.argv.includes("--only=yolt");
+const publishYolt = process.argv.includes("--publish-yolt");
 const onlyBauspar = process.argv.includes("--only=bauspar");
 const publishBauspar = process.argv.includes("--publish-bauspar");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
@@ -82,6 +90,8 @@ const LAUNCH_DATE = "2026-09-24";
 const NURI_PUBLISHED = "2026-09-29";
 /** Fidor'un yayın tarihi (staging'e çıktığı gün; canlıya çıkışta güncellenebilir). */
 const FIDOR_PUBLISHED = "2026-10-02";
+/** Yolt'un yayın tarihi (staging'e çıktığı gün). */
+const YOLT_PUBLISHED = "2026-10-07";
 /** Bauspar raporunun yayın tarihi (staging'e çıktığı gün; veriler 5 Ekim 2026'da kontrol edildi). */
 const BAUSPAR_PUBLISHED = "2026-10-05";
 
@@ -579,15 +589,24 @@ function sparkCard(h: typeof home.en, number: string, format?: string) {
   return card;
 }
 
+/**
+ * Ana sayfa aynası sadece en yeni üç kartı tutar; kartı düşmüş bölümün
+ * cardLine'ına dokunulmaz (Sanity'deki değer kalır).
+ */
+function cardLineSet(number: string, format: string, formatTr: string) {
+  const en = home.en.spark.cards.find((c) => c.number === number && !c.status && c.format === format);
+  const tr = home.tr.spark.cards.find((c) => c.number === number && !c.status && c.format === formatTr);
+  return en && tr ? { cardLine: lt(en.line, tr.line) } : {};
+}
+
 function boPatch() {
-  const card = [sparkCard(home.en, "Nº 01"), sparkCard(home.tr, "Nº 01")];
   return {
     id: "sparkEpisode-01-bo",
     set: {
       ...storySet(sparkEpisodes.en["01-bo"], sparkEpisodes.tr["01-bo"]),
       publishedAt: LAUNCH_DATE,
       lastCheckedAt: LAUNCH_DATE,
-      cardLine: lt(card[0].line, card[1].line),
+      ...cardLineSet("Nº 01", "The Last Day", "Son Gün"),
     },
   };
 }
@@ -690,7 +709,6 @@ function decisionSet(e: SparkDecisionEpisode, t: SparkDecisionEpisode) {
 
 /** Nº 02 Nuri. Belge v2'den beri `coming` olarak duruyordu; aynı belge dolduruluyor. */
 function nuriPatch() {
-  const card = [sparkCard(home.en, "Nº 02"), sparkCard(home.tr, "Nº 02")];
   const status = publishNuri
     ? { status: "published" }
     : previewNuri
@@ -711,7 +729,7 @@ function nuriPatch() {
       durationLabel: ls("7 years", "7 yıl"),
       publishedAt: NURI_PUBLISHED,
       lastCheckedAt: "2026-09-28",
-      cardLine: lt(card[0].line, card[1].line),
+      ...cardLineSet("Nº 02", "The Last Day", "Son Gün"),
     },
     unset: publishNuri ? ["previewLive"] : [],
   };
@@ -749,6 +767,41 @@ function fidorPatch() {
       publishedAt: FIDOR_PUBLISHED,
     },
     unset: publishFidor ? ["previewLive"] : [],
+  };
+}
+
+/** Nº 04 Yolt. Belge yoksa önizleme durumunda oluşturulur: draft + previewLive. */
+const YOLT_ID = "sparkEpisode-the-last-day-04";
+
+function yoltStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: YOLT_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[0] },
+    number: 4,
+    layout: "story",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function yoltPatch() {
+  return {
+    id: YOLT_ID,
+    set: {
+      ...storySet(yolt.en, yolt.tr),
+      ...(publishYolt ? { status: "published" } : {}),
+      number: 4,
+      layout: "story",
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "04-yolt" }, tr: { _type: "slug", current: "04-yolt" } },
+      city: "London",
+      country: "United Kingdom",
+      launchDate: "2017-06-01",
+      launchPrecision: "day",
+      closureDate: "2021-09-08",
+      publishedAt: YOLT_PUBLISHED,
+    },
+    unset: publishYolt ? ["previewLive"] : [],
   };
 }
 
@@ -877,15 +930,15 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), bausparPatch()];
-  const only = onlyFidor || onlyBauspar;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch()];
+  const only = onlyFidor || onlyYolt || onlyBauspar;
   const creates = only
     ? []
     : onlySpark
       ? comingEpisodeDocs()
       : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
   const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
-    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : [])]
+    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyYolt ? [yoltPatch()] : []), ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : [])]
     : onlySpark
     ? sparkPatches
     : [
@@ -908,6 +961,7 @@ async function main() {
 
   const tx = client.transaction();
   tx.createIfNotExists(fidorStub());
+  tx.createIfNotExists(yoltStub());
   tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
   for (const id of FORMAT_IDS.filter((id) => !existingFormats.includes(id))) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });

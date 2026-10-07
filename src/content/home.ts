@@ -116,6 +116,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "The Last Day",
+          number: "Nº 04",
+          title: "Yolt",
+          line: "ING's money app.",
+          date: "7 Oct 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "the-last-day", episodeSlug: "04-yolt" },
+          },
+        },
+        {
           format: "Sector report",
           number: "Nº 01",
           title: "Bauspar",
@@ -137,18 +149,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "the-last-day", episodeSlug: "03-fidor" },
-          },
-        },
-        {
-          format: "The Last Day",
-          number: "Nº 02",
-          title: "Nuri",
-          line: "Formerly Bitwala. A Berlin crypto fintech, read from the public record up to its last day.",
-          date: "29 Sep 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "02-nuri" },
           },
         },
       ],
@@ -263,6 +263,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Son Gün",
+          number: "Nº 04",
+          title: "Yolt",
+          line: "ING'nin para uygulaması.",
+          date: "7 Eki 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "son-gun", episodeSlug: "04-yolt" },
+          },
+        },
+        {
           format: "Sektör raporu",
           number: "Nº 01",
           title: "Bauspar",
@@ -284,18 +296,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "son-gun", episodeSlug: "03-fidor" },
-          },
-        },
-        {
-          format: "Son Gün",
-          number: "Nº 02",
-          title: "Nuri",
-          line: "Eski adıyla Bitwala. Berlinli kripto fintech'i, kamu kayıtlarından son gününe kadar.",
-          date: "29 Eyl 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "02-nuri" },
           },
         },
       ],
