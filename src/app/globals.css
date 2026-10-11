@@ -566,3 +566,256 @@ body {
     width: var(--w);
   }
 }
+
+/* ── On the Radar (Spark format 03) ──
+   Prototipler: Spark/Radar-format/on-the-radar-format.html ve
+   Spark/Radar/finmid/radar-finmid.html. Yerleşim ve yazı Tailwind'de;
+   burada sadece durumlu, animasyonlu ve sözde elemanlı parçalar.
+   Hareketin hepsi --ease-brand, hepsi reduced-motion'da kapalı. */
+
+/* Format sayfası açılış radarı: yılan merkezden çıkıp 7 noktadan geçer ve
+   kaybolur, sonra son şekil çizilir ve hafif dolar. Bir kez çalışır, durur. */
+.rd-snake {
+  fill: none;
+  stroke: var(--flare);
+  stroke-width: 2.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-dasharray: 90 2000;
+  stroke-dashoffset: 90;
+  animation: rd-snake 1800ms linear 300ms forwards;
+}
+.rd-final {
+  fill: color-mix(in srgb, var(--flare) 0%, transparent);
+  stroke: var(--flare);
+  stroke-width: 2;
+  stroke-linejoin: miter;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: rd-outline 900ms var(--ease-brand) 2050ms forwards, rd-shape-fill 480ms var(--ease-brand) 2900ms forwards;
+}
+@keyframes rd-snake {
+  to { stroke-dashoffset: -1000; }
+}
+@keyframes rd-outline {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes rd-shape-fill {
+  to { fill: color-mix(in srgb, var(--flare) 16%, transparent); }
+}
+
+/* Sayı satırındaki küçük radar: üzerine gelince ya da odaklanınca çizgisi
+   yeniden çizilir (480ms) ve Flare dolar. Duruşta Flare yok. */
+.rd-thumb-poly {
+  fill: transparent;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  transition: fill 240ms var(--ease-brand);
+}
+.rd-row:focus-visible .rd-thumb-poly,
+.rd-row:active .rd-thumb-poly {
+  fill: var(--flare);
+  animation: rd-trace 480ms var(--ease-brand) both;
+}
+@media (hover: hover) {
+  .rd-row:hover .rd-thumb-poly {
+    fill: var(--flare);
+    animation: rd-trace 480ms var(--ease-brand) both;
+  }
+}
+@keyframes rd-trace {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Cevap kutularının ve zayıf halka sorularının belirişi. */
+.rd-rise {
+  animation: rd-rise 240ms var(--ease-brand) both;
+}
+@keyframes rd-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Tuval: dokuz kutu. Boş kutu kesik çizgili Paper; dolunca strong (Ink)
+   ya da quiet (beyaz). Yazı dolunca belirir. */
+.rd-canvas {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(66px, auto)) minmax(52px, auto);
+  gap: 4px;
+}
+.rd-cell {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  padding: 7px;
+  border: 1px dashed var(--rule);
+  background: var(--paper);
+  transition: background 480ms var(--ease-brand), color 480ms var(--ease-brand), border-color 480ms var(--ease-brand);
+}
+.rd-cl {
+  font-family: var(--font-spline-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--stone);
+  overflow-wrap: break-word;
+}
+.rd-ct {
+  font-size: 12px;
+  line-height: 1.35;
+  opacity: 0;
+  overflow-wrap: break-word;
+  transition: opacity 240ms var(--ease-brand) 160ms;
+}
+.rd-short { display: none; }
+.rd-cell[data-kind="strong"] { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+.rd-cell[data-kind="strong"] .rd-cl { color: var(--dust); }
+.rd-cell[data-kind="quiet"] { background: var(--white); color: var(--stone); border: 1px solid var(--rule); }
+.rd-cell[data-on] .rd-ct { opacity: 1; }
+.rd-cell[data-hl] { outline: 2px solid var(--ink); outline-offset: 2px; }
+/* Tam resim: büyük kutular, beyaz zeminde quiet kutular Paper. */
+.rd-full { grid-template-rows: repeat(2, minmax(110px, auto)) minmax(74px, auto); }
+.rd-full .rd-cell { padding: 12px; }
+.rd-full .rd-cell[data-kind="quiet"] { background: var(--paper); }
+.rd-full .rd-cl { font-size: 10.5px; }
+.rd-full .rd-ct { font-size: 14px; }
+/* Taşıyıcı taş oyunundaki küçük tuval: çekilen hamlenin vurduğu kutular kesik çizgiye döner. */
+.rd-ks-canvas {
+  width: 100%;
+  grid-template-rows: repeat(2, minmax(38px, auto)) minmax(28px, auto);
+  gap: 3px;
+}
+.rd-ks-canvas .rd-cell { padding: 4px; }
+.rd-ks-canvas .rd-cl { font-size: 9px; overflow-wrap: normal; word-break: keep-all; hyphens: none; }
+.rd-ks-canvas .rd-cell[data-hit] { background: var(--paper); color: var(--stone); border: 1px dashed var(--stone); }
+.rd-ks-canvas .rd-cell[data-hit] .rd-cl { color: var(--stone); }
+@media (max-width: 600px) {
+  .rd-mini .rd-full-l { display: none; }
+  .rd-mini .rd-short { display: block; }
+  .rd-mini .rd-ct { font-size: 11px; hyphens: auto; }
+  /* Dar kutuda kısa etiket kelime ortasından bölünmesin: biraz küçük, aralıksız. */
+  .rd-mini .rd-cell { padding: 5px; }
+  .rd-mini .rd-cl { font-size: 8px; letter-spacing: 0; }
+  /* Tam tuval telefonda iki sütuna dizilir, yazı okunur kalır. */
+  .rd-full { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  .rd-full .rd-cell { grid-area: auto !important; padding: 10px; }
+  .rd-full .rd-cell[data-id="vp"], .rd-full .rd-cell[data-id="rev"] { grid-column: 1 / -1; }
+  .rd-full .rd-ct { font-size: 13px; }
+  .rd-ks-canvas .rd-cell { padding: 3px; }
+  .rd-ks-canvas .rd-cl { font-size: 7.5px; letter-spacing: 0; }
+}
+
+/* Pano: masaüstünde yapışkan, 1080 altında alttan açılan sayfa. Kapalıyken
+   görünmez (odak ve ekran okuyucu girmez). */
+@media (max-width: 1079px) {
+  .rd-board {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 90;
+    max-height: 88vh;
+    overflow: auto;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--paper);
+    border-top: 2px solid var(--ink);
+    transform: translateY(105%);
+    visibility: hidden;
+    transition: transform 240ms var(--ease-brand), visibility 0s linear 240ms;
+  }
+  .rd-board[data-open] {
+    transform: none;
+    visibility: visible;
+    transition: transform 240ms var(--ease-brand);
+  }
+  .rd-board .rd-board-in { border-top: 0; }
+  .rd-board .rd-board-in + .rd-board-in { border-top: 1px solid var(--rule); }
+}
+
+/* Kullanım örneği: iki aktör arasındaki ok. Para düz, veri kesik çizgili;
+   teklif prototipte para gibi düz. Yön ok başını seçer. */
+.rd-bar {
+  position: relative;
+  display: block;
+  min-height: 46px;
+  --inset: calc(100% / (2 * var(--span, 1)));
+}
+.rd-bar[hidden] { display: none; }
+.rd-bar-line {
+  position: absolute;
+  left: var(--inset);
+  right: var(--inset);
+  top: 30px;
+  height: 2px;
+  background: var(--ink);
+}
+.rd-bar[data-kind="data"] .rd-bar-line {
+  background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 11px);
+}
+.rd-bar-line::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+.rd-bar[data-dir="right"] .rd-bar-line::after { right: -2px; border-left: 9px solid var(--ink); }
+.rd-bar[data-dir="left"] .rd-bar-line::after { left: -2px; border-right: 9px solid var(--ink); }
+.rd-bar-label {
+  position: absolute;
+  left: var(--inset);
+  right: var(--inset);
+  top: 0;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-spline-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .rd-bar-label { font-size: 10px; }
+}
+
+/* Taşıyıcı taş: kule. Taş çekilince sağa kayar ve solar; kule bir kez sallanır
+   (Web Animations ile, RadarKeystone). */
+.rd-tower { transform-origin: 50% 100%; }
+.rd-brick {
+  transition: transform 420ms var(--ease-brand), opacity 420ms var(--ease-brand), background 240ms var(--ease-brand);
+}
+@media (hover: hover) {
+  .rd-brick:hover { transform: translateX(10px); }
+}
+.rd-brick[aria-pressed="true"] { transform: translateX(62%); opacity: 0.22; background: var(--stone); }
+
+/* Rakipler tablosu: telefonda her satır yığılır, şirket adı her hücrenin önünde. */
+.rd-cmp-col { display: none; }
+@media (max-width: 640px) {
+  .rd-cmp thead { display: none; }
+  .rd-cmp, .rd-cmp tbody, .rd-cmp tr, .rd-cmp th, .rd-cmp td { display: block; width: auto; }
+  .rd-cmp tr { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .rd-cmp tbody th { border: 0; padding: 4px 10px; width: auto; }
+  .rd-cmp td { border: 0; padding: 3px 10px; }
+  .rd-cmp-col {
+    display: inline;
+    font-family: var(--font-spline-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    color: var(--stone);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-snake { display: none; }
+  .rd-final { animation: none; stroke-dashoffset: 0; fill: color-mix(in srgb, var(--flare) 16%, transparent); }
+  .rd-thumb-poly, .rd-rise, .rd-cell, .rd-ct, .rd-brick, .rd-board, .rd-bar { animation: none !important; transition: none !important; }
+  .rd-brick:hover { transform: none; }
+  .rd-brick[aria-pressed="true"] { transform: translateX(62%); }
+}

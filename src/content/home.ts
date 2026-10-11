@@ -116,6 +116,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "On the Radar",
+          number: "Nº 01",
+          title: "finmid",
+          line: "The Berlin firm that lends inside Wolt, Glovo and Bolt without showing its own name.",
+          date: "11 Oct 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
+          },
+        },
+        {
           format: "The Last Day",
           number: "Nº 04",
           title: "Yolt",
@@ -137,18 +149,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sector-reports", episodeSlug: "bauspar" },
-          },
-        },
-        {
-          format: "The Last Day",
-          number: "Nº 03",
-          title: "Fidor Bank",
-          line: "Germany's community bank.",
-          date: "2 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "03-fidor" },
           },
         },
       ],
@@ -263,6 +263,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "On the Radar",
+          number: "Nº 01",
+          title: "finmid",
+          line: "Wolt, Glovo ve Bolt'un uygulamalarında kendi adını göstermeden kredi veren Berlin şirketi.",
+          date: "11 Eki 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
+          },
+        },
+        {
           format: "Son Gün",
           number: "Nº 04",
           title: "Yolt",
@@ -284,18 +296,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sektor-raporlari", episodeSlug: "bauspar" },
-          },
-        },
-        {
-          format: "Son Gün",
-          number: "Nº 03",
-          title: "Fidor Bank",
-          line: "Almanya'nın topluluk bankası.",
-          date: "2 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "03-fidor" },
           },
         },
       ],

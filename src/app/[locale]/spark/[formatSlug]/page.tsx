@@ -11,7 +11,10 @@ import SparkSubnav from "@/components/spark/SparkSubnav";
 import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import SparkEpisodeRow from "@/components/spark/SparkEpisodeRow";
 import Reveal from "@/components/ui/Reveal";
-import { getChrome, getSparkHub } from "@/sanity/lib/content";
+import RadarFormatPage from "@/components/spark/radar/RadarFormatPage";
+import { radarFormatCopy } from "@/content/spark-radar";
+import { toRadarIssue } from "@/lib/radar";
+import { getChrome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { loadFormatIssues, slugFromOtherLocale, staticAltSlug } from "@/lib/spark";
 import { redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -25,8 +28,13 @@ import type { Locale, SparkHubContent } from "@/types/content";
 // Format sayfası (Son Gün v3, prototip _design/v2/boards/son-gun-01-bo-v3.html
 // format görünümü): Ink açılış, "Nasıl okunur" kartları, bölüm satırları,
 // NextStep. Format, bölümler ve sıradaki sayılar Sanity'den.
+// On the Radar (format 03) kendi sayfasını kullanır (RadarFormatPage,
+// prototip Spark/Radar-format/on-the-radar-format.html); The Last Day ve
+// Sector reports şablonda kalır.
 
 type Params = Promise<{ locale: Locale; formatSlug: string }>;
+
+const RADAR_FORMAT_SLUG = "on-the-radar";
 
 export async function generateStaticParams() {
   const spark = await getSparkHub();
@@ -68,8 +76,30 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
     if (fixed) redirect({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug: fixed } }, locale });
     notFound();
   }
-  const { issues } = await loadFormatIssues(locale, format, hub);
   const altFormatSlug = staticAltSlug(spark, locale, formatSlug);
+
+  if (format.slug === RADAR_FORMAT_SLUG || altFormatSlug === RADAR_FORMAT_SLUG) {
+    const episodes = await getSparkEpisodes();
+    const radarIssues = episodes[locale]
+      .flatMap((entry) => (entry.layout === "radar" && entry.formatSlug === format.slug ? [entry] : []))
+      .sort((a, b) => b.story.number - a.story.number)
+      .map(toRadarIssue);
+    return (
+      <main className="pt-16 min-[900px]:pt-[84px]">
+        <JsonLd
+          data={breadcrumbJsonLd(locale, chrome, [
+            { name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) },
+            { name: format.name, path: getPathname({ href: { pathname: "/spark/[formatSlug]", params: { formatSlug } }, locale }) },
+          ])}
+        />
+        {altFormatSlug && <SparkAltSlugRegistrar formatSlug={altFormatSlug} />}
+        <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+        <RadarFormatPage format={format} copy={radarFormatCopy[locale]} sparkLabel={hub.sparkLabel} issues={radarIssues} />
+      </main>
+    );
+  }
+
+  const { issues } = await loadFormatIssues(locale, format, hub);
   // Prototip: Nº 01 üstte, sıradakiler altta.
   const rows = [...issues].sort((a, b) => a.number - b.number);
 

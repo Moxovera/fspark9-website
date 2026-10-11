@@ -4,6 +4,7 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { formatShortDate } from "@/lib/format";
 import { PREVIEW_EPISODES } from "@/sanity/lib/preview";
+import { toRadarEpisode } from "@/lib/radar";
 import type {
   ABOUT_PAGE_QUERYResult,
   CASES_QUERYResult,
@@ -33,6 +34,8 @@ import type {
   SparkStoryCard,
   SparkDecisionEpisode,
   SparkEpisodeEntry,
+  RadarBody,
+  SparkRadarEpisode,
   SparkReport,
   SparkReportBody,
   SparkEpisodeStory,
@@ -390,7 +393,7 @@ export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
     "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
     "lessons": coalesce(lessons[]{ heading, body }, []),
     "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
-    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody,
+    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country,
     "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },
     "decisions": coalesce(decisions[]{
       date, when, label, title, record,
@@ -432,6 +435,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
       if (rest.layout === "report") {
         const report = toReport(rest, locale);
         return report ? [{ ...base, layout: "report", story: report }] : [];
+      }
+      if (rest.layout === "radar") {
+        const radar = toRadar(rest, locale);
+        return radar ? [{ ...base, layout: "radar", story: radar }] : [];
       }
       return [{ ...base, layout: "story", story: toStory(rest, locale) }];
     }),
@@ -528,6 +535,13 @@ function toReport(doc: EpisodeDoc, locale: Locale): SparkReport | null {
   if (!raw) return null;
   const { number, subject, hook, seo } = localize(doc, locale);
   return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkReportBody) };
+}
+
+/** On the Radar: ortak ve iki dilli gövde tek JSON; sayı, şirket adı, kanca, SEO ve ülke belgenin alanlarından. */
+function toRadar(doc: EpisodeDoc, locale: Locale): SparkRadarEpisode | null {
+  if (!doc.radarBody) return null;
+  const { number, subject, hook, seo, country } = localize(doc, locale);
+  return toRadarEpisode(JSON.parse(doc.radarBody) as RadarBody, locale, { number, subject, hook, seo, country: country ?? "" });
 }
 
 function toCardMode(mode: string): SparkCardMode {

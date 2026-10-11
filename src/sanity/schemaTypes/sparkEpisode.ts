@@ -1,5 +1,6 @@
 import { defineField, defineType, type ConditionalPropertyCallback, type SanityDocument } from "sanity";
 import { decisionFields } from "./sparkEpisodeDecisions";
+import { radarFields } from "./sparkEpisodeRadar";
 import { reportFields } from "./sparkEpisodeReport";
 import { storyFields } from "./sparkEpisodeStory";
 
@@ -19,10 +20,14 @@ import { storyFields } from "./sparkEpisodeStory";
 // Sektör raporları Nº 01 (Bauspar, 2026-10-05): üçüncü şablon, `report`
 // (sparkEpisodeReport.ts). Her şablonun sekmesi sadece kendi layout'unda
 // görünür.
+//
+// On the Radar Nº 01 (finmid, 2026-10-11): dördüncü şablon, `radar`
+// (sparkEpisodeRadar.ts), gövdesi tek JSON.
 const layoutOf = (document: SanityDocument | undefined) => document?.layout ?? "story";
 const hideUnlessStory: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "story";
 const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "decisions";
 const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "report";
+const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
 
 export default defineType({
   name: "sparkEpisode",
@@ -33,6 +38,7 @@ export default defineType({
     { name: "story", title: "Story" },
     { name: "decisions", title: "Decisions" },
     { name: "report", title: "Report" },
+    { name: "radar", title: "Radar" },
   ],
   fields: [
     defineField({
@@ -58,8 +64,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu",
-      options: { list: ["story", "decisions", "report"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · radar: On the Radar",
+      options: { list: ["story", "decisions", "report", "radar"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),
@@ -121,6 +127,7 @@ export default defineType({
     ...storyFields.map((field) => ({ ...field, hidden: hideUnlessStory })),
     ...decisionFields.map((field) => ({ ...field, group: "decisions", hidden: hideUnlessDecisions })),
     ...reportFields.map((field) => ({ ...field, group: "report", hidden: hideUnlessReport })),
+    ...radarFields.map((field) => ({ ...field, group: "radar", hidden: hideUnlessRadar })),
   ],
   preview: {
     select: { title: "subject.en", subtitle: "format.name.en" },

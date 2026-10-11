@@ -1259,6 +1259,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'story'; story: SparkEpisodeStory }
     | { layout: 'decisions'; story: SparkDecisionEpisode }
     | { layout: 'report'; story: SparkReport }
+    | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
 interface SparkEpisodeEntryBase {
@@ -2102,4 +2103,433 @@ export interface TrendChartProps {
 
 export interface ReportLessonsProps {
   groups: SparkReport['lessons']['groups']
+}
+
+// ─────────────────────────────────────────────
+// On the Radar (Spark format 03). Bölüm gövdesi tek JSON
+// (src/content/radar/<slug>.json, Sanity'de sparkEpisode.radarBody);
+// dilden bağımsız kısım `RadarData`, dile bağlı kısım `RadarText`.
+// ─────────────────────────────────────────────
+
+/** Beş sinyal, radarda başlangıç üstte ve saat yönünde bu sırayla. */
+export type RadarSignal = 'gelir' | 'urun' | 'dagitim' | 'insan' | 'teknoloji'
+export type RadarValues = Record<RadarSignal, number>
+/** Dokuz kutulu tuvalin kutuları; `kakr` ve `chcr` iki satıra yayılan birleşik kutular. */
+export type RadarBlockId = 'kp' | 'ka' | 'kr' | 'kakr' | 'vp' | 'cr' | 'ch' | 'chcr' | 'cs' | 'cost' | 'rev'
+export type RadarOptionKey = 'a' | 'b' | 'c' | 'd'
+export type RadarCalcFormat = 'eur' | 'pct' | 'dec'
+export type RadarFlowKind = 'money' | 'data' | 'offer'
+
+export interface RadarBlockDef {
+  id: RadarBlockId
+  /** strong: koyu kutu, quiet: beyaz kutu. */
+  kind: 'strong' | 'quiet'
+  signal: RadarSignal
+  weight: number
+}
+
+export interface RadarMoveDef {
+  id: string
+  /** Hamlenin tuvaldeki yeri; hamle yapıldığında bu kutu da dolar. */
+  ours: RadarBlockId
+  difficulty: 1 | 2 | 3
+  /** Hamle cevaplandığında panodaki radara eklenen değer. */
+  bonus?: Partial<RadarValues>
+  /** Taş çekilince kesik çizgiye dönen kutular. */
+  hits: RadarBlockId[]
+  /** Taş çekilince radardan düşen değer (negatif). */
+  drop?: Partial<RadarValues>
+  keystone?: boolean
+}
+
+export interface RadarUsecaseStepDef {
+  from?: string
+  to?: string
+  kind?: RadarFlowKind
+}
+
+export interface RadarCalcInputDef {
+  id: string
+  min: number
+  max: number
+  step: number
+  value: number
+  fmt: RadarCalcFormat
+}
+
+export interface RadarCalcOutputDef {
+  id: string
+  /** Girdi kimlikleriyle yazılmış aritmetik ifade ("tutar * ucret / 100"). */
+  expr: string
+  fmt: RadarCalcFormat
+  main?: boolean
+  /** Bölüşüm çubuğundaki payı. */
+  part?: number
+}
+
+export interface RadarSource {
+  title: string
+  url: string
+}
+
+export interface RadarData {
+  blocks: RadarBlockDef[]
+  /** Tuval paragraflarının sırası. */
+  order: RadarBlockId[]
+  guess: { correct: RadarOptionKey; fills: RadarBlockId }
+  usecase?: {
+    actors: string[]
+    steps: RadarUsecaseStepDef[]
+    calc?: { inputs: RadarCalcInputDef[]; outputs: RadarCalcOutputDef[] }
+  }
+  moves: RadarMoveDef[]
+  sources: RadarSource[]
+  compare?: { cols: string[]; highlight?: number }
+}
+
+export interface RadarBlockText {
+  label: string
+  /** Küçük tuval ve telefondaki kısa etiket. */
+  short: string
+  tag: string
+  mini: string
+  full: string
+  para: string
+  note?: string
+}
+
+export interface RadarUsecaseStepText {
+  title: string
+  flow?: string
+  body: string[]
+  ledger?: Record<string, string>
+}
+
+export interface RadarCalcOutputText {
+  label: string
+  share?: string
+}
+
+export interface RadarText {
+  titleTag: string
+  listHook: string
+  place: string
+  headline: string
+  line: string
+  lead: string
+  /** [etiket, değer] çiftleri. */
+  idcard: [string, string][]
+  why: string[]
+  guess: {
+    title: string
+    options: Record<RadarOptionKey, string>
+    feedback: Record<RadarOptionKey, string>
+    answer: string[]
+  }
+  usecase?: {
+    title: string
+    intro: string[]
+    actors: Record<string, { label: string; sub: string }>
+    steps: RadarUsecaseStepText[]
+    calc?: {
+      title: string
+      intro: string[]
+      inputs: Record<string, string>
+      outputs: Record<string, string | RadarCalcOutputText>
+      note?: string
+    }
+  }
+  canvas: { title: string; intro: string[] }
+  blocks: Partial<Record<RadarBlockId, RadarBlockText>>
+  moves: Record<string, { title: string; q: string; pull: string; why: string[] }>
+  weak: { items: { t: string; ctx: string; q: string }[]; follow?: string }
+  final: { title: string; signals: Record<RadarSignal, { level: string; note: string }> }
+  view: { first: string; body: string[] }
+  close: { title: string; line: string; cta: string }
+  disclaimer: string
+  keystone: { title: string; intro: string[]; answer: string[] }
+  compare?: {
+    title: string
+    intro?: string[]
+    rows: { label: string; cells: string[] }[]
+    takeaway?: string[]
+  }
+}
+
+/** Sanity'de ve src/content/radar/*.json'da duran ham gövde: ortak kısım ve iki dil. */
+export type RadarBody = Omit<RadarData, 'sources'> & {
+  sources: { title: Record<Locale, string>; url: string }[]
+  en: RadarText
+  tr: RadarText
+}
+
+/** src/content/radar/<slug>.json: gövde ve belgenin kendi alanlarının kaynağı olan üst bilgi. */
+export interface RadarFile extends RadarBody {
+  number: string
+  slug: string
+  company: string
+  city: string
+  country: string
+  /** Yayın tarihi (YYYY-MM-DD). */
+  publishDate: string
+}
+
+/** Bir On the Radar sayısı, bir dile indirilmiş hali (bölüm sayfasının `story`'si). */
+export interface SparkRadarEpisode {
+  number: number
+  /** Şirket adı, kendi büyük küçük harfiyle ("finmid"). */
+  subject: string
+  hook: string
+  seo: PageSeoCopy
+  country: string
+  data: RadarData
+  text: RadarText
+}
+
+/** Bölüm sayfasının sabit etiketleri (src/content/spark-radar.ts). "{x}" yer tutucuları kodda doldurulur. */
+export interface RadarEpisodeLabels {
+  signal: string
+  why: string
+  guess: string
+  right: string
+  wrong: string
+  canvas: string
+  compare: string
+  usecase: string
+  usecaseBack: string
+  usecaseNext: string
+  /** "{i}" adım, "{n}" toplam. */
+  usecaseStep: string
+  calc: string
+  moves: string
+  keystonePrompt: string
+  keystonePlace: string
+  keystoneAnswer: string
+  keystoneBack: string
+  /** "{n}" hamle numarası, "{suffix}" numaraya eklenen ek ("'i", "'yi", "'ü"; İngilizcede boş). */
+  keystoneTry: string
+  keystoneSuffixes: string[]
+  keystoneTower: string
+  /** "{i}" hamle, "{n}" toplam. */
+  moveCount: string
+  copy: string
+  difficulty: [string, string, string]
+  weak: string
+  weakTitle: string
+  picked: string
+  full: string
+  radar: string
+  view: string
+  sources: string
+  next: string
+  board: string
+  radarStart: string
+  /** "{a}" ve "{b}": en güçlü iki sinyal. */
+  radarDone: string
+  /** "{n}" dolu kutu, "{t}" toplam. */
+  openBoard: string
+  close: string
+  canvasLabel: string
+  /** Sinyallerin büyük harfli ve küçük harfli adları. */
+  signals: Record<RadarSignal, string>
+  signalsLower: Record<RadarSignal, string>
+}
+
+export interface RadarEpisodeProps {
+  episode: SparkRadarEpisode
+  labels: RadarEpisodeLabels
+  locale: Locale
+  /** "Source {n}" dipnot linkinin erişilebilir adı. */
+  footnoteTemplate: string
+}
+
+/** Format sayfasının sabit metni (src/content/spark-radar.ts), kelimesi kelimesine prototipten. */
+export interface RadarFormatCopy {
+  kicker: string
+  latest: string
+  readLong: string
+  readShort: string
+  all: string
+  /** "{n}" yayındaki sayı. */
+  countOne: string
+  countMany: string
+  filter: string
+  filterAll: string
+  strongest: string
+  showAll: string
+  about: string
+  howTitle: string
+  aboutLines: string[]
+  steps: { title: string; body: string }[]
+  fiveLabel: string
+  five: { name: string; body: string }[]
+  signals: Record<RadarSignal, string>
+  signalsLower: Record<RadarSignal, string>
+  next: string
+  closeTitle: string
+  closeLine: string
+  cta: string
+  disclaimer: string
+  radarLabel: string
+}
+
+/** Format sayfasındaki bir sayı: radar şekli bölümün kendi JSON'undan. */
+export interface RadarIssue {
+  numberLabel: string
+  company: string
+  place: string
+  country: string
+  headline: string
+  hook: string
+  values: RadarValues
+  strongest: RadarSignal
+  href: NavHref
+}
+
+export interface RadarFormatPageProps {
+  format: SparkFormatContent
+  copy: RadarFormatCopy
+  sparkLabel: string
+  /** Yayındaki sayılar, en yenisi başta. */
+  issues: RadarIssue[]
+}
+
+export interface RadarShapeProps {
+  values: RadarValues
+  /** Eksen etiketleri (büyük harfli ad), verilmezse etiket çizilmez. */
+  labels?: Record<RadarSignal, string>
+  /** Etiketi koyu yazılacak sinyaller (panoda yanmış olanlar); verilmezse hepsi. */
+  lit?: Partial<Record<RadarSignal, boolean>>
+  radius: number
+  viewBox: string
+  /** Değeri 0 olan eksenlerde nokta çizilmez; poligon her zaman en az .04. */
+  dots?: boolean
+  className?: string
+  tone?: 'paper' | 'ink'
+  title: string
+}
+
+// On the Radar bileşenleri (components/spark/radar)
+export interface RadarRichProps {
+  text: string
+  /** "Source {n}" dipnot linkinin erişilebilir adı. */
+  template: string
+}
+
+export interface RadarParasProps {
+  items: string[]
+  template: string
+  className?: string
+}
+
+export interface RadarCanvasProps {
+  blocks: RadarBlockDef[]
+  texts: RadarText['blocks']
+  /** mini: panodaki canlı tuval · full: tam resim · ks: taşıyıcı taş oyunundaki etiket tuvali. */
+  mode: 'mini' | 'full' | 'ks'
+  template: string
+  /** mini: dolmuş kutular. */
+  filled?: ReadonlySet<string>
+  /** ks: çekilen hamlenin vurduğu kutular. */
+  hits?: ReadonlySet<string>
+  /** Kısa süre çerçevelenen kutu (hamlenin tuvaldeki yeri). */
+  highlight?: string | null
+  /** Verilirse tuval adlı bir grup (tam resim); verilmezse dekoratif, ekran okuyucudan gizli. */
+  label?: string
+  className?: string
+}
+
+export interface RadarGuessProps {
+  text: RadarText['guess']
+  guess: RadarData['guess']
+  labels: Pick<RadarEpisodeLabels, 'guess' | 'right' | 'wrong'>
+  template: string
+  onAnswer: (blockId: RadarBlockId) => void
+}
+
+export interface RadarUsecaseProps {
+  data: NonNullable<RadarData['usecase']>
+  text: NonNullable<RadarText['usecase']>
+  labels: Pick<RadarEpisodeLabels, 'usecase' | 'usecaseBack' | 'usecaseNext' | 'usecaseStep' | 'calc'>
+  locale: Locale
+  template: string
+}
+
+export interface RadarCalcProps {
+  calc: NonNullable<NonNullable<RadarData['usecase']>['calc']>
+  text: NonNullable<NonNullable<RadarText['usecase']>['calc']>
+  label: string
+  locale: Locale
+  template: string
+}
+
+export interface RadarKeystoneProps {
+  data: RadarData
+  text: RadarText
+  labels: RadarEpisodeLabels
+  template: string
+  /** Tam resmin değerleri; oyunun radarı buradan başlar. */
+  full: RadarValues
+  /** Bir taş çekildi: bütün hamleler cevaplanmış sayılır, `ours` kutuları dolar. */
+  onPull: (moveId: string) => void
+}
+
+export interface RadarWeakProps {
+  text: RadarText['weak']
+  labels: Pick<RadarEpisodeLabels, 'weak' | 'weakTitle' | 'picked'>
+  template: string
+}
+
+export interface RadarCompareProps {
+  text: NonNullable<RadarText['compare']>
+  data: NonNullable<RadarData['compare']>
+  label: string
+  template: string
+}
+
+export interface RadarBoardProps {
+  data: RadarData
+  text: RadarText
+  labels: RadarEpisodeLabels
+  template: string
+  filled: ReadonlySet<string>
+  answered: ReadonlySet<string>
+  highlight: string | null
+}
+
+export interface RadarOpeningProps {
+  episode: SparkRadarEpisode
+  formatName: string
+  /** Büyük konturlu format numarası ("03"). */
+  formatNumber: string
+  /** "Nº 01". */
+  numberLabel: string
+  backLabel: string
+  template: string
+}
+
+export interface RadarCloseProps {
+  text: RadarText
+  nextLabel: string
+  template: string
+}
+
+export interface RadarSourcesProps {
+  sources: RadarSource[]
+  label: string
+  disclaimer: string
+  template: string
+}
+
+export interface RadarGlyphProps {
+  index: number
+}
+
+export interface RadarNetProps {
+  labels: Record<RadarSignal, string>
+}
+
+export interface RadarIssueListProps {
+  issues: RadarIssue[]
+  copy: RadarFormatCopy
 }

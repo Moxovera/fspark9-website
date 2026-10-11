@@ -32,6 +32,11 @@ export async function GET(request: Request) {
       locale,
     });
   }
+  if (entry.layout === "radar") {
+    // On the Radar: etiket "On the Radar · Nº 01", konu şirket adı, sayı yerine Nº, birim şehir.
+    const number = String(entry.story.number).padStart(2, "0");
+    return renderEpisodeOgImage({ label: `${format.name} · Nº ${number}`, subject: entry.story.subject, figure: number, unit: entry.story.text.place, locale });
+  }
   const label = entry.layout === "decisions" ? entry.story.opening.label : entry.story.hero.label;
   return renderEpisodeOgImage({ label, subject: entry.story.subject, figure: main, unit, locale });
 }

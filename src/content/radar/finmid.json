@@ -1,0 +1,1297 @@
+{
+  "number": "01",
+  "slug": "finmid",
+  "company": "finmid",
+  "city": "Berlin",
+  "country": "DE",
+  "publishDate": "2026-10-11",
+  "allowHyphen": [
+    "e-posta",
+    "e-commerce",
+    "e-ticaret"
+  ],
+  "links": {
+    "spark": {
+      "tr": "https://fspark9.com/tr/spark",
+      "en": "https://fspark9.com/spark"
+    },
+    "cta": {
+      "tr": "https://fspark9.com/tr",
+      "en": "https://fspark9.com"
+    }
+  },
+  "blocks": [
+    {
+      "id": "kp",
+      "kind": "strong",
+      "signal": "teknoloji",
+      "weight": 0.3
+    },
+    {
+      "id": "ka",
+      "kind": "quiet",
+      "signal": "insan",
+      "weight": 0.3
+    },
+    {
+      "id": "kr",
+      "kind": "strong",
+      "signal": "teknoloji",
+      "weight": 0.4
+    },
+    {
+      "id": "vp",
+      "kind": "strong",
+      "signal": "urun",
+      "weight": 0.6
+    },
+    {
+      "id": "chcr",
+      "kind": "strong",
+      "signal": "dagitim",
+      "weight": 0.45
+    },
+    {
+      "id": "cs",
+      "kind": "strong",
+      "signal": "dagitim",
+      "weight": 0.3
+    },
+    {
+      "id": "cost",
+      "kind": "quiet",
+      "signal": "gelir",
+      "weight": 0.15
+    },
+    {
+      "id": "rev",
+      "kind": "quiet",
+      "signal": "gelir",
+      "weight": 0.3
+    }
+  ],
+  "order": [
+    "cs",
+    "vp",
+    "chcr",
+    "rev",
+    "kp",
+    "kr",
+    "ka",
+    "cost"
+  ],
+  "guess": {
+    "correct": "b",
+    "fills": "rev"
+  },
+  "usecase": {
+    "actors": [
+      "isletme",
+      "platform",
+      "finmid",
+      "sermaye"
+    ],
+    "steps": [
+      {
+        "from": "platform",
+        "to": "finmid",
+        "kind": "data"
+      },
+      {
+        "from": "finmid",
+        "to": "isletme",
+        "kind": "offer"
+      },
+      {
+        "from": "sermaye",
+        "to": "isletme",
+        "kind": "money"
+      },
+      {
+        "from": "platform",
+        "to": "sermaye",
+        "kind": "money"
+      },
+      {
+        "from": "finmid",
+        "to": "platform",
+        "kind": "money"
+      },
+      {
+        "from": "finmid",
+        "to": "isletme",
+        "kind": "offer"
+      },
+      {}
+    ],
+    "calc": {
+      "inputs": [
+        {
+          "id": "tutar",
+          "min": 5000,
+          "max": 30000,
+          "step": 1000,
+          "value": 12000,
+          "fmt": "eur"
+        },
+        {
+          "id": "ucret",
+          "min": 6,
+          "max": 20,
+          "step": 1,
+          "value": 12,
+          "fmt": "pct"
+        },
+        {
+          "id": "adet",
+          "min": 1,
+          "max": 3,
+          "step": 0.5,
+          "value": 1.5,
+          "fmt": "dec"
+        }
+      ],
+      "outputs": [
+        {
+          "id": "toplam",
+          "expr": "tutar * ucret / 100",
+          "fmt": "eur"
+        },
+        {
+          "id": "sermaye",
+          "expr": "tutar * ucret / 100 * 0.60",
+          "fmt": "eur",
+          "part": 0.6
+        },
+        {
+          "id": "platform",
+          "expr": "tutar * ucret / 100 * 0.20",
+          "fmt": "eur",
+          "part": 0.2
+        },
+        {
+          "id": "finmid",
+          "expr": "tutar * ucret / 100 * 0.20",
+          "fmt": "eur",
+          "main": true,
+          "part": 0.2
+        },
+        {
+          "id": "yillik",
+          "expr": "tutar * ucret / 100 * 0.20 * adet",
+          "fmt": "eur"
+        }
+      ]
+    }
+  },
+  "moves": [
+    {
+      "id": "m1",
+      "ours": "chcr",
+      "difficulty": 1,
+      "bonus": {
+        "dagitim": 0.2
+      },
+      "hits": [
+        "chcr",
+        "cs"
+      ],
+      "drop": {
+        "dagitim": -0.5,
+        "urun": -0.15
+      }
+    },
+    {
+      "id": "m2",
+      "ours": "kp",
+      "difficulty": 2,
+      "bonus": {
+        "gelir": 0.2
+      },
+      "hits": [
+        "kp",
+        "rev",
+        "cost"
+      ],
+      "drop": {
+        "gelir": -0.4,
+        "teknoloji": -0.25
+      },
+      "keystone": true
+    },
+    {
+      "id": "m3",
+      "ours": "kr",
+      "difficulty": 3,
+      "bonus": {
+        "teknoloji": 0.25
+      },
+      "hits": [
+        "kr"
+      ],
+      "drop": {
+        "teknoloji": -0.25,
+        "dagitim": -0.1
+      }
+    }
+  ],
+  "sources": [
+    {
+      "title": {
+        "tr": "finmid ana sayfa",
+        "en": "finmid home page"
+      },
+      "url": "https://www.finmid.com/"
+    },
+    {
+      "title": {
+        "tr": "finmid Capital ürün sayfası",
+        "en": "finmid Capital product page"
+      },
+      "url": "https://www.finmid.com/finmid-capital"
+    },
+    {
+      "title": {
+        "tr": "finmid araç finansmanı sayfası",
+        "en": "finmid vehicle financing page"
+      },
+      "url": "https://www.finmid.com/finmid-vehicle-financing"
+    },
+    {
+      "title": {
+        "tr": "finmid, Wolt Capital vaka çalışması, Haziran 2024",
+        "en": "finmid, Wolt Capital case study, June 2024"
+      },
+      "url": "https://www.finmid.com/customers/wolt-case-study"
+    },
+    {
+      "title": {
+        "tr": "finmid, Forrester TEI çalışması özeti, Eylül 2025",
+        "en": "finmid, Forrester TEI study summary, September 2025"
+      },
+      "url": "https://www.finmid.com/blog/forrester-tei-roi-study"
+    },
+    {
+      "title": {
+        "tr": "TechCrunch, finmid A serisi yatırımı, Nisan 2024",
+        "en": "TechCrunch, finmid Series A, April 2024"
+      },
+      "url": "https://techcrunch.com/?p=2689203"
+    },
+    {
+      "title": {
+        "tr": "Tech.eu, finmid 17 milyon euroluk ek yatırım ve Bolt anlaşması, 6 Ekim 2026",
+        "en": "Tech.eu, finmid €17m Series A extension and Bolt deal, 6 October 2026"
+      },
+      "url": "https://tech.eu/2026/10/06/n26-founder-backed-finmid-raises-eur17m-series-a-extension-strikes-bolt-deal"
+    },
+    {
+      "title": {
+        "tr": "Retail Technology Innovation Hub, finmid ek yatırımı, 5 Ekim 2026",
+        "en": "Retail Technology Innovation Hub, finmid extension round, 5 October 2026"
+      },
+      "url": "https://retailtechinnovationhub.com/home/2026/10/5/european-embedded-lending-firm-finmid-bags-17-million-series-a-extension-as-total-funding-hits-52-million"
+    },
+    {
+      "title": {
+        "tr": "Business Forum, Bolt Food ve finmid Letonya lansmanı, 22 Ağustos 2025",
+        "en": "Business Forum, Bolt Food and finmid launch in Latvia, 22 August 2025"
+      },
+      "url": "https://www.businessforum.ro/finance/20250822/bolt-food-partners-with-finmid-to-offer-quick-capital-to-restaurants-2216/amp"
+    },
+    {
+      "title": {
+        "tr": "Tech.eu, Glovo ve finmid ortaklığı, 22 Mayıs 2025",
+        "en": "Tech.eu, Glovo and finmid partnership, 22 May 2025"
+      },
+      "url": "https://tech.eu/2025/05/22/glovo-and-finmid-partner-to-provide-instant-capital-to-smes/"
+    },
+    {
+      "title": {
+        "tr": "Retail Technology Innovation Hub, myPOS ve finmid İtalya, Haziran 2026",
+        "en": "Retail Technology Innovation Hub, myPOS and finmid in Italy, June 2026"
+      },
+      "url": "https://retailtechinnovationhub.com/home/2026/6/15/finmid-and-mypos-plot-italian-fintech-job-with-launch-of-embedded-lending-service-for-merchants"
+    },
+    {
+      "title": {
+        "tr": "Tageskarte, YouLend ve Lieferando ara bilançosu, 7 Temmuz 2026",
+        "en": "Tageskarte, YouLend and Lieferando interim review, 7 July 2026"
+      },
+      "url": "https://www.tageskarte.io/gastronomie/detail/youlend-und-lieferando-vermitteln-150-millionen-euro-an-restaurants.html"
+    },
+    {
+      "title": {
+        "tr": "FF News, allO ve finmid ortaklığı, 6 Mayıs 2025",
+        "en": "FF News, allO and finmid partnership, 6 May 2025"
+      },
+      "url": "https://ffnews.com/newsarticle/allo-and-finmid-partner-to-offer-bespoke-capital-to-thousands-of-restaurants-across-germany"
+    },
+    {
+      "title": {
+        "tr": "Wolt Capital işletme sayfası ve SSS, Almanya",
+        "en": "Wolt Capital merchant page and FAQ, Germany"
+      },
+      "url": "https://merchant.wolt.com/en/deu/solution/capital"
+    },
+    {
+      "title": {
+        "tr": "Latvijas Banka, SIA Ascend Finance kitle fonlama lisansı, 10 Temmuz 2025",
+        "en": "Latvijas Banka, crowdfunding authorisation for SIA Ascend Finance, 10 July 2025"
+      },
+      "url": "https://www.bank.lv/en/news-and-events/news-and-articles/news/17286-latvijas-banka-issues-an-authorisation-to-provide-crowdfunding-services-to-sia-ascend-finance"
+    },
+    {
+      "title": {
+        "tr": "Dealroom, finmid ek yatırımı ve Skroutz Funding, Ekim 2026",
+        "en": "Dealroom, finmid extension round and Skroutz Funding, October 2026"
+      },
+      "url": "https://dealroom.co/news/160331-finmid-raises-17m-to-push-embedded-lending-into-cars-and-marketplace-loa/"
+    },
+    {
+      "title": {
+        "tr": "Spark Finance, İngiltere nakit avans maliyet endeksi, Haziran 2026",
+        "en": "Spark Finance, UK merchant cash advance cost index, June 2026"
+      },
+      "url": "https://www.sparkfinance.co.uk/data/merchant-cash-advance-cost-index"
+    },
+    {
+      "title": {
+        "tr": "YouLend, Bolt Food Polonya finansman programı, Mart 2025",
+        "en": "YouLend, Bolt Food finance programme in Poland, March 2025"
+      },
+      "url": "https://www.youlend.com/blog/youlend-powers-bolt-food-finance-in-poland"
+    },
+    {
+      "title": {
+        "tr": "finmid blog, önceden onaylı ve ön değerlendirmeli teklif, Şubat 2026",
+        "en": "finmid blog, pre approved vs pre qualified, February 2026"
+      },
+      "url": "https://finmid.com/blog/pre-approved-vs-pre-qualified"
+    },
+    {
+      "title": {
+        "tr": "Financial IT, YouLend 370 bin işletmeye ulaştı, Ocak 2026",
+        "en": "Financial IT, YouLend reaches 370,000 businesses funded, January 2026"
+      },
+      "url": "https://financialit.net/news/infrastructure/youlend-reaches-370000-businesses-funded-delivering-profitable-growth-built-last"
+    },
+    {
+      "title": {
+        "tr": "European Business Magazine, YouLend Berlin ofisi, Mart 2026",
+        "en": "European Business Magazine, YouLend Berlin office, March 2026"
+      },
+      "url": "https://europeanbusinessmagazine.com/youlend-scales-embedded-capital-finance-in-europe-announces-new-berlin-office/"
+    },
+    {
+      "title": {
+        "tr": "Liberis, myPOS ile 10 Avrupa ülkesi",
+        "en": "Liberis, ten European countries through myPOS"
+      },
+      "url": "https://www.liberis.com/insights/liberis-to-extend-small-business-financing-to-10-european-countries-through-mypos"
+    },
+    {
+      "title": {
+        "tr": "IBS Intelligence, Banxware A serisi yatırımı, Aralık 2023",
+        "en": "IBS Intelligence, Banxware Series A, December 2023"
+      },
+      "url": "https://ibsintelligence.com/ibsi-news/banxware-raises-e15m-in-series-a-round-led-by-unicredit"
+    },
+    {
+      "title": {
+        "tr": "YouLend blog, önceden onay ve ön değerlendirme, Ağustos 2026",
+        "en": "YouLend blog, pre approval vs pre qualification, August 2026"
+      },
+      "url": "https://youlend.com/blog/pre-approval-vs-pre-qualification-choosing-the-right-embedded-lending-model"
+    },
+    {
+      "title": {
+        "tr": "finmid blog, embedded lending uygulamada",
+        "en": "finmid blog, embedded lending in practice"
+      },
+      "url": "https://finmid.com/blog/embedded-lending-in-practice"
+    },
+    {
+      "title": {
+        "tr": "Kandoo, Bolt sürücüleri için araç finansmanı rehberi",
+        "en": "Kandoo, car finance guide for Bolt drivers"
+      },
+      "url": "https://www.kandoo.co.uk/guides/car-finance-for-bolt-drivers"
+    },
+    {
+      "title": {
+        "tr": "ERR News, Bolt sürücülerine araç kiralayan şirketler, Mart 2025",
+        "en": "ERR News, companies renting cars to Bolt drivers, March 2025"
+      },
+      "url": "https://news.err.ee/1609625150/competition-heats-up-among-companies-renting-cars-to-bolt-taxi-drivers"
+    },
+    {
+      "title": {
+        "tr": "The EV Report, Bolt Avrupa'da elektrikli filo finansmanı, Temmuz 2024",
+        "en": "The EV Report, Bolt co-finances EV fleets in Europe, July 2024"
+      },
+      "url": "https://theevreport.com/bolt-expands-premium-ev-fleets-in-europe"
+    },
+    {
+      "title": {
+        "tr": "finmid dokümanı, işletme ödemeleri",
+        "en": "finmid docs, business payments"
+      },
+      "url": "https://docs.finmid.com/docs/capital-business-payments.md"
+    },
+    {
+      "title": {
+        "tr": "finmid dokümanı, yenileme",
+        "en": "finmid docs, renewals"
+      },
+      "url": "https://docs.finmid.com/docs/capital-renewals.md"
+    },
+    {
+      "title": {
+        "tr": "finmid dokümanı, uçtan uca Capital akışı",
+        "en": "finmid docs, end to end Capital flow"
+      },
+      "url": "https://docs.finmid.com/docs/capital-end-to-end.md"
+    },
+    {
+      "title": {
+        "tr": "Lursoft, SIA Ascend Finance sicil kaydı",
+        "en": "Lursoft, SIA Ascend Finance register entry"
+      },
+      "url": "https://company.lursoft.lv/en/ascend-finance/40203644556"
+    }
+  ],
+  "tr": {
+    "titleTag": "finmid iş modeli | On the Radar Nº 01 | fspark9",
+    "listHook": "Wolt, Glovo ve Bolt'un uygulamalarında kendi adını göstermeden kredi veren Berlin şirketi.",
+    "place": "Berlin",
+    "headline": "Restorana kredi veriyorlar, ama adları hiçbir ekranda yok",
+    "line": "Berlin'den çıkan finmid, Wolt, Glovo ve Bolt'un uygulamalarında kredi veriyor. Ekranda ise yalnızca platformun adı görünüyor.",
+    "lead": "Dışarıdan bakınca bir yemek uygulamasında çıkan küçük bir kredi teklifi. Arkasında ise Avrupa'nın büyük yemek ve ulaşım uygulamalarına kredi altyapısı sağlayan, kendi adını göstermeyen bir şirket var.",
+    "idcard": [
+      [
+        "Şirket",
+        "finmid"
+      ],
+      [
+        "Nerede",
+        "Berlin, 30 Avrupa pazarı [16]"
+      ],
+      [
+        "Kuruluş",
+        "2021 [10]"
+      ],
+      [
+        "Krediyi kullanan",
+        "Platformlardaki işletmeler"
+      ],
+      [
+        "Sunulan teklif",
+        "4 milyar eurodan fazla [16]"
+      ],
+      [
+        "Toplam yatırım",
+        "52 milyon euro [7]"
+      ],
+      [
+        "Radara girdi",
+        "Ekim 2026"
+      ]
+    ],
+    "why": [
+      "Kurucular Max Schertel ve Alexander Talkanitsa N26'da tanıştı [6]. 2021'de pazar yerlerindeki alım satımı finanse eden bir ürünle başladılar [6]. Bugün aynı altyapıyla yemek uygulamalarındaki restoranlara nakit avans veriyorlar. Ekim 2026'dan beri Bolt'ta çalışan filo sahipleri de araçlarını finmid üzerinden taksitle alabiliyor [7].",
+      "Bizi durduran şu oldu. Bir kredi şirketi doğru bir niş seçip çok güçlü bir kredi dağıtım kanalı kuruyor ve bu sayede çok hızlı büyüyor. Kuruluştan bu yana sundukları finansman teklifi 4 milyar euroyu geçti, kredi alan işletmelerin yüzde 85'i tekrar geliyor [16]."
+    ],
+    "guess": {
+      "title": "Sence parayı nereden kazanıyorlar?",
+      "options": {
+        "a": "Wolt gibi platformlardan aylık yazılım ücreti alarak",
+        "b": "Restoranın ödediği kredi ücretinden pay alarak",
+        "c": "İşletmelerin satış verisini bankalara satarak",
+        "d": "Platformların kendi parasını yöneterek"
+      },
+      "feedback": {
+        "a": "Platformlar finmid'e ücret ödemiyor [3]. Tersine her krediden pay alıyorlar [2].",
+        "b": "Ücreti restoran ödüyor. Krediyi alırken tek seferlik sabit bir ücret ödüyor, tutar baştan teklifte yazıyor [14]. finmid bu ücretten pay alıyor [6].",
+        "c": "Veri satılmıyor. Sadece kredi kararında kullanılıyor ve bunun için platformla ayrı bir veri sözleşmesi imzalanıyor [3].",
+        "d": "Bu yeni başladı. Yunanistan'ın en büyük online pazar yeri Skroutz, yaklaşık 9 bin satıcısına kendi parasıyla kredi veriyor. Kredi kararını ve takibini finmid yapıyor [16]."
+      },
+      "answer": [
+        "Ücreti ödeyen restoran. Kredi için tek seferlik sabit bir ücret ödüyor ve bu ücret üçe bölünüyor: parayı koyan, platform ve finmid [6,14].",
+        "Gelirin büyük kısmı yemek platformlarındaki restoranlara verilen nakit avanstan geliyor. Ortakların çoğu da bu alanda: Wolt, Glovo, Bolt Food, efood [10,16]. En çok teklif İspanya ve Polonya'da gösterilmiş [1]. Araç kredisi ve Skroutz Ekim 2026'da başladı, gelire katkıları henüz küçük."
+      ]
+    },
+    "usecase": {
+      "title": "Bir pizzacının ilk kredisi",
+      "intro": [
+        "Sistemi bir örnekle anlatalım. Wolt'ta satış yapan bir pizzacı düşün. Rakamlar bizim örneğimiz, kurallar Wolt'un kendi sayfasından [14]. Adımları sırayla geç ve paranın, verinin kimden kime gittiğine bak."
+      ],
+      "actors": {
+        "isletme": {
+          "label": "Restoran",
+          "sub": "Wolt'ta satış yapan bir pizzacı"
+        },
+        "platform": {
+          "label": "Platform",
+          "sub": "Wolt"
+        },
+        "finmid": {
+          "label": "finmid",
+          "sub": "Kredi motoru"
+        },
+        "sermaye": {
+          "label": "Sermaye",
+          "sub": "Parayı koyan taraf"
+        }
+      },
+      "steps": [
+        {
+          "title": "Satış verisi paylaşılıyor",
+          "flow": "Satış verisi",
+          "body": [
+            "Pizzacı bir yıldır açık, üç aydır Wolt'ta. Wolt'un kredi için aradığı en düşük şart bu [14]. Wolt, pizzacının satış geçmişini kimlik bilgisi olmadan finmid'e gönderiyor. finmid kredi notuna değil bu satış verisine bakıyor [1,14]."
+          ],
+          "ledger": {
+            "isletme": "Ayda 15.000 euro satış",
+            "finmid": "Veriyi okuyor"
+          }
+        },
+        {
+          "title": "Teklif uygulamada çıkıyor",
+          "flow": "Hazır teklif",
+          "body": [
+            "Pizzacı başvuru yapmıyor. Wolt uygulamasında önceden onaylanmış 12.000 euroluk bir teklif görüyor. Ücret baştan yazıyor ve vade boyunca değişmiyor [14]. Wolt'ta tutarlar genelde 5.000 ile 30.000 euro arasında [14]. Fiyatı finmid riske göre belirliyor [1]."
+          ],
+          "ledger": {
+            "isletme": "Teklif: 12.000 euro",
+            "finmid": "Fiyatı belirledi"
+          }
+        },
+        {
+          "title": "Para ertesi gün hesapta",
+          "flow": "12.000 euro",
+          "body": [
+            "Pizzacı üç tıkla kabul ediyor, para bir iki iş günü içinde hesabına geçiyor [1,14]. Parayı veren finmid değil. Wolt'ta krediyi SIA Ascend Finance düzenliyor. Ascend, Letonya Merkez Bankası'ndan kitle fonlama lisansı alan ve tamamı finmid'e ait bir şirket [15,32]. Sözleşmedeki borç veren, Ascend'in bulduğu yatırımcılar [14]."
+          ],
+          "ledger": {
+            "isletme": "12.000 euro geldi",
+            "sermaye": "12.000 euro verdi"
+          }
+        },
+        {
+          "title": "Taksit hakedişten kesiliyor",
+          "flow": "Satışın yüzde 10'u",
+          "body": [
+            "Pizzacı ayrıca ödeme yapmıyor. Wolt, satış parasını pizzacıya göndermeden önce taksiti ayırıyor. Oran yüzde 5 ile 30 arasında seçiliyor, örneğimizde yüzde 10 [14]. Ayda 15.000 euro satışta bu yaklaşık 1.500 euro. Satış düşerse taksit de küçülüyor ve borç biraz daha geç bitiyor. Taksit kalan borcu hiçbir zaman geçmiyor. Wolt topladığı taksitleri finmid'e en az ayda bir aktarıyor [29]."
+          ],
+          "ledger": {
+            "isletme": "Ayda yaklaşık 1.500 euro ödüyor",
+            "platform": "Hakedişten kesiyor"
+          }
+        },
+        {
+          "title": "Ücret üçe bölünüyor",
+          "flow": "Ücretten pay",
+          "body": [
+            "Pizzacının ödediği ücreti tutarın yüzde 12'si, yani 1.440 euro kabul ettik. Bu oran, İngiltere'de iyi profilli işletmelere verilen yüzde 10 ile 20 aralığında [17]. Ücretin bir kısmı parayı koyana, bir kısmı Wolt'a, bir kısmı finmid'e gidiyor [6]. Wolt finmid'e ödeme yapmıyor, bu işten kazanıyor. En büyük payı parayı koyan alıyor ve bunun yarısından fazlası geri ödenmeyen kredileri karşılıyor (bizim tahminimiz)."
+          ],
+          "ledger": {
+            "sermaye": "Getirisini alıyor",
+            "platform": "Pay alıyor",
+            "finmid": "Pay alıyor"
+          }
+        },
+        {
+          "title": "Yenileme teklifi kendiliğinden geliyor",
+          "flow": "Yeni teklif",
+          "body": [
+            "Pizzacı borcunun yüzde 60'ını ödediğinde, satışları düzenli ve ödemeleri zamanındaysa yeni bir teklif kendiliğinden çıkıyor. finmid her ödemede yeniden bakıyor ve yeni teklif çoğu zaman daha yüksek tutarlı ve daha ucuz [30]. Kredi alan işletmelerin yüzde 85'inin tekrar gelmesinin arkasında bu var [16]."
+          ],
+          "ledger": {
+            "isletme": "Yeni teklif, daha ucuz",
+            "finmid": "Her ödemede yeniden bakıyor"
+          }
+        },
+        {
+          "title": "Pizzacı ödeyemezse ne olur?",
+          "body": [
+            "Zarar parayı koyana kalıyor. Bu örnekte yatırımcılara [14]. Skroutz'da parayı platform koyduğu için zarar da onda [16]. Araç kredisinde para finmid'in kendi sermaye kaynaklarından gelebiliyor. Platform isterse riskin bir kısmını üstleniyor: kredi geri ödenmezse zararın ilk kısmını o karşılıyor [3].",
+            "Yani bu kredilerin parası çoğu zaman finmid'in bilançosunda durmuyor. finmid'in riski kararlarının kalitesinde. Kararları kötü çıkarsa yatırımcılar bir sonraki krediye para koymaz."
+          ],
+          "ledger": {
+            "sermaye": "Zararı karşılıyor",
+            "finmid": "Kararı veriyor",
+            "platform": "Bazen ilk zarar"
+          }
+        }
+      ],
+      "calc": {
+        "title": "finmid bir krediden ne kazanıyor?",
+        "intro": [
+          "Tutarı, ücret oranını ve bir restoranın yılda kaç kredi aldığını değiştir. Bölüşüm bizim tahminimiz: en büyük payı parayı koyan alıyor, kalanı finmid ve platform paylaşıyor."
+        ],
+        "inputs": {
+          "tutar": "Kredi tutarı",
+          "ucret": "Ücret oranı",
+          "adet": "Bir restoranın yılda aldığı kredi"
+        },
+        "outputs": {
+          "toplam": "Restoranın ödediği ücret",
+          "sermaye": {
+            "label": "Parayı koyan",
+            "share": "yüzde 60"
+          },
+          "platform": {
+            "label": "Platform",
+            "share": "yüzde 20"
+          },
+          "finmid": {
+            "label": "finmid",
+            "share": "yüzde 20"
+          },
+          "yillik": "finmid'in bir restorandan yıllık kazancı"
+        },
+        "note": "Bu bir tahmin. Ücret aralığı İngiltere nakit avans piyasasından [17], tutar aralığı Wolt'tan [14] geliyor. Bölüşümü biz hesapladık: 100 euroluk kredinin yaklaşık 4 eurosunun geri ödenmediğini ve yatırımcının yılda yüzde 10 getiri beklediğini varsaydık. Bu durumda parayı koyanın payının yarısından fazlası geri ödenmeyen kredilere gidiyor. Yılda 1,5 kredi varsayımı, borcun yüzde 60'ı ödenince yenileme teklifinin çıkmasına ve işletmelerin yüzde 85'inin tekrar gelmesine dayanıyor [16,30]. Risk modeli, uyum ve servis maliyetleri düşülmedi."
+      }
+    },
+    "canvas": {
+      "title": "Dokuz kutu, iki müşteri",
+      "intro": [
+        "Okudukça tuval doluyor. Koyu kutular bu şirketin güçlü olduğu yerler, beyaz kutular sektördeki diğer şirketlerle aynı olan kısımlar. Burada iki kutuyu birleştirdik."
+      ]
+    },
+    "blocks": {
+      "cs": {
+        "label": "Müşteri Segmentleri",
+        "short": "Segment",
+        "tag": "Segment",
+        "mini": "Platform ve işletme",
+        "full": "Sözleşmeyi imzalayan platformlar. Ücreti ödeyen restoranlar, mağazalar, filolar.",
+        "para": "**Müşteri kim?** İki müşteri var. Birincisi sözleşmeyi imzalayan platform: yemek uygulamaları, ödeme terminali şirketleri, pazar yerleri, araç çağırma uygulamaları. Wolt, Glovo, Bolt, myPOS ve Skroutz bunlardan birkaçı [7,10,16]. İkincisi krediyi kullanan işletme. Ücreti ödeyen o. Platform finmid'e ücret ödemiyor [3], her krediden pay alıyor [2]. Sadece myPOS'un İtalya'da 90 binden fazla işletmesi var [11]. Araç kredisinde müşteri, 2 ile 50 araçlık filo sahipleri ve tek araçlı sürücüler [3]."
+      },
+      "vp": {
+        "label": "Değer Önerisi",
+        "short": "Değer",
+        "tag": "Değer",
+        "mini": "Banka olmadan kredi",
+        "full": "Platforma kendi adıyla kredi ve gelir payı. İşletmeye formsuz, ertesi gün gelen para.",
+        "para": "**Ne satıyorlar?** Platforma, banka olmadan kendi müşterisine kredi verebilmeyi satıyorlar [7]. Kredi platformun adıyla, platformun uygulamasında açılıyor. Lisans, kredi kararı ve tahsilat finmid'de kalıyor, platform finanse edilen her eurodan pay alıyor [2]. İşletme için vaat daha basit: form yok, para ertesi gün hesapta [4]. Restoran ilk veriden paranın hesabına geçmesine kadar tek bir belge doldurmuyor. Kimlik bilgisi bile ancak teklifi kabul ettikten sonra, platformun sisteminden gidiyor [31]. Araç kredisinde ise bankadan kredi alamayan sürücüye kendi aracını alma imkanı."
+      },
+      "chcr": {
+        "label": "Kanal + İlişki",
+        "short": "Kanal + İlişki",
+        "tag": "Kanal + İlişki",
+        "mini": "Uygulama içi teklif",
+        "full": "Önceden onaylı teklif platformun uygulamasında. E-postalar ve raporlar platformun adıyla.",
+        "para": "**Müşteriye nasıl ulaşıyorlar?** Platformun uygulaması üzerinden. Teklif, işletmenin her gün siparişlerini kontrol ettiği uygulamada çıkıyor. Almanya'da 37 binden, İspanya'da 88 binden fazla teklif gösterilmiş [1]. Müşteriyle iletişim de aynı yoldan: hatırlatma e-postaları, faturalar ve raporlar platformun adıyla gidiyor [4].",
+        "note": "Kanal ve müşteri ilişkisi aynı uygulamada yürüdüğü için ikisini tek kutuda gösterdik."
+      },
+      "rev": {
+        "label": "Gelir Akışları",
+        "short": "Gelir",
+        "tag": "Gelir",
+        "mini": "Ortak kredi ücreti",
+        "full": "Restoranın ödediği sabit ücret, parayı koyan, platform ve finmid arasında bölünüyor.",
+        "para": "Gelir, işletmenin kredi için ödediği tek seferlik sabit ücretten geliyor [14]. Bu ücret parayı koyan, platform ve finmid arasında bölünüyor [6]. En büyük kalem yemek platformlarındaki nakit avans. Yukarıda tahmin ettiğin kutu bu, nasıl bölündüğünü örnekte gördün."
+      },
+      "kp": {
+        "label": "Kilit Ortaklar",
+        "short": "Ortaklar",
+        "tag": "Ortaklar",
+        "mini": "Wolt, Glovo, Bolt, yatırımcılar",
+        "full": "Dağıtım için Wolt, Glovo, Bolt, myPOS, efood. Sermaye için platformlar, bankaları ve yatırımcılar.",
+        "para": "**Kimlerle çalışıyorlar?** İki tür ortak var. Birincisi müşteriye ulaştıran platformlar: Wolt, Glovo, Bolt, Lieferando, myPOS, efood, allO [1,10,11,13,16]. İkincisi parayı koyanlar. Para üç yerden gelebiliyor: platformun kendisi, platformun bankası ya da finmid'in finansman ortakları [16]. Wolt'ta krediyi finmid'in Letonya'da lisanslı bağlı şirketi SIA Ascend Finance düzenliyor, borç verenler onun bulduğu yatırımcılar [14,15,32]. Yani kitle fonlama lisansı da finmid grubunun içinde. Skroutz ise yaklaşık 9 bin satıcısına kendi parasıyla kredi veriyor, kararı ve takibi finmid'e bırakıyor [16]. Yeni yatırımın bir kısmı farklı kaynaklardan para toplayan bu altyapıya ayrılıyor [8]."
+      },
+      "kr": {
+        "label": "Kilit Kaynaklar",
+        "short": "Kaynak",
+        "tag": "Kaynaklar",
+        "mini": "Motor ve 30 ülkelik altyapı",
+        "full": "Kredi motoru, 30 ülkenin kuralları, farklı sermaye kaynakları ve platformdan tahsilat, tek bir bağlantıda.",
+        "para": "**En değerli kaynakları ne?** Önce kredi karar motoru. finmid yemek ve ulaşım platformlarındaki işletmelerin nasıl kazandığını ve ne zaman paraya ihtiyaç duyduğunu iyi biliyor. Kredi notu yerine canlı satış verisine bakıyor, fiyatı riske göre belirliyor ve işletmeye ihtiyacı olan tutarı doğru zamanda öneriyor [1]. Benzer bir motor rakiplerde de var [24]. finmid'i ayıran, bu motoru üç şeyle birlikte tek bir entegrasyonda sunması: 30 ülkenin kuralları [16], farklı kaynaklardan gelen para [16] ve platformun ödeme sistemi üzerinden tahsilat [14]. Platform bunların hiçbirini kendisi kurmak zorunda kalmıyor."
+      },
+      "ka": {
+        "label": "Kilit Faaliyetler",
+        "short": "Faaliyet",
+        "tag": "Faaliyetler",
+        "mini": "Kredi kararı, tahsilat",
+        "full": "İşletmeyi tanıma, kredi kararı, servis ve tahsilat.",
+        "para": "Günlük iş klasik kredi işi: işletmeyi tanımak, kredi kararı vermek, ödemeleri takip etmek, tahsil etmek [3]. Fark iki noktada. Karar canlı satış verisiyle veriliyor ve bütün süreç platformun uygulamasında yürüyor."
+      },
+      "cost": {
+        "label": "Maliyet Yapısı",
+        "short": "Maliyet",
+        "tag": "Maliyet",
+        "mini": "Model, uyum, servis",
+        "full": "Risk modeli, her ülkede uyum ve servis ekibi. Paranın maliyeti çoğu zaman parayı koyanda.",
+        "para": "Maliyetin büyük kısmı ekip ve teknoloji: risk modeli, her yeni ülkede uyum, kredileri takip eden servis ekibi. Paranın maliyeti ve geri ödenmeyen krediler çoğu zaman parayı koyanın hesabına yazılıyor [14,16]."
+      }
+    },
+    "moves": {
+      "m1": {
+        "title": "Başvuru formu yerine hazır teklif",
+        "q": "İşletme kredi istemiyor, teklif ona geliyor. Tutar ve ücret baştan belli, kabul edince değişmiyor. Kabul üç tıklama ve beş dakikadan kısa sürüyor [1].",
+        "pull": "Hazır teklifi çıkardın.",
+        "why": [
+          "Teklif olmasa restoran başvuru formu doldurur, belge yükler ve sonucu bekler. Bugün tekliflerin yüzde 10'u krediye dönüşüyor [1]. Başvuru formuyla bu oran düşer. Dağıtım ciddi zarar görür, ama kredi kararı ve tahsilat çalışmaya devam eder.",
+          "Kopyalaması kolay, YouLend de önceden onaylı teklif veriyor [24]. finmid'in tercihi yalnızca bağlayıcı teklif vermek. Ekranda görülen tutar, kabul edildikten sonra değişmiyor [19]."
+        ]
+      },
+      "m2": {
+        "title": "Taksit, restoran parayı görmeden kesiliyor",
+        "q": "Restoran satışlarının parasını Wolt'tan alıyor. finmid'in taksiti bu para restorana gönderilmeden önce ayrılıyor [14]. Restoranın ayrıca ödeme yapması ya da hatırlaması gerekmiyor.",
+        "pull": "Hakedişten tahsilatı çıkardın.",
+        "why": [
+          "Restoran her ay ödemeyi kendisi yapmak zorunda kalır. Hatırlatma, gecikme ve takip gerekir. Tahsilat pahalanır, parayı koyan yatırımcı daha yüksek getiri ister ve restoranın ödediği ücret artar. Gelir de teknoloji de birlikte düşer. finmid'in kendi dokümanı da bunu söylüyor: taksit restoranın banka hesabından çekilirse tahsilat riski ve ücret artıyor [29].",
+          "Kopyalamak için her platformla ayrı bir anlaşma ve ödeme sistemine entegrasyon gerekiyor."
+        ]
+      },
+      "m3": {
+        "title": "Aynı motor, restorandan arabaya",
+        "q": "Ekim 2026'dan beri Bolt'ta çalışan filo sahipleri araçlarını finmid üzerinden taksitle alabiliyor. Dört yılda 400 bin euroya kadar kredi var, son taksitle araç filonun oluyor [7,16]. Taksit, filonun Bolt'tan aldığı aylık ödemeden kesiliyor [3].",
+        "pull": "Araç kredisini çıkardın.",
+        "why": [
+          "Bugünkü gelir pek değişmez, çünkü araç kredisi yeni başladı. Değişen büyüme imkanı olur. finmid tek bir alanda kalır ve bir platform başka bir sağlayıcıya geçtiğinde yerini dolduracak bir iş kolu olmaz.",
+          "Bu hamle, aynı motorun ikinci bir alanda da çalıştığını gösteriyor. Kopyalamak için yıllarca birikmiş kredi verisi, sermaye ilişkileri ve ikinci bir platform gerekir."
+        ]
+      }
+    },
+    "weak": {
+      "items": [
+        {
+          "t": "Platform sağlayıcıyı değiştirebilir",
+          "ctx": "Bolt Food Letonya'da finmid ile çalışıyor [9], Polonya'da YouLend ile [18]. Lieferando'nun restoranlarına da YouLend 150 milyon eurodan fazla kredi taşıdı [12].",
+          "q": "Kredi platformun adıyla sunulduğu için platform arkadaki sağlayıcıyı değiştirebilir. finmid'i orada tutan ne olur? Fiyat mı, kararların kalitesi mi, yoksa değiştirmenin zahmeti mi?"
+        },
+        {
+          "t": "Yatırımcı geri çekilirse",
+          "ctx": "Wolt'ta borç veren yatırımcılar [14]. Skroutz'da platformun kendisi [16]. Araç kredisinde finmid'in sermaye hatları [3].",
+          "q": "Restoranlar için kötü geçen bir yılda zarar yatırımcılarda kalırsa, finmid ertesi yıl aynı parayı aynı fiyata bulabilir mi?"
+        },
+        {
+          "t": "Araç kredisinde gerçek katkı nerede?",
+          "ctx": "Bankalar ticari kullanımı, yüksek kilometreyi ve birkaç uygulamaya dağılan düzensiz geliri riskli buluyor [26]. Tallinn'de Bolt sürücüsüne araç kiralamak haftada 160 eurodan başlıyor ve araç hiçbir zaman sürücünün olmuyor [27]. Bolt 2024'te filolara elektrikli araç almak için kendi parasını koyuyordu, Fransa'da 50 milyon euro [28].",
+          "q": "finmid'in katkısı, bankanın bakmadığı veriye bakması: sefer sayısı, kilometre, kazanç. Bir de taksiti Bolt'un ödemesinden alması. Peki sürücü beş yıl dolmadan Bolt'tan ayrılırsa taksit nereden tahsil edilecek?"
+        }
+      ],
+      "follow": "Takip edeceğimiz bir soru daha var. Restoranın ödediği ücretin içinde üç tarafın payı var: parayı koyan, finmid ve platform [2,6]. Forrester'ın incelediği platform, finanse edilen tutarın üstüne kendi payını ekleyerek kazanıyor [5]. Platform payını artırırsa restoranın ödediği ücret de artar, ama restoran teklifte sadece toplam ücreti görüyor [14]. Platform hem restoranın iş ortağı hem de onun kredisinden kazanan taraf. Bu durumda fiyatın restoran için makul kalmasını kim sağlayacak?"
+    },
+    "final": {
+      "title": "finmid'in sinyal haritası",
+      "signals": {
+        "gelir": {
+          "level": "Orta",
+          "note": "Ücret modeli sade. Parayı çoğu zaman başkası koyduğu için finmid'in kredi başına payı küçük ve kârı hacme bağlı. Bizim tahminimizle bir krediden birkaç yüz euro."
+        },
+        "urun": {
+          "level": "Güçlü",
+          "note": "Platforma net bir vaat: banka olmadan müşterine kredi ver. İşletmeye form yok, para ertesi gün."
+        },
+        "dagitim": {
+          "level": "Çok güçlü",
+          "note": "En güçlü taraf. Her yeni platform binlerce işletmeyi aynı anda getiriyor ve teklif işletmenin zaten kullandığı uygulamada çıkıyor."
+        },
+        "insan": {
+          "level": "Sade",
+          "note": "Kurucular N26'dan geliyor ve büyük şirketlerle çalışmayı biliyor. Ekip modelin öne çıkan tarafı olarak görünmüyor."
+        },
+        "teknoloji": {
+          "level": "Çok güçlü",
+          "note": "Benzer bir motor rakiplerde de var. finmid'i ayıran, motoru 30 ülkenin kuralları, farklı sermaye kaynakları ve platform üzerinden tahsilatla tek entegrasyonda sunması."
+        }
+      }
+    },
+    "view": {
+      "first": "Bu işte rekabet sert. Aynı platform, farklı ülkelerde farklı kredi ortaklarıyla çalışabiliyor.",
+      "body": [
+        "O yüzden farklılaşmak, derinleşmek ve bazı işleri rakiplerden çok daha iyi yapmak şart. Bu modelde büyümek sermaye istiyor ve o sermayeyi bulmak her zaman kolay olmuyor. Parayı sürekli ve uygun fiyata bulabilmek, başlı başına bir farklılaşma ve büyüme motoru olabilir.",
+        "Kredi kararının kalitesi de en çok parayı koyan tarafı ilgilendiriyor, çünkü risk onda. Platform parayı kendi kaynağından koysa bile kayıplar kârlılığı doğrudan etkiliyor. Bu yüzden karar motorunu her durumda çok iyi tutmak gerekiyor.",
+        "Skroutz ile kurulan yapı ise yepyeni bir ürün. finmid'in kendi sermayesine ihtiyaç duymadan ölçeklenmesini sağlayabilir. Takip edip sonuçlarını görmek gerekiyor."
+      ]
+    },
+    "close": {
+      "title": "Senin ekranında hangi teklif eksik?",
+      "line": "Ürün, ortak ya da sermaye, birlikte bakalım.",
+      "cta": "Görüşme planla"
+    },
+    "disclaimer": "On the Radar, iyi kurulmuş iş modellerine fspark9'un gözünden yapılmış bir ön analizdir. Yatırım tavsiyesi değildir.",
+    "keystone": {
+      "title": "Hangi hamle olmasa model çalışmaz?",
+      "intro": [
+        "finmid'in modeli üç hamleye dayanıyor. Birini çek: tuvalde hangi kutuların boşaldığını ve radarın nasıl küçüldüğünü gör. Taşı geri koyup başkasını da deneyebilirsin."
+      ],
+      "answer": [
+        "**Bize göre en kritik hamle ikincisi.** Hazır teklif müşteriyi getiriyor, araç kredisi büyümeyi. Ama taksit hakedişten kesilmeseydi tahsilat pahalanır, yatırımcı daha yüksek getiri ister ve kredi bu fiyata ve bu hızla verilemezdi."
+      ]
+    },
+    "compare": {
+      "title": "Rakiplerden farkı ne?",
+      "intro": [
+        "Aynı işi yapan üç şirketle finmid'i karşılaştırdık. Rakamlar her şirketin açıkladığı en güncel rakamlar, aynı yıla ait değiller."
+      ],
+      "rows": [
+        {
+          "label": "Nerede",
+          "cells": [
+            "30 Avrupa pazarı [16]",
+            "İngiltere, ABD, Avrupa'da Almanya ağırlıklı [21]",
+            "İngiltere ve myPOS üzerinden 10 Avrupa ülkesi [22]",
+            "Almanya ve Hollanda [23]"
+          ]
+        },
+        {
+          "label": "Öne çıkan ortaklar",
+          "cells": [
+            "Wolt, Glovo, Bolt, myPOS İtalya, Skroutz",
+            "eBay, Shopify, Qonto, SumUp, Tide [21]",
+            "myPOS [22]",
+            "Lieferando, Qonto, SumUp, Payone [23]"
+          ]
+        },
+        {
+          "label": "Teklif",
+          "cells": [
+            "Yalnızca bağlayıcı, önceden onaylı [19]",
+            "Önceden onaylı ve ön değerlendirmeli, ikisi de [24]",
+            "Satışa bağlı finansman [22]",
+            "Platform içi işletme kredisi [23]"
+          ]
+        },
+        {
+          "label": "Büyüklük",
+          "cells": [
+            "4 milyar eurodan fazla teklif [16]",
+            "370 binden fazla işletme, yaklaşık 230 milyon dolar gelir [20]",
+            "1 milyar dolardan fazla finansman [22]",
+            "30 platform [23]"
+          ]
+        }
+      ],
+      "takeaway": [
+        "İncelediğimizde iki fark öne çıkıyor. Birincisi kapsam. Tek bir entegrasyon 30 pazarı açıyor, rakipler birkaç ülkede yoğunlaşıyor. Wolt gibi 20 pazarda çalışan bir platform için bu önemli bir kolaylık [4]. İkincisi uzmanlık alanı. finmid yemek platformlarında derinleşti ve aynı motorla Bolt filolarına araç kredisi vermeye başladı [7].",
+        "İki konuda ise fark küçük. Önceden onaylı teklifi YouLend de veriyor [24]. Geniş kapsam da platformu finmid'e bağlamıyor. myPOS İtalya'da finmid ile, başka ülkelerde Liberis ve YouLend ile çalışıyor [11,20,22]. Lieferando'nun restoranlarına hem YouLend hem Banxware kredi veriyor [12,23]. Platformlar sağlayıcıyı ülke ülke seçebiliyor."
+      ]
+    }
+  },
+  "en": {
+    "titleTag": "finmid business model | On the Radar Nº 01 | fspark9",
+    "listHook": "The Berlin firm that lends inside Wolt, Glovo and Bolt without showing its own name.",
+    "place": "Berlin",
+    "headline": "They lend to restaurants under someone else's name",
+    "line": "finmid, a Berlin company, lends inside the apps of Wolt, Glovo and Bolt. On the screen, only the platform's name shows.",
+    "lead": "From the outside, a small loan offer inside a food delivery app. Behind it is a company that provides lending infrastructure to some of Europe's biggest food and mobility apps, without showing its own name.",
+    "idcard": [
+      [
+        "Company",
+        "finmid"
+      ],
+      [
+        "Where",
+        "Berlin, 30 European markets [16]"
+      ],
+      [
+        "Founded",
+        "2021 [10]"
+      ],
+      [
+        "Borrowers",
+        "Businesses on platforms"
+      ],
+      [
+        "Offers made",
+        "More than €4 billion [16]"
+      ],
+      [
+        "Total raised",
+        "€52 million [7]"
+      ],
+      [
+        "On our radar",
+        "October 2026"
+      ]
+    ],
+    "why": [
+      "The founders, Max Schertel and Alexander Talkanitsa, met at N26 [6]. In 2021 they started with a product that financed trades between users of marketplaces [6]. Today the same infrastructure gives cash advances to restaurants on food delivery apps. Since October 2026, fleet owners working on Bolt can also buy their cars in instalments through finmid [7].",
+      "What stopped us was this. A lender picks the right niche, builds a very strong channel for handing out loans, and grows very fast because of it. The financing offers it has made since launch passed €4 billion, and 85% of the businesses that borrow come back for more [16]."
+    ],
+    "guess": {
+      "title": "Where do you think the money comes from?",
+      "options": {
+        "a": "A monthly software fee from platforms like Wolt",
+        "b": "A share of the loan fee the restaurant pays",
+        "c": "Selling businesses' sales data to banks",
+        "d": "Managing the platforms' own money"
+      },
+      "feedback": {
+        "a": "Platforms pay finmid no fee [3]. They earn a share of every loan instead [2].",
+        "b": "The restaurant pays. It pays a one time fixed fee for the loan, shown up front in the offer [14]. finmid takes a share of that fee [6].",
+        "c": "The data is not sold. It is used only for the credit decision, and a separate data agreement is signed with the platform for it [3].",
+        "d": "This has only just started. Skroutz, Greece's largest online marketplace, lends its own money to about 9,000 sellers. finmid makes the credit decisions and manages the loans [16]."
+      },
+      "answer": [
+        "The restaurant pays. It pays a one time fixed fee for the loan, and the fee is split three ways: whoever put in the money, the platform and finmid [6,14].",
+        "Most of the revenue comes from cash advances to restaurants on food platforms. Most partners are in this area too: Wolt, Glovo, Bolt Food, efood [10,16]. The most offers were shown in Spain and Poland [1]. Vehicle loans and Skroutz started in October 2026, so their contribution is still small."
+      ]
+    },
+    "usecase": {
+      "title": "A pizzeria's first loan",
+      "intro": [
+        "Let's explain the system with an example. Picture a pizzeria that sells on Wolt. The numbers are our example, the rules come from Wolt's own page [14]. Go through the steps and see who sends money or data to whom."
+      ],
+      "actors": {
+        "isletme": {
+          "label": "Restaurant",
+          "sub": "A pizzeria selling on Wolt"
+        },
+        "platform": {
+          "label": "Platform",
+          "sub": "Wolt"
+        },
+        "finmid": {
+          "label": "finmid",
+          "sub": "The lending engine"
+        },
+        "sermaye": {
+          "label": "Capital",
+          "sub": "Whoever puts in the money"
+        }
+      },
+      "steps": [
+        {
+          "title": "Sales data is shared",
+          "flow": "Sales data",
+          "body": [
+            "The pizzeria has been open for a year and on Wolt for three months. That is Wolt's minimum for a loan [14]. Wolt sends the pizzeria's sales history to finmid without personal details. finmid looks at this sales data instead of a credit score [1,14]."
+          ],
+          "ledger": {
+            "isletme": "€15,000 sales a month",
+            "finmid": "Reading the data"
+          }
+        },
+        {
+          "title": "The offer shows up in the app",
+          "flow": "Ready offer",
+          "body": [
+            "The pizzeria does not apply. It sees a pre approved offer of €12,000 in the Wolt app. The fee is shown up front and stays the same for the whole term [14]. On Wolt, amounts usually range from €5,000 to €30,000 [14]. finmid sets the price by risk [1]."
+          ],
+          "ledger": {
+            "isletme": "Offer: €12,000",
+            "finmid": "Set the price"
+          }
+        },
+        {
+          "title": "The money lands the next day",
+          "flow": "€12,000",
+          "body": [
+            "The pizzeria accepts in three clicks and the money arrives within one or two business days [1,14]. finmid is not the one lending. On Wolt the loan is arranged by SIA Ascend Finance, a company wholly owned by finmid that holds a crowdfunding licence from the Bank of Latvia [15,32]. The lenders in the contract are investors found by Ascend [14]."
+          ],
+          "ledger": {
+            "isletme": "€12,000 received",
+            "sermaye": "Lent €12,000"
+          }
+        },
+        {
+          "title": "Instalments come out of the payout",
+          "flow": "10% of sales",
+          "body": [
+            "The pizzeria makes no separate payment. Wolt takes the instalment out before sending the pizzeria its sales money. The rate is set between 5% and 30%, and in our example it is 10% [14]. On €15,000 of monthly sales that is about €1,500. If sales fall, the instalment shrinks and the debt takes a little longer to clear. The instalment can never exceed what is still owed. Wolt passes the collected instalments on to finmid at least once a month [29]."
+          ],
+          "ledger": {
+            "isletme": "Pays about €1,500 a month",
+            "platform": "Takes it from the payout"
+          }
+        },
+        {
+          "title": "The fee is split three ways",
+          "flow": "Fee share",
+          "body": [
+            "We assumed the pizzeria's fee is 12% of the amount, so €1,440. That is within the 10% to 20% range offered to strong businesses in the UK [17]. Part of the fee goes to whoever put in the money, part to Wolt and part to finmid [6]. Wolt pays finmid nothing and earns from the arrangement. Whoever puts in the money takes the biggest share, and more than half of it covers loans that are not repaid (our estimate)."
+          ],
+          "ledger": {
+            "sermaye": "Takes its return",
+            "platform": "Takes a share",
+            "finmid": "Takes a share"
+          }
+        },
+        {
+          "title": "The renewal offer comes on its own",
+          "flow": "New offer",
+          "body": [
+            "When the pizzeria has repaid 60% of its debt, with steady sales and payments on time, a new offer appears on its own. finmid looks again with every payment, and the new offer is often larger and cheaper [30]. This is what sits behind 85% of borrowing businesses coming back [16]."
+          ],
+          "ledger": {
+            "isletme": "New offer, cheaper",
+            "finmid": "Rechecks with every payment"
+          }
+        },
+        {
+          "title": "What if the pizzeria cannot pay?",
+          "body": [
+            "The loss falls on whoever put in the money. In this example, the investors [14]. On Skroutz the platform puts in the money, so the loss is its own [16]. For vehicle loans the money can come from finmid's own capital sources. The platform can take part of the risk if it wants: if a loan is not repaid, it covers the first part of the loss [3].",
+            "So the money for these loans usually does not sit on finmid's balance sheet. finmid's risk lies in the quality of its decisions. If its decisions turn out badly, investors will not fund the next loans."
+          ],
+          "ledger": {
+            "sermaye": "Covers the loss",
+            "finmid": "Makes the decision",
+            "platform": "Sometimes first loss"
+          }
+        }
+      ],
+      "calc": {
+        "title": "What does finmid earn from one loan?",
+        "intro": [
+          "Change the amount, the fee rate and how many loans a restaurant takes a year. The split is our estimate: whoever puts in the money takes the biggest share, and finmid and the platform share the rest."
+        ],
+        "inputs": {
+          "tutar": "Loan amount",
+          "ucret": "Fee rate",
+          "adet": "Loans a restaurant takes a year"
+        },
+        "outputs": {
+          "toplam": "Fee the restaurant pays",
+          "sermaye": {
+            "label": "Capital",
+            "share": "60%"
+          },
+          "platform": {
+            "label": "Platform",
+            "share": "20%"
+          },
+          "finmid": {
+            "label": "finmid",
+            "share": "20%"
+          },
+          "yillik": "finmid's yearly earnings from one restaurant"
+        },
+        "note": "This is an estimate. The fee range comes from the UK cash advance market [17] and the amount range from Wolt [14]. We worked out the split ourselves: we assumed about €4 of every €100 lent is not repaid and investors expect 10% a year. On that basis, more than half of the capital share goes to covering unpaid loans. The 1.5 loans a year assumption rests on renewal offers appearing once 60% is repaid and 85% of businesses coming back [16,30]. The costs of the risk model, compliance and servicing are not taken off."
+      }
+    },
+    "canvas": {
+      "title": "Nine boxes, two clients",
+      "intro": [
+        "The canvas fills as you read. Dark boxes are where this company is strong, white boxes are the parts that look like other companies in the sector. Here we merged two boxes."
+      ]
+    },
+    "blocks": {
+      "cs": {
+        "label": "Customer Segments",
+        "short": "Segment",
+        "tag": "Segment",
+        "mini": "Platforms, businesses",
+        "full": "Platforms that sign the contract. Restaurants, shops and fleets that pay the fee.",
+        "para": "**Who is the client?** There are two. The first is the platform that signs the contract: food delivery apps, payment terminal firms, marketplaces, ride hailing apps. Wolt, Glovo, Bolt, myPOS and Skroutz are a few of them [7,10,16]. The second is the business that takes the loan. That is who pays the fee. The platform pays finmid no fee [3] and earns a share of every loan [2]. myPOS alone has more than 90,000 businesses in Italy [11]. For vehicle loans, the clients are fleet owners with 2 to 50 cars and drivers with a single car [3]."
+      },
+      "vp": {
+        "label": "Value Proposition",
+        "short": "Value",
+        "tag": "Value",
+        "mini": "A lender without being a bank",
+        "full": "For the platform, lending under its own name and a share of revenue. For the business, money the next day with no forms.",
+        "para": "**What do they sell?** To the platform, they sell the ability to lend to its own clients without becoming a bank [7]. The loan opens in the platform's app, under the platform's name. Licensing, credit decisions and collections stay with finmid, and the platform earns a share of every euro funded [2]. For the business the promise is simpler: no forms, money the next day [4]. From the first data point to the money landing, the restaurant fills in not a single document. Even its identity details only go out after it accepts the offer, from the platform's own system [31]. For vehicle loans, it is a car of their own for drivers who cannot get a bank loan."
+      },
+      "chcr": {
+        "label": "Channels + Relationships",
+        "short": "Channel + Rel.",
+        "tag": "Channel + Rel.",
+        "mini": "In app offers",
+        "full": "Pre approved offers inside the platform's app. Emails and reports go out under the platform's name.",
+        "para": "**How do they reach clients?** Through the platform's app. The offer shows up in the app the business already uses every day to check its orders. More than 37,000 offers have been shown in Germany and more than 88,000 in Spain [1]. Communication runs the same way: reminder emails, invoices and reports go out under the platform's name [4].",
+        "note": "Channel and client relationship both run in the same app, so we show them in one box."
+      },
+      "rev": {
+        "label": "Revenue Streams",
+        "short": "Revenue",
+        "tag": "Revenue",
+        "mini": "Shared loan fee",
+        "full": "The restaurant's fixed fee, split between capital, the platform and finmid.",
+        "para": "Revenue comes from the one time fixed fee the business pays for the loan [14]. The fee is split between whoever put in the money, the platform and finmid [6]. The biggest item is cash advances on food platforms. This is the box you guessed above, and the example showed how it is split."
+      },
+      "kp": {
+        "label": "Key Partners",
+        "short": "Partners",
+        "tag": "Partners",
+        "mini": "Wolt, Glovo, Bolt, investors",
+        "full": "For reach, Wolt, Glovo, Bolt, myPOS, efood. For capital, platforms, their banks and investors.",
+        "para": "**Who do they work with?** Two kinds of partner. The first are the platforms that bring the clients: Wolt, Glovo, Bolt, Lieferando, myPOS, efood, allO [1,10,11,13,16]. The second put in the money. It can come from three places: the platform itself, the platform's bank or finmid's financing partners [16]. On Wolt the loan is arranged by SIA Ascend Finance, finmid's licensed subsidiary in Latvia, and the lenders are investors it finds [14,15,32]. So the crowdfunding licence also sits inside the finmid group. Skroutz lends its own money to about 9,000 sellers and leaves the decisions and loan management to finmid [16]. Part of the new round goes into this infrastructure for raising money from different sources [8]."
+      },
+      "kr": {
+        "label": "Key Resources",
+        "short": "Resources",
+        "tag": "Resources",
+        "mini": "Engine and 30 market rails",
+        "full": "The lending engine, the rules of 30 countries, different capital sources and collection through the platform, in one integration.",
+        "para": "**What are their most valuable resources?** First, the credit decision engine. finmid knows how businesses on food and mobility platforms earn and when they need money. It looks at live sales instead of a credit score, sets the price by risk and offers the business the amount it needs at the right time [1]. Rivals have a similar engine [24]. What sets finmid apart is offering this engine together with three things in a single integration: the rules of 30 countries [16], money from different sources [16] and collection through the platform's payment system [14]. The platform does not have to build any of these itself."
+      },
+      "ka": {
+        "label": "Key Activities",
+        "short": "Activities",
+        "tag": "Activities",
+        "mini": "Credit decisions, collections",
+        "full": "Knowing the business, credit decisions, servicing and collections.",
+        "para": "The daily work is classic lending: knowing the business, making the credit decision, tracking repayments, collecting [3]. The difference is in two places. Decisions are made on live sales data, and the whole process runs inside the platform's app."
+      },
+      "cost": {
+        "label": "Cost Structure",
+        "short": "Cost",
+        "tag": "Cost",
+        "mini": "Model, compliance, servicing",
+        "full": "The risk model, compliance in every country and a servicing team. The cost of money often sits with whoever lends it.",
+        "para": "Most of the cost is the team and technology: the risk model, compliance in every new country, a servicing team that tracks the loans. The cost of money and unpaid loans usually falls on whoever put in the money [14,16]."
+      }
+    },
+    "moves": {
+      "m1": {
+        "title": "A ready offer instead of an application form",
+        "q": "The business does not ask for a loan, the offer comes to it. Amount and fee are set up front and do not change on accepting. Accepting takes three clicks and under five minutes [1].",
+        "pull": "You took out the ready offer.",
+        "why": [
+          "Without the offer, the restaurant fills in an application, uploads documents and waits. Today 10% of offers turn into a loan [1]. With an application form, that rate drops. Distribution suffers badly, but credit decisions and collection keep working.",
+          "It is easy to copy, YouLend gives pre approved offers too [24]. finmid chooses to give only binding offers. The amount shown on the screen does not change after it is accepted [19]."
+        ]
+      },
+      "m2": {
+        "title": "The instalment is taken before the restaurant sees the money",
+        "q": "The restaurant gets its sales money from Wolt. finmid's instalment is taken out before that money is sent to the restaurant [14]. The restaurant does not have to pay separately or remember anything.",
+        "pull": "You took out collection from the payout.",
+        "why": [
+          "The restaurant has to make the payment itself every month. Reminders, delays and chasing follow. Collection gets expensive, the investor asks for a higher return and the restaurant's fee goes up. Revenue and technology drop together. finmid's own docs say the same: if the instalment is drawn from the restaurant's bank account, collection risk and the fee both go up [29].",
+          "Copying it takes a separate deal and payment integration with every platform."
+        ]
+      },
+      "m3": {
+        "title": "The same engine, from restaurants to cars",
+        "q": "Since October 2026, fleet owners working on Bolt can buy their cars in instalments through finmid. Loans go up to €400,000 over four years, and the car belongs to the fleet after the last instalment [7,16]. The instalment comes out of the monthly payment the fleet gets from Bolt [3].",
+        "pull": "You took out vehicle loans.",
+        "why": [
+          "Today's revenue barely changes, since vehicle loans have only just started. What changes is room to grow. finmid stays in a single area, with no other business line to fall back on when a platform moves to another provider.",
+          "This move shows the same engine works in a second area too. Copying it takes years of lending data, capital relationships and a second platform."
+        ]
+      }
+    },
+    "weak": {
+      "items": [
+        {
+          "t": "The platform can switch providers",
+          "ctx": "Bolt Food works with finmid in Latvia [9] and with YouLend in Poland [18]. YouLend has also lent more than €150 million to Lieferando's restaurants [12].",
+          "q": "Since the loan carries the platform's name, the platform can switch the provider behind it. What keeps finmid there? Price, the quality of decisions, or the effort of switching?"
+        },
+        {
+          "t": "If investors pull back",
+          "ctx": "On Wolt the lenders are investors [14]. On Skroutz it is the platform itself [16]. For vehicle loans it is finmid's capital facilities [3].",
+          "q": "If a bad year for restaurants leaves the loss with investors, can finmid find the same money at the same price the year after?"
+        },
+        {
+          "t": "Where is the real value in vehicle loans?",
+          "ctx": "Banks see commercial use, high mileage and uneven income spread over several apps as risky [26]. In Tallinn, renting a car to drive for Bolt starts at €160 a week, and the car never becomes the driver's [27]. In 2024 Bolt was putting its own money into electric cars for fleets, €50 million in France [28].",
+          "q": "finmid's value is looking at data the bank does not: trips, mileage, earnings. And taking the instalment from Bolt's payout. So if a driver leaves Bolt before five years are up, how is the instalment collected?"
+        }
+      ],
+      "follow": "There is one more question we will follow. The restaurant's fee holds three shares: whoever put in the money, finmid and the platform [2,6]. The platform in the Forrester study earns by adding its own markup on top of the amount funded [5]. If the platform raises its share, the restaurant's fee goes up too, yet the restaurant only sees the total fee in its offer [14]. The platform is both the restaurant's business partner and a party that earns from its loan. Who makes sure the price stays fair for the restaurant?"
+    },
+    "final": {
+      "title": "finmid's signal map",
+      "signals": {
+        "gelir": {
+          "level": "Medium",
+          "note": "The fee model is simple. Since someone else usually puts in the money, finmid's share per loan is small and profit depends on volume. On our estimate, a few hundred euros per loan."
+        },
+        "urun": {
+          "level": "Strong",
+          "note": "A clear promise to the platform: lend to your clients without becoming a bank. For the business, no forms and money the next day."
+        },
+        "dagitim": {
+          "level": "Very strong",
+          "note": "The strongest side. Every new platform brings thousands of businesses at once, and the offer shows up in an app the business already uses."
+        },
+        "insan": {
+          "level": "Plain",
+          "note": "The founders come from N26 and know how to work with large companies. The team does not stand out as a strength of the model."
+        },
+        "teknoloji": {
+          "level": "Very strong",
+          "note": "Rivals have a similar engine. What sets finmid apart is offering it with the rules of 30 countries, different capital sources and collection through the platform, in a single integration."
+        }
+      }
+    },
+    "view": {
+      "first": "Competition in this business is tough. The same platform can work with different lending partners in different countries.",
+      "body": [
+        "That makes it essential to stand out, go deeper and do some things much better than rivals. Growing in this model takes capital, and finding that capital is not always easy. Being able to raise money steadily and at a good price could become a growth engine and a real difference in its own right.",
+        "The quality of credit decisions matters most to whoever puts in the money, because the risk sits with them. Even when a platform lends from its own funds, losses hit its profit directly. So the decision engine has to stay very good in every case.",
+        "The setup built with Skroutz is a brand new product. It could let finmid scale without needing its own capital. It is worth following to see the results."
+      ]
+    },
+    "close": {
+      "title": "Which offer is missing from your screen?",
+      "line": "Product, partners or capital. Let's look at it together.",
+      "cta": "Book a call"
+    },
+    "disclaimer": "On the Radar is a first look at well built business models through fspark9's eyes. It is not investment advice.",
+    "keystone": {
+      "title": "Which move does the model need most?",
+      "intro": [
+        "finmid's model rests on three moves. Pull one out: see which boxes empty on the canvas and how the radar shrinks. You can put it back and try another."
+      ],
+      "answer": [
+        "**For us, the most critical move is the second one.** The ready offer brings the clients and vehicle loans bring growth. But without taking the instalment from the payout, collection would get expensive, investors would ask for a higher return, and the loan could not be offered at this price and speed."
+      ]
+    },
+    "compare": {
+      "title": "How is it different from rivals?",
+      "intro": [
+        "We compared finmid with three companies doing the same job. Each figure is the latest the company has shared, so they are not from the same year."
+      ],
+      "rows": [
+        {
+          "label": "Where",
+          "cells": [
+            "30 European markets [16]",
+            "UK, US, and in Europe mostly Germany [21]",
+            "UK and 10 European countries through myPOS [22]",
+            "Germany and the Netherlands [23]"
+          ]
+        },
+        {
+          "label": "Notable partners",
+          "cells": [
+            "Wolt, Glovo, Bolt, myPOS Italy, Skroutz",
+            "eBay, Shopify, Qonto, SumUp, Tide [21]",
+            "myPOS [22]",
+            "Lieferando, Qonto, SumUp, Payone [23]"
+          ]
+        },
+        {
+          "label": "Offer",
+          "cells": [
+            "Binding pre approved only [19]",
+            "Both pre approved and pre qualified [24]",
+            "Revenue based finance [22]",
+            "In platform business loans [23]"
+          ]
+        },
+        {
+          "label": "Size",
+          "cells": [
+            "More than €4 billion in offers [16]",
+            "More than 370,000 businesses, about $230 million revenue [20]",
+            "More than $1 billion funded [22]",
+            "30 platforms [23]"
+          ]
+        }
+      ],
+      "takeaway": [
+        "Our review shows two differences. The first is reach. A single integration opens 30 markets, while rivals focus on a few countries. For a platform working in 20 markets like Wolt, that is a real convenience [4]. The second is specialisation. finmid went deep in food platforms and, with the same engine, started lending to Bolt fleets for their cars [7].",
+        "On two points the difference is small. YouLend gives pre approved offers too [24]. Wide reach does not tie a platform to finmid either. myPOS works with finmid in Italy and with Liberis and YouLend in other countries [11,20,22]. Both YouLend and Banxware lend to Lieferando's restaurants [12,23]. Platforms can choose their provider country by country."
+      ]
+    }
+  },
+  "compare": {
+    "cols": [
+      "finmid",
+      "YouLend",
+      "Liberis",
+      "Banxware"
+    ],
+    "highlight": 0
+  }
+}

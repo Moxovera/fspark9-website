@@ -38,6 +38,15 @@
  * kalır. Her çalıştırmada bu durum yazılır:
  *   --only=bauspar     sadece Bauspar belgesi yazılır; diğerlerine dokunulmaz.
  *   --publish-bauspar  status published, previewLive kalkar, eski "sırada" belgesi silinir.
+ *
+ * On the Radar (format 03) ve Nº 01 finmid ayrı iki adımda yazılır; ikisi de
+ * sadece kendi belgesine dokunur (başka belgeye, başka bölümün bayrağına değil):
+ *   --only=on-the-radar     sadece sparkFormat-on-the-radar.
+ *   --only=radar-finmid     sadece sparkEpisode-on-the-radar-01 (yoksa draft +
+ *                           previewLive ile oluşturulur). Gövde
+ *                           src/content/radar/finmid.json'un kendisidir.
+ *   --publish-radar-finmid  status published, previewLive kalkar
+ *                           (--only=radar-finmid ile birlikte).
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -53,6 +62,7 @@ import { nuri } from "../content/spark-nuri";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { bauspar } from "../content/spark-bauspar";
+import { radarBodies, radarDocFields } from "../content/spark-radar";
 import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
@@ -82,6 +92,11 @@ const onlyYolt = process.argv.includes("--only=yolt");
 const publishYolt = process.argv.includes("--publish-yolt");
 const onlyBauspar = process.argv.includes("--only=bauspar");
 const publishBauspar = process.argv.includes("--publish-bauspar");
+const onlyOnTheRadar = process.argv.includes("--only=on-the-radar");
+const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
+const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
+if (publishRadarFinmid && !onlyRadarFinmid) throw new Error("--publish-radar-finmid needs --only=radar-finmid.");
+const radarOnly = onlyOnTheRadar || onlyRadarFinmid;
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -409,8 +424,8 @@ function sparkSectionPatch() {
   };
 }
 
-const FORMAT_IDS = ["sparkFormat-the-last-day", "sparkFormat-sector-reports"];
-const SINGULAR = [ls("The Last Day", "Son Gün"), ls("Sector report", "Sektör raporu")];
+const FORMAT_IDS = ["sparkFormat-the-last-day", "sparkFormat-sector-reports", "sparkFormat-on-the-radar"];
+const SINGULAR = [ls("The Last Day", "Son Gün"), ls("Sector report", "Sektör raporu"), ls("On the Radar", "On the Radar")];
 
 function formatSets() {
   return spark[EN].formats.map((e, i) => {
@@ -844,6 +859,52 @@ function bausparPatch() {
     unset: publishBauspar ? ["previewLive"] : [],
   };
 }
+/**
+ * On the Radar Nº 01 finmid. Gövde src/content/radar/finmid.json'un kendisi
+ * (tek kaynak); sayı, şirket adı, kanca, SEO ve ülke de ondan. Durum sadece
+ * --publish-radar-finmid ile yazılır: sonraki bir --only=spark yayındaki
+ * bölümü geri çekmez. Belge yoksa draft + previewLive ile oluşturulur.
+ */
+const RADAR_FINMID_ID = "sparkEpisode-on-the-radar-01";
+
+function radarFinmidStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: RADAR_FINMID_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[2] },
+    number: 1,
+    layout: "radar",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function radarFinmidPatch() {
+  const body = radarBodies.finmid;
+  const e = radarDocFields(body, "en");
+  const t = radarDocFields(body, "tr");
+  const card = [sparkCard(home.en, "Nº 01", "On the Radar"), sparkCard(home.tr, "Nº 01", "On the Radar")];
+  return {
+    id: RADAR_FINMID_ID,
+    set: {
+      layout: "radar",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      radarBody: JSON.stringify(body),
+      ...(publishRadarFinmid ? { status: "published" } : {}),
+      slug: { _type: "localeSlug", en: { _type: "slug", current: body.slug }, tr: { _type: "slug", current: body.slug } },
+      city: body.city,
+      country: body.country,
+      publishedAt: body.publishDate,
+      lastCheckedAt: body.publishDate,
+      cardLine: lt(card[0].line, card[1].line),
+    },
+    unset: publishRadarFinmid ? ["previewLive"] : [],
+  };
+}
+
 // Sektör raporları formatı Bauspar ile canlı oluyor (preparing yerine live, açma linki); --only=bauspar bunu da yazar.
 
 // Legal: src/content/legal/*.ts → legalBlock* (yalnızca Privacy ve Cookies,
@@ -930,15 +991,21 @@ async function uploadLogo() {
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyBauspar || radarOnly;
   const creates = only
     ? []
     : onlySpark
       ? comingEpisodeDocs()
       : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
   const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
-    ? [...(onlyFidor ? [fidorPatch()] : []), ...(onlyYolt ? [yoltPatch()] : []), ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : [])]
+    ? [
+        ...(onlyFidor ? [fidorPatch()] : []),
+        ...(onlyYolt ? [yoltPatch()] : []),
+        ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
+        ...(onlyOnTheRadar ? [formatSets()[2]] : []),
+        ...(onlyRadarFinmid ? [radarFinmidPatch()] : []),
+      ]
     : onlySpark
     ? sparkPatches
     : [
@@ -948,22 +1015,29 @@ async function main() {
         ...legalPatches(),
       ];
 
-  // Sector reports formatı yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
+  // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
+  // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   if (dry) {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
     console.log("patch:", patches.map((p) => p.id).join(", "));
-    console.log("missing formats:", FORMAT_IDS.filter((id) => !existingFormats.includes(id)).join(", ") || "none");
+    console.log("missing formats:", formatIdsToCreate.join(", ") || "none");
     if (!onlySpark && !only) console.log(await uploadLogo());
     return;
   }
 
   const tx = client.transaction();
-  tx.createIfNotExists(fidorStub());
-  tx.createIfNotExists(yoltStub());
-  tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
-  for (const id of FORMAT_IDS.filter((id) => !existingFormats.includes(id))) {
+  if (radarOnly) {
+    if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());
+  } else {
+    tx.createIfNotExists(fidorStub());
+    tx.createIfNotExists(yoltStub());
+    tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
+    tx.createIfNotExists(radarFinmidStub());
+  }
+  for (const id of formatIdsToCreate) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });
   }
   for (const doc of creates) tx.createOrReplace(doc as SanityDocumentStub & { _id: string });

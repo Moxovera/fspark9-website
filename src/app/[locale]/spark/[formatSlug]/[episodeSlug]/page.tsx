@@ -11,7 +11,12 @@ import SparkAltSlugRegistrar from "@/components/spark/SparkAltSlugRegistrar";
 import EpisodeStory from "@/components/spark/episode/EpisodeStory";
 import DecisionEpisode from "@/components/spark/decisions/DecisionEpisode";
 import StoryCard from "@/components/spark/episode/StoryCard";
+import RadarClose from "@/components/spark/radar/RadarClose";
+import RadarEpisode from "@/components/spark/radar/RadarEpisode";
+import RadarOpening from "@/components/spark/radar/RadarOpening";
+import RadarSources from "@/components/spark/radar/RadarSources";
 import ReportEpisode from "@/components/spark/report/ReportEpisode";
+import { radarEpisodeLabels } from "@/content/spark-radar";
 import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { slugFromOtherLocale } from "@/lib/spark";
@@ -33,6 +38,9 @@ import type { Locale, SparkEpisodeEntry } from "@/types/content";
 // report (Sektör raporları Nº 01, prototip Spark/sector reports/
 // fspark9-sektor-raporu-bauspar.html): geri link, Ink açılış, yapışkan
 // bölüm şeridi, simülatör, grafik, tablo (ReportEpisode). Kendi kapanışı var.
+// radar (On the Radar Nº 01, prototip Spark/Radar/finmid/radar-finmid.html):
+// Ink açılış, okurken dolan pano ile gövde (RadarEpisode), Ink kapanış,
+// en altta kaynaklar.
 
 type Params = Promise<{ locale: Locale; formatSlug: string; episodeSlug: string }>;
 
@@ -121,6 +129,30 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
         <ReportEpisode report={entry.story} locale={locale} footnoteTemplate={hub.episode.footnoteTemplate} />
+      </main>
+    );
+  }
+
+  if (entry.layout === "radar") {
+    const labels = radarEpisodeLabels[locale];
+    const template = hub.episode.footnoteTemplate;
+    const { story } = entry;
+    return (
+      <main className="pt-16 min-[900px]:pt-[84px]">
+        <JsonLd data={jsonLd} />
+        <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
+        <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+        <RadarOpening
+          episode={story}
+          formatName={format.name}
+          formatNumber={format.number}
+          numberLabel={`Nº ${String(story.number).padStart(2, "0")}`}
+          backLabel={hub.sparkLabel}
+          template={template}
+        />
+        <RadarEpisode episode={story} labels={labels} locale={locale} footnoteTemplate={template} />
+        <RadarClose text={story.text} nextLabel={labels.next} template={template} />
+        <RadarSources sources={story.data.sources} label={labels.sources} disclaimer={story.text.disclaimer} template={template} />
       </main>
     );
   }
