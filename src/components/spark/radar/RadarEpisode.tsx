@@ -55,6 +55,24 @@ export default function RadarEpisode({ episode, labels, locale, footnoteTemplate
     return () => observer.disconnect();
   }, [fillBlock]);
 
+  // Tam resim görününce pano da tamamlanır: bütün kutular dolu, bütün hamleler cevaplanmış; panodaki radar tam resmin radarıyla aynı olur.
+  const fullSection = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const node = fullSection.current;
+    if (!node || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        setFilled(new Set(data.blocks.map((b) => b.id)));
+        setAnswered(new Set(data.moves.map((m) => m.id)));
+        observer.disconnect();
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [data]);
+
   // Hamlenin tuvaldeki yeri panoda 1,6 sn çerçevelenir.
   useEffect(() => {
     if (!highlight) return;
@@ -153,7 +171,7 @@ export default function RadarEpisode({ episode, labels, locale, footnoteTemplate
 
         <RadarWeak text={text.weak} labels={labels} template={footnoteTemplate} />
 
-        <section id="full" className={group}>
+        <section id="full" ref={fullSection} className={group}>
           <span className={sectionLabel}>{labels.full}</span>
           <h2 className={h2}>
             <RadarRich text={text.final.title} template={footnoteTemplate} />

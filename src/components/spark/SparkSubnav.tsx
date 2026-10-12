@@ -22,12 +22,14 @@ export default function SparkSubnav({ sparkLabel, formats, currentSlug }: SparkS
             key={format.slug}
             href={{ pathname: "/spark/[formatSlug]", params: { formatSlug: format.slug } }}
             aria-current={current ? "page" : undefined}
+            aria-label={`${format.number} ${format.name}`}
             className={`inline-flex min-h-11 flex-none items-center gap-2 border-b-2 text-[14px] leading-[normal] no-underline min-[900px]:text-[15px] ${
               current ? "border-paper font-bold text-paper" : "border-transparent font-medium text-dust"
             }`}
           >
             <span className="font-mono text-[11px] tracking-[0.08em]">{format.number}</span>
-            {format.name}
+            {/* Dar ekranda sadece geçerli formatın adı yazılır; üç format şeride sığsın, hiçbiri kaymayla gizli kalmasın. */}
+            <span className={current ? "" : "max-[599px]:hidden"}>{format.name}</span>
           </Link>
         );
       })}
