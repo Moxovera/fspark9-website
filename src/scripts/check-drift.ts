@@ -9,6 +9,7 @@
  * aboutPage, sparkSection, sparkFormat ×3, legalPage ×4 (metin ve SEO),
  * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor), karar blokları (Nuri),
  * sektör raporu (Bauspar) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
+ * Ayrıca canlıdaki bölümlerin (LIVE_EPISODE_IDS) Sanity'de hâlâ `published` olduğu.
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
  * portre).
@@ -46,6 +47,15 @@ import type { LEGAL_PAGE_QUERYResult, LEGAL_PAGE_SEO_QUERYResult } from "../sani
 import type { Locale } from "../types/content";
 
 const LOCALES: Locale[] = ["en", "tr"];
+/** Canlıda yayında olan bölümler. Yeni bölüm --publish-* ile canlıya alınınca buraya eklenir. */
+const LIVE_EPISODE_IDS = [
+  "sparkEpisode-01-bo",
+  "sparkEpisode-the-last-day-02",
+  "sparkEpisode-the-last-day-03",
+  "sparkEpisode-the-last-day-04",
+  "sparkEpisode-sector-reports-bauspar",
+  "sparkEpisode-on-the-radar-01",
+];
 const diffs: string[] = [];
 
 /** undefined alanları atan, karşılaştırılabilir kopya. */
@@ -141,6 +151,19 @@ async function main() {
     // On the Radar Nº 01 finmid: gövde src/content/radar/finmid.json'un kendisi.
     const finmidS = episodesS[l].find((e) => e.layout === "radar");
     compare(`episode.radar-finmid.${l}`, finmidS?.story, radarEpisodes[l].finmid);
+  }
+
+  // Yayın durumu: yerelde önizleme bayrağı açık olduğu için taslak bölüm de
+  // okunur ve metin karşılaştırması temiz çıkar. Canlıdaki bölümlerin durumu
+  // ayrıca kontrol edilir (14 Ekim 2026: bir tam seed Bauspar'ı draft'a çekti).
+  const statuses = await sanityFetch<{ _id: string; status: string | null; previewLive: boolean | null }[]>({
+    query: `*[_type == "sparkEpisode" && _id in $ids]{ _id, status, previewLive }`,
+    params: { ids: LIVE_EPISODE_IDS },
+  });
+  for (const id of LIVE_EPISODE_IDS) {
+    const doc = statuses.find((d) => d._id === id);
+    if (doc?.status !== "published") diffs.push(`status.${id}: ${doc ? doc.status : "missing"} (Sanity) vs published (live)`);
+    else if (doc.previewLive) diffs.push(`status.${id}: previewLive still set on a published episode`);
   }
 
   if (diffs.length) {

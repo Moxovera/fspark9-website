@@ -32,10 +32,10 @@
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-yolt   status published, previewLive kalkar.
  *
- * Sektör raporları Nº 01 (Bauspar) Fidor gibi önizlemeyle çıkar: ayrı
- * belge, status draft + previewLive: staging yayındaki gibi gösterir,
- * canlıda hiç görünmez; v2'den kalan "sırada" belgesi canlıda yerinde
- * kalır. Her çalıştırmada bu durum yazılır:
+ * Sektör raporları Nº 01 (Bauspar) Fidor ile aynı: belge yoksa draft +
+ * previewLive ile oluşturulur, durum sadece --publish-bauspar ile yazılır.
+ * (14 Ekim 2026: patch her çalıştırmada "draft" yazıyordu; 13 Ekim'deki tam
+ * seed canlıdaki raporu geri çekti.)
  *   --only=bauspar     sadece Bauspar belgesi yazılır; diğerlerine dokunulmaz.
  *   --publish-bauspar  status published, previewLive kalkar, eski "sırada" belgesi silinir.
  *
@@ -47,6 +47,11 @@
  *                           src/content/radar/finmid.json'un kendisidir.
  *   --publish-radar-finmid  status published, previewLive kalkar
  *                           (--only=radar-finmid ile birlikte).
+ *
+ * Koruma: canlıda `published` olan bir bölümü geri çekecek (durumunu
+ * değiştirecek, previewLive koyacak ya da createOrReplace ile ezecek) her
+ * çalıştırma, hiçbir şey yazmadan hata verir. Bilerek geri çekmek için
+ * --allow-unpublish.
  */
 import { createReadStream } from "node:fs";
 import { createClient, type SanityDocumentStub } from "next-sanity";
@@ -821,7 +826,8 @@ function yoltPatch() {
 }
 
 /**
- * Sektör raporları Nº 01 Bauspar: ayrı belge, önizlemede draft + previewLive.
+ * Sektör raporları Nº 01 Bauspar: ayrı belge, oluşturulurken draft + previewLive.
+ * Durum sadece --publish-bauspar ile yazılır: sonraki bir seed yayındaki raporu geri çekmez.
  * v2'den kalan `coming` belgesine dokunulmuyor: canlıdaki "In preparation"
  * satırı yayına kadar aynen kalıyor (staging'de aynı numaralı yayındaki
  * sayı onu listede gizler). --publish-bauspar onu siler.
@@ -849,12 +855,11 @@ function bausparPatch() {
       hook: lt(e.hook, t.hook),
       seo: seo(e.seo, t.seo),
       reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
-      status: publishBauspar ? "published" : "draft",
+      ...(publishBauspar ? { status: "published" } : {}),
       slug: { _type: "localeSlug", en: { _type: "slug", current: "bauspar" }, tr: { _type: "slug", current: "bauspar" } },
       publishedAt: BAUSPAR_PUBLISHED,
       lastCheckedAt: BAUSPAR_PUBLISHED,
       cardLine: lt(card[0].line, card[1].line),
-      ...(publishBauspar ? {} : { previewLive: true }),
     },
     unset: publishBauspar ? ["previewLive"] : [],
   };
@@ -990,6 +995,32 @@ async function uploadLogo() {
   return `uploaded logo ${asset._id}`;
 }
 
+/**
+ * Yayındaki bir bölümü hiçbir seed geri çekemez: canlıda `published` olan bir
+ * belgeye `published` dışı bir durum, previewLive ya da createOrReplace
+ * yazılacaksa hiçbir şey yazılmadan durur. Bilerek geri çekmek için
+ * --allow-unpublish.
+ */
+async function guardPublished(
+  creates: SanityDocumentStub[],
+  patches: { id: string; set: Record<string, unknown> }[],
+) {
+  if (process.argv.includes("--allow-unpublish")) return;
+  const published = new Set(await client.fetch<string[]>(`*[_type == "sparkEpisode" && status == "published"]._id`));
+  const problems = [
+    ...creates.filter((d) => d._id && published.has(d._id)).map((d) => `${d._id}: createOrReplace`),
+    ...patches
+      .filter((p) => published.has(p.id))
+      .flatMap((p) => [
+        ...("status" in p.set && p.set.status !== "published" ? [`${p.id}: status -> ${String(p.set.status)}`] : []),
+        ...(p.set.previewLive ? [`${p.id}: previewLive -> true`] : []),
+      ]),
+  ];
+  if (problems.length) {
+    throw new Error(`Refusing to unpublish live episodes (pass --allow-unpublish to force):\n  ${problems.join("\n  ")}`);
+  }
+}
+
 async function main() {
   const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), radarFinmidPatch()];
   const only = onlyFidor || onlyYolt || onlyBauspar || radarOnly;
@@ -1019,6 +1050,8 @@ async function main() {
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
   const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+
+  await guardPublished(creates, patches);
 
   if (dry) {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
