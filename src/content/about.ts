@@ -27,7 +27,7 @@ export const about: Record<Locale, AboutContent> = {
       },
       {
         label: "Why I do this",
-        lead: "I’ve watched good products die in the handover between strategy, partners and the app team.",
+        lead: "I’ve watched good products die in the handover between strategy, partners and the product team.",
         body: "I’ve made some of those mistakes myself. fspark9 is how other teams avoid paying for them twice. And every new project teaches me something I bring to the next one.",
       },
     ],
@@ -62,7 +62,7 @@ export const about: Record<Locale, AboutContent> = {
       },
       {
         label: "Bu işi neden yapıyorum",
-        lead: "İyi ürünlerin strateji, partnerler ve uygulama ekibi arasındaki devirde öldüğünü çok gördüm.",
+        lead: "İyi ürünlerin strateji, partnerler ve ürün ekibi arasındaki devirde öldüğünü çok gördüm.",
         body: "Bu hataların bazılarını ben de yaptım. fspark9, başka ekiplerin aynı bedeli ikinci kez ödememesi için var. Her yeni proje de bana bir sonrakine taşıdığım bir şey öğretiyor.",
       },
     ],

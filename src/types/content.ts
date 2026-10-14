@@ -1709,7 +1709,7 @@ export interface CaseRowProps {
 
 export interface CountUpValueProps {
   value: string;
-  /** "tr" ise binlik ayraç nokta (40.000), değilse virgül (40,000). */
+  /** "tr" ise binlik ayraç nokta (65.000), değilse virgül (65,000). */
   locale: string;
   className?: string;
 }

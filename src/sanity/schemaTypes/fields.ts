@@ -46,7 +46,7 @@ export const titleTextList = (name: string, title: string, extra?: Extra) =>
     ...base(extra),
   } as FieldDefinition);
 
-/** Rakam + etiket (ör. "40,000+" · "users in Germany"). Rakam da iki dilli ("40.000+", "6 ay"). */
+/** Rakam + etiket (ör. "65,000+" · "users in Germany"). Rakam da iki dilli ("65.000+", "6 ay"). */
 export const figureFields = [ls("value", "Value"), ls("label", "Label")];
 
 export const figureList = (name: string, title: string, extra?: Extra & { exactly?: number }) =>

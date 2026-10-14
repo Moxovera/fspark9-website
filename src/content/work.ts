@@ -48,7 +48,7 @@ export const cases: Record<Locale, CaseContent[]> = {
       seo: {
         title: "insha: Europe’s first interest free digital bank | fspark9",
         description:
-          "Albaraka Türk wanted to serve Europe’s Muslim community. insha went live in Germany in six months and passed 40,000 users.",
+          "Albaraka Türk wanted to serve Europe’s Muslim community. insha went live in Germany in six months and passed 65,000 users.",
       },
       name: "insha",
       subtitle: "Europe’s first interest free, digital only bank.",
@@ -72,14 +72,14 @@ export const cases: Record<Locale, CaseContent[]> = {
       delivered: {
         label: "What happened",
         lead: "It went live in Germany, on solarisBank with a Mastercard debit card.",
-        body: "Europe’s first interest free digital only bank. It went live six months after we started. Users grew more than 300% through 2020 to over 40,000.",
+        body: "Europe’s first interest free digital only bank. It went live six months after we started. Users grew more than 300% through 2020 to over 65,000.",
       },
       figures: [
         { value: "300%+", label: "user growth through 2020" },
-        { value: "40,000+", label: "users in Germany" },
+        { value: "65,000+", label: "users in Germany" },
         { value: "6 months", label: "to live" },
       ],
-      proof: { value: "40,000+", label: "users in Germany" },
+      proof: { value: "65,000+", label: "users in Germany" },
       sources: ["FinTech Futures", "Finextra", "EU-Startups"],
     },
     {
@@ -122,7 +122,7 @@ export const cases: Record<Locale, CaseContent[]> = {
       seo: {
         title: "insha: Avrupa’nın ilk faizsiz dijital bankası | fspark9",
         description:
-          "Albaraka Türk Avrupa’daki Müslüman topluluğa ulaşmak istiyordu. insha altı ayda Almanya’da canlıya çıktı ve 40.000 kullanıcıyı geçti.",
+          "Albaraka Türk Avrupa’daki Müslüman topluluğa ulaşmak istiyordu. insha altı ayda Almanya’da canlıya çıktı ve 65.000 kullanıcıyı geçti.",
       },
       name: "insha",
       subtitle: "Avrupa’nın ilk faizsiz ve sadece dijital bankası.",
@@ -146,14 +146,14 @@ export const cases: Record<Locale, CaseContent[]> = {
       delivered: {
         label: "Ne oldu",
         lead: "Avrupa’nın ilk faizsiz ve sadece dijital bankası Almanya’da solarisBank altyapısıyla ve Mastercard banka kartıyla canlıya çıktı.",
-        body: "Başladıktan altı ay sonra canlıdaydı. Kullanıcı sayısı 2020 boyunca %300’ün üzerinde artarak 40.000’i geçti.",
+        body: "Başladıktan altı ay sonra canlıdaydı. Kullanıcı sayısı 2020 boyunca %300’ün üzerinde artarak 65.000’i geçti.",
       },
       figures: [
         { value: "%300+", label: "2020 boyunca kullanıcı artışı" },
-        { value: "40.000+", label: "Almanya’da kullanıcı" },
+        { value: "65.000+", label: "Almanya’da kullanıcı" },
         { value: "6 ay", label: "canlıya çıkış" },
       ],
-      proof: { value: "40.000+", label: "Almanya’da kullanıcı" },
+      proof: { value: "65.000+", label: "Almanya’da kullanıcı" },
       sources: ["FinTech Futures", "Finextra", "EU-Startups"],
     },
     {

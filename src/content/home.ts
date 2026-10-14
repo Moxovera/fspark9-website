@@ -61,7 +61,7 @@ export const home: Record<Locale, HomeContent> = {
         text: "Proposition, BaaS partners, experience and growth. Live in Germany on solarisBank, with a Mastercard debit card.",
         figures: [
           { value: "300%+", label: "user growth through 2020" },
-          { value: "40,000+", label: "users in Germany" },
+          { value: "65,000+", label: "users in Germany" },
           { value: "6 months", label: "to live" },
         ],
         linkLabel: "Read the case",
@@ -208,7 +208,7 @@ export const home: Record<Locale, HomeContent> = {
         // EN'deki bölünmeye göre ayrıldı (bkz. teslim notu).
         figures: [
           { value: "%300+", label: "2020 boyunca kullanıcı artışı" },
-          { value: "40.000+", label: "Almanya’da kullanıcı" },
+          { value: "65.000+", label: "Almanya’da kullanıcı" },
           { value: "6 ay", label: "canlıya çıkış" },
         ],
         linkLabel: "Vakayı okuyun",
