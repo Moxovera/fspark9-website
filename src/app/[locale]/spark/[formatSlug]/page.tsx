@@ -13,6 +13,9 @@ import SparkEpisodeRow from "@/components/spark/SparkEpisodeRow";
 import Reveal from "@/components/ui/Reveal";
 import RadarFormatPage from "@/components/spark/radar/RadarFormatPage";
 import { radarFormatCopy } from "@/content/spark-radar";
+import { lastDayFormatCopy } from "@/content/spark";
+import GoButton from "@/components/brand/GoButton";
+import { Link } from "@/i18n/navigation";
 import { toRadarIssue } from "@/lib/radar";
 import { getChrome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { loadFormatIssues, slugFromOtherLocale, staticAltSlug } from "@/lib/spark";
@@ -100,8 +103,13 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   }
 
   const { issues } = await loadFormatIssues(locale, format, hub);
-  // Prototip: Nº 01 üstte, sıradakiler altta.
-  const rows = [...issues].sort((a, b) => a.number - b.number);
+  // Son Gün (nasıl okunur adımları olan format): On the Radar akışı, yani son
+  // bölüm, tüm bölümler (en yeni üstte), en altta "Nasıl okunur". Diğer
+  // formatlarda prototip sırası: Nº 01 üstte, sıradakiler altta.
+  const latestFirst = format.howSteps.length > 0;
+  const rows = latestFirst ? issues : [...issues].sort((a, b) => a.number - b.number);
+  const latest = latestFirst ? issues.find((issue) => issue.status === "published") : undefined;
+  const latestLabel = lastDayFormatCopy[locale].latest;
 
   return (
     <main className="pt-16 min-[900px]:pt-[84px]">
@@ -134,7 +142,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
       </section>
 
       <div className="px-5 pb-[110px] min-[900px]:px-8 min-[1280px]:px-16">
-        {format.howSteps.length > 0 && (
+        {!latestFirst && format.howSteps.length > 0 && (
           <section className="pt-24">
             <div className="border-t-2 border-ink pt-[18px]">
               <Label strong>
@@ -160,7 +168,37 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
           </section>
         )}
 
-        <section id="episodes" className="scroll-mt-[140px] pt-24 min-[900px]:scroll-mt-[150px]">
+        {latest && (
+          <section id="episodes" aria-labelledby="last-day-latest" className="scroll-mt-[140px] pt-24 min-[900px]:scroll-mt-[150px]">
+            <div className="border-t-2 border-ink pt-[18px]">
+              <Label strong>
+                <span id="last-day-latest">{latestLabel}</span>
+              </Label>
+            </div>
+            <Link
+              href={latest.href!}
+              className="group mt-8 grid grid-cols-1 gap-5 border-t-2 border-ink bg-white px-5 pt-6 pb-7 text-ink no-underline min-[761px]:px-9 min-[761px]:pt-8 min-[761px]:pb-9"
+            >
+              <Label as="span">
+                {latest.numberLabel}
+                {" · "}
+                {[latest.durationLabel ?? (latest.days !== null ? `${latest.days} ${format.daysUnit}` : ""), latest.statusLabel]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </Label>
+              <span className="max-w-[20ch] font-display text-[clamp(28px,4vw,44px)] leading-[1.02] font-extrabold tracking-[-0.03em] text-balance">
+                {latest.subject}
+              </span>
+              <span className="max-w-[52ch] text-[18px] leading-[1.6] text-stone">{latest.hook}</span>
+              <span className="mt-[6px] inline-flex items-center gap-[14px] self-start font-display text-[17px] font-bold">
+                {hub.readLabel}
+                <GoButton size={48} className="go-flare" />
+              </span>
+            </Link>
+          </section>
+        )}
+
+        <section id={latest ? undefined : "episodes"} className="scroll-mt-[140px] pt-24 min-[900px]:scroll-mt-[150px]">
           <div className="border-t-2 border-ink pt-[18px]">
             <Label strong>
               {format.episodesLabel}
@@ -185,6 +223,32 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
             ))}
           </div>
         </section>
+
+        {latestFirst && (
+          <section className="pt-24">
+            <div className="border-t-2 border-ink pt-[18px]">
+              <Label strong>
+                {format.howLabel}
+              </Label>
+              <h2 className="mt-[10px] mb-0 max-w-[24ch] font-display text-[clamp(26px,3.2vw,36px)] leading-[1.1] font-bold tracking-[-0.025em] text-ink">
+                {format.howHeading}
+              </h2>
+            </div>
+            <Reveal className="mt-9 grid grid-cols-1 gap-6 min-[901px]:grid-cols-3">
+              {format.howSteps.map((step, i) => (
+                <div key={step.title} className="border-t-2 border-ink bg-white p-6">
+                  <Label as="span" strong>
+                    {String(i + 1)}
+                  </Label>
+                  <b className="mt-3 mb-2 block font-display text-[24px] leading-[1.15] font-bold tracking-[-0.02em] text-ink">
+                    {step.title}
+                  </b>
+                  <p className="m-0 text-[17px] leading-[1.6] text-stone">{step.body}</p>
+                </div>
+              ))}
+            </Reveal>
+          </section>
+        )}
       </div>
 
       <NextStep content={nextStep} heading={format.closeHeading} />

@@ -2214,6 +2214,8 @@ export interface RadarText {
   titleTag: string
   listHook: string
   place: string
+  /** Açılıştaki büyük konturlu rakam ve altındaki etiket (Son Gün Fidor'daki gibi şirkete özel); yoksa format numarası. */
+  figure?: { value: string; label: string }
   headline: string
   line: string
   lead: string

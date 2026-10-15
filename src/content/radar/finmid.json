@@ -872,6 +872,10 @@
         "İncelediğimizde iki fark öne çıkıyor. Birincisi kapsam. Tek bir entegrasyon 30 pazarı açıyor, rakipler birkaç ülkede yoğunlaşıyor. Wolt gibi 20 pazarda çalışan bir platform için bu önemli bir kolaylık [4]. İkincisi uzmanlık alanı. finmid yemek platformlarında derinleşti ve aynı motorla Bolt filolarına araç kredisi vermeye başladı [7].",
         "İki konuda ise fark küçük. Önceden onaylı teklifi YouLend de veriyor [24]. Geniş kapsam da platformu finmid'e bağlamıyor. myPOS İtalya'da finmid ile, başka ülkelerde Liberis ve YouLend ile çalışıyor [11,20,22]. Lieferando'nun restoranlarına hem YouLend hem Banxware kredi veriyor [12,23]. Platformlar sağlayıcıyı ülke ülke seçebiliyor."
       ]
+    },
+    "figure": {
+      "value": "30",
+      "label": "Avrupa pazarı"
     }
   },
   "en": {
@@ -1285,6 +1289,10 @@
         "Our review shows two differences. The first is reach. A single integration opens 30 markets, while rivals focus on a few countries. For a platform working in 20 markets like Wolt, that is a real convenience [4]. The second is specialisation. finmid went deep in food platforms and, with the same engine, started lending to Bolt fleets for their cars [7].",
         "On two points the difference is small. YouLend gives pre approved offers too [24]. Wide reach does not tie a platform to finmid either. myPOS works with finmid in Italy and with Liberis and YouLend in other countries [11,20,22]. Both YouLend and Banxware lend to Lieferando's restaurants [12,23]. Platforms can choose their provider country by country."
       ]
+    },
+    "figure": {
+      "value": "30",
+      "label": "European markets"
     }
   },
   "compare": {

@@ -10,6 +10,12 @@ import type { Locale, SparkEpisodeStory, SparkHubContent } from "@/types/content
  * Copy'de TR karşılığı olmayan etiketler (readLabel, showAllLabel,
  * allIssuesLabel) teslim notunda onaya sunuldu.
  */
+/** The Last Day format sayfasındaki "son bölüm" bölümünün etiketi (statik, Sanity'de yok). */
+export const lastDayFormatCopy: Record<Locale, { latest: string }> = {
+  en: { latest: "Latest episode" },
+  tr: { latest: "Son bölüm" },
+};
+
 export const spark: Record<Locale, SparkHubContent> = {
   en: {
     seo: {
