@@ -8,7 +8,7 @@
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×3, legalPage ×4 (metin ve SEO),
  * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor), karar blokları (Nuri),
- * sektör raporu (Bauspar) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
+ * sektör raporları (Bauspar, DORA) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
  * Ayrıca canlıdaki bölümlerin (LIVE_EPISODE_IDS) Sanity'de hâlâ `published` olduğu.
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
@@ -29,6 +29,7 @@ import { nuri } from "../content/spark-nuri";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { bauspar } from "../content/spark-bauspar";
+import { dora } from "../content/spark-dora";
 import { radarEpisodes } from "../content/spark-radar";
 import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
@@ -54,6 +55,7 @@ const LIVE_EPISODE_IDS = [
   "sparkEpisode-the-last-day-03",
   "sparkEpisode-the-last-day-04",
   "sparkEpisode-sector-reports-bauspar",
+  "sparkEpisode-sector-reports-dora",
   "sparkEpisode-on-the-radar-01",
 ];
 const diffs: string[] = [];
@@ -148,6 +150,9 @@ async function main() {
     // Bauspar (sektör raporu) draft + previewLive iken sadece önizleme ortamında okunur.
     const bausparS = episodesS[l].find((e) => e.layout === "report");
     compare(`episode.bauspar.${l}`, bausparS?.story, bauspar[l]);
+    // Sektör raporu Nº 02 DORA (layout "dora").
+    const doraS = episodesS[l].find((e) => e.layout === "dora");
+    compare(`episode.dora.${l}`, doraS?.story, dora[l]);
     // On the Radar Nº 01 finmid: gövde src/content/radar/finmid.json'un kendisi.
     const finmidS = episodesS[l].find((e) => e.layout === "radar");
     compare(`episode.radar-finmid.${l}`, finmidS?.story, radarEpisodes[l].finmid);

@@ -38,6 +38,8 @@ import type {
   SparkRadarEpisode,
   SparkReport,
   SparkReportBody,
+  SparkDoraReport,
+  SparkDoraReportBody,
   SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
@@ -436,6 +438,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         const report = toReport(rest, locale);
         return report ? [{ ...base, layout: "report", story: report }] : [];
       }
+      if (rest.layout === "dora") {
+        const dora = toDora(rest, locale);
+        return dora ? [{ ...base, layout: "dora", story: dora }] : [];
+      }
       if (rest.layout === "radar") {
         const radar = toRadar(rest, locale);
         return radar ? [{ ...base, layout: "radar", story: radar }] : [];
@@ -535,6 +541,14 @@ function toReport(doc: EpisodeDoc, locale: Locale): SparkReport | null {
   if (!raw) return null;
   const { number, subject, hook, seo } = localize(doc, locale);
   return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkReportBody) };
+}
+
+/** Sektör raporu Nº 02 DORA: Bauspar gibi dil başına JSON (`reportBody`), şekli SparkDoraReport. */
+function toDora(doc: EpisodeDoc, locale: Locale): SparkDoraReport | null {
+  const raw = doc.reportBody?.[locale];
+  if (!raw) return null;
+  const { number, subject, hook, seo } = localize(doc, locale);
+  return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkDoraReportBody) };
 }
 
 /** On the Radar: ortak ve iki dilli gövde tek JSON; sayı, şirket adı, kanca, SEO ve ülke belgenin alanlarından. */

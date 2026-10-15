@@ -116,6 +116,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Sector report",
+          number: "Nº 02",
+          title: "DORA",
+          line: "When the cloud goes down, who answers?",
+          date: "16 Oct 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "dora" },
+          },
+        },
+        {
           format: "On the Radar",
           number: "Nº 01",
           title: "finmid",
@@ -137,18 +149,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "the-last-day", episodeSlug: "04-yolt" },
-          },
-        },
-        {
-          format: "Sector report",
-          number: "Nº 01",
-          title: "Bauspar",
-          line: "Two countries, one pool.",
-          date: "5 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sector-reports", episodeSlug: "bauspar" },
           },
         },
       ],
@@ -263,6 +263,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Sektör raporu",
+          number: "Nº 02",
+          title: "DORA",
+          line: "Bulut düşerse kim sorumlu?",
+          date: "16 Eki 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "dora" },
+          },
+        },
+        {
           format: "On the Radar",
           number: "Nº 01",
           title: "finmid",
@@ -284,18 +296,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "son-gun", episodeSlug: "04-yolt" },
-          },
-        },
-        {
-          format: "Sektör raporu",
-          number: "Nº 01",
-          title: "Bauspar",
-          line: "İki ülke, tek havuz.",
-          date: "5 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sektor-raporlari", episodeSlug: "bauspar" },
           },
         },
       ],

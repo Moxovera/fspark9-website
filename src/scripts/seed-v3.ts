@@ -48,6 +48,11 @@
  *   --publish-radar-finmid  status published, previewLive kalkar
  *                           (--only=radar-finmid ile birlikte).
  *
+ * Sektör raporları Nº 02 (DORA, layout "dora") Bauspar ile aynı: belge yoksa
+ * draft + previewLive ile oluşturulur, durum sadece --publish-dora ile yazılır.
+ *   --only=dora     sadece DORA belgesi yazılır; diğerlerine dokunulmaz.
+ *   --publish-dora  status published, previewLive kalkar (--only=dora ile birlikte).
+ *
  * Koruma: canlıda `published` olan bir bölümü geri çekecek (durumunu
  * değiştirecek, previewLive koyacak ya da createOrReplace ile ezecek) her
  * çalıştırma, hiçbir şey yazmadan hata verir. Bilerek geri çekmek için
@@ -64,6 +69,7 @@ import { cases, workPage } from "../content/work";
 import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
+import { dora } from "../content/spark-dora";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { bauspar } from "../content/spark-bauspar";
@@ -78,6 +84,7 @@ import type {
   SparkChoiceOption,
   SparkDecisionEpisode,
   SparkReport,
+  SparkDoraReport,
   SparkSourceLink,
   SparkStoryCard,
   SparkEpisodeStory,
@@ -97,6 +104,9 @@ const onlyYolt = process.argv.includes("--only=yolt");
 const publishYolt = process.argv.includes("--publish-yolt");
 const onlyBauspar = process.argv.includes("--only=bauspar");
 const publishBauspar = process.argv.includes("--publish-bauspar");
+const onlyDora = process.argv.includes("--only=dora");
+const publishDora = process.argv.includes("--publish-dora");
+if (publishDora && !onlyDora) throw new Error("--publish-dora needs --only=dora.");
 const onlyOnTheRadar = process.argv.includes("--only=on-the-radar");
 const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
 const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
@@ -114,6 +124,8 @@ const FIDOR_PUBLISHED = "2026-10-02";
 const YOLT_PUBLISHED = "2026-10-07";
 /** Bauspar raporunun yayın tarihi (staging'e çıktığı gün; veriler 5 Ekim 2026'da kontrol edildi). */
 const BAUSPAR_PUBLISHED = "2026-10-05";
+/** DORA raporunun yayın tarihi (canlıya çıktığı gün). */
+const DORA_PUBLISHED = "2026-10-16";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -837,13 +849,12 @@ const BAUSPAR_ID = "sparkEpisode-sector-reports-bauspar";
 const BAUSPAR_COMING_ID = "sparkEpisode-sector-reports-01";
 
 /** Raporun gövdesi: sayı, konu, kanca ve SEO belgenin kendi alanlarında, gerisi dil başına JSON. */
-function reportBodyJson(report: SparkReport) {
+function reportBodyJson(report: SparkReport | SparkDoraReport) {
   const own = ["number", "subject", "hook", "seo"];
   return JSON.stringify(Object.fromEntries(Object.entries(report).filter(([key]) => !own.includes(key))));
 }
 
 function bausparPatch() {
-  const card = [sparkCard(home.en, "Nº 01", "Sector report"), sparkCard(home.tr, "Nº 01", "Sektör raporu")];
   const e = bauspar.en;
   const t = bauspar.tr;
   return {
@@ -859,9 +870,50 @@ function bausparPatch() {
       slug: { _type: "localeSlug", en: { _type: "slug", current: "bauspar" }, tr: { _type: "slug", current: "bauspar" } },
       publishedAt: BAUSPAR_PUBLISHED,
       lastCheckedAt: BAUSPAR_PUBLISHED,
-      cardLine: lt(card[0].line, card[1].line),
+      ...cardLineSet("Nº 01", "Sector report", "Sektör raporu"),
     },
     unset: publishBauspar ? ["previewLive"] : [],
+  };
+}
+
+/**
+ * Sektör raporları Nº 02 DORA (layout "dora"): Bauspar gibi ayrı belge,
+ * gövde reportBody'de dil başına JSON. Oluşturulurken draft + previewLive;
+ * durum sadece --publish-dora ile yazılır.
+ */
+const DORA_ID = "sparkEpisode-sector-reports-dora";
+
+function doraStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: DORA_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[1] },
+    number: 2,
+    layout: "dora",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function doraPatch() {
+  const e = dora.en;
+  const t = dora.tr;
+  return {
+    id: DORA_ID,
+    set: {
+      layout: "dora",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
+      ...(publishDora ? { status: "published" } : {}),
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "dora" }, tr: { _type: "slug", current: "dora" } },
+      publishedAt: DORA_PUBLISHED,
+      lastCheckedAt: DORA_PUBLISHED,
+      ...cardLineSet("Nº 02", "Sector report", "Sektör raporu"),
+    },
+    unset: publishDora ? ["previewLive"] : [],
   };
 }
 /**
@@ -1022,8 +1074,8 @@ async function guardPublished(
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar || radarOnly;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly;
   const creates = only
     ? []
     : onlySpark
@@ -1034,6 +1086,7 @@ async function main() {
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
+        ...(onlyDora ? [doraPatch()] : []),
         ...(onlyOnTheRadar ? [formatSets()[2]] : []),
         ...(onlyRadarFinmid ? [radarFinmidPatch()] : []),
       ]
@@ -1049,7 +1102,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1064,11 +1117,14 @@ async function main() {
   const tx = client.transaction();
   if (radarOnly) {
     if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());
+  } else if (onlyDora) {
+    tx.createIfNotExists(doraStub());
   } else {
     tx.createIfNotExists(fidorStub());
     tx.createIfNotExists(yoltStub());
     tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
     tx.createIfNotExists(radarFinmidStub());
+    tx.createIfNotExists(doraStub());
   }
   for (const id of formatIdsToCreate) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });

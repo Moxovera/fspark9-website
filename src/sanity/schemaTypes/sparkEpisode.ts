@@ -26,7 +26,9 @@ import { storyFields } from "./sparkEpisodeStory";
 const layoutOf = (document: SanityDocument | undefined) => document?.layout ?? "story";
 const hideUnlessStory: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "story";
 const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "decisions";
-const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "report";
+// Sektör raporları Nº 02 (DORA, 2026-10-16): beşinci şablon, `dora`. Gövdesi
+// Bauspar gibi Report sekmesindeki reportBody (şekli SparkDoraReport).
+const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora"].includes(String(layoutOf(document)));
 const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
 
 export default defineType({
@@ -64,8 +66,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · radar: On the Radar",
-      options: { list: ["story", "decisions", "report", "radar"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · radar: On the Radar",
+      options: { list: ["story", "decisions", "report", "dora", "radar"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),

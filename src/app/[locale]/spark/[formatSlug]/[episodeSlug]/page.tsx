@@ -16,6 +16,7 @@ import RadarEpisode from "@/components/spark/radar/RadarEpisode";
 import RadarOpening from "@/components/spark/radar/RadarOpening";
 import RadarSources from "@/components/spark/radar/RadarSources";
 import ReportEpisode from "@/components/spark/report/ReportEpisode";
+import DoraEpisode from "@/components/spark/report/dora/DoraEpisode";
 import { radarEpisodeLabels } from "@/content/spark-radar";
 import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
@@ -35,6 +36,8 @@ import type { Locale, SparkEpisodeEntry } from "@/types/content";
 // decisions (Nº 02, prototip _design/v2/boards/son-gun-02-nuri-v2.html):
 // geri link, Ink açılış, cetvel, karar blokları (DecisionEpisode), NextStep. İçerik Sanity'den
 // (getSparkEpisodes); tarayıcıda hiçbir şey saklanmıyor.
+// dora (Sektör raporları Nº 02, görev Spark/sector reports): Bauspar'ın
+// açılışı, şeridi ve kapanışı; Domino simülasyonu ve Elif'in telefonu (DoraEpisode).
 // report (Sektör raporları Nº 01, prototip Spark/sector reports/
 // fspark9-sektor-raporu-bauspar.html): geri link, Ink açılış, yapışkan
 // bölüm şeridi, simülatör, grafik, tablo (ReportEpisode). Kendi kapanışı var.
@@ -129,6 +132,20 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
         <ReportEpisode report={entry.story} locale={locale} footnoteTemplate={hub.episode.footnoteTemplate} />
+      </main>
+    );
+  }
+
+  if (entry.layout === "dora") {
+    return (
+      <main className="pt-16 min-[900px]:pt-[84px]">
+        <JsonLd data={jsonLd} />
+        <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
+        <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+        <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
+          <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
+        </div>
+        <DoraEpisode report={entry.story} locale={locale} />
       </main>
     );
   }

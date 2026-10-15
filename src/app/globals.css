@@ -819,3 +819,22 @@ body {
   .rd-brick:hover { transform: none; }
   .rd-brick[aria-pressed="true"] { transform: translateX(62%); }
 }
+
+/* ── Sektör raporu Nº 02 DORA: hareket sadece Domino ve Elif'in telefonunda ── */
+
+/* Domino: sağlayıcı, çizgi ve servis noktaları sönerken ya da yedeğe
+   geçerken 200 ms renk/opaklık. Sıra ve zamanlama DominoSim'de, bir kez. */
+.domino-fade {
+  transition: opacity 200ms var(--ease-brand), background-color 200ms var(--ease-brand),
+    color 200ms var(--ease-brand), border-color 200ms var(--ease-brand), stroke 200ms var(--ease-brand);
+}
+/* Elif'in telefonu: sahne geçişi 250 ms çapraz geçiş; sahne 3 etiketi bir kez değişir. */
+.phone-scene {
+  transition: opacity 250ms var(--ease-brand);
+}
+.phone-swap {
+  transition: opacity 250ms var(--ease-brand);
+}
+@media (prefers-reduced-motion: reduce) {
+  .domino-fade, .phone-scene, .phone-swap { transition: none; }
+}

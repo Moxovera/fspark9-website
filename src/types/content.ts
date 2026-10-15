@@ -546,6 +546,160 @@ export interface SparkReport {
 /** Sanity'de duran gövde: sayı, konu, kanca ve SEO belgenin alanlarından gelir. */
 export type SparkReportBody = Omit<SparkReport, 'number' | 'subject' | 'hook' | 'seo'>
 
+// Sektör raporu Nº 02 DORA (layout "dora", metin Spark/sector reports/
+// Spark Sektör Raporu DORA.md). Bauspar gibi `reportBody` iki dilli JSON;
+// bölümler sıralı bloklardan oluşur. Metin içinde **kalın**, *italik* ve
+// [metin](service:slug) hizmet linki işaretleri DoraInline'da çözülür.
+
+export type DoraBlock =
+  | { type: 'p'; text: string }
+  /** Küçük puntolu italik not. */
+  | { type: 'note'; text: string }
+  /** Bölüm içi alt başlık (h3). */
+  | { type: 'h'; text: string }
+  | { type: 'ul'; items: string[] }
+  | { type: 'ol'; items: string[] }
+  /** Tablo; dar ekranda her satır bir kart. `figures`: ilk sütun büyük mono rakam. */
+  | { type: 'table'; head: string[]; rows: string[][]; figures?: boolean }
+
+export interface DoraSection {
+  id: string
+  head: ReportHead
+  blocks: DoraBlock[]
+}
+
+export type DominoService = 'app' | 'card' | 'transfer'
+export type DominoCountry = 'DE' | 'NL' | 'FR' | 'ES'
+/** Yedek: listedeki bir sağlayıcı (P1, P2) ya da listede olmayan ikinci işlemci / ikincil veri merkezi. */
+export type DominoBackupTarget = string
+
+export interface DominoProvider {
+  id: string
+  name: string
+}
+
+export interface DominoInstitution {
+  id: string
+  name: string
+  type: string
+  country: DominoCountry
+  deps: Partial<Record<DominoService, string[]>>
+  backups: { service: DominoService; from: string; to: DominoBackupTarget }[]
+}
+
+export interface DominoContent {
+  providers: DominoProvider[]
+  institutions: DominoInstitution[]
+  /** Listede olmayan yedeklerin adı (proc2, dc2). */
+  backupNames: Record<string, string>
+  countries: Record<DominoCountry, string>
+  services: Record<DominoService, string>
+  labels: {
+    stage: string
+    choose: string
+    pull: string
+    replay: string
+    reset: string
+    down: string
+    backup: string
+    informed: string
+    dependsOn: string
+    hint: string
+    counters: { institutions: string; countries: string; services: string; notice: string }
+    noticeNormal: string
+    noticeDora: string
+    noticeNote: string
+    /** {institutions} {countries} {services} */
+    resultNormal: string
+    /** {services} {rerouted} */
+    resultDora: string
+    sharedRail: string
+    modeNormal: string
+    modeDora: string
+  }
+}
+
+export interface DoraPhoneContent {
+  account: string
+  sceneLabel: string
+  s1: {
+    balanceLabel: string
+    balance: string
+    banner: string
+    pendingHeading: string
+    pendingLabel: string
+    rows: { label: string; amount: string }[]
+    support: string
+  }
+  s2: {
+    pushApp: string
+    push: string
+    info: string
+    rowLabel: string
+    rowAmount: string
+    queuedLabel: string
+    time: string
+  }
+  s3: {
+    title: string
+    before: string
+    after: string
+    note: string
+  }
+}
+
+export interface SparkDoraReport {
+  number: number
+  subject: string
+  hook: string
+  seo: PageSeo
+  nav: { id: string; label: string }[]
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    sub: string
+    glance: { heading: string; items: string[] }
+  }
+  origin: DoraSection & {
+    timeline: {
+      heading: string
+      events: { date: string; text: string }[]
+      /** "Bugün" işareti bu sıradaki olaydan sonra (Flare). */
+      today: { date: string; label: string; after: number }
+    }
+  }
+  scope: DoraSection
+  pillars: DoraSection
+  domino: DoraSection & { note: string; after: DoraBlock[]; sim: DominoContent }
+  scorecard: DoraSection
+  challenges: DoraSection
+  solved: DoraSection
+  story: {
+    id: string
+    head: ReportHead
+    intro: string
+    lead: string
+    scenes: { title: string; body: string }[]
+    summary: string
+    phone: DoraPhoneContent
+  }
+  market: DoraSection
+  outcomes: DoraSection
+  uk: DoraSection
+  turkey: DoraSection
+  desks: DoraSection & {
+    items: { title: string; scenario: string; options: { key: string; text: string }[]; take: string }[]
+  }
+  calendar: DoraSection
+  note: DoraSection
+  close: { text: string; bookLabel: string }
+  sources: { head: ReportHead; groups: { heading: string; items: { label: string; href: string }[] }[]; note: string }
+}
+
+export type SparkDoraReportBody = Omit<SparkDoraReport, 'number' | 'subject' | 'hook' | 'seo'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -1259,6 +1413,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'story'; story: SparkEpisodeStory }
     | { layout: 'decisions'; story: SparkDecisionEpisode }
     | { layout: 'report'; story: SparkReport }
+    | { layout: 'dora'; story: SparkDoraReport }
     | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
@@ -2081,12 +2236,55 @@ export interface ReportHeadProps {
 }
 
 export interface ReportNavProps {
-  items: SparkReport['nav']
+  items: { id: string; label: string }[]
 }
 
 export interface ReportCountFigureProps {
   figure: ReportCountFigure
   locale: Locale
+}
+
+// Sektör raporu Nº 02 DORA bileşenleri (components/spark/report/dora)
+export interface DoraEpisodeProps {
+  report: SparkDoraReport
+  locale: Locale
+}
+
+export interface DoraInlineProps {
+  text: string
+  locale: Locale
+}
+
+export interface DoraBlocksProps {
+  blocks: DoraBlock[]
+  locale: Locale
+}
+
+export interface DominoSimProps {
+  content: DominoContent
+}
+
+export interface DoraPhoneProps {
+  phone: DoraPhoneContent
+  scene: 0 | 1 | 2
+  /** Sahne 3'ün etiketi değişti mi ("Ertelendi"). */
+  postponed: boolean
+  className?: string
+}
+
+export interface DoraStoryProps {
+  story: SparkDoraReport['story']
+  locale: Locale
+}
+
+export interface DoraTimelineProps {
+  timeline: SparkDoraReport['origin']['timeline']
+}
+
+export interface DoraDeskProps {
+  options: { key: string; text: string }[]
+  groupLabel: string
+  children: ReactNode
 }
 
 export interface PoolSimulatorProps {
