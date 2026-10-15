@@ -16,9 +16,9 @@ export default function RadarOpening({ episode, formatName, formatNumber, number
         <BackLink href="/spark" label={backLabel} ground="ink" />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute right-[-4px] bottom-[-8px] flex flex-col items-end gap-[10px] select-none min-[641px]:top-[110px] min-[641px]:right-[-6px] min-[641px]:bottom-auto"
+          className="pointer-events-none absolute right-[2px] bottom-[-8px] flex flex-col items-end gap-[10px] select-none min-[641px]:top-[110px] min-[641px]:right-[2px] min-[641px]:bottom-auto"
         >
-          <span className="text-outline-dust font-display text-[clamp(110px,20vw,240px)] leading-[0.8] font-extrabold tracking-[-0.04em]">
+          <span className="text-outline-dust pr-[0.06em] font-display text-[clamp(110px,20vw,240px)] leading-[0.8] font-extrabold tracking-[-0.04em]">
             {text.figure?.value ?? formatNumber}
           </span>
           {text.figure && <span className={`${mono} text-dust`}>{text.figure.label}</span>}
