@@ -14,6 +14,7 @@
   /* Board'larda brief'in listesi dışında kalan iki renk, birebir alındı: */
   --headrule: #2A2720; /* koyu header'ın alt çizgisi (tüm board'larda) */
   --portrait: #221F18; /* portre dairesinin görsel yüklenene kadarki zemini */
+  --track: #2E2A22;    /* ana sayfa: video ilerleme halkasının izi ve kanıt satırının çizgisi (FİNAL tasarım) */
   /* Sektör raporu simülatörünün sonuç rakamı (prototip --green, --red): artı yeşil, eksi kırmızı. */
   --positive: #2F6B3A;
   --negative: #9B2C1F;
@@ -34,6 +35,7 @@
   --color-ring: var(--ring);
   --color-headrule: var(--headrule);
   --color-portrait: var(--portrait);
+  --color-track: var(--track);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
 
@@ -837,4 +839,62 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .domino-fade, .phone-scene, .phone-swap { transition: none; }
+}
+
+/* ── Ana sayfa tanıtım filmi (components/home/HeroVideo). Döngü yok: düğme
+   bir kez gelir, önizleme bir kez oynar, sonra hiçbir şey hareket etmez. ── */
+/* JS yoksa düğme ve halka çalışmaz: hiç görünmez, portre kalır. */
+html:not(.js) .video-only { display: none; }
+.hero-pill {
+  transition: scale 200ms var(--ease-brand);
+  animation: hero-pill-in 400ms var(--ease-brand) 150ms backwards;
+}
+.hero-video:hover .hero-pill,
+.hero-pill:focus-visible {
+  scale: 1.05;
+}
+@keyframes hero-pill-in {
+  from { opacity: 0; scale: 0.94; }
+}
+.hero-progress circle {
+  stroke-width: 4px;
+  transition: stroke-width 200ms var(--ease-brand);
+}
+@media (min-width: 900px) {
+  .hero-progress circle { stroke-width: 5px; }
+}
+.hero-video:hover .hero-progress circle,
+.hero-video:has(.hero-pill:focus-visible) .hero-progress circle {
+  stroke-width: 9px;
+}
+/* Ana sayfa portresi portrait-in gibi belirir ama 0 değil %1 opaklıktan
+   (görsel fark yok): Chrome 0 opaklıkta boyanan görseli LCP adayı saymıyor,
+   o zaman sonradan beliren önizleme klibi LCP oluyordu. Portre aday olunca
+   aynı boyuttaki klip onu geçemez (LCP sadece daha büyük bir öğeyle değişir). */
+.hero-portrait-in {
+  animation: hero-portrait-in 480ms var(--ease-brand) both;
+}
+@keyframes hero-portrait-in {
+  from { opacity: 0.01; }
+}
+/* Klip hazır olunca fotoğrafın üstünde 400 ms'de belirir; bitince son
+   karesinden fotoğrafa 600 ms çapraz geçiş (brief'teki eğri, sadece burada). */
+.hero-clip {
+  opacity: 0;
+  transition: opacity 400ms var(--ease-brand);
+}
+.hero-clip.is-playing { opacity: 1; }
+.hero-clip.is-ending {
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-caption {
+  opacity: 0;
+  transition: opacity 200ms var(--ease-brand);
+}
+.hero-caption.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-pill, .hero-portrait-in { animation: none; }
+  .hero-pill { transition: none; }
+  .hero-progress circle, .hero-clip, .hero-clip.is-ending, .hero-caption { transition: none; }
 }

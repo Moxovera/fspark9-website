@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { figureList, group, ls, lsList, lt, singletonTitle, titleTextList, portraitField } from "./fields";
+import { figureList, group, ls, lsList, lt, singletonTitle, str, titleTextList, portraitField } from "./fields";
 
 // Ana sayfa. Dört hizmet servicePage belgelerinden, Spark kartları
 // bölümlerden (sparkEpisode) geliyor; burada sadece bölüm metinleri.
@@ -32,8 +32,46 @@ export default defineType({
         ls("secondaryLinkLabel", "Second link"),
         ls("portraitAlt", "Portrait alt text"),
         portraitField,
+        lt("heroTextMobile", "Intro, phone only", { description: "Telefonda Intro yerine bu kısa metin görünür. Boşsa Intro." }),
+        defineField({
+          name: "showProof",
+          title: "Show the proof line",
+          type: "boolean",
+          description: "Butonların altındaki üç rakamlık satır.",
+          initialValue: true,
+        }),
+        str("bankCount", "Proof: banks built (number)"),
+        ls("bankCountLabel", "Proof: banks built label"),
+        defineField({
+          name: "proofCase",
+          title: "Proof: case for users and time to live",
+          type: "reference",
+          to: [{ type: "caseStudy" }],
+          description: "Satırdaki ikinci ve üçüncü rakam bu vakanın Figures listesinin ikinci ve üçüncü rakamı.",
+        }),
+        ls("proofUsersLabel", "Proof: users label"),
+        ls("proofLiveLabel", "Proof: time to live label"),
       ],
       { group: "opening" },
+    ),
+    group(
+      "heroVideo",
+      "Hero video",
+      [
+        str("youtubeIdTr", "YouTube ID (Turkish film)", {
+          description: "Sadece kimlik, ör. youtube.com/watch?v=XXXXXXXXXXX adresindeki XXXXXXXXXXX. Boşsa TR sayfada video düğmesi ve önizleme görünmez.",
+        }),
+        str("youtubeIdEn", "YouTube ID (English film)", {
+          description: "Sadece kimlik. Boşsa EN sayfada video düğmesi ve önizleme görünmez.",
+        }),
+        str("durationLabel", "Duration", { description: "Düğmedeki süre, ör. 1:30. Film değişirse bu da değişir." }),
+        ls("buttonLabel", "Button"),
+        ls("ariaLabel", "Button label for screen readers", { description: "Süreyi yazıyla içerir, ör. 1 dakika 30 saniye." }),
+        ls("modalTitle", "Window title"),
+        ls("previewCaption", "Preview caption", { description: "Sessiz önizlemede görünen satır: önizlemenin 4 saniyesinde Burak'ın gerçekten söylediği kelimeler." }),
+        ls("closeLabel", "Close button"),
+      ],
+      { group: "opening", description: "Açılıştaki tanıtım filmi. Önizleme klipleri repoda (public/video), burada değil." },
     ),
     group(
       "startWhereYouAre",

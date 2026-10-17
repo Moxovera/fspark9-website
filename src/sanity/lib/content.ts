@@ -156,7 +156,13 @@ export async function getChrome(): Promise<Record<Locale, ChromeContent>> {
 
 export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "homePage"][0]{
   seo{ title, description },
-  opening{ ..., "portraitUrl": portrait.asset->url },
+  opening{
+    eyebrowParts, headlineSentences, cutWord, intro, ctaLabel, secondaryLinkLabel, portraitAlt,
+    heroTextMobile, showProof, bankCount, bankCountLabel, proofUsersLabel, proofLiveLabel,
+    "portraitUrl": portrait.asset->url,
+    "proofFigures": proofCase->figures
+  },
+  heroVideo,
   startWhereYouAre,
   fourServices,
   work{
@@ -184,6 +190,15 @@ export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
     "episodeSlug": slug,
     "format": format->{ name, singularName, slug, comingLabel }
   }`);
+
+/**
+ * Burak kimlikleri Studio'ya girene kadar canlıda video düğmesi ve önizleme
+ * yok. Preview ve yerelde (canlıda asla) düğme, önizleme ve pencere test
+ * edilebilsin diye boş kimlik yerine açık lisanslı bir test filmi (Blender
+ * Foundation, Big Buck Bunny). Sanity'de kimlik varsa o kullanılır.
+ * check:drift bunu boş sayar (HERO_VIDEO_PREVIEW_OFF).
+ */
+const HERO_VIDEO_PREVIEW_ID = PREVIEW_EPISODES && !process.env.HERO_VIDEO_PREVIEW_OFF ? "aqz-KE-bpKQ" : "";
 
 export async function getHome(): Promise<Record<Locale, HomeContent>> {
   const [raw, cards, spark] = await Promise.all([
@@ -216,11 +231,42 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
         },
       };
     });
-    const { portraitUrl: openingPortrait, ...opening } = page.opening;
+    const {
+      portraitUrl: openingPortrait,
+      proofFigures,
+      showProof,
+      bankCount,
+      bankCountLabel,
+      proofUsersLabel,
+      proofLiveLabel,
+      heroTextMobile,
+      ...opening
+    } = page.opening;
+    // Kanıt satırı: kurulan banka sayısı ana sayfadan, kullanıcı ve canlıya
+    // çıkış rakamları vakanın (insha) Figures listesinin 2. ve 3. rakamından.
+    const [, users, live] = proofFigures ?? [];
+    const proof =
+      showProof && bankCount && users && live
+        ? [
+            { value: bankCount, label: bankCountLabel },
+            { value: users.value, label: proofUsersLabel },
+            { value: live.value, label: proofLiveLabel },
+          ]
+        : undefined;
+    const hv = page.heroVideo;
     const { portraitUrl: withMePortrait, ...withMe } = page.withMe;
     return {
       seo: page.seo,
-      opening: { ...opening, portraitSrc: openingPortrait || undefined },
+      opening: { ...opening, portraitSrc: openingPortrait || undefined, heroTextMobile: heroTextMobile || opening.intro, proof },
+      heroVideo: {
+        youtubeId: ((locale === "tr" ? raw?.heroVideo?.youtubeIdTr : raw?.heroVideo?.youtubeIdEn) ?? "").trim() || HERO_VIDEO_PREVIEW_ID,
+        durationLabel: hv?.durationLabel ?? "",
+        buttonLabel: hv?.buttonLabel ?? "",
+        ariaLabel: hv?.ariaLabel ?? "",
+        modalTitle: hv?.modalTitle ?? "",
+        previewCaption: hv?.previewCaption ?? "",
+        closeLabel: hv?.closeLabel ?? "",
+      },
       startWhereYouAre: page.startWhereYouAre,
       fourServices: page.fourServices,
       work: {

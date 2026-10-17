@@ -112,6 +112,8 @@ const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
 const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
 if (publishRadarFinmid && !onlyRadarFinmid) throw new Error("--publish-radar-finmid needs --only=radar-finmid.");
 const radarOnly = onlyOnTheRadar || onlyRadarFinmid;
+/** Sadece ana sayfa açılışının video ve kanıt satırı alanları (YouTube kimliklerine dokunmaz). */
+const onlyHomeHero = process.argv.includes("--only=home-hero");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -210,6 +212,46 @@ function siteSettingsPatch() {
   };
 }
 
+/**
+ * Açılışın video ve kanıt satırı alanları. YouTube kimlikleri yazılmaz: onları
+ * Burak Studio'dan giriyor (aynada boş), seed onları silmez.
+ */
+function homeHeroOpening() {
+  const e = home[EN].opening;
+  const t = home[TR].opening;
+  const [eBank, eUsers, eLive] = e.proof ?? [];
+  const [tBank, tUsers, tLive] = t.proof ?? [];
+  return {
+    heroTextMobile: lt(e.heroTextMobile, t.heroTextMobile),
+    showProof: Boolean(e.proof),
+    bankCount: eBank.value,
+    bankCountLabel: ls(eBank.label, tBank.label),
+    proofCase: { _type: "reference", _ref: "caseStudy-insha" },
+    proofUsersLabel: ls(eUsers.label, tUsers.label),
+    proofLiveLabel: ls(eLive.label, tLive.label),
+  };
+}
+
+function homeHeroVideo() {
+  const e = home[EN].heroVideo;
+  const t = home[TR].heroVideo;
+  return {
+    durationLabel: e.durationLabel,
+    buttonLabel: ls(e.buttonLabel, t.buttonLabel),
+    ariaLabel: ls(e.ariaLabel, t.ariaLabel),
+    modalTitle: ls(e.modalTitle, t.modalTitle),
+    previewCaption: ls(e.previewCaption, t.previewCaption),
+    closeLabel: ls(e.closeLabel, t.closeLabel),
+  };
+}
+
+function homeHeroPatch() {
+  const set: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(homeHeroOpening())) set[`opening.${k}`] = v;
+  for (const [k, v] of Object.entries(homeHeroVideo())) set[`heroVideo.${k}`] = v;
+  return { id: "homePage", set };
+}
+
 function homeDoc(): SanityDocumentStub {
   const e = home[EN];
   const t = home[TR];
@@ -227,7 +269,9 @@ function homeDoc(): SanityDocumentStub {
       ctaLabel: ls(e.opening.ctaLabel, t.opening.ctaLabel),
       secondaryLinkLabel: ls(e.opening.secondaryLinkLabel, t.opening.secondaryLinkLabel),
       portraitAlt: ls(e.opening.portraitAlt, t.opening.portraitAlt),
+      ...homeHeroOpening(),
     },
+    heroVideo: homeHeroVideo(),
     startWhereYouAre: {
       label: ls(e.startWhereYouAre.label, t.startWhereYouAre.label),
       heading: ls(e.startWhereYouAre.heading, t.startWhereYouAre.heading),
@@ -1075,7 +1119,7 @@ async function guardPublished(
 
 async function main() {
   const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly;
+  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero;
   const creates = only
     ? []
     : onlySpark
@@ -1083,6 +1127,7 @@ async function main() {
       : [homeDoc(), servicesPageDoc(), ...servicePageDocs(), workPageDoc(), aboutDoc(), ...comingEpisodeDocs()];
   const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
     ? [
+        ...(onlyHomeHero ? [homeHeroPatch()] : []),
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
@@ -1102,9 +1147,18 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
+
+  // Tam seed ana sayfayı baştan yazıyor: Studio'dan girilen YouTube kimlikleri korunur.
+  const homeCreate = creates.find((d) => d._id === "homePage");
+  if (homeCreate) {
+    const ids = await client.fetch<{ youtubeIdTr?: string; youtubeIdEn?: string } | null>(
+      `*[_type == "homePage" && _id == "homePage"][0].heroVideo{ youtubeIdTr, youtubeIdEn }`,
+    );
+    Object.assign(homeCreate.heroVideo as Record<string, unknown>, ids ?? {});
+  }
 
   if (dry) {
     console.log("createOrReplace:", creates.map((d) => d._id).join(", "));
@@ -1115,7 +1169,9 @@ async function main() {
   }
 
   const tx = client.transaction();
-  if (radarOnly) {
+  if (onlyHomeHero) {
+    // Sadece ana sayfa patch'i; bölüm taslakları oluşturulmaz.
+  } else if (radarOnly) {
     if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());
   } else if (onlyDora) {
     tx.createIfNotExists(doraStub());

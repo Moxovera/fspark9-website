@@ -608,6 +608,28 @@ export type HomePage = {
       crop?: SanityImageCrop;
       _type: "image";
     };
+    heroTextMobile?: LocaleText;
+    showProof?: boolean;
+    bankCount?: string;
+    bankCountLabel?: LocaleString;
+    proofCase?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "caseStudy";
+    };
+    proofUsersLabel?: LocaleString;
+    proofLiveLabel?: LocaleString;
+  };
+  heroVideo?: {
+    youtubeIdTr?: string;
+    youtubeIdEn?: string;
+    durationLabel?: string;
+    buttonLabel?: LocaleString;
+    ariaLabel?: LocaleString;
+    modalTitle?: LocaleString;
+    previewCaption?: LocaleString;
+    closeLabel?: LocaleString;
   };
   startWhereYouAre?: {
     label?: LocaleString;
@@ -1101,37 +1123,47 @@ export type SITE_CHROME_QUERYResult = {
   }>;
 };
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "homePage" && _id == "homePage"][0]{  seo{ title, description },  opening{ ..., "portraitUrl": portrait.asset->url },  startWhereYouAre,  fourServices,  work{    label, heading, allLinkLabel, alsoLabel, also,    featured{      label, heading, text, figures, linkLabel,      "slug": caseStudy->slug,      "screens": caseStudy->screens[0...2]{ "src": asset->url, alt }    },    rows[]{ line, tags, "slug": caseStudy->slug, "name": caseStudy->name }  },  withMe{ ..., "portraitUrl": portrait.asset->url },  spark}
+// Query: *[_type == "homePage" && _id == "homePage"][0]{  seo{ title, description },  opening{    eyebrowParts, headlineSentences, cutWord, intro, ctaLabel, secondaryLinkLabel, portraitAlt,    heroTextMobile, showProof, bankCount, bankCountLabel, proofUsersLabel, proofLiveLabel,    "portraitUrl": portrait.asset->url,    "proofFigures": proofCase->figures  },  heroVideo,  startWhereYouAre,  fourServices,  work{    label, heading, allLinkLabel, alsoLabel, also,    featured{      label, heading, text, figures, linkLabel,      "slug": caseStudy->slug,      "screens": caseStudy->screens[0...2]{ "src": asset->url, alt }    },    rows[]{ line, tags, "slug": caseStudy->slug, "name": caseStudy->name }  },  withMe{ ..., "portraitUrl": portrait.asset->url },  spark}
 export type HOME_PAGE_QUERYResult = {
   seo: {
     title: LocaleString | null;
     description: LocaleText | null;
   } | null;
   opening: {
-    eyebrowParts?: Array<{
+    eyebrowParts: Array<{
       _key: string;
-    } & LocaleString>;
-    headlineSentences?: Array<{
+    } & LocaleString> | null;
+    headlineSentences: Array<{
       _key: string;
-    } & LocaleString>;
-    cutWord?: LocaleString;
-    intro?: LocaleText;
-    ctaLabel?: LocaleString;
-    secondaryLinkLabel?: LocaleString;
-    portraitAlt?: LocaleString;
-    portrait?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
+    } & LocaleString> | null;
+    cutWord: LocaleString | null;
+    intro: LocaleText | null;
+    ctaLabel: LocaleString | null;
+    secondaryLinkLabel: LocaleString | null;
+    portraitAlt: LocaleString | null;
+    heroTextMobile: LocaleText | null;
+    showProof: boolean | null;
+    bankCount: string | null;
+    bankCountLabel: LocaleString | null;
+    proofUsersLabel: LocaleString | null;
+    proofLiveLabel: LocaleString | null;
     portraitUrl: string | null;
+    proofFigures: Array<{
+      value?: LocaleString;
+      label?: LocaleString;
+      _type: "figure";
+      _key: string;
+    }> | null;
+  } | null;
+  heroVideo: {
+    youtubeIdTr?: string;
+    youtubeIdEn?: string;
+    durationLabel?: string;
+    buttonLabel?: LocaleString;
+    ariaLabel?: LocaleString;
+    modalTitle?: LocaleString;
+    previewCaption?: LocaleString;
+    closeLabel?: LocaleString;
   } | null;
   startWhereYouAre: {
     label?: LocaleString;
@@ -1779,7 +1811,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "{\n  \"site\": *[_type == \"siteSettings\" && _id == \"siteSettings\"][0]{\n    brandName, homeLabel, servicesLabel, nav, servicesMenu, bookLabel,\n    menuLabel, menuOpenLabel, menuCloseLabel, footer, booking, nextStep, legal\n  },\n  \"services\": *[_type == \"servicePage\"] | order(order asc){ slug, name, shortLine, audience, slices }\n}": SITE_CHROME_QUERYResult;
-    "*[_type == \"homePage\" && _id == \"homePage\"][0]{\n  seo{ title, description },\n  opening{ ..., \"portraitUrl\": portrait.asset->url },\n  startWhereYouAre,\n  fourServices,\n  work{\n    label, heading, allLinkLabel, alsoLabel, also,\n    featured{\n      label, heading, text, figures, linkLabel,\n      \"slug\": caseStudy->slug,\n      \"screens\": caseStudy->screens[0...2]{ \"src\": asset->url, alt }\n    },\n    rows[]{ line, tags, \"slug\": caseStudy->slug, \"name\": caseStudy->name }\n  },\n  withMe{ ..., \"portraitUrl\": portrait.asset->url },\n  spark\n}": HOME_PAGE_QUERYResult;
+    "*[_type == \"homePage\" && _id == \"homePage\"][0]{\n  seo{ title, description },\n  opening{\n    eyebrowParts, headlineSentences, cutWord, intro, ctaLabel, secondaryLinkLabel, portraitAlt,\n    heroTextMobile, showProof, bankCount, bankCountLabel, proofUsersLabel, proofLiveLabel,\n    \"portraitUrl\": portrait.asset->url,\n    \"proofFigures\": proofCase->figures\n  },\n  heroVideo,\n  startWhereYouAre,\n  fourServices,\n  work{\n    label, heading, allLinkLabel, alsoLabel, also,\n    featured{\n      label, heading, text, figures, linkLabel,\n      \"slug\": caseStudy->slug,\n      \"screens\": caseStudy->screens[0...2]{ \"src\": asset->url, alt }\n    },\n    rows[]{ line, tags, \"slug\": caseStudy->slug, \"name\": caseStudy->name }\n  },\n  withMe{ ..., \"portraitUrl\": portrait.asset->url },\n  spark\n}": HOME_PAGE_QUERYResult;
     "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status in [\"coming\", \"draft\"] && previewLive == true))]\n  | order(coalesce(publishedAt, \"9999-12-31\") desc, format->orderRank asc, number desc)[0...3]{\n    number, subject, hook, cardLine, publishedAt,\n    \"status\": select($preview && status in [\"coming\", \"draft\"] && previewLive == true => \"published\", status),\n    \"episodeSlug\": slug,\n    \"format\": format->{ name, singularName, slug, comingLabel }\n  }": SPARK_CARDS_QUERYResult;
     "*[_type == \"servicesPage\" && _id == \"servicesPage\"][0]{\n  seo{ title, description }, backLabel, opening, servicePageLabels\n}": SERVICES_PAGE_QUERYResult;
     "*[_type == \"servicePage\"] | order(order asc){\n  slug, seo{ title, description }, opening, steps[]{ title, line, slices }, keep\n}": SERVICE_PAGES_QUERYResult;

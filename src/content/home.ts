@@ -24,6 +24,21 @@ export const home: Record<Locale, HomeContent> = {
       ctaLabel: "Book a call",
       secondaryLinkLabel: "See what I do",
       portraitAlt: "Mehmet Burak Dikmen",
+      heroTextMobile: "I work with fintechs, banks and companies launching a financial product. I stay in your team until it’s live.",
+      proof: [
+        { value: "2", label: "Digital banks built" },
+        { value: "65,000+", label: "Users · Germany" },
+        { value: "6 months", label: "Zero to live" },
+      ],
+    },
+    heroVideo: {
+      youtubeId: "",
+      durationLabel: "1:30",
+      buttonLabel: "Meet me in 90 seconds",
+      ariaLabel: "Watch the intro video, 1 minute 30 seconds",
+      modalTitle: "Why isn’t your financial product live yet?",
+      previewCaption: "Hey, I’m Burak.",
+      closeLabel: "Close",
     },
     startWhereYouAre: {
       label: "01 · Which one are you?",
@@ -169,6 +184,22 @@ export const home: Record<Locale, HomeContent> = {
       ctaLabel: "Görüşme ayarla",
       secondaryLinkLabel: "Neler yaptığıma bakın",
       portraitAlt: "Mehmet Burak Dikmen",
+      heroTextMobile:
+        "Fintechler, bankalar ve finansal ürün çıkarmak isteyen şirketlerle çalışıyorum. Ürün canlıya çıkana kadar ekibinizde kalıyorum.",
+      proof: [
+        { value: "2", label: "Dijital banka kurdum" },
+        { value: "65.000+", label: "Kullanıcı · Almanya" },
+        { value: "6 ay", label: "Sıfırdan canlıya" },
+      ],
+    },
+    heroVideo: {
+      youtubeId: "",
+      durationLabel: "1:30",
+      buttonLabel: "Beni 90 saniyede tanıyın",
+      ariaLabel: "Tanıtım videosunu izle, 1 dakika 30 saniye",
+      modalTitle: "Finansal ürününüz neden hâlâ canlıda değil?",
+      previewCaption: "Merhaba, ben Burak.",
+      closeLabel: "Kapat",
     },
     startWhereYouAre: {
       label: "01 · Hangisi sizsiniz?",

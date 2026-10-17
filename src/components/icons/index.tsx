@@ -58,3 +58,8 @@ export function CloseIcon(props: IconProps) {
 export function MenuIcon(props: IconProps) {
   return <Icon d="M0 6h24M0 18h24" {...props} />;
 }
+
+/** Oynat üçgeni (tanıtım videosu düğmesi): aynı çizgi, içi dolu. */
+export function PlayIcon(props: IconProps) {
+  return <Icon d="M9 7.2v9.6l7.6-4.8z" fill="currentColor" {...props} />;
+}

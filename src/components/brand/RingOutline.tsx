@@ -11,7 +11,7 @@ import type { RingOutlineProps } from "@/types/content";
  * `animate`: yüklemede çizgiler sırayla çizilir, sonra Flare dilim gelir
  * (brief §10, globals.css .ring-draw).
  */
-export default function RingOutline({ className, animate = false }: RingOutlineProps) {
+export default function RingOutline({ className, animate = false, inner = 35 }: RingOutlineProps) {
   return (
     <svg
       viewBox="0 0 100 100"
@@ -22,7 +22,7 @@ export default function RingOutline({ className, animate = false }: RingOutlineP
       {EIGHT_SLICES.map((i) => (
         <path
           key={i}
-          d={slicePath(i, 50, 35)}
+          d={slicePath(i, 50, inner)}
           data-slice={i}
           pathLength={1}
           style={{ "--slice-i": i - 1 } as CSSProperties}
@@ -31,7 +31,7 @@ export default function RingOutline({ className, animate = false }: RingOutlineP
           strokeWidth="0.6"
         />
       ))}
-      <path d={slicePath(9, 50, 35)} data-slice={9} className="slice-live fill-flare" />
+      <path d={slicePath(9, 50, inner)} data-slice={9} className="slice-live fill-flare" />
     </svg>
   );
 }

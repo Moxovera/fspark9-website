@@ -11,7 +11,7 @@
  * ve karar dizileri paylaşılan, alanlar içeride {en, tr} taşıyor.
  */
 
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactNode, RefObject } from "react";
 // ─────────────────────────────────────────────
 // Ortak
 // ─────────────────────────────────────────────
@@ -1041,6 +1041,8 @@ export interface RingOutlineProps {
   className?: string
   /** Yüklemede çizim animasyonu (sadece açılışta). */
   animate?: boolean
+  /** İç yarıçap (viewBox birimi, dış 50). Varsayılan 35; ana sayfa telefonda 41.1 (146/120 px). */
+  inner?: number
 }
 
 export interface LogoProps {
@@ -1199,6 +1201,19 @@ export interface HeadlineWithCut {
   cutWord: string
 }
 
+export interface HeroVideoContent {
+  /** Bu dilin filmi; boşsa video düğmesi ve önizleme görünmez. */
+  youtubeId: string
+  /** Düğmedeki süre, ör. "1:30". */
+  durationLabel: string
+  buttonLabel: string
+  ariaLabel: string
+  modalTitle: string
+  /** Sessiz önizleme sırasında portrenin altındaki satır (Burak'ın o 4 saniyede söylediği). */
+  previewCaption: string
+  closeLabel: string
+}
+
 export interface HomeContent {
   seo: PageSeoCopy
   opening: HeadlineWithCut & {
@@ -1209,7 +1224,16 @@ export interface HomeContent {
     secondaryLinkLabel: string
     portraitAlt: string
     portraitSrc?: string
+    /** Telefonda intro yerine görünen kısa metin (Sanity'de boşsa intro). */
+    heroTextMobile: string
+    /**
+     * Butonların altındaki kanıt satırı: kurulan banka sayısı ve vakanın
+     * (insha) kullanıcı ve canlıya çıkış rakamları. Sanity'de kapalıysa yok.
+     */
+    proof?: FigureItem[]
   }
+  /** Açılıştaki tanıtım filmi. `youtubeId` boşsa düğme ve önizleme hiç yok. */
+  heroVideo: HeroVideoContent
   startWhereYouAre: {
     label: string
     heading: string
@@ -1633,6 +1657,34 @@ export interface FourServicesProps {
 
 export interface HomeOpeningProps {
   content: HomeContent["opening"];
+  video: HeroVideoContent;
+  /** Önizleme kliplerinin dili (public/video/hero-preview-{locale}.*). */
+  locale: string;
+}
+
+/** Önizleme klibinin dosyaları (sitenin kendi sunucusundan, YouTube'dan değil). */
+export interface HeroPreviewSources {
+  mp4: string;
+  webm: string;
+  poster: string;
+}
+
+export interface HeroVideoButtonProps {
+  video: HeroVideoContent;
+  preview: HeroPreviewSources;
+  /** Portre: sunucuda üretilen next/image, önizleme bunun üstüne biner. */
+  children: ReactNode;
+}
+
+export interface VideoModalProps {
+  /** YouTube kimliği; oynatıcı sadece pencere açıkken oluşturulur. */
+  youtubeId: string;
+  title: string;
+  closeLabel: string;
+  open: boolean;
+  onClose: () => void;
+  /** Kapanınca odağın döneceği kontrol (pencereyi açan düğme). */
+  returnFocusRef: RefObject<HTMLElement | null>;
 }
 
 export interface HomeWorkProps {

@@ -4,7 +4,7 @@ Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalı
 
 **v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-10-02
+Son güncelleme: 2026-10-17
 
 ---
 
@@ -72,6 +72,11 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 | `npm run typegen` | Şema çıkarır ve sorgu tiplerini üretir (`src/sanity/types.ts`) |
 
 ## Açık işler
+
+- **Ana sayfa tanıtım filmi (2026-10-17).** Açılış yeniden düzenlendi (FİNAL · Masaüstü / Telefon): halka 1440'ta 600px, merkezi x 1250 ve "Görüşme ayarla" satırına bağlı (video düğmesi her genişlikte butonla aynı hizada, CSS ile); telefonda portre en üstte. Bileşenler `components/home/HomeOpening.tsx`, `HeroVideo.tsx` (düğme, 4 sn sessiz önizleme, klibe bağlı ilerleme halkası), `components/ui/VideoModal.tsx` (youtube-nocookie, tıklamadan sonra; About ve Spark da kullanabilir). Klipler `public/video/hero-preview-{tr,en}.{mp4,webm,jpg}`, üretimi `docs/hero-video-check/clip/build-clips.py` (ham çekimlerin 30 fps kopyası + filmin renk eşleme ve grade'i). Sanity: Home → Opening sekmesi → **Hero video** (`youtubeIdTr`, `youtubeIdEn`, süre, etiketler, önizleme altyazısı) ve Opening içinde `heroTextMobile`, `showProof`, `bankCount`, `bankCountLabel`, `proofCase` (insha; 2. ve 3. rakam), `proofUsersLabel`, `proofLiveLabel`. Sadece bu alanları yazmak: `npm run seed:v3 -- --only=home-hero` (YouTube kimliklerine dokunmaz; tam seed de onları korur).
+  - **Kimlik boşsa** o dilde düğme, halka izi ve önizleme yok. Preview ve yerelde (canlıda asla) boş kimlik yerine test filmi (Big Buck Bunny, `HERO_VIDEO_PREVIEW_ID` `src/sanity/lib/content.ts`), `check:drift` bunu boş sayar. Burak kimlikleri girince kendiliğinden devreden çıkar; ayna `src/content/home.ts` `heroVideo.youtubeId` güncellenmezse drift farkı normal.
+  - LCP: mobilde portre (ana sayfa portresi %1 opaklıktan belirir; 0'dan belirseydi Chrome onu saymıyor, sonradan beliren klip LCP oluyordu), masaüstünde başlık.
+  - Privacy paragrafı taslak: `docs/privacy-youtube-draft.md` (Burak onaylayacak, yayında değil).
 
 - **On the Radar (Spark formatı 03) ve Nº 01 finmid (2026-10-12).** Doğrudan canlı (`main`). Format sayfası `components/spark/radar/RadarFormatPage` (sadece `on-the-radar`; Son Gün ve Sector reports şablonda), bölüm şablonu `layout: radar` (`RadarEpisode`: tahmin, nasıl çalışıyor + hesap makinesi, tuval, rakipler, taşıyıcı taş oyunu, zayıf halka, tam resim, yapışkan pano). Gövde tek JSON: `src/content/radar/finmid.json` (Sanity `sparkEpisode.radarBody`), radar değerleri `src/lib/radar.ts` (format sayfası, pano ve tam resim aynı kural). Sabit etiketler `src/content/spark-radar.ts`. Belgeler `sparkFormat-on-the-radar` ve `sparkEpisode-on-the-radar-01`; yazmak için sadece `seed:v3 -- --only=on-the-radar` ve `--only=radar-finmid [--publish-radar-finmid]`, ardından `check:drift`. Ana sayfa kartının "Read the analysis" etiketi şemada format başına kart etiketi olmadığı için yok (kartlar ortak "Read the episode" kullanıyor).
 - **Son Gün Nº 04 Yolt (2026-10-07).** Prompt, metin ve prototip `Spark/Yolt/`. Slug `04-yolt` (Nuri ve Fidor deseni; prompttaki `yolt` yerine), şablon Fidor'unki (`story`, kart yok, `dayClock`). Ayna `src/content/spark-yolt.ts` prototipten üretildi, her cümle metin dosyasına karşı doğrulandı. Sanity belgesi `sparkEpisode-the-last-day-04`. Önizleme: `npm run seed:v3 -- --only=yolt`; canlıya çıkış (kod main'de deploy olduktan sonra): `npm run seed:v3 -- --only=yolt --publish-yolt`, ardından `check:drift`. Ana sayfa aynası en yeni üç kartı tutar (Yolt, Bauspar, Fidor); seed'deki Bó ve Nuri `cardLine` aramaları kart aynada yoksa Sanity değerine dokunmaz.

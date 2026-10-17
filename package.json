@@ -13,7 +13,7 @@
     "check:spark-drift": "npm run check:drift",
     "upload-og-image": "tsx --env-file=.env.local src/scripts/upload-og-image.ts",
     "seed:v3": "tsx --env-file=.env.local src/scripts/seed-v3.ts",
-    "check:drift": "tsx --conditions=react-server --env-file=.env.local src/scripts/check-drift.ts",
+    "check:drift": "HERO_VIDEO_PREVIEW_OFF=1 tsx --conditions=react-server --env-file=.env.local src/scripts/check-drift.ts",
     "cleanup:v3": "tsx --env-file=.env.local src/scripts/cleanup-v3.ts"
   },
   "dependencies": {
