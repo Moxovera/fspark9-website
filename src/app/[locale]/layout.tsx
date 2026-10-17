@@ -16,6 +16,7 @@ import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
 import { SparkAltSlugProvider } from "@/components/chrome/SparkAltSlugContext";
 import { MobileMenuProvider } from "@/components/chrome/MobileMenuContext";
+import JsClass from "@/components/ui/JsClass";
 import { getChrome } from "@/sanity/lib/content";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, SITE_LOGO_QUERY, toSiteSeo, toSiteLogo } from "@/sanity/lib/queries";
@@ -111,6 +112,7 @@ export default async function LocaleLayout({
       <body
         className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} font-sans antialiased`}
       >
+        <JsClass />
         <NextIntlClientProvider>
           <SparkAltSlugProvider>
             <BookingProvider>
