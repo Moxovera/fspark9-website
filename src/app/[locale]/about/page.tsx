@@ -11,6 +11,7 @@ import RingStage from "@/components/blocks/RingStage";
 import { getAbout, getChrome, getHome } from "@/sanity/lib/content";
 import { EIGHT_SLICES } from "@/lib/dial";
 import { getPathname } from "@/i18n/navigation";
+import { heroPreviewSources } from "@/lib/heroVideo";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
@@ -46,9 +47,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           personJsonLd(personInfo(home[locale], chrome), path),
         ]}
       />
+      {/* Portre ve tanıtım filmi ana sayfa açılışıyla aynı (home.opening, home.heroVideo). */}
       <RingStage
-        portraitAlt={content.portraitAlt}
-        portraitSrc={content.portraitSrc}
+        portraitAlt={home[locale].opening.portraitAlt}
+        portraitSrc={home[locale].opening.portraitSrc}
+        video={home[locale].heroVideo}
+        preview={heroPreviewSources(locale)}
         textClassName="gap-5 pt-6 min-[900px]:gap-8 min-[900px]:pt-[120px]"
         ringClassName="mt-8"
       >

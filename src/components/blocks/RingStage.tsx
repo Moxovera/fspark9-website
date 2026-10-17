@@ -1,5 +1,6 @@
 import Portrait from "@/components/brand/Portrait";
 import RingOutline from "@/components/brand/RingOutline";
+import HeroVideo from "@/components/home/HeroVideo";
 import type { RingStageProps } from "@/types/content";
 
 /**
@@ -8,8 +9,14 @@ import type { RingStageProps } from "@/types/content";
  * halkanın %66.57'si (466/700), tam iç deliğe oturuyor. Masaüstü 1280+
  * board ölçüleri; 900-1279 halka genişlikle küçülüyor; 900 altı mobil
  * board: metin üstte, halka ve portre 452px'lik kesilmiş blokta.
+ *
+ * `video` verilirse portre ana sayfadaki gibi tanıtım filmi katmanıyla
+ * (HeroVideo) sarılır; portre o zaman hero-portrait-in ile belirir (LCP).
  */
-export default function RingStage({ portraitAlt, portraitSrc, children, textClassName, ringClassName = "mt-10" }: RingStageProps) {
+export default function RingStage({ portraitAlt, portraitSrc, children, textClassName, ringClassName = "mt-10", video, preview }: RingStageProps) {
+  const hasVideo = video !== undefined && preview !== undefined && video.youtubeId !== "";
+  const sizes = "(min-width: 1440px) 466px, (min-width: 900px) 33vw, 278px";
+
   return (
     <section className="on-ink relative overflow-hidden bg-ink pt-16 min-[900px]:min-h-[900px] min-[900px]:pt-[84px] min-[900px]:pb-24">
       {/* Izgara tam genişlikte halkanın üstünde: fare olaylarını halkaya
@@ -22,13 +29,15 @@ export default function RingStage({ portraitAlt, portraitSrc, children, textClas
       >
         <div className="absolute top-0 left-[-10px] size-[420px] min-[900px]:top-[112px] min-[900px]:right-[-5.833vw] min-[900px]:left-auto min-[900px]:size-[clamp(460px,48.61vw,700px)]">
           <RingOutline animate className="absolute inset-0 z-[1] size-full" />
-          <Portrait
-            alt={portraitAlt}
-            src={portraitSrc}
-            priority
-            sizes="(min-width: 1440px) 466px, (min-width: 900px) 33vw, 278px"
-            className="portrait-in absolute inset-[16.714%] z-[2]"
-          />
+          {hasVideo ? (
+            <div className="absolute inset-[16.714%] z-[2]">
+              <HeroVideo video={video} preview={preview}>
+                <Portrait alt={portraitAlt} src={portraitSrc} priority sizes={sizes} className="hero-portrait-in absolute inset-0 z-[1]" />
+              </HeroVideo>
+            </div>
+          ) : (
+            <Portrait alt={portraitAlt} src={portraitSrc} priority sizes={sizes} className="portrait-in absolute inset-[16.714%] z-[2]" />
+          )}
         </div>
       </div>
     </section>

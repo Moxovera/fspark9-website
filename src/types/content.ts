@@ -1584,6 +1584,9 @@ export interface RingStageProps {
   textClassName: string;
   /** Mobilde halka bloğunun üst boşluğu (Main 40px, About 32px). */
   ringClassName?: string;
+  /** Ana sayfadaki tanıtım filmi; `youtubeId` boşsa ya da yoksa düz portre. */
+  video?: HeroVideoContent;
+  preview?: HeroPreviewSources;
 }
 
 export interface BookingCtaProps {
