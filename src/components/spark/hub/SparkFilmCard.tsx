@@ -13,13 +13,12 @@ import type { SparkFilmCardProps } from "@/types/content";
  * yazısı kalsın); sayfa `load` olayını verip tarayıcı boşa çıkınca 4 saniyelik
  * sessiz önizleme bir kez oynar, çevresindeki çizgi klibin gerçek
  * currentTime / duration değeriyle dolar, klip bitince 600 ms'de postere
- * geçilir, %38 Ink perde ve oynat düğmesi gelir. Tıklayınca film pencerede
+ * geçilir. Oynat hapı (sitedeki Flare hap) baştan sabit durur. Tıklayınca film pencerede
  * (VideoModal, 4:5) sesli açılır; YouTube sadece o zaman istenir. Akış
  * Four services halkasıyla ortak: hooks/useClipPreview.ts. Kimlik boşsa
  * sayfa bu bileşeni hiç çizmez.
  *
- * Sarı kuralı: sayfada Flare "Spark" yazısı ve filmin kendi karesi; çizgi ve
- * düğme Paper.
+ * Çizgi ve hap Flare (sitedeki halka videolarıyla aynı dil).
  */
 export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCardProps) {
   const [open, setOpen] = useState(false);
@@ -37,7 +36,7 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
     line.style.opacity = p > 0 ? "1" : "0";
   }, []);
 
-  const { phase, stageRef, clipRef, halt, clipMounted, settled } = useClipPreview<HTMLButtonElement>({
+  const { phase, stageRef, clipRef, halt, clipMounted } = useClipPreview<HTMLButtonElement>({
     start: "afterLoad",
     threshold: 0.25,
     blockedConnections: SLOWER_CONNECTIONS,
@@ -102,7 +101,7 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
             pathLength={1}
             strokeLinecap="butt"
             transform="rotate(-90 50 50)"
-            className="stroke-paper"
+            className="stroke-flare"
             style={{ strokeDasharray: "0 1", opacity: 0 }}
           />
         </svg>
@@ -131,20 +130,14 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
               <source src={preview.webm} type="video/webm" />
             </video>
           )}
-          {/* JS yoksa düğme çalışmaz: perde ve düğme hiç görünmez, poster kalır. */}
-          <span aria-hidden="true" className={`film-veil video-only absolute inset-0 bg-[color-mix(in_srgb,var(--ink)_38%,transparent)] ${settled ? "is-on" : ""}`} />
-          <span
-            aria-hidden="true"
-            className={`film-play video-only absolute inset-x-0 bottom-[11%] flex flex-col items-center gap-3 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}
-          >
-            <span className="film-circle flex size-[60px] items-center justify-center rounded-full bg-paper text-ink min-[640px]:size-[76px]">
-              <PlayIcon className="size-5 translate-x-[1px] min-[640px]:size-[26px]" />
-            </span>
-            <span className="flex items-baseline gap-2 rounded-full bg-ink px-4 py-2">
-              <span className="font-sans text-[13px] leading-none font-bold text-paper min-[640px]:text-[15px]">{film.buttonLabel}</span>
-              <span className="font-mono text-[11px] leading-none font-medium text-dust min-[640px]:text-[12px]">{film.durationLabel}</span>
-            </span>
+        </span>
+        {/* Sitedeki oynat hapıyla aynı (açılış filmi, Four services): Flare, Ink kenar; sabit, baştan görünür. Dairenin alt kenarına oturur. */}
+        <span className="film-pill video-only absolute top-[calc(96.5%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(96.5%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px]" aria-hidden="true">
+          <span className="flex size-[34px] flex-none items-center justify-center rounded-full bg-ink text-flare min-[640px]:size-[42px]">
+            <PlayIcon className="size-[18px] translate-x-[1px] min-[640px]:size-[22px]" />
           </span>
+          <span>{film.buttonLabel}</span>
+          <span className="font-mono text-[11px] font-medium min-[640px]:text-[12px]">{film.durationLabel}</span>
         </span>
       </button>
       <VideoModal

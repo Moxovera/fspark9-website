@@ -38,7 +38,7 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
     line.style.opacity = p > 0 ? "1" : "0";
   }, []);
 
-  const { phase, stageRef, clipRef, halt, clipMounted, settled } = useClipPreview<HTMLDivElement>({
+  const { phase, stageRef, clipRef, halt, clipMounted } = useClipPreview<HTMLDivElement>({
     start: "visible",
     threshold: 0.5,
     onProgress: drawLine,
@@ -103,13 +103,13 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
           onClick={openVideo}
           className="video-only absolute inset-[19%] cursor-pointer rounded-full"
         />
-        {/* Açılış filmindeki gibi dairenin alt kenarına oturan hap; klip bitince bir kez gelir. */}
+        {/* Açılış filmindeki gibi dairenin alt kenarına oturan hap; baştan sabit durur (Spark film kartındaki hapla aynı). */}
         <button
           ref={buttonRef}
           type="button"
           onClick={openVideo}
           aria-label={video.ariaLabel}
-          className={`ring-pill video-only absolute top-[calc(81%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(81%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px] ${settled ? "is-on" : ""}`}
+          className={`ring-pill is-on video-only absolute top-[calc(81%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(81%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px]`}
         >
           <span className="flex size-[34px] flex-none items-center justify-center rounded-full bg-ink text-flare min-[640px]:size-[42px]">
             <PlayIcon className="size-[18px] translate-x-[1px] min-[640px]:size-[22px]" />

@@ -963,36 +963,22 @@ html:not(.js) .video-only { display: none; }
   opacity: 0;
   transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.film-veil {
-  opacity: 0;
-  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.film-veil.is-on { opacity: 1; }
-.film-play {
-  opacity: 0;
-  scale: 0.96;
-  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), scale 500ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.film-play.is-on { opacity: 1; scale: 1; }
-.film-circle { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
-.film-card:hover .film-circle,
-.film-card:focus-visible .film-circle { transform: scale(1.07); }
+.film-pill { transition: scale 200ms var(--ease-brand); }
+.film-card:hover .film-pill,
+.film-card:focus-visible .film-pill { scale: 1.05; }
 /* Odakta kartın çevresinde 3px Paper halka, 6px boşlukla (Ink zeminde renk .on-ink'ten). */
 .film-card:focus-visible { outline-width: 3px; outline-offset: 6px; }
 @media (prefers-reduced-motion: reduce) {
-  .film-poster, .film-clip, .film-clip.is-ending, .film-veil, .film-play, .film-circle { transition: none; }
+  .film-poster, .film-clip, .film-clip.is-ending, .film-pill { transition: none; }
 }
 
 /* Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi: resim ve klip yok,
-   hover'da daire 1,07 büyür ve metnin altına 2px Ink çizgi gelir. */
-.spark-watch .watch-circle { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
-.spark-watch:hover .watch-circle,
-.spark-watch:focus-visible .watch-circle { transform: scale(1.07); }
-.spark-watch .watch-label { background: linear-gradient(var(--ink), var(--ink)) no-repeat 0 100% / 0 2px; transition: background-size 200ms cubic-bezier(0.22, 1, 0.36, 1); }
-.spark-watch:hover .watch-label,
-.spark-watch:focus-visible .watch-label { background-size: 100% 2px; }
+   sitedeki Flare oynat hapıyla aynı, hover'da 1,05 büyür. */
+.spark-watch { transition: scale 200ms var(--ease-brand); }
+.spark-watch:hover,
+.spark-watch:focus-visible { scale: 1.05; }
 @media (prefers-reduced-motion: reduce) {
-  .spark-watch .watch-circle, .spark-watch .watch-label { transition: none; }
+  .spark-watch { transition: none; }
 }
 
 /* Dikey video penceresi (VideoModal `aspect`): masaüstünde oynatıcı yüksekliği

@@ -6,7 +6,7 @@ import VideoModal from "@/components/ui/VideoModal";
 import type { SparkFilmButtonProps } from "@/types/content";
 
 /**
- * Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi. Sıfır yük:
+ * Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi. Sitedeki Flare oynat hapı (açılış filmi, halka videosu). Sıfır yük:
  * resim, klip, poster yok. Tıklayınca Spark sayfasına gitmez, aynı
  * VideoModal (4:5) ana sayfada açılır ve film sesli oynar; YouTube sadece
  * tıklamadan sonra istenir. Kimlik boşsa sayfa bu bileşeni çizmez.
@@ -23,13 +23,13 @@ export default function SparkFilmButton({ film, sparkLabel }: SparkFilmButtonPro
         ref={buttonRef}
         type="button"
         onClick={openVideo}
-        className="spark-watch video-only inline-flex min-h-11 cursor-pointer items-center gap-3 border-0 bg-transparent p-0 text-left whitespace-nowrap text-ink"
+        className="spark-watch video-only inline-flex h-[50px] cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:text-[16px]"
       >
-        <span className="watch-circle flex size-10 flex-none items-center justify-center rounded-full bg-ink text-paper">
-          <PlayIcon className="size-[14px] translate-x-[0.5px]" />
+        <span className="flex size-[34px] flex-none items-center justify-center rounded-full bg-ink text-flare">
+          <PlayIcon className="size-[18px] translate-x-[1px]" />
         </span>
-        <span className="watch-label pb-[2px] font-sans text-[18px] leading-[normal] font-bold">{film.homeButtonLabel}</span>
-        <span className="font-mono text-[13px] leading-[normal] font-medium text-stone">{film.durationLabel}</span>
+        <span>{film.homeButtonLabel}</span>
+        <span className="font-mono text-[11px] font-medium min-[640px]:text-[12px]">{film.durationLabel}</span>
       </button>
       <VideoModal
         youtubeId={film.youtubeId}
