@@ -1441,6 +1441,8 @@ export interface SparkHubContent {
   bigWord: string
   heading: string
   film: SparkFilmContent
+  /** Açılıştaki Flare düğme: formatlar bölümüne iner (film kartı varken). */
+  exploreLabel: string
   /** Kayan şerit parçaları (copy §5) ve son parçası. */
   tickerItems: string[]
   tickerTail: string

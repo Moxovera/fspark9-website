@@ -25,8 +25,9 @@ export const spark: Record<Locale, SparkHubContent> = {
     },
     bigWord: "Spark",
     heading: "Short, sharp formats that get companies moving.",
+    exploreLabel: "Explore the formats",
     film: {
-      youtubeId: "",
+      youtubeId: "6thCAqIHRyc",
       durationLabel: "0:28",
       buttonLabel: "Watch Spark",
       ariaLabel: "Watch the Spark film, 28 seconds",
@@ -136,8 +137,9 @@ export const spark: Record<Locale, SparkHubContent> = {
     },
     bigWord: "Spark",
     heading: "Şirketleri harekete geçiren kısa ve net formatlar.",
+    exploreLabel: "Formatları inceleyin",
     film: {
-      youtubeId: "",
+      youtubeId: "3OO8d3qkEKE",
       durationLabel: "0:28",
       buttonLabel: "Spark’ı izleyin",
       ariaLabel: "Spark filmini izle, 28 saniye",

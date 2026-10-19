@@ -22,6 +22,7 @@ export default defineType({
     lsList("tickerItems", "Ticker items", { group: "hub" }),
     ls("tickerTail", "Ticker last item", { group: "hub" }),
     ls("formatsLabel", "Formats label", { group: "hub" }),
+    ls("exploreLabel", "Opening button (scrolls to formats)", { group: "hub", description: "Film kartı varken açılıştaki Flare düğme: Formatları inceleyin." }),
     ls("readLabel", "Read link", { group: "hub" }),
     ls("backLabel", "Back link (to home)", { group: "hub" }),
     ls("sparkLabel", "Spark link (format and episode pages)", { group: "hub" }),

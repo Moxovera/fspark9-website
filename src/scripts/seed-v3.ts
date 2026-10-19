@@ -500,6 +500,7 @@ function sparkFilmFields() {
 function sparkFilmPatch() {
   const set: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(sparkFilmFields())) set[`sparkFilm.${k}`] = v;
+  set.exploreLabel = ls(spark[EN].exploreLabel, spark[TR].exploreLabel);
   return { id: "sparkSection", set };
 }
 
@@ -507,7 +508,7 @@ function sparkFilmPatch() {
 function sparkSectionPatch() {
   const e = spark[EN];
   const t = spark[TR];
-  const pick = (k: "bigWord" | "heading" | "tickerTail" | "formatsLabel" | "readLabel" | "backLabel" | "sparkLabel" | "launchDateLabel") =>
+  const pick = (k: "bigWord" | "heading" | "tickerTail" | "formatsLabel" | "exploreLabel" | "readLabel" | "backLabel" | "sparkLabel" | "launchDateLabel") =>
     ls(e[k], t[k]);
   const episode = Object.fromEntries(
     (Object.keys(e.episode) as (keyof typeof e.episode)[]).map((k) => [`episode.${k}`, ls(e.episode[k], t.episode[k])]),
@@ -522,6 +523,7 @@ function sparkSectionPatch() {
       tickerItems: lsList(e.tickerItems, t.tickerItems),
       tickerTail: pick("tickerTail"),
       formatsLabel: pick("formatsLabel"),
+      exploreLabel: pick("exploreLabel"),
       readLabel: pick("readLabel"),
       backLabel: pick("backLabel"),
       sparkLabel: pick("sparkLabel"),

@@ -8,10 +8,10 @@ import { SLOWER_CONNECTIONS } from "@/lib/videoPreview";
 import type { SparkFilmCardProps } from "@/types/content";
 
 /**
- * Spark sayfasının siyah açılışındaki film kartı (4:5, masaüstünde 400x500).
+ * Spark sayfasının siyah açılışındaki yuvarlak film kartı (kare alanda daire, masaüstünde 400x400; sitedeki halkalarla aynı dil, film 4:5 pencerede açılır).
  * Sayfa açılırken sadece küçük poster iner (canvas'a çizilir: LCP "Spark"
  * yazısı kalsın); sayfa `load` olayını verip tarayıcı boşa çıkınca 4 saniyelik
- * sessiz önizleme bir kez oynar, üstteki 3px çizgi klibin gerçek
+ * sessiz önizleme bir kez oynar, çevresindeki çizgi klibin gerçek
  * currentTime / duration değeriyle dolar, klip bitince 600 ms'de postere
  * geçilir, %38 Ink perde ve oynat düğmesi gelir. Tıklayınca film pencerede
  * (VideoModal, 4:5) sesli açılır; YouTube sadece o zaman istenir. Akış
@@ -25,13 +25,16 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
   const [open, setOpen] = useState(false);
   const [posterShown, setPosterShown] = useState(false);
   const posterRef = useRef<HTMLCanvasElement>(null);
-  const lineRef = useRef<HTMLSpanElement>(null);
+  const lineRef = useRef<SVGCircleElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Çizgiyi doğrudan çizer (her karede React render'ı olmasın).
   const drawLine = useCallback((progress: number) => {
     const line = lineRef.current;
-    if (line) line.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+    if (!line) return;
+    const p = Math.min(1, Math.max(0, progress));
+    line.style.strokeDasharray = `${p} 1`;
+    line.style.opacity = p > 0 ? "1" : "0";
   }, []);
 
   const { phase, stageRef, clipRef, halt, clipMounted, settled } = useClipPreview<HTMLButtonElement>({
@@ -84,16 +87,30 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
         type="button"
         onClick={openVideo}
         aria-label={film.ariaLabel}
-        className="film-card block w-full max-w-[400px] cursor-pointer border-0 bg-transparent p-0 text-left"
+        className="film-card relative block aspect-square w-full max-w-[400px] cursor-pointer rounded-full border-0 bg-transparent p-0 text-left"
       >
-        <span className="block h-[3px] w-full bg-stone" aria-hidden="true">
-          <span ref={lineRef} className="block h-full origin-left bg-paper" style={{ transform: "scaleX(0)" }} />
-        </span>
-        <span className="relative block aspect-[4/5] w-full overflow-hidden bg-ink">
+        {/* Çizgi dairenin çevresinde: zemin Stone, dolan kısım Paper (üstten saat yönünde). */}
+        <svg viewBox="0 0 100 100" className="pointer-events-none absolute inset-0 size-full" aria-hidden="true" focusable="false">
+          <circle cx="50" cy="50" r="49" fill="none" strokeWidth="0.9" className="stroke-stone" />
+          <circle
+            ref={lineRef}
+            cx="50"
+            cy="50"
+            r="49"
+            fill="none"
+            strokeWidth="0.9"
+            pathLength={1}
+            strokeLinecap="butt"
+            transform="rotate(-90 50 50)"
+            className="stroke-paper"
+            style={{ strokeDasharray: "0 1", opacity: 0 }}
+          />
+        </svg>
+        <span className="absolute inset-[3.5%] block overflow-hidden rounded-full bg-ink">
           <canvas
             ref={posterRef}
             width={544}
-            height={680}
+            height={544}
             aria-hidden="true"
             className={`film-poster absolute inset-0 size-full ${posterShown ? "is-shown" : ""}`}
           />
@@ -118,12 +135,12 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
           <span aria-hidden="true" className={`film-veil video-only absolute inset-0 bg-[color-mix(in_srgb,var(--ink)_38%,transparent)] ${settled ? "is-on" : ""}`} />
           <span
             aria-hidden="true"
-            className={`film-play video-only absolute inset-x-0 bottom-6 flex flex-col items-center gap-3 min-[640px]:bottom-8 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}
+            className={`film-play video-only absolute inset-x-0 bottom-[11%] flex flex-col items-center gap-3 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}
           >
             <span className="film-circle flex size-[60px] items-center justify-center rounded-full bg-paper text-ink min-[640px]:size-[76px]">
               <PlayIcon className="size-5 translate-x-[1px] min-[640px]:size-[26px]" />
             </span>
-            <span className="flex items-baseline gap-2 bg-ink px-3 py-2">
+            <span className="flex items-baseline gap-2 rounded-full bg-ink px-4 py-2">
               <span className="font-sans text-[13px] leading-none font-bold text-paper min-[640px]:text-[15px]">{film.buttonLabel}</span>
               <span className="font-mono text-[11px] leading-none font-medium text-dust min-[640px]:text-[12px]">{film.durationLabel}</span>
             </span>

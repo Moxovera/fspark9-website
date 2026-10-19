@@ -390,7 +390,7 @@ export async function getAbout(): Promise<Record<Locale, AboutContent>> {
 export const SPARK_HUB_QUERY = defineQuery(`{
   "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{
     seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,
-    backLabel, sparkLabel, formatsLabel, launchDateLabel,
+    backLabel, sparkLabel, formatsLabel, exploreLabel, launchDateLabel,
     sparkFilm,
     episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }
   },

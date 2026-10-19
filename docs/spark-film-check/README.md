@@ -1,5 +1,7 @@
 # Spark film kartı · kontrol kaydı (2026-10-19)
 
+> **Güncelleme (aynı gün, Burak'ın isteğiyle):** Kart dikdörtgen yerine **daire** (siteki halkalar gibi): 400×400, çevresinde ilerleme çizgisi (Stone zemin, Paper dolgu, üstten saat yönünde). Klip ve poster kare kırpma (kaynak karenin 1080 genişliğinde, y 238'den), 544×544: MP4 75 / 68 KB, WebM 55 / 50 KB, poster AVIF 8 / 6 KB (EN / TR). Film penceresi hâlâ 4:5. Spark açılışına Flare "Formatları inceleyin" / "Explore the formats" düğmesi (`#formats`). YouTube kimlikleri girildi: TR `3OO8d3qkEKE`, EN `6thCAqIHRyc` (Sanity + ayna). Aşağıdaki ölçüler ve ekran görüntüleri ilk (4:5) sürüme ait; `local/` güncel daire sürümü.
+
 Spark sayfasının Ink açılışına 4:5 film kartı, ana sayfadaki Spark bölümüne "Spark nedir? İzleyin" düğmesi.
 
 ## Film ve klip

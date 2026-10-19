@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import BackLink from "@/components/brand/BackLink";
+import CutButton from "@/components/brand/CutButton";
 import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
 import FormatBlock from "@/components/spark/hub/FormatBlock";
@@ -62,6 +63,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
               <h1 className="m-0 mt-1 max-w-[560px] font-display text-[24px] leading-[1.15] font-bold tracking-[-0.02em] text-paper min-[900px]:mt-3 min-[900px]:text-[36px] min-[900px]:leading-[1.12] min-[900px]:tracking-[-0.025em]">
                 {hub.heading}
               </h1>
+              <CutButton label={hub.exploreLabel} anchor="formats" className="mt-3 self-start" />
             </div>
             <SparkFilmCard film={hub.film} preview={sparkPreviewSources(locale)} sparkLabel={hub.sparkLabel} />
           </div>
@@ -84,7 +86,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
         <SparkTicker items={[...hub.tickerItems, hub.tickerTail]} />
       </section>
 
-      <section className="bg-paper px-5 pt-12 pb-16 min-[900px]:px-8 min-[900px]:pt-24 min-[900px]:pb-[120px] min-[1280px]:px-16">
+      <section id="formats" className="scroll-mt-[64px] bg-paper px-5 pt-12 pb-16 min-[900px]:px-8 min-[900px]:pt-24 min-[900px]:pb-[120px] min-[1280px]:px-16">
         <Reveal className="flex flex-col gap-4 min-[900px]:gap-6">
           <Label>{hub.formatsLabel}</Label>
           {formats.map(({ format, issues }) => (

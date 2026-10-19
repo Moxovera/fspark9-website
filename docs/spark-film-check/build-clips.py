@@ -18,7 +18,8 @@ from PIL import Image
 ff, root, out = sys.argv[1:4]
 FIRST, LAST = 88, 135
 FRAMES = 120                   # 4,0 s @ 30 fps
-SIZE = (544, 680)              # tam 4:5 (540x675'in yüksekliği tek, yuv420p kodlanamaz); sitede 400x500, retina için yeterli; kırpma yok
+SIZE = (544, 544)              # yuvarlak kart: 1080 genişliğinde kare kırpma, sitede 400x400 daire
+CROP_Y = 238                   # kırpmanın üst kenarı: yazı dairenin üst yarısında, alt yarı düğmeye kalır
 CRF = {"x264": 18, "vp9": 30}
 
 for lang in ("en", "tr"):
@@ -26,7 +27,7 @@ for lang in ("en", "tr"):
     tmp = tempfile.mkdtemp()
     seq = list(range(FIRST, LAST + 1)) + [LAST] * (FRAMES - (LAST - FIRST + 1))
     for i, n in enumerate(seq):
-        im = Image.open(os.path.join(src, f"element-{n:03d}.png")).convert("RGB").resize(SIZE, Image.LANCZOS)
+        im = Image.open(os.path.join(src, f"element-{n:03d}.png")).convert("RGB").crop((0, CROP_Y, 1080, CROP_Y + 1080)).resize(SIZE, Image.LANCZOS)
         im.save(os.path.join(tmp, f"f{i:04d}.png"))
     base = os.path.join(out, f"spark-preview-{lang}")
     common = ["-an", "-map_metadata", "-1", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709"]
