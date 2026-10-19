@@ -4,7 +4,7 @@ Projeye yeni başlayan (ya da araya giren) biri için tek durum kaynağı. Kalı
 
 **v2 CANLIDA (2026-09-24).** Site brief v4'e göre baştan kuruldu (The Ninth Slice markası), içerik tamamen Sanity'den geliyor, eski v1 kodu, şeması ve içeriği temizlendi.
 
-Son güncelleme: 2026-10-17
+Son güncelleme: 2026-10-19
 
 ---
 
@@ -73,6 +73,7 @@ Tekil belgeler Studio'da yeni oluşturulamıyor ve silinemiyor.
 
 ## Açık işler
 
+- **Hizmetler halka videosu (2026-10-19).** Ana sayfa "02 · Dört hizmet" halkasının ortasında hizmetler motion videosu (fspark9-motion video 11, ServicesOverview, dikey 4:5, 29,7 sn). Bileşen `components/home/ServicesRing.tsx` (ServicePicker içinde, sadece ana sayfa; /services'te yok). Halkanın %50'si görünür olunca 4 sn sessiz önizleme bir kez oynar, iç çizgi klibe bağlı dolar, sonra poster + oynat düğmesi; tıklayınca `VideoModal` 4:5 (`aspect`, `eyebrow` propları). Video varken halka 600'e kadar büyür ve telefonda da görünür; kimlik boşken bölüm eskisi gibi (300'lük halka, telefonda halka yok). Klip ve poster `public/video/services-{preview,poster}-{tr,en}.*`, üretimi `docs/services-video-check/build-clips.py` (kapanıştaki kadran, kare 776 ile 889, Remotion'dan 2x çizilip kırpıldı). Sanity: Home → Four services sekmesi → **Services video** (`youtubeIdTr`, `youtubeIdEn`, süre, düğme, aria, pencere başlığı). Sadece bu alanları yazmak: `npm run seed:v3 -- --only=services-video` (kimliklere dokunmaz). Preview ve yerelde boş kimlik yerine açılış filmiyle aynı test filmi. Kontrol kaydı `docs/services-video-check/README.md`.
 - **Ana sayfa tanıtım filmi (2026-10-17).** Açılış yeniden düzenlendi (FİNAL · Masaüstü / Telefon): halka 1440'ta 600px, merkezi x 1250 ve "Görüşme ayarla" satırına bağlı (video düğmesi her genişlikte butonla aynı hizada, CSS ile); telefonda portre en üstte. Bileşenler `components/home/HomeOpening.tsx`, `HeroVideo.tsx` (düğme, 4 sn sessiz önizleme, klibe bağlı ilerleme halkası), `components/ui/VideoModal.tsx` (youtube-nocookie, tıklamadan sonra; About ve Spark da kullanabilir). Klipler `public/video/hero-preview-{tr,en}.{mp4,webm,jpg}`, üretimi `docs/hero-video-check/clip/build-clips.py` (ham çekimlerin 30 fps kopyası + filmin renk eşleme ve grade'i). Sanity: Home → Opening sekmesi → **Hero video** (`youtubeIdTr`, `youtubeIdEn`, süre, etiketler, önizleme altyazısı) ve Opening içinde `heroTextMobile`, `showProof`, `bankCount`, `bankCountLabel`, `proofCase` (insha; 2. ve 3. rakam), `proofUsersLabel`, `proofLiveLabel`. Sadece bu alanları yazmak: `npm run seed:v3 -- --only=home-hero` (YouTube kimliklerine dokunmaz; tam seed de onları korur).
   - **Kimlik boşsa** o dilde düğme, halka izi ve önizleme yok. Preview ve yerelde (canlıda asla) boş kimlik yerine test filmi (Big Buck Bunny, `HERO_VIDEO_PREVIEW_ID` `src/sanity/lib/content.ts`), `check:drift` bunu boş sayar. Burak kimlikleri girince kendiliğinden devreden çıkar; ayna `src/content/home.ts` `heroVideo.youtubeId` güncellenmezse drift farkı normal.
   - LCP: mobilde portre (ana sayfa portresi %1 opaklıktan belirir; 0'dan belirseydi Chrome onu saymıyor, sonradan beliren klip LCP oluyordu), masaüstünde başlık.

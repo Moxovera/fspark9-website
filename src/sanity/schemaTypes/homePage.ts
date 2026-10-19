@@ -84,6 +84,26 @@ export default defineType({
       description: "Hizmet satırları Services belgelerinden, sıralarına göre.",
     }),
     group(
+      "servicesVideo",
+      "Services video",
+      [
+        str("youtubeIdTr", "YouTube ID (Turkish video)", {
+          description: "Sadece kimlik, ör. youtube.com/watch?v=XXXXXXXXXXX ya da youtube.com/shorts/XXXXXXXXXXX adresindeki XXXXXXXXXXX. Boşsa TR sayfada halkanın ortası boş kalır.",
+        }),
+        str("youtubeIdEn", "YouTube ID (English video)", {
+          description: "Sadece kimlik. Boşsa EN sayfada halkanın ortası boş kalır.",
+        }),
+        str("durationLabel", "Duration", { description: "Düğmedeki ve penceredeki süre, ör. 0:30. Video değişirse bu da değişir." }),
+        ls("buttonLabel", "Button"),
+        ls("ariaLabel", "Button label for screen readers", { description: "Süreyi içerir, ör. Hizmetler videosunu izle, 30 saniye." }),
+        ls("modalTitle", "Window title", { description: "Bölüm başlığıyla aynı." }),
+      ],
+      {
+        group: "services",
+        description: "Four services halkasının ortasındaki dikey (4:5) video. Önizleme klibi ve poster repoda (public/video), burada değil.",
+      },
+    ),
+    group(
       "work",
       "Work",
       [

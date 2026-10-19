@@ -163,6 +163,7 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
     "proofFigures": proofCase->figures
   },
   heroVideo,
+  servicesVideo,
   startWhereYouAre,
   fourServices,
   work{
@@ -193,7 +194,7 @@ export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
 
 /**
  * Burak kimlikleri Studio'ya girene kadar canlıda video düğmesi ve önizleme
- * yok. Preview ve yerelde (canlıda asla) düğme, önizleme ve pencere test
+ * yok (açılış filmi ve Four services halkasındaki hizmetler videosu). Preview ve yerelde (canlıda asla) düğme, önizleme ve pencere test
  * edilebilsin diye boş kimlik yerine açık lisanslı bir test filmi (Blender
  * Foundation, Big Buck Bunny). Sanity'de kimlik varsa o kullanılır.
  * check:drift bunu boş sayar (HERO_VIDEO_PREVIEW_OFF).
@@ -254,6 +255,7 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
           ]
         : undefined;
     const hv = page.heroVideo;
+    const sv = page.servicesVideo;
     const { portraitUrl: withMePortrait, ...withMe } = page.withMe;
     return {
       seo: page.seo,
@@ -266,6 +268,13 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
         modalTitle: hv?.modalTitle ?? "",
         previewCaption: hv?.previewCaption ?? "",
         closeLabel: hv?.closeLabel ?? "",
+      },
+      servicesVideo: {
+        youtubeId: ((locale === "tr" ? raw?.servicesVideo?.youtubeIdTr : raw?.servicesVideo?.youtubeIdEn) ?? "").trim() || HERO_VIDEO_PREVIEW_ID,
+        durationLabel: sv?.durationLabel ?? "",
+        buttonLabel: sv?.buttonLabel ?? "",
+        ariaLabel: sv?.ariaLabel ?? "",
+        modalTitle: sv?.modalTitle ?? "",
       },
       startWhereYouAre: page.startWhereYouAre,
       fourServices: page.fourServices,

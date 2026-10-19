@@ -7,11 +7,12 @@ import type { FourServicesProps } from "@/types/content";
  * kadran ve satırlar ServicePicker'da. Ana sayfa ve /services aynı bloğu
  * kullanıyor (brief v4 §7.6).
  */
-export default function FourServices({ content, services }: FourServicesProps) {
+export default function FourServices({ content, services, ring }: FourServicesProps) {
   return (
     <section className="bg-paper px-5 py-16 min-[900px]:px-8 min-[900px]:py-[136px] min-[1280px]:px-16">
       <ServicePicker
         services={services}
+        ring={ring}
         intro={
           <>
             <Label>{content.label}</Label>

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import Dial from "@/components/brand/Dial";
 import Label from "@/components/brand/Label";
+import ServicesRing from "@/components/home/ServicesRing";
 import { ArrowRightIcon } from "@/components/icons";
 import { EIGHT_SLICES } from "@/lib/dial";
 import type { ServicePickerProps } from "@/types/content";
@@ -18,7 +19,7 @@ import type { ServicePickerProps } from "@/types/content";
  * Sol sütun board'daki gibi sticky (top 120px): bu bileşenin hiçbir
  * atasında transform yok, Reveal sarmalayıcısı bu bölüme konmuyor.
  */
-export default function ServicePicker({ services, intro }: ServicePickerProps) {
+export default function ServicePicker({ services, intro, ring }: ServicePickerProps) {
   const [active, setActive] = useState<number | null>(null);
   const lastPointer = useRef<string>("mouse");
   const lit = active === null ? EIGHT_SLICES : services[active].slices;
@@ -27,9 +28,18 @@ export default function ServicePicker({ services, intro }: ServicePickerProps) {
     <div className="min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-x-6">
       <div className="flex flex-col gap-4 min-[900px]:sticky min-[900px]:top-[120px] min-[900px]:col-span-6 min-[900px]:gap-5 min-[900px]:self-start">
         {intro}
-        <div className="mt-10 hidden min-[900px]:block">
-          <Dial lit={lit} size={300} className="max-w-full" />
-        </div>
+        {ring ? (
+          // Ana sayfada video varsa: halka 600'e kadar büyür, ortasında video; telefonda da görünür.
+          <div className="mt-6 min-[900px]:mt-10">
+            <ServicesRing ring={ring}>
+              <Dial lit={lit} size={600} className="absolute inset-0 size-full" />
+            </ServicesRing>
+          </div>
+        ) : (
+          <div className="mt-10 hidden min-[900px]:block">
+            <Dial lit={lit} size={300} className="max-w-full" />
+          </div>
+        )}
       </div>
 
       <div

@@ -1214,6 +1214,17 @@ export interface HeroVideoContent {
   closeLabel: string
 }
 
+/** Four services halkasının ortasındaki hizmetler videosu (dikey, 4:5). */
+export interface ServicesVideoContent {
+  /** Bu dilin videosu; boşsa önizleme, poster ve düğme yok, halka boş. */
+  youtubeId: string
+  /** Düğmedeki ve penceredeki süre, ör. "0:30". */
+  durationLabel: string
+  buttonLabel: string
+  ariaLabel: string
+  modalTitle: string
+}
+
 export interface HomeContent {
   seo: PageSeoCopy
   opening: HeadlineWithCut & {
@@ -1234,6 +1245,8 @@ export interface HomeContent {
   }
   /** Açılıştaki tanıtım filmi. `youtubeId` boşsa düğme ve önizleme hiç yok. */
   heroVideo: HeroVideoContent
+  /** Four services halkasındaki video. `youtubeId` boşsa halka bugünkü gibi boş. */
+  servicesVideo: ServicesVideoContent
   startWhereYouAre: {
     label: string
     heading: string
@@ -1656,6 +1669,23 @@ export interface MarqueeProps {
 export interface FourServicesProps {
   content: HomeContent["fourServices"];
   services: ServiceSummary[];
+  /** Sadece ana sayfada: halkanın ortasındaki video. /services'te yok. */
+  ring?: ServicesRingProps;
+}
+
+/** Büyük halka (children: Dial) ve ortasındaki video. */
+export interface ServicesRingStageProps {
+  ring: ServicesRingProps;
+  children: ReactNode;
+}
+
+/** Halkanın ortasındaki önizleme ve pencere (ana sayfa Four services). */
+export interface ServicesRingProps {
+  video: ServicesVideoContent;
+  preview: HeroPreviewSources;
+  /** Penceredeki etiket satırının ilk parçası ("02 · Dört hizmet"). */
+  sectionLabel: string;
+  closeLabel: string;
 }
 
 export interface HomeOpeningProps {
@@ -1670,6 +1700,8 @@ export interface HeroPreviewSources {
   mp4: string;
   webm: string;
   poster: string;
+  /** Verilirse poster <picture> içinde önce AVIF olarak sunulur. */
+  posterAvif?: string;
 }
 
 export interface HeroVideoButtonProps {
@@ -1683,6 +1715,10 @@ export interface VideoModalProps {
   /** YouTube kimliği; oynatıcı sadece pencere açıkken oluşturulur. */
   youtubeId: string;
   title: string;
+  /** Başlığın üstündeki küçük etiket satırı (ör. "02 · Dört hizmet · 0:30"). */
+  eyebrow?: string;
+  /** Oynatıcının en boy oranı (genişlik / yükseklik). Varsayılan 16:9. */
+  aspect?: number;
   closeLabel: string;
   open: boolean;
   onClose: () => void;
@@ -1698,6 +1734,8 @@ export interface ServicePickerProps {
   services: ServiceSummary[];
   /** Sol sütunun üst kısmı (etiket, başlık, metin), server'da üretilir. */
   intro: ReactNode;
+  /** Ana sayfada video varsa büyük halka ve ortasındaki video. */
+  ring?: ServicesRingProps;
 }
 
 export interface SparkCardsProps {

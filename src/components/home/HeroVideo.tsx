@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PlayIcon } from "@/components/icons";
 import VideoModal from "@/components/ui/VideoModal";
+import { previewAllowed, READY_TIMEOUT_MS } from "@/lib/videoPreview";
 import type { HeroVideoButtonProps } from "@/types/content";
 
 /**
@@ -13,23 +14,11 @@ import type { HeroVideoButtonProps } from "@/types/content";
  */
 type Phase = "idle" | "loading" | "playing" | "ending" | "still";
 
-/** Klip bu sürede oynamaya hazır olmazsa hiç gösterilmez. */
-const READY_TIMEOUT_MS = 3000;
 /** Altyazı klipten 300 ms sonra gelir, bitmeden 400 ms önce kaybolur. */
 const CAPTION_IN_S = 0.3;
 const CAPTION_OUT_S = 0.4;
 /** Çapraz geçiş süresi (globals.css .hero-clip.is-ending ile aynı). */
 const CROSSFADE_MS = 600;
-
-type NetworkInformation = { saveData?: boolean; effectiveType?: string };
-
-/** Hareket azaltma, veri tasarrufu ya da yavaş bağlantıda klip hiç inmez. */
-function previewAllowed(): boolean {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
-  if (connection?.saveData) return false;
-  return connection?.effectiveType !== "2g" && connection?.effectiveType !== "slow-2g";
-}
 
 /**
  * Ana sayfa portresinin tanıtım filmi katmanı: portrenin alt kenarına oturan

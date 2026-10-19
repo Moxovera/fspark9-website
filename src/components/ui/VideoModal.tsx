@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@/components/icons";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
@@ -18,8 +18,13 @@ import type { VideoModalProps } from "@/types/content";
  * başlık satırı ve oynatıcı dışında her yere tıklama (telefonda tam ekran
  * pencerenin boş alanı dahil) kapatır. Pencere body'ye portal: dönüşümlü bir atanın
  * (Reveal) içinde açılsa da ekranı kaplar.
+ *
+ * `aspect` verilirse (ör. hizmetler videosu 4:5) oynatıcı o oranda:
+ * masaüstünde yüksekliği min(78vh, 740px), genişliği bunun `aspect` katı;
+ * telefonda başlık satırının altında ekrana sığan en büyük boy. `eyebrow`
+ * başlığın üstünde küçük bir etiket satırı.
  */
-export default function VideoModal({ youtubeId, title, closeLabel, open, onClose, returnFocusRef }: VideoModalProps) {
+export default function VideoModal({ youtubeId, title, eyebrow, aspect, closeLabel, open, onClose, returnFocusRef }: VideoModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -40,13 +45,19 @@ export default function VideoModal({ youtubeId, title, closeLabel, open, onClose
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="booking-window flex h-full w-full flex-col justify-center min-[900px]:h-auto min-[900px]:max-w-[960px]"
+        className={`booking-window flex h-full w-full flex-col justify-center min-[900px]:h-auto ${
+          aspect ? "video-window-aspect" : "min-[900px]:max-w-[960px]"
+        }`}
+        style={aspect ? ({ "--video-aspect": aspect } as CSSProperties) : undefined}
       >
         <div
           className="flex items-center justify-between gap-4 px-5 py-3 min-[900px]:px-0 min-[900px]:pt-0 min-[900px]:pb-4"
           onClick={(event) => event.stopPropagation()}
         >
-          <p className="m-0 font-display text-[18px] leading-[1.2] font-extrabold tracking-[-0.02em] text-paper min-[900px]:text-[22px]">{title}</p>
+          <div className="flex min-w-0 flex-col gap-1">
+            {eyebrow && <p className="m-0 font-mono text-[11px] leading-[1.4] font-medium tracking-[0.08em] text-dust uppercase min-[900px]:text-[12px]">{eyebrow}</p>}
+            <p className="m-0 font-display text-[18px] leading-[1.2] font-extrabold tracking-[-0.02em] text-paper min-[900px]:text-[22px]">{title}</p>
+          </div>
           <button
             type="button"
             onClick={onClose}
@@ -56,7 +67,10 @@ export default function VideoModal({ youtubeId, title, closeLabel, open, onClose
             <CloseIcon className="size-[18px]" strokeWidth="2.4" strokeLinecap="butt" />
           </button>
         </div>
-        <div className="relative aspect-video w-full bg-ink" onClick={(event) => event.stopPropagation()}>
+        <div
+          className={`relative bg-ink ${aspect ? "video-player-aspect" : "aspect-video w-full"}`}
+          onClick={(event) => event.stopPropagation()}
+        >
           <iframe
             src={src}
             title={title}

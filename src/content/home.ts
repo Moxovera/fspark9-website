@@ -40,6 +40,13 @@ export const home: Record<Locale, HomeContent> = {
       previewCaption: "Hey, I’m Burak.",
       closeLabel: "Close",
     },
+    servicesVideo: {
+      youtubeId: "",
+      durationLabel: "0:30",
+      buttonLabel: "Watch the services",
+      ariaLabel: "Watch the services video, 30 seconds",
+      modalTitle: "One ring. Four offers",
+    },
     startWhereYouAre: {
       label: "01 · Which one are you?",
       heading: "Start where you are.",
@@ -200,6 +207,13 @@ export const home: Record<Locale, HomeContent> = {
       modalTitle: "Finansal ürününüz neden hâlâ canlıda değil?",
       previewCaption: "Merhaba, ben Burak.",
       closeLabel: "Kapat",
+    },
+    servicesVideo: {
+      youtubeId: "",
+      durationLabel: "0:30",
+      buttonLabel: "Hizmetleri izleyin",
+      ariaLabel: "Hizmetler videosunu izle, 30 saniye",
+      modalTitle: "Tek halka. Dört teklif.",
     },
     startWhereYouAre: {
       label: "01 · Hangisi sizsiniz?",

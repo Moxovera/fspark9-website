@@ -898,3 +898,75 @@ html:not(.js) .video-only { display: none; }
   .hero-pill { transition: none; }
   .hero-progress circle, .hero-clip, .hero-clip.is-ending, .hero-caption { transition: none; }
 }
+
+/* ── Four services halkasındaki hizmetler videosu (components/home/ServicesRing).
+   Ölçüler 600 birimlik halkaya göre, halka küçülünce hepsi orantılı küçülür.
+   Döngü yok: önizleme bir kez oynar, sonra hiçbir şey hareket etmez. ── */
+.services-ring {
+  /* Telefonda yanlarda 16px (390'da dış çap 358), tablette 600'de durur. */
+  --ring-w: min(600px, calc(100vw - 32px));
+  width: var(--ring-w);
+  margin-inline: calc((100% - var(--ring-w)) / 2);
+}
+@media (min-width: 900px) {
+  .services-ring {
+    --ring-w: min(600px, 100%);
+    margin-inline: 0;
+  }
+}
+/* Çizgi 600 ölçekte telefonda 6 (3,5px), tablet ve masaüstünde 4 birim
+   (oynat düğmesi de 640'tan itibaren masaüstü ölçüsünde). */
+.ring-progress circle { stroke-width: 6; }
+@media (min-width: 640px) {
+  .ring-progress circle { stroke-width: 4; }
+}
+.ring-clip {
+  opacity: 0;
+  transition: opacity 400ms var(--ease-brand);
+}
+.ring-clip.is-playing { opacity: 1; }
+.ring-clip.is-ending {
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ring-veil {
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ring-veil.is-on { opacity: 1; }
+.ring-play {
+  opacity: 0;
+  scale: 0.92;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), scale 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ring-play.is-on { opacity: 1; scale: 1; }
+.ring-disc { transition: scale 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+.ring-button:hover .ring-disc,
+.ring-button:focus-visible .ring-disc { scale: 1.07; }
+/* Odak halkası dairenin değil oynat düğmesinin çevresinde: 3px Flare, 6px boşluk. */
+.ring-button:focus-visible { outline: none; }
+.ring-button:focus-visible .ring-disc {
+  outline: 3px solid var(--flare);
+  outline-offset: 6px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring-clip, .ring-clip.is-ending, .ring-veil, .ring-play, .ring-disc { transition: none; }
+}
+
+/* Dikey video penceresi (VideoModal `aspect`): masaüstünde oynatıcı yüksekliği
+   min(78vh, 740px), genişliği bunun oranı katı; telefonda başlığın altında
+   ekrana sığan en büyük boy. */
+.video-player-aspect {
+  aspect-ratio: var(--video-aspect);
+  width: min(100%, calc((100dvh - 96px) * var(--video-aspect)));
+  margin-inline: auto;
+}
+@media (min-width: 900px) {
+  .video-window-aspect {
+    width: calc(min(78vh, 740px) * var(--video-aspect));
+    max-width: 100%;
+  }
+  .video-player-aspect { width: 100%; }
+}
+/* Önizleme sırasında klavyeyle gelinirse düğme görünür (odak halkası boşlukta kalmasın). */
+.ring-button:focus-visible .ring-play { opacity: 1; scale: 1; }
