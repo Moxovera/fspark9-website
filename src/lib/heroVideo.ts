@@ -24,3 +24,18 @@ export function servicesPreviewSources(locale: string): HeroPreviewSources {
     posterAvif: `/video/services-poster-${lang}.avif`,
   };
 }
+
+/**
+ * Spark sayfası açılışındaki film kartının önizlemesi ve posteri (filmin
+ * "No more boring blogs." anı, 4:5, tam kare). Üretim:
+ * docs/spark-film-check/build-clips.py.
+ */
+export function sparkPreviewSources(locale: string): HeroPreviewSources {
+  const lang = locale === "tr" ? "tr" : "en";
+  return {
+    mp4: `/video/spark-preview-${lang}.mp4`,
+    webm: `/video/spark-preview-${lang}.webm`,
+    poster: `/video/spark-poster-${lang}.webp`,
+    posterAvif: `/video/spark-poster-${lang}.avif`,
+  };
+}

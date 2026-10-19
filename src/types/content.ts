@@ -1420,10 +1420,29 @@ export interface SparkFormatContent {
   closeHeading?: string
 }
 
+/** Spark tanıtım filmi (dikey, 4:5). `youtubeId` boşsa Spark sayfasında kart ve ana sayfada düğme hiç yok. */
+export interface SparkFilmContent {
+  /** Bu dilin filmi (youtubeIdTr / youtubeIdEn'den). */
+  youtubeId: string
+  /** Kartta ve pencerede süre, ör. "0:28". */
+  durationLabel: string
+  /** Kartta oynat düğmesinin etiketi. */
+  buttonLabel: string
+  ariaLabel: string
+  /** Pencere başlığı: sayfanın alt başlığı. */
+  modalTitle: string
+  /** Ana sayfadaki Spark bölümünün düğmesi ("Spark nedir? İzleyin"). */
+  homeButtonLabel: string
+  closeLabel: string
+}
+
 export interface SparkHubContent {
   seo: PageSeoCopy
   bigWord: string
   heading: string
+  film: SparkFilmContent
+  /** Açılıştaki Flare düğme: formatlar bölümüne iner (film kartı varken). */
+  exploreLabel: string
   /** Kayan şerit parçaları (copy §5) ve son parçası. */
   tickerItems: string[]
   tickerTail: string
@@ -1740,6 +1759,22 @@ export interface ServicePickerProps {
 
 export interface SparkCardsProps {
   content: HomeContent["spark"];
+  /** Spark filmi; `youtubeId` boşsa "Spark nedir? İzleyin" düğmesi yok. */
+  film: SparkFilmContent;
+  /** Penceredeki etiket satırının ilk parçası ("Spark"). */
+  sparkLabel: string;
+}
+
+export interface SparkFilmCardProps {
+  film: SparkFilmContent;
+  preview: HeroPreviewSources;
+  /** Penceredeki etiket satırının ilk parçası ("Spark"). */
+  sparkLabel: string;
+}
+
+export interface SparkFilmButtonProps {
+  film: SparkFilmContent;
+  sparkLabel: string;
 }
 
 export interface StartWhereYouAreProps {

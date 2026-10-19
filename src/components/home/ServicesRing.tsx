@@ -1,21 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { PlayIcon } from "@/components/icons";
 import VideoModal from "@/components/ui/VideoModal";
-import { previewAllowed, READY_TIMEOUT_MS } from "@/lib/videoPreview";
+import { useClipPreview } from "@/hooks/useClipPreview";
 import type { ServicesRingStageProps } from "@/types/content";
 
-/**
- * idle: poster, çizgi boş, düğme yok. loading: klip iniyor (görünmez).
- * playing: klip posterin üstünde, çizgi klibin süresine bağlı doluyor.
- * ending: son kareden postere çapraz geçiş, düğme beliriyor. still: hareket
- * bitti (ya da hiç başlamadı): poster, dolu çizgi, düğme.
- */
-type Phase = "idle" | "loading" | "playing" | "ending" | "still";
-
-/** Çapraz geçiş süresi (globals.css .ring-clip.is-ending ile aynı). */
-const CROSSFADE_MS = 600;
 /** 600 birimlik halkada ilerleme çizgisinin yarıçapı: video (186) ile dilimlerin iç kenarı (198) arasının ortası. */
 const LINE_R = 192;
 const LINE_LENGTH = 2 * Math.PI * LINE_R;
@@ -30,16 +20,12 @@ const LINE_LENGTH = 2 * Math.PI * LINE_R;
  * yeniden oynamaz. Önizleme videonun açılışı (başlık), açılış filmindeki
  * portre gibi; oynat düğmesi de oradaki gibi dairenin alt kenarına oturan
  * hap. YouTube kimliği boşsa önizleme, poster ve çizgi yine var; hap ve
- * pencere yok.
- *
- * Bu reveal değil, klibin durumunu izliyor: useReveal'dan ayrı.
+ * pencere yok. Önizlemenin akışı (faz makinesi, inme kuralları) Spark film
+ * kartıyla ortak: hooks/useClipPreview.ts.
  */
 export default function ServicesRing({ ring, children }: ServicesRingStageProps) {
   const { video, preview, sectionLabel, closeLabel } = ring;
-  const [phase, setPhase] = useState<Phase>("idle");
   const [open, setOpen] = useState(false);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const clipRef = useRef<HTMLVideoElement>(null);
   const lineRef = useRef<SVGCircleElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -52,90 +38,19 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
     line.style.opacity = p > 0 ? "1" : "0";
   }, []);
 
-  // Halkanın yarısı görünür olunca klip inmeye başlar; bir kez.
-  useEffect(() => {
-    if (!previewAllowed()) {
-      setPhase("still");
-      return;
-    }
-    const stage = stageRef.current;
-    if (!stage) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        observer.disconnect();
-        setPhase((current) => (current === "idle" ? "loading" : current));
-      },
-      { threshold: 0.5 },
-    );
-    observer.observe(stage);
-    return () => observer.disconnect();
-  }, []);
-
-  // İniş: 3 saniyede oynamaya hazır olmazsa vazgeçilir (klip DOM'dan kalkar).
-  useEffect(() => {
-    if (phase !== "loading") return;
-    const clip = clipRef.current;
-    if (!clip) return;
-    const timeout = window.setTimeout(() => setPhase("still"), READY_TIMEOUT_MS);
-    const onReady = () => {
-      window.clearTimeout(timeout);
-      setPhase("playing");
-    };
-    clip.addEventListener("canplaythrough", onReady);
-    clip.muted = true;
-    clip.preload = "auto";
-    clip.load();
-    return () => {
-      window.clearTimeout(timeout);
-      clip.removeEventListener("canplaythrough", onReady);
-    };
-  }, [phase]);
-
-  // Oynatma: çizgi klibin zamanına bağlı, requestAnimationFrame ile.
-  useEffect(() => {
-    if (phase !== "playing") return;
-    const clip = clipRef.current;
-    if (!clip) return;
-    let frame = 0;
-    const tick = () => {
-      if (clip.duration > 0) drawLine(clip.currentTime / clip.duration);
-      frame = window.requestAnimationFrame(tick);
-    };
-    const onEnded = () => {
-      drawLine(1);
-      setPhase("ending");
-    };
-    clip.addEventListener("ended", onEnded);
-    frame = window.requestAnimationFrame(tick);
-    clip.play().catch(() => setPhase("still"));
-    return () => {
-      window.cancelAnimationFrame(frame);
-      clip.removeEventListener("ended", onEnded);
-    };
-  }, [phase, drawLine]);
-
-  // Çapraz geçiş bitince klip kalkar; sonra hiçbir şey hareket etmez.
-  useEffect(() => {
-    if (phase === "still") {
-      drawLine(1);
-      return;
-    }
-    if (phase !== "ending") return;
-    const timer = window.setTimeout(() => setPhase("still"), CROSSFADE_MS + 100);
-    return () => window.clearTimeout(timer);
-  }, [phase, drawLine]);
+  const { phase, stageRef, clipRef, halt, clipMounted } = useClipPreview<HTMLDivElement>({
+    start: "visible",
+    threshold: 0.5,
+    onProgress: drawLine,
+  });
 
   // Önizleme sırasında tıklanırsa önizleme durur, pencere açılır.
   const openVideo = useCallback(() => {
-    clipRef.current?.pause();
-    setPhase((current) => (current === "ending" ? current : "still"));
+    halt();
     setOpen(true);
-  }, []);
+  }, [halt]);
   const closeVideo = useCallback(() => setOpen(false), []);
 
-  const clipMounted = phase === "loading" || phase === "playing" || phase === "ending";
-  const settled = phase === "ending" || phase === "still";
   const hasVideo = Boolean(video.youtubeId);
 
   return (
@@ -188,13 +103,13 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
           onClick={openVideo}
           className="video-only absolute inset-[19%] cursor-pointer rounded-full"
         />
-        {/* Açılış filmindeki gibi dairenin alt kenarına oturan hap; klip bitince bir kez gelir. */}
+        {/* Açılış filmindeki gibi dairenin alt kenarına oturan hap; baştan sabit durur (Spark film kartındaki hapla aynı). */}
         <button
           ref={buttonRef}
           type="button"
           onClick={openVideo}
           aria-label={video.ariaLabel}
-          className={`ring-pill video-only absolute top-[calc(81%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(81%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px] ${settled ? "is-on" : ""}`}
+          className={`ring-pill is-on video-only absolute top-[calc(81%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(81%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px]`}
         >
           <span className="flex size-[34px] flex-none items-center justify-center rounded-full bg-ink text-flare min-[640px]:size-[42px]">
             <PlayIcon className="size-[18px] translate-x-[1px] min-[640px]:size-[22px]" />

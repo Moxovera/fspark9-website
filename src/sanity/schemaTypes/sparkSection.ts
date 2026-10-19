@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { group, ls, lsList, singletonTitle } from "./fields";
+import { group, ls, lsList, singletonTitle, str } from "./fields";
 
 // Spark hub ve her bölüm sayfasının ortak etiketleri. Formatlar ve
 // bölümler kendi belgelerinde.
@@ -10,6 +10,7 @@ export default defineType({
   type: "document",
   groups: [
     { name: "hub", title: "Hub", default: true },
+    { name: "film", title: "Film" },
     { name: "episode", title: "Episode page" },
     { name: "seo", title: "SEO" },
   ],
@@ -21,6 +22,7 @@ export default defineType({
     lsList("tickerItems", "Ticker items", { group: "hub" }),
     ls("tickerTail", "Ticker last item", { group: "hub" }),
     ls("formatsLabel", "Formats label", { group: "hub" }),
+    ls("exploreLabel", "Opening button (scrolls to formats)", { group: "hub", description: "Film kartı varken açılıştaki Flare düğme: Formatları inceleyin." }),
     ls("readLabel", "Read link", { group: "hub" }),
     ls("backLabel", "Back link (to home)", { group: "hub" }),
     ls("sparkLabel", "Spark link (format and episode pages)", { group: "hub" }),
@@ -28,6 +30,28 @@ export default defineType({
       group: "hub",
       description: "Bir bölümün yayın tarihi (publishedAt) boşsa bu yazı görünür.",
     }),
+    group(
+      "sparkFilm",
+      "Spark film",
+      [
+        str("youtubeIdTr", "YouTube ID (Turkish film)", {
+          description: "Sadece kimlik, ör. youtube.com/watch?v=XXXXXXXXXXX ya da youtube.com/shorts/XXXXXXXXXXX adresindeki XXXXXXXXXXX. Boşsa TR sayfada Spark açılışında film kartı ve ana sayfada \"Spark nedir? İzleyin\" düğmesi görünmez.",
+        }),
+        str("youtubeIdEn", "YouTube ID (English film)", {
+          description: "Sadece kimlik. Boşsa EN sayfada film kartı ve ana sayfadaki düğme görünmez.",
+        }),
+        str("durationLabel", "Duration", { description: "Kartta ve pencerede süre, ör. 0:28. Film değişirse bu da değişir." }),
+        ls("buttonLabel", "Card button", { description: "Kartta oynat düğmesinin etiketi." }),
+        ls("ariaLabel", "Card label for screen readers", { description: "Süreyi içerir, ör. Spark filmini izle, 28 saniye." }),
+        ls("modalTitle", "Window title", { description: "Sayfanın alt başlığıyla aynı." }),
+        ls("homeButtonLabel", "Home page button", { description: "Ana sayfadaki Spark bölümünün düğmesi: Spark nedir? İzleyin." }),
+        ls("closeLabel", "Close button"),
+      ],
+      {
+        group: "film",
+        description: "Spark tanıtım filmi (dikey, 4:5): Spark sayfasının açılışında film kartı, ana sayfada Spark bölümünde düğme. Önizleme klibi ve poster repoda (public/video), burada değil.",
+      },
+    ),
     group(
       "episode",
       "Episode page labels",

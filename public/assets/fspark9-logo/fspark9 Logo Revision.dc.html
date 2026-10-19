@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F7F4EC; }
+  a { color: #A67C3D; text-decoration: none; border-bottom: 1px solid rgba(166,124,61,.4); }
+  a:hover { color: #0B1F3A; border-bottom-color: #0B1F3A; }
+</style>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0B1F3A"/><g transform="translate(14.04 14) scale(.72)"><path fill="#F7F4EC" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"/><path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"/></g></svg></template>
+</helmet>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="slice"><polygon points="50,32 18.2,-18.88 50,-28 81.79,-18.88"></polygon></clipPath>
+    <g id="symNavy">
+      <path fill="#0B1F3A" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+      <path fill="#0B1F3A" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+      <path fill="#A67C3D" fill-rule="evenodd" clip-path="url(#slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+    </g>
+    <g id="symIvory">
+      <path fill="#F7F4EC" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+      <path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+      <path fill="#A67C3D" fill-rule="evenodd" clip-path="url(#slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+    </g>
+    <g id="symBlack">
+      <path fill="#000000" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+      <path fill="#000000" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+    </g>
+    <g id="symWhite">
+      <path fill="#FFFFFF" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+      <path fill="#FFFFFF" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+    </g>
+    <g id="symBronze">
+      <path fill="#A67C3D" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M33.5 32 A16.5 19.5 0 1 1 66.5 32 A16.5 19.5 0 1 1 33.5 32 Z"></path>
+      <path fill="#A67C3D" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+    </g>
+    <g id="symSNavy">
+      <path fill="#0B1F3A" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M31.5 32 A18.5 19.5 0 1 1 68.5 32 A18.5 19.5 0 1 1 31.5 32 Z"></path>
+      <path fill="#0B1F3A" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+      <path fill="#A67C3D" fill-rule="evenodd" clip-path="url(#slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M31.5 32 A18.5 19.5 0 1 1 68.5 32 A18.5 19.5 0 1 1 31.5 32 Z"></path>
+    </g>
+    <g id="symSIvory">
+      <path fill="#F7F4EC" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M31.5 32 A18.5 19.5 0 1 1 68.5 32 A18.5 19.5 0 1 1 31.5 32 Z"></path>
+      <path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+      <path fill="#A67C3D" fill-rule="evenodd" clip-path="url(#slice)" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M31.5 32 A18.5 19.5 0 1 1 68.5 32 A18.5 19.5 0 1 1 31.5 32 Z"></path>
+    </g>
+    <g id="symSIvoryMono">
+      <path fill="#F7F4EC" fill-rule="evenodd" d="M18 32 A32 32 0 1 0 82 32 A32 32 0 1 0 18 32 Z M31.5 32 A18.5 19.5 0 1 1 68.5 32 A18.5 19.5 0 1 1 31.5 32 Z"></path>
+      <path fill="#F7F4EC" d="M82 32 C82 54 78 78 63 100 L50 96.5 C61 76 70 52 70 36 Z"></path>
+    </g>
+  </defs>
+</svg>
+
+<div style="width: 1280px; margin: 0 auto; padding: 72px 60px 96px; box-sizing: border-box; font-family: Inter, sans-serif; color: #1C1C1C; display: flex; flex-direction: column; gap: 64px;">
+
+  <header style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #DED6C4; padding-bottom: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #A67C3D;">final · direction a · symbol as the 9</div>
+      <div style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 40px; line-height: 1.1; color: #0B1F3A;">fspark9 logo</div>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; text-align: right; line-height: 1.7;">v3.0 final<br>August 2026</div>
+  </header>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">01</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Direction — locked</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; display: flex; flex-direction: column;">
+        <div style="padding: 14px 20px; border-bottom: 1px solid #E7E0D0; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; color: #0B1F3A; background: #E7E0D0; padding: 3px 8px;">A</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #0B1F3A;">symbol as the 9 — locked</span>
+        </div>
+        <div style="padding: 64px 40px; display: flex; justify-content: center; align-items: flex-end;">
+          <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 84px; line-height: 1; color: #0B1F3A;">
+            <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+            <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symNavy"></use></svg>
+          </div>
+        </div>
+        <div style="padding: 0 24px 24px; font-size: 13px; line-height: 1.75; color: #4A4A4A;">The symbol takes the place of the 9. One 9 in the lockup, and the mark has a job inside the word. Cap height, baseline, and stroke weight all shared with the letters — it sets as a figure, not as an icon parked next to one.</div>
+      </div>
+
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; display: flex; flex-direction: column;">
+        <div style="padding: 14px 20px; border-bottom: 1px solid #E7E0D0; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; color: #0B1F3A; background: #E7E0D0; padding: 3px 8px;">B</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #B0A894;">separated mark — not adopted</span>
+        </div>
+        <div style="padding: 40px; display: flex; flex-direction: column; gap: 34px; align-items: center; justify-content: center;">
+          <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 66px; line-height: 1; color: #0B1F3A;">
+            <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span style="letter-spacing: .008em;">k</span><span>9</span>
+          </div>
+          <div style="width: 100%; height: 1px; background: #E7E0D0;"></div>
+          <div style="display: flex; align-items: center; gap: 26px; color: #0B1F3A;">
+            <svg viewBox="18 0 64 100" width="48" height="75"><use href="#symNavy"></use></svg>
+            <svg viewBox="0 0 100 100" width="74" height="74"><rect width="100" height="100" rx="18" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symIvory"></use></g></svg>
+            <svg viewBox="0 0 100 100" width="46" height="46"><rect width="100" height="100" rx="8" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symSIvory"></use></g></svg>
+          </div>
+        </div>
+        <div style="padding: 0 24px 24px; font-size: 13px; line-height: 1.75; color: #4A4A4A;">Wordmark stays complete and typographic; the mark lives alone for avatar, favicon and stamp. The two are never set on the same line — that is what caused the stutter.</div>
+      </div>
+
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Direction <a href="#dirA">A</a> is the released logo; everything below and every file in the delivery is drawn from it. B is kept on record only — it uses the same symbol and the same wordmark drawing, so it remains available if a context ever needs the mark and the full word apart.</div>
+  </section>
+
+  <section id="dirA" style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">02</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">The symbol — the closing slice</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 48px; display: flex; justify-content: center; align-items: center; color: #0B1F3A;">
+        <svg viewBox="18 0 64 100" width="115" height="180"><use href="#symNavy"></use></svg>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 44px; display: flex; flex-direction: column; justify-content: center; gap: 18px;">
+        <div style="font-size: 13px; line-height: 1.8; color: #4A4A4A;">The ring is closed. Navy carries 304° of it; bronze carries the last 64°, centred exactly on the apex — the point where the bowl comes round to close. The slice is a true segment of the ring: identical outer circle, identical counter, cut on two clean radial edges. Only the colour changes, so nothing bulges and nothing is notched — it reads as the final piece seated flush, not as a wedge laid over the drawing.</div>
+        <div style="font-size: 13px; line-height: 1.8; color: #4A4A4A;">The figure now sits inside the same box as the letters: ring top on cap height, tail terminal on the baseline, no descender. Counter reduced so the bowl's optical weight matches the <span style="font-family: 'IBM Plex Mono', monospace;">s</span>, <span style="font-family: 'IBM Plex Mono', monospace;">p</span> and <span style="font-family: 'IBM Plex Mono', monospace;">a</span> of Playfair Bold — 15.5 units on the flanks, 12.5 at top and bottom.</div>
+        <div style="display: flex; gap: 30px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; line-height: 1.9;">
+          <div>thick / thin<br><span style="color:#0B1F3A;">15.5 : 12.5</span></div>
+          <div>bronze arc<br><span style="color:#0B1F3A;">64° · apex</span></div>
+          <div>height<br><span style="color:#0B1F3A;">cap · 0.70 em</span></div>
+          <div>bowl ø<br><span style="color:#0B1F3A;">64 br</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">03</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Primary lockup — navy on ivory</span></div>
+    <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 76px; display: flex; justify-content: center;">
+      <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 96px; line-height: 1; color: #0B1F3A;">
+        <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+        <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symNavy"></use></svg>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Playfair Display Bold, redrawn spacing: <span style="font-family: 'IBM Plex Mono', monospace;">f</span> widened 4&#8239;% and given +28/1000 to the right so the hook clears the <span style="font-family: 'IBM Plex Mono', monospace;">s</span>; <span style="font-family: 'IBM Plex Mono', monospace;">rk</span> pulled in −14/1000; <span style="font-family: 'IBM Plex Mono', monospace;">pa</span> −6/1000. Final release must be outlined — the spacing above is the specification, not a font setting.</div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">04</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Reversed</span></div>
+    <div style="background: #0B1F3A; padding: 76px; display: flex; justify-content: center;">
+      <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 84px; line-height: 1; color: #F7F4EC;">
+        <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+        <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symIvory"></use></svg>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Bronze holds on navy without help. On ivory it is always enclosed by navy — bronze never carries meaning on its own.</div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">05</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Single colour</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 52px; display: flex; justify-content: center;">
+        <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 54px; line-height: 1; color: #000000;">
+          <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+          <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symBlack"></use></svg>
+        </div>
+      </div>
+      <div style="background: #0B1F3A; padding: 52px; display: flex; justify-content: center;">
+        <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 54px; line-height: 1; color: #FFFFFF;">
+          <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+          <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symWhite"></use></svg>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Bronze drops entirely — the closing slice is never rendered in a tint, a screen or an outline. Engraving, fax, one-colour print and embossing use these two files only.</div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">06</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Avatar and favicon</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 36px; display: flex; justify-content: center; align-items: center;">
+        <svg viewBox="0 0 100 100" width="176" height="176"><rect width="100" height="100" rx="18" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symIvory"></use></g></svg>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 36px; display: flex; justify-content: center; align-items: center;">
+        <svg viewBox="0 0 100 100" width="176" height="176"><circle cx="50" cy="50" r="50" fill="#0B1F3A"></circle><g transform="translate(14.04 14) scale(.72)" ><use href="#symIvory"></use></g></svg>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 36px; display: flex; align-items: center; justify-content: center; gap: 28px;">
+        <div style="display: flex; flex-direction: column; gap: 9px; align-items: center;">
+          <svg viewBox="0 0 100 100" width="48" height="48"><rect width="100" height="100" rx="9" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symSIvory"></use></g></svg>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">48</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 9px; align-items: center;">
+          <svg viewBox="0 0 100 100" width="32" height="32"><rect width="100" height="100" rx="6" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symSIvory"></use></g></svg>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">32</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 9px; align-items: center;">
+          <svg viewBox="0 0 100 100" width="16" height="16"><rect width="100" height="100" rx="3" fill="#0B1F3A"></rect><g transform="translate(14.04 14) scale(.72)" ><use href="#symSIvoryMono"></use></g></svg>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">16</span>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Symbol occupies 78&#8239;% of the tile. Below 32&#8239;px the small-size drawing takes over; at 16&#8239;px bronze drops to ivory because a 64° slice of a 1&#8239;px stroke cannot hold a second colour.</div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">07</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Small size test</span></div>
+    <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 44px; display: flex; align-items: flex-end; gap: 56px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; color: #0B1F3A;">
+        <svg viewBox="18 0 64 100" width="31" height="48"><use href="#symNavy"></use></svg>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">48 · standard</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; color: #0B1F3A;">
+        <svg viewBox="18 0 64 100" width="15" height="24"><use href="#symNavy"></use></svg>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">24 · standard</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; color: #0B1F3A;">
+        <svg viewBox="18 0 64 100" width="15" height="24"><use href="#symSNavy"></use></svg>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #A67C3D;">24 · small-size cut</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+        <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 22px; line-height: 1; color: #0B1F3A;">
+          <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+          <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symSNavy"></use></svg>
+        </div>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: #6B6B6B;">lockup at minimum · 148 px wide</span>
+      </div>
+      <div style="flex: 1; min-width: 260px; font-size: 13px; line-height: 1.8; color: #4A4A4A;">At 24&#8239;px the standard cut's 12.5-unit thin sections fall to about 3&#8239;px and start to grey out against the flanks. The small-size cut opens the counter to a near-monoline 13.5&#8239;:&#8239;12.5 and holds. Standard drawing at 32&#8239;px and above, small-size cut below.</div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">08</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Clear space and minimum size</span></div>
+    <div style="display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 44px; display: flex; justify-content: center;">
+        <div style="position: relative; padding: 47px; outline: 1px dashed rgba(166,124,61,.55);">
+          <div style="position: absolute; left: 0; top: 0; width: 47px; height: 47px; background: rgba(166,124,61,.13);"></div>
+          <div style="position: absolute; right: 0; top: 0; width: 47px; height: 47px; background: rgba(166,124,61,.13);"></div>
+          <div style="position: absolute; left: 0; bottom: 0; width: 47px; height: 47px; background: rgba(166,124,61,.13);"></div>
+          <div style="position: absolute; right: 0; bottom: 0; width: 47px; height: 47px; background: rgba(166,124,61,.13);"></div>
+          <div style="display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 64px; line-height: 1; color: #0B1F3A;">
+            <span style="letter-spacing: .028em; display: inline-block; transform: scaleX(1.04); transform-origin: left bottom;">f</span><span style="letter-spacing: .004em;">s</span><span style="letter-spacing: -.006em;">p</span><span>a</span><span style="letter-spacing: -.014em;">r</span><span>k</span>
+            <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symNavy"></use></svg>
+          </div>
+        </div>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+        <div style="font-size: 13px; line-height: 1.8; color: #4A4A4A;">Clear space on all four sides equals the full height of the <span style="font-family: 'IBM Plex Mono', monospace;">f</span> — ascender to baseline, 0.73&#8239;× the wordmark size. Nothing enters it: no rule, no edge, no second logo.</div>
+        <div style="display: flex; gap: 30px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; line-height: 1.9;">
+          <div>min digital<br><span style="color:#0B1F3A;">148 px wide</span></div>
+          <div>min print<br><span style="color:#0B1F3A;">34 mm wide</span></div>
+          <div>symbol alone<br><span style="color:#0B1F3A;">16 px</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">09</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Misuse</span></div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 26px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="height: 62px; display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 26px; line-height: 1; color: #0B1F3A;">
+          <svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 .12em .095em 0; flex: none;"><use href="#symNavy"></use></svg><span>fspark9</span>
+        </div>
+        <div style="font-size: 12px; line-height: 1.55; color: #8A8A8A; text-align: center;">Symbol and a spelled-out 9 together</div>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 26px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="height: 62px; display: flex; align-items: center;">
+          <svg viewBox="18 0 64 100" width="38" height="60" ><use href="#symBronze"</use></svg>
+        </div>
+        <div style="font-size: 12px; line-height: 1.55; color: #8A8A8A; text-align: center;">Bronze carrying the whole mark</div>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 26px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="height: 62px; display: flex; align-items: center; color: #0B1F3A;">
+          <svg viewBox="18 0 64 100" width="38" height="60" style="transform: rotate(-18deg);"><use href="#symNavy"></use></svg>
+        </div>
+        <div style="font-size: 12px; line-height: 1.55; color: #8A8A8A; text-align: center;">Rotating the symbol</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #DED6C4; padding: 26px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: space-between;">
+        <div style="height: 62px; display: flex; align-items: flex-end; font-family: 'Playfair Display', serif; font-weight: 400; font-size: 30px; line-height: 1; color: #0B1F3A;">
+          <span>fspark</span><svg viewBox="18 0 64 100" style="height: .7em; width: .448em; margin: 0 0 .095em -.015em; flex: none;"><use href="#symNavy"></use></svg>
+        </div>
+        <div style="font-size: 12px; line-height: 1.55; color: #8A8A8A; text-align: center;">Regular weight, pure white ground</div>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">Also prohibited: capitalising the name — it is <span style="font-family: 'IBM Plex Mono', monospace;">fspark9</span> everywhere, never Fspark9; outlining the symbol; filling the bowl; extending the tail; placing the lockup directly on photography; substituting any other typeface.</div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">10</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Colour</span></div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+      <div style="border: 1px solid #DED6C4;">
+        <div style="height: 108px; background: #0B1F3A;"></div>
+        <div style="padding: 18px; display: flex; flex-direction: column; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; line-height: 1.7;"><span style="color:#0B1F3A; font-size: 13px;">Navy</span><span>#0B1F3A</span><span>primary · carries every mark</span></div>
+      </div>
+      <div style="border: 1px solid #DED6C4;">
+        <div style="height: 108px; background: #A67C3D;"></div>
+        <div style="padding: 18px; display: flex; flex-direction: column; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; line-height: 1.7;"><span style="color:#0B1F3A; font-size: 13px;">Bronze</span><span>#A67C3D</span><span>closing slice only · never alone</span></div>
+      </div>
+      <div style="border: 1px solid #DED6C4;">
+        <div style="height: 108px; background: #F7F4EC; border-bottom: 1px solid #DED6C4;"></div>
+        <div style="padding: 18px; display: flex; flex-direction: column; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B; line-height: 1.7;"><span style="color:#0B1F3A; font-size: 13px;">Ivory</span><span>#F7F4EC</span><span>ground · no pure white</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display: flex; flex-direction: column; gap: 20px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #A67C3D;">11</span><span style="font-family: 'Playfair Display', serif; font-weight: 600; font-size: 22px; color: #0B1F3A;">Files</span></div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #A67C3D;">Symbol</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0B1F3A; line-height: 1.5;">
+          <div>fspark9-symbol-primary.svg<span style="color:#8A8A8A;"> · navy + bronze, transparent</span></div>
+          <div>fspark9-symbol-reversed.svg<span style="color:#8A8A8A;"> · ivory + bronze on navy</span></div>
+          <div>fspark9-symbol-black.svg<span style="color:#8A8A8A;"> · single colour, transparent</span></div>
+          <div>fspark9-symbol-white.svg<span style="color:#8A8A8A;"> · single colour on dark</span></div>
+        </div>
+      </div>
+      <div style="background: #F7F4EC; border: 1px solid #DED6C4; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #A67C3D;">Full lockup</div>
+        <div style="display: flex; flex-direction: column; gap: 9px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #0B1F3A; line-height: 1.5;">
+          <div>fspark9-lockup-primary.svg<span style="color:#8A8A8A;"> · navy + bronze, transparent</span></div>
+          <div>fspark9-lockup-reversed.svg<span style="color:#8A8A8A;"> · ivory + bronze on navy</span></div>
+          <div>fspark9-lockup-black.svg<span style="color:#8A8A8A;"> · single colour, transparent</span></div>
+          <div>fspark9-lockup-white.svg<span style="color:#8A8A8A;"> · single colour on dark</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 13px; line-height: 1.7; color: #4A4A4A; max-width: 820px;">All eight files live in <span style="font-family: 'IBM Plex Mono', monospace;">assets/final/</span>. Every letter is converted to outlines — no font is required to open, place or print them. The reversed and white files carry their background and a built-in clear-space margin equal to the height of the <span style="font-family: 'IBM Plex Mono', monospace;">f</span>; the primary and black files are trimmed tight to the artwork so you set the clear space yourself.</div>
+  </section>
+
+  <footer style="border-top: 1px solid #DED6C4; padding-top: 22px; display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #6B6B6B;">
+    <span>fspark9 — fintech &amp; digital banking advisory</span>
+    <span>v3.0 final · direction A</span>
+  </footer>
+
+</div>
+
+</x-dc>
+</body>
+</html>

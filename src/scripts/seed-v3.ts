@@ -13,6 +13,8 @@
  *   npm run seed:v3 -- --dry         (sadece yazılacak belgeleri listeler)
  *   npm run seed:v3 -- --only=spark  (sadece Spark belgeleri; Studio'da
  *                                     düzenlenmiş diğer sayfalara dokunmaz)
+ *   npm run seed:v3 -- --only=spark-film  (sadece Spark filminin metin ve süre
+ *                                     alanları; YouTube kimliklerine dokunmaz)
  *
  * Nuri (Nº 02) canlıya iki adımda çıkıyor; staging ve canlı aynı veri
  * setini okuduğu için:
@@ -116,6 +118,8 @@ const radarOnly = onlyOnTheRadar || onlyRadarFinmid;
 const onlyHomeHero = process.argv.includes("--only=home-hero");
 /** Sadece ana sayfa Four services halkasındaki videonun metinleri (YouTube kimliklerine dokunmaz). */
 const onlyServicesVideo = process.argv.includes("--only=services-video");
+/** Sadece Spark filminin metin alanları (YouTube kimliklerine dokunmaz). */
+const onlySparkFilm = process.argv.includes("--only=spark-film");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -478,11 +482,33 @@ function aboutDoc(): SanityDocumentStub {
   };
 }
 
+/** Spark filmi (Spark sayfası açılış kartı ve ana sayfa düğmesi): metinler ve süre. YouTube kimliklerine dokunmaz. */
+function sparkFilmFields() {
+  const e = spark[EN].film;
+  const t = spark[TR].film;
+  return {
+    durationLabel: e.durationLabel,
+    buttonLabel: ls(e.buttonLabel, t.buttonLabel),
+    ariaLabel: ls(e.ariaLabel, t.ariaLabel),
+    modalTitle: ls(e.modalTitle, t.modalTitle),
+    homeButtonLabel: ls(e.homeButtonLabel, t.homeButtonLabel),
+    closeLabel: ls(e.closeLabel, t.closeLabel),
+  };
+}
+
+/** Sadece Spark filminin metin alanları (--only=spark-film); YouTube kimliklerine dokunmaz. */
+function sparkFilmPatch() {
+  const set: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(sparkFilmFields())) set[`sparkFilm.${k}`] = v;
+  set.exploreLabel = ls(spark[EN].exploreLabel, spark[TR].exploreLabel);
+  return { id: "sparkSection", set };
+}
+
 /** Spark bölümü yama ile: bölüm etiketleri tek tek (eski anahtarlar canlı kod için yerinde kalır). */
 function sparkSectionPatch() {
   const e = spark[EN];
   const t = spark[TR];
-  const pick = (k: "bigWord" | "heading" | "tickerTail" | "formatsLabel" | "readLabel" | "backLabel" | "sparkLabel" | "launchDateLabel") =>
+  const pick = (k: "bigWord" | "heading" | "tickerTail" | "formatsLabel" | "exploreLabel" | "readLabel" | "backLabel" | "sparkLabel" | "launchDateLabel") =>
     ls(e[k], t[k]);
   const episode = Object.fromEntries(
     (Object.keys(e.episode) as (keyof typeof e.episode)[]).map((k) => [`episode.${k}`, ls(e.episode[k], t.episode[k])]),
@@ -497,10 +523,12 @@ function sparkSectionPatch() {
       tickerItems: lsList(e.tickerItems, t.tickerItems),
       tickerTail: pick("tickerTail"),
       formatsLabel: pick("formatsLabel"),
+      exploreLabel: pick("exploreLabel"),
       readLabel: pick("readLabel"),
       backLabel: pick("backLabel"),
       sparkLabel: pick("sparkLabel"),
       launchDateLabel: pick("launchDateLabel"),
+      ...Object.fromEntries(Object.entries(sparkFilmFields()).map(([k, v]) => [`sparkFilm.${k}`, v])),
       ...episode,
     },
   };
@@ -1140,7 +1168,7 @@ async function guardPublished(
 
 async function main() {
   const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo;
+  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm;
   const creates = only
     ? []
     : onlySpark
@@ -1150,6 +1178,7 @@ async function main() {
     ? [
         ...(onlyHomeHero ? [homeHeroPatch()] : []),
         ...(onlyServicesVideo ? [homeServicesVideoPatch()] : []),
+        ...(onlySparkFilm ? [sparkFilmPatch()] : []),
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
@@ -1169,7 +1198,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero || onlyServicesVideo ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero || onlyServicesVideo || onlySparkFilm ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1195,8 +1224,8 @@ async function main() {
   }
 
   const tx = client.transaction();
-  if (onlyHomeHero || onlyServicesVideo) {
-    // Sadece ana sayfa patch'i; bölüm taslakları oluşturulmaz.
+  if (onlyHomeHero || onlyServicesVideo || onlySparkFilm) {
+    // Sadece tek belge patch'i; bölüm taslakları oluşturulmaz.
   } else if (radarOnly) {
     if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());
   } else if (onlyDora) {

@@ -10,7 +10,7 @@ import HomeWork from "@/components/home/HomeWork";
 import WithMe from "@/components/home/WithMe";
 import SparkCards from "@/components/home/SparkCards";
 import NextStep from "@/components/blocks/NextStep";
-import { getChrome, getHome } from "@/sanity/lib/content";
+import { getChrome, getHome, getSparkHub } from "@/sanity/lib/content";
 import { servicesPreviewSources } from "@/lib/heroVideo";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
@@ -39,7 +39,7 @@ export async function generateMetadata({
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [home, site] = await Promise.all([getHome(), getChrome()]);
+  const [home, site, sparkHub] = await Promise.all([getHome(), getChrome(), getSparkHub()]);
   const content = home[locale];
   const { chrome, services, nextStep } = site[locale];
 
@@ -62,7 +62,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       />
       <HomeWork content={content.work} />
       <WithMe content={content.withMe} />
-      <SparkCards content={content.spark} />
+      <SparkCards content={content.spark} film={sparkHub[locale].film} sparkLabel={sparkHub[locale].sparkLabel} />
       <NextStep content={nextStep} numbered />
     </main>
   );
