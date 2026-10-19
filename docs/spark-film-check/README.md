@@ -50,3 +50,9 @@ Spark sayfasının Ink açılışına 4:5 film kartı, ana sayfadaki Spark böl�
 | Toplam indirme (`/tr/spark`, lab) | 445 KB | 437 KB (klip lab penceresinde sayılmadı) |
 
 Canlı ölçüm: yayın sonrası bu dosyanın altına eklenir.
+
+## Canlı (fspark9.com, yayın sonrası)
+
+- Kart yuvarlak, TR ve EN, 375 / 768 / 1440: yatay kaydırma yok; poster `load` sonrası, klip hemen ardından iniyor; YouTube'a açılışta 0 istek; çizgi klibe bağlı doluyor (2,1 sn'de ~%53); Slow 3G (`3g`) ve saveData'da klip 0 istek. Ekran görüntüleri `live/`.
+- LCP adayı sadece "Spark" yazısı (PerformanceObserver).
+- Lighthouse mobil: `/tr/spark` Performance 98 / 98 / 98, LCP 2423 / 2422 / 2422 ms, CLS 0, TBT 1 ile 4 ms, 421 KB. `/tr` (ana sayfa) 96 / 97 / 96, LCP 2724 / 2645 / 2647 ms, CLS 0 (önceki canlı ölçüm: 2650 ms aralığı, değişmedi). Önce (yerel): `/tr/spark` 88, LCP 3,9 sn.
