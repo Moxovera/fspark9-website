@@ -41,7 +41,7 @@ export const home: Record<Locale, HomeContent> = {
       closeLabel: "Close",
     },
     servicesVideo: {
-      youtubeId: "",
+      youtubeId: "Pr4kIn4GgPg",
       durationLabel: "0:30",
       buttonLabel: "Watch the services",
       ariaLabel: "Watch the services video, 30 seconds",
@@ -209,7 +209,7 @@ export const home: Record<Locale, HomeContent> = {
       closeLabel: "Kapat",
     },
     servicesVideo: {
-      youtubeId: "",
+      youtubeId: "cDtyn01dpGM",
       durationLabel: "0:30",
       buttonLabel: "Hizmetleri izleyin",
       ariaLabel: "Hizmetler videosunu izle, 30 saniye",
