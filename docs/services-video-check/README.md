@@ -36,7 +36,9 @@
 - Pencere: iframe oranı 0,800; 1440'ta 562×702 (78vh), 375'te 375×469 tam ekran pencerede. Odak içeride, Esc ile iframe kalkıyor (ses duruyor), odak halkadaki düğmeye dönüyor.
 - Açılış filmi değişmedi: önizleme iniyor, halka doluyor, pencere 16:9 960 px, Esc sonrası odak düğmede.
 
-Ekran görüntüleri `local/`: 01 bölüm, 02 önizleme oynuyor, 03 son hâl, 04 hover, 05 klavye odağı, 06 pencere, 07 reduced-motion (375 ve 1440, TR ve EN). `live/`: canlı, kimlikler boş.
+Ekran görüntüleri `local/`: 01 bölüm, 02 önizleme oynuyor, 03 son hâl, 04 hover, 05 klavye odağı, 06 pencere, 07 reduced-motion (375 ve 1440, TR ve EN). `live/`: canlı fspark9.com, kimlikler boş (375, 768, 1440; TR ve EN). Canlıda halka bugünkü gibi: masaüstünde 300'lük boş kadran, telefonda kadran yok; `services-*` ve YouTube'a 0 istek, yatay kaydırma yok, açılış filmi düğmesi ve önizlemesi çalışıyor. Dosyalar canlıda 200 (video/mp4, video/webm, image/avif).
+
+Vercel önizleme adresi (`fspark9-website-git-feat-services-video-…`) bu oturumda Vercel girişi istedi; önizleme kontrolü aynı commit'in yerel production build'inde yapıldı.
 
 ## Lighthouse mobil (performans)
 
@@ -44,7 +46,11 @@ Ekran görüntüleri `local/`: 01 bölüm, 02 önizleme oynuyor, 03 son hâl, 04
 |---|---|---|
 | Önce, canlı fspark9.com TR | 2223 / 2575 / 2502 | 0 |
 | Önce, canlı fspark9.com EN | 2347 / 2199 / 2497 | 0 |
+| Sonra, canlı fspark9.com TR (kimlik boş) | 2724 / 2650 / 2648 / 2647 / 2652 / 2724 | 0 |
+| Sonra, canlı fspark9.com EN (kimlik boş) | 2502 / 2571 / 2498 | 0 |
 | Yerel production build, video açık, TR | 3366 / 3438 / 3211 | 0 |
 | Yerel production build, video açık, EN | 3438 / 3437 / 3283 | 0 |
+
+Canlıda önce ve sonra sayfa ağırlığı aynı (690 / 689 KB), TBT 0 ile 3 ms, LCP öğesi portre. TR'deki ~150 ms fark kodla açıklanmıyor (kimlik boşken halka eski bileşenle çiziliyor, ek indirme yok); yeni deploy sonrası önbellek ve ölçüm oynaklığı olası. Bir hafta sonra Speed Insights saha verisiyle bakılmalı.
 
 Yerelde CDN yok, mutlak değerler yüksek (açılış filmi kaydındaki yerel `main` ölçümü 3301 / 3358 ms ile aynı aralıkta). LCP öğesi her ölçümde portre; halka, poster ve klip hiç LCP olmadı.
