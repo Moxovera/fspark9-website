@@ -1,5 +1,7 @@
 # Hizmetler halka videosu · kontrol kaydı (2026-10-19)
 
+> **Güncelleme 2 (aynı gün, Burak'ın isteğiyle, açılıştaki portre gibi):** Önizleme artık videonun açılışı: "Four problems that cost you months." / "Size aylar kaybettiren dört sorun.", kare 0 ile 83 (2,8 sn; 84'te video Paper'a geçiyor ve ortak kartları daireye sığmıyor), son kare 36 kare tutularak 4,0 sn. Kırpma (4, 158) 960×960 → 720: başlığın en küçük çevre dairesi EN'de r 459, TR'de r 378, daire r 480 (en az 18 px pay); üstteki küçük etiket dışarıda. Poster = son kare. Ortadaki oynat dairesi ve %38 perde kalktı (başlığın üstüne biniyordu); yerine açılış filmindeki hap: dairenin alt kenarına oturuyor, klip bitince bir kez geliyor. Boyutlar: MP4 62 / 59 KB, WebM 40 / 39 KB, poster AVIF 12 / 12 KB (EN / TR). `frames-*.png` ve `local/` güncel; aşağıdaki "Neden bu aralık" bölümü ilk sürüme (kapanıştaki kadran) ait.
+
 > **Güncelleme (aynı gün, Burak'ın isteğiyle):** Halka masaüstünde 520 (600 değil), telefonda 300 (oynat dairesi 52, etiket 12/10 px). Önizleme, poster ve çizgi YouTube kimliği olmadan da görünüyor; oynat düğmesi, perde ve pencere sadece kimlik varken. Kimlikler girildi: TR `cDtyn01dpGM`, EN `Pr4kIn4GgPg` (Shorts; `/embed/` ile oynuyor, YouTube süresi 0:30). Aşağıdaki ölçü tablosu ilk sürüme ait; güncel ölçüler: 360/375/390 → halka 300, video 186, çizgi 3 px; 768/1180/1440 → halka 520, video 322, çizgi 3,47 px; 900 → 406. Yatay kaydırma, çakışma yok, etiket her genişlikte daire içinde. `local/` ekran görüntüleri güncel sürüm.
 
 ## Önizleme klibi ve poster
