@@ -1216,7 +1216,7 @@ export interface HeroVideoContent {
 
 /** Four services halkasının ortasındaki hizmetler videosu (dikey, 4:5). */
 export interface ServicesVideoContent {
-  /** Bu dilin videosu; boşsa önizleme ve poster var, oynat düğmesi ve pencere yok. */
+  /** Bu dilin videosu; boşsa önizleme, poster ve düğme yok, halka boş. */
   youtubeId: string
   /** Düğmedeki ve penceredeki süre, ör. "0:30". */
   durationLabel: string
@@ -1245,7 +1245,7 @@ export interface HomeContent {
   }
   /** Açılıştaki tanıtım filmi. `youtubeId` boşsa düğme ve önizleme hiç yok. */
   heroVideo: HeroVideoContent
-  /** Four services halkasındaki video. `youtubeId` boşsa düğmesiz önizleme. */
+  /** Four services halkasındaki video. `youtubeId` boşsa halka bugünkü gibi boş. */
   servicesVideo: ServicesVideoContent
   startWhereYouAre: {
     label: string
@@ -1669,7 +1669,7 @@ export interface MarqueeProps {
 export interface FourServicesProps {
   content: HomeContent["fourServices"];
   services: ServiceSummary[];
-  /** Sadece ana sayfada: halkanın ortasındaki video (kimlik boşsa düğmesiz önizleme). /services'te yok. */
+  /** Sadece ana sayfada: halkanın ortasındaki video. /services'te yok. */
   ring?: ServicesRingProps;
 }
 

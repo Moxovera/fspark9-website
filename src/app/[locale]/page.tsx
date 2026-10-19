@@ -52,13 +52,17 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       <FourServices
         content={content.fourServices}
         services={services}
-        ring={{
-          // Önizleme ve poster repoda, her zaman var; oynat düğmesi ve pencere sadece YouTube kimliği varken.
-          video: content.servicesVideo,
-          preview: servicesPreviewSources(locale),
-          sectionLabel: content.fourServices.label,
-          closeLabel: content.heroVideo.closeLabel,
-        }}
+        ring={
+          // Kimlik boşsa halka bugünkü gibi boş (video, poster, düğme yok).
+          content.servicesVideo.youtubeId
+            ? {
+                video: content.servicesVideo,
+                preview: servicesPreviewSources(locale),
+                sectionLabel: content.fourServices.label,
+                closeLabel: content.heroVideo.closeLabel,
+              }
+            : undefined
+        }
       />
       <HomeWork content={content.work} />
       <WithMe content={content.withMe} />
