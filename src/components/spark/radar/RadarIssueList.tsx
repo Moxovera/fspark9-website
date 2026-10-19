@@ -74,6 +74,9 @@ export default function RadarIssueList({ issues, copy }: RadarIssueListProps) {
                   </span>{" "}
                   <span className={`${mono} text-ink`}>
                     {copy.strongest}: {copy.signalsLower[issue.strongest]}
+                  </span>{" "}
+                  <span className={`${mono} text-stone`}>
+                    {copy.added} <time dateTime={issue.addedAt}>{issue.addedDate}</time>
                   </span>
                 </span>{" "}
                 <span className="col-start-3 row-span-2 row-start-1 self-start min-[761px]:col-auto min-[761px]:row-auto min-[761px]:self-center">

@@ -86,7 +86,7 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
     const radarIssues = episodes[locale]
       .flatMap((entry) => (entry.layout === "radar" && entry.formatSlug === format.slug ? [entry] : []))
       .sort((a, b) => b.story.number - a.story.number)
-      .map(toRadarIssue);
+      .map((entry) => toRadarIssue(entry, locale));
     return (
       <main className="pt-16 min-[900px]:pt-[84px]">
         <JsonLd

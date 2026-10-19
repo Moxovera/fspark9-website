@@ -8,7 +8,7 @@ import type { RadarOpeningProps } from "@/types/content";
  * (format · Nº · şirket · şehir; şirket adı kendi küçük harfiyle), başlık
  * ve tek cümle. Dil değiştirici sitenin kendisi.
  */
-export default function RadarOpening({ episode, formatName, formatNumber, numberLabel, backLabel, template }: RadarOpeningProps) {
+export default function RadarOpening({ episode, addedLabel, addedDate, formatName, formatNumber, numberLabel, backLabel, template }: RadarOpeningProps) {
   const { text, subject } = episode;
   return (
     <header className="on-ink bg-ink px-5 text-[17px] leading-[1.55] text-paper min-[900px]:px-8 min-[1280px]:px-16">
@@ -23,9 +23,14 @@ export default function RadarOpening({ episode, formatName, formatNumber, number
           </span>
           {text.figure && <span className={`${mono} text-dust`}>{text.figure.label}</span>}
         </div>
-        <span className={`${mono} relative text-dust`}>
-          {formatName} · {numberLabel} · <span className="normal-case">{subject}</span> · {text.place}
-        </span>
+        <div className="relative flex flex-col gap-2">
+          <span className={`${mono} text-dust`}>
+            {formatName} · {numberLabel} · <span className="normal-case">{subject}</span> · {text.place}
+          </span>
+          <span className={`${mono} text-dust`}>
+            {addedLabel} <time dateTime={episode.addedAt}>{addedDate}</time>
+          </span>
+        </div>
         <h1 className="relative m-0 max-w-[15ch] font-display text-[clamp(36px,6.2vw,56px)] leading-none font-extrabold tracking-[-0.035em] text-balance text-paper">
           <RadarRich text={text.headline} template={template} />
         </h1>

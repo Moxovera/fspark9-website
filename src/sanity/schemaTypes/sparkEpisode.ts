@@ -116,7 +116,15 @@ export default defineType({
       type: "localeText",
       group: "meta",
     }),
-    defineField({ name: "publishedAt", title: "Published at", type: "date", group: "meta" }),
+    defineField({
+      name: "publishedAt",
+      title: "Published at",
+      type: "date",
+      group: "meta",
+      description: "On the Radar'da bu gün \"radara girdiği gün\" olarak sayıda ve listede görünür; her radar sayısında zorunlu.",
+      validation: (r) =>
+        r.custom((value, context) => (context.document?.layout === "radar" && !value ? "Radar sayısında radara giriş tarihi zorunlu." : true)),
+    }),
     defineField({ name: "lastCheckedAt", title: "Last checked at", type: "date", group: "meta" }),
     defineField({
       name: "previewLive",

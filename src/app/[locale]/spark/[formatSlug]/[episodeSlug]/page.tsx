@@ -17,7 +17,8 @@ import RadarOpening from "@/components/spark/radar/RadarOpening";
 import RadarSources from "@/components/spark/radar/RadarSources";
 import ReportEpisode from "@/components/spark/report/ReportEpisode";
 import DoraEpisode from "@/components/spark/report/dora/DoraEpisode";
-import { radarEpisodeLabels } from "@/content/spark-radar";
+import { formatShortDate } from "@/lib/format";
+import { radarEpisodeLabels, radarFormatCopy } from "@/content/spark-radar";
 import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
 import { articleJsonLd, breadcrumbJsonLd, personInfo } from "@/lib/jsonLd";
 import { slugFromOtherLocale } from "@/lib/spark";
@@ -161,6 +162,8 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
         <RadarOpening
           episode={story}
+          addedLabel={radarFormatCopy[locale].added}
+          addedDate={formatShortDate(story.addedAt, locale)}
           formatName={format.name}
           formatNumber={format.number}
           numberLabel={`Nº ${String(story.number).padStart(2, "0")}`}

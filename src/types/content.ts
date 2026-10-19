@@ -2610,6 +2610,8 @@ export interface SparkRadarEpisode {
   hook: string
   seo: PageSeoCopy
   country: string
+  /** Radara girdiği, yani siteye eklendiği gün (YYYY-MM-DD). Her sayıda zorunlu. */
+  addedAt: string
   data: RadarData
   text: RadarText
 }
@@ -2684,6 +2686,8 @@ export interface RadarFormatCopy {
   filter: string
   filterAll: string
   strongest: string
+  /** Radara girdiği gün etiketi ("On the radar since"). */
+  added: string
   showAll: string
   about: string
   howTitle: string
@@ -2709,6 +2713,10 @@ export interface RadarIssue {
   country: string
   headline: string
   hook: string
+  /** Radara girdiği gün, biçimli ("11 Oct 2026"). */
+  addedDate: string
+  /** Aynı gün, makine okuyabilir (YYYY-MM-DD). */
+  addedAt: string
   values: RadarValues
   strongest: RadarSignal
   href: NavHref
@@ -2827,6 +2835,10 @@ export interface RadarBoardProps {
 
 export interface RadarOpeningProps {
   episode: SparkRadarEpisode
+  /** "On the radar since". */
+  addedLabel: string
+  /** Biçimli tarih ("11 Oct 2026"). */
+  addedDate: string
   formatName: string
   /** Büyük konturlu format numarası ("03"). */
   formatNumber: string

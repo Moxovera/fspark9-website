@@ -1,3 +1,4 @@
+import { formatShortDate } from "@/lib/format";
 import type {
   Locale,
   PageSeoCopy,
@@ -215,7 +216,7 @@ export function tokenizeRich(text: string): RichToken[] {
 export function toRadarEpisode(
   body: RadarBody,
   locale: Locale,
-  doc: { number: number; subject: string; hook: string; seo: PageSeoCopy; country: string },
+  doc: { number: number; subject: string; hook: string; seo: PageSeoCopy; country: string; addedAt: string },
 ): SparkRadarEpisode {
   const text: RadarText = locale === "tr" ? body.tr : body.en;
   const { blocks, order, guess, usecase, moves, compare } = body;
@@ -235,7 +236,7 @@ export function toRadarEpisode(
 }
 
 /** Format sayfasındaki satır: şekil bölümün kendi JSON'undan, en güçlü sinyal onun en yükseği. */
-export function toRadarIssue(entry: Extract<SparkEpisodeEntry, { layout: "radar" }>): RadarIssue {
+export function toRadarIssue(entry: Extract<SparkEpisodeEntry, { layout: "radar" }>, locale: Locale): RadarIssue {
   const { story } = entry;
   const values = radarValues(story.data);
   return {
@@ -245,6 +246,8 @@ export function toRadarIssue(entry: Extract<SparkEpisodeEntry, { layout: "radar"
     country: story.country,
     headline: story.text.headline,
     hook: story.text.listHook,
+    addedDate: formatShortDate(story.addedAt, locale),
+    addedAt: story.addedAt,
     values,
     strongest: strongestSignal(values),
     href: {

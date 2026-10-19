@@ -29,6 +29,7 @@ export const radarFormatCopy: Record<Locale, RadarFormatCopy> = {
     filter: "Strongest signal",
     filterAll: "All",
     strongest: "Strongest",
+    added: "On the radar since",
     showAll: "Show all",
     about: "About this format",
     howTitle: "How to read an issue",
@@ -73,6 +74,7 @@ export const radarFormatCopy: Record<Locale, RadarFormatCopy> = {
     filter: "En güçlü sinyal",
     filterAll: "Hepsi",
     strongest: "En güçlü",
+    added: "Radara girdi",
     showAll: "Tümünü göster",
     about: "Bu format hakkında",
     howTitle: "Bir sayı nasıl okunur?",
@@ -205,12 +207,16 @@ export const radarBodies: Record<string, RadarFile> = {
  */
 export function radarDocFields(body: RadarFile, locale: Locale) {
   const text = body[locale];
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(body.publishDate)) {
+    throw new Error(`Radar "${body.slug}": publishDate (radara giriş tarihi, YYYY-MM-DD) zorunlu.`);
+  }
   return {
     number: Number(body.number),
     subject: body.company,
     hook: text.listHook,
     seo: { title: text.titleTag, description: text.listHook },
     country: body.country,
+    addedAt: body.publishDate,
   };
 }
 

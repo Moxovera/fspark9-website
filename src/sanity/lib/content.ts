@@ -453,7 +453,7 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
 export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
   && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))
   && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){
-    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _updatedAt, layout,
+    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,
     launchDate, closureDate, durationLabel,
     "slug": slug, "formatSlug": format->slug,
     hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,
@@ -486,7 +486,7 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
   return perLocale((locale) =>
     raw.flatMap((doc): SparkEpisodeEntry[] => {
       const other: Locale = locale === "tr" ? "en" : "tr";
-      const { slug, formatSlug, publishedAt, lastCheckedAt, _updatedAt, launchDate, closureDate, durationLabel, ...rest } = doc;
+      const { slug, formatSlug, publishedAt, lastCheckedAt, _createdAt, _updatedAt, launchDate, closureDate, durationLabel, ...rest } = doc;
       if (!formatSlug || !slug) return [];
       const base = {
         slug: slug[locale].current,
@@ -509,7 +509,7 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         return dora ? [{ ...base, layout: "dora", story: dora }] : [];
       }
       if (rest.layout === "radar") {
-        const radar = toRadar(rest, locale);
+        const radar = toRadar(rest, locale, publishedAt ?? _createdAt.slice(0, 10));
         return radar ? [{ ...base, layout: "radar", story: radar }] : [];
       }
       return [{ ...base, layout: "story", story: toStory(rest, locale) }];
@@ -519,7 +519,7 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
 
 type EpisodeDoc = Omit<
   SPARK_EPISODES_QUERYResult[number],
-  "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel"
+  "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_createdAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel"
 >;
 
 /** Bó'da olmayan isteğe bağlı alanlar (Fidor) sonuçta hiç yer almasın, null da değil. */
@@ -617,11 +617,14 @@ function toDora(doc: EpisodeDoc, locale: Locale): SparkDoraReport | null {
   return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkDoraReportBody) };
 }
 
-/** On the Radar: ortak ve iki dilli gövde tek JSON; sayı, şirket adı, kanca, SEO ve ülke belgenin alanlarından. */
-function toRadar(doc: EpisodeDoc, locale: Locale): SparkRadarEpisode | null {
+/**
+ * On the Radar: ortak ve iki dilli gövde tek JSON; sayı, şirket adı, kanca, SEO ve ülke belgenin alanlarından.
+ * `addedAt` radara girdiği gün (publishedAt); Studio'da boş kalırsa belgenin oluşturulduğu gün, yani siteye eklendiği gün.
+ */
+function toRadar(doc: EpisodeDoc, locale: Locale, addedAt: string): SparkRadarEpisode | null {
   if (!doc.radarBody) return null;
   const { number, subject, hook, seo, country } = localize(doc, locale);
-  return toRadarEpisode(JSON.parse(doc.radarBody) as RadarBody, locale, { number, subject, hook, seo, country: country ?? "" });
+  return toRadarEpisode(JSON.parse(doc.radarBody) as RadarBody, locale, { number, subject, hook, seo, country: country ?? "", addedAt });
 }
 
 function toCardMode(mode: string): SparkCardMode {
