@@ -97,7 +97,7 @@ export const spark: Record<Locale, SparkHubContent> = {
         status: "live",
         seo: {
           title: "Sector reports | fspark9 Spark",
-          description: "Market reads with our own notes and a clear view at the end. Start with Bauspar: two countries, one pool.",
+          description: "Market reads with our own notes and a clear view at the end. Start with Home Savings: two countries, one pool.",
         },
         description: "Market reads with our own notes and a clear view at the end.",
         openLabel: "Open Sector reports",
@@ -209,7 +209,7 @@ export const spark: Record<Locale, SparkHubContent> = {
         status: "live",
         seo: {
           title: "Sektör raporları | fspark9 Spark",
-          description: "Kendi notlarımızla pazar okumaları, sonunda net bir görüş. İlk rapor: Bauspar, iki ülke, tek havuz.",
+          description: "Kendi notlarımızla pazar okumaları, sonunda net bir görüş. İlk rapor: Konut Tasarrufu, iki ülke, tek havuz.",
         },
         description: "Kendi notlarımızla pazar okumaları, sonunda net bir görüş.",
         openLabel: "Sektör raporlarını açın",

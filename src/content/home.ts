@@ -140,7 +140,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sector report",
           number: "Nº 02",
-          title: "DORA",
+          title: "When Banks Go Offline",
           line: "When the cloud goes down, who answers?",
           date: "16 Oct 2026",
           linkLabel: "Read the episode",
@@ -310,7 +310,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sektör raporu",
           number: "Nº 02",
-          title: "DORA",
+          title: "Bankalar Çevrimdışı Kalınca",
           line: "Bulut düşerse kim sorumlu?",
           date: "16 Eki 2026",
           linkLabel: "Bölümü okuyun",

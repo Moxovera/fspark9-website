@@ -155,7 +155,7 @@ export async function renderEpisodeOgImage({ label, subject, figure, unit, local
     <>
       <div style={{ position: "absolute", left: 64, top: 220, display: "flex", flexDirection: "column" }}>
         <div style={{ ...mono, display: "flex" }}>{upper(label)}</div>
-        <div style={{ display: "flex", marginTop: 18, fontSize: 200, lineHeight: 0.9, letterSpacing: -9, color: BRAND.paper }}>{subject}</div>
+        <div style={{ display: "flex", marginTop: 18, maxWidth: 600, fontSize: subject.length <= 8 ? 200 : subject.length <= 16 ? 120 : 90, lineHeight: 0.95, letterSpacing: subject.length <= 8 ? -9 : -4, color: BRAND.paper }}>{subject}</div>
       </div>
       <div style={{ position: "absolute", left: 700, width: 436, top: 190, display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
         <div style={{ display: "flex", fontSize: 280, lineHeight: 0.8, letterSpacing: -11, color: BRAND.ink, WebkitTextStroke: `3px ${BRAND.paper}` }}>

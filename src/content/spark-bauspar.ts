@@ -12,7 +12,7 @@ import type { Locale, SparkReport } from "@/types/content";
 export const bauspar: Record<Locale, SparkReport> = {
   en: {
     number: 1,
-    subject: "Bauspar",
+    subject: "Home Savings",
     hook: "Two countries, one pool.",
     seo: {
       title: "Two countries, one pool | fspark9",
@@ -834,7 +834,7 @@ export const bauspar: Record<Locale, SparkReport> = {
   },
   tr: {
     number: 1,
-    subject: "Bauspar",
+    subject: "Konut Tasarrufu",
     hook: "İki ülke, tek havuz.",
     seo: {
       title: "İki ülke, tek havuz | fspark9",
