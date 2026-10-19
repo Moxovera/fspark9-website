@@ -23,7 +23,7 @@ function domino(locale: Locale, rest: Omit<DominoContent, "providers" | "institu
 export const dora: Record<Locale, SparkDoraReport> = {
   en: {
     number: 2,
-    subject: "When Banks Go Offline",
+    subject: "DORA: EU Bank Resilience",
     hook: "When the cloud goes down, who answers?",
     seo: {
       title: "When the cloud goes down, who answers? | fspark9",
@@ -628,7 +628,7 @@ export const dora: Record<Locale, SparkDoraReport> = {
   },
   tr: {
     number: 2,
-    subject: "Bankalar Çevrimdışı Kalınca",
+    subject: "DORA: AB Banka Dayanıklılığı",
     hook: "Bulut düşerse kim sorumlu?",
     seo: {
       title: "Bulut düşerse kim sorumlu? | fspark9",
