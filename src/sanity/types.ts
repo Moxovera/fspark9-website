@@ -107,8 +107,8 @@ export type SparkDecision = {
     _key: string;
   } & SparkDecisionOption>;
   didLabel?: LocaleString;
-  didTitle?: LocaleText;
-  didBody?: Array<{
+  title?: LocaleText;
+  body?: Array<{
     _key: string;
   } & LocaleText>;
   note?: LocaleText;
@@ -136,7 +136,7 @@ export type SparkStoryCard = {
   day: string;
   state?: LocaleString;
   caption?: LocaleString;
-  barTitle?: LocaleString;
+  title?: LocaleString;
   progress?: number;
   barDay?: LocaleString;
 };
@@ -627,8 +627,8 @@ export type HomePage = {
     durationLabel?: string;
     buttonLabel?: LocaleString;
     ariaLabel?: LocaleString;
-    modalTitle?: LocaleString;
-    previewCaption?: LocaleString;
+    title?: LocaleString;
+    caption?: LocaleString;
     closeLabel?: LocaleString;
   };
   startWhereYouAre?: {
@@ -653,7 +653,7 @@ export type HomePage = {
     durationLabel?: string;
     buttonLabel?: LocaleString;
     ariaLabel?: LocaleString;
-    modalTitle?: LocaleString;
+    title?: LocaleString;
   };
   work?: {
     label?: LocaleString;
@@ -1169,8 +1169,8 @@ export type HOME_PAGE_QUERYResult = {
     durationLabel?: string;
     buttonLabel?: LocaleString;
     ariaLabel?: LocaleString;
-    modalTitle?: LocaleString;
-    previewCaption?: LocaleString;
+    title?: LocaleString;
+    caption?: LocaleString;
     closeLabel?: LocaleString;
   } | null;
   servicesVideo: {
@@ -1179,7 +1179,7 @@ export type HOME_PAGE_QUERYResult = {
     durationLabel?: string;
     buttonLabel?: LocaleString;
     ariaLabel?: LocaleString;
-    modalTitle?: LocaleString;
+    title?: LocaleString;
   } | null;
   startWhereYouAre: {
     label?: LocaleString;

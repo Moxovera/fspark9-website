@@ -141,7 +141,7 @@ export function StoryBar({ dayTemplate, clock }: StoryBarProps) {
     <div aria-hidden="true" className="sticky top-16 z-30 border-b-2 border-ink bg-paper min-[900px]:top-[84px] min-[1000px]:hidden">
       <div className="flex h-[60px] items-center gap-[14px] px-5 min-[900px]:px-8">
         {!clock && <span data-mode={current.mode} className="story-mini h-10 w-[26px] flex-none" />}
-        <b className="font-display text-[18px] leading-none font-extrabold tracking-[-0.02em] text-ink">{current.barTitle}</b>
+        <b className="font-display text-[18px] leading-none font-extrabold tracking-[-0.02em] text-ink">{current.title}</b>
         <span className="ml-auto font-mono text-[12px] leading-none font-medium tracking-[0.08em] whitespace-nowrap text-stone uppercase">
           {day}
         </span>

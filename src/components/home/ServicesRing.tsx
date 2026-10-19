@@ -27,7 +27,8 @@ const LINE_LENGTH = 2 * Math.PI * LINE_R;
  * currentTime / duration değeriyle dolar, klip bitince postere geçilir ve
  * oynat düğmesi belirir. Daireye tıklamak videoyu pencerede (VideoModal,
  * 4:5) sesli açar. Sayfa açılırken klip inmez; bölümden çıkıp dönünce
- * yeniden oynamaz.
+ * yeniden oynamaz. YouTube kimliği boşsa önizleme, poster ve çizgi yine
+ * var; oynat düğmesi, perde ve pencere yok.
  *
  * Bu reveal değil, klibin durumunu izliyor: useReveal'dan ayrı.
  */
@@ -133,6 +134,7 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
 
   const clipMounted = phase === "loading" || phase === "playing" || phase === "ending";
   const settled = phase === "ending" || phase === "still";
+  const hasVideo = Boolean(video.youtubeId);
 
   return (
     <div ref={stageRef} className="services-ring relative aspect-square">
@@ -159,7 +161,9 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
             <source src={preview.webm} type="video/webm" />
           </video>
         )}
-        <div className={`ring-veil video-only absolute inset-0 bg-[color-mix(in_srgb,var(--ink)_38%,transparent)] ${settled ? "is-on" : ""}`} />
+        {hasVideo && (
+          <div className={`ring-veil video-only absolute inset-0 bg-[color-mix(in_srgb,var(--ink)_38%,transparent)] ${settled ? "is-on" : ""}`} />
+        )}
       </div>
       <svg viewBox="0 0 600 600" className="ring-progress video-only pointer-events-none absolute inset-0 size-full" aria-hidden="true" focusable="false">
         <circle cx="300" cy="300" r={LINE_R} fill="none" className="stroke-rule" />
@@ -175,34 +179,38 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
           style={{ opacity: 0 }}
         />
       </svg>
-      <button
-        ref={buttonRef}
-        type="button"
-        onClick={openVideo}
-        aria-label={video.ariaLabel}
-        className="ring-button video-only group/ring absolute inset-[19%] flex cursor-pointer flex-col items-center justify-center gap-3 rounded-full min-[640px]:gap-[18px]"
-      >
-        <span className={`ring-play flex flex-col items-center gap-3 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}>
-          <span className="ring-disc flex size-[60px] items-center justify-center rounded-full bg-flare text-ink min-[640px]:size-[84px]">
-            {/* İkonun üçgeni kutusunun 0.4'ü: üçgen telefonda 22, tablet ve masaüstünde 30 piksel. */}
-            <PlayIcon className="size-[55px] min-[640px]:size-[75px]" />
+      {hasVideo && (
+        <>
+        <button
+          ref={buttonRef}
+          type="button"
+          onClick={openVideo}
+          aria-label={video.ariaLabel}
+          className="ring-button video-only group/ring absolute inset-[19%] flex cursor-pointer flex-col items-center justify-center gap-3 rounded-full min-[640px]:gap-[18px]"
+        >
+          <span className={`ring-play flex flex-col items-center gap-3 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}>
+            <span className="ring-disc flex size-[60px] items-center justify-center rounded-full bg-flare text-ink min-[640px]:size-[84px]">
+              {/* İkonun üçgeni kutusunun 0.4'ü: üçgen telefonda 22, tablet ve masaüstünde 30 piksel. */}
+              <PlayIcon className="size-[55px] min-[640px]:size-[75px]" />
+            </span>
+            <span className="flex items-baseline gap-2 bg-ink px-[10px] py-[5px] whitespace-nowrap min-[640px]:px-3 min-[640px]:py-[6px]">
+              <span className="font-sans text-[13px] leading-none font-bold text-paper min-[640px]:text-[15px]">{video.buttonLabel}</span>
+              <span className="font-mono text-[11px] leading-none font-medium text-dust min-[640px]:text-[12px]">{video.durationLabel}</span>
+            </span>
           </span>
-          <span className="flex items-baseline gap-2 bg-ink px-[10px] py-[5px] whitespace-nowrap min-[640px]:px-3 min-[640px]:py-[6px]">
-            <span className="font-sans text-[13px] leading-none font-bold text-paper min-[640px]:text-[15px]">{video.buttonLabel}</span>
-            <span className="font-mono text-[11px] leading-none font-medium text-dust min-[640px]:text-[12px]">{video.durationLabel}</span>
-          </span>
-        </span>
-      </button>
-      <VideoModal
-        youtubeId={video.youtubeId}
-        title={video.modalTitle}
-        eyebrow={`${sectionLabel} · ${video.durationLabel}`}
-        aspect={4 / 5}
-        closeLabel={closeLabel}
-        open={open}
-        onClose={closeVideo}
-        returnFocusRef={buttonRef}
-      />
+        </button>
+        <VideoModal
+          youtubeId={video.youtubeId}
+          title={video.title}
+          eyebrow={`${sectionLabel} · ${video.durationLabel}`}
+          aspect={4 / 5}
+          closeLabel={closeLabel}
+          open={open}
+          onClose={closeVideo}
+          returnFocusRef={buttonRef}
+        />
+        </>
+      )}
     </div>
   );
 }

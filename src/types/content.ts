@@ -143,7 +143,7 @@ export interface SparkStoryCard {
   /** Kartın altındaki küçük yazı (geniş ekranda). */
   caption: string
   /** Dar ekrandaki ince şeridin başlığı. */
-  barTitle: string
+  title: string
   /** Gün saatli bölümlerde (dayClock) çubuğun doluluğu, yüzde. */
   progress?: number
   /** Şeritteki gün yazısı; boşsa dayTemplate ("Day 830"). */
@@ -167,9 +167,9 @@ export interface SparkDecision {
   question: string
   options: SparkDecisionOption[]
   didLabel: string
-  didTitle: string
+  title: string
   /** Paragraflar; "[n]" kaynak dipnotu olur. */
-  didBody: string[]
+  body: string[]
   note: string
   services: SparkServiceTag[]
 }
@@ -1208,21 +1208,21 @@ export interface HeroVideoContent {
   durationLabel: string
   buttonLabel: string
   ariaLabel: string
-  modalTitle: string
+  title: string
   /** Sessiz önizleme sırasında portrenin altındaki satır (Burak'ın o 4 saniyede söylediği). */
-  previewCaption: string
+  caption: string
   closeLabel: string
 }
 
 /** Four services halkasının ortasındaki hizmetler videosu (dikey, 4:5). */
 export interface ServicesVideoContent {
-  /** Bu dilin videosu; boşsa önizleme, poster ve düğme yok, halka boş. */
+  /** Bu dilin videosu; boşsa önizleme ve poster var, oynat düğmesi ve pencere yok. */
   youtubeId: string
   /** Düğmedeki ve penceredeki süre, ör. "0:30". */
   durationLabel: string
   buttonLabel: string
   ariaLabel: string
-  modalTitle: string
+  title: string
 }
 
 export interface HomeContent {
@@ -1245,7 +1245,7 @@ export interface HomeContent {
   }
   /** Açılıştaki tanıtım filmi. `youtubeId` boşsa düğme ve önizleme hiç yok. */
   heroVideo: HeroVideoContent
-  /** Four services halkasındaki video. `youtubeId` boşsa halka bugünkü gibi boş. */
+  /** Four services halkasındaki video. `youtubeId` boşsa düğmesiz önizleme. */
   servicesVideo: ServicesVideoContent
   startWhereYouAre: {
     label: string
@@ -1669,7 +1669,7 @@ export interface MarqueeProps {
 export interface FourServicesProps {
   content: HomeContent["fourServices"];
   services: ServiceSummary[];
-  /** Sadece ana sayfada: halkanın ortasındaki video. /services'te yok. */
+  /** Sadece ana sayfada: halkanın ortasındaki video (kimlik boşsa düğmesiz önizleme). /services'te yok. */
   ring?: ServicesRingProps;
 }
 

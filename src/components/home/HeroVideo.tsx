@@ -172,7 +172,7 @@ export default function HeroVideo({ video, preview, children }: HeroVideoButtonP
         className={`hero-caption pointer-events-none absolute inset-x-0 bottom-[34px] z-[3] m-0 flex justify-center min-[900px]:bottom-[46px] ${caption ? "is-on" : ""}`}
       >
         <span className="bg-[color-mix(in_srgb,var(--ink)_72%,transparent)] px-2 py-[2px] font-sans text-[13px] leading-[1.4] font-medium text-paper min-[900px]:px-[10px] min-[900px]:py-[3px] min-[900px]:text-[16px]">
-          {video.previewCaption}
+          {video.caption}
         </span>
       </p>
       {/* Portrenin tamamı tıklanabilir; klavye ve ekran okuyucu için asıl kontrol aşağıdaki düğme. */}
@@ -202,7 +202,7 @@ export default function HeroVideo({ video, preview, children }: HeroVideoButtonP
       </button>
       <VideoModal
         youtubeId={video.youtubeId}
-        title={video.modalTitle}
+        title={video.title}
         closeLabel={video.closeLabel}
         open={open}
         onClose={closeFilm}

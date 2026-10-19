@@ -48,7 +48,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "2016",
           state: "ING",
           caption: "Before Day 0",
-          barTitle: "A startup inside a bank",
+          title: "A startup inside a bank",
           progress: 0,
           barDay: "Before Day 0",
         },
@@ -68,7 +68,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "000",
           state: "1 June 2017",
           caption: "Day 0",
-          barTitle: "Free for everyone",
+          title: "Free for everyone",
           progress: 0,
         },
         decision: {
@@ -92,8 +92,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Yolt did",
-          didTitle: "It chose A.",
-          didBody: [
+          title: "It chose A.",
+          body: [
             "The plan is said out loud at launch: energy suppliers will pay to be promoted in the app. Risseeuw says product comes before profit, and break even will come once there are enough users.[17]",
             "Over the years the shelf grows: bill switching, insurance, investments, pension consolidation, then savings from Raisin's partner banks. When a user takes one of these deals, Yolt earns a commission.[18,19] How much this brought in was never published.",
           ],
@@ -115,7 +115,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "226",
           state: "13 January 2018",
           caption: "The doors open",
-          barTitle: "The doors open",
+          title: "The doors open",
           progress: 14.49,
         },
       },
@@ -133,7 +133,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "365",
           state: "June 2018",
           caption: "Two new countries",
-          barTitle: "Two new countries",
+          title: "Two new countries",
           progress: 23.4,
         },
         decision: {
@@ -157,8 +157,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Yolt did",
-          didTitle: "It chose A, and eight months later added C.",
-          didBody: [
+          title: "It chose A, and eight months later added C.",
+          body: [
             "France and Italy are announced in June 2018.[6] In February 2019 Yolt for Business opens.[7]",
           ],
           note: "",
@@ -180,7 +180,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "623",
           state: "14 February 2019",
           caption: "The second business",
-          barTitle: "The second business",
+          title: "The second business",
           progress: 39.94,
         },
         decision: {
@@ -204,8 +204,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What happened",
-          didTitle: "It got its own name.",
-          didBody: [
+          title: "It got its own name.",
+          body: [
             "The business becomes Yolt Technology Services. In February 2020 it handles 14 million API calls a week; a few months later, more than 22 million.[21,9]",
             "In the same months the app grows from just over one million registered users at the end of 2019 to 1.5 million in October 2020.[1,10] How the team and the budget were split between the two businesses is not public.",
           ],
@@ -229,7 +229,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1237",
           state: "20 October 2020",
           caption: "A card and a jar",
-          barTitle: "A card and a jar",
+          title: "A card and a jar",
           progress: 79.29,
         },
         decision: {
@@ -253,8 +253,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Yolt did",
-          didTitle: "It chose A.",
-          didBody: [
+          title: "It chose A.",
+          body: [
             "The card and the Money Jar go live, first on iOS, then on Android.[10,11] It is a prepaid card on an electronic money account, not a current account; salaries don't land on it.[14,20]",
             "How many users took the card was never published. What we can see: registered users go from 1.5 million in October 2020 to around 1.6 million in September 2021, about 100,000 in eleven months.[10,14] Our estimate from these numbers is that the card did not visibly speed up growth. Ten and a half months later comes the announcement.",
           ],
@@ -277,7 +277,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1484",
           state: "24 June 2021",
           caption: "The race",
-          barTitle: "The race",
+          title: "The race",
           progress: 95.13,
         },
       },
@@ -296,7 +296,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1560",
           state: "Last day",
           caption: "8 September 2021",
-          barTitle: "The decision",
+          title: "The decision",
           progress: 100,
         },
         decision: {
@@ -320,8 +320,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Yolt did",
-          didTitle: "Reassurance first, the date a month later.",
-          didBody: [
+          title: "Reassurance first, the date a month later.",
+          body: [
             "The first message: your money and your data are safe, we will be in touch once the decision is final.[12]",
             "On 7 October the date arrives: 4 December. Money can be moved out in the app, or taken from an ATM, up to 100 pounds a day. Statements can be exported.[14] Accounts opened with partners such as Raisin, Wealthify and PensionBee stay open with those providers.[20] For everything else, the record shows no recommended alternative app.",
           ],
@@ -340,7 +340,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1560",
           state: "Last day",
           caption: "8 September 2021",
-          barTitle: "What was left",
+          title: "What was left",
           progress: 100,
           barDay: "Last day",
         },
@@ -697,7 +697,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "2016",
           state: "ING",
           caption: "Gün 0'dan önce",
-          barTitle: "Bankanın içinde bir girişim",
+          title: "Bankanın içinde bir girişim",
           progress: 0,
           barDay: "Gün 0'dan önce",
         },
@@ -717,7 +717,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "000",
           state: "1 Haziran 2017",
           caption: "Gün 0",
-          barTitle: "Herkese ücretsiz",
+          title: "Herkese ücretsiz",
           progress: 0,
         },
         decision: {
@@ -741,8 +741,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Yolt ne yaptı",
-          didTitle: "A'yı seçti.",
-          didBody: [
+          title: "A'yı seçti.",
+          body: [
             "Plan lansmanda açıkça söyleniyor: enerji şirketleri uygulamada öne çıkarılmak için para ödeyecek. Risseeuw'a göre önce ürün geliyor, yeterince kullanıcıya ulaşınca başa baş noktası da gelecek.[17]",
             "Yıllar içinde raf büyüyor: fatura değiştirme, sigorta, yatırım, emeklilik birleştirme, sonra Raisin'in partner bankalarından mevduat. Kullanıcı bu tekliflerden birini aldığında Yolt komisyon kazanıyor.[18,19] Bunun ne kadar gelir getirdiği hiç açıklanmadı.",
           ],
@@ -764,7 +764,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "226",
           state: "13 Ocak 2018",
           caption: "Kapılar açılıyor",
-          barTitle: "Kapılar açılıyor",
+          title: "Kapılar açılıyor",
           progress: 14.49,
         },
       },
@@ -782,7 +782,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "365",
           state: "Haziran 2018",
           caption: "İki yeni ülke",
-          barTitle: "İki yeni ülke",
+          title: "İki yeni ülke",
           progress: 23.4,
         },
         decision: {
@@ -806,8 +806,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Yolt ne yaptı",
-          didTitle: "A'yı seçti, sekiz ay sonra C'yi de ekledi.",
-          didBody: [
+          title: "A'yı seçti, sekiz ay sonra C'yi de ekledi.",
+          body: [
             "Fransa ve İtalya Haziran 2018'de duyuruluyor.[6] Şubat 2019'da Yolt for Business açılıyor.[7]",
           ],
           note: "",
@@ -829,7 +829,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "623",
           state: "14 Şubat 2019",
           caption: "İkinci iş",
-          barTitle: "İkinci iş",
+          title: "İkinci iş",
           progress: 39.94,
         },
         decision: {
@@ -853,8 +853,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Ne oldu",
-          didTitle: "Kendi adını aldı.",
-          didBody: [
+          title: "Kendi adını aldı.",
+          body: [
             "İş Yolt Technology Services adını alıyor. Şubat 2020'de haftada 14 milyon API çağrısı işliyor, birkaç ay sonra 22 milyonun üzerinde.[21,9]",
             "Aynı aylarda uygulama 2019 sonundaki bir milyonun biraz üzerindeki kayıtlı kullanıcıdan Ekim 2020'de 1,5 milyona çıkıyor.[1,10] Ekibin ve bütçenin iki iş arasında nasıl bölündüğü kamuya açık değil.",
           ],
@@ -878,7 +878,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1237",
           state: "20 Ekim 2020",
           caption: "Bir kart, bir kumbara",
-          barTitle: "Kart ve kumbara",
+          title: "Kart ve kumbara",
           progress: 79.29,
         },
         decision: {
@@ -902,8 +902,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Yolt ne yaptı",
-          didTitle: "A'yı seçti.",
-          didBody: [
+          title: "A'yı seçti.",
+          body: [
             "Kart ve kumbara önce iOS'ta, sonra Android'de yayına giriyor.[10,11] Bu bir vadesiz hesap değil, elektronik para hesabına bağlı ön ödemeli bir kart; maaş buraya yatmıyor.[14,20]",
             "Kaç kullanıcının kartı aldığı hiç açıklanmadı. Görebildiğimiz şu: kayıtlı kullanıcı Ekim 2020'de 1,5 milyon, Eylül 2021'de yaklaşık 1,6 milyon. On bir ayda 100 bin kadar.[10,14] Bu rakamlardan bizim tahminimiz, kartın büyümeyi gözle görülür biçimde hızlandırmadığı. On buçuk ay sonra duyuru geliyor.",
           ],
@@ -926,7 +926,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1484",
           state: "24 Haziran 2021",
           caption: "Yarış",
-          barTitle: "Yarış",
+          title: "Yarış",
           progress: 95.13,
         },
       },
@@ -945,7 +945,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1560",
           state: "Son gün",
           caption: "8 Eylül 2021",
-          barTitle: "Karar",
+          title: "Karar",
           progress: 100,
         },
         decision: {
@@ -969,8 +969,8 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Yolt ne yaptı",
-          didTitle: "Önce güvence, tarih bir ay sonra.",
-          didBody: [
+          title: "Önce güvence, tarih bir ay sonra.",
+          body: [
             "İlk mesaj şu: paranız ve verileriniz güvende, karar kesinleşince size haber vereceğiz.[12]",
             "7 Ekim'de tarih geliyor: 4 Aralık. Para uygulamadan transferle ya da ATM'den, günde en fazla 100 sterlin çekilebiliyor. Hesap dökümleri indirilebiliyor.[14] Raisin, Wealthify, PensionBee gibi partnerlerde açılan hesaplar o kurumlarda açık kalıyor.[20] Geri kalanı için kayıtta önerilen bir alternatif uygulama yok.",
           ],
@@ -989,7 +989,7 @@ export const yolt: Record<Locale, SparkEpisodeStory> = {
           day: "1560",
           state: "Son gün",
           caption: "8 Eylül 2021",
-          barTitle: "Geriye ne kaldı",
+          title: "Geriye ne kaldı",
           progress: 100,
           barDay: "Son gün",
         },
