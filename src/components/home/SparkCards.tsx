@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import Label from "@/components/brand/Label";
 import Reveal from "@/components/ui/Reveal";
 import TextLink from "@/components/brand/TextLink";
+import SparkFilmButton from "@/components/home/SparkFilmButton";
 import { ArrowRightIcon } from "@/components/icons";
 import type { SparkCardContent, SparkCardsProps } from "@/types/content";
 
@@ -11,7 +12,8 @@ import type { SparkCardContent, SparkCardsProps } from "@/types/content";
  * masaüstünde büyük (6 sütun, 72px başlık). Sıralama ve kart sayısı
  * sorguda (SPARK_CARDS_QUERY); bileşen gelen kadar kart çizer, boş kart yok.
  */
-export default function SparkCards({ content }: SparkCardsProps) {
+export default function SparkCards({ content, film, sparkLabel }: SparkCardsProps) {
+  const hasFilm = Boolean(film.youtubeId);
   return (
     <section className="bg-white px-5 pt-16 pb-14 min-[900px]:px-8 min-[900px]:py-[136px] min-[1280px]:px-16">
       <Reveal className="flex flex-col gap-8 min-[900px]:gap-14">
@@ -25,9 +27,17 @@ export default function SparkCards({ content }: SparkCardsProps) {
               {content.text}
             </p>
           </div>
-          <div className="hidden min-[900px]:col-span-3 min-[900px]:col-start-10 min-[900px]:block min-[900px]:justify-self-end">
-            <TextLink href="/spark" label={content.linkLabel} />
-          </div>
+          {hasFilm ? (
+            // "Spark nedir? İzleyin": "Spark'ı okuyun" bağlantısının soluna, aynı satıra (36px aralık); dar masaüstünde üst üste.
+            <div className="hidden min-[900px]:col-span-4 min-[900px]:col-start-9 min-[900px]:flex min-[900px]:flex-col min-[900px]:items-end min-[900px]:justify-self-end min-[1280px]:flex-row min-[1280px]:items-center min-[1280px]:gap-9">
+              <SparkFilmButton film={film} sparkLabel={sparkLabel} />
+              <TextLink href="/spark" label={content.linkLabel} />
+            </div>
+          ) : (
+            <div className="hidden min-[900px]:col-span-3 min-[900px]:col-start-10 min-[900px]:block min-[900px]:justify-self-end">
+              <TextLink href="/spark" label={content.linkLabel} />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-4 min-[900px]:grid min-[900px]:grid-cols-12 min-[900px]:gap-6">
@@ -36,7 +46,15 @@ export default function SparkCards({ content }: SparkCardsProps) {
           ))}
         </div>
 
-        <TextLink href="/spark" label={content.linkLabel} className="min-[900px]:hidden" />
+        {hasFilm ? (
+          // Telefonda düğme bağlantının üstünde, kendi satırında.
+          <div className="flex flex-col items-start gap-1 min-[900px]:hidden">
+            <SparkFilmButton film={film} sparkLabel={sparkLabel} />
+            <TextLink href="/spark" label={content.linkLabel} />
+          </div>
+        ) : (
+          <TextLink href="/spark" label={content.linkLabel} className="min-[900px]:hidden" />
+        )}
       </Reveal>
     </section>
   );

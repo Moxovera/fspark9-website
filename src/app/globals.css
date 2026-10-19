@@ -945,6 +945,56 @@ html:not(.js) .video-only { display: none; }
   .ring-clip, .ring-clip.is-ending, .ring-pill { transition: none; }
 }
 
+/* ── Spark sayfası açılışındaki film kartı (components/spark/hub/SparkFilmCard).
+   Akış Four services halkasıyla ortak (hooks/useClipPreview): sayfa yüklenince
+   4 sn sessiz klip bir kez oynar, üst çizgi klibe bağlı dolar, sonra poster,
+   %38 Ink perde ve oynat düğmesi. Poster bir <canvas>: <img> olsaydı Chrome
+   onu LCP adayı sayıp LCP'yi "Spark" yazısından posterin yüklenmesine
+   kaydırıyordu (opaklık 0 ile gizlemek de yetmedi, görünür olunca sayılıyor).
+   Klip 0'dan belirir ve posterle aynı boyutta. ── */
+.film-poster { opacity: 0; transition: opacity 200ms var(--ease-brand); }
+.film-poster.is-shown { opacity: 1; }
+.film-clip {
+  opacity: 0;
+  transition: opacity 400ms var(--ease-brand);
+}
+.film-clip.is-playing { opacity: 1; }
+.film-clip.is-ending {
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.film-veil {
+  opacity: 0;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.film-veil.is-on { opacity: 1; }
+.film-play {
+  opacity: 0;
+  scale: 0.96;
+  transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1), scale 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.film-play.is-on { opacity: 1; scale: 1; }
+.film-circle { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+.film-card:hover .film-circle,
+.film-card:focus-visible .film-circle { transform: scale(1.07); }
+/* Odakta kartın çevresinde 3px Paper halka, 6px boşlukla (Ink zeminde renk .on-ink'ten). */
+.film-card:focus-visible { outline-width: 3px; outline-offset: 6px; }
+@media (prefers-reduced-motion: reduce) {
+  .film-poster, .film-clip, .film-clip.is-ending, .film-veil, .film-play, .film-circle { transition: none; }
+}
+
+/* Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi: resim ve klip yok,
+   hover'da daire 1,07 büyür ve metnin altına 2px Ink çizgi gelir. */
+.spark-watch .watch-circle { transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+.spark-watch:hover .watch-circle,
+.spark-watch:focus-visible .watch-circle { transform: scale(1.07); }
+.spark-watch .watch-label { background: linear-gradient(var(--ink), var(--ink)) no-repeat 0 100% / 0 2px; transition: background-size 200ms cubic-bezier(0.22, 1, 0.36, 1); }
+.spark-watch:hover .watch-label,
+.spark-watch:focus-visible .watch-label { background-size: 100% 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .spark-watch .watch-circle, .spark-watch .watch-label { transition: none; }
+}
+
 /* Dikey video penceresi (VideoModal `aspect`): masaüstünde oynatıcı yüksekliği
    min(78vh, 740px), genişliği bunun oranı katı; telefonda başlığın altında
    ekrana sığan en büyük boy. */

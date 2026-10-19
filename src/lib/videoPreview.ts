@@ -7,9 +7,13 @@ export const READY_TIMEOUT_MS = 3000;
 
 type NetworkInformation = { saveData?: boolean; effectiveType?: string };
 
-export function previewAllowed(): boolean {
+/** Hiç klip indirilmeyen bağlantı türleri; Spark film kartı 3g'yi de bırakıyor (kart sayfanın en üstünde). */
+export const SLOW_CONNECTIONS = ["slow-2g", "2g"];
+export const SLOWER_CONNECTIONS = [...SLOW_CONNECTIONS, "3g"];
+
+export function previewAllowed(blocked: string[] = SLOW_CONNECTIONS): boolean {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   const connection = (navigator as Navigator & { connection?: NetworkInformation }).connection;
   if (connection?.saveData) return false;
-  return connection?.effectiveType !== "2g" && connection?.effectiveType !== "slow-2g";
+  return !blocked.includes(connection?.effectiveType ?? "");
 }

@@ -194,7 +194,7 @@ export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
 
 /**
  * Burak kimlikleri Studio'ya girene kadar canlıda video düğmesi ve önizleme
- * yok (açılış filmi ve Four services halkasındaki hizmetler videosu). Preview ve yerelde (canlıda asla) düğme, önizleme ve pencere test
+ * yok (açılış filmi, Four services halkasındaki hizmetler videosu ve Spark filmi). Preview ve yerelde (canlıda asla) düğme, önizleme ve pencere test
  * edilebilsin diye boş kimlik yerine açık lisanslı bir test filmi (Blender
  * Foundation, Big Buck Bunny). Sanity'de kimlik varsa o kullanılır.
  * check:drift bunu boş sayar (HERO_VIDEO_PREVIEW_OFF).
@@ -391,6 +391,7 @@ export const SPARK_HUB_QUERY = defineQuery(`{
   "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{
     seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,
     backLabel, sparkLabel, formatsLabel, launchDateLabel,
+    sparkFilm,
     episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }
   },
   "formats": *[_type == "sparkFormat"] | order(orderRank asc){
@@ -412,8 +413,18 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
   });
   return perLocale((locale) => {
     const { section, formats } = localize(raw, locale);
+    const { sparkFilm, ...rest } = section;
     return {
-      ...section,
+      ...rest,
+      film: {
+        youtubeId: ((locale === "tr" ? raw.section?.sparkFilm?.youtubeIdTr : raw.section?.sparkFilm?.youtubeIdEn) ?? "").trim() || HERO_VIDEO_PREVIEW_ID,
+        durationLabel: sparkFilm?.durationLabel ?? "",
+        buttonLabel: sparkFilm?.buttonLabel ?? "",
+        ariaLabel: sparkFilm?.ariaLabel ?? "",
+        modalTitle: sparkFilm?.modalTitle ?? "",
+        homeButtonLabel: sparkFilm?.homeButtonLabel ?? "",
+        closeLabel: sparkFilm?.closeLabel ?? "",
+      },
       formats: formats.map(
         ({ coming, comingLabel, slug, number, status, openLabel, preparingLine, startLabel, howLabel, howHeading, closeHeading, ...format }) => ({
         ...format,
