@@ -10,7 +10,7 @@ import type { ServicesRingStageProps } from "@/types/content";
  * idle: poster, çizgi boş, düğme yok. loading: klip iniyor (görünmez).
  * playing: klip posterin üstünde, çizgi klibin süresine bağlı doluyor.
  * ending: son kareden postere çapraz geçiş, düğme beliriyor. still: hareket
- * bitti (ya da hiç başlamadı): poster, perde, dolu çizgi, düğme.
+ * bitti (ya da hiç başlamadı): poster, dolu çizgi, düğme.
  */
 type Phase = "idle" | "loading" | "playing" | "ending" | "still";
 
@@ -27,8 +27,10 @@ const LINE_LENGTH = 2 * Math.PI * LINE_R;
  * currentTime / duration değeriyle dolar, klip bitince postere geçilir ve
  * oynat düğmesi belirir. Daireye tıklamak videoyu pencerede (VideoModal,
  * 4:5) sesli açar. Sayfa açılırken klip inmez; bölümden çıkıp dönünce
- * yeniden oynamaz. YouTube kimliği boşsa önizleme, poster ve çizgi yine
- * var; oynat düğmesi, perde ve pencere yok.
+ * yeniden oynamaz. Önizleme videonun açılışı (başlık), açılış filmindeki
+ * portre gibi; oynat düğmesi de oradaki gibi dairenin alt kenarına oturan
+ * hap. YouTube kimliği boşsa önizleme, poster ve çizgi yine var; hap ve
+ * pencere yok.
  *
  * Bu reveal değil, klibin durumunu izliyor: useReveal'dan ayrı.
  */
@@ -161,9 +163,6 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
             <source src={preview.webm} type="video/webm" />
           </video>
         )}
-        {hasVideo && (
-          <div className={`ring-veil video-only absolute inset-0 bg-[color-mix(in_srgb,var(--ink)_38%,transparent)] ${settled ? "is-on" : ""}`} />
-        )}
       </div>
       <svg viewBox="0 0 600 600" className="ring-progress video-only pointer-events-none absolute inset-0 size-full" aria-hidden="true" focusable="false">
         <circle cx="300" cy="300" r={LINE_R} fill="none" className="stroke-rule" />
@@ -181,23 +180,27 @@ export default function ServicesRing({ ring, children }: ServicesRingStageProps)
       </svg>
       {hasVideo && (
         <>
+        {/* Dairenin tamamı tıklanabilir; klavye ve ekran okuyucu için asıl kontrol aşağıdaki hap. */}
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-hidden="true"
+          onClick={openVideo}
+          className="video-only absolute inset-[19%] cursor-pointer rounded-full"
+        />
+        {/* Açılış filmindeki gibi dairenin alt kenarına oturan hap; klip bitince bir kez gelir. */}
         <button
           ref={buttonRef}
           type="button"
           onClick={openVideo}
           aria-label={video.ariaLabel}
-          className="ring-button video-only group/ring absolute inset-[19%] flex cursor-pointer flex-col items-center justify-center gap-2 rounded-full min-[640px]:gap-[18px]"
+          className={`ring-pill video-only absolute top-[calc(81%-25px)] left-1/2 z-[1] inline-flex h-[50px] -translate-x-1/2 cursor-pointer items-center gap-[10px] rounded-full border-4 border-ink bg-flare pr-4 pl-1 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-ink min-[640px]:top-[calc(81%-31px)] min-[640px]:h-[62px] min-[640px]:gap-3 min-[640px]:border-[5px] min-[640px]:pr-[22px] min-[640px]:pl-[5px] min-[640px]:text-[16px] ${settled ? "is-on" : ""}`}
         >
-          <span className={`ring-play flex flex-col items-center gap-2 min-[640px]:gap-[18px] ${settled ? "is-on" : ""}`}>
-            <span className="ring-disc flex size-[52px] items-center justify-center rounded-full bg-flare text-ink min-[640px]:size-[84px]">
-              {/* İkonun üçgeni kutusunun 0.4'ü: üçgen telefonda 19, tablet ve masaüstünde 30 piksel. */}
-              <PlayIcon className="size-[48px] min-[640px]:size-[75px]" />
-            </span>
-            <span className="flex items-baseline gap-[6px] bg-ink px-2 py-1 whitespace-nowrap min-[640px]:gap-2 min-[640px]:px-3 min-[640px]:py-[6px]">
-              <span className="font-sans text-[12px] leading-none font-bold text-paper min-[640px]:text-[15px]">{video.buttonLabel}</span>
-              <span className="font-mono text-[10px] leading-none font-medium text-dust min-[640px]:text-[12px]">{video.durationLabel}</span>
-            </span>
+          <span className="flex size-[34px] flex-none items-center justify-center rounded-full bg-ink text-flare min-[640px]:size-[42px]">
+            <PlayIcon className="size-[18px] translate-x-[1px] min-[640px]:size-[22px]" />
           </span>
+          <span>{video.buttonLabel}</span>
+          <span className="font-mono text-[11px] font-medium min-[640px]:text-[12px]">{video.durationLabel}</span>
         </button>
         <VideoModal
           youtubeId={video.youtubeId}

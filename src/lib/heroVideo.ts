@@ -12,7 +12,7 @@ export function heroPreviewSources(locale: string): HeroPreviewSources {
 
 /**
  * Four services halkasının ortasındaki hizmetler videosunun önizlemesi ve
- * posteri (kapanıştaki kadran, kare kırpılmış). Üretim:
+ * posteri (videonun açılış başlığı, kare kırpılmış). Üretim:
  * docs/services-video-check/build-clips.py.
  */
 export function servicesPreviewSources(locale: string): HeroPreviewSources {
