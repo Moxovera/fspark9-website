@@ -114,9 +114,9 @@ export default function DecisionTable({ decision, labels }: DecisionTableProps) 
           <div className="mt-[34px] border-t-2 border-ink pt-[26px]">
             <p className={`m-0 text-ink ${mono}`}>{decision.didLabel}</p>
             <h3 className="mt-2 mb-3 font-display text-[26px] leading-[1.15] font-bold tracking-[-0.02em] text-ink">
-              {decision.didTitle}
+              {decision.title}
             </h3>
-            {decision.didBody.map((paragraph) => (
+            {decision.body.map((paragraph) => (
               <p key={paragraph} className="mt-0 mb-[14px] max-w-[60ch] text-[18px] leading-[1.6] text-ink">
                 <FootnoteText text={paragraph} template={labels.footnoteTemplate} />
               </p>

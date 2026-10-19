@@ -1,5 +1,7 @@
 # Hizmetler halka videosu · kontrol kaydı (2026-10-19)
 
+> **Güncelleme (aynı gün, Burak'ın isteğiyle):** Halka masaüstünde 520 (600 değil), telefonda 300 (oynat dairesi 52, etiket 12/10 px). Önizleme, poster ve çizgi YouTube kimliği olmadan da görünüyor; oynat düğmesi, perde ve pencere sadece kimlik varken. Kimlikler girildi: TR `cDtyn01dpGM`, EN `Pr4kIn4GgPg` (Shorts; `/embed/` ile oynuyor, YouTube süresi 0:30). Aşağıdaki ölçü tablosu ilk sürüme ait; güncel ölçüler: 360/375/390 → halka 300, video 186, çizgi 3 px; 768/1180/1440 → halka 520, video 322, çizgi 3,47 px; 900 → 406. Yatay kaydırma, çakışma yok, etiket her genişlikte daire içinde. `local/` ekran görüntüleri güncel sürüm.
+
 ## Önizleme klibi ve poster
 
 | | TR | EN |

@@ -29,7 +29,7 @@ export default function ServicePicker({ services, intro, ring }: ServicePickerPr
       <div className="flex flex-col gap-4 min-[900px]:sticky min-[900px]:top-[120px] min-[900px]:col-span-6 min-[900px]:gap-5 min-[900px]:self-start">
         {intro}
         {ring ? (
-          // Ana sayfada video varsa: halka 600'e kadar büyür, ortasında video; telefonda da görünür.
+          // Ana sayfada: halka 520'ye kadar büyür (telefonda 300), ortasında video; telefonda da görünür.
           <div className="mt-6 min-[900px]:mt-10">
             <ServicesRing ring={ring}>
               <Dial lit={lit} size={600} className="absolute inset-0 size-full" />

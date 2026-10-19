@@ -35,7 +35,7 @@ export const sparkStoryCard = defineType({
     str("day", "Day (\"000\", lansmandan önce \"?\")", { required: true }),
     ls("state", "State line on the card"),
     ls("caption", "Caption under the card (wide screens)"),
-    ls("barTitle", "Title in the thin bar (narrow screens)"),
+    ls("title", "Title in the thin bar (narrow screens)"),
     defineField({
       name: "progress",
       title: "Day clock progress (%, only with a day clock)",
@@ -78,9 +78,9 @@ export const sparkDecision = defineType({
       validation: (r) => r.length(3),
     }),
     ls("didLabel", "What they did, label (\"What Bó did\")"),
-    lt("didTitle", "What they did, heading"),
+    lt("title", "What they did, heading"),
     defineField({
-      name: "didBody",
+      name: "body",
       title: "What they did, paragraphs",
       description: "\"[n]\" kaynağa dipnot olur.",
       type: "array",

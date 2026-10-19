@@ -51,7 +51,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2009",
           state: "Munich",
           caption: "Before Day 0",
-          barTitle: "The community bank",
+          title: "The community bank",
           progress: 0,
           barDay: "Before Day 0",
         },
@@ -76,8 +76,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Fidor did",
-          didTitle: "It chose A and B at the same time.",
-          didBody: [
+          title: "It chose A and B at the same time.",
+          body: [
             "It opened in the UK in September 2015 and in 2016 launched o2 Banking with Telefónica Deutschland. In its first months in the UK it had won around 1,000 customers.[3,4]",
           ],
           note: "",
@@ -99,7 +99,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "000",
           state: "28 July 2016",
           caption: "Day 0",
-          barTitle: "The big family",
+          title: "The big family",
           progress: 0,
         },
         decision: {
@@ -123,8 +123,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What happened",
-          didTitle: "Fidor did not move into France.",
-          didBody: [
+          title: "Fidor did not move into France.",
+          body: [
             "Two years later, the picture in the press is this: BPCE directed its digital investment to its own brands.[6] We found no public record of fidorOS being used in the group's banks.",
           ],
           note: "",
@@ -145,7 +145,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2017",
           state: "A loan book",
           caption: "First full year after the deal",
-          barTitle: "Loan book",
+          title: "Loan book",
           progress: 14.16,
           barDay: "2017",
         },
@@ -170,8 +170,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Fidor did",
-          didTitle: "It was built the B way.",
-          didBody: [
+          title: "It was built the B way.",
+          body: [
             "Fidor's large UK loan exposure was built through partners, and most of the 2017 loss came from there. BPCE stood behind the bank with capital and a loss guarantee.[7]",
             "Lending through a partner is sometimes the right path, as long as it is clear from the start where the risk sits.",
           ],
@@ -193,7 +193,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "830",
           state: "November 2018",
           caption: "Two departures",
-          barTitle: "Two departures",
+          title: "Two departures",
           progress: 34.67,
         },
       },
@@ -212,7 +212,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "1371",
           state: "29 April 2020",
           caption: "One in five",
-          barTitle: "One in five",
+          title: "One in five",
           progress: 57.27,
         },
         decision: {
@@ -236,8 +236,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What happened",
-          didTitle: "Customers moved their accounts themselves.",
-          didBody: [
+          title: "Customers moved their accounts themselves.",
+          body: [
             "When the partnership ended, customers did not move to comdirect automatically. Fidor told customers it would send details on closing the account and next steps within a few days.[11] We don't know what the contract said.",
           ],
           note: "",
@@ -258,7 +258,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "1617",
           state: "31 December 2020",
           caption: "The pieces go their own way",
-          barTitle: "The pieces",
+          title: "The pieces",
           progress: 67.54,
         },
       },
@@ -275,7 +275,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2394",
           state: "Last day",
           caption: "16 February 2023",
-          barTitle: "The decision",
+          title: "The decision",
           progress: 100,
         },
         decision: {
@@ -299,8 +299,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "What Fidor did",
-          didTitle: "Path A was taken.",
-          didBody: [
+          title: "Path A was taken.",
+          body: [
             "Customers moved their accounts themselves; the record shows no recommended partner bank.[16]",
           ],
           note: "",
@@ -318,7 +318,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2394",
           state: "Last day",
           caption: "16 February 2023",
-          barTitle: "What was left",
+          title: "What was left",
           progress: 100,
         },
       },
@@ -585,7 +585,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2009",
           state: "Münih",
           caption: "Gün 0'dan önce",
-          barTitle: "Topluluk bankası",
+          title: "Topluluk bankası",
           progress: 0,
           barDay: "Gün 0'dan önce",
         },
@@ -610,8 +610,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Fidor ne yaptı",
-          didTitle: "A ve B'yi aynı anda seçti.",
-          didBody: [
+          title: "A ve B'yi aynı anda seçti.",
+          body: [
             "Eylül 2015'te İngiltere'de açıldı, 2016'da Telefónica Deutschland ile o2 Banking'i kurdu. İngiltere'deki ilk aylarında yaklaşık bin müşteri kazanmıştı.[3,4]",
           ],
           note: "",
@@ -633,7 +633,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "000",
           state: "28 Temmuz 2016",
           caption: "Gün 0",
-          barTitle: "Büyük aile",
+          title: "Büyük aile",
           progress: 0,
         },
         decision: {
@@ -657,8 +657,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Ne oldu",
-          didTitle: "Fidor Fransa'ya taşınmadı.",
-          didBody: [
+          title: "Fidor Fransa'ya taşınmadı.",
+          body: [
             "İki yıl sonra basına yansıyan tablo şu: BPCE dijital yatırımlarını kendi markalarına yönlendirdi.[6] fidorOS'un grubun bankalarında kullanıldığına dair kamuya açık bir kayıt bulamadık.",
           ],
           note: "",
@@ -679,7 +679,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2017",
           state: "Bir kredi defteri",
           caption: "Satın alımdan sonraki ilk tam yıl",
-          barTitle: "Kredi defteri",
+          title: "Kredi defteri",
           progress: 14.16,
           barDay: "2017",
         },
@@ -704,8 +704,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Fidor ne yaptı",
-          didTitle: "B yoluyla kuruldu.",
-          didBody: [
+          title: "B yoluyla kuruldu.",
+          body: [
             "Fidor'un İngiltere'deki büyük kredi kalemi partnerler üzerinden kuruldu ve 2017 zararının büyük kısmı oradan geldi. BPCE sermaye ve zarar garantisiyle bankanın arkasında durdu.[7]",
             "Partner üzerinden kredi bazen doğru yol, yeter ki riskin nerede durduğu baştan net olsun.",
           ],
@@ -727,7 +727,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "830",
           state: "Kasım 2018",
           caption: "İki ayrılık",
-          barTitle: "İki ayrılık",
+          title: "İki ayrılık",
           progress: 34.67,
         },
       },
@@ -746,7 +746,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "1371",
           state: "29 Nisan 2020",
           caption: "Beşte bir",
-          barTitle: "Beşte bir",
+          title: "Beşte bir",
           progress: 57.27,
         },
         decision: {
@@ -770,8 +770,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Ne oldu",
-          didTitle: "Müşteriler hesaplarını kendileri taşıdı.",
-          didBody: [
+          title: "Müşteriler hesaplarını kendileri taşıdı.",
+          body: [
             "Ayrılıkta müşteriler comdirect'e otomatik geçmedi. Fidor müşterilere hesap kapatma ve sonraki adımlar hakkında birkaç gün içinde bilgi vereceğini yazdı.[11] Sözleşmede ne yazdığını bilmiyoruz.",
           ],
           note: "",
@@ -792,7 +792,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "1617",
           state: "31 Aralık 2020",
           caption: "Parçalar dağılıyor",
-          barTitle: "Parçalar",
+          title: "Parçalar",
           progress: 67.54,
         },
       },
@@ -809,7 +809,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2394",
           state: "Son gün",
           caption: "16 Şubat 2023",
-          barTitle: "Karar",
+          title: "Karar",
           progress: 100,
         },
         decision: {
@@ -833,8 +833,8 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
             },
           ],
           didLabel: "Fidor ne yaptı",
-          didTitle: "A yolu seçildi.",
-          didBody: [
+          title: "A yolu seçildi.",
+          body: [
             "Müşteriler hesaplarını kendileri taşıdı, kayıtta önerilen bir partner banka yok.[16]",
           ],
           note: "",
@@ -852,7 +852,7 @@ export const fidor: Record<Locale, SparkEpisodeStory> = {
           day: "2394",
           state: "Son gün",
           caption: "16 Şubat 2023",
-          barTitle: "Geriye ne kaldı",
+          title: "Geriye ne kaldı",
           progress: 100,
         },
       },

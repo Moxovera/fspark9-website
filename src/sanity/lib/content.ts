@@ -265,8 +265,8 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
         durationLabel: hv?.durationLabel ?? "",
         buttonLabel: hv?.buttonLabel ?? "",
         ariaLabel: hv?.ariaLabel ?? "",
-        modalTitle: hv?.modalTitle ?? "",
-        previewCaption: hv?.previewCaption ?? "",
+        title: hv?.title ?? "",
+        caption: hv?.caption ?? "",
         closeLabel: hv?.closeLabel ?? "",
       },
       servicesVideo: {
@@ -274,7 +274,7 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
         durationLabel: sv?.durationLabel ?? "",
         buttonLabel: sv?.buttonLabel ?? "",
         ariaLabel: sv?.ariaLabel ?? "",
-        modalTitle: sv?.modalTitle ?? "",
+        title: sv?.title ?? "",
       },
       startWhereYouAre: page.startWhereYouAre,
       fourServices: page.fourServices,
@@ -538,7 +538,7 @@ function toStory(doc: EpisodeDoc, locale: Locale): SparkEpisodeStory {
         ? {
             decision: {
               ...decision,
-              didBody: decision.didBody ?? [],
+              body: decision.body ?? [],
               services: (decision.services ?? []).map((tag) => ({ name: tag.name, service: tag.service as ServiceSlug })),
             },
           }

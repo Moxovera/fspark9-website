@@ -241,8 +241,8 @@ function homeHeroVideo() {
     durationLabel: e.durationLabel,
     buttonLabel: ls(e.buttonLabel, t.buttonLabel),
     ariaLabel: ls(e.ariaLabel, t.ariaLabel),
-    modalTitle: ls(e.modalTitle, t.modalTitle),
-    previewCaption: ls(e.previewCaption, t.previewCaption),
+    title: ls(e.title, t.title),
+    caption: ls(e.caption, t.caption),
     closeLabel: ls(e.closeLabel, t.closeLabel),
   };
 }
@@ -254,7 +254,7 @@ function homeServicesVideo() {
     durationLabel: e.durationLabel,
     buttonLabel: ls(e.buttonLabel, t.buttonLabel),
     ariaLabel: ls(e.ariaLabel, t.ariaLabel),
-    modalTitle: ls(e.modalTitle, t.modalTitle),
+    title: ls(e.title, t.title),
   };
 }
 
@@ -585,7 +585,7 @@ const storyCard = (e: SparkStoryCard, t: SparkStoryCard) => ({
   day: e.day,
   state: ls(e.state, t.state),
   caption: ls(e.caption, t.caption),
-  barTitle: ls(e.barTitle, t.barTitle),
+  title: ls(e.title, t.title),
   ...(e.progress !== undefined ? { progress: e.progress } : {}),
   ...(e.barDay !== undefined ? { barDay: ls(e.barDay, t.barDay ?? "") } : {}),
 });
@@ -629,8 +629,8 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
                 answer: lt(eo.answer, to.answer),
               })),
               didLabel: ls(ec.decision.didLabel, tc.decision.didLabel),
-              didTitle: lt(ec.decision.didTitle, tc.decision.didTitle),
-              didBody: texts(ec.decision.didBody, tc.decision.didBody),
+              title: lt(ec.decision.title, tc.decision.title),
+              body: texts(ec.decision.body, tc.decision.body),
               note: lt(ec.decision.note, tc.decision.note),
               services: zip(ec.decision.services, tc.decision.services, (es, ts) => ({
                 _type: "sparkServiceTag",

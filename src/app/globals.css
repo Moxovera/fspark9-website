@@ -903,14 +903,17 @@ html:not(.js) .video-only { display: none; }
    Ölçüler 600 birimlik halkaya göre, halka küçülünce hepsi orantılı küçülür.
    Döngü yok: önizleme bir kez oynar, sonra hiçbir şey hareket etmez. ── */
 .services-ring {
-  /* Telefonda yanlarda 16px (390'da dış çap 358), tablette 600'de durur. */
-  --ring-w: min(600px, calc(100vw - 32px));
+  /* Telefonda ortada 300px (ekran daha darsa yanlarda 16px), tablet ve masaüstünde 520. */
+  --ring-w: min(300px, calc(100vw - 32px));
   width: var(--ring-w);
   margin-inline: calc((100% - var(--ring-w)) / 2);
 }
+@media (min-width: 640px) {
+  .services-ring { --ring-w: min(520px, calc(100vw - 32px)); }
+}
 @media (min-width: 900px) {
   .services-ring {
-    --ring-w: min(600px, 100%);
+    --ring-w: min(520px, 100%);
     margin-inline: 0;
   }
 }

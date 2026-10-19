@@ -271,7 +271,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "The RBS group, today's NatWest Group, was preparing its own answer: a digital bank with its own name, its own brand and its own app. It would be called Bó.",
             "This is where the first big question comes up. Before what the product will be, how it gets built.",
           ],
-          card: { mode: "draft", day: "?", state: "Not yet", caption: "Before launch", barTitle: "Idea" },
+          card: { mode: "draft", day: "?", state: "Not yet", caption: "Before launch", title: "Idea" },
           decision: {
             label: "You're building the bank",
             question: "How would you build the new digital bank?",
@@ -296,8 +296,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "What Bó did",
-            didTitle: "It took road A.",
-            didBody: [
+            title: "It took road A.",
+            body: [
               "Bó ran on the parent bank's licence. It was built in the cloud and had its own Faster Payments connection. Development was reported at 18 months and a £100m budget.[1]",
               "On 27 November 2019, after a beta period with staff, it opened to everyone.[1]",
             ],
@@ -317,7 +317,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "The aim is to help people who struggle to manage their money.[4] The app has real time spending alerts, a savings pot and free card use abroad.[5] There's no overdraft and no joint account.[1]",
             "In the same period, Monzo and Starling offer similar features in their apps.[5] The stage is crowded.",
           ],
-          card: { mode: "live", day: "000", state: "27 November 2019", caption: "Launch day", barTitle: "Promise" },
+          card: { mode: "live", day: "000", state: "27 November 2019", caption: "Launch day", title: "Promise" },
           decision: {
             label: "The promise is yours to write",
             question: "You're entering a crowded market. How would you stand out?",
@@ -342,8 +342,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "What Bó did",
-            didTitle: "It went to the app stores as an app open to everyone.",
-            didBody: ["On the App Store and Google Play, with its own brand and its own promise.[1]"],
+            title: "It went to the app stores as an app open to everyone.",
+            body: ["On the App Store and Google Play, with its own brand and its own promise.[1]"],
             note: "In digital banking a feature list doesn't make the difference on its own. The difference is what the customer feels in the first week. The hard part of a strong promise is that a rival can say the same sentence. So behind the promise there has to be something others can't easily do.",
             services: [{ name: "Product & Strategy", service: "product-strategy" }],
           },
@@ -357,7 +357,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "Europe's payments rule PSD2 and its strong customer authentication requirement reach cards too. Cards issued after this date meet the new requirements. Earlier ones don't.[2]",
             "So the card in the pocket of the first customers, the ones who believed in the product most, has to change.",
           ],
-          card: { mode: "live", day: "037", state: "3 January 2020", caption: "A line on the calendar", barTitle: "Calendar" },
+          card: { mode: "live", day: "037", state: "3 January 2020", caption: "A line on the calendar", title: "Calendar" },
           decision: {
             label: "This call is yours",
             question: "Your first customers' cards have to change. How would you handle it?",
@@ -382,8 +382,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "What Bó did",
-            didTitle: "6,000 cards were reissued.",
-            didBody: [
+            title: "6,000 cards were reissued.",
+            body: [
               "Announced on 5 February 2020. Customers who opened accounts after 3 January already had a compliant card. The earlier cards were switched off on 14 March 2020.[2]",
             ],
             note: "Reissuing cards looks like a plastic cost. The real price is paid on the customer side. Next to every launch plan there should be a compliance calendar: which rule changes which card, which flow, in the next twelve months? That conversation with card and payment partners happens before launch.",
@@ -399,7 +399,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
           title: "Spring",
           lead: "March 2020. The old cards are switched off, and the world changes overnight.",
           paragraphs: ["The UK goes into lockdown on 23 March. The product isn't even four months old."],
-          card: { mode: "flipped", day: "108", state: "14 March 2020", caption: "The world is changing", barTitle: "Spring" },
+          card: { mode: "flipped", day: "108", state: "14 March 2020", caption: "The world is changing", title: "Spring" },
           decision: {
             label: "You're at the wheel",
             question: "The product is 108 days old and everything is uncertain. What would you do?",
@@ -424,8 +424,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "What happened",
-            didTitle: "Day 156. 1 May 2020.",
-            didBody: [
+            title: "Day 156. 1 May 2020.",
+            body: [
               "On the day NatWest Group announced its first quarter results, it also announced that Bó would close. It had 11,413 customers that day. Customers were given 60 days to move their money.[3]",
               "The team moved to Mettle, the group's business banking app.[3] NatWest's then CEO Alison Rose told journalists that Bó had not failed and would be merged with Mettle.[5]",
             ],
@@ -439,13 +439,13 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
           title: "What 156 days leave behind",
           lead: "The yellow card isn't in anyone's pocket anymore. But the decisions made in those 156 days are still in front of many teams today.",
           paragraphs: [],
-          card: { mode: "closed", day: "156", state: "Last day", caption: "1 May 2020", barTitle: "Last day" },
+          card: { mode: "closed", day: "156", state: "Last day", caption: "1 May 2020", title: "Last day" },
         },
       ],
       interlude: {
         afterChapter: "ch3",
         text: "The cards changed. The story goes on.",
-        card: { mode: "flipped", day: "070", state: "New card", caption: "6,000 cards reissued", barTitle: "New card" },
+        card: { mode: "flipped", day: "070", state: "New card", caption: "6,000 cards reissued", title: "New card" },
       },
       lessons: [
         {
@@ -545,7 +545,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "RBS grubu, bugünkü adıyla NatWest Group, kendi cevabını hazırlıyordu. Ayrı adı, ayrı markası, ayrı uygulaması olan bir dijital banka. Adı Bó olacaktı.",
             "Burada ilk büyük soru çıkıyor. Ürünün ne olacağından önce, nasıl kurulacağı.",
           ],
-          card: { mode: "draft", day: "?", state: "Henüz yok", caption: "Lansmandan önce", barTitle: "Fikir" },
+          card: { mode: "draft", day: "?", state: "Henüz yok", caption: "Lansmandan önce", title: "Fikir" },
           decision: {
             label: "Bankayı siz kuruyorsunuz",
             question: "Yeni dijital bankayı nasıl kurardınız?",
@@ -570,8 +570,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "Bó ne yaptı",
-            didTitle: "A yolunu seçti.",
-            didBody: [
+            title: "A yolunu seçti.",
+            body: [
               "Bó, ana bankanın lisansıyla çalıştı. Bulut üzerinde kurulmuştu ve kendi Faster Payments bağlantısı vardı. Geliştirmenin 18 ay sürdüğü, bütçenin 100 milyon sterlin olduğu basına yansıdı.[1]",
               "27 Kasım 2019'da, çalışanlarla yapılan bir beta döneminin ardından herkese açıldı.[1]",
             ],
@@ -591,7 +591,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "Hedef, parasını yönetmekte zorlanan insanlara yardım etmek.[4] Uygulamada anlık harcama bildirimleri, birikim için bir kumbara ve yurt dışında ücretsiz kart kullanımı var.[5] Kredili hesap ve ortak hesap ise yok.[1]",
             "Aynı dönemde Monzo ve Starling'in uygulamalarında da benzer özellikler bulunuyor.[5] Yani sahne kalabalık.",
           ],
-          card: { mode: "live", day: "000", state: "27 Kasım 2019", caption: "Lansman günü", barTitle: "Vaat" },
+          card: { mode: "live", day: "000", state: "27 Kasım 2019", caption: "Lansman günü", title: "Vaat" },
           decision: {
             label: "Vaadi siz yazıyorsunuz",
             question: "Kalabalık bir pazara giriyorsunuz. Neyle öne çıkardınız?",
@@ -616,8 +616,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "Bó ne yaptı",
-            didTitle: "Herkese açık bir uygulama olarak mağazalara çıktı.",
-            didBody: ["App Store ve Google Play'de, kendi markası ve kendi vaadiyle.[1]"],
+            title: "Herkese açık bir uygulama olarak mağazalara çıktı.",
+            body: ["App Store ve Google Play'de, kendi markası ve kendi vaadiyle.[1]"],
             note: "Dijital bankacılıkta özellik listesi tek başına fark yaratmıyor. Fark, müşterinin ilk haftada hissettiği şey. Güçlü bir vaadin zor tarafı şu: rakip de aynı cümleyi kurabilir. Bu yüzden vaadin arkasında, başkasının kolayca yapamayacağı bir şey durmalı.",
             services: [{ name: "Product & Strategy", service: "product-strategy" }],
           },
@@ -631,7 +631,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             "Avrupa'nın ödeme kuralı PSD2 ve onun güçlü müşteri doğrulaması şartı kartları da kapsıyor. Bu tarihten sonra basılan kartlar yeni şartlara uygun. Öncesindekiler değil.[2]",
             "Yani ilk haftalarda gelen, ürüne en çok inanan müşterilerin cebindeki kart değişmek zorunda.",
           ],
-          card: { mode: "live", day: "037", state: "3 Ocak 2020", caption: "Takvimde bir çizgi", barTitle: "Takvim" },
+          card: { mode: "live", day: "037", state: "3 Ocak 2020", caption: "Takvimde bir çizgi", title: "Takvim" },
           decision: {
             label: "Bu karar sizin",
             question: "İlk müşterilerinizin kartı değişecek. Nasıl yönetirdiniz?",
@@ -656,8 +656,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "Bó ne yaptı",
-            didTitle: "6.000 kart yeniden basıldı.",
-            didBody: [
+            title: "6.000 kart yeniden basıldı.",
+            body: [
               "5 Şubat 2020'de duyuruldu. 3 Ocak'tan sonra hesap açanlara uyumlu kart zaten gitmişti. Önceki kartlar 14 Mart 2020'de kapandı.[2]",
             ],
             note: "Kart yenilemek plastik maliyeti gibi görünür. Asıl bedel müşteri tarafında ödenir. Bir lansman planının yanında her zaman bir uyum takvimi durmalı: önümüzdeki on iki ayda hangi kural, hangi kartı, hangi akışı değiştiriyor? Kart ve ödeme partnerleriyle bu konuşma lansmandan önce yapılır.",
@@ -673,7 +673,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
           title: "Bahar",
           lead: "Mart 2020. Eski kartlar kapanıyor ve dünya da bir anda değişiyor.",
           paragraphs: ["Birleşik Krallık 23 Mart'ta evlere kapanıyor. Ürün henüz dört aylık bile değil."],
-          card: { mode: "flipped", day: "108", state: "14 Mart 2020", caption: "Dünya değişiyor", barTitle: "Bahar" },
+          card: { mode: "flipped", day: "108", state: "14 Mart 2020", caption: "Dünya değişiyor", title: "Bahar" },
           decision: {
             label: "Direksiyon sizde",
             question: "Ürün 108 günlük ve her şey belirsiz. Ne yapardınız?",
@@ -698,8 +698,8 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
               },
             ],
             didLabel: "Ne oldu",
-            didTitle: "Gün 156. 1 Mayıs 2020.",
-            didBody: [
+            title: "Gün 156. 1 Mayıs 2020.",
+            body: [
               "NatWest Group ilk çeyrek sonuçlarını açıkladığı gün Bó'nun kapanacağını da duyurdu. O gün 11.413 müşteri vardı. Müşterilere paralarını taşımaları için 60 gün verildi.[3]",
               "Ekip, grubun işletme bankacılığı uygulaması Mettle'a geçti.[3] NatWest'in o dönemki CEO'su Alison Rose gazetecilere Bó'nun başarısız olmadığını, Mettle ile birleşeceğini söyledi.[5]",
             ],
@@ -713,13 +713,13 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
           title: "156 günden kalanlar",
           lead: "Sarı kart artık kimsenin cebinde değil. Ama o 156 günde verilen kararlar bugün de birçok ekibin önünde.",
           paragraphs: [],
-          card: { mode: "closed", day: "156", state: "Son gün", caption: "1 Mayıs 2020", barTitle: "Son gün" },
+          card: { mode: "closed", day: "156", state: "Son gün", caption: "1 Mayıs 2020", title: "Son gün" },
         },
       ],
       interlude: {
         afterChapter: "ch3",
         text: "Kartlar değişti. Hikâye devam ediyor.",
-        card: { mode: "flipped", day: "070", state: "Yeni kart", caption: "6.000 kart yenilendi", barTitle: "Yeni kart" },
+        card: { mode: "flipped", day: "070", state: "Yeni kart", caption: "6.000 kart yenilendi", title: "Yeni kart" },
       },
       lessons: [
         {
