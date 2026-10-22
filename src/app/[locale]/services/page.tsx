@@ -5,8 +5,9 @@ import { breadcrumbJsonLd } from "@/lib/jsonLd";
 import PageOpening from "@/components/blocks/PageOpening";
 import ServicePicker from "@/components/home/ServicePicker";
 import NextStep from "@/components/blocks/NextStep";
-import { getChrome, getServicesIndex } from "@/sanity/lib/content";
+import { getChrome, getHome, getServicesIndex } from "@/sanity/lib/content";
 import { getPathname } from "@/i18n/navigation";
+import { servicesPreviewSources } from "@/lib/heroVideo";
 import { toMetadata } from "@/lib/metadata";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, toSiteSeo } from "@/sanity/lib/queries";
@@ -15,7 +16,8 @@ import type { Locale } from "@/types/content";
 
 // v2 /services index (brief v4 §7.6): board'u yok, mevcut parçalardan.
 // Açılış hizmet sayfası deseniyle, altında ana sayfanın kadran ve satır
-// bloğu (her satır kendi sayfasına), sonra NextStep.
+// bloğu (her satır kendi sayfasına, halkanın ortasında ana sayfadaki hizmetler
+// videosu), sonra NextStep.
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -30,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function ServicesIndexPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [servicesIndex, site] = await Promise.all([getServicesIndex(), getChrome()]);
+  const [servicesIndex, site, home] = await Promise.all([getServicesIndex(), getChrome(), getHome()]);
   const content = servicesIndex[locale];
   const { chrome, services, nextStep } = site[locale];
 
@@ -46,6 +48,13 @@ export default async function ServicesIndexPage({ params }: { params: Promise<{ 
       <section className="bg-paper px-5 py-16 min-[900px]:px-8 min-[900px]:py-[136px] min-[1280px]:px-16">
         <ServicePicker
           services={services}
+          // Halka ve ortasındaki video ana sayfadakiyle aynı (home.servicesVideo).
+          ring={{
+            video: home[locale].servicesVideo,
+            preview: servicesPreviewSources(locale),
+            sectionLabel: home[locale].fourServices.label,
+            closeLabel: home[locale].heroVideo.closeLabel,
+          }}
           intro={
             <p className="m-0 text-[20px] leading-[1.5] text-ink min-[900px]:max-w-[520px] min-[900px]:text-[26px] min-[900px]:leading-[1.45]">
               {content.opening.intro}
