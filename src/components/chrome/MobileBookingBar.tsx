@@ -11,6 +11,9 @@ import type { MobileBookingBarProps } from "@/types/content";
  * cut buton. Randevu penceresi ya da mobil menü açıkken gizli. Tailwind'in
  * `max-[900px]:` varyantı "900'ün altı" demek (bkz. CLAUDE.md).
  *
+ * Yüksekliği `--booking-bar-h` (globals.css): Spark bülten kutusu çubuğun
+ * hemen üstüne bu değişkenle oturuyor. iOS güvenli alanı değişkende.
+ *
  * z-index 80: header (95), mobil menü (110) ve randevu penceresinin altında.
  */
 export default function MobileBookingBar({ label }: MobileBookingBarProps) {
@@ -23,7 +26,7 @@ export default function MobileBookingBar({ label }: MobileBookingBarProps) {
   return (
     <div
       aria-hidden={hidden || undefined}
-      className={`fixed inset-x-0 bottom-0 z-[80] hidden border-t border-rule bg-paper px-5 py-3 max-[900px]:block ${hidden ? "invisible" : ""}`}
+      className={`fixed inset-x-0 bottom-0 z-[80] hidden h-[var(--booking-bar-h)] border-t border-rule bg-paper px-5 pt-3 max-[900px]:block ${hidden ? "invisible" : ""}`}
     >
       <CutButton label={label} className="w-full justify-center" />
     </div>

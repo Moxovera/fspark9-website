@@ -1147,8 +1147,6 @@ export interface SiteChrome {
     linkedinLabel: string
     legalLinks: NavItem[]
     copyright: string
-    /** "Spark bülteni": Spark sayfasındaki bülten bloğuna iner. Boşsa link yok. */
-    newsletterLabel?: string
   }
   /** Randevu penceresi (board Booking). calLink Sanity'den. */
   booking: {
@@ -1468,6 +1466,22 @@ export interface SparkNewsletterContent {
   quietText: string
   quietButton: string
   quietSuccess: string
+  /** Spark sayfalarındaki sabit kutu. */
+  boxLabel: string
+  boxHeading: string
+  boxText: string
+  boxPhoneLabel: string
+  boxMinimiseLabel: string
+  tabLabel: string
+  tabPhoneLabel: string
+  tabAriaLabel: string
+  /** Menüdeki giriş: masaüstü etiketi, aria ve telefon menüsü satırı. */
+  menuLabel: string
+  menuAriaLabel: string
+  menuPhoneLabel: string
+  /** Footer şeridi. */
+  footerHeading: string
+  footerLabel: string
 }
 
 export interface SparkHubContent {
@@ -1685,10 +1699,13 @@ export interface CalEmbedProps {
 
 export interface FooterProps {
   chrome: SiteChrome;
+  newsletter: SparkNewsletterContent;
+  locale: Locale;
 }
 
 export interface HeaderProps {
   chrome: SiteChrome;
+  newsletter: SparkNewsletterContent;
   services: ServiceSummary[];
   locale: string;
 }
@@ -1708,6 +1725,7 @@ export interface MobileBookingBarProps {
 
 export interface MobileNavProps {
   chrome: SiteChrome;
+  newsletter: SparkNewsletterContent;
   services: ServiceSummary[];
   locale: string;
 }
@@ -1818,7 +1836,7 @@ export interface SparkFilmRowProps {
   posterSrc?: string;
 }
 
-export type SparkSubscribeSource = "anasayfa" | "spark-giris" | "bolum-sonu";
+export type SparkSubscribeSource = "anasayfa" | "spark-giris" | "bolum-sonu" | "sabit-kutu" | "footer";
 
 export interface SparkSubscribeProps {
   variant: "card" | "inline-dark" | "quiet";
@@ -1826,6 +1844,22 @@ export interface SparkSubscribeProps {
   locale: Locale;
   content: SparkNewsletterContent;
   className?: string;
+  /** `inline-dark` için yükseklik: sabit kutu, telefon şeridi, footer. Verilirse buton her genişlikte Flare. */
+  size?: "box" | "footer";
+  /** Başarı mesajı göründüğünde bir kez çağrılır. */
+  onDone?: () => void;
+}
+
+export interface NewsletterBoxProps {
+  content: SparkNewsletterContent;
+  locale: Locale;
+}
+
+export interface NewsletterMenuLinkProps {
+  variant: "desktop" | "mobile";
+  content: SparkNewsletterContent;
+  /** Mobil menüde: katman kapansın, sonra kayılsın. */
+  onBeforeJump?: () => void;
 }
 
 export interface StartWhereYouAreProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useState, type FormEvent } from "react";
 import { ArrowRightIcon } from "@/components/icons";
 import type { SparkSubscribeProps } from "@/types/content";
 
@@ -16,7 +16,7 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
  * istemciye hiç gelmez. `website` görünmez bal küpü alanı. Kayıt, ziyaretçi
  * gönderene kadar hiçbir istek yapmaz.
  */
-export default function SparkSubscribe({ variant, source, locale, content, className }: SparkSubscribeProps) {
+export default function SparkSubscribe({ variant, source, locale, content, className, size, onDone }: SparkSubscribeProps) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [problem, setProblem] = useState<Problem | null>(null);
   const [open, setOpen] = useState(false);
@@ -26,6 +26,12 @@ export default function SparkSubscribe({ variant, source, locale, content, class
   const errorId = useId();
   const quiet = variant === "quiet";
   const dark = variant === "inline-dark";
+  const dims = size === "box" ? "h-11 min-[900px]:h-[46px]" : size === "footer" ? "h-12" : "h-[52px] min-[768px]:h-[54px]";
+  const buttonTone = dark ? (size ? "bg-flare text-ink" : "bg-flare text-ink min-[768px]:bg-paper") : "bg-ink text-paper";
+
+  useEffect(() => {
+    if (phase === "done") onDone?.();
+  }, [phase, onDone]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -153,16 +159,14 @@ export default function SparkSubscribe({ variant, source, locale, content, class
           placeholder={content.emailLabel}
           aria-invalid={problem === "invalid"}
           aria-describedby={problem ? errorId : undefined}
-          className={`h-[52px] min-w-0 flex-1 rounded-none border-0 border-b-2 bg-paper px-[14px] font-sans text-[16px] text-ink placeholder:text-stone min-[768px]:h-[54px] min-[768px]:px-4 ${
+          className={`${dims} min-w-0 flex-1 rounded-none border-0 border-b-2 bg-paper px-[14px] font-sans text-[16px] text-ink placeholder:text-stone min-[768px]:px-4 ${
             dark ? "border-flare focus-visible:outline-flare" : "border-ink focus-visible:outline-ink"
           } focus-visible:-outline-offset-2`}
         />
         <button
           type="submit"
           disabled={phase === "sending"}
-          className={`inline-flex h-[52px] flex-none cursor-pointer items-center gap-[10px] border-0 py-0 pr-[34px] pl-5 font-sans text-[15px] leading-none font-bold whitespace-nowrap [clip-path:polygon(0_0,100%_0,calc(100%-14px)_100%,0_100%)] disabled:cursor-default disabled:opacity-60 min-[768px]:h-[54px] ${
-            dark ? "bg-flare text-ink min-[768px]:bg-paper" : "bg-ink text-paper"
-          }`}
+          className={`${dims} inline-flex flex-none cursor-pointer items-center gap-[10px] border-0 py-0 pr-[34px] pl-5 font-sans text-[15px] leading-none font-bold whitespace-nowrap [clip-path:polygon(0_0,100%_0,calc(100%-14px)_100%,0_100%)] disabled:cursor-default disabled:opacity-60 ${buttonTone}`}
         >
           {content.submitLabel}
           <ArrowRightIcon className="-mx-[0.2em] size-[1em] flex-none" />

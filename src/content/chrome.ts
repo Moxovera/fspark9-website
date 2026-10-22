@@ -33,7 +33,6 @@ export const chrome: Record<Locale, SiteChrome> = {
       linkedinLabel: "linkedin.com/in/mdikmen",
       legalLinks: [{ label: "Imprint", href: "/impressum" }],
       copyright: "© 2026 fspark9",
-      newsletterLabel: "Spark newsletter",
     },
     booking: {
       title: "Book a call",
@@ -75,7 +74,6 @@ export const chrome: Record<Locale, SiteChrome> = {
       linkedinLabel: "linkedin.com/in/mdikmen",
       legalLinks: [{ label: "Künye", href: "/impressum" }],
       copyright: "© 2026 fspark9",
-      newsletterLabel: "Spark bülteni",
     },
     booking: {
       title: "Görüşme ayarla",

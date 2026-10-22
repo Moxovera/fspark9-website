@@ -5,6 +5,7 @@ import Label from "@/components/brand/Label";
 import CutButton from "@/components/brand/CutButton";
 import HeaderFrame from "@/components/chrome/HeaderFrame";
 import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
+import NewsletterMenuLink from "@/components/spark/newsletter/NewsletterMenuLink";
 import MobileNav from "@/components/chrome/MobileNav";
 import { ServicesMenuButton, ServicesMenuPanel } from "@/components/chrome/ServicesMenu";
 import type { HeaderProps } from "@/types/content";
@@ -22,7 +23,7 @@ const NAV_LINK =
  * (64px kenar, 64px ara, 40px nav arası) 1280px'ten itibaren birebir;
  * 900 ile 1280 arasında aynı sıra daha dar aralıklarla sığıyor.
  */
-export default function Header({ chrome, services, locale }: HeaderProps) {
+export default function Header({ chrome, newsletter, services, locale }: HeaderProps) {
   return (
     <HeaderFrame>
       <div className="flex h-[63px] items-center justify-between px-5 min-[900px]:h-[83px] min-[900px]:justify-start min-[900px]:gap-8 min-[900px]:px-8 min-[1280px]:gap-16 min-[1280px]:px-16">
@@ -36,11 +37,20 @@ export default function Header({ chrome, services, locale }: HeaderProps) {
 
         <nav className="hidden items-center gap-7 min-[900px]:flex min-[1280px]:gap-10">
           <ServicesMenuButton label={chrome.servicesLabel} />
-          {chrome.nav.map((item) => (
-            <Link key={item.label} href={item.href} className={NAV_LINK}>
-              {item.label}
-            </Link>
-          ))}
+          {chrome.nav.map((item) =>
+            item.href === "/spark" ? (
+              <span key={item.label} className="flex items-center gap-2">
+                <Link href={item.href} className={NAV_LINK}>
+                  {item.label}
+                </Link>
+                <NewsletterMenuLink variant="desktop" content={newsletter} />
+              </span>
+            ) : (
+              <Link key={item.label} href={item.href} className={NAV_LINK}>
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         <div className="hidden flex-grow min-[900px]:block" />
@@ -58,7 +68,7 @@ export default function Header({ chrome, services, locale }: HeaderProps) {
           />
         </div>
 
-        <MobileNav chrome={chrome} services={services} locale={locale} />
+        <MobileNav chrome={chrome} newsletter={newsletter} services={services} locale={locale} />
       </div>
 
       <ServicesMenuPanel>

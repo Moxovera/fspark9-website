@@ -7,6 +7,7 @@ import Dial from "@/components/brand/Dial";
 import CutButton from "@/components/brand/CutButton";
 import LocaleSwitcher from "@/components/chrome/LocaleSwitcher";
 import { ChevronDownIcon, CloseIcon, MenuIcon } from "@/components/icons";
+import NewsletterMenuLink from "@/components/spark/newsletter/NewsletterMenuLink";
 import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
 import type { MobileNavProps } from "@/types/content";
@@ -20,7 +21,7 @@ const BIG_LINK =
  * kapatır, odak burger'a döner, sayfa kaymaz (useDialogFocus). Sayfa
  * değişince ve "Book a call"a basınca kapanır.
  */
-export default function MobileNav({ chrome, services, locale }: MobileNavProps) {
+export default function MobileNav({ chrome, newsletter, services, locale }: MobileNavProps) {
   const { isOpen, setOpen } = useMobileMenu();
   const [servicesExpanded, setServicesExpanded] = useState(true);
   const pathname = usePathname();
@@ -95,11 +96,20 @@ export default function MobileNav({ chrome, services, locale }: MobileNavProps) 
               </div>
             </div>
 
-            {chrome.nav.map((item) => (
-              <Link key={item.label} href={item.href} className={BIG_LINK}>
-                {item.label}
-              </Link>
-            ))}
+            {chrome.nav.map((item) =>
+              item.href === "/spark" ? (
+                <div key={item.label} className="border-b border-inkrule">
+                  <Link href={item.href} className={BIG_LINK.replace("border-b border-inkrule ", "")}>
+                    {item.label}
+                  </Link>
+                  <NewsletterMenuLink variant="mobile" content={newsletter} onBeforeJump={close} />
+                </div>
+              ) : (
+                <Link key={item.label} href={item.href} className={BIG_LINK}>
+                  {item.label}
+                </Link>
+              ),
+            )}
 
             <div className="flex-grow" />
 

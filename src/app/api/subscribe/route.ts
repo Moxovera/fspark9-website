@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
  * Honeypot (`website`) doluysa Kit'e gitmeden sessizce başarı.
  */
 const KIT = "https://api.kit.com/v4";
-const SOURCES = ["anasayfa", "spark-giris", "bolum-sonu"] as const;
+const SOURCES = ["anasayfa", "spark-giris", "bolum-sonu", "sabit-kutu", "footer"] as const;
 const LOCALES = ["tr", "en"] as const;
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -58,6 +58,8 @@ export async function POST(request: Request) {
     anasayfa: process.env.KIT_TAG_ANASAYFA,
     "spark-giris": process.env.KIT_TAG_SPARK_GIRIS,
     "bolum-sonu": process.env.KIT_TAG_BOLUM_SONU,
+    "sabit-kutu": process.env.KIT_TAG_SABIT_KUTU,
+    footer: process.env.KIT_TAG_FOOTER,
   }[source];
   const localeTag = locale === "tr" ? process.env.KIT_TAG_TR : process.env.KIT_TAG_EN;
   if (!key || !formId || !sourceTag || !localeTag) return NextResponse.json({ error: "unavailable" }, { status: 503 });

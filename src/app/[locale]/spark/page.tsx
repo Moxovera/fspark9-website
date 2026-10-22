@@ -46,9 +46,9 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
     hub.formats.map(async (format) => ({ format, ...(await loadFormatIssues(locale, format, hub)) })),
   );
 
-  // Bülten bloğu (footer linki #bulten'e iner). Masaüstünde "Formatları inceleyin"in sağında, telefonda altında açık.
+  // Bülten bloğu. Masaüstünde "Formatları inceleyin"in sağında, telefonda altında açık.
   const subscribeBlock = (
-    <div id="bulten" className="flex w-full max-w-[460px] scroll-mt-24 flex-col gap-3">
+    <div className="flex w-full max-w-[460px] flex-col gap-3">
       <Label ground="ink" className="!text-flare">
         {hub.newsletter.hubLabel}
       </Label>

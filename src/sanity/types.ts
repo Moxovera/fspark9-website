@@ -448,6 +448,19 @@ export type SparkSection = {
     quietText?: LocaleText;
     quietButton?: LocaleString;
     quietSuccess?: LocaleString;
+    boxLabel?: LocaleString;
+    boxHeading?: LocaleString;
+    boxText?: LocaleString;
+    boxPhoneLabel?: LocaleString;
+    boxMinimiseLabel?: LocaleString;
+    tabLabel?: LocaleString;
+    tabPhoneLabel?: LocaleString;
+    tabAriaLabel?: LocaleString;
+    menuLabel?: LocaleString;
+    menuAriaLabel?: LocaleString;
+    menuPhoneLabel?: LocaleString;
+    footerHeading?: LocaleString;
+    footerLabel?: LocaleString;
   };
   episode?: {
     yourPickTemplate?: LocaleString;
@@ -893,7 +906,6 @@ export type SiteSettings = {
       _key: string;
     }>;
     copyright?: string;
-    newsletterLabel?: LocaleString;
   };
   booking?: {
     calLink?: string;
@@ -1129,7 +1141,6 @@ export type SITE_CHROME_QUERYResult = {
         _key: string;
       }>;
       copyright?: string;
-      newsletterLabel?: LocaleString;
     } | null;
     booking: {
       calLink?: string;
@@ -1513,6 +1524,19 @@ export type SPARK_HUB_QUERYResult = {
       quietText?: LocaleText;
       quietButton?: LocaleString;
       quietSuccess?: LocaleString;
+      boxLabel?: LocaleString;
+      boxHeading?: LocaleString;
+      boxText?: LocaleString;
+      boxPhoneLabel?: LocaleString;
+      boxMinimiseLabel?: LocaleString;
+      tabLabel?: LocaleString;
+      tabPhoneLabel?: LocaleString;
+      tabAriaLabel?: LocaleString;
+      menuLabel?: LocaleString;
+      menuAriaLabel?: LocaleString;
+      menuPhoneLabel?: LocaleString;
+      footerHeading?: LocaleString;
+      footerLabel?: LocaleString;
     } | null;
     episode: {
       yourPickTemplate: LocaleString | null;

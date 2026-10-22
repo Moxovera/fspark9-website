@@ -1,5 +1,8 @@
 import { Link } from "@/i18n/navigation";
 import Logo from "@/components/brand/Logo";
+import SparkMark from "@/components/spark/newsletter/SparkMark";
+import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
+import { NEWSLETTER_ID } from "@/lib/newsletter";
 import type { FooterProps } from "@/types/content";
 
 /**
@@ -14,11 +17,24 @@ import type { FooterProps } from "@/types/content";
  * ayarlayacak. 900px altında MobileBookingBar'ın altında kalmaması için
  * alt boşluk çubuğun yüksekliği kadar büyüyor.
  */
-export default function Footer({ chrome }: FooterProps) {
+export default function Footer({ chrome, newsletter, locale }: FooterProps) {
   const { brandName, footer } = chrome;
 
   return (
     <footer className="on-ink bg-ink px-5 pt-8 pb-[105px] min-[768px]:px-16 min-[768px]:pt-10 min-[900px]:pb-12">
+      <div
+        id={NEWSLETTER_ID}
+        className="mb-6 flex scroll-mt-24 flex-col gap-4 border-t border-inkrule pt-6 min-[900px]:flex-row min-[900px]:items-center min-[900px]:justify-between min-[900px]:gap-10"
+      >
+        <div className="flex flex-col gap-2 min-[900px]:flex-row min-[900px]:items-center min-[900px]:gap-5">
+          <div className="flex items-center gap-[10px]">
+            <SparkMark />
+            <h2 className="m-0 font-display text-[22px] leading-[1.2] font-extrabold tracking-[-0.02em] text-paper">{newsletter.footerHeading}</h2>
+          </div>
+          <p className="m-0 font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-dust uppercase">{newsletter.footerLabel}</p>
+        </div>
+        <SparkSubscribe variant="inline-dark" size="footer" source="footer" locale={locale} content={newsletter} className="w-full min-[900px]:max-w-[480px]" />
+      </div>
       <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:items-center min-[768px]:gap-x-6 min-[768px]:gap-y-3 min-[1024px]:flex-nowrap min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
         <Logo tone="paper" label={brandName} className="h-[22px] self-start" />
         <a href={`mailto:${footer.email}`} className="mt-2 text-paper no-underline min-[768px]:mt-0">
@@ -27,14 +43,6 @@ export default function Footer({ chrome }: FooterProps) {
         <a href={footer.linkedinHref} target="_blank" rel="noopener" className="text-paper no-underline">
           {footer.linkedinLabel}
         </a>
-        {footer.newsletterLabel && (
-          <Link
-            href={{ pathname: "/spark", hash: "bulten" }}
-            className="inline-flex min-h-11 items-center font-bold text-flare underline underline-offset-4 min-[768px]:min-h-0"
-          >
-            {footer.newsletterLabel}
-          </Link>
-        )}
         <div className="hidden flex-grow min-[768px]:block" />
         <div className="flex flex-wrap items-center gap-x-5 text-[14px] text-dust">
           {footer.legalLinks.map((item) => (

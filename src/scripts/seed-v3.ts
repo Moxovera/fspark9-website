@@ -130,7 +130,8 @@ function newsletterFields() {
 function newsletterPatches() {
   return [
     { id: "sparkSection", set: { newsletter: newsletterFields() } },
-    { id: "siteSettings", set: { "footer.newsletterLabel": ls(chrome[EN].footer.newsletterLabel ?? "", chrome[TR].footer.newsletterLabel ?? "") } },
+    // Footer linki yerine footer şeridi geldi: eski alan kalkar.
+    { id: "siteSettings", set: {}, unset: ["footer.newsletterLabel"] },
   ];
 }
 
@@ -209,7 +210,6 @@ function siteSettingsPatch() {
       linkedinLabel: e.footer.linkedinLabel,
       legalLinks: navLinks(e.footer.legalLinks, t.footer.legalLinks),
       copyright: e.footer.copyright,
-      newsletterLabel: ls(e.footer.newsletterLabel ?? "", t.footer.newsletterLabel ?? ""),
     },
     booking: {
       calLink: "mburakdikmen/quick-chat",
