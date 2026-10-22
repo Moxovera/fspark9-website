@@ -972,15 +972,6 @@ html:not(.js) .video-only { display: none; }
   .film-poster, .film-clip, .film-clip.is-ending, .film-pill { transition: none; }
 }
 
-/* Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi: resim ve klip yok,
-   sitedeki Flare oynat hapıyla aynı, hover'da 1,05 büyür. */
-.spark-watch { transition: scale 200ms var(--ease-brand); }
-.spark-watch:hover,
-.spark-watch:focus-visible { scale: 1.05; }
-@media (prefers-reduced-motion: reduce) {
-  .spark-watch { transition: none; }
-}
-
 /* Dikey video penceresi (VideoModal `aspect`): masaüstünde oynatıcı yüksekliği
    min(78vh, 740px), genişliği bunun oranı katı; telefonda başlığın altında
    ekrana sığan en büyük boy. */

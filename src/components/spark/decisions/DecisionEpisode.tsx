@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import BlockSources from "@/components/spark/decisions/BlockSources";
 import ChoiceDecision from "@/components/spark/decisions/ChoiceDecision";
 import EpisodeRuler from "@/components/spark/decisions/EpisodeRuler";
+import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import ReaderPoll from "@/components/spark/decisions/ReaderPoll";
 import { ClockProvider, ClockStop, EpisodeClock } from "@/components/spark/decisions/ClockTracker";
 import { monoText } from "@/components/spark/decisions/styles";
@@ -29,7 +30,7 @@ const paragraphsOf = (items: string[]) => (
  * Saatin atalarında transform/overflow yok (CLAUDE.md "Sticky"); bu
  * yüzden bloklar Reveal ile sarılmıyor.
  */
-export default function DecisionEpisode({ episode, answerSubject, slug, lang }: DecisionEpisodeProps) {
+export default function DecisionEpisode({ episode, newsletter, answerSubject, slug, lang }: DecisionEpisodeProps) {
   const { opening, labels, decisions, records, twist, view, service } = episode;
   const stops: SparkClockStop[] = [...decisions, ...records, twist, view].map(({ date, when }) => ({ date, when }));
   const questionId = `${slug}-question`;
@@ -149,6 +150,7 @@ export default function DecisionEpisode({ episode, answerSubject, slug, lang }: 
               >
                 {service.ctaLabel}
               </Link>
+              <SparkSubscribe variant="quiet" source="bolum-sonu" locale={lang} content={newsletter} className="mt-6 border-t border-rule pt-4" />
             </section>
           </div>
         </div>

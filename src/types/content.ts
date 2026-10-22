@@ -1147,6 +1147,8 @@ export interface SiteChrome {
     linkedinLabel: string
     legalLinks: NavItem[]
     copyright: string
+    /** "Spark bülteni": Spark sayfasındaki bülten bloğuna iner. Boşsa link yok. */
+    newsletterLabel?: string
   }
   /** Randevu penceresi (board Booking). calLink Sanity'den. */
   booking: {
@@ -1436,11 +1438,44 @@ export interface SparkFilmContent {
   closeLabel: string
 }
 
+/** Spark bülteni (Kit): formlar, ana sayfa bölümü, Spark girişi ve bölüm sonu. "{format}" kodda doldurulur. */
+export interface SparkNewsletterContent {
+  /** Mail alanının etiketi (ekran okuyucu) ve yer tutucusu. */
+  emailLabel: string
+  submitLabel: string
+  successMessage: string
+  invalidMessage: string
+  errorMessage: string
+  /** Kit anahtarları henüz yokken (API 503). */
+  unavailableMessage: string
+  homeHeading: string
+  archiveLabel: string
+  /** "EN YENİ · {format}" */
+  latestLabel: string
+  cardLabel: string
+  cardHeading: string
+  cardText: string
+  cardNote: string
+  /** Film satırı: "FİLM" (süre kodda eklenir) ve başlık. */
+  filmKicker: string
+  filmTitle: string
+  /** Spark girişinin telefon satırı: "İZLEYİN". */
+  watchLabel: string
+  /** Spark girişindeki blok etiketi. */
+  hubLabel: string
+  quietPrompt: string
+  quietLink: string
+  quietText: string
+  quietButton: string
+  quietSuccess: string
+}
+
 export interface SparkHubContent {
   seo: PageSeoCopy
   bigWord: string
   heading: string
   film: SparkFilmContent
+  newsletter: SparkNewsletterContent
   /** Açılıştaki Flare düğme: formatlar bölümüne iner (film kartı varken). */
   exploreLabel: string
   /** Kayan şerit parçaları (copy §5) ve son parçası. */
@@ -1759,10 +1794,12 @@ export interface ServicePickerProps {
 
 export interface SparkCardsProps {
   content: HomeContent["spark"];
-  /** Spark filmi; `youtubeId` boşsa "Spark nedir? İzleyin" düğmesi yok. */
+  /** Spark filmi; `youtubeId` boşsa film satırı yok. */
   film: SparkFilmContent;
+  newsletter: SparkNewsletterContent;
   /** Penceredeki etiket satırının ilk parçası ("Spark"). */
   sparkLabel: string;
+  locale: Locale;
 }
 
 export interface SparkFilmCardProps {
@@ -1772,9 +1809,23 @@ export interface SparkFilmCardProps {
   sparkLabel: string;
 }
 
-export interface SparkFilmButtonProps {
+export interface SparkFilmRowProps {
   film: SparkFilmContent;
-  sparkLabel: string;
+  newsletter: SparkNewsletterContent;
+  /** `strip`: ana sayfa şeridinin satırı. `compact`: Spark girişinin telefon satırı (küçük daire). */
+  variant: "strip" | "compact";
+  /** Compact için küçük daire posteri. */
+  posterSrc?: string;
+}
+
+export type SparkSubscribeSource = "anasayfa" | "spark-giris" | "bolum-sonu";
+
+export interface SparkSubscribeProps {
+  variant: "card" | "inline-dark" | "quiet";
+  source: SparkSubscribeSource;
+  locale: Locale;
+  content: SparkNewsletterContent;
+  className?: string;
 }
 
 export interface StartWhereYouAreProps {
@@ -1860,12 +1911,15 @@ export interface StoryRailProps {
 export interface EpisodeStoryProps {
   story: SparkEpisodeStory;
   labels: SparkEpisodeLabels;
+  newsletter: SparkNewsletterContent;
+  locale: Locale;
   /** Sıradaki sayı yayındaysa bölüm sonundaki satırın linki. */
   nextHref?: NavHref;
 }
 
 export interface DecisionEpisodeProps {
   episode: SparkDecisionEpisode;
+  newsletter: SparkNewsletterContent;
   /** Okur cevabı e-postasının konusu ("Son Gün Nº 02 · Nuri"). */
   answerSubject: string;
   /** Bölümün EN slug'ı ("02-nuri"): çapa id'leri ve okur cevabındaki bölüm. */
@@ -1943,6 +1997,8 @@ export interface DecisionTableProps {
 
 export interface FinalQuestionProps {
   content: SparkEpisodeStory["finalQuestion"];
+  newsletter: SparkNewsletterContent;
+  locale: Locale;
 }
 
 export interface FormatBlockProps {

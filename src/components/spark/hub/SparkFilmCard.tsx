@@ -49,7 +49,8 @@ export default function SparkFilmCard({ film, preview, sparkLabel }: SparkFilmCa
   useEffect(() => {
     const canvas = posterRef.current;
     const context = canvas?.getContext("2d");
-    if (!canvas || !context) return;
+    // Telefonda kart gizli (küçük film satırı var): poster hiç inmesin.
+    if (!canvas || !context || canvas.offsetParent === null) return;
     let cancelled = false;
     const load = (src: string, fallback?: string) => {
       const image = new Image();

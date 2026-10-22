@@ -55,6 +55,7 @@ export default defineType({
         str("linkedinLabel", "LinkedIn label"),
         defineField({ name: "legalLinks", title: "Legal links", type: "array", of: [navLink] }),
         str("copyright", "Copyright"),
+        ls("newsletterLabel", "Newsletter link (goes to the Spark page block)"),
       ],
       { group: "footer" },
     ),

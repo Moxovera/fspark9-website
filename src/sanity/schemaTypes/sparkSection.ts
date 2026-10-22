@@ -1,5 +1,5 @@
 import { defineField, defineType } from "sanity";
-import { group, ls, lsList, singletonTitle, str } from "./fields";
+import { group, ls, lsList, lt, singletonTitle, str } from "./fields";
 
 // Spark hub ve her bölüm sayfasının ortak etiketleri. Formatlar ve
 // bölümler kendi belgelerinde.
@@ -11,6 +11,7 @@ export default defineType({
   groups: [
     { name: "hub", title: "Hub", default: true },
     { name: "film", title: "Film" },
+    { name: "newsletter", title: "Newsletter" },
     { name: "episode", title: "Episode page" },
     { name: "seo", title: "SEO" },
   ],
@@ -50,6 +51,38 @@ export default defineType({
       {
         group: "film",
         description: "Spark tanıtım filmi (dikey, 4:5): Spark sayfasının açılışında film kartı, ana sayfada Spark bölümünde düğme. Önizleme klibi ve poster repoda (public/video), burada değil.",
+      },
+    ),
+    group(
+      "newsletter",
+      "Spark newsletter",
+      [
+        ls("emailLabel", "Email field label and placeholder"),
+        ls("submitLabel", "Join button"),
+        ls("successMessage", "Success message"),
+        ls("invalidMessage", "Error: invalid address"),
+        ls("errorMessage", "Error: general"),
+        ls("unavailableMessage", "Error: newsletter not open yet", { description: "Kit anahtarları Vercel'de yokken (API 503)." }),
+        ls("homeHeading", "Home section heading"),
+        ls("archiveLabel", "Home: full archive link"),
+        ls("latestLabel", "Home: latest card label ({format})"),
+        ls("cardLabel", "Home: newsletter card label"),
+        ls("cardHeading", "Home: newsletter card heading"),
+        lt("cardText", "Home: newsletter card text"),
+        ls("cardNote", "Home: newsletter card note"),
+        ls("filmKicker", "Film row label (duration is added)"),
+        ls("filmTitle", "Film row title"),
+        ls("watchLabel", "Spark page phone row: watch"),
+        ls("hubLabel", "Spark page block label"),
+        ls("quietPrompt", "Episode end: closed line"),
+        ls("quietLink", "Episode end: open link"),
+        lt("quietText", "Episode end: explanation"),
+        ls("quietButton", "Episode end: send button"),
+        ls("quietSuccess", "Episode end: success message"),
+      ],
+      {
+        group: "newsletter",
+        description: "Spark bülteni (Kit): ana sayfa Spark bölümü, Spark girişi, bölüm sonu ve ortak form mesajları.",
       },
     ),
     group(

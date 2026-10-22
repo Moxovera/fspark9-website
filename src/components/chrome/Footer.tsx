@@ -19,7 +19,7 @@ export default function Footer({ chrome }: FooterProps) {
 
   return (
     <footer className="on-ink bg-ink px-5 pt-8 pb-[105px] min-[768px]:px-16 min-[768px]:pt-10 min-[900px]:pb-12">
-      <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:items-center min-[768px]:gap-6 min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
+      <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:items-center min-[768px]:gap-x-6 min-[768px]:gap-y-3 min-[1024px]:flex-nowrap min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
         <Logo tone="paper" label={brandName} className="h-[22px] self-start" />
         <a href={`mailto:${footer.email}`} className="mt-2 text-paper no-underline min-[768px]:mt-0">
           {footer.email}
@@ -27,6 +27,14 @@ export default function Footer({ chrome }: FooterProps) {
         <a href={footer.linkedinHref} target="_blank" rel="noopener" className="text-paper no-underline">
           {footer.linkedinLabel}
         </a>
+        {footer.newsletterLabel && (
+          <Link
+            href={{ pathname: "/spark", hash: "bulten" }}
+            className="inline-flex min-h-11 items-center font-bold text-flare underline underline-offset-4 min-[768px]:min-h-0"
+          >
+            {footer.newsletterLabel}
+          </Link>
+        )}
         <div className="hidden flex-grow min-[768px]:block" />
         <div className="flex flex-wrap items-center gap-x-5 text-[14px] text-dust">
           {footer.legalLinks.map((item) => (
