@@ -35,14 +35,15 @@ export default function Header({ chrome, newsletter, services, locale }: HeaderP
           <Logo label={chrome.brandName} className="h-[22px] min-[900px]:h-[27px]" />
         </Link>
 
-        <nav className="hidden items-center gap-7 min-[900px]:flex min-[1280px]:gap-10">
+        <nav className="hidden items-center gap-5 min-[900px]:flex min-[1100px]:gap-7 min-[1280px]:gap-10">
           <ServicesMenuButton label={chrome.servicesLabel} />
           {chrome.nav.map((item) =>
             item.href === "/spark" ? (
-              <span key={item.label} className="flex items-center gap-2">
+              <span key={item.label} className="flex items-center gap-2 min-[1100px]:gap-4">
                 <Link href={item.href} className={NAV_LINK}>
                   {item.label}
                 </Link>
+                <span aria-hidden="true" className="h-4 w-px bg-paper/35 group-data-[tone=light]/header:bg-ink/30" />
                 <NewsletterMenuLink variant="desktop" content={newsletter} />
               </span>
             ) : (
