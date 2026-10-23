@@ -6,6 +6,8 @@ import { both } from "@/content/not-found";
 import NotFoundBlock from "@/components/blocks/NotFoundBlock";
 import Logo from "@/components/brand/Logo";
 import NextLink from "next/link";
+import NewsletterStrip from "@/components/spark/newsletter/NewsletterStrip";
+import { getSparkHub } from "@/sanity/lib/content";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,10 +20,13 @@ export const metadata: Metadata = {
  * uymayan URL'ler buraya düşüyor ve `[locale]/layout.tsx`'i tamamen
  * atlıyor (next.config.ts experimental.globalNotFound): kendi
  * <html><body>'si, fontları, Analytics ve Speed Insights'ı var. Dili
- * bilemediği için iki dili birden gösteriyor, chrome'suz; sol üstte logo
+ * bilemediği için iki dili birden gösteriyor, chrome'suz (altta iki dilin
+ * bülten formu); sol üstte logo
  * ana sayfaya gidiyor.
  */
-export default function GlobalNotFound() {
+export default async function GlobalNotFound() {
+  // Bülten formu iki dil için (404 dili bilmiyor). Sanity'ye ulaşılamazsa 404 yine açılır, form olmadan.
+  const hub = await getSparkHub().catch(() => null);
   return (
     <html lang="en">
       <body className={`${epilogue.variable} ${hanken.variable} ${splineMono.variable} font-sans antialiased`}>
@@ -35,6 +40,12 @@ export default function GlobalNotFound() {
             }
           />
         </main>
+        {hub && (
+          <div className="on-ink flex flex-col gap-6 bg-ink px-5 pb-10 min-[900px]:px-16 min-[900px]:pb-14">
+            <NewsletterStrip newsletter={hub.en.newsletter} locale="en" />
+            <NewsletterStrip newsletter={hub.tr.newsletter} locale="tr" />
+          </div>
+        )}
         <Analytics />
         <SpeedInsights />
       </body>

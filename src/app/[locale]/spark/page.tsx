@@ -8,6 +8,8 @@ import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
 import FormatBlock from "@/components/spark/hub/FormatBlock";
 import SparkFilmCard from "@/components/spark/hub/SparkFilmCard";
+import SparkFilmRow from "@/components/spark/newsletter/SparkFilmRow";
+import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import SparkTicker from "@/components/spark/hub/SparkTicker";
 import Reveal from "@/components/ui/Reveal";
 import { getChrome, getSparkHub } from "@/sanity/lib/content";
@@ -44,6 +46,16 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
     hub.formats.map(async (format) => ({ format, ...(await loadFormatIssues(locale, format, hub)) })),
   );
 
+  // Bülten bloğu. Masaüstünde "Formatları inceleyin"in sağında, telefonda altında açık.
+  const subscribeBlock = (
+    <div className="flex w-full max-w-[460px] flex-col gap-3">
+      <Label ground="ink" className="!text-flare">
+        {hub.newsletter.hubLabel}
+      </Label>
+      <SparkSubscribe variant="inline-dark" locale={locale} content={hub.newsletter} />
+    </div>
+  );
+
   return (
     <main>
       <JsonLd data={breadcrumbJsonLd(locale, chrome, [{ name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) }])} />
@@ -63,9 +75,17 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
               <h1 className="m-0 mt-1 max-w-[560px] font-display text-[24px] leading-[1.15] font-bold tracking-[-0.02em] text-paper min-[900px]:mt-3 min-[900px]:text-[36px] min-[900px]:leading-[1.12] min-[900px]:tracking-[-0.025em]">
                 {hub.heading}
               </h1>
-              <CutButton label={hub.exploreLabel} anchor="formats" className="mt-3 self-start" />
+              <div className="mt-3 flex flex-col gap-6 min-[900px]:flex-row min-[900px]:flex-wrap min-[900px]:items-end min-[900px]:gap-x-8 min-[1360px]:w-max min-[1360px]:flex-nowrap">
+                <CutButton label={hub.exploreLabel} anchor="formats" className="max-[899px]:w-full max-[899px]:justify-between min-[900px]:self-end" />
+                {subscribeBlock}
+              </div>
             </div>
-            <SparkFilmCard film={hub.film} preview={sparkPreviewSources(locale)} sparkLabel={hub.sparkLabel} />
+            <div className="hidden min-[900px]:block min-[900px]:w-full min-[900px]:max-w-[400px] min-[900px]:flex-none">
+              <SparkFilmCard film={hub.film} preview={sparkPreviewSources(locale)} sparkLabel={hub.sparkLabel} />
+            </div>
+            <div className="min-[900px]:hidden">
+              <SparkFilmRow film={hub.film} newsletter={hub.newsletter} variant="compact" posterSrc={sparkPreviewSources(locale).poster} />
+            </div>
           </div>
         ) : (
           <div className="flex flex-col gap-[18px] px-5 pt-6 pb-11 min-[900px]:gap-5 min-[900px]:px-8 min-[900px]:pt-14 min-[900px]:pb-20 min-[1280px]:px-16">
@@ -81,6 +101,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
                 {hub.heading}
               </h1>
             </div>
+            {subscribeBlock}
           </div>
         )}
         <SparkTicker items={[...hub.tickerItems, hub.tickerTail]} />

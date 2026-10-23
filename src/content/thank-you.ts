@@ -30,3 +30,27 @@ export const tr: ThankYouPage = {
     { label: "Gerçekte ne kuruldu", sublabel: "İşler", href: "/work" },
   ],
 };
+
+// Spark bülteni kaydı sonrası (Kit formu buraya yönlendirir). Söz her yerde aynı:
+// ayda bir mail, o ayın Spark'ları, istediğin an çık.
+export const newsletterEn: ThankYouPage = {
+  seo: { title: "Your sign-up is in | fspark9", description: "" },
+  label: "Newsletter",
+  heading: "Your sign-up is in.",
+  paragraphs: [
+    "We sent a confirmation link to your inbox. Click it to finish signing up. Until you do, we will not send you anything.",
+    "Then it is one email a month: that month's Sparks, with a short note. You can leave any time.",
+  ],
+  links: [{ label: "See what is on Spark", sublabel: "Spark", href: "/spark" }],
+};
+
+export const newsletterTr: ThankYouPage = {
+  seo: { title: "Kaydınız alındı | fspark9", description: "" },
+  label: "Bülten",
+  heading: "Kaydınız alındı.",
+  paragraphs: [
+    "Mailinize bir onay linki gönderdik. Kaydı tamamlamak için linke tıklayın. Tıklamazsanız size hiçbir şey göndermeyiz.",
+    "Sonrasında ayda bir mail gelir: o ayın Spark'ları, kısa bir notla. İstediğiniz an çıkabilirsiniz.",
+  ],
+  links: [{ label: "Spark'ta neler var", sublabel: "Spark", href: "/spark" }],
+};

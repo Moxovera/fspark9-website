@@ -391,7 +391,7 @@ export const SPARK_HUB_QUERY = defineQuery(`{
   "section": *[_type == "sparkSection" && _id == "sparkSection"][0]{
     seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,
     backLabel, sparkLabel, formatsLabel, exploreLabel, launchDateLabel,
-    sparkFilm,
+    sparkFilm, newsletter,
     episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }
   },
   "formats": *[_type == "sparkFormat"] | order(orderRank asc){
@@ -413,9 +413,38 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
   });
   return perLocale((locale) => {
     const { section, formats } = localize(raw, locale);
-    const { sparkFilm, ...rest } = section;
+    const { sparkFilm, newsletter: nl, ...rest } = section;
     return {
       ...rest,
+      newsletter: {
+        emailLabel: nl?.emailLabel ?? "",
+        submitLabel: nl?.submitLabel ?? "",
+        homeHeading: nl?.homeHeading ?? "",
+        archiveLabel: nl?.archiveLabel ?? "",
+        latestLabel: nl?.latestLabel ?? "",
+        cardLabel: nl?.cardLabel ?? "",
+        cardHeading: nl?.cardHeading ?? "",
+        cardText: nl?.cardText ?? "",
+        cardNote: nl?.cardNote ?? "",
+        filmKicker: nl?.filmKicker ?? "",
+        filmTitle: nl?.filmTitle ?? "",
+        watchLabel: nl?.watchLabel ?? "",
+        hubLabel: nl?.hubLabel ?? "",
+        quietPrompt: nl?.quietPrompt ?? "",
+        quietLink: nl?.quietLink ?? "",
+        quietText: nl?.quietText ?? "",
+        quietButton: nl?.quietButton ?? "",
+        boxLabel: nl?.boxLabel ?? "",
+        boxHeading: nl?.boxHeading ?? "",
+        boxText: nl?.boxText ?? "",
+        boxPhoneLabel: nl?.boxPhoneLabel ?? "",
+        boxCloseLabel: nl?.boxCloseLabel ?? "",
+        menuLabel: nl?.menuLabel ?? "",
+        menuAriaLabel: nl?.menuAriaLabel ?? "",
+        menuPhoneLabel: nl?.menuPhoneLabel ?? "",
+        footerHeading: nl?.footerHeading ?? "",
+        footerLabel: nl?.footerLabel ?? "",
+      },
       film: {
         youtubeId: ((locale === "tr" ? raw.section?.sparkFilm?.youtubeIdTr : raw.section?.sparkFilm?.youtubeIdEn) ?? "").trim() || HERO_VIDEO_PREVIEW_ID,
         durationLabel: sparkFilm?.durationLabel ?? "",

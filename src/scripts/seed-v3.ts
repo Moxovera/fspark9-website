@@ -13,6 +13,7 @@
  *   npm run seed:v3 -- --dry         (sadece yazılacak belgeleri listeler)
  *   npm run seed:v3 -- --only=spark  (sadece Spark belgeleri; Studio'da
  *                                     düzenlenmiş diğer sayfalara dokunmaz)
+ *   npm run seed:v3 -- --only=newsletter  (sadece Spark bülteni metinleri ve gizlilik sayfasının gövdesi)
  *   npm run seed:v3 -- --only=spark-film  (sadece Spark filminin metin ve süre
  *                                     alanları; YouTube kimliklerine dokunmaz)
  *
@@ -118,8 +119,25 @@ const radarOnly = onlyOnTheRadar || onlyRadarFinmid;
 const onlyHomeHero = process.argv.includes("--only=home-hero");
 /** Sadece ana sayfa Four services halkasındaki videonun metinleri (YouTube kimliklerine dokunmaz). */
 const onlyServicesVideo = process.argv.includes("--only=services-video");
+/** Spark bülteni metinleri (sparkSection.newsletter) ve footer linki. */
+function newsletterFields() {
+  const e = spark[EN].newsletter;
+  const t = spark[TR].newsletter;
+  return Object.fromEntries((Object.keys(e) as (keyof typeof e)[]).map((k) => [k, ls(e[k], t[k])]));
+}
+
+/** Sadece bülten metinleri (--only=newsletter): sparkSection.newsletter ve footer.newsletterLabel; başka alana dokunmaz. */
+function newsletterPatches() {
+  return [
+    { id: "sparkSection", set: { newsletter: newsletterFields() } },
+    // Footer linki yerine footer şeridi geldi: eski alan kalkar.
+    { id: "siteSettings", set: {}, unset: ["footer.newsletterLabel"] },
+  ];
+}
+
 /** Sadece Spark filminin metin alanları (YouTube kimliklerine dokunmaz). */
 const onlySparkFilm = process.argv.includes("--only=spark-film");
+const onlyNewsletter = process.argv.includes("--only=newsletter");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -529,6 +547,7 @@ function sparkSectionPatch() {
       sparkLabel: pick("sparkLabel"),
       launchDateLabel: pick("launchDateLabel"),
       ...Object.fromEntries(Object.entries(sparkFilmFields()).map(([k, v]) => [`sparkFilm.${k}`, v])),
+      newsletter: newsletterFields(),
       ...episode,
     },
   };
@@ -1168,7 +1187,7 @@ async function guardPublished(
 
 async function main() {
   const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm;
+  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
   const creates = only
     ? []
     : onlySpark
@@ -1179,6 +1198,7 @@ async function main() {
         ...(onlyHomeHero ? [homeHeroPatch()] : []),
         ...(onlyServicesVideo ? [homeServicesVideoPatch()] : []),
         ...(onlySparkFilm ? [sparkFilmPatch()] : []),
+        ...(onlyNewsletter ? [...newsletterPatches(), ...legalPatches().filter((p) => p.id === "legalPage-privacy" && "blocks" in p.set)] : []),
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
@@ -1198,7 +1218,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero || onlyServicesVideo || onlySparkFilm ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1224,7 +1244,7 @@ async function main() {
   }
 
   const tx = client.transaction();
-  if (onlyHomeHero || onlyServicesVideo || onlySparkFilm) {
+  if (onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter) {
     // Sadece tek belge patch'i; bölüm taslakları oluşturulmaz.
   } else if (radarOnly) {
     if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());

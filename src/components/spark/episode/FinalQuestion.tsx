@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import CutButton from "@/components/brand/CutButton";
+import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import { ArrowRightIcon } from "@/components/icons";
 import type { FinalQuestionProps } from "@/types/content";
 
@@ -12,7 +13,7 @@ import type { FinalQuestionProps } from "@/types/content";
  * sayfasına link), kısa başlık, tek satır ve randevu penceresini açan
  * Flare kesik buton. Seçim saklanmaz, gönderilmez.
  */
-export default function FinalQuestion({ content }: FinalQuestionProps) {
+export default function FinalQuestion({ content, newsletter, locale }: FinalQuestionProps) {
   const [picked, setPicked] = useState<number | null>(null);
   const titleId = useId();
   const fit = picked === null ? undefined : content.options[picked];
@@ -62,6 +63,7 @@ export default function FinalQuestion({ content }: FinalQuestionProps) {
             </b>
             <p className="mt-0 mb-5 max-w-[56ch] text-[18px] leading-[1.6] text-ink">{fit.body}</p>
             <CutButton label={content.ctaLabel} />
+            <SparkSubscribe variant="quiet" locale={locale} content={newsletter} className="mt-6 border-t border-rule pt-4" />
           </div>
         )}
       </div>

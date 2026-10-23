@@ -16,8 +16,10 @@ import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
 import { SparkAltSlugProvider } from "@/components/chrome/SparkAltSlugContext";
 import { MobileMenuProvider } from "@/components/chrome/MobileMenuContext";
+import NewsletterBox from "@/components/spark/newsletter/NewsletterBox";
+import { VideoOpenProvider } from "@/components/ui/VideoOpenContext";
 import JsClass from "@/components/ui/JsClass";
-import { getChrome } from "@/sanity/lib/content";
+import { getChrome, getSparkHub } from "@/sanity/lib/content";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { SITE_SEO_QUERY, SITE_LOGO_QUERY, toSiteSeo, toSiteLogo } from "@/sanity/lib/queries";
 import type { SITE_SEO_QUERYResult, SITE_LOGO_QUERYResult } from "@/sanity/types";
@@ -68,14 +70,16 @@ export default async function LocaleLayout({
 
   // Çerçeve (header, menü, footer, randevu penceresi) siteSettings ve
   // servicePage belgelerinden.
-  const [site, logoResult] = await Promise.all([
+  const [site, sparkHub, logoResult] = await Promise.all([
     getChrome(),
+    getSparkHub(),
     sanityFetch<SITE_LOGO_QUERYResult>({
       query: SITE_LOGO_QUERY,
       tags: ["siteSettings"],
     }),
   ]);
   const { chrome, services, calLink } = site[locale];
+  const newsletter = sparkHub[locale].newsletter;
   const logo = toSiteLogo(logoResult);
 
   // Site kimliği için Organization JSON-LD — SEO'nun beklediği tek
@@ -117,11 +121,14 @@ export default async function LocaleLayout({
           <SparkAltSlugProvider>
             <BookingProvider>
               <MobileMenuProvider>
-                <Header chrome={chrome} services={services} locale={locale} />
-                {children}
-                <Footer chrome={chrome} />
-                <MobileBookingBar label={chrome.bookLabel} />
-                <BookingOverlay calLink={calLink} labels={chrome.booking} />
+                <VideoOpenProvider>
+                  <Header chrome={chrome} newsletter={newsletter} services={services} locale={locale} />
+                  {children}
+                  <Footer chrome={chrome} newsletter={newsletter} locale={locale} />
+                  <MobileBookingBar label={chrome.bookLabel} />
+                  <NewsletterBox content={newsletter} locale={locale} />
+                  <BookingOverlay calLink={calLink} labels={chrome.booking} />
+                </VideoOpenProvider>
               </MobileMenuProvider>
             </BookingProvider>
           </SparkAltSlugProvider>

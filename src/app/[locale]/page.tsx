@@ -62,7 +62,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
       />
       <HomeWork content={content.work} />
       <WithMe content={content.withMe} />
-      <SparkCards content={content.spark} film={sparkHub[locale].film} sparkLabel={sparkHub[locale].sparkLabel} />
+      <SparkCards
+        content={content.spark}
+        film={sparkHub[locale].film}
+        newsletter={sparkHub[locale].newsletter}
+        sparkLabel={sparkHub[locale].sparkLabel}
+        locale={locale}
+      />
       <NextStep content={nextStep} numbered />
     </main>
   );

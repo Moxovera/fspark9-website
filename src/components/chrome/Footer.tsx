@@ -1,5 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import Logo from "@/components/brand/Logo";
+import NewsletterStrip from "@/components/spark/newsletter/NewsletterStrip";
+import { NEWSLETTER_ID } from "@/lib/newsletter";
 import type { FooterProps } from "@/types/content";
 
 /**
@@ -14,12 +16,13 @@ import type { FooterProps } from "@/types/content";
  * ayarlayacak. 900px altında MobileBookingBar'ın altında kalmaması için
  * alt boşluk çubuğun yüksekliği kadar büyüyor.
  */
-export default function Footer({ chrome }: FooterProps) {
+export default function Footer({ chrome, newsletter, locale }: FooterProps) {
   const { brandName, footer } = chrome;
 
   return (
     <footer className="on-ink bg-ink px-5 pt-8 pb-[105px] min-[768px]:px-16 min-[768px]:pt-10 min-[900px]:pb-12">
-      <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:items-center min-[768px]:gap-6 min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
+      <NewsletterStrip newsletter={newsletter} locale={locale} id={NEWSLETTER_ID} className="mb-6" />
+      <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:items-center min-[768px]:gap-x-6 min-[768px]:gap-y-3 min-[1024px]:flex-nowrap min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
         <Logo tone="paper" label={brandName} className="h-[22px] self-start" />
         <a href={`mailto:${footer.email}`} className="mt-2 text-paper no-underline min-[768px]:mt-0">
           {footer.email}

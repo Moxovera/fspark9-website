@@ -45,6 +45,15 @@ export function ArrowUpRightIcon(props: IconProps) {
   return <Icon d="M7 17 17 7M8 7h9v9" {...props} />;
 }
 
+export function ArrowUpIcon(props: IconProps) {
+  return <Icon d="M12 20V4M6 10l6-6 6 6" {...props} />;
+}
+
+/** Bülten girişlerindeki mektup. */
+export function MailIcon(props: IconProps) {
+  return <Icon d="M3 6h18v12H3zM3 7l9 6 9-6" {...props} />;
+}
+
 /** Services menü butonundaki açılır ok. */
 export function ChevronDownIcon(props: IconProps) {
   return <Icon d="M5 9l7 7 7-7" {...props} />;

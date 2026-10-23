@@ -7,7 +7,7 @@ export const en: LegalPage = {
     intro: "Written plainly, built to meet Articles 13 and 14 GDPR.",
   },
   blocks: [
-    { type: "field", label: "Last updated", lines: ["5 August 2026"] },
+    { type: "field", label: "Last updated", lines: ["23 October 2026"] },
     {
       type: "b",
       text: "This page explains what happens to your data when you visit this site or get in touch. It is written plainly, but it is built to meet Articles 13 and 14 of the EU General Data Protection Regulation.",
@@ -113,14 +113,38 @@ export const en: LegalPage = {
       type: "field",
       label: "Retention",
       lines: [
-        "[24] months after the call, unless it becomes an engagement, in which case section 5 applies.",
+        "[24] months after the call, unless it becomes an engagement, in which case section 6 applies.",
       ],
     },
     {
       type: "b",
       text: "Cal.com is a US company with EU infrastructure. Where data reaches the United States, the transfer runs on the EU Standard Contractual Clauses. A data processing agreement is in place. Their policy: https://cal.com/privacy",
     },
-    { type: "h", text: "5. When you email me or become a client" },
+    { type: "h", text: "5. When you subscribe to the Spark newsletter" },
+    {
+      type: "b",
+      text: "The newsletter forms on this site send your email address to Kit, the service that sends the newsletter. Nothing is sent until you submit a form. You then get an email with a confirmation link, and you are on the list only after you click it.",
+    },
+    {
+      type: "field",
+      label: "Why",
+      lines: ["To send you the Spark newsletter: one email a month with that month's Sparks."],
+    },
+    {
+      type: "field",
+      label: "Legal basis",
+      lines: ["Article 6(1)(a) GDPR, your consent, given by submitting the form and confirming by email."],
+    },
+    {
+      type: "field",
+      label: "Retention",
+      lines: ["Until you unsubscribe. If you never click the confirmation link, I do not mail you."],
+    },
+    {
+      type: "b",
+      text: "Every email has an unsubscribe link at the bottom. One click ends the subscription, and you can withdraw consent at any time with effect for the future. Kit is a US company. Where data reaches the United States, the transfer relies on the safeguards required by Chapter V GDPR, such as the EU Standard Contractual Clauses. Their policy: https://kit.com/privacy",
+    },
+    { type: "h", text: "6. When you email me or become a client" },
     {
       type: "b",
       text: "If you write to me, I hold your message, your contact details, and my replies.",
@@ -153,7 +177,7 @@ export const en: LegalPage = {
       type: "b",
       text: "Client data is handled under the engagement contract. Where I process personal data on a client’s behalf, we sign a separate data processing agreement under Article 28 GDPR before that processing starts.",
     },
-    { type: "h", text: "6. Who else sees your data" },
+    { type: "h", text: "7. Who else sees your data" },
     {
       type: "b",
       text: "Only the providers I need in order to operate. Each processes data on my instructions under an Article 28 GDPR agreement and may not use it for their own purposes.",
@@ -165,6 +189,7 @@ export const en: LegalPage = {
         ["Vercel Inc.", "Serving the website", "United States"],
         ["Vercel Inc.", "Visit counts and page speed, without cookies", "United States"],
         ["Cal.com, Inc.", "Scheduling calls, after you click", "EU / US"],
+        ["Kit", "Sending the Spark newsletter, after you subscribe", "United States"],
         ["Google (Gmail)", "Business email and calendar", "United States"],
       ],
     },
@@ -172,7 +197,7 @@ export const en: LegalPage = {
       type: "b",
       text: "Beyond this I disclose data only where legally obliged, for example to tax authorities or under a valid court order.",
     },
-    { type: "h", text: "7. What this site does not do" },
+    { type: "h", text: "8. What this site does not do" },
     {
       type: "b",
       text: "No advertising cookies. No retargeting pixels. No social media tracking. No analytics cookies. No automated decision making or profiling under Article 22 GDPR. No selling or renting of data.",
@@ -181,12 +206,12 @@ export const en: LegalPage = {
       type: "b",
       text: "If any of this changes, this page is updated before the change goes live, and anything requiring consent will ask for it first.",
     },
-    { type: "h", text: "8. Cookies" },
+    { type: "h", text: "9. Cookies" },
     {
       type: "b",
       text: "See the cookie notice. In short, this site sets nothing that is not strictly necessary, and the one third party tool it uses does not load until you click it.",
     },
-    { type: "h", text: "9. Your rights" },
+    { type: "h", text: "10. Your rights" },
     { type: "b", text: "Under the GDPR you can ask me to:" },
     {
       type: "ul",
@@ -208,7 +233,7 @@ export const en: LegalPage = {
       type: "b",
       text: "You can also complain to a supervisory authority. Mine is the Berlin Commissioner for Data Protection and Freedom of Information (Berliner Beauftragte für Datenschutz und Informationsfreiheit), and you may also go to the authority where you live or work.",
     },
-    { type: "h", text: "10. Security" },
+    { type: "h", text: "11. Security" },
     {
       type: "b",
       text: "The site is served over TLS. Access to my email and files requires two factor authentication. No system is perfectly secure, but data sent to this site is encrypted in transit.",
@@ -217,7 +242,7 @@ export const en: LegalPage = {
       type: "b",
       text: "I do not ask clients for production customer data and do not want to receive it. Where work needs realistic data, we use anonymised or synthetic sets.",
     },
-    { type: "h", text: "11. Changes" },
+    { type: "h", text: "12. Changes" },
     {
       type: "b",
       text: "If the site changes in a way that affects data processing, this page is updated before the change goes live. The date at the top shows the last revision.",
@@ -233,7 +258,7 @@ export const tr: LegalPage = {
       "Sade yazıldı, GDPR 13. ve 14. maddeleri karşılayacak şekilde kuruldu.",
   },
   blocks: [
-    { type: "field", label: "Son güncelleme", lines: ["5 Ağustos 2026"] },
+    { type: "field", label: "Son güncelleme", lines: ["23 Ekim 2026"] },
     {
       type: "b",
       text: "Bu sayfa, bu siteyi ziyaret ettiğinizde ya da benimle iletişime geçtiğinizde verilerinize ne olduğunu anlatıyor. Sade yazdım ama Avrupa Birliği Genel Veri Koruma Tüzüğü’nün (GDPR) 13. ve 14. maddelerini karşılayacak şekilde kuruldu. Türkiye’den bağlanıyorsanız, KVKK kapsamındaki haklarınız burada sayılanlarla örtüşüyor ve aynı adresten kullanabilirsiniz.",
@@ -339,14 +364,38 @@ export const tr: LegalPage = {
       type: "field",
       label: "Saklama",
       lines: [
-        "Görüşmeden [24] ay sonra siliniyor. Görüşme bir işe dönüşürse 5. bölüm geçerli olur.",
+        "Görüşmeden [24] ay sonra siliniyor. Görüşme bir işe dönüşürse 6. bölüm geçerli olur.",
       ],
     },
     {
       type: "b",
       text: "Cal.com, AB altyapısı olan bir ABD şirketi. Verinin ABD’ye ulaştığı durumlarda aktarım AB Standart Sözleşme Maddeleri’ne dayanıyor. Veri işleme sözleşmesi mevcut. Politikaları: https://cal.com/privacy",
     },
-    { type: "h", text: "5. Bana e-posta yazdığınızda ya da müşteri olduğunuzda" },
+    { type: "h", text: "5. Spark bültenine abone olduğunuzda" },
+    {
+      type: "b",
+      text: "Bu sitedeki bülten formları e-posta adresinizi bülteni gönderen servis Kit’e iletiyor. Bir formu göndermeden hiçbir şey iletilmiyor. Ardından size onay linki olan bir mail geliyor, linke tıklayınca listeye giriyorsunuz.",
+    },
+    {
+      type: "field",
+      label: "Neden",
+      lines: ["Size Spark bültenini göndermek: ayda bir, o ayın Spark’larıyla bir mail."],
+    },
+    {
+      type: "field",
+      label: "Hukuki dayanak",
+      lines: ["GDPR 6(1)(a), formu göndererek ve e-postayla onaylayarak verdiğiniz onay."],
+    },
+    {
+      type: "field",
+      label: "Saklama",
+      lines: ["Abonelikten çıkana kadar. Onay bağlantısına hiç tıklamazsanız size mail göndermiyorum."],
+    },
+    {
+      type: "b",
+      text: "Her mailin altında abonelikten çıkma bağlantısı var. Tek tıkla abonelik biter, onayınızı istediğiniz zaman ileriye dönük geri alabilirsiniz. Kit bir ABD şirketi. Verinin ABD’ye ulaştığı durumlarda aktarım, GDPR Bölüm V’in aradığı güvencelere, örneğin AB Standart Sözleşme Maddeleri’ne dayanıyor. Politikaları: https://kit.com/privacy",
+    },
+    { type: "h", text: "6. Bana e-posta yazdığınızda ya da müşteri olduğunuzda" },
     {
       type: "b",
       text: "Bana yazarsanız mesajınızı, iletişim bilgilerinizi ve cevaplarımı saklarım.",
@@ -379,7 +428,7 @@ export const tr: LegalPage = {
       type: "b",
       text: "Müşteri verisi sözleşme kapsamında ele alınır. Bir müşteri adına kişisel veri işlediğim durumlarda, işleme başlamadan önce GDPR 28. madde kapsamında ayrı bir veri işleme sözleşmesi imzalarız.",
     },
-    { type: "h", text: "6. Verinizi başka kim görüyor" },
+    { type: "h", text: "7. Verinizi başka kim görüyor" },
     {
       type: "b",
       text: "Sadece işi yürütmek için ihtiyacım olan sağlayıcılar. Her biri GDPR 28. madde kapsamında bir sözleşmeyle, benim talimatımla veri işliyor ve kendi amaçları için kullanamıyor.",
@@ -391,6 +440,7 @@ export const tr: LegalPage = {
         ["Vercel Inc.", "Siteyi sunmak", "ABD"],
         ["Vercel Inc.", "Çerezsiz ziyaret sayımı ve sayfa hızı", "ABD"],
         ["Cal.com, Inc.", "Randevu, siz tıkladıktan sonra", "AB / ABD"],
+        ["Kit", "Spark bülteninin gönderimi, abone olduktan sonra", "ABD"],
         ["Google (Gmail)", "Kurumsal e-posta ve takvim", "ABD"],
       ],
     },
@@ -398,7 +448,7 @@ export const tr: LegalPage = {
       type: "b",
       text: "Bunun dışında veriyi sadece yasal zorunluluk halinde, örneğin vergi idaresine ya da geçerli bir mahkeme kararına karşılık paylaşırım.",
     },
-    { type: "h", text: "7. Bu sitenin yapmadıkları" },
+    { type: "h", text: "8. Bu sitenin yapmadıkları" },
     {
       type: "b",
       text: "Reklam çerezi yok. Yeniden hedefleme pikseli yok. Sosyal medya takibi yok. Analiz çerezi yok. GDPR 22. madde kapsamında otomatik karar ya da profilleme yok. Veri satışı ya da kiralama yok.",
@@ -407,12 +457,12 @@ export const tr: LegalPage = {
       type: "b",
       text: "Bunlardan biri değişirse, değişiklik yayına girmeden önce bu sayfa güncellenir ve rıza gerektiren her şey önce rıza ister.",
     },
-    { type: "h", text: "8. Çerezler" },
+    { type: "h", text: "9. Çerezler" },
     {
       type: "b",
       text: "Bkz. çerez bildirimi. Kısacası bu site, kesinlikle gerekli olmayan hiçbir şey yerleştirmiyor ve kullandığı tek üçüncü taraf araç siz tıklamadan yüklenmiyor.",
     },
-    { type: "h", text: "9. Haklarınız" },
+    { type: "h", text: "10. Haklarınız" },
     { type: "b", text: "GDPR kapsamında benden şunları isteyebilirsiniz:" },
     {
       type: "ul",
@@ -434,7 +484,7 @@ export const tr: LegalPage = {
       type: "b",
       text: "Bir denetim otoritesine de şikâyet edebilirsiniz. Benimle ilgili otorite Berlin Veri Koruma ve Bilgi Özgürlüğü Komiseri (Berliner Beauftragte für Datenschutz und Informationsfreiheit). Yaşadığınız ya da çalıştığınız yerdeki otoriteye de gidebilirsiniz. Türkiye’de yerleşikseniz Kişisel Verileri Koruma Kurumu’na başvurabilirsiniz.",
     },
-    { type: "h", text: "10. Güvenlik" },
+    { type: "h", text: "11. Güvenlik" },
     {
       type: "b",
       text: "Site TLS üzerinden sunuluyor. E-postama ve dosyalarıma erişim iki faktörlü doğrulama gerektiriyor. Hiçbir sistem kusursuz güvenli değil, ama bu siteye gönderilen veri iletim sırasında şifreleniyor.",
@@ -443,7 +493,7 @@ export const tr: LegalPage = {
       type: "b",
       text: "Müşterilerden canlı müşteri verisi istemiyorum ve almak da istemiyorum. İş gerçekçi veri gerektiriyorsa anonimleştirilmiş ya da sentetik veri seti kullanıyoruz.",
     },
-    { type: "h", text: "11. Değişiklikler" },
+    { type: "h", text: "12. Değişiklikler" },
     {
       type: "b",
       text: "Site, veri işlemeyi etkileyecek şekilde değişirse, değişiklik yayına girmeden önce bu sayfa güncellenir. En üstteki tarih son revizyonu gösterir.",

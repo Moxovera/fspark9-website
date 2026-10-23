@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@/components/icons";
 import { useDialogFocus } from "@/hooks/useDialogFocus";
+import { useReportVideoOpen } from "@/components/ui/VideoOpenContext";
 import type { VideoModalProps } from "@/types/content";
 
 /**
@@ -30,6 +31,7 @@ export default function VideoModal({ youtubeId, title, eyebrow, aspect, closeLab
   useEffect(() => setMounted(true), []);
 
   useDialogFocus(open, dialogRef, returnFocusRef, onClose);
+  useReportVideoOpen(open);
 
   if (!open || !mounted) return null;
 

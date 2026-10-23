@@ -19,6 +19,9 @@
   --positive: #2F6B3A;
   --negative: #9B2C1F;
 
+  /* MobileBookingBar yüksekliği (900px altı): 1px çizgi + 12px üst + 49px buton + 12px alt + iOS güvenli alan. */
+  --booking-bar-h: calc(74px + env(safe-area-inset-bottom, 0px));
+
   --background: var(--paper);
   --foreground: var(--ink);
 }
@@ -972,15 +975,6 @@ html:not(.js) .video-only { display: none; }
   .film-poster, .film-clip, .film-clip.is-ending, .film-pill { transition: none; }
 }
 
-/* Ana sayfa Spark bölümündeki "Spark nedir? İzleyin" düğmesi: resim ve klip yok,
-   sitedeki Flare oynat hapıyla aynı, hover'da 1,05 büyür. */
-.spark-watch { transition: scale 200ms var(--ease-brand); }
-.spark-watch:hover,
-.spark-watch:focus-visible { scale: 1.05; }
-@media (prefers-reduced-motion: reduce) {
-  .spark-watch { transition: none; }
-}
-
 /* Dikey video penceresi (VideoModal `aspect`): masaüstünde oynatıcı yüksekliği
    min(78vh, 740px), genişliği bunun oranı katı; telefonda başlığın altında
    ekrana sığan en büyük boy. */
@@ -995,4 +989,14 @@ html:not(.js) .video-only { display: none; }
     max-width: 100%;
   }
   .video-player-aspect { width: 100%; }
+}
+
+/* Spark sayfalarındaki sabit bülten kutusu: ilk girişte aşağıdan kayar. */
+@keyframes newsletter-box-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+.newsletter-box-in { animation: newsletter-box-in 500ms var(--ease-brand) both; }
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-box-in { animation: none; }
 }
