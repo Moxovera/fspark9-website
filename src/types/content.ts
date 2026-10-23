@@ -1441,11 +1441,6 @@ export interface SparkNewsletterContent {
   /** Mail alanının etiketi (ekran okuyucu) ve yer tutucusu. */
   emailLabel: string
   submitLabel: string
-  successMessage: string
-  invalidMessage: string
-  errorMessage: string
-  /** Kit anahtarları henüz yokken (API 503). */
-  unavailableMessage: string
   homeHeading: string
   archiveLabel: string
   /** "EN YENİ · {format}" */
@@ -1465,16 +1460,12 @@ export interface SparkNewsletterContent {
   quietLink: string
   quietText: string
   quietButton: string
-  quietSuccess: string
   /** Spark sayfalarındaki sabit kutu. */
   boxLabel: string
   boxHeading: string
   boxText: string
   boxPhoneLabel: string
-  boxMinimiseLabel: string
-  tabLabel: string
-  tabPhoneLabel: string
-  tabAriaLabel: string
+  boxCloseLabel: string
   /** Menüdeki giriş: masaüstü etiketi, aria ve telefon menüsü satırı. */
   menuLabel: string
   menuAriaLabel: string
@@ -1836,18 +1827,13 @@ export interface SparkFilmRowProps {
   posterSrc?: string;
 }
 
-export type SparkSubscribeSource = "anasayfa" | "spark-giris" | "bolum-sonu" | "sabit-kutu" | "footer";
-
 export interface SparkSubscribeProps {
   variant: "card" | "inline-dark" | "quiet";
-  source: SparkSubscribeSource;
   locale: Locale;
   content: SparkNewsletterContent;
   className?: string;
   /** `inline-dark` için yükseklik: sabit kutu, telefon şeridi, footer. Verilirse buton her genişlikte Flare. */
   size?: "box" | "footer";
-  /** Başarı mesajı göründüğünde bir kez çağrılır. */
-  onDone?: () => void;
 }
 
 export interface NewsletterBoxProps {

@@ -428,10 +428,6 @@ export type SparkSection = {
   newsletter?: {
     emailLabel?: LocaleString;
     submitLabel?: LocaleString;
-    successMessage?: LocaleString;
-    invalidMessage?: LocaleString;
-    errorMessage?: LocaleString;
-    unavailableMessage?: LocaleString;
     homeHeading?: LocaleString;
     archiveLabel?: LocaleString;
     latestLabel?: LocaleString;
@@ -447,15 +443,11 @@ export type SparkSection = {
     quietLink?: LocaleString;
     quietText?: LocaleText;
     quietButton?: LocaleString;
-    quietSuccess?: LocaleString;
     boxLabel?: LocaleString;
     boxHeading?: LocaleString;
     boxText?: LocaleString;
     boxPhoneLabel?: LocaleString;
-    boxMinimiseLabel?: LocaleString;
-    tabLabel?: LocaleString;
-    tabPhoneLabel?: LocaleString;
-    tabAriaLabel?: LocaleString;
+    boxCloseLabel?: LocaleString;
     menuLabel?: LocaleString;
     menuAriaLabel?: LocaleString;
     menuPhoneLabel?: LocaleString;
@@ -1504,10 +1496,6 @@ export type SPARK_HUB_QUERYResult = {
     newsletter: {
       emailLabel?: LocaleString;
       submitLabel?: LocaleString;
-      successMessage?: LocaleString;
-      invalidMessage?: LocaleString;
-      errorMessage?: LocaleString;
-      unavailableMessage?: LocaleString;
       homeHeading?: LocaleString;
       archiveLabel?: LocaleString;
       latestLabel?: LocaleString;
@@ -1523,15 +1511,11 @@ export type SPARK_HUB_QUERYResult = {
       quietLink?: LocaleString;
       quietText?: LocaleText;
       quietButton?: LocaleString;
-      quietSuccess?: LocaleString;
       boxLabel?: LocaleString;
       boxHeading?: LocaleString;
       boxText?: LocaleString;
       boxPhoneLabel?: LocaleString;
-      boxMinimiseLabel?: LocaleString;
-      tabLabel?: LocaleString;
-      tabPhoneLabel?: LocaleString;
-      tabAriaLabel?: LocaleString;
+      boxCloseLabel?: LocaleString;
       menuLabel?: LocaleString;
       menuAriaLabel?: LocaleString;
       menuPhoneLabel?: LocaleString;

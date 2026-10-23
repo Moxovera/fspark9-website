@@ -63,7 +63,7 @@ export default function FinalQuestion({ content, newsletter, locale }: FinalQues
             </b>
             <p className="mt-0 mb-5 max-w-[56ch] text-[18px] leading-[1.6] text-ink">{fit.body}</p>
             <CutButton label={content.ctaLabel} />
-            <SparkSubscribe variant="quiet" source="bolum-sonu" locale={locale} content={newsletter} className="mt-6 border-t border-rule pt-4" />
+            <SparkSubscribe variant="quiet" locale={locale} content={newsletter} className="mt-6 border-t border-rule pt-4" />
           </div>
         )}
       </div>

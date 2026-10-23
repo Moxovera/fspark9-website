@@ -1,3 +1,11 @@
+/**
+ * Kit formunun adresi (dile göre). NEXT_PUBLIC değişkenleri derlemede satır
+ * içine alındığı için her biri düz yazılmalı.
+ */
+export function kitFormAction(locale: string): string {
+  return (locale === "tr" ? process.env.NEXT_PUBLIC_KIT_FORM_ACTION_TR : process.env.NEXT_PUBLIC_KIT_FORM_ACTION_EN) ?? "";
+}
+
 /** Footer'daki bülten şeridinin id'si (menü girişleri ve sabit kutu buna bağlı). */
 export const NEWSLETTER_ID = "bulten";
 

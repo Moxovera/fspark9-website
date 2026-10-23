@@ -150,7 +150,7 @@ export default function DecisionEpisode({ episode, newsletter, answerSubject, sl
               >
                 {service.ctaLabel}
               </Link>
-              <SparkSubscribe variant="quiet" source="bolum-sonu" locale={lang} content={newsletter} className="mt-6 border-t border-rule pt-4" />
+              <SparkSubscribe variant="quiet" locale={lang} content={newsletter} className="mt-6 border-t border-rule pt-4" />
             </section>
           </div>
         </div>

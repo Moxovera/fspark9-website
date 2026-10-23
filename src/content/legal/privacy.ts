@@ -123,16 +123,12 @@ export const en: LegalPage = {
     { type: "h", text: "5. When you subscribe to the Spark newsletter" },
     {
       type: "b",
-      text: "The newsletter forms on this site (home page, Spark page, end of a Last Day issue) send your email address to Kit, the service that sends the newsletter. Nothing is sent until you submit a form.",
-    },
-    {
-      type: "b",
-      text: "Sign-up uses double opt-in: Kit emails you a confirmation link, and you are on the list only after you click it. Besides your email address I store where you signed up (home page, Spark page or end of an issue) and the language of the page, so I can see which formats work.",
+      text: "The newsletter forms on this site send your email address to Kit, the service that sends the newsletter. Nothing is sent until you submit a form. You then get an email with a confirmation link, and you are on the list only after you click it.",
     },
     {
       type: "field",
       label: "Why",
-      lines: ["To send you the Spark newsletter: a short email when a new issue is out."],
+      lines: ["To send you the Spark newsletter: one email a month with that month's Sparks."],
     },
     {
       type: "field",
@@ -378,16 +374,12 @@ export const tr: LegalPage = {
     { type: "h", text: "5. Spark bültenine abone olduğunuzda" },
     {
       type: "b",
-      text: "Bu sitedeki bülten formları (ana sayfa, Spark sayfası, Son Gün sayılarının sonu) e-posta adresinizi bülteni gönderen servis Kit’e iletiyor. Bir formu göndermeden hiçbir şey iletilmiyor.",
-    },
-    {
-      type: "b",
-      text: "Kayıt çift onayla çalışıyor: Kit size bir onay bağlantısı gönderiyor, siz tıklayınca listeye giriyorsunuz. E-posta adresinizin yanında nereden kaydolduğunuzu (ana sayfa, Spark sayfası ya da sayı sonu) ve sayfanın dilini saklıyorum, böylece hangi formatın işe yaradığını görebiliyorum.",
+      text: "Bu sitedeki bülten formları e-posta adresinizi bülteni gönderen servis Kit’e iletiyor. Bir formu göndermeden hiçbir şey iletilmiyor. Ardından size onay linki olan bir mail geliyor, linke tıklayınca listeye giriyorsunuz.",
     },
     {
       type: "field",
       label: "Neden",
-      lines: ["Size Spark bültenini göndermek: yeni sayı çıktığında kısa bir mail."],
+      lines: ["Size Spark bültenini göndermek: ayda bir, o ayın Spark’larıyla bir mail."],
     },
     {
       type: "field",

@@ -33,7 +33,7 @@ export default function Footer({ chrome, newsletter, locale }: FooterProps) {
           </div>
           <p className="m-0 font-mono text-[12px] leading-[normal] font-medium tracking-[0.08em] text-dust uppercase">{newsletter.footerLabel}</p>
         </div>
-        <SparkSubscribe variant="inline-dark" size="footer" source="footer" locale={locale} content={newsletter} className="w-full min-[900px]:max-w-[480px]" />
+        <SparkSubscribe variant="inline-dark" size="footer" locale={locale} content={newsletter} className="w-full min-[900px]:max-w-[480px]" />
       </div>
       <div className="flex flex-col gap-[14px] border-t border-inkrule pt-6 text-[15px] leading-[normal] text-paper min-[768px]:flex-row min-[768px]:flex-wrap min-[768px]:items-center min-[768px]:gap-x-6 min-[768px]:gap-y-3 min-[1024px]:flex-nowrap min-[1024px]:gap-10 min-[768px]:whitespace-nowrap min-[768px]:pt-7 min-[768px]:text-[14px]">
         <Logo tone="paper" label={brandName} className="h-[22px] self-start" />

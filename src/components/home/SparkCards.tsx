@@ -51,7 +51,7 @@ export default function SparkCards({ content, film, newsletter, sparkLabel, loca
               <p className="m-0 text-[16px] leading-[1.5] text-ink">{newsletter.cardText}</p>
             </div>
             <div className="mt-auto flex flex-col gap-3">
-              <SparkSubscribe variant="card" source="anasayfa" locale={locale} content={newsletter} />
+              <SparkSubscribe variant="card" locale={locale} content={newsletter} />
               <p className="m-0 text-[14px] leading-[1.4] text-ink">{newsletter.cardNote}</p>
             </div>
           </div>

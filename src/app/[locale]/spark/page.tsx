@@ -52,7 +52,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
       <Label ground="ink" className="!text-flare">
         {hub.newsletter.hubLabel}
       </Label>
-      <SparkSubscribe variant="inline-dark" source="spark-giris" locale={locale} content={hub.newsletter} />
+      <SparkSubscribe variant="inline-dark" locale={locale} content={hub.newsletter} />
     </div>
   );
 
