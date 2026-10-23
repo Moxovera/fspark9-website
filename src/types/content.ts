@@ -1836,6 +1836,13 @@ export interface SparkSubscribeProps {
   size?: "box" | "footer";
 }
 
+export interface NewsletterStripProps {
+  newsletter: SparkNewsletterContent;
+  locale: Locale;
+  id?: string;
+  className?: string;
+}
+
 export interface NewsletterBoxProps {
   content: SparkNewsletterContent;
   locale: Locale;
