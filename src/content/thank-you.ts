@@ -54,3 +54,26 @@ export const newsletterTr: ThankYouPage = {
   ],
   links: [{ label: "Spark'ta neler var", sublabel: "Spark", href: "/spark" }],
 };
+
+// Kit onay mailindeki linke tıklandıktan sonra (confirmation sonrası) gelinen sayfa.
+export const confirmedEn: ThankYouPage = {
+  seo: { title: "You are subscribed | fspark9", description: "" },
+  label: "Newsletter",
+  heading: "You are subscribed.",
+  paragraphs: [
+    "Thanks for confirming. You are on the list.",
+    "One email a month is on its way: that month's Sparks, with a short note. You can leave any time with the link at the bottom of every email.",
+  ],
+  links: [{ label: "See what is on Spark", sublabel: "Spark", href: "/spark" }],
+};
+
+export const confirmedTr: ThankYouPage = {
+  seo: { title: "Aboneliğiniz onaylandı | fspark9", description: "" },
+  label: "Bülten",
+  heading: "Aboneliğiniz onaylandı.",
+  paragraphs: [
+    "Onayladığınız için teşekkürler. Artık listedesiniz.",
+    "Ayda bir mail gelir: o ayın Spark'ları, kısa bir notla. İstediğiniz an her mailin altındaki linkten çıkabilirsiniz.",
+  ],
+  links: [{ label: "Spark'ta neler var", sublabel: "Spark", href: "/spark" }],
+};

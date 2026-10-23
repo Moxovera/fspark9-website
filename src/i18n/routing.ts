@@ -28,6 +28,8 @@ export const routing = defineRouting({
     '/spark/[formatSlug]/[episodeSlug]': '/spark/[formatSlug]/[episodeSlug]',
     '/thank-you': '/thank-you',
     // Spark bülteni kaydından sonra Kit formunun yönlendirdiği sayfa.
+    // Kit onay mailindeki linke tıklandıktan sonra.
+    '/newsletter-confirmed': { en: '/newsletter-confirmed', tr: '/bulten-onaylandi' },
     '/newsletter-thank-you': { en: '/newsletter-thank-you', tr: '/bulten-tesekkurler' },
     '/impressum': '/impressum',
     '/terms': { en: '/terms', tr: '/kullanim-sartlari' },
