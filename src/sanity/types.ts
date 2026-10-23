@@ -422,7 +422,6 @@ export type SparkSection = {
     buttonLabel?: LocaleString;
     ariaLabel?: LocaleString;
     modalTitle?: LocaleString;
-    homeButtonLabel?: LocaleString;
     closeLabel?: LocaleString;
   };
   newsletter?: {
@@ -438,7 +437,6 @@ export type SparkSection = {
     filmKicker?: LocaleString;
     filmTitle?: LocaleString;
     watchLabel?: LocaleString;
-    hubLabel?: LocaleString;
     quietPrompt?: LocaleString;
     quietLink?: LocaleString;
     quietText?: LocaleText;
@@ -447,7 +445,10 @@ export type SparkSection = {
     boxHeading?: LocaleString;
     boxText?: LocaleString;
     boxPhoneLabel?: LocaleString;
-    boxCloseLabel?: LocaleString;
+    boxMinimiseLabel?: LocaleString;
+    tabLabel?: LocaleString;
+    tabPhoneLabel?: LocaleString;
+    tabAriaLabel?: LocaleString;
     menuLabel?: LocaleString;
     menuAriaLabel?: LocaleString;
     menuPhoneLabel?: LocaleString;
@@ -762,10 +763,6 @@ export type HomePage = {
     };
   };
   spark?: {
-    label?: LocaleString;
-    heading?: LocaleString;
-    text?: LocaleText;
-    linkLabel?: LocaleString;
     cardLinkLabel?: LocaleString;
   };
 };
@@ -1298,10 +1295,6 @@ export type HOME_PAGE_QUERYResult = {
     portraitUrl: string | null;
   } | null;
   spark: {
-    label?: LocaleString;
-    heading?: LocaleString;
-    text?: LocaleText;
-    linkLabel?: LocaleString;
     cardLinkLabel?: LocaleString;
   } | null;
 } | null;
@@ -1490,7 +1483,6 @@ export type SPARK_HUB_QUERYResult = {
       buttonLabel?: LocaleString;
       ariaLabel?: LocaleString;
       modalTitle?: LocaleString;
-      homeButtonLabel?: LocaleString;
       closeLabel?: LocaleString;
     } | null;
     newsletter: {
@@ -1506,7 +1498,6 @@ export type SPARK_HUB_QUERYResult = {
       filmKicker?: LocaleString;
       filmTitle?: LocaleString;
       watchLabel?: LocaleString;
-      hubLabel?: LocaleString;
       quietPrompt?: LocaleString;
       quietLink?: LocaleString;
       quietText?: LocaleText;
@@ -1515,7 +1506,10 @@ export type SPARK_HUB_QUERYResult = {
       boxHeading?: LocaleString;
       boxText?: LocaleString;
       boxPhoneLabel?: LocaleString;
-      boxCloseLabel?: LocaleString;
+      boxMinimiseLabel?: LocaleString;
+      tabLabel?: LocaleString;
+      tabPhoneLabel?: LocaleString;
+      tabAriaLabel?: LocaleString;
       menuLabel?: LocaleString;
       menuAriaLabel?: LocaleString;
       menuPhoneLabel?: LocaleString;

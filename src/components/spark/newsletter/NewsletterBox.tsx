@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "@/i18n/navigation";
-import { CloseIcon } from "@/components/icons";
+import { ArrowUpIcon, CloseIcon } from "@/components/icons";
 import SparkMark from "@/components/spark/newsletter/SparkMark";
 import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import { useBooking } from "@/hooks/useBooking";
@@ -11,13 +11,14 @@ import { useVideoOpen } from "@/components/ui/VideoOpenContext";
 import { NEWSLETTER_ID } from "@/lib/newsletter";
 import type { NewsletterBoxProps } from "@/types/content";
 
-type Phase = "pending" | "open" | "closed";
+type Phase = "pending" | "open" | "min";
 
 const STORAGE_KEY = "fspark9-newsletter-box";
 
 /**
  * Spark sayfalarındaki (/spark ve altı) sabit bülten kutusu. Açık gelir,
- * kapatma düğmesi kutuyu o oturumda (sessionStorage) bir daha göstermez;
+ * kapatma düğmesi kutuyu küçültür: sağ altta sekme olarak kalır, sekmeye
+ * basınca kutu geri açılır. Küçültme o oturumda (sessionStorage) hatırlanır;
  * başka süre mantığı yok. Footer'daki şerit ekrandayken, randevu penceresi,
  * mobil menü ya da video penceresi açıkken gizli. Telefonda
  * MobileBookingBar'ın hemen üstünde şerit (`--booking-bar-h`).
@@ -32,13 +33,13 @@ export default function NewsletterBox({ content, locale }: NewsletterBoxProps) {
   const [stripVisible, setStripVisible] = useState(false);
 
   useEffect(() => {
-    let closed = false;
+    let minimised = false;
     try {
-      closed = window.sessionStorage.getItem(STORAGE_KEY) === "closed";
+      minimised = window.sessionStorage.getItem(STORAGE_KEY) === "min";
     } catch {
       // Depolama kapalı: kutu açık gelir.
     }
-    setPhase(closed ? "closed" : "open");
+    setPhase(minimised ? "min" : "open");
   }, []);
 
   // Footer şeridi ekrana girince kutu gizlenir (aynı formu iki kere göstermeyelim).
@@ -50,18 +51,56 @@ export default function NewsletterBox({ content, locale }: NewsletterBoxProps) {
     return () => observer.disconnect();
   }, []);
 
-  const close = useCallback(() => {
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "closed");
-    } catch {
-      // Depolama kapalıysa sayfa değişene kadar kapalı kalır.
-    }
-    setPhase("closed");
-  }, []);
+  const tabRef = useRef<HTMLButtonElement>(null);
+  const minimiseRef = useRef<HTMLButtonElement>(null);
+  const focusAfter = useRef<"tab" | "box" | null>(null);
+  useEffect(() => {
+    if (focusAfter.current === "tab") tabRef.current?.focus();
+    if (focusAfter.current === "box") minimiseRef.current?.focus();
+    focusAfter.current = null;
+  }, [phase]);
 
-  if (!onSpark || phase !== "open") return null;
+  const remember = useCallback((value: "min" | "open") => {
+    try {
+      if (value === "min") window.sessionStorage.setItem(STORAGE_KEY, "min");
+      else window.sessionStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Depolama kapalıysa sayfa değişene kadar bu durumda kalır.
+    }
+  }, []);
+  const minimise = useCallback(() => {
+    focusAfter.current = "tab";
+    remember("min");
+    setPhase("min");
+  }, [remember]);
+  const expand = useCallback(() => {
+    focusAfter.current = "box";
+    remember("open");
+    setPhase("open");
+  }, [remember]);
+
+  if (!onSpark || phase === "pending") return null;
 
   const hidden = stripVisible || bookingOpen || menuOpen || videoOpen;
+
+  if (phase === "min") {
+    return (
+      <button
+        ref={tabRef}
+        type="button"
+        onClick={expand}
+        aria-label={content.tabAriaLabel}
+        aria-hidden={hidden || undefined}
+        tabIndex={hidden ? -1 : undefined}
+        className={`on-ink fixed right-4 bottom-[calc(var(--booking-bar-h)+12px)] z-[79] inline-flex h-11 cursor-pointer items-center gap-2 border-0 border-t-[3px] border-flare bg-ink px-3 font-sans text-[14px] leading-none font-bold whitespace-nowrap text-paper min-[900px]:right-8 min-[900px]:bottom-8 min-[900px]:h-12 min-[900px]:px-4 ${hidden ? "invisible" : ""}`}
+      >
+        <SparkMark />
+        <span className="min-[900px]:hidden">{content.tabPhoneLabel}</span>
+        <span className="hidden min-[900px]:inline">{content.tabLabel}</span>
+        <ArrowUpIcon className="size-4 flex-none" />
+      </button>
+    );
+  }
 
   return (
     <div
@@ -80,9 +119,10 @@ export default function NewsletterBox({ content, locale }: NewsletterBoxProps) {
           </span>
         </div>
         <button
+          ref={minimiseRef}
           type="button"
-          onClick={close}
-          aria-label={content.boxCloseLabel}
+          onClick={minimise}
+          aria-label={content.boxMinimiseLabel}
           className="-my-2 -mr-3 flex size-11 flex-none cursor-pointer items-center justify-center border-0 bg-transparent text-dust"
         >
           <CloseIcon className="size-[18px]" />

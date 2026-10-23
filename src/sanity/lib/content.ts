@@ -287,10 +287,6 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
       },
       withMe: { ...withMe, portraitSrc: withMePortrait || undefined },
       spark: {
-        label: page.spark.label,
-        heading: page.spark.heading,
-        text: page.spark.text,
-        linkLabel: page.spark.linkLabel,
         cards: sparkCards,
       },
     };
@@ -429,7 +425,9 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
         filmKicker: nl?.filmKicker ?? "",
         filmTitle: nl?.filmTitle ?? "",
         watchLabel: nl?.watchLabel ?? "",
-        hubLabel: nl?.hubLabel ?? "",
+        tabLabel: nl?.tabLabel ?? "",
+        tabPhoneLabel: nl?.tabPhoneLabel ?? "",
+        tabAriaLabel: nl?.tabAriaLabel ?? "",
         quietPrompt: nl?.quietPrompt ?? "",
         quietLink: nl?.quietLink ?? "",
         quietText: nl?.quietText ?? "",
@@ -438,7 +436,7 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
         boxHeading: nl?.boxHeading ?? "",
         boxText: nl?.boxText ?? "",
         boxPhoneLabel: nl?.boxPhoneLabel ?? "",
-        boxCloseLabel: nl?.boxCloseLabel ?? "",
+        boxMinimiseLabel: nl?.boxMinimiseLabel ?? "",
         menuLabel: nl?.menuLabel ?? "",
         menuAriaLabel: nl?.menuAriaLabel ?? "",
         menuPhoneLabel: nl?.menuPhoneLabel ?? "",
@@ -451,7 +449,6 @@ export async function getSparkHub(): Promise<Record<Locale, SparkHubContent>> {
         buttonLabel: sparkFilm?.buttonLabel ?? "",
         ariaLabel: sparkFilm?.ariaLabel ?? "",
         modalTitle: sparkFilm?.modalTitle ?? "",
-        homeButtonLabel: sparkFilm?.homeButtonLabel ?? "",
         closeLabel: sparkFilm?.closeLabel ?? "",
       },
       formats: formats.map(

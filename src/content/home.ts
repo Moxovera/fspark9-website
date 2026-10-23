@@ -131,10 +131,6 @@ export const home: Record<Locale, HomeContent> = {
       portraitAlt: "Mehmet Burak Dikmen",
     },
     spark: {
-      label: "Spark",
-      heading: "Short, sharp formats that get companies moving.",
-      text: "Postmortems of companies that stopped, and sector reports. Numbered and dated.",
-      linkLabel: "Read Spark",
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
@@ -301,10 +297,6 @@ export const home: Record<Locale, HomeContent> = {
       portraitAlt: "Mehmet Burak Dikmen",
     },
     spark: {
-      label: "Spark",
-      heading: "Şirketleri harekete geçiren kısa ve keskin formatlar.",
-      text: "Kapanan şirketlerin son günleri ve sektör raporları. Numaralı ve tarihli.",
-      linkLabel: "Spark’ı okuyun",
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {

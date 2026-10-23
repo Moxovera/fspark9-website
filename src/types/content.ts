@@ -1284,10 +1284,6 @@ export interface HomeContent {
     portraitSrc?: string
   }
   spark: {
-    label: string
-    heading: string
-    text: string
-    linkLabel: string
     cards: SparkCardContent[]
   }
 }
@@ -1432,7 +1428,6 @@ export interface SparkFilmContent {
   /** Pencere başlığı: sayfanın alt başlığı. */
   modalTitle: string
   /** Ana sayfadaki Spark bölümünün düğmesi ("Spark nedir? İzleyin"). */
-  homeButtonLabel: string
   closeLabel: string
 }
 
@@ -1455,7 +1450,10 @@ export interface SparkNewsletterContent {
   /** Spark girişinin telefon satırı: "İZLEYİN". */
   watchLabel: string
   /** Spark girişindeki blok etiketi. */
-  hubLabel: string
+  /** Sabit kutunun küçültülmüş sekmesi: masaüstü, telefon, aria. */
+  tabLabel: string
+  tabPhoneLabel: string
+  tabAriaLabel: string
   quietPrompt: string
   quietLink: string
   quietText: string
@@ -1465,7 +1463,7 @@ export interface SparkNewsletterContent {
   boxHeading: string
   boxText: string
   boxPhoneLabel: string
-  boxCloseLabel: string
+  boxMinimiseLabel: string
   /** Menüdeki giriş: masaüstü etiketi, aria ve telefon menüsü satırı. */
   menuLabel: string
   menuAriaLabel: string

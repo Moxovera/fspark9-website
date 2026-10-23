@@ -129,7 +129,9 @@ function newsletterFields() {
 /** Sadece bülten metinleri (--only=newsletter): sparkSection.newsletter ve footer.newsletterLabel; başka alana dokunmaz. */
 function newsletterPatches() {
   return [
-    { id: "sparkSection", set: { newsletter: newsletterFields() } },
+    { id: "sparkSection", set: { newsletter: newsletterFields() }, unset: ["sparkFilm.homeButtonLabel"] },
+    // Kullanılmayan eski Spark bölümü metinleri.
+    { id: "homePage", set: {}, unset: ["spark.label", "spark.heading", "spark.text", "spark.linkLabel"] },
     // Footer linki yerine footer şeridi geldi: eski alan kalkar.
     { id: "siteSettings", set: {}, unset: ["footer.newsletterLabel"] },
   ];
@@ -355,10 +357,6 @@ function homeDoc(): SanityDocumentStub {
       portraitAlt: ls(e.withMe.portraitAlt, t.withMe.portraitAlt),
     },
     spark: {
-      label: ls(e.spark.label, t.spark.label),
-      heading: ls(e.spark.heading, t.spark.heading),
-      text: lt(e.spark.text, t.spark.text),
-      linkLabel: ls(e.spark.linkLabel, t.spark.linkLabel),
       cardLinkLabel: ls(sparkCard(e, "Nº 01").linkLabel ?? "", sparkCard(t, "Nº 01").linkLabel ?? ""),
     },
   };
@@ -509,7 +507,6 @@ function sparkFilmFields() {
     buttonLabel: ls(e.buttonLabel, t.buttonLabel),
     ariaLabel: ls(e.ariaLabel, t.ariaLabel),
     modalTitle: ls(e.modalTitle, t.modalTitle),
-    homeButtonLabel: ls(e.homeButtonLabel, t.homeButtonLabel),
     closeLabel: ls(e.closeLabel, t.closeLabel),
   };
 }

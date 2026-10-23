@@ -153,7 +153,7 @@ export default defineType({
       ],
       { group: "withMe" },
     ),
-    group("spark", "Spark", [ls("label", "Label"), ls("heading", "Heading"), lt("text", "Text"), ls("linkLabel", "Link"), ls("cardLinkLabel", "Card link (published episode)")], {
+    group("spark", "Spark", [ls("cardLinkLabel", "Card link (published episode)")], {
       group: "spark",
       description: "Kartlar Spark bölümlerinden (yayında ve sıradaki) otomatik geliyor.",
     }),
