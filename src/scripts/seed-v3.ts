@@ -13,7 +13,7 @@
  *   npm run seed:v3 -- --dry         (sadece yazılacak belgeleri listeler)
  *   npm run seed:v3 -- --only=spark  (sadece Spark belgeleri; Studio'da
  *                                     düzenlenmiş diğer sayfalara dokunmaz)
- *   npm run seed:v3 -- --only=newsletter  (sadece Spark bülteni metinleri ve footer linki)
+ *   npm run seed:v3 -- --only=newsletter  (sadece Spark bülteni metinleri ve gizlilik sayfasının gövdesi)
  *   npm run seed:v3 -- --only=spark-film  (sadece Spark filminin metin ve süre
  *                                     alanları; YouTube kimliklerine dokunmaz)
  *
@@ -1198,7 +1198,7 @@ async function main() {
         ...(onlyHomeHero ? [homeHeroPatch()] : []),
         ...(onlyServicesVideo ? [homeServicesVideoPatch()] : []),
         ...(onlySparkFilm ? [sparkFilmPatch()] : []),
-        ...(onlyNewsletter ? newsletterPatches() : []),
+        ...(onlyNewsletter ? [...newsletterPatches(), ...legalPatches().filter((p) => p.id === "legalPage-privacy" && "blocks" in p.set)] : []),
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
