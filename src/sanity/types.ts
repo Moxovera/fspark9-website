@@ -230,6 +230,27 @@ export type SparkEpisode = {
   } & SparkSource>;
   correctionLine?: LocaleText;
   closeHeading?: LocaleString;
+  images?: Array<{
+    at: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: LocaleString;
+    caption?: LocaleText;
+    credit?: LocaleString;
+    href?: string;
+    _type: "sparkEpisodeImage";
+    _key: string;
+  }>;
   opening?: {
     label?: LocaleString;
     meta?: LocaleString;
@@ -322,6 +343,22 @@ export type LocaleText = {
   _type: "localeText";
   en?: string;
   tr?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type Seo = {
@@ -831,22 +868,6 @@ export type CaseStudy = {
   seo?: Seo;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
 export type SiteSettings = {
   _id: string;
   _type: "siteSettings";
@@ -1096,7 +1117,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = SparkRecordBlock | SparkChoiceDecision | SparkRulerTick | SparkChoiceOption | SparkSource | SparkFinalOption | SparkChapter | SparkDecision | SparkDecisionOption | SparkServiceTag | SparkStoryCard | SparkEpisode | LocaleString | LocaleText | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SanityImageCrop | SanityImageHotspot | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = SparkRecordBlock | SparkChoiceDecision | SparkRulerTick | SparkChoiceOption | SparkSource | SparkFinalOption | SparkChapter | SparkDecision | SparkDecisionOption | SparkServiceTag | SparkStoryCard | SparkEpisode | LocaleString | LocaleText | SanityImageCrop | SanityImageHotspot | Seo | LocaleSlug | SparkFormat | SparkSection | LegalPage | PageHero | AboutPage | WorkPage | ServicePage | ServicesPage | HomePage | CaseStudy | SiteSettings | LegalBlockTable | LegalBlockList | LegalBlockField | LegalBlockBold | LegalBlockSubheading | LegalBlockHeading | LegalBlockDiv | NoteHighlight | StatHighlight | Slug | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/content.ts
 // Variable: SITE_CHROME_QUERY
@@ -1562,7 +1583,7 @@ export type SPARK_HUB_QUERYResult = {
   }>;
 };
 // Variable: SPARK_EPISODES_QUERY
-// Query: *[_type == "sparkEpisode"  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,    launchDate, closureDate, durationLabel,    "slug": slug, "formatSlug": format->slug,    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "note": note{ label, "paragraphs": coalesce(paragraphs, []) },    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },    "decisions": coalesce(decisions[]{      date, when, label, title, record,      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),      "options": coalesce(options[]{ key, text }, []),      "sources": coalesce(sources[]{ label, href }, [])    }, []),    "records": coalesce(records[]{      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])    }, []),    "twist": twist{      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])    }  }
+// Query: *[_type == "sparkEpisode"  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,    launchDate, closureDate, durationLabel,    "slug": slug, "formatSlug": format->slug,    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "note": note{ label, "paragraphs": coalesce(paragraphs, []) },    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },    "images": coalesce(images[defined(image.asset)]{      at, alt, caption, credit, href,      "url": image.asset->url,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height,      "lqip": image.asset->metadata.lqip    }, []),    "decisions": coalesce(decisions[]{      date, when, label, title, record,      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),      "options": coalesce(options[]{ key, text }, []),      "sources": coalesce(sources[]{ label, href }, [])    }, []),    "records": coalesce(records[]{      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])    }, []),    "twist": twist{      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])    }  }
 export type SPARK_EPISODES_QUERYResult = Array<{
   number: number;
   subject: LocaleString | null;
@@ -1702,6 +1723,17 @@ export type SPARK_EPISODES_QUERYResult = Array<{
       caption: LocaleString | null;
     }> | Array<never>;
   } | null;
+  images: Array<{
+    at: string;
+    alt: LocaleString | null;
+    caption: LocaleText | null;
+    credit: LocaleString | null;
+    href: string | null;
+    url: string | null;
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+  }> | Array<never>;
   decisions: Array<{
     date: string;
     when: LocaleString | null;
@@ -1913,7 +1945,7 @@ declare module "@sanity/client" {
     "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"publishedAt\": _createdAt, \"modifiedAt\": _updatedAt,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
     "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
     "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, exploreLabel, launchDateLabel,\n    sparkFilm, newsletter,\n    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,\n    \"howSteps\": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"\n      && !($preview && previewLive == true)] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
-    "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status in [\"coming\", \"draft\"] && previewLive == true))\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,\n    launchDate, closureDate, durationLabel,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"note\": note{ label, \"paragraphs\": coalesce(paragraphs, []) },\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, []),\n    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,\n    \"ruler\": ruler{ after, \"ticks\": coalesce(ticks[]{ date, label, caption }, []) },\n    \"decisions\": coalesce(decisions[]{\n      date, when, label, title, record,\n      \"paragraphs\": coalesce(paragraphs, []), \"reveal\": coalesce(reveal, []),\n      \"options\": coalesce(options[]{ key, text }, []),\n      \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"records\": coalesce(records[]{\n      date, when, label, \"paragraphs\": coalesce(paragraphs, []), \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"twist\": twist{\n      ..., \"paragraphs\": coalesce(paragraphs, []), \"options\": coalesce(options[]{ key, text }, [])\n    }\n  }": SPARK_EPISODES_QUERYResult;
+    "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status in [\"coming\", \"draft\"] && previewLive == true))\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,\n    launchDate, closureDate, durationLabel,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"note\": note{ label, \"paragraphs\": coalesce(paragraphs, []) },\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, []),\n    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,\n    \"ruler\": ruler{ after, \"ticks\": coalesce(ticks[]{ date, label, caption }, []) },\n    \"images\": coalesce(images[defined(image.asset)]{\n      at, alt, caption, credit, href,\n      \"url\": image.asset->url,\n      \"width\": image.asset->metadata.dimensions.width,\n      \"height\": image.asset->metadata.dimensions.height,\n      \"lqip\": image.asset->metadata.lqip\n    }, []),\n    \"decisions\": coalesce(decisions[]{\n      date, when, label, title, record,\n      \"paragraphs\": coalesce(paragraphs, []), \"reveal\": coalesce(reveal, []),\n      \"options\": coalesce(options[]{ key, text }, []),\n      \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"records\": coalesce(records[]{\n      date, when, label, \"paragraphs\": coalesce(paragraphs, []), \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"twist\": twist{\n      ..., \"paragraphs\": coalesce(paragraphs, []), \"options\": coalesce(options[]{ key, text }, [])\n    }\n  }": SPARK_EPISODES_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": select($locale == \"tr\" && defined(ogImageTr.asset) => ogImageTr, ogImage){\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;

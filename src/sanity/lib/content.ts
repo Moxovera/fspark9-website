@@ -493,6 +493,13 @@ export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
     "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
     opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,
     "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },
+    "images": coalesce(images[defined(image.asset)]{
+      at, alt, caption, credit, href,
+      "url": image.asset->url,
+      "width": image.asset->metadata.dimensions.width,
+      "height": image.asset->metadata.dimensions.height,
+      "lqip": image.asset->metadata.lqip
+    }, []),
     "decisions": coalesce(decisions[]{
       date, when, label, title, record,
       "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),
@@ -516,7 +523,7 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
   return perLocale((locale) =>
     raw.flatMap((doc): SparkEpisodeEntry[] => {
       const other: Locale = locale === "tr" ? "en" : "tr";
-      const { slug, formatSlug, publishedAt, lastCheckedAt, _createdAt, _updatedAt, launchDate, closureDate, durationLabel, ...rest } = doc;
+      const { slug, formatSlug, publishedAt, lastCheckedAt, _createdAt, _updatedAt, launchDate, closureDate, durationLabel, images, ...rest } = doc;
       if (!formatSlug || !slug) return [];
       const base = {
         slug: slug[locale].current,
@@ -528,6 +535,17 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         launchDate,
         closureDate,
         durationLabel: localize(durationLabel, locale) || null,
+        images: localize(images, locale).map(({ at, url, width, height, lqip, alt, caption, credit, href }) => ({
+          at: at ?? "",
+          url: url ?? "",
+          width: width ?? 0,
+          height: height ?? 0,
+          ...optional("lqip", lqip),
+          alt: alt ?? "",
+          caption: caption ?? "",
+          credit: credit ?? "",
+          ...optional("href", href),
+        })),
       };
       if (rest.layout === "decisions") return [{ ...base, layout: "decisions", story: toDecisionEpisode(rest, locale) }];
       if (rest.layout === "report") {
@@ -553,7 +571,7 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
 
 type EpisodeDoc = Omit<
   SPARK_EPISODES_QUERYResult[number],
-  "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_createdAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel"
+  "slug" | "formatSlug" | "publishedAt" | "lastCheckedAt" | "_createdAt" | "_updatedAt" | "launchDate" | "closureDate" | "durationLabel" | "images"
 >;
 
 /** Bó'da olmayan isteğe bağlı alanlar (Fidor) sonuçta hiç yer almasın, null da değil. */

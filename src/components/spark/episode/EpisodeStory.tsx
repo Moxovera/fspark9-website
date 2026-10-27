@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import Label from "@/components/brand/Label";
 import SparkEpisodeRow from "@/components/spark/SparkEpisodeRow";
 import DecisionTable from "@/components/spark/episode/DecisionTable";
+import EpisodeImages from "@/components/spark/episode/EpisodeImages";
 import FinalQuestion from "@/components/spark/episode/FinalQuestion";
 import FootnoteText from "@/components/spark/episode/FootnoteText";
 import { StoryBar, StoryProvider, StoryRail, StoryStop } from "@/components/spark/episode/StoryTracker";
@@ -26,7 +27,7 @@ const pause = "max-w-[16ch] font-display text-[clamp(34px,4.6vw,60px)] leading-[
  * Yapışkan kartın atalarında transform/overflow yok: Reveal sadece metin
  * bloklarını sarıyor (CLAUDE.md "Sticky").
  */
-export default function EpisodeStory({ story, labels, newsletter, locale, nextHref }: EpisodeStoryProps) {
+export default function EpisodeStory({ story, images = [], labels, newsletter, locale, nextHref }: EpisodeStoryProps) {
   const { interlude } = story;
   const interludeAt = interlude ? story.chapters.findIndex((chapter) => chapter.id === interlude.afterChapter) : -1;
   // Duraklar sayfadaki sırayla: bölümler, ara bölüm kendi yerinde.
@@ -67,6 +68,11 @@ export default function EpisodeStory({ story, labels, newsletter, locale, nextHr
                         </p>
                       ))}
                     </Reveal>
+                    {images.some((image) => image.at === chapter.id) && (
+                      <Reveal>
+                        <EpisodeImages images={images} at={chapter.id} className="mt-[34px] mb-[14px]" />
+                      </Reveal>
+                    )}
                     {chapter.decision && (
                       <Reveal>
                         <DecisionTable decision={chapter.decision} labels={labels} />

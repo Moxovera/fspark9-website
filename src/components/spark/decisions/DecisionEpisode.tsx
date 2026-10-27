@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import BlockSources from "@/components/spark/decisions/BlockSources";
 import ChoiceDecision from "@/components/spark/decisions/ChoiceDecision";
 import EpisodeRuler from "@/components/spark/decisions/EpisodeRuler";
+import EpisodeImages from "@/components/spark/episode/EpisodeImages";
 import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import ReaderPoll from "@/components/spark/decisions/ReaderPoll";
 import { ClockProvider, ClockStop, EpisodeClock } from "@/components/spark/decisions/ClockTracker";
@@ -30,7 +31,7 @@ const paragraphsOf = (items: string[]) => (
  * Saatin atalarında transform/overflow yok (CLAUDE.md "Sticky"); bu
  * yüzden bloklar Reveal ile sarılmıyor.
  */
-export default function DecisionEpisode({ episode, newsletter, answerSubject, slug, lang }: DecisionEpisodeProps) {
+export default function DecisionEpisode({ episode, images = [], newsletter, answerSubject, slug, lang }: DecisionEpisodeProps) {
   const { opening, labels, decisions, records, twist, view, service } = episode;
   const stops: SparkClockStop[] = [...decisions, ...records, twist, view].map(({ date, when }) => ({ date, when }));
   const questionId = `${slug}-question`;
@@ -86,6 +87,7 @@ export default function DecisionEpisode({ episode, newsletter, answerSubject, sl
                   {decision.title}
                 </h2>
                 {paragraphsOf(decision.paragraphs)}
+                <EpisodeImages images={images} at={`d${i + 1}`} className="mt-6" />
                 <ChoiceDecision options={decision.options} record={decision.record} labels={labels}>
                   {paragraphsOf(decision.reveal)}
                   <BlockSources label={labels.sourcesLabel} sources={decision.sources} />
@@ -100,6 +102,7 @@ export default function DecisionEpisode({ episode, newsletter, answerSubject, sl
                   <span>{record.when}</span>
                 </div>
                 {paragraphsOf(record.paragraphs)}
+                <EpisodeImages images={images} at={`r${i + 1}`} className="mt-6" />
                 <BlockSources label={labels.sourcesLabel} sources={record.sources} />
               </ClockStop>
             ))}
@@ -110,6 +113,7 @@ export default function DecisionEpisode({ episode, newsletter, answerSubject, sl
                 <span>{twist.when}</span>
               </div>
               {paragraphsOf(twist.paragraphs)}
+              <EpisodeImages images={images} at="twist" className="mt-6" />
               <h2
                 id={questionId}
                 className="mt-[26px] mb-3 font-display text-[clamp(26px,3vw,34px)] leading-[1.12] font-extrabold tracking-[-0.02em]"

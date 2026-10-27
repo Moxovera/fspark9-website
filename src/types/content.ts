@@ -1705,6 +1705,20 @@ interface SparkEpisodeEntryBase {
   altFormatSlug: string
   publishedAt: string | null
   modifiedAt: string | null
+  /** Hazır görseller (fotoğraf, uygulama ekranı); sadece Sanity'de, aynada yok. */
+  images: SparkEpisodeImage[]
+}
+
+/**
+ * Bölümün içindeki hazır görsel (sparkEpisode.images). `at` bağlı olduğu
+ * yer: hikâyede bölüm id'si ("ch2"), karar bloklarında "d1", "r1", "twist".
+ */
+export interface SparkEpisodeImage extends SanityImage {
+  at: string
+  caption: string
+  credit: string
+  /** Kaynağın adresi (lisans sayfası ya da arşiv kaydı). */
+  href?: string
 }
 
 /** Bölüm sayfasının ortak etiketleri (Son Gün v3). "{x}" yer tutucuları kodda doldurulur. */
@@ -2118,6 +2132,7 @@ export interface StoryRailProps {
 
 export interface EpisodeStoryProps {
   story: SparkEpisodeStory;
+  images?: SparkEpisodeImage[];
   labels: SparkEpisodeLabels;
   newsletter: SparkNewsletterContent;
   locale: Locale;
@@ -2127,6 +2142,7 @@ export interface EpisodeStoryProps {
 
 export interface DecisionEpisodeProps {
   episode: SparkDecisionEpisode;
+  images?: SparkEpisodeImage[];
   newsletter: SparkNewsletterContent;
   /** Okur cevabı e-postasının konusu ("Son Gün Nº 02 · Nuri"). */
   answerSubject: string;
@@ -2242,6 +2258,13 @@ export interface HomeScrollMemoryProps {
 export interface RevealProps {
   className?: string;
   children: ReactNode;
+}
+
+export interface EpisodeImagesProps {
+  images: SparkEpisodeImage[];
+  /** Sadece bu yere bağlı görseller ("ch2", "d1"). */
+  at: string;
+  className?: string;
 }
 
 export interface CasePhonesProps {

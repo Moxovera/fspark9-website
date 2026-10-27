@@ -210,7 +210,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="mx-auto max-w-[1240px] px-5 min-[861px]:px-8">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="paper" />
         </div>
-        <DecisionEpisode episode={entry.story} newsletter={hub.newsletter} answerSubject={answerSubject} slug={locale === "en" ? entry.slug : entry.altSlug} lang={locale} />
+        <DecisionEpisode episode={entry.story} images={entry.images} newsletter={hub.newsletter} answerSubject={answerSubject} slug={locale === "en" ? entry.slug : entry.altSlug} lang={locale} />
         <NextStep content={nextStep} />
       </main>
     );
@@ -277,6 +277,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
 
       <EpisodeStory
         story={story}
+        images={entry.images}
         labels={hub.episode}
         newsletter={hub.newsletter}
         locale={locale}

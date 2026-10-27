@@ -1,8 +1,9 @@
-import { defineField, defineType, type ConditionalPropertyCallback, type SanityDocument } from "sanity";
+import { defineArrayMember, defineField, defineType, type ConditionalPropertyCallback, type SanityDocument } from "sanity";
 import { decisionFields } from "./sparkEpisodeDecisions";
 import { radarFields } from "./sparkEpisodeRadar";
 import { reportFields } from "./sparkEpisodeReport";
 import { storyFields } from "./sparkEpisodeStory";
+import { ls, lt, str } from "./fields";
 
 // Bir Spark bölümü. Gün sayısı launchDate/closureDate'ten hesaplanır
 // (components/spark/day/dayMath.ts), elle yazılmaz. `hook` format
@@ -32,6 +33,10 @@ const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layou
 // `psd3`. Gövde yine reportBody (şekli SparkPsd3Report).
 const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3"].includes(String(layoutOf(document)));
 const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
+// Hazır görseller (2026-10-27): fotoğraf ve uygulama ekranları, hikâye ve
+// karar bloklarında. Bölüm alanlarının dışında ayrı dizi: seed chapters'ı
+// baştan yazıyor, görseller orada olsaydı her seed'de silinirdi.
+const hideUnlessStoryOrDecisions: ConditionalPropertyCallback = ({ document }) => !["story", "decisions"].includes(String(layoutOf(document)));
 
 export default defineType({
   name: "sparkEpisode",
@@ -144,6 +149,30 @@ export default defineType({
         "Status coming ya da draft iken sadece preview (staging) adresinde yayındaki gibi görünür; canlı sitede coming (linksiz satır) ya da draft (hiç görünmez) kalır. Canlıya çıkınca status published yapılır, bu alan kaldırılır.",
     }),
     ...storyFields.map((field) => ({ ...field, hidden: hideUnlessStory })),
+    defineField({
+      name: "images",
+      title: "Images (photos, app screens)",
+      description:
+        "Hazır görseller. Place: hikâyede bölüm id'si (ch1, ch2), karar bloklarında d1, d2, r1, twist. Görsel o bölümün metninin altında çıkar.",
+      type: "array",
+      group: ["story", "decisions"],
+      hidden: hideUnlessStoryOrDecisions,
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "sparkEpisodeImage",
+          fields: [
+            str("at", "Place (ch1, d1, r1, twist)", { required: true }),
+            defineField({ name: "image", title: "Image", type: "image", validation: (r) => r.required() }),
+            ls("alt", "Alt text"),
+            lt("caption", "Caption"),
+            ls("credit", "Credit (source, licence)"),
+            defineField({ name: "href", title: "Credit link", type: "url" }),
+          ],
+          preview: { select: { title: "caption.en", subtitle: "at", media: "image" } },
+        }),
+      ],
+    }),
     ...decisionFields.map((field) => ({ ...field, group: "decisions", hidden: hideUnlessDecisions })),
     ...reportFields.map((field) => ({ ...field, group: "report", hidden: hideUnlessReport })),
     ...radarFields.map((field) => ({ ...field, group: "radar", hidden: hideUnlessRadar })),
