@@ -1,0 +1,3240 @@
+{
+  "en": {
+    "number": 3,
+    "subject": "The liability flip",
+    "hook": "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
+    "cardLinkLabel": "Read the report",
+    "seo": {
+      "title": "The liability flip · PSD3, PSR and FiDA",
+      "description": "Europe is rewriting its payment rules. When a scam call empties someone's account, the bank will often be the one paying it back. And the data banks sit on is about to get a price. Here is what changes, who feels it first and what you can build on top."
+    },
+    "hero": {
+      "meta": [
+        "Spark",
+        "02 Sector reports",
+        "October 2026"
+      ],
+      "bigNo": "02",
+      "titleLead": "The liability",
+      "titleCut": "flip.",
+      "sub": "Europe is rewriting its payment rules. When a scam call empties someone's account, the bank will often be the one paying it back. And the data banks sit on is about to get a price. Here is what changes, who feels it first and what you can build on top.",
+      "figures": [
+        {
+          "value": "€4.2bn",
+          "to": 4.2,
+          "decimals": 1,
+          "template": "€{n}bn",
+          "label": "payment fraud in the EEA in 2024 [1]"
+        },
+        {
+          "value": "85%",
+          "to": 85,
+          "decimals": 0,
+          "template": "{n}%",
+          "label": "of credit transfer fraud losses were carried by users [1]"
+        },
+        {
+          "value": "~40",
+          "to": 40,
+          "decimals": 0,
+          "template": "~{n}",
+          "label": "EBA mandates expected under PSD3 and PSR [6]"
+        },
+        {
+          "value": "48",
+          "to": 48,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "months until the last FiDA data phase opens, in the latest compromise [7]"
+        }
+      ]
+    },
+    "short": {
+      "head": {
+        "index": "01",
+        "label": "The short version",
+        "title": "Three laws, one big shift. Banks carry more of the risk and data gets a price tag."
+      },
+      "cards": [
+        {
+          "tag": "PSR · Regulation",
+          "first": "The rulebook for how money moves. Every EU country now reads the exact same text.",
+          "body": "Conduct rules move from a directive into a regulation, so Germany, France and Lithuania read the same text. Fraud liability, payee checks, open banking APIs and fee transparency live here. [3]"
+        },
+        {
+          "tag": "PSD3 · Directive",
+          "first": "The licence side. Payment and e money institutions end up under one roof.",
+          "body": "PSD3 repeals PSD2 and the E Money Directive. Authorisation and supervision stay national. Existing firms get a transition window to show they meet the new rules. [3]"
+        },
+        {
+          "tag": "FiDA · Regulation",
+          "first": "Open banking grows up. Savings, loans, investments and insurance data join the party.",
+          "body": "Data holders join sharing schemes, can charge reasonable compensation and must give customers a permission dashboard. Still under negotiation, and narrower than the 2023 proposal. [7] [8]"
+        }
+      ],
+      "view": {
+        "label": "Our view",
+        "text": "PSD2 forced banks to open a door. This package makes them responsible for what walks through it, and FiDA lets them charge for the hallway. The winners will treat compliance work as product work."
+      }
+    },
+    "status": {
+      "head": {
+        "index": "02",
+        "label": "Where things stand",
+        "title": "One package is crossing the finish line. The other is still in the room.",
+        "lede": "PSD3 and PSR are agreed. The Council finalised its first reading position on 21 October 2026 and Parliament's final vote is pencilled in for the December plenary. Publication follows in early 2027, so most rules apply in late 2028. FiDA has no deal yet. [12] [14]"
+      },
+      "tabsLabel": "Choose a file",
+      "tabs": [
+        {
+          "id": "psd",
+          "label": "PSD3 and PSR",
+          "items": [
+            {
+              "date": "28 Jun 2023",
+              "text": "**Commission proposes PSD3 and PSR**, on the same day as FiDA.",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "Apr 2024",
+              "text": "**Parliament adopts its first reading position**, just before the European elections. [15]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "Jun 2025",
+              "text": "**Council agrees its mandate.** Trilogues start on 9 July. [15]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "27 Nov 2025",
+              "text": "**Political agreement** after the final trilogue in Strasbourg. [2]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "23 Apr 2026",
+              "text": "**Final compromise texts** published after Coreper approval. [3]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "5 May 2026",
+              "text": "**ECON committee approves** the texts. [5]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "21 Oct 2026",
+              "text": "**Council finalises its first reading position** on both texts. [14][15]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "14 to 17 Dec 2026",
+              "text": "**Parliament's final vote**, indicative date in the December plenary. [12]",
+              "state": "now",
+              "chip": "Next"
+            },
+            {
+              "date": "Early 2027",
+              "text": "**Official Journal.** Entry into force 20 days after publication. [12]",
+              "state": "future",
+              "chip": "Expected"
+            },
+            {
+              "date": "+21 months",
+              "text": "**Most PSR rules apply** and PSD3 must be in national law. Late 2028. [13]",
+              "state": "future",
+              "chip": "Expected"
+            },
+            {
+              "date": "+27 months",
+              "text": "**Payee check for all credit transfers** and its refund rules apply. Last date for existing licences to prove compliance. [13]",
+              "state": "future",
+              "chip": "Expected"
+            }
+          ]
+        },
+        {
+          "id": "fida",
+          "label": "FiDA",
+          "items": [
+            {
+              "date": "28 Jun 2023",
+              "text": "**Commission proposes FiDA** to extend open banking to most financial data.",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "4 Dec 2024",
+              "text": "**Council adopts its general approach.** [20]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "Feb 2025",
+              "text": "**Withdrawal scare.** A leaked work programme draft listed FiDA for withdrawal. It survived. [9]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "Apr 2025",
+              "text": "**Trilogues start**, then stall by the summer over scope, cost and Big Tech. [12]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "25 Mar 2026",
+              "text": "**Cypriot presidency asks capitals** for a political signal to restart. [19]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "6 Apr 2026",
+              "text": "**Slimmer, phased compromise paper** on the table. No deal before the presidency ends in June. [7][12]",
+              "state": "done",
+              "chip": "Done"
+            },
+            {
+              "date": "Oct 2026",
+              "text": "**Still in trilogue** under the Irish presidency. No political agreement yet. [12]",
+              "state": "now",
+              "chip": "Open"
+            },
+            {
+              "date": "+18 months",
+              "text": "**Schemes set up** governance and standards. [7]",
+              "state": "future",
+              "chip": "If agreed"
+            },
+            {
+              "date": "+24 / 36 / 48",
+              "text": "**Data opens in three phases**, with a review after each. [7]",
+              "state": "future",
+              "chip": "If agreed"
+            }
+          ]
+        }
+      ]
+    },
+    "live": {
+      "head": {
+        "index": "03",
+        "label": "Already live",
+        "title": "Part of the flip already happened. German banks have run payee checks for a year.",
+        "lede": "The Instant Payments Regulation pulled some of the hardest builds forward. Banks have shipped them. PSR mostly adds the liability on top. [25]"
+      },
+      "checkHeading": "Payee check, first year across the euro area",
+      "checkNote": "Share of check results, EPC data presented in August 2026. About 2.2 billion checks in the second quarter alone. [24]",
+      "stackLabel": "Match 66.2 percent, close match 16.2 percent, no match 15.4 percent, not possible or error 2.2 percent",
+      "stack": [
+        {
+          "value": "66.2%",
+          "text": "Match. Name and IBAN fit.",
+          "share": 66.2
+        },
+        {
+          "value": "16.2%",
+          "text": "Close match. The bank shows the right name.",
+          "share": 16.2
+        },
+        {
+          "value": "15.4%",
+          "text": "No match. Warning before you pay.",
+          "share": 15.4
+        },
+        {
+          "value": "2.2%",
+          "text": "Check not possible or failed.",
+          "share": 2.2
+        }
+      ],
+      "surveyHeading": "What German users say",
+      "surveyNote": "forsa survey for the Federation of German Consumer Organisations, 1,030 online banking users, August 2026. [22]",
+      "survey": [
+        {
+          "value": "91%",
+          "text": "like the payee check in principle"
+        },
+        {
+          "value": "27%",
+          "text": "rate the way banks run it today as bad"
+        },
+        {
+          "value": "58%",
+          "text": "of those warned see a warning on about every fourth transfer or more"
+        }
+      ],
+      "lessonsHeading": "What the rollout taught",
+      "lessons": [
+        "Company names with legal form suffixes like GmbH, or small spelling differences, trigger a close match or no match. [23]",
+        "A missing second first name, swapped names or a hyphen can be enough for a warning. Consumer groups now ask for smarter matching. [22]",
+        "Some customers stopped payments even on a close match because the liability notice scared them. [23]",
+        "Older banking software broke until it was updated. Loan, savings and call money accounts sit outside the check. [23]",
+        "Today a customer who pays after a warning carries the loss. Under PSR, a bank that fails to warn pays it back. [10] [13]"
+      ],
+      "view": {
+        "label": "Our view",
+        "text": "False alarms are now the real risk. If customers learn to click every warning away, the PSR refund rule will hit the banks with the weakest name matching hardest. Better matching is a product advantage today, two years before the liability lands."
+      },
+      "listHeading": "Other pieces already running",
+      "list": [
+        {
+          "date": "9 Jan 2025",
+          "chip": "Live",
+          "state": "done",
+          "text": "**Every euro area bank receives instant transfers**, and an instant transfer cannot cost more than a normal one. [25]"
+        },
+        {
+          "date": "9 Oct 2025",
+          "chip": "Live",
+          "state": "done",
+          "text": "**Sending instant transfers, the payee check and daily sanctions screening** become mandatory in the euro area. [25]"
+        },
+        {
+          "date": "Oct 2025",
+          "chip": "Live",
+          "state": "done",
+          "text": "**Payment and e money institutions can join T2 and TIPS** directly if they meet the ECB's conditions. [25]"
+        },
+        {
+          "date": "18 Nov 2025",
+          "chip": "Live",
+          "state": "done",
+          "text": "**Wero goes live for online shopping in Germany** through Sparkassen and Volksbanken. Deutsche Bank, Postbank and ING followed, N26 joined in August 2026. About three quarters of retailers are still waiting to see if it takes off. [26] [27]"
+        },
+        {
+          "date": "Nov 2026",
+          "chip": "Next",
+          "state": "next",
+          "text": "**Payee check rulebook 2.0** due from the European Payments Council, with an inquiry and compensation process on the table. [28]"
+        },
+        {
+          "date": "9 Apr 2027",
+          "chip": "Next",
+          "state": "next",
+          "text": "**Payment and e money institutions in the euro area** must send and receive instant transfers too. [25]"
+        },
+        {
+          "date": "9 Jul 2027",
+          "chip": "Next",
+          "state": "next",
+          "text": "**Payee check reaches non euro countries** such as Poland, Sweden and Romania. [25]"
+        }
+      ]
+    },
+    "changes": {
+      "head": {
+        "index": "04",
+        "label": "What changes",
+        "title": "Flip the switch. Same situation, two rulebooks.",
+        "lede": "The fourteen changes we think matter most. Flip between the old and the new rules and see what it looks like in real life."
+      },
+      "oldLabel": "PSD2 world",
+      "newLabel": "PSR world",
+      "note": "Most rules apply 21 months after entry into force, expected late 2028 [12] [13]",
+      "practiceLabel": "In practice",
+      "items": [
+        {
+          "title": "Payee check",
+          "who": "Payers",
+          "old": "No name check under PSD2. Euro transfers got one in October 2025 through the Instant Payments Regulation.",
+          "new": "The bank checks payee name against IBAN for all credit transfers. If it fails to flag a mismatch, it refunds the payer.",
+          "practice": "You pay an invoice from Müller GmbH. The app shows no match before you confirm, because the IBAN belongs to someone else.",
+          "sources": [
+            3,
+            10
+          ]
+        },
+        {
+          "title": "Bank impersonation",
+          "who": "Banks",
+          "old": "You authorised the payment, so the loss is yours.",
+          "new": "If a fraudster poses as your bank and you report it to the police and the bank, the bank must refund in full within 15 business days, or refuse with reasons if it suspects fraud or gross negligence by you.",
+          "practice": "A caller shows your bank's real number and talks you into a safe account transfer. The bank pays you back.",
+          "sources": [
+            2,
+            13
+          ]
+        },
+        {
+          "title": "Altered payments",
+          "who": "Banks",
+          "old": "Disputes over who changed what, often slow.",
+          "new": "If a fraudster initiates or changes a transaction, the payment provider covers the full amount.",
+          "practice": "Malware swaps the IBAN in a payment you prepared. Your bank refunds the full amount.",
+          "sources": [
+            2
+          ]
+        },
+        {
+          "title": "Fraud toolkit",
+          "who": "All PSPs",
+          "old": "Fraud controls left to each bank.",
+          "new": "Real time monitoring, spending limits and blocking options for users, plus a legal basis to share fraud data between providers.",
+          "practice": "A customer sets a €500 daily limit for new payees in the app before travelling.",
+          "sources": [
+            2,
+            3
+          ]
+        },
+        {
+          "title": "Platforms in the frame",
+          "who": "Big platforms",
+          "old": "Social media and search sat outside payment law.",
+          "new": "Large platforms and search engines must check that financial advertisers are authorised. If they are told about fraudulent content and leave it up, they are liable to the bank that refunded the victim.",
+          "practice": "A fake bank ad stays online for days after a report. The bank refunds the victim and claims the money from the platform.",
+          "sources": [
+            2,
+            15
+          ]
+        },
+        {
+          "title": "Telcos and spoofing",
+          "who": "Telcos",
+          "old": "No duty to help with payment fraud.",
+          "new": "Electronic communication providers must cooperate and share information with payment providers to fight fraud.",
+          "practice": "A telco flags calls that spoof a bank's number and passes the signal to the bank.",
+          "sources": [
+            2,
+            4
+          ]
+        },
+        {
+          "title": "Open banking API",
+          "who": "Banks, TPPs",
+          "old": "Dedicated interface plus a fallback. Quality uneven, many hidden obstacles.",
+          "new": "The API becomes the only access route and must be as fast as the bank's own app. Banks publish performance figures every quarter, cannot demand a contract and face a list of banned obstacles. The fallback goes.",
+          "practice": "A payment initiation provider no longer has to push users through three extra screens in the bank's flow.",
+          "sources": [
+            5,
+            13,
+            16
+          ]
+        },
+        {
+          "title": "Permission dashboard",
+          "who": "Banks",
+          "old": "Users had no single view of who could see their data.",
+          "new": "Banks give users a dashboard to see and withdraw data permissions for free. A withdrawn permission can be restored within 48 hours, and records stay for two years.",
+          "practice": "A user sees four apps reading her account and switches off two of them in one screen.",
+          "sources": [
+            17,
+            13
+          ]
+        },
+        {
+          "title": "Data access consent",
+          "who": "AISPs",
+          "old": "First a bank login every 90 days. Since 2023 the bank checks once and the provider can take over for 180 days.",
+          "new": "The 180 day logic moves into law. The bank authenticates at first access, then the provider renews the customer's consent itself.",
+          "practice": "A budgeting app keeps working for six months without sending the user back to the bank.",
+          "sources": [
+            4,
+            5
+          ]
+        },
+        {
+          "title": "One licence",
+          "who": "PIs, EMIs",
+          "old": "Separate regimes for payment institutions and electronic money institutions.",
+          "new": "One payment institution regime with an electronic money subcategory. Existing firms reapply or prove compliance within the transition.",
+          "practice": "A Berlin EMI updates its licence file and keeps passporting across the EU.",
+          "sources": [
+            3,
+            4
+          ]
+        },
+        {
+          "title": "Account access",
+          "who": "PIs, EMIs",
+          "old": "Banks could close a fintech's account without explanation.",
+          "new": "Banks can refuse or close accounts only on specific grounds such as anti money laundering rules. A vague financial crime risk is no longer enough, and refusals can be challenged with the supervisor.",
+          "practice": "A payment institution gets a refusal without a real reason and takes it to the supervisor.",
+          "sources": [
+            18
+          ]
+        },
+        {
+          "title": "Authentication for all",
+          "who": "Banks",
+          "old": "Many banks offered one app based method.",
+          "new": "Strong authentication must be free, must not depend on a smartphone alone and must fit people with disabilities or low digital skills.",
+          "practice": "An 80 year old customer confirms payments with a card reader instead of an app.",
+          "sources": [
+            3,
+            4
+          ]
+        },
+        {
+          "title": "Fees and cash",
+          "who": "Consumers, retail",
+          "old": "ATM and currency conversion fees often seen late.",
+          "new": "All ATM and conversion fees shown up front. Shops can give cash without a purchase, up to €150. A country may set a lower cap, but not below €100.",
+          "practice": "A drugstore till pays out €100 to a customer who buys nothing.",
+          "sources": [
+            2,
+            16
+          ]
+        },
+        {
+          "title": "Phone wallets",
+          "who": "Device makers",
+          "old": "Device makers decided who could use NFC and secure storage.",
+          "new": "Phone makers and service providers must give payment providers access on fair, reasonable and non discriminatory terms.",
+          "practice": "A bank launches its own tap to pay wallet on every major phone.",
+          "sources": [
+            2
+          ]
+        }
+      ]
+    },
+    "fida": {
+      "head": {
+        "index": "05",
+        "label": "FiDA, the open finance map",
+        "title": "Drag the clock. Watch which data opens up.",
+        "lede": "Based on the phased plan in the April 2026 compromise paper. Months count from entry into force. Nothing here is final law yet. [7]"
+      },
+      "sliderLabel": "Months after entry into force:",
+      "monthTemplate": "{n}m",
+      "start": 24,
+      "max": 48,
+      "step": 6,
+      "phases": [
+        {
+          "month": 0,
+          "text": "Today. Only payment account data flows, under PSD2 and later PSR."
+        },
+        {
+          "month": 6,
+          "text": "Schemes are forming. No new data flows yet."
+        },
+        {
+          "month": 12,
+          "text": "Schemes are forming. No new data flows yet."
+        },
+        {
+          "month": 18,
+          "text": "Schemes must have governance and standards in place."
+        },
+        {
+          "month": 24,
+          "text": "Phase 1 opens. Savings, consumer credit and motor insurance data. This is where switching and refinancing products start."
+        },
+        {
+          "month": 30,
+          "text": "Phase 1 live. The Commission reviews take up before phase 2."
+        },
+        {
+          "month": 36,
+          "text": "Phase 2 opens. Mortgages, investments, crypto assets and personal pensions. Wealth and mortgage brokers get full pictures."
+        },
+        {
+          "month": 42,
+          "text": "Phase 2 live. Second review."
+        },
+        {
+          "month": 48,
+          "text": "Phase 3 opens. Other credit, creditworthiness data and non motor insurance. Full open finance."
+        }
+      ],
+      "cells": [
+        {
+          "name": "Payment accounts",
+          "month": 0,
+          "phase": "Already open under PSD2"
+        },
+        {
+          "name": "Savings",
+          "month": 24,
+          "phase": "Phase 1"
+        },
+        {
+          "name": "Consumer credit",
+          "month": 24,
+          "phase": "Phase 1"
+        },
+        {
+          "name": "Motor insurance",
+          "month": 24,
+          "phase": "Phase 1"
+        },
+        {
+          "name": "Mortgages",
+          "month": 36,
+          "phase": "Phase 2"
+        },
+        {
+          "name": "Investments",
+          "month": 36,
+          "phase": "Phase 2"
+        },
+        {
+          "name": "Crypto assets",
+          "month": 36,
+          "phase": "Phase 2"
+        },
+        {
+          "name": "Personal pensions (PEPP)",
+          "month": 36,
+          "phase": "Phase 2"
+        },
+        {
+          "name": "Other credit",
+          "month": 48,
+          "phase": "Phase 3"
+        },
+        {
+          "name": "Creditworthiness data",
+          "month": 48,
+          "phase": "Phase 3"
+        },
+        {
+          "name": "Non motor insurance",
+          "month": 48,
+          "phase": "Phase 3"
+        },
+        {
+          "name": "Occupational pensions",
+          "month": -1,
+          "phase": "Out, opt in possible"
+        }
+      ],
+      "mechanics": [
+        {
+          "key": "Who joins",
+          "text": "Banks, insurers, investment firms and crypto providers as data holders. Licensed users as data receivers. Credit rating agencies, large corporate customers, small investment firms, small insurers and credit unions are out. [7]"
+        },
+        {
+          "key": "New licence",
+          "text": "Financial information service provider, a new licence for firms that receive data without another financial licence. [11]"
+        },
+        {
+          "key": "Schemes",
+          "text": "Data holders and users must join a financial data sharing scheme that sets standards, liability and dispute rules. [7]"
+        },
+        {
+          "key": "Compensation",
+          "text": "Data holders can charge reasonable compensation, set in the scheme. The Commission can step in if outcomes are poor. [7]"
+        },
+        {
+          "key": "Raw data only",
+          "text": "Only data that has not been substantially processed. A bank's own scores and enrichment stay private. [8]"
+        },
+        {
+          "key": "Dashboard",
+          "text": "Customers see and withdraw every permission they have given, in one place."
+        },
+        {
+          "key": "Big Tech",
+          "text": "Open. Some states want gatekeepers fully excluded from receiving data, others only from the new licence. [7]"
+        }
+      ]
+    },
+    "story": {
+      "head": {
+        "index": "06",
+        "label": "User story",
+        "title": "Meet Selin. She will never read PSD3, but she will feel it.",
+        "lede": "Selin is 34 and works as a freelance designer in Berlin. Three moments over three years show how these rules land in a real life. Selin is made up, the rules are real. Moments two and three assume FiDA is agreed in 2027."
+      },
+      "clock": "Selin's phone",
+      "modes": [
+        {
+          "id": "today",
+          "label": "Today"
+        },
+        {
+          "id": "after",
+          "label": "With the new rules"
+        }
+      ],
+      "ruleLabel": "The rule behind it",
+      "buildLabel": "What companies need to build",
+      "moments": [
+        {
+          "year": "Early 2029",
+          "title": "The call",
+          "rule": "PSR payee check and the impersonation refund, applying from late 2028.",
+          "build": "Fraud signals that work in real time, a refund process that runs in days and a way to claim the money back from telcos and platforms.",
+          "today": {
+            "text": "A friendly voice says her account has been hacked and walks her through moving €8,400 to a safe account. She approved the transfer herself, so under PSD2 the money is basically gone. In 2024, users carried about 85% of credit transfer fraud losses in Europe. [1]",
+            "messages": [
+              {
+                "app": "Phone",
+                "text": "Incoming call · Your bank, Customer care",
+                "sub": "It shows the bank's real number"
+              },
+              {
+                "app": "Banking app",
+                "text": "€8,400 sent to Account Security GmbH"
+              },
+              {
+                "app": "Banking app",
+                "text": "Your claim was rejected. You authorised this payment."
+              }
+            ]
+          },
+          "after": {
+            "text": "First the payee check warns her that the name and IBAN do not fit. If the caller still talks her into it, she reports it to the police and her bank. Because the fraudster pretended to be her bank, the bank has 15 business days to pay her back in full or explain why not. [3] [13]",
+            "messages": [
+              {
+                "app": "Phone",
+                "text": "Incoming call · Your bank, Customer care",
+                "sub": "It shows the bank's real number"
+              },
+              {
+                "app": "Banking app",
+                "text": "Name check: no match. This IBAN does not belong to Account Security GmbH."
+              },
+              {
+                "app": "Banking app",
+                "text": "€8,400 refunded to your account.",
+                "good": true
+              }
+            ]
+          }
+        },
+        {
+          "year": "2029",
+          "title": "The loan that gets cheaper on its own",
+          "rule": "FiDA phase 1, 24 months after entry into force: accounts, savings, consumer credit and motor insurance.",
+          "build": "Scheme ready APIs for loans and savings, a price for that data and a good answer for the day a rival asks for your customer's data.",
+          "today": {
+            "text": "Selin pays 9.9% on a €12,000 car loan, while €15,000 sits on her current account earning almost nothing. She knows she could do better. Finding out means typing everything into comparison sites and sending PDFs, so she never gets round to it.",
+            "messages": [
+              {
+                "app": "Comparison site",
+                "text": "Enter your current loan details to see offers"
+              },
+              {
+                "app": "Email",
+                "text": "Please send your loan contract and your last three statements as PDF"
+              },
+              {
+                "app": "Banking app",
+                "text": "Interest paid on your car loan this year: €1,040"
+              }
+            ]
+          },
+          "after": {
+            "text": "In FiDA's first phase, savings and consumer credit data can move with her permission. One tap in her dashboard and an app sees the whole picture and does the switch for her. The numbers are an example. The mechanism is in the latest compromise text. [7]",
+            "messages": [
+              {
+                "app": "Permissions",
+                "text": "Share your loan and savings data with Your neobank for 90 days?",
+                "sub": "Allow"
+              },
+              {
+                "app": "Your neobank",
+                "text": "We can refinance your car loan at 6.9% and move €12,000 to a 2.5% savings pot."
+              },
+              {
+                "app": "Your neobank",
+                "text": "Done. You keep about €500 more this year.",
+                "good": true
+              }
+            ]
+          }
+        },
+        {
+          "year": "2031",
+          "title": "A mortgage without a payslip",
+          "rule": "FiDA phases 2 and 3, 36 and 48 months after entry into force.",
+          "build": "Credit models built on shared data, a pricing decision for every data holder and a permission dashboard customers actually trust.",
+          "today": {
+            "text": "Selin earns well, just not the same amount every month. For a mortgage, banks want payslips she does not have. So she collects tax returns and letters, and waits.",
+            "messages": [
+              {
+                "app": "Your bank",
+                "text": "Please provide payslips for the last three months"
+              },
+              {
+                "app": "Your bank",
+                "text": "As a freelancer we also need three years of tax returns and a letter from your accountant"
+              },
+              {
+                "app": "Your bank",
+                "text": "Your application is under review. Expected time: 4-6 weeks"
+              }
+            ]
+          },
+          "after": {
+            "text": "Mortgage and investment data open in phase two, creditworthiness data in phase three. With her permission, a lender reads three years of real income and existing credit and decides in days. People with irregular income stop being edge cases. [7]",
+            "messages": [
+              {
+                "app": "Permissions",
+                "text": "Share income, loans, investments and credit data with Your lender?",
+                "sub": "Allow"
+              },
+              {
+                "app": "Your lender",
+                "text": "We looked at three years of income across your two accounts and your existing credit."
+              },
+              {
+                "app": "Your lender",
+                "text": "Approved in principle: €320,000. Valid for 60 days.",
+                "good": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "game": {
+      "head": {
+        "index": "07",
+        "label": "Game · Who pays?",
+        "title": "Six fraud cases. Guess who carries the loss under the new rules.",
+        "lede": "Take a guess before you read the answer. Based on the agreed PSR text. Real cases always depend on the details and on national courts."
+      },
+      "scoreLabel": "Your score",
+      "sideNote": "Under PSD2, the honest answer to most of these was the customer. That is the flip.",
+      "caseTemplate": "Case {n} of {total}",
+      "resultLabel": "Result",
+      "resultTemplate": "You got {score} out of {total}.",
+      "tiers": [
+        "You read the fine print. Your fraud team will like you.",
+        "Solid. A few of these surprise most bankers too.",
+        "The rules moved more than most people think. Read the changes section again."
+      ],
+      "rightLabel": "Right",
+      "wrongLabel": "Not quite",
+      "nextLabel": "Next case",
+      "seeResultLabel": "See result",
+      "againLabel": "Play again",
+      "copyLabel": "Copy my score",
+      "copiedLabel": "Copied",
+      "shareTemplate": "I scored {score}/{total} on fspark9's \"Who pays?\" quiz about PSD3 and PSR. The liability flip is real.",
+      "cases": [
+        {
+          "question": "Malware on your laptop quietly changes the IBAN in a transfer you set up. €3,200 is gone.",
+          "options": [
+            "You",
+            "Your bank",
+            "The recipient's bank"
+          ],
+          "answer": 1,
+          "explanation": "When a fraudster initiates or changes a transaction, the payment provider is liable for the full amount.",
+          "sources": [
+            2
+          ]
+        },
+        {
+          "question": "A caller shows your bank's real phone number, says your account is hacked and talks you into moving savings to a safe account. You report it to the police and the bank.",
+          "options": [
+            "You",
+            "Your bank",
+            "Your telco"
+          ],
+          "answer": 1,
+          "explanation": "Impersonating the bank is exactly the case PSR covers. The bank has 15 business days to refund in full or refuse with reasons. Telcos must cooperate on spoofing, but the refund duty sits with the bank.",
+          "sources": [
+            2,
+            13
+          ]
+        },
+        {
+          "question": "You meet someone on a dating app and willingly send €5,000 to their real account. Name and IBAN match.",
+          "options": [
+            "You",
+            "Your bank",
+            "The dating app"
+          ],
+          "answer": 0,
+          "explanation": "PSR refunds impersonation of the bank and failed payee checks. A romance scam with a matching payee is outside both, so the loss mostly stays with you.",
+          "sources": [
+            2,
+            3
+          ]
+        },
+        {
+          "question": "You enter a supplier's name. The IBAN belongs to someone else, and your bank never warns you of the mismatch.",
+          "options": [
+            "You",
+            "Your bank",
+            "The supplier"
+          ],
+          "answer": 1,
+          "explanation": "If the payee check fails to flag a mismatch, the payer's provider refunds.",
+          "sources": [
+            3,
+            5
+          ]
+        },
+        {
+          "question": "A fake ad for your bank runs on a very large platform. The platform was told about it and left it up. You fall for it and your bank refunds you.",
+          "options": [
+            "The bank keeps the loss",
+            "The platform repays the bank",
+            "The advertiser's bank"
+          ],
+          "answer": 1,
+          "explanation": "Very large platforms that are informed of fraudulent content and fail to remove it are liable to the bank that reimbursed the victim.",
+          "sources": [
+            2,
+            4
+          ]
+        },
+        {
+          "question": "An outsourced authentication provider has an outage that lets fraudulent payments through. Banks refund customers.",
+          "options": [
+            "Banks absorb it",
+            "The provider can be liable",
+            "Customers share it"
+          ],
+          "answer": 1,
+          "explanation": "Technical service providers and payment schemes enter the liability frame for the first time. Banks get a right of recourse.",
+          "sources": [
+            4
+          ]
+        }
+      ]
+    },
+    "impact": {
+      "head": {
+        "index": "08",
+        "label": "Impact finder",
+        "title": "Pick your company. See the bill and the upside.",
+        "lede": "Where does your company sit? We placed each type of player by what the rules will cost it and how much new revenue they open up. The scores are our own estimates from 0 to 10."
+      },
+      "chartLabel": "Impact matrix: compliance load against new revenue room",
+      "axisX": "COMPLIANCE LOAD",
+      "axisY": "NEW REVENUE ROOM",
+      "quadrants": [
+        "BUILD FAST",
+        "PAY TO PLAY",
+        "WATCH",
+        "DEFEND"
+      ],
+      "ofTemplate": "{n} of {total}",
+      "loadLabel": "Compliance load",
+      "roomLabel": "Revenue room",
+      "changesLabel": "What changes",
+      "nextLabel": "Next 12 months",
+      "useCaseLabel": "Use case · illustrative",
+      "firms": [
+        {
+          "name": "Large universal banks",
+          "x": 8,
+          "y": 6,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "They carry the new fraud refunds, payee checks, API performance KPIs and the permission dashboard. Under FiDA they are the biggest data holders and can also be data users.",
+          "next": "Split API access into what the law makes free and a paid premium tier. Join a FiDA scheme early to shape compensation rules. Build recourse claims against platforms and telcos into fraud operations.",
+          "useCase": "A large bank keeps PSR account access free, then sells a premium API with enriched transaction data and higher call limits to lenders and accounting software."
+        },
+        {
+          "name": "Savings and cooperative banks",
+          "x": 8.6,
+          "y": 3.8,
+          "tone": "red",
+          "verdict": "Squeeze",
+          "changes": "Same obligations as big banks with smaller budgets. Impersonation refunds hit older customer bases hardest.",
+          "next": "Let the group IT centre build once. Pool fraud data across the group. Offer cash at partner shops where branches close.",
+          "useCase": "A regional savings bank spots a mule account because three sister banks flagged incoming transfers to it within one hour."
+        },
+        {
+          "name": "Neobanks",
+          "x": 6,
+          "y": 8,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "Fast onboarding now has a refund bill attached if impersonation fraud grows. In return FiDA gives them the data to win customers from incumbents.",
+          "next": "Invest in fraud scoring before growth campaigns. Plan switching products for FiDA phase 1.",
+          "useCase": "A neobank reads a customer's expensive consumer loan at another bank and offers a one tap refinance at a lower rate."
+        },
+        {
+          "name": "Payment and e money institutions",
+          "x": 5,
+          "y": 7.8,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "One licence regime and narrower grounds for banks to refuse their accounts. Direct payment system access already came with the Instant Payments Regulation. They also pick up fraud liability.",
+          "next": "Plan the reauthorisation file now, the documentation deadline is 27 months after entry into force. Use direct payment system access to cut sponsor bank costs.",
+          "useCase": "A Berlin e money institution joins the instant payment system directly and drops one sponsor bank from its cost base."
+        },
+        {
+          "name": "Open banking providers",
+          "x": 3.2,
+          "y": 9.2,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "Better APIs, banned obstacles and longer consent windows. FiDA adds savings, credit, investment and insurance data.",
+          "next": "Move from account data to full financial pictures. Prepare for paid data under FiDA schemes.",
+          "useCase": "A payment initiation provider powers account to account checkout for a German online shop with fewer drop offs than cards."
+        },
+        {
+          "name": "Merchants and e commerce",
+          "x": 2,
+          "y": 6.2,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "Cheaper account to account checkout and cash services without a payment licence.",
+          "next": "Test bank payments at checkout. Consider cash at the till as a footfall service.",
+          "useCase": "A drugstore chain lets customers withdraw up to the legal cap without buying, and gets paid by banks closing branches nearby."
+        },
+        {
+          "name": "Very large platforms",
+          "x": 7.4,
+          "y": 1.8,
+          "tone": "red",
+          "verdict": "Squeeze",
+          "changes": "New liability towards banks for fraud they were told about. Financial advertisers must prove authorisation.",
+          "next": "Fast takedown for reported financial fraud. Verify financial advertisers before ads run.",
+          "useCase": "A social network adds a licence check for anyone buying finance ads and cuts its refund exposure."
+        },
+        {
+          "name": "Telecom operators",
+          "x": 5,
+          "y": 4.6,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "A duty to cooperate on spoofing, tighter limits on carrier billing.",
+          "next": "Turn network data into fraud signals banks will pay for.",
+          "useCase": "A telco sells a SIM swap and call origin check that banks run before approving large transfers."
+        },
+        {
+          "name": "Card schemes and processors",
+          "x": 6.2,
+          "y": 3.4,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "Direct liability for failures that cause financial damage, and stronger account to account rivals.",
+          "next": "Bundle fraud data and dispute services into value that bank payments cannot match yet.",
+          "useCase": "A processor offers merchants one contract covering cards and account to account payments with shared fraud scoring."
+        },
+        {
+          "name": "Technical and BaaS providers",
+          "x": 6.4,
+          "y": 7,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "Direct liability for authentication and other technical failures, plus new demand for payee checks, fraud tools and accessible authentication.",
+          "next": "Price liability into contracts. Package payee check and fraud tools for smaller banks.",
+          "useCase": "A BaaS platform sells payee checks, fraud scoring and a white label permission dashboard to twenty small banks."
+        },
+        {
+          "name": "Insurers",
+          "x": 4.6,
+          "y": 5.4,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "FiDA makes them data holders, motor first, other non life lines later.",
+          "next": "Build scheme ready APIs. Use incoming data for better pricing at renewal.",
+          "useCase": "A comparison app reads a driver's current motor policy and shows three cheaper renewals before the old one rolls over."
+        },
+        {
+          "name": "Wealth and brokers",
+          "x": 4,
+          "y": 6.6,
+          "tone": "amber",
+          "verdict": "Rebuild",
+          "changes": "Investment and crypto data open in phase 2. Clients can take their full picture anywhere.",
+          "next": "Become the aggregator before a rival does.",
+          "useCase": "A robo adviser pulls a client's holdings from three brokers and rebalances across all of them."
+        },
+        {
+          "name": "Lenders and BNPL",
+          "x": 3,
+          "y": 8,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "Richer credit data under FiDA. BNPL is treated as credit and stays outside payment rules unless it offers payment services.",
+          "next": "Build decisioning on FiDA data. Keep BNPL products clearly in the credit lane.",
+          "useCase": "An SME lender reads business accounts and existing loans and decides a working capital line within a day."
+        },
+        {
+          "name": "Big Tech",
+          "x": 5.6,
+          "y": 2.6,
+          "tone": "red",
+          "verdict": "Squeeze",
+          "changes": "Phone makers must open NFC and secure storage on fair terms. Access to FiDA data as gatekeepers is still disputed.",
+          "next": "Expect wallet competition on your own devices.",
+          "useCase": "A bank wallet sits next to the native wallet on the same phone and pays at the same terminals."
+        },
+        {
+          "name": "Accounting and vertical SaaS",
+          "x": 1.6,
+          "y": 7.6,
+          "tone": "green",
+          "verdict": "Tailwind",
+          "changes": "Light obligations. Big upside from richer data and embedded finance with licensed partners.",
+          "next": "Pick a licensed partner and design finance features inside the product.",
+          "useCase": "Software for German tax advisers pulls client loan and savings data automatically for annual statements."
+        }
+      ]
+    },
+    "models": {
+      "head": {
+        "index": "09",
+        "label": "Business models it sets off",
+        "title": "Twelve things worth building on top of the new rules.",
+        "lede": "Every new rule creates a job someone will get paid for. Here are the twelve we find most interesting. Filter by who is best placed to build them. The use cases are examples."
+      },
+      "filters": [
+        {
+          "id": "all",
+          "label": "All"
+        },
+        {
+          "id": "Banks",
+          "label": "Banks"
+        },
+        {
+          "id": "Fintechs",
+          "label": "Fintechs"
+        },
+        {
+          "id": "Non financial",
+          "label": "Non financial"
+        }
+      ],
+      "numberTemplate": "Model {n}",
+      "triggerLabel": "Triggered by",
+      "moneyLabel": "How it makes money",
+      "useCaseLabel": "Use case",
+      "items": [
+        {
+          "name": "Premium API catalogue",
+          "trigger": "PSR keeps mandated data access free. FiDA allows reasonable compensation.",
+          "money": "Per call or subscription for data beyond the legal minimum.",
+          "builders": [
+            "Banks"
+          ],
+          "builderLabels": [
+            "Banks"
+          ],
+          "useCase": "A bank sells real time balance alerts and categorised transactions to payroll software."
+        },
+        {
+          "name": "Fraud intelligence network",
+          "trigger": "Impersonation refunds and a legal basis to share fraud data.",
+          "money": "Membership fees and per check pricing across banks.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Banks",
+            "Fintechs"
+          ],
+          "useCase": "Twelve mid sized banks pool mule account signals through one provider and cut refunds."
+        },
+        {
+          "name": "Payee check as a service",
+          "trigger": "Payee checks for all credit transfers with refund liability.",
+          "money": "Per check fee plus risk scoring on top of name matching.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechs"
+          ],
+          "useCase": "A provider adds company register data so a check flags a newly founded shell company."
+        },
+        {
+          "name": "Recourse and claims engine",
+          "trigger": "Banks can claim from platforms, telcos and technical providers.",
+          "money": "Success fee on recovered refunds.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechs"
+          ],
+          "useCase": "A claims platform bundles fifty refunded cases and files them against one platform at once."
+        },
+        {
+          "name": "Permission dashboard product",
+          "trigger": "PSR and FiDA dashboards are mandatory.",
+          "money": "White label licence. For banks, a retention screen.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Banks",
+            "Fintechs"
+          ],
+          "useCase": "An insurer uses the dashboard to show which apps hold its data and offers its own app instead."
+        },
+        {
+          "name": "Scheme operator",
+          "trigger": "FiDA requires financial data sharing schemes.",
+          "money": "Membership, certification and dispute services.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Banks",
+            "Fintechs"
+          ],
+          "useCase": "An industry body runs the German insurance data scheme and certifies member APIs."
+        },
+        {
+          "name": "Switching engine",
+          "trigger": "FiDA phase 1 and 2 data on savings, credit, mortgages and insurance.",
+          "money": "Commission from the new provider.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "useCase": "A mortgage broker reads the current loan and alerts the client six months before the fixed rate ends."
+        },
+        {
+          "name": "Account to account checkout",
+          "trigger": "Cleaner payment initiation rules with banned obstacles.",
+          "money": "Lower fees than cards, shared with merchants.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "useCase": "An online furniture shop moves large tickets to bank payment and saves card fees."
+        },
+        {
+          "name": "Cash as a retail service",
+          "trigger": "Cash without purchase in shops, up to €150 per withdrawal.",
+          "money": "Fees paid by banks or networks per withdrawal.",
+          "builders": [
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Non financial"
+          ],
+          "useCase": "A petrol station chain becomes the cash point for three regional banks."
+        },
+        {
+          "name": "Accessible authentication",
+          "trigger": "Free, inclusive authentication that does not rely on a smartphone alone.",
+          "money": "Hardware, voice and card based methods sold to banks.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechs"
+          ],
+          "useCase": "A vendor ships a voice based confirmation for visually impaired customers."
+        },
+        {
+          "name": "Advertiser verification",
+          "trigger": "Financial advertisers on large platforms must prove authorisation.",
+          "money": "Per advertiser check sold to platforms and agencies.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "useCase": "A verification API checks the national licence registers before a finance ad goes live."
+        },
+        {
+          "name": "Bank wallet on any phone",
+          "trigger": "Fair access to NFC and secure storage.",
+          "money": "Keeps card economics and the customer relationship in the bank.",
+          "builders": [
+            "Banks"
+          ],
+          "builderLabels": [
+            "Banks"
+          ],
+          "useCase": "A bank group launches one tap to pay wallet for all its member banks."
+        }
+      ]
+    },
+    "uk": {
+      "head": {
+        "index": "10",
+        "label": "UK lens",
+        "title": "The UK already lives in the future the EU is planning. Two years in, here is what it learned.",
+        "lede": "Since 7 October 2024, UK banks and fintechs must refund most scam victims, even when the customer pressed send. The rule split the industry and it is live. Below are the rules, the numbers, the fights and what we learned building fraud flows for a UK digital bank launch at RUUT."
+      },
+      "table": {
+        "columns": [
+          "EU, PSR",
+          "UK, mandatory reimbursement"
+        ],
+        "rows": [
+          {
+            "label": "Status",
+            "eu": "Applies from late 2028 [12]",
+            "uk": "Live since 7 October 2024 [29]"
+          },
+          {
+            "label": "Which scams",
+            "eu": "Impersonation of the customer's own bank, and failed payee checks [13]",
+            "uk": "Almost every authorised push payment scam over Faster Payments [30]"
+          },
+          {
+            "label": "Who pays",
+            "eu": "The payer's bank, with recourse to platforms and technical providers [4]",
+            "uk": "Split 50/50 between the sending and the receiving firm [30]"
+          },
+          {
+            "label": "How fast",
+            "eu": "15 business days to refund or refuse with reasons [13]",
+            "uk": "5 business days, up to 35 when more evidence is needed [29]"
+          },
+          {
+            "label": "Limits",
+            "eu": "Full amount, unless fraud or gross negligence by the customer [13]",
+            "uk": "Cap of £85,000, optional excess up to £100, a consumer standard of caution [29]"
+          }
+        ]
+      },
+      "figuresHeading": "What the first 18 months show",
+      "figures": [
+        {
+          "value": "88%",
+          "text": "of money lost to in scope scams paid back, £316m in 18 months [29]"
+        },
+        {
+          "value": "82%",
+          "text": "of claims closed within five business days [29]"
+        },
+        {
+          "value": "£73m",
+          "text": "less lost to scams a year, a fall of about 21% [31]"
+        },
+        {
+          "value": "£21m → £60m",
+          "text": "international scams outside the rule, 2023 to 2025 [30]",
+          "warn": true
+        }
+      ],
+      "figuresNote": "Independent evaluation by Frontier Economics for the PSR, July 2026, and the PSR reimbursement dashboard to March 2026.",
+      "cards": [
+        {
+          "tag": "Why it caused a fight",
+          "first": "Banks pay for fraud that mostly starts somewhere else.",
+          "body": "54% of scams start on Meta's platforms, yet the refund bill lands only on payment firms. [36] Smaller fintechs said a few large cases could wipe out a year of margin. Refund rates range from 21% to 94% across firms, and one firm used the customer caution exception in over a quarter of cases by value while others never did. Fraud is also moving to crypto exchanges and overseas transfers, where the rule stops. [30]"
+        },
+        {
+          "tag": "What else the UK runs",
+          "first": "The UK built the toolbox around the refund rule.",
+          "body": "Confirmation of Payee has run since 2020 and now covers more than 320 firms and over 99% of Faster Payments senders. In October 2026 the regulator removed its expiry date. [32] Banks may hold a suspicious payment for up to four extra days. [33] Open banking recurring payments got their own industry scheme in June 2026. [34] The PSR itself is being folded into the FCA, the bill now sits in the Commons. [35] A consultation on fixing the refund rule follows in December 2026. [30]"
+        }
+      ],
+      "journey": {
+        "heading": "Follow a scam payment through a UK banking app",
+        "note": "Tap each step. These are defences UK banks and fintechs run today, many of which we designed or chose partners for at RUUT. EU teams can copy what worked.",
+        "stopsLabel": "What it stops",
+        "steps": [
+          {
+            "step": "Step 1",
+            "name": "The call comes in",
+            "stops": "Safe account and bank impersonation scams, where a caller coaches the victim live.",
+            "defences": [
+              {
+                "title": "Alert during a phone call",
+                "text": "If the customer opens the app while on a call, a banner asks: is someone on the phone telling you to move money? Your bank will never do that.",
+                "field": "From the field"
+              },
+              {
+                "title": "No screen sharing",
+                "text": "The app blocks screen recording and screen sharing, so remote access scammers cannot watch codes or balances.",
+                "field": "From the field"
+              },
+              {
+                "title": "Telco signals",
+                "text": "Spoofed numbers and calls from unknown sources become a risk signal. In the UK this is still mostly voluntary."
+              }
+            ]
+          },
+          {
+            "step": "Step 2",
+            "name": "A new payee",
+            "stops": "Misdirected payments and invoice fraud, where the name and the account do not belong together.",
+            "defences": [
+              {
+                "title": "Confirmation of Payee screen",
+                "text": "Match, close match with the right name, or no match. The copy matters more than the check: a bare no match is clicked away, a clear next step is not.",
+                "field": "From the field"
+              },
+              {
+                "title": "First payment friction",
+                "text": "A first payment to a new payee can get a lower limit, a short wait or an extra confirmation."
+              }
+            ]
+          },
+          {
+            "step": "Step 3",
+            "name": "Why are you paying?",
+            "stops": "Investment, purchase and romance scams, where the payee is real but the story is fake.",
+            "defences": [
+              {
+                "title": "Payment purpose question",
+                "text": "Before a risky payment the app asks what it is for. Safe account, investment, buying something online, paying a friend. Each answer gets its own warning in plain words.",
+                "field": "From the field"
+              },
+              {
+                "title": "Scam specific warnings",
+                "text": "A warning that names the scam the customer is living through works far better than a generic are you sure.",
+                "field": "From the field"
+              }
+            ]
+          },
+          {
+            "step": "Step 4",
+            "name": "Pressing send",
+            "stops": "Coached and pressured customers whose behaviour does not look like them.",
+            "defences": [
+              {
+                "title": "Behavioural monitoring",
+                "text": "Hesitation, typing speed, copy and paste of an IBAN, a new device, an unusual hour. When behaviour does not fit the customer's profile, the risk score goes up.",
+                "field": "From the field"
+              },
+              {
+                "title": "Transaction monitoring and holds",
+                "text": "Rules and scores stop the payment and a person calls the customer. Since 2024 UK firms may hold it for up to four extra days.",
+                "field": "From the field"
+              }
+            ]
+          },
+          {
+            "step": "Step 5",
+            "name": "After the money left",
+            "stops": "The loss itself, and the next victim.",
+            "defences": [
+              {
+                "title": "Refund operations",
+                "text": "Claim intake, a five business day clock, evidence, and settling the 50/50 split with the receiving firm. It needs its own team and its own tooling.",
+                "field": "From the field"
+              },
+              {
+                "title": "Customer education",
+                "text": "In app guides and push messages timed to the scams that are trending this month.",
+                "field": "From the field"
+              },
+              {
+                "title": "Mule account hunting",
+                "text": "The receiving firm pays half, so finding mule accounts on the way in became a business case."
+              }
+            ]
+          }
+        ]
+      },
+      "view": {
+        "label": "Our view",
+        "text": "The UK proves refund rules change behaviour, losses fell within a year. It also proves fraud moves to wherever the rules stop. EU banks have two years to build calmly what UK firms had to build in a rush."
+      }
+    },
+    "note": {
+      "head": {
+        "index": "11",
+        "label": "Expert note",
+        "title": ""
+      },
+      "quote": "I built digital banks under PSD2. Compliance was the big topic back then too. What is new with PSD3 is that it opens the way to better, more flexible financial services and new products that actually mean something to people.",
+      "paragraphs": [
+        "Fighting these rules is wasted energy. Building them into the product and turning them into something useful for customers is one of the smartest moves any bank, fintech or company can make right now.",
+        "FiDA goes even further. It brings new opportunities, new business models and some fresh air into competition. Fintech and banking have exciting years ahead."
+      ],
+      "signature": "Mehmet Burak · fspark9",
+      "checklistLabel": "Monday morning checklist",
+      "checklist": [
+        "Map every money movement flow against payee check and impersonation refund exposure.",
+        "Price your API. Know what is free by law and what can be premium.",
+        "Pick your FiDA role per product line: data holder, data user, or both.",
+        "Write a recourse playbook for platforms, telcos and technical providers.",
+        "Turn the permission dashboard into a product with a product owner."
+      ]
+    },
+    "close": {
+      "title": "The rules are written. What you build on them is still open.",
+      "text": "fspark9 helps banks, fintechs and companies with customers turn regulation into product decisions.",
+      "bookLabel": "Book a call",
+      "gameLabel": "Play Who pays again"
+    },
+    "sources": {
+      "head": {
+        "index": "",
+        "label": "Sources",
+        "title": "Where every figure comes from."
+      },
+      "sourceTemplate": "Source {n}",
+      "items": [
+        {
+          "label": "EBA and ECB, 2025 Report on Payment Fraud, December 2025",
+          "href": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.pr251215~e133d9d683.en.html"
+        },
+        {
+          "label": "European Parliament, Payment services deal: more protection from online fraud and hidden fees, November 2025",
+          "href": "https://www.europarl.europa.eu/news/en/press-room/20251121IPR31540/payment-services-deal-more-protection-from-online-fraud-and-hidden-fees"
+        },
+        {
+          "label": "Arthur Cox, PSD3 and PSR: final compromise texts published, April 2026",
+          "href": "https://www.arthurcox.com/insights/psd3-and-psr-final-compromise-texts-published/"
+        },
+        {
+          "label": "Freshfields, PSD3/PSR: what the EU's new payments rules mean for your business, 2026",
+          "href": "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/psd3-psr-what-the-eus-new-payments-rules-mean-for-your-business-102mrom"
+        },
+        {
+          "label": "Open Banking Tracker, PSD3 and PSR readiness and timeline, 2026",
+          "href": "https://www.openbankingtracker.com/guides/psd3-psr-readiness"
+        },
+        {
+          "label": "Linklaters, Payments in 2026 #3: PSD3",
+          "href": "https://financialregulation.linklaters.com/post/102mei6/payments-in-2026-3-psd3"
+        },
+        {
+          "label": "Council of the EU, Interinstitutional file 2023/0205 (COD), FiDA compromise paper, 6 April 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/WK-5041-2026-INIT/en/pdf"
+        },
+        {
+          "label": "Projective Group, FiDA back in motion: from ambitious to workable, May 2026",
+          "href": "https://www.projectivegroup.com/fida-back-in-motion-from-ambitious-to-workable/"
+        },
+        {
+          "label": "Freshfields, Risen from the ashes: FIDA trilogue set to move forward, March 2025",
+          "href": "https://www.freshfields.com/en/our-thinking/blogs/technology-quotient/risen-from-the-ashes-fida-trilogue-set-to-move-forward-102k3at"
+        },
+        {
+          "label": "Regulation (EU) 2024/886 on instant credit transfers in euro",
+          "href": "https://eur-lex.europa.eu/eli/reg/2024/886/oj"
+        },
+        {
+          "label": "Banking.Vision, Open Finance: FIDA taking shape as lighter, consumer centric regulation, September 2025",
+          "href": "https://banking.vision/en/open-finance-fida-taking-shape"
+        },
+        {
+          "label": "Clifford Chance, Regulatory horizon scanner EU and UK H2 2026: fintech firms, July 2026",
+          "href": "https://www.cliffordchance.com/content/dam/cliffordchance/briefings/2026/07/regulatory-horizon-scanner-eu-and-uk-h2-2026-fintech-firms.pdf"
+        },
+        {
+          "label": "Herbert Smith Freehills Kramer, The new EU payments rulebook (PSD3/PSR), May 2026",
+          "href": "https://www.hsfkramer.com/notes/fsrandcorpcrime/2026-posts/the-new-eu-payments-rulebook-psd3-psr"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: Council publishes PSD3 first reading position, 23 October 2026",
+          "href": "https://www.regulationtomorrow.com/2026/10/psd3-council-of-eu-publishes-first-reading-position-with-view-to-adoption/"
+        },
+        {
+          "label": "Council of the EU, Statement of reasons on the PSR first reading position, 8543/26 ADD 1 REV 1, 21 October 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/ST-8543-2026-ADD-1-REV-1/en/pdf"
+        },
+        {
+          "label": "Alston and Bird, PSD3 and PSR: what changes for business operations in Europe, October 2026",
+          "href": "https://www.alston.com/en/insights/publications/2026/10/psd3-psr-europe-business-operations"
+        },
+        {
+          "label": "Addleshaw Goddard, PSD3: a new era for EU payment services regulation, September 2026",
+          "href": "https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/financial-regulation/financial-regulation-in-the-know-payments-september-2026/psd3-new-era-eu-payment-services-regulation/"
+        },
+        {
+          "label": "Projective Group, Will PSR and PSD3 solve the account access problem for payment institutions?, September 2026",
+          "href": "https://www.projectivegroup.com/will-psr-and-psd3-solve-the-account-access-problem-for-payment-institutions/"
+        },
+        {
+          "label": "Council of the EU, Cypriot presidency note on the future of FiDA, WK 4626/2026, 25 March 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/WK-4626-2026-INIT/en/pdf"
+        },
+        {
+          "label": "Konsentus, FiDA's timetable might shift, but the destination won't, November 2025",
+          "href": "https://www.konsentus.com/fidas-timetable-might-shift-but-the-destination-wont/"
+        },
+        {
+          "label": "France FinTech, FiDA regulation: between French mistrust and British optimism, April 2026",
+          "href": "https://francefintech.org/en/reglement-fida-entre-defiance-francaise-et-optimisme-britannique-quelles-sont-les-perspectives-europeennes-avec-lopen-finance/"
+        },
+        {
+          "label": "Verbraucherzentrale Bundesverband (vzbv), Mehr Last als Schutz: so verfehlt die Empfängerüberprüfung ihr Ziel, 9 October 2026",
+          "href": "https://www.vzbv.de/pressemitteilungen/mehr-last-als-schutz-so-verfehlt-die-empfaengerueberpruefung-ihr-ziel"
+        },
+        {
+          "label": "IT Finanzmagazin, Von ruckelig bis problemlos: Erfahrungen bei der Einführung von VoP, March 2026",
+          "href": "https://www.it-finanzmagazin.de/von-ruckelig-bis-problemlos-erfahrungen-bei-der-einfuehrung-von-vop-241056/"
+        },
+        {
+          "label": "Qombo, Verification of Payee one year later, citing EPC data from August 2026, October 2026",
+          "href": "https://www.qombo.tech/en/blog/verification-of-payee-one-year-on"
+        },
+        {
+          "label": "European Central Bank, Instant Payments Regulation deadlines and obligations",
+          "href": "https://www.ecb.europa.eu/paym/retail/instant_payments/html/instant_payments_regulation.en.html"
+        },
+        {
+          "label": "The Paypers, Wero ecommerce is now live in Germany, November 2025",
+          "href": "https://thepaypers.com/payments/news/wero-ecommerce-is-now-live-in-germany"
+        },
+        {
+          "label": "EuroShop, Wero 2026: reticence in online retail, August 2026",
+          "href": "https://www.euroshop-tradefair.com/en/media-news/euroshopmag/retail-technology/wero-2026-reticence-in-online-retail"
+        },
+        {
+          "label": "EPC status update on payment schemes for the ERPB, June 2026",
+          "href": "https://www.ecb.europa.eu/paym/groups/erpb/shared/pdf/25th-ERPB%20meeting%20on%2018%20June%202026/Status_update_on_payment_and_payment-related_schemes.pdf"
+        },
+        {
+          "label": "Payment Systems Regulator, APP scams reimbursement dashboard, Q1 2026",
+          "href": "https://www.psr.org.uk/information-for-consumers/app-scams-reimbursement-dashboard/"
+        },
+        {
+          "label": "Bratby Law, APP fraud reimbursement: the evaluation verdict, on the Frontier Economics evaluation for the PSR, July 2026",
+          "href": "https://bratby.law/app-fraud-reimbursement-evaluation/"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: Payment fraud falls by £73m following PSR reimbursement scheme, July 2026",
+          "href": "https://www.regulationtomorrow.com/2026/07/payment-fraud-falls-by-73m-following-psr-reimbursement-scheme/"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: PSR publishes Specific Direction 17 (Confirmation of Payee), October 2026",
+          "href": "https://www.regulationtomorrow.com/2026/10/psr-publishes-specific-direction-17-confirmation-of-payee/"
+        },
+        {
+          "label": "The Paypers, UK banks now able to investigate suspicious transactions within four days, 2024",
+          "href": "https://thepaypers.com/fraud-and-fincrime/news/uk-banks-to-impose-four-day-hold-on-suspicious-transactions"
+        },
+        {
+          "label": "Financial Conduct Authority, Open banking takes next step forward with launch of UK Payments Initiative scheme, June 2026",
+          "href": "https://www.fca.org.uk/news/statements/open-banking-launch-uk-payments-initiative-scheme"
+        },
+        {
+          "label": "Bratby Law, Financial Services and Markets Bill 2026, updated October 2026",
+          "href": "https://bratby.law/financial-services-and-markets-bill-2026/"
+        },
+        {
+          "label": "Payment Systems Regulator, Unmasking how fraudsters target UK consumers in the digital age, December 2024",
+          "href": "https://www.psr.org.uk/media/u0vnq1ra/unmasking-how-fraudsters-target-uk-consumers-in-the-digital-age-dec-2024.pdf"
+        }
+      ],
+      "foot": "Status checked on 26 October 2026. The Parliament vote, publication and application dates for PSD3 and PSR are indicative dates from the institutions' calendars and law firm trackers. FiDA is still under negotiation, so phases, scope and gatekeeper treatment can change. Impact scores, sector verdicts and use cases marked as our view are fspark9 analysis and do not constitute legal advice."
+    }
+  },
+  "tr": {
+    "number": 3,
+    "subject": "Fatura el değiştiriyor",
+    "hook": "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
+    "cardLinkLabel": "Raporu okuyun",
+    "seo": {
+      "title": "Fatura el değiştiriyor · PSD3, PSR ve FiDA",
+      "description": "Avrupa ödeme kurallarını yeniden yazıyor. Bir dolandırıcı telefonu birinin hesabını boşalttığında, parayı geri ödeyen çoğu zaman banka olacak. Bankaların elinde duran veri de yakında bir fiyat kazanıyor. Neyin değiştiğini, kimin ilk hissedeceğini ve bunun üstüne ne kurabileceğinizi anlatıyoruz."
+    },
+    "hero": {
+      "meta": [
+        "Spark",
+        "02 Sektör raporları",
+        "Ekim 2026"
+      ],
+      "bigNo": "02",
+      "titleLead": "Fatura el",
+      "titleCut": "değiştiriyor.",
+      "sub": "Avrupa ödeme kurallarını yeniden yazıyor. Bir dolandırıcı telefonu birinin hesabını boşalttığında, parayı geri ödeyen çoğu zaman banka olacak. Bankaların elinde duran veri de yakında bir fiyat kazanıyor. Neyin değiştiğini, kimin ilk hissedeceğini ve bunun üstüne ne kurabileceğinizi anlatıyoruz.",
+      "figures": [
+        {
+          "value": "4,2 mlr €",
+          "to": 4.2,
+          "decimals": 1,
+          "template": "{n} mlr €",
+          "label": "2024'te AEA'daki ödeme dolandırıcılığı [1]"
+        },
+        {
+          "value": "%85",
+          "to": 85,
+          "decimals": 0,
+          "template": "%{n}",
+          "label": "havale dolandırıcılığı kayıplarında müşterinin cebinden çıkan pay [1]"
+        },
+        {
+          "value": "~40",
+          "to": 40,
+          "decimals": 0,
+          "template": "~{n}",
+          "label": "PSD3 ve PSR kapsamında EBA'nın hazırlaması beklenen düzenleme [6]"
+        },
+        {
+          "value": "48",
+          "to": 48,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "ay sonra son FiDA veri aşaması açılıyor, en güncel uzlaşı metnine göre [7]"
+        }
+      ]
+    },
+    "short": {
+      "head": {
+        "index": "01",
+        "label": "Kısaca",
+        "title": "Üç kanun, tek büyük değişim. Riskin daha büyük kısmı bankada, veri de artık etiketli."
+      },
+      "cards": [
+        {
+          "tag": "PSR · Tüzük",
+          "first": "Paranın nasıl hareket ettiğinin kural kitabı. Artık her AB ülkesi birebir aynı metni okuyor.",
+          "body": "Davranış kuralları direktiften tüzüğe taşınıyor. Yani Almanya, Fransa ve Litvanya aynı metni okuyor. Dolandırıcılık sorumluluğu, alıcı adı kontrolü, açık bankacılık API'leri ve ücret şeffaflığı burada. [3]"
+        },
+        {
+          "tag": "PSD3 · Direktif",
+          "first": "Lisans tarafı. Ödeme ve elektronik para kuruluşları aynı çatı altına giriyor.",
+          "body": "PSD3, PSD2'yi ve Elektronik Para Direktifi'ni yürürlükten kaldırıyor. İzin ve denetim ulusal kalıyor. Mevcut şirketlere yeni kurallara uyduklarını göstermeleri için geçiş süresi tanınıyor. [3]"
+        },
+        {
+          "tag": "FiDA · Tüzük",
+          "first": "Açık bankacılık büyüyor. Mevduat, kredi, yatırım ve sigorta verisi de işin içine giriyor.",
+          "body": "Veri sahipleri paylaşım şemalarına katılıyor, makul bir ücret alabiliyor ve müşteriye izin paneli sunmak zorunda kalıyor. Pazarlık hâlâ sürüyor ve metin 2023 teklifine göre epey daraldı. [7] [8]"
+        }
+      ],
+      "view": {
+        "label": "Görüşümüz",
+        "text": "PSD2 bankalara kapıyı açtırdı. Bu paket kapıdan girenin sorumluluğunu da bankaya yüklüyor, FiDA ise koridor için ücret almanın yolunu açıyor. Kazananlar uyum işini ürün işi gibi ele alanlar olacak."
+      }
+    },
+    "status": {
+      "head": {
+        "index": "02",
+        "label": "Neredeyiz",
+        "title": "Paketlerden biri bitiş çizgisinde. Diğeri hâlâ masada.",
+        "lede": "PSD3 ve PSR üzerinde anlaşıldı. Konsey birinci okuma pozisyonunu 21 Ekim 2026'da tamamladı, Parlamento'nun son oylaması Aralık genel kuruluna planlandı. Resmî Gazete'de yayın 2027 başında, kuralların çoğu 2028 sonunda uygulanıyor. FiDA'da ise henüz anlaşma yok. [12] [14]"
+      },
+      "tabsLabel": "Metin seçin",
+      "tabs": [
+        {
+          "id": "psd",
+          "label": "PSD3 ve PSR",
+          "items": [
+            {
+              "date": "28 Haz 2023",
+              "text": "**Komisyon PSD3 ve PSR'yi öneriyor**, FiDA ile aynı gün.",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "Nis 2024",
+              "text": "**Parlamento birinci okuma pozisyonunu kabul ediyor**, Avrupa seçimlerinden hemen önce. [15]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "Haz 2025",
+              "text": "**Konsey müzakere yetkisini netleştiriyor.** Üçlü görüşmeler 9 Temmuz'da başlıyor. [15]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "27 Kas 2025",
+              "text": "**Siyasi anlaşma**, Strazburg'daki son üçlü görüşmenin ardından. [2]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "23 Nis 2026",
+              "text": "**Nihai uzlaşı metinleri** Coreper onayının ardından yayımlanıyor. [3]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "5 May 2026",
+              "text": "**ECON komitesi metinleri onaylıyor.** [5]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "21 Eki 2026",
+              "text": "**Konsey iki metinde de birinci okuma pozisyonunu tamamlıyor.** [14][15]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "14 ile 17 Ara 2026",
+              "text": "**Parlamento'nun son oylaması**, Aralık genel kurulu için öngörülen tarih. [12]",
+              "state": "now",
+              "chip": "Sırada"
+            },
+            {
+              "date": "2027 başı",
+              "text": "**Resmî Gazete.** Yayından 20 gün sonra yürürlük. [12]",
+              "state": "future",
+              "chip": "Bekleniyor"
+            },
+            {
+              "date": "+21 ay",
+              "text": "**PSR kurallarının çoğu uygulanıyor**, PSD3 ulusal hukuka geçmiş olmalı. 2028 sonu. [13]",
+              "state": "future",
+              "chip": "Bekleniyor"
+            },
+            {
+              "date": "+27 ay",
+              "text": "**Tüm havalelerde alıcı adı kontrolü** ve iade kuralları başlıyor. Mevcut lisansların uyumu belgelemesi için son tarih. [13]",
+              "state": "future",
+              "chip": "Bekleniyor"
+            }
+          ]
+        },
+        {
+          "id": "fida",
+          "label": "FiDA",
+          "items": [
+            {
+              "date": "28 Haz 2023",
+              "text": "**Komisyon FiDA'yı öneriyor**; açık bankacılığı finansal verinin büyük kısmına genişletmek için.",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "4 Ara 2024",
+              "text": "**Konsey genel yaklaşımını kabul ediyor.** [20]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "Şub 2025",
+              "text": "**Geri çekilme korkusu.** Sızan çalışma programı taslağında FiDA geri çekilecekler listesindeydi. Hayatta kaldı. [9]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "Nis 2025",
+              "text": "**Üçlü görüşmeler başlıyor**, yaza doğru kapsam, maliyet ve büyük teknoloji şirketleri yüzünden tıkanıyor. [12]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "25 Mar 2026",
+              "text": "**Kıbrıs dönem başkanlığı başkentlerden** yeniden başlamak için siyasi sinyal istiyor. [19]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "6 Nis 2026",
+              "text": "**Daha dar, aşamalı uzlaşı metni** masada. Dönem Haziran'da biterken anlaşma çıkmıyor. [7][12]",
+              "state": "done",
+              "chip": "Tamam"
+            },
+            {
+              "date": "Eki 2026",
+              "text": "**İrlanda dönem başkanlığında üçlü görüşmeler sürüyor.** Henüz siyasi anlaşma yok. [12]",
+              "state": "now",
+              "chip": "Açık"
+            },
+            {
+              "date": "+18 ay",
+              "text": "**Şemalar** yönetişimi ve standartları kuruyor. [7]",
+              "state": "future",
+              "chip": "Anlaşılırsa"
+            },
+            {
+              "date": "+24 / 36 / 48",
+              "text": "**Veri üç aşamada açılıyor**, her aşamadan sonra değerlendirme var. [7]",
+              "state": "future",
+              "chip": "Anlaşılırsa"
+            }
+          ]
+        }
+      ]
+    },
+    "live": {
+      "head": {
+        "index": "03",
+        "label": "Zaten canlı olanlar",
+        "title": "Değişimin bir kısmı çoktan yaşandı. Alman bankaları bir yıldır alıcı adı kontrolü yapıyor.",
+        "lede": "Anlık Ödemeler Tüzüğü en zor altyapı işlerinin bir kısmını öne çekti. Bankalar bunları kurdu. PSR çoğunlukla bunun üstüne sorumluluğu ekliyor. [25]"
+      },
+      "checkHeading": "Alıcı adı kontrolü, euro bölgesinde ilk yıl",
+      "checkNote": "Kontrol sonuçlarının dağılımı, EPC'nin Ağustos 2026'da paylaştığı veri. Sadece ikinci çeyrekte yaklaşık 2,2 milyar kontrol. [24]",
+      "stackLabel": "Eşleşme yüzde 66,2, yakın eşleşme yüzde 16,2, eşleşme yok yüzde 15,4, kontrol yapılamadı yüzde 2,2",
+      "stack": [
+        {
+          "value": "%66,2",
+          "text": "Eşleşme. İsim ve IBAN tutuyor.",
+          "share": 66.2
+        },
+        {
+          "value": "%16,2",
+          "text": "Yakın eşleşme. Banka doğru ismi gösteriyor.",
+          "share": 16.2
+        },
+        {
+          "value": "%15,4",
+          "text": "Eşleşme yok. Ödemeden önce uyarı.",
+          "share": 15.4
+        },
+        {
+          "value": "%2,2",
+          "text": "Kontrol yapılamadı ya da hata verdi.",
+          "share": 2.2
+        }
+      ],
+      "surveyHeading": "Alman kullanıcılar ne diyor",
+      "surveyNote": "Alman Tüketici Örgütleri Federasyonu (vzbv) için forsa anketi, 1.030 online bankacılık kullanıcısı, Ağustos 2026. [22]",
+      "survey": [
+        {
+          "value": "%91",
+          "text": "alıcı adı kontrolünü prensipte olumlu buluyor"
+        },
+        {
+          "value": "%27",
+          "text": "bankaların bugünkü uygulamasını kötü buluyor"
+        },
+        {
+          "value": "%58",
+          "text": "uyarı alanların yaklaşık her dört havaleden birinde ya da daha sık uyarı görüyor"
+        }
+      ],
+      "lessonsHeading": "Geçişten çıkan dersler",
+      "lessons": [
+        "GmbH gibi şirket türü ekleri ya da küçük yazım farkları yakın eşleşme veya eşleşme yok sonucu veriyor. [23]",
+        "Eksik bir ikinci isim, yer değiştirmiş ad ve soyad ya da bir kısa çizgi bile uyarıya yetiyor. Tüketici örgütleri artık daha akıllı bir eşleştirme istiyor. [22]",
+        "Bazı müşteriler sorumluluk uyarısından çekindiği için yakın eşleşmede bile ödemeyi durdurdu. [23]",
+        "Eski bankacılık yazılımları güncellenene kadar çalışmadı. Kredi, mevduat ve vadesiz tasarruf hesapları kontrolün dışında. [23]",
+        "Bugün uyarıya rağmen ödeme yapan müşteri zararı kendisi taşıyor. PSR ile uyarmayı başaramayan banka parayı geri ödüyor. [10] [13]"
+      ],
+      "view": {
+        "label": "Görüşümüz",
+        "text": "Asıl risk artık yanlış alarmlar. Müşteriler her uyarıyı geçip gitmeye alışırsa, PSR'nin iade kuralı en zayıf isim eşleştirmesine sahip bankaları en sert vuracak. Sorumluluk gelmeden iki yıl önce, iyi eşleştirme bugünden bir ürün avantajı."
+      },
+      "listHeading": "Çalışmaya başlamış diğer parçalar",
+      "list": [
+        {
+          "date": "9 Oca 2025",
+          "chip": "Canlı",
+          "state": "done",
+          "text": "**Euro bölgesindeki her banka anlık havale alıyor**, anlık havale normal havaleden pahalı olamıyor. [25]"
+        },
+        {
+          "date": "9 Eki 2025",
+          "chip": "Canlı",
+          "state": "done",
+          "text": "**Anlık havale gönderme, alıcı adı kontrolü ve günlük yaptırım taraması** euro bölgesinde zorunlu hâle geliyor. [25]"
+        },
+        {
+          "date": "Eki 2025",
+          "chip": "Canlı",
+          "state": "done",
+          "text": "**Ödeme ve elektronik para kuruluşları T2 ve TIPS'e** ECB'nin şartlarını karşılarsa doğrudan katılabiliyor. [25]"
+        },
+        {
+          "date": "18 Kas 2025",
+          "chip": "Canlı",
+          "state": "done",
+          "text": "**Wero Almanya'da online alışverişte canlıya geçiyor**, Sparkassen ve Volksbanken üzerinden. Deutsche Bank, Postbank ve ING arkasından geldi, N26 Ağustos 2026'da katıldı. Perakendecilerin yaklaşık dörtte üçü hâlâ bekle gör modunda. [26] [27]"
+        },
+        {
+          "date": "Kas 2026",
+          "chip": "Sırada",
+          "state": "next",
+          "text": "**Alıcı adı kontrolü kural kitabı 2.0** Avrupa Ödemeler Konseyi'nden bekleniyor, masada bir sorgulama ve tazminat süreci var. [28]"
+        },
+        {
+          "date": "9 Nis 2027",
+          "chip": "Sırada",
+          "state": "next",
+          "text": "**Euro bölgesindeki ödeme ve elektronik para kuruluşları** da anlık havale göndermek ve almak zorunda. [25]"
+        },
+        {
+          "date": "9 Tem 2027",
+          "chip": "Sırada",
+          "state": "next",
+          "text": "**Alıcı adı kontrolü euro dışı ülkelere geliyor**, Polonya, İsveç ve Romanya gibi. [25]"
+        }
+      ]
+    },
+    "changes": {
+      "head": {
+        "index": "04",
+        "label": "Ne değişiyor",
+        "title": "Düğmeye bas. Aynı olay, iki farklı kural kitabı.",
+        "lede": "Bize göre en önemli on dört değişiklik. Eski ve yeni kurallar arasında geçiş yap, gerçek hayatta neye benzediğini gör."
+      },
+      "oldLabel": "PSD2 dünyası",
+      "newLabel": "PSR dünyası",
+      "note": "Kuralların çoğu yürürlükten 21 ay sonra uygulanıyor, tahminen 2028 sonu [12] [13]",
+      "practiceLabel": "Pratikte",
+      "items": [
+        {
+          "title": "Alıcı adı kontrolü",
+          "who": "Ödeyenler",
+          "old": "PSD2'de isim kontrolü yoktu. Euro havaleleri Ekim 2025'te Anlık Ödemeler Tüzüğü ile kazandı.",
+          "new": "Banka tüm havalelerde alıcı adını IBAN ile karşılaştırıyor. Uyuşmazlığı haber vermezse parayı ödeyene iade ediyor.",
+          "practice": "Müller GmbH'nin faturasını ödüyorsun. IBAN başkasına ait olduğu için uygulama onaydan önce eşleşme yok uyarısı veriyor.",
+          "sources": [
+            3,
+            10
+          ]
+        },
+        {
+          "title": "Banka taklidi",
+          "who": "Bankalar",
+          "old": "Ödemeyi sen onayladın, zarar senin.",
+          "new": "Dolandırıcı bankan gibi davranırsa ve sen polise ve bankaya bildirirsen, banka 15 iş günü içinde tamamını iade etmek ya da senin tarafında dolandırıcılık veya ağır ihmal şüphesini gerekçelendirerek reddetmek zorunda.",
+          "practice": "Arayan kişinin numarası bankanın gerçek numarası görünüyor ve seni parayı güvenli hesaba aktarmaya ikna ediyor. Banka parayı geri ödüyor.",
+          "sources": [
+            2,
+            13
+          ]
+        },
+        {
+          "title": "Değiştirilen ödemeler",
+          "who": "Bankalar",
+          "old": "Kim neyi değiştirdi tartışması, çoğu zaman uzun sürerdi.",
+          "new": "Dolandırıcı işlemi başlatır ya da değiştirirse ödeme hizmeti sağlayıcı tutarın tamamını karşılıyor.",
+          "practice": "Bilgisayarındaki zararlı yazılım hazırladığın ödemede IBAN'ı değiştiriyor. Bankan tutarın tamamını iade ediyor.",
+          "sources": [
+            2
+          ]
+        },
+        {
+          "title": "Dolandırıcılık araçları",
+          "who": "Tüm PSP'ler",
+          "old": "Kontroller her bankanın kendi tercihineydi.",
+          "new": "Anlık izleme, kullanıcılar için harcama limitleri ve bloke seçenekleri, ayrıca sağlayıcılar arasında dolandırıcılık verisi paylaşımı için yasal dayanak.",
+          "practice": "Müşteri seyahatten önce uygulamada yeni alıcılar için günlük 500 € limit koyuyor.",
+          "sources": [
+            2,
+            15
+          ]
+        },
+        {
+          "title": "Platformlar da işin içinde",
+          "who": "Büyük platformlar",
+          "old": "Sosyal medya ve arama motorları ödeme hukukunun dışındaydı.",
+          "new": "Büyük platformlar ve arama motorları finans reklamı verenlerin lisanslı olduğunu kontrol etmek zorunda. Dolandırıcı içerik bildirildiği hâlde yayında kalırsa, mağduru tazmin eden bankaya karşı sorumlular.",
+          "practice": "Sahte bir banka reklamı bildirime rağmen günlerce yayında kalıyor. Banka mağdura parayı ödüyor ve platformdan geri istiyor.",
+          "sources": [
+            2,
+            15
+          ]
+        },
+        {
+          "title": "Telekom ve numara taklidi",
+          "who": "Telekom",
+          "old": "Ödeme dolandırıcılığına karşı yardım etme yükümlülüğü yoktu.",
+          "new": "Elektronik haberleşme sağlayıcıları dolandırıcılıkla mücadelede ödeme sağlayıcılarla iş birliği yapmak ve bilgi paylaşmak zorunda.",
+          "practice": "Bir operatör bankanın numarasını taklit eden aramaları işaretliyor ve sinyali bankaya iletiyor.",
+          "sources": [
+            2,
+            4
+          ]
+        },
+        {
+          "title": "Açık bankacılık API'si",
+          "who": "Bankalar, TPP'ler",
+          "old": "Özel arayüz artı yedek arayüz. Kalite dengesiz, gizli engeller çok.",
+          "new": "API tek erişim yolu oluyor ve bankanın kendi uygulaması kadar hızlı olmak zorunda. Bankalar performans verisini her çeyrek yayımlıyor, sözleşme şartı koyamıyor ve yasaklı engeller listesine uyuyor. Yedek arayüz kalkıyor.",
+          "practice": "Ödeme başlatma sağlayıcısı kullanıcıyı bankanın akışında üç ekstra ekrandan geçirmek zorunda kalmıyor.",
+          "sources": [
+            5,
+            13,
+            16
+          ]
+        },
+        {
+          "title": "İzin paneli",
+          "who": "Bankalar",
+          "old": "Kullanıcının verisini kimin gördüğüne dair tek bir ekranı yoktu.",
+          "new": "Bankalar kullanıcıya veri izinlerini görüp ücretsiz geri çekebileceği bir panel sunuyor. Geri çekilen izin 48 saat içinde yeniden açılabiliyor, kayıtlar iki yıl saklanıyor.",
+          "practice": "Bir kullanıcı hesabını dört uygulamanın okuduğunu görüyor ve ikisini tek ekrandan kapatıyor.",
+          "sources": [
+            17,
+            13
+          ]
+        },
+        {
+          "title": "Veri erişim onayı",
+          "who": "AISP'ler",
+          "old": "Önce 90 günde bir banka girişi. 2023'ten beri banka bir kez doğruluyor, sağlayıcı 180 gün devralabiliyor.",
+          "new": "180 gün mantığı kanuna giriyor. Banka ilk erişimde doğruluyor, sonrasında sağlayıcı müşterinin onayını kendisi yeniliyor.",
+          "practice": "Bir bütçe uygulaması altı ay boyunca kullanıcıyı bankaya geri göndermeden çalışıyor.",
+          "sources": [
+            4,
+            5
+          ]
+        },
+        {
+          "title": "Tek lisans",
+          "who": "PI, EMI",
+          "old": "Ödeme kuruluşları ve elektronik para kuruluşları için ayrı rejimler.",
+          "new": "Elektronik para alt kategorisiyle tek bir ödeme kuruluşu rejimi. Mevcut şirketler geçiş süresinde yeniden başvuruyor ya da uyumu belgeliyor.",
+          "practice": "Berlin'deki bir elektronik para kuruluşu lisans dosyasını güncelliyor ve AB genelinde pasaportla çalışmaya devam ediyor.",
+          "sources": [
+            3,
+            4
+          ]
+        },
+        {
+          "title": "Hesap erişimi",
+          "who": "PI, EMI",
+          "old": "Bankalar bir fintechin hesabını açıklama yapmadan kapatabiliyordu.",
+          "new": "Bankalar hesabı ancak kara para aklamayla mücadele kuralları gibi belirli gerekçelerle reddedebilir ya da kapatabilir. Belirsiz bir finansal suç riski artık yetmiyor ve ret kararına denetim otoritesi önünde itiraz edilebiliyor.",
+          "practice": "Bir ödeme kuruluşu gerçek gerekçesi olmayan bir ret alıyor ve konuyu denetim otoritesine taşıyor.",
+          "sources": [
+            18
+          ]
+        },
+        {
+          "title": "Herkes için kimlik doğrulama",
+          "who": "Bankalar",
+          "old": "Pek çok banka tek, uygulamaya dayalı bir yöntem sunuyordu.",
+          "new": "Güçlü kimlik doğrulama ücretsiz olmalı, sadece akıllı telefona dayanmamalı, engelli ve dijital becerisi düşük kişilere uygun olmalı.",
+          "practice": "80 yaşındaki bir müşteri ödemeleri uygulama yerine kart okuyucuyla onaylıyor.",
+          "sources": [
+            3,
+            4
+          ]
+        },
+        {
+          "title": "Ücretler ve nakit",
+          "who": "Tüketici, perakende",
+          "old": "ATM ve döviz çevirme ücretleri çoğu zaman sonradan görülüyordu.",
+          "new": "Tüm ATM ve çevirme ücretleri baştan gösteriliyor. Mağazalar alışveriş şartı olmadan 150 €'ya kadar nakit verebiliyor. Ülkeler limiti düşürebilir ama 100 €'nun altına inemez.",
+          "practice": "Bir drogerinin kasası hiçbir şey almayan müşteriye 100 € nakit veriyor.",
+          "sources": [
+            2,
+            16
+          ]
+        },
+        {
+          "title": "Telefon cüzdanları",
+          "who": "Cihaz üreticileri",
+          "old": "NFC'yi ve güvenli depolamayı kimin kullanacağına cihaz üreticileri karar veriyordu.",
+          "new": "Telefon üreticileri ve servis sağlayıcılar ödeme sağlayıcılarına adil, makul ve ayrımcı olmayan koşullarla erişim vermek zorunda.",
+          "practice": "Bir banka kendi temassız ödeme cüzdanını tüm büyük telefonlarda yayına alıyor.",
+          "sources": [
+            2
+          ]
+        }
+      ]
+    },
+    "fida": {
+      "head": {
+        "index": "05",
+        "label": "FiDA, açık finans haritası",
+        "title": "Saati ilerlet. Hangi verinin açıldığını izle.",
+        "lede": "Nisan 2026 uzlaşı metnindeki aşamalı plana göre hazırlandı. Aylar yürürlüğe girişten itibaren sayılıyor. Buradakilerin hiçbiri henüz kesinleşmiş hukuk değil. [7]"
+      },
+      "sliderLabel": "Yürürlükten sonraki ay:",
+      "monthTemplate": "{n}. ay",
+      "start": 24,
+      "max": 48,
+      "step": 6,
+      "phases": [
+        {
+          "month": 0,
+          "text": "Bugün. Sadece ödeme hesabı verisi akıyor, PSD2 ve sonrasında PSR ile."
+        },
+        {
+          "month": 6,
+          "text": "Şemalar kuruluyor. Henüz yeni veri akışı yok."
+        },
+        {
+          "month": 12,
+          "text": "Şemalar kuruluyor. Henüz yeni veri akışı yok."
+        },
+        {
+          "month": 18,
+          "text": "Şemaların yönetişim ve standartları hazır olmalı."
+        },
+        {
+          "month": 24,
+          "text": "1. aşama açılıyor. Mevduat, tüketici kredisi ve motorlu taşıt sigortası verisi. Geçiş ve yeniden finansman ürünleri burada başlıyor."
+        },
+        {
+          "month": 30,
+          "text": "1. aşama canlı. Komisyon 2. aşamadan önce kullanımı değerlendiriyor."
+        },
+        {
+          "month": 36,
+          "text": "2. aşama açılıyor. Konut kredisi, yatırım, kripto varlık ve bireysel emeklilik. Varlık yönetimi ve kredi aracıları resmin tamamını görüyor."
+        },
+        {
+          "month": 42,
+          "text": "2. aşama canlı. İkinci değerlendirme."
+        },
+        {
+          "month": 48,
+          "text": "3. aşama açılıyor. Diğer krediler, kredi değerliliği verisi ve diğer hayat dışı sigortalar. Açık finans tamamlanıyor."
+        }
+      ],
+      "cells": [
+        {
+          "name": "Ödeme hesapları",
+          "month": 0,
+          "phase": "PSD2 ile zaten açık"
+        },
+        {
+          "name": "Mevduat",
+          "month": 24,
+          "phase": "1. aşama"
+        },
+        {
+          "name": "Tüketici kredisi",
+          "month": 24,
+          "phase": "1. aşama"
+        },
+        {
+          "name": "Kasko ve trafik sigortası",
+          "month": 24,
+          "phase": "1. aşama"
+        },
+        {
+          "name": "Konut kredisi",
+          "month": 36,
+          "phase": "2. aşama"
+        },
+        {
+          "name": "Yatırımlar",
+          "month": 36,
+          "phase": "2. aşama"
+        },
+        {
+          "name": "Kripto varlıklar",
+          "month": 36,
+          "phase": "2. aşama"
+        },
+        {
+          "name": "Bireysel emeklilik (PEPP)",
+          "month": 36,
+          "phase": "2. aşama"
+        },
+        {
+          "name": "Diğer krediler",
+          "month": 48,
+          "phase": "3. aşama"
+        },
+        {
+          "name": "Kredi değerliliği verisi",
+          "month": 48,
+          "phase": "3. aşama"
+        },
+        {
+          "name": "Diğer hayat dışı sigortalar",
+          "month": 48,
+          "phase": "3. aşama"
+        },
+        {
+          "name": "İşveren emeklilik planları",
+          "month": -1,
+          "phase": "Kapsam dışı, isteğe bağlı katılım"
+        }
+      ],
+      "mechanics": [
+        {
+          "key": "Kimler katılıyor",
+          "text": "Veri sahibi olarak bankalar, sigortacılar, yatırım kuruluşları ve kripto sağlayıcıları. Veri alıcısı olarak lisanslı kullanıcılar. Kredi derecelendirme kuruluşları, büyük kurumsal müşteriler, küçük yatırım kuruluşları, küçük sigortacılar ve kredi kooperatifleri kapsam dışında. [7]"
+        },
+        {
+          "key": "Yeni lisans",
+          "text": "Finansal bilgi hizmeti sağlayıcısı (FISP). Başka bir finans lisansı olmadan veri alacak şirketler için yeni bir lisans. [11]"
+        },
+        {
+          "key": "Şemalar",
+          "text": "Veri sahipleri ve kullanıcılar standartları, sorumluluğu ve uyuşmazlık kurallarını belirleyen bir finansal veri paylaşım şemasına katılmak zorunda. [7]"
+        },
+        {
+          "key": "Ücret",
+          "text": "Veri sahipleri şema içinde belirlenen makul bir ücret alabiliyor. Sonuçlar kötü olursa Komisyon devreye girebiliyor. [7]"
+        },
+        {
+          "key": "Sadece ham veri",
+          "text": "Yalnızca esaslı şekilde işlenmemiş veri kapsamda. Bankanın kendi skorları ve zenginleştirdiği veri kendisinde kalıyor. [8]"
+        },
+        {
+          "key": "İzin paneli",
+          "text": "Müşteri verdiği tüm izinleri tek yerden görüp geri çekebiliyor."
+        },
+        {
+          "key": "Büyük teknoloji",
+          "text": "Açık soru. Bazı ülkeler büyük platformların veri almasını tamamen yasaklamak istiyor, bazıları sadece yeni lisanstan dışlamak. [7][19]"
+        }
+      ]
+    },
+    "story": {
+      "head": {
+        "index": "06",
+        "label": "Kullanıcı hikayesi",
+        "title": "Selin'le tanışın. PSD3'ü hiç okumayacak ama etkisini hissedecek.",
+        "lede": "Selin 34 yaşında, Berlin'de serbest çalışan bir tasarımcı. Üç yıla yayılan üç an, bu kuralların gerçek bir hayata nasıl dokunduğunu gösteriyor. Selin hayali bir karakter, kurallar gerçek. İkinci ve üçüncü an, FiDA'nın 2027'de kabul edildiğini varsayıyor."
+      },
+      "clock": "Selin'in telefonu",
+      "modes": [
+        {
+          "id": "today",
+          "label": "Bugün"
+        },
+        {
+          "id": "after",
+          "label": "Yeni kurallarla"
+        }
+      ],
+      "ruleLabel": "Arkasındaki kural",
+      "buildLabel": "Şirketlerin kurması gerekenler",
+      "moments": [
+        {
+          "year": "2029 başı",
+          "title": "O telefon",
+          "rule": "PSR alıcı adı kontrolü ve banka taklidi iadesi, 2028 sonundan itibaren.",
+          "build": "Anlık çalışan dolandırıcılık sinyalleri, günler içinde sonuçlanan bir iade süreci ve parayı operatörlerden ve platformlardan geri isteyebilmenin yolu.",
+          "today": {
+            "text": "Kibar bir ses hesabının hacklendiğini söylüyor ve 8.400 €'yu güvenli bir hesaba aktarmasını adım adım anlatıyor. Havaleyi kendisi onayladığı için PSD2 döneminde bu para neredeyse kesin gitmiş demek. 2024'te Avrupa'da havale dolandırıcılığı kayıplarının yaklaşık %85'ini müşteriler üstlendi. [1]",
+            "messages": [
+              {
+                "app": "Telefon",
+                "text": "Gelen arama · Bankanız, Müşteri hizmetleri",
+                "sub": "Ekranda bankanın gerçek numarası görünüyor"
+              },
+              {
+                "app": "Banka uygulaması",
+                "text": "8.400 € Account Security GmbH'ye gönderildi"
+              },
+              {
+                "app": "Banka uygulaması",
+                "text": "Talebiniz reddedildi. Bu ödemeyi siz onayladınız."
+              }
+            ]
+          },
+          "after": {
+            "text": "Önce alıcı adı kontrolü ismin IBAN'la uyuşmadığını söylüyor. Arayan yine de ikna ederse Selin polise ve bankasına bildiriyor. Dolandırıcı bankası gibi davrandığı için bankanın 15 iş günü içinde parayı tamamen iade etmesi ya da neden etmediğini açıklaması gerekiyor. [3] [13]",
+            "messages": [
+              {
+                "app": "Telefon",
+                "text": "Gelen arama · Bankanız, Müşteri hizmetleri",
+                "sub": "Ekranda bankanın gerçek numarası görünüyor"
+              },
+              {
+                "app": "Banka uygulaması",
+                "text": "İsim kontrolü: eşleşme yok. Bu IBAN Account Security GmbH'ye ait değil."
+              },
+              {
+                "app": "Banka uygulaması",
+                "text": "8.400 € hesabınıza iade edildi.",
+                "good": true
+              }
+            ]
+          }
+        },
+        {
+          "year": "2029",
+          "title": "Kendiliğinden ucuzlayan kredi",
+          "rule": "FiDA 1. aşama, yürürlükten 24 ay sonra: hesaplar, mevduat, tüketici kredisi ve motorlu taşıt sigortası.",
+          "build": "Kredi ve mevduat için şemaya hazır API'ler, bu verinin bir fiyatı ve bir rakip müşterinizin verisini istediği gün için iyi bir cevap.",
+          "today": {
+            "text": "Selin 12.000 €'luk taşıt kredisine %9,9 faiz ödüyor, vadesiz hesabında da neredeyse hiçbir şey kazandırmayan 15.000 € duruyor. Daha iyisini bulabileceğini biliyor. Ama bunun için her şeyi karşılaştırma sitelerine tek tek girmesi ve PDF göndermesi gerekiyor, o yüzden bir türlü yapmıyor.",
+            "messages": [
+              {
+                "app": "Karşılaştırma sitesi",
+                "text": "Teklifleri görmek için mevcut kredi bilgilerinizi girin"
+              },
+              {
+                "app": "Mail",
+                "text": "Lütfen kredi sözleşmenizi ve son üç ekstrenizi PDF olarak gönderin"
+              },
+              {
+                "app": "Banka uygulaması",
+                "text": "Bu yıl taşıt kredinize ödenen faiz: 1.040 €"
+              }
+            ]
+          },
+          "after": {
+            "text": "FiDA'nın ilk aşamasında mevduat ve tüketici kredisi verisi Selin'in izniyle paylaşılabiliyor. Panelinde tek dokunuş yetiyor, bir uygulama resmin tamamını görüp geçişi onun yerine yapıyor. Rakamlar örnek. İşleyiş ise en güncel uzlaşı metninde. [7]",
+            "messages": [
+              {
+                "app": "İzinler",
+                "text": "Kredi ve mevduat verilerinizi 90 gün boyunca Neobankanız ile paylaşalım mı?",
+                "sub": "İzin ver"
+              },
+              {
+                "app": "Neobankanız",
+                "text": "Taşıt kredinizi %6,9'la yeniden finanse edip 12.000 €'yu %2,5 faizli birikim hesabına taşıyabiliriz."
+              },
+              {
+                "app": "Neobankanız",
+                "text": "Tamam. Bu yıl cebinizde yaklaşık 500 € fazla kalacak.",
+                "good": true
+              }
+            ]
+          }
+        },
+        {
+          "year": "2031",
+          "title": "Maaş bordrosu olmadan konut kredisi",
+          "rule": "FiDA 2. ve 3. aşama, yürürlükten 36 ve 48 ay sonra.",
+          "build": "Paylaşılan veri üzerine kurulu kredi modelleri, her veri sahibi için bir fiyat kararı ve müşterinin gerçekten güvendiği bir izin paneli.",
+          "today": {
+            "text": "Selin iyi kazanıyor, sadece her ay aynı tutarı değil. Konut kredisi için bankalar onda olmayan maaş bordrolarını istiyor. O da beyannameleri ve yazıları topluyor, sonra bekliyor.",
+            "messages": [
+              {
+                "app": "Bankanız",
+                "text": "Lütfen son üç aya ait maaş bordrolarınızı iletin"
+              },
+              {
+                "app": "Bankanız",
+                "text": "Serbest çalıştığınız için ayrıca üç yıllık vergi beyannamesi ve mali müşavir yazısı gerekiyor"
+              },
+              {
+                "app": "Bankanız",
+                "text": "Başvurunuz inceleniyor. Tahmini süre: 4-6 hafta"
+              }
+            ]
+          },
+          "after": {
+            "text": "Konut kredisi ve yatırım verisi ikinci aşamada, kredi değerliliği verisi üçüncü aşamada açılıyor. Selin'in izniyle bir kredi kuruluşu üç yıllık gerçek gelirini ve mevcut kredilerini okuyor ve birkaç gün içinde karar veriyor. Düzensiz geliri olanlar artık istisna olmaktan çıkıyor. [7]",
+            "messages": [
+              {
+                "app": "İzinler",
+                "text": "Gelir, kredi, yatırım ve kredi notu verilerinizi Kredi kuruluşunuz ile paylaşalım mı?",
+                "sub": "İzin ver"
+              },
+              {
+                "app": "Kredi kuruluşunuz",
+                "text": "İki hesabınızdaki üç yıllık gelirinize ve mevcut kredilerinize baktık."
+              },
+              {
+                "app": "Kredi kuruluşunuz",
+                "text": "Ön onay: 320.000 €. 60 gün geçerli.",
+                "good": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "game": {
+      "head": {
+        "index": "07",
+        "label": "Oyun · Kim öder?",
+        "title": "Altı dolandırıcılık vakası. Yeni kurallara göre zararı kimin üstlendiğini tahmin et.",
+        "lede": "Cevabı okumadan önce bir tahmin et. Uzlaşılan PSR metnine dayanıyor. Gerçek vakalarda sonuç her zaman ayrıntılara ve ulusal mahkemelere bağlı."
+      },
+      "scoreLabel": "Skorun",
+      "sideNote": "PSD2 döneminde bu soruların çoğunun dürüst cevabı müşteriydi. Değişen tam olarak bu.",
+      "caseTemplate": "Vaka {n} / {total}",
+      "resultLabel": "Sonuç",
+      "resultTemplate": "{total} vakadan {score} tanesini bildin.",
+      "tiers": [
+        "İnce ayrıntıları okumuşsun. Dolandırıcılık ekibin seni sever.",
+        "Gayet iyi. Bunların birkaçı bankacıları da şaşırtıyor.",
+        "Kurallar çoğu kişinin sandığından fazla değişti. Ne değişiyor bölümüne bir daha göz at."
+      ],
+      "rightLabel": "Doğru",
+      "wrongLabel": "Tam değil",
+      "nextLabel": "Sonraki vaka",
+      "seeResultLabel": "Sonucu gör",
+      "againLabel": "Tekrar oyna",
+      "copyLabel": "Skorumu kopyala",
+      "copiedLabel": "Kopyalandı",
+      "shareTemplate": "fspark9'un PSD3 ve PSR hakkındaki \"Kim öder?\" testinde {total} vakadan {score} tanesini bildim. Fatura gerçekten el değiştiriyor.",
+      "cases": [
+        {
+          "question": "Bilgisayarındaki zararlı yazılım, hazırladığın havalede IBAN'ı sessizce değiştiriyor. 3.200 € gitti.",
+          "options": [
+            "Sen",
+            "Bankan",
+            "Alıcının bankası"
+          ],
+          "answer": 1,
+          "explanation": "Dolandırıcı işlemi başlatır ya da değiştirirse ödeme sağlayıcısı tutarın tamamından sorumlu.",
+          "sources": [
+            2
+          ]
+        },
+        {
+          "question": "Arayanın numarası bankanın gerçek numarası görünüyor. Hesabının hacklendiğini söyleyip seni birikimini güvenli hesaba taşımaya ikna ediyor. Polise ve bankaya bildiriyorsun.",
+          "options": [
+            "Sen",
+            "Bankan",
+            "Telekom operatörün"
+          ],
+          "answer": 1,
+          "explanation": "Bankayı taklit etmek tam olarak PSR'nin kapsadığı durum. Bankanın 15 iş günü içinde tamamını iade etmesi ya da gerekçeli olarak reddetmesi gerekiyor. Operatörler numara taklidine karşı iş birliği yapmak zorunda, ama iade yükümlülüğü bankada.",
+          "sources": [
+            2,
+            13
+          ]
+        },
+        {
+          "question": "Bir flört uygulamasında tanıştığın kişiye gönüllü olarak 5.000 € gönderiyorsun, gerçek hesabına. İsim ve IBAN eşleşiyor.",
+          "options": [
+            "Sen",
+            "Bankan",
+            "Flört uygulaması"
+          ],
+          "answer": 0,
+          "explanation": "PSR banka taklidini ve başarısız alıcı adı kontrolünü tazmin ediyor. Alıcısı eşleşen bir romantik dolandırıcılık ikisinin de dışında, yani zarar büyük ölçüde sende kalıyor.",
+          "sources": [
+            2,
+            3
+          ]
+        },
+        {
+          "question": "Bir tedarikçinin adını giriyorsun. IBAN başka birine ait ve bankan uyuşmazlık hakkında seni hiç uyarmıyor.",
+          "options": [
+            "Sen",
+            "Bankan",
+            "Tedarikçi"
+          ],
+          "answer": 1,
+          "explanation": "Alıcı adı kontrolü uyuşmazlığı işaretleyemezse ödeyenin bankası iade ediyor.",
+          "sources": [
+            3,
+            5
+          ]
+        },
+        {
+          "question": "Büyük bir platformda bankanın sahte reklamı yayınlanıyor. Platform bilgilendirildi ama reklamı kaldırmadı. Sen tuzağa düşüyorsun, bankan parayı iade ediyor.",
+          "options": [
+            "Zarar bankada kalır",
+            "Platform bankaya öder",
+            "Reklamverenin bankası öder"
+          ],
+          "answer": 1,
+          "explanation": "Dolandırıcı içerikten haberdar edilip kaldırmayan büyük platformlar, mağduru tazmin eden bankaya karşı sorumlu.",
+          "sources": [
+            2,
+            15
+          ]
+        },
+        {
+          "question": "Dışarıdan alınan kimlik doğrulama hizmetinde yaşanan bir kesinti sahte ödemelerin geçmesine yol açıyor. Bankalar müşterilere iade ediyor.",
+          "options": [
+            "Bankalar üstlenir",
+            "Sağlayıcı sorumlu olabilir",
+            "Müşteriler paylaşır"
+          ],
+          "answer": 1,
+          "explanation": "Teknik hizmet sağlayıcıları ve ödeme şemaları ilk kez sorumluluk çerçevesine giriyor. Bankaların rücu hakkı var.",
+          "sources": [
+            4
+          ]
+        }
+      ]
+    },
+    "impact": {
+      "head": {
+        "index": "08",
+        "label": "Etki haritası",
+        "title": "Şirketini seç. Faturayı da fırsatı da gör.",
+        "lede": "Senin şirketin nerede duruyor? Her oyuncu tipini, kuralların ona maliyetine ve açtığı yeni gelir alanına göre yerleştirdik. Puanlar 0 ile 10 arasında, bizim tahminlerimiz."
+      },
+      "chartLabel": "Etki haritası: uyum yüküne karşı yeni gelir alanı",
+      "axisX": "UYUM YÜKÜ",
+      "axisY": "YENİ GELİR ALANI",
+      "quadrants": [
+        "HIZLI KUR",
+        "ÖDE VE OYNA",
+        "İZLE",
+        "SAVUN"
+      ],
+      "ofTemplate": "{n} / {total}",
+      "loadLabel": "Uyum yükü",
+      "roomLabel": "Gelir alanı",
+      "changesLabel": "Ne değişiyor",
+      "nextLabel": "Önümüzdeki 12 ay",
+      "useCaseLabel": "Kullanım örneği · temsilî",
+      "firms": [
+        {
+          "name": "Büyük evrensel bankalar",
+          "x": 8,
+          "y": 6,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "Yeni dolandırıcılık iadelerini, alıcı adı kontrolünü, API performans ölçütlerini ve izin panelini bunlar taşıyor. FiDA'da en büyük veri sahipleri, aynı zamanda veri kullanıcısı da olabilirler.",
+          "next": "API erişimini kanunen ücretsiz olan ve ücretli premium olan diye ikiye ayırın. Ücret kurallarını şekillendirmek için bir FiDA şemasına erken katılın. Platformlara ve operatörlere rücu taleplerini dolandırıcılık operasyonuna dahil edin.",
+          "useCase": "Büyük bir banka PSR kapsamındaki hesap erişimini ücretsiz tutuyor, zenginleştirilmiş işlem verisi ve yüksek çağrı limitleri sunan premium API'yi kredi kuruluşlarına ve muhasebe yazılımlarına satıyor."
+        },
+        {
+          "name": "Tasarruf ve kooperatif bankaları",
+          "x": 8.6,
+          "y": 3.8,
+          "tone": "red",
+          "verdict": "Sıkışıyor",
+          "changes": "Büyük bankalarla aynı yükümlülükler, daha küçük bütçeler. Taklit dolandırıcılığı iadeleri yaşlı müşteri tabanında en sert vuruyor.",
+          "next": "Grubun bilgi işlem merkezi bir kez kursun. Dolandırıcılık verisini grup içinde ortaklaştırın. Şubelerin kapandığı yerlerde anlaşmalı mağazalarda nakit sunun.",
+          "useCase": "Bölgesel bir tasarruf bankası, üç kardeş bankanın bir saat içinde aynı hesaba giden transferleri işaretlemesi sayesinde bir para katırı hesabını yakalıyor."
+        },
+        {
+          "name": "Neobankalar",
+          "x": 6,
+          "y": 8,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "Taklit dolandırıcılığı artarsa hızlı müşteri kazanımının bir iade faturası olacak. Karşılığında FiDA, köklü bankalardan müşteri çalmak için gereken veriyi veriyor.",
+          "next": "Büyüme kampanyalarından önce dolandırıcılık skorlamasına yatırım yapın. FiDA 1. aşama için geçiş ürünlerini planlayın.",
+          "useCase": "Bir neobanka müşterinin başka bankadaki pahalı tüketici kredisini görüyor ve daha düşük faizle tek dokunuşla yeniden finansman öneriyor."
+        },
+        {
+          "name": "Ödeme ve elektronik para kuruluşları",
+          "x": 5,
+          "y": 7.8,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "Tek lisans rejimi ve bankaların hesaplarını reddetmesi için daha dar gerekçeler. Ödeme sistemlerine doğrudan erişim zaten Anlık Ödemeler Tüzüğü ile geldi. Dolandırıcılık sorumluluğu da üstlerine geliyor.",
+          "next": "Yeniden yetkilendirme dosyasını şimdiden planlayın, belgeleme için son tarih yürürlükten 27 ay sonra. Aracı banka maliyetini düşürmek için ödeme sistemlerine doğrudan erişimi kullanın.",
+          "useCase": "Berlin'deki bir elektronik para kuruluşu anlık ödeme sistemine doğrudan katılıyor ve maliyet tablosundan bir aracı bankayı çıkarıyor."
+        },
+        {
+          "name": "Açık bankacılık sağlayıcıları",
+          "x": 3.2,
+          "y": 9.2,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "Daha iyi API'ler, yasaklı engeller ve daha uzun onay süreleri. FiDA mevduat, kredi, yatırım ve sigorta verisini ekliyor.",
+          "next": "Hesap verisinden finansal resmin tamamına geçin. FiDA şemalarında ücretli veriye hazırlanın.",
+          "useCase": "Bir ödeme başlatma sağlayıcısı, Alman bir online mağaza için kartlardan daha az terk oranıyla hesaptan hesaba ödeme sunuyor."
+        },
+        {
+          "name": "Perakende ve e ticaret",
+          "x": 2,
+          "y": 6.2,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "Daha ucuz hesaptan hesaba ödeme ve ödeme lisansı gerektirmeyen nakit hizmetleri.",
+          "next": "Ödeme adımında banka ödemesini test edin. Kasada nakit çekimi mağaza trafiği getiren bir hizmet olarak düşünün.",
+          "useCase": "Bir drogeri zinciri müşterilerin alışveriş yapmadan yasal limite kadar para çekmesine izin veriyor ve şube kapatan bankalardan ücret alıyor."
+        },
+        {
+          "name": "Çok büyük platformlar",
+          "x": 7.4,
+          "y": 1.8,
+          "tone": "red",
+          "verdict": "Sıkışıyor",
+          "changes": "Kendilerine bildirilen dolandırıcılık için bankalara karşı yeni sorumluluk. Finans reklamı verenlerin lisansını kontrol etme yükümlülüğü.",
+          "next": "Bildirilen finansal dolandırıcılık için hızlı kaldırma. Reklamlar yayına girmeden önce finans reklamvereni doğrulama.",
+          "useCase": "Bir sosyal ağ finans reklamı satın alan herkes için lisans kontrolü ekliyor ve iade riskini düşürüyor."
+        },
+        {
+          "name": "Telekom operatörleri",
+          "x": 5,
+          "y": 4.6,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "Numara taklidine karşı iş birliği yükümlülüğü, operatör faturasıyla ödemede daha sıkı limitler.",
+          "next": "Şebeke verisini bankaların para ödeyeceği dolandırıcılık sinyallerine dönüştürün.",
+          "useCase": "Bir operatör, bankaların büyük transferleri onaylamadan önce çalıştırdığı SIM değişikliği ve arama kaynağı kontrolünü satıyor."
+        },
+        {
+          "name": "Kart şemaları ve işlemciler",
+          "x": 6.2,
+          "y": 3.4,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "Finansal zarara yol açan hatalar için doğrudan sorumluluk, güçlenen hesaptan hesaba rakipler.",
+          "next": "Dolandırıcılık verisini ve itiraz hizmetlerini banka ödemelerinin henüz sunamadığı bir değere paketleyin.",
+          "useCase": "Bir işlemci üye işyerlerine kartları ve hesaptan hesaba ödemeyi ortak dolandırıcılık skorlamasıyla tek sözleşmede sunuyor."
+        },
+        {
+          "name": "Teknik ve BaaS sağlayıcıları",
+          "x": 6.4,
+          "y": 7,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "Kimlik doğrulama ve diğer teknik hatalar için doğrudan sorumluluk. Buna karşılık alıcı adı kontrolü, dolandırıcılık araçları ve erişilebilir kimlik doğrulamaya yeni talep.",
+          "next": "Sorumluluğu sözleşmelere fiyatlayın. Küçük bankalar için alıcı adı kontrolü ve dolandırıcılık araçlarını paketleyin.",
+          "useCase": "Bir BaaS platformu yirmi küçük bankaya alıcı adı kontrolü, dolandırıcılık skorlaması ve beyaz etiketli izin paneli satıyor."
+        },
+        {
+          "name": "Sigortacılar",
+          "x": 4.6,
+          "y": 5.4,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "FiDA ile veri sahibi oluyorlar, önce motorlu taşıt, sonra diğer hayat dışı branşlar.",
+          "next": "Şemaya hazır API'ler kurun. Gelen veriyi yenileme anında daha iyi fiyatlama için kullanın.",
+          "useCase": "Bir karşılaştırma uygulaması sürücünün mevcut kasko poliçesini okuyor ve eski poliçe yenilenmeden önce üç daha ucuz teklif gösteriyor."
+        },
+        {
+          "name": "Varlık yönetimi ve aracı kurumlar",
+          "x": 4,
+          "y": 6.6,
+          "tone": "amber",
+          "verdict": "Yeniden kuruluyor",
+          "changes": "Yatırım ve kripto verisi 2. aşamada açılıyor. Müşteri resminin tamamını istediği yere taşıyabiliyor.",
+          "next": "Bir rakip yapmadan toplayıcı siz olun.",
+          "useCase": "Bir robo danışman müşterinin üç aracı kurumdaki varlıklarını çekiyor ve hepsini birlikte dengeliyor."
+        },
+        {
+          "name": "Kredi verenler ve BNPL",
+          "x": 3,
+          "y": 8,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "FiDA ile daha zengin kredi verisi. BNPL kredi sayılıyor ve ödeme hizmeti sunmadıkça ödeme kurallarının dışında kalıyor.",
+          "next": "Kredi kararlarını FiDA verisi üzerine kurun. BNPL ürünlerini net biçimde kredi tarafında tutun.",
+          "useCase": "Bir KOBİ kredi kuruluşu işletme hesaplarını ve mevcut kredileri okuyarak bir gün içinde işletme sermayesi limiti veriyor."
+        },
+        {
+          "name": "Büyük teknoloji şirketleri",
+          "x": 5.6,
+          "y": 2.6,
+          "tone": "red",
+          "verdict": "Sıkışıyor",
+          "changes": "Telefon üreticileri NFC'yi ve güvenli depolamayı adil koşullarla açmak zorunda. Kapı bekçisi olarak FiDA verisine erişimleri hâlâ tartışmalı.",
+          "next": "Kendi cihazınızda cüzdan rekabetine hazırlanın.",
+          "useCase": "Bir banka cüzdanı aynı telefonda yerleşik cüzdanın yanında duruyor ve aynı terminallerde ödeme alıyor."
+        },
+        {
+          "name": "Muhasebe ve dikey SaaS",
+          "x": 1.6,
+          "y": 7.6,
+          "tone": "green",
+          "verdict": "Rüzgâr arkada",
+          "changes": "Hafif yükümlülükler. Zengin veri ve lisanslı ortaklarla gömülü finans sayesinde büyük fırsat.",
+          "next": "Lisanslı bir ortak seçin ve finans özelliklerini ürünün içinde tasarlayın.",
+          "useCase": "Alman mali müşavirler için bir yazılım, müşterilerin kredi ve mevduat verisini yıllık tablolar için otomatik çekiyor."
+        }
+      ]
+    },
+    "models": {
+      "head": {
+        "index": "09",
+        "label": "Doğan iş modelleri",
+        "title": "Yeni kuralların üstüne kurulmaya değer on iki şey.",
+        "lede": "Her yeni kural, birinin para kazanacağı yeni bir iş doğuruyor. En ilginç bulduğumuz on ikisi burada. Kimin kurmaya en uygun olduğuna göre filtreleyebilirsin. Kullanım örnekleri temsilî."
+      },
+      "filters": [
+        {
+          "id": "all",
+          "label": "Hepsi"
+        },
+        {
+          "id": "Banks",
+          "label": "Bankalar"
+        },
+        {
+          "id": "Fintechs",
+          "label": "Fintechler"
+        },
+        {
+          "id": "Non financial",
+          "label": "Finans dışı"
+        }
+      ],
+      "numberTemplate": "Model {n}",
+      "triggerLabel": "Tetikleyen kural",
+      "moneyLabel": "Nasıl para kazanır",
+      "useCaseLabel": "Kullanım örneği",
+      "items": [
+        {
+          "name": "Premium API kataloğu",
+          "trigger": "PSR zorunlu veri erişimini ücretsiz tutuyor. FiDA makul ücrete izin veriyor.",
+          "money": "Yasal asgarinin ötesindeki veri için çağrı başına ya da abonelikle ücret.",
+          "builders": [
+            "Banks"
+          ],
+          "builderLabels": [
+            "Bankalar"
+          ],
+          "useCase": "Bir banka anlık bakiye uyarılarını ve kategorize edilmiş işlemleri bordro yazılımına satıyor."
+        },
+        {
+          "name": "Dolandırıcılık istihbarat ağı",
+          "trigger": "Taklit dolandırıcılığı iadeleri ve dolandırıcılık verisi paylaşımı için yasal dayanak.",
+          "money": "Bankalar arasında üyelik ücreti ve kontrol başına fiyat.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Bankalar",
+            "Fintechler"
+          ],
+          "useCase": "On iki orta ölçekli banka para katırı hesap sinyallerini tek bir sağlayıcı üzerinden birleştiriyor ve iadeleri azaltıyor."
+        },
+        {
+          "name": "Hizmet olarak alıcı adı kontrolü",
+          "trigger": "Tüm havalelerde iade sorumluluğuyla birlikte alıcı adı kontrolü.",
+          "money": "Kontrol başına ücret, isim eşleştirmenin üstüne risk skoru.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechler"
+          ],
+          "useCase": "Bir sağlayıcı ticaret sicili verisini ekliyor, böylece kontrol yeni kurulmuş bir paravan şirketi işaretliyor."
+        },
+        {
+          "name": "Rücu ve tazminat motoru",
+          "trigger": "Bankalar platformlardan, operatörlerden ve teknik sağlayıcılardan tazmin isteyebiliyor.",
+          "money": "Geri alınan iadelerden başarı ücreti.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechler"
+          ],
+          "useCase": "Bir tazminat platformu iade edilmiş elli vakayı bir araya getirip aynı platforma tek seferde başvuruyor."
+        },
+        {
+          "name": "Ürün olarak izin paneli",
+          "trigger": "PSR ve FiDA panelleri zorunlu.",
+          "money": "Beyaz etiket lisansı. Bankalar için müşteriyi elde tutan bir ekran.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Bankalar",
+            "Fintechler"
+          ],
+          "useCase": "Bir sigortacı paneli, verisini hangi uygulamaların tuttuğunu göstermek ve yerine kendi uygulamasını önermek için kullanıyor."
+        },
+        {
+          "name": "Şema operatörü",
+          "trigger": "FiDA finansal veri paylaşım şemalarını zorunlu kılıyor.",
+          "money": "Üyelik, sertifikasyon ve uyuşmazlık hizmetleri.",
+          "builders": [
+            "Banks",
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Bankalar",
+            "Fintechler"
+          ],
+          "useCase": "Bir sektör kuruluşu Alman sigorta veri şemasını işletiyor ve üyelerin API'lerini sertifikalandırıyor."
+        },
+        {
+          "name": "Geçiş motoru",
+          "trigger": "Mevduat, kredi, konut kredisi ve sigorta için FiDA 1. ve 2. aşama verisi.",
+          "money": "Yeni sağlayıcıdan komisyon.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechler",
+            "Finans dışı"
+          ],
+          "useCase": "Bir kredi aracısı mevcut krediyi okuyor ve sabit faiz bitmeden altı ay önce müşteriyi uyarıyor."
+        },
+        {
+          "name": "Hesaptan hesaba ödeme",
+          "trigger": "Yasaklı engellerle netleşen ödeme başlatma kuralları.",
+          "money": "Kartlardan düşük ücret, tasarruf üye işyeriyle paylaşılıyor.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechler",
+            "Finans dışı"
+          ],
+          "useCase": "Bir online mobilya mağazası yüksek tutarlı sepetleri banka ödemesine taşıyor ve kart komisyonundan tasarruf ediyor."
+        },
+        {
+          "name": "Perakende hizmeti olarak nakit",
+          "trigger": "Mağazada alışverişsiz nakit çekim, işlem başına 150 €'ya kadar.",
+          "money": "Bankaların ya da ağların çekim başına ödediği ücret.",
+          "builders": [
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Finans dışı"
+          ],
+          "useCase": "Bir akaryakıt istasyonu zinciri üç bölgesel bankanın nakit noktasına dönüşüyor."
+        },
+        {
+          "name": "Erişilebilir kimlik doğrulama",
+          "trigger": "Sadece akıllı telefona dayanmayan, ücretsiz ve kapsayıcı kimlik doğrulama.",
+          "money": "Bankalara satılan donanım, ses ve kart tabanlı yöntemler.",
+          "builders": [
+            "Fintechs"
+          ],
+          "builderLabels": [
+            "Fintechler"
+          ],
+          "useCase": "Bir tedarikçi görme engelli müşteriler için sesli onay yöntemi sunuyor."
+        },
+        {
+          "name": "Reklamveren doğrulama",
+          "trigger": "Büyük platformlardaki finans reklamvereni lisansını kanıtlamak zorunda.",
+          "money": "Platformlara ve ajanslara reklamveren başına kontrol satışı.",
+          "builders": [
+            "Fintechs",
+            "Non financial"
+          ],
+          "builderLabels": [
+            "Fintechler",
+            "Finans dışı"
+          ],
+          "useCase": "Bir doğrulama API'si finans reklamı yayına girmeden ulusal lisans sicillerini kontrol ediyor."
+        },
+        {
+          "name": "Her telefonda banka cüzdanı",
+          "trigger": "NFC'ye ve güvenli depolamaya adil erişim.",
+          "money": "Kart ekonomisini ve müşteri ilişkisini bankada tutuyor.",
+          "builders": [
+            "Banks"
+          ],
+          "builderLabels": [
+            "Bankalar"
+          ],
+          "useCase": "Bir banka grubu tüm üye bankaları için tek bir temassız ödeme cüzdanı çıkarıyor."
+        }
+      ]
+    },
+    "uk": {
+      "head": {
+        "index": "10",
+        "label": "İngiltere merceği",
+        "title": "İngiltere, AB'nin planladığı geleceği şimdiden yaşıyor. İki yılda öğrendikleri burada.",
+        "lede": "7 Ekim 2024'ten beri İngiltere'de bankalar ve fintechler, müşteri gönder tuşuna kendisi bassa bile dolandırıcılık mağdurlarının çoğuna parayı geri ödemek zorunda. Kural sektörü ikiye böldü ve şu an canlıda. Aşağıda kurallar, rakamlar, tartışmalar ve RUUT'u İngiltere'de canlıya alırken dolandırıcılık akışlarını kurarken öğrendiklerimiz var."
+      },
+      "table": {
+        "columns": [
+          "AB, PSR",
+          "İngiltere, zorunlu iade"
+        ],
+        "rows": [
+          {
+            "label": "Durum",
+            "eu": "2028 sonundan itibaren [12]",
+            "uk": "7 Ekim 2024'ten beri canlı [29]"
+          },
+          {
+            "label": "Hangi dolandırıcılıklar",
+            "eu": "Müşterinin kendi bankasını taklit etmek ve başarısız alıcı adı kontrolü [13]",
+            "uk": "Faster Payments üzerinden yapılan neredeyse tüm onaylı havale dolandırıcılıkları [30]"
+          },
+          {
+            "label": "Kim öder",
+            "eu": "Ödeyenin bankası, platformlara ve teknik sağlayıcılara rücu hakkıyla [4]",
+            "uk": "Gönderen ve alan kuruluş arasında yarı yarıya [30]"
+          },
+          {
+            "label": "Ne kadar hızlı",
+            "eu": "İade etmek ya da gerekçeyle reddetmek için 15 iş günü [13]",
+            "uk": "5 iş günü, ek kanıt gerekirse 35 iş gününe kadar [29]"
+          },
+          {
+            "label": "Sınırlar",
+            "eu": "Müşteride dolandırıcılık ya da ağır ihmal yoksa tutarın tamamı [13]",
+            "uk": "85.000 £ tavan, en fazla 100 £ isteğe bağlı muafiyet, tüketicinin özen standardı [29]"
+          }
+        ]
+      },
+      "figuresHeading": "İlk 18 ay ne gösteriyor",
+      "figures": [
+        {
+          "value": "%88",
+          "text": "kapsamdaki dolandırıcılıklarda kaybedilen paranın geri ödenen kısmı, 18 ayda 316 milyon £ [29]"
+        },
+        {
+          "value": "%82",
+          "text": "talebin beş iş günü içinde kapanan kısmı [29]"
+        },
+        {
+          "value": "73 mn £",
+          "text": "yılda dolandırıcılığa giden paradaki düşüş, yaklaşık %21 [31]"
+        },
+        {
+          "value": "21 → 60 mn £",
+          "text": "kuralın dışında kalan yurt dışı dolandırıcılıklar, 2023'ten 2025'e [30]",
+          "warn": true
+        }
+      ],
+      "figuresNote": "Frontier Economics'in PSR için yaptığı bağımsız değerlendirme, Temmuz 2026, ve PSR'nin Mart 2026'ya kadarki iade paneli.",
+      "cards": [
+        {
+          "tag": "Neden tartışma çıktı",
+          "first": "Bankalar, çoğu başka yerde başlayan dolandırıcılığın faturasını ödüyor.",
+          "body": "Dolandırıcılıkların %54'ü Meta'nın platformlarında başlıyor ama iade faturası sadece ödeme kuruluşlarına kesiliyor. [36] Küçük fintechler birkaç büyük vakanın bir yıllık kârı silebileceğini söyledi. İade oranları kuruluştan kuruluşa %21 ile %94 arasında değişiyor. Bir kuruluş müşteri özeni istisnasını tutar bazında vakaların dörtte birinden fazlasında kullanırken, bazıları hiç kullanmadı. Dolandırıcılık da kuralın bittiği yerlere, kripto borsalarına ve yurt dışı transferlere kayıyor. [30]"
+        },
+        {
+          "tag": "İngiltere'de başka neler var",
+          "first": "İngiltere iade kuralının etrafına bir alet çantası kurdu.",
+          "body": "Confirmation of Payee 2020'den beri çalışıyor, bugün 320'den fazla kuruluşu ve Faster Payments gönderenlerinin %99'undan fazlasını kapsıyor. Ekim 2026'da regülatör bitiş tarihini kaldırdı. [32] Bankalar şüpheli bir ödemeyi dört güne kadar ek süre tutabiliyor. [33] Açık bankacılıkla tekrarlayan ödemeler Haziran 2026'da kendi sektör şemasına kavuştu. [34] PSR'nin kendisi FCA'nın içine katılıyor, yasa tasarısı şu an Avam Kamarası'nda. [35] İade kuralını düzeltmek için bir istişare Aralık 2026'da geliyor. [30]"
+        }
+      ],
+      "journey": {
+        "heading": "Bir dolandırıcılık ödemesini İngiliz bir bankacılık uygulamasında takip et",
+        "note": "Her adıma dokun. Bunlar İngiliz banka ve fintechlerinin bugün kullandığı savunmalar, çoğunu RUUT'ta tasarladık ya da partnerlerini seçtik. AB ekipleri işe yarayanı kopyalayabilir.",
+        "stopsLabel": "Neyi durduruyor",
+        "steps": [
+          {
+            "step": "1. adım",
+            "name": "Telefon çalıyor",
+            "stops": "Arayanın mağduru canlı yönlendirdiği güvenli hesap ve banka taklidi dolandırıcılıkları.",
+            "defences": [
+              {
+                "title": "Arama sırasında uyarı",
+                "text": "Müşteri telefonla konuşurken uygulamayı açarsa bir uyarı çıkıyor: telefondaki biri sana para taşımanı mı söylüyor? Bankan bunu asla yapmaz.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "Ekran paylaşımı yok",
+                "text": "Uygulama ekran kaydını ve ekran paylaşımını engelliyor, uzaktan erişimle dolandıranlar şifreleri ve bakiyeyi göremiyor.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "Operatör sinyalleri",
+                "text": "Taklit numaralar ve bilinmeyen kaynaklı aramalar risk sinyaline dönüşüyor. İngiltere'de bu hâlâ büyük ölçüde gönüllü."
+              }
+            ]
+          },
+          {
+            "step": "2. adım",
+            "name": "Yeni bir alıcı",
+            "stops": "İsim ile hesabın birbirine ait olmadığı yanlış yönlendirilmiş ödemeler ve fatura dolandırıcılığı.",
+            "defences": [
+              {
+                "title": "Confirmation of Payee ekranı",
+                "text": "Eşleşme, doğru isimle yakın eşleşme ya da eşleşme yok. Metin kontrolün kendisinden daha önemli: çıplak bir eşleşme yok uyarısı geçilip gidiliyor, net bir sonraki adım geçilmiyor.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "İlk ödemede ek adım",
+                "text": "Yeni alıcıya ilk ödeme daha düşük limit, kısa bir bekleme ya da ek onay alabiliyor."
+              }
+            ]
+          },
+          {
+            "step": "3. adım",
+            "name": "Bu ödeme ne için?",
+            "stops": "Alıcının gerçek, hikayenin sahte olduğu yatırım, alışveriş ve romantik dolandırıcılıklar.",
+            "defences": [
+              {
+                "title": "Ödeme amacı sorusu",
+                "text": "Riskli bir ödemeden önce uygulama ödemenin ne için olduğunu soruyor. Güvenli hesap, yatırım, online alışveriş, arkadaşa ödeme. Her cevaba sade bir dille kendi uyarısı çıkıyor.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "Dolandırıcılığa özel uyarılar",
+                "text": "Müşterinin o an yaşadığı dolandırıcılığın adını koyan bir uyarı, genel bir emin misin sorusundan çok daha iyi çalışıyor.",
+                "field": "Sahadan"
+              }
+            ]
+          },
+          {
+            "step": "4. adım",
+            "name": "Gönder tuşu",
+            "stops": "Davranışı kendisine benzemeyen, yönlendirilen ve baskı altındaki müşteriler.",
+            "defences": [
+              {
+                "title": "Davranışsal izleme",
+                "text": "Tereddüt, yazma hızı, IBAN'ın kopyalanıp yapıştırılması, yeni bir cihaz, alışılmadık bir saat. Davranış müşterinin profiline uymadığında risk skoru yükseliyor.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "İşlem izleme ve tutma",
+                "text": "Kurallar ve skorlar ödemeyi durduruyor, bir kişi müşteriyi arıyor. 2024'ten beri İngiliz şirketleri ödemeyi dört güne kadar ek süre tutabiliyor.",
+                "field": "Sahadan"
+              }
+            ]
+          },
+          {
+            "step": "5. adım",
+            "name": "Para çıktıktan sonra",
+            "stops": "Kaybın kendisi ve bir sonraki mağdur.",
+            "defences": [
+              {
+                "title": "İade operasyonu",
+                "text": "Talebin alınması, beş iş günlük süre, kanıtlar ve alan kuruluşla yarı yarıya paylaşımın netleşmesi. Kendi ekibini ve kendi araçlarını istiyor.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "Müşteri eğitimi",
+                "text": "O ay yükselen dolandırıcılık türlerine göre zamanlanan uygulama içi rehberler ve bildirimler.",
+                "field": "Sahadan"
+              },
+              {
+                "title": "Para katırı hesap avı",
+                "text": "Alan kuruluş yarısını ödediği için, gelen tarafta para katırı hesapları bulmak artık bir iş gerekçesi."
+              }
+            ]
+          }
+        ]
+      },
+      "view": {
+        "label": "Görüşümüz",
+        "text": "İngiltere iade kurallarının davranışı değiştirdiğini kanıtlıyor, kayıplar bir yıl içinde düştü. Dolandırıcılığın kuralların bittiği yere kaydığını da kanıtlıyor. AB bankalarının, İngiliz şirketlerinin aceleyle kurmak zorunda kaldığı şeyi sakin sakin kurmak için iki yılı var."
+      }
+    },
+    "note": {
+      "head": {
+        "index": "11",
+        "label": "Uzman notu",
+        "title": ""
+      },
+      "quote": "PSD2 döneminde dijital bankalar kurdum. Uyum o zaman da en önemli konuydu. PSD3'le birlikte değişen şu: müşteriye daha iyi, daha esnek finansal hizmetler ve gerçekten anlamlı yeni ürünler sunmanın önü açıldı.",
+      "paragraphs": [
+        "Bu kurallarla savaşmak boşa harcanan enerji. Onları ürünün içine katıp müşterinin işine yarayan bir şeye çevirmek, bugün her banka, fintech ve şirketin yapabileceği en akıllıca hamlelerden biri.",
+        "FiDA ise daha da ileri gidiyor. Yeni fırsatlar, yeni iş modelleri ve rekabete taze bir soluk getirecek. Fintech ve bankacılığı heyecanlı yıllar bekliyor."
+      ],
+      "signature": "Mehmet Burak · fspark9",
+      "checklistLabel": "Pazartesi sabahı listesi",
+      "checklist": [
+        "Her para hareketi akışını alıcı adı kontrolü ve taklit dolandırıcılığı iadesi açısından haritalayın.",
+        "API'nizi fiyatlayın. Kanunen neyin ücretsiz olduğunu, neyin premium satılabileceğini bilin.",
+        "Her ürün hattı için FiDA rolünüzü seçin: veri sahibi mi, veri kullanıcısı mı, ikisi birden mi?",
+        "Platformlara, telekom şirketlerine ve teknik sağlayıcılara rücu için bir oyun planı yazın.",
+        "İzin panelini kendi ürün sahibi olan bir ürüne dönüştürün."
+      ]
+    },
+    "close": {
+      "title": "Kurallar yazıldı. Üstüne ne kuracağınız hâlâ açık.",
+      "text": "fspark9; bankaların, fintechlerin ve müşterisi olan şirketlerin regülasyonu ürün kararlarına çevirmesine yardım ediyor.",
+      "bookLabel": "Görüşme ayarla",
+      "gameLabel": "Kim öder oyununu tekrar oyna"
+    },
+    "sources": {
+      "head": {
+        "index": "",
+        "label": "Kaynaklar",
+        "title": "Her rakam nereden geliyor."
+      },
+      "sourceTemplate": "Kaynak {n}",
+      "items": [
+        {
+          "label": "EBA and ECB, 2025 Report on Payment Fraud, December 2025",
+          "href": "https://www.ecb.europa.eu/press/pr/date/2025/html/ecb.pr251215~e133d9d683.en.html"
+        },
+        {
+          "label": "European Parliament, Payment services deal: more protection from online fraud and hidden fees, November 2025",
+          "href": "https://www.europarl.europa.eu/news/en/press-room/20251121IPR31540/payment-services-deal-more-protection-from-online-fraud-and-hidden-fees"
+        },
+        {
+          "label": "Arthur Cox, PSD3 and PSR: final compromise texts published, April 2026",
+          "href": "https://www.arthurcox.com/insights/psd3-and-psr-final-compromise-texts-published/"
+        },
+        {
+          "label": "Freshfields, PSD3/PSR: what the EU's new payments rules mean for your business, 2026",
+          "href": "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/psd3-psr-what-the-eus-new-payments-rules-mean-for-your-business-102mrom"
+        },
+        {
+          "label": "Open Banking Tracker, PSD3 and PSR readiness and timeline, 2026",
+          "href": "https://www.openbankingtracker.com/guides/psd3-psr-readiness"
+        },
+        {
+          "label": "Linklaters, Payments in 2026 #3: PSD3",
+          "href": "https://financialregulation.linklaters.com/post/102mei6/payments-in-2026-3-psd3"
+        },
+        {
+          "label": "Council of the EU, Interinstitutional file 2023/0205 (COD), FiDA compromise paper, 6 April 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/WK-5041-2026-INIT/en/pdf"
+        },
+        {
+          "label": "Projective Group, FiDA back in motion: from ambitious to workable, May 2026",
+          "href": "https://www.projectivegroup.com/fida-back-in-motion-from-ambitious-to-workable/"
+        },
+        {
+          "label": "Freshfields, Risen from the ashes: FIDA trilogue set to move forward, March 2025",
+          "href": "https://www.freshfields.com/en/our-thinking/blogs/technology-quotient/risen-from-the-ashes-fida-trilogue-set-to-move-forward-102k3at"
+        },
+        {
+          "label": "Regulation (EU) 2024/886 on instant credit transfers in euro",
+          "href": "https://eur-lex.europa.eu/eli/reg/2024/886/oj"
+        },
+        {
+          "label": "Banking.Vision, Open Finance: FIDA taking shape as lighter, consumer centric regulation, September 2025",
+          "href": "https://banking.vision/en/open-finance-fida-taking-shape"
+        },
+        {
+          "label": "Clifford Chance, Regulatory horizon scanner EU and UK H2 2026: fintech firms, July 2026",
+          "href": "https://www.cliffordchance.com/content/dam/cliffordchance/briefings/2026/07/regulatory-horizon-scanner-eu-and-uk-h2-2026-fintech-firms.pdf"
+        },
+        {
+          "label": "Herbert Smith Freehills Kramer, The new EU payments rulebook (PSD3/PSR), May 2026",
+          "href": "https://www.hsfkramer.com/notes/fsrandcorpcrime/2026-posts/the-new-eu-payments-rulebook-psd3-psr"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: Council publishes PSD3 first reading position, 23 October 2026",
+          "href": "https://www.regulationtomorrow.com/2026/10/psd3-council-of-eu-publishes-first-reading-position-with-view-to-adoption/"
+        },
+        {
+          "label": "Council of the EU, Statement of reasons on the PSR first reading position, 8543/26 ADD 1 REV 1, 21 October 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/ST-8543-2026-ADD-1-REV-1/en/pdf"
+        },
+        {
+          "label": "Alston and Bird, PSD3 and PSR: what changes for business operations in Europe, October 2026",
+          "href": "https://www.alston.com/en/insights/publications/2026/10/psd3-psr-europe-business-operations"
+        },
+        {
+          "label": "Addleshaw Goddard, PSD3: a new era for EU payment services regulation, September 2026",
+          "href": "https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/financial-regulation/financial-regulation-in-the-know-payments-september-2026/psd3-new-era-eu-payment-services-regulation/"
+        },
+        {
+          "label": "Projective Group, Will PSR and PSD3 solve the account access problem for payment institutions?, September 2026",
+          "href": "https://www.projectivegroup.com/will-psr-and-psd3-solve-the-account-access-problem-for-payment-institutions/"
+        },
+        {
+          "label": "Council of the EU, Cypriot presidency note on the future of FiDA, WK 4626/2026, 25 March 2026",
+          "href": "https://data.consilium.europa.eu/doc/document/WK-4626-2026-INIT/en/pdf"
+        },
+        {
+          "label": "Konsentus, FiDA's timetable might shift, but the destination won't, November 2025",
+          "href": "https://www.konsentus.com/fidas-timetable-might-shift-but-the-destination-wont/"
+        },
+        {
+          "label": "France FinTech, FiDA regulation: between French mistrust and British optimism, April 2026",
+          "href": "https://francefintech.org/en/reglement-fida-entre-defiance-francaise-et-optimisme-britannique-quelles-sont-les-perspectives-europeennes-avec-lopen-finance/"
+        },
+        {
+          "label": "Verbraucherzentrale Bundesverband (vzbv), Mehr Last als Schutz: so verfehlt die Empfängerüberprüfung ihr Ziel, 9 October 2026",
+          "href": "https://www.vzbv.de/pressemitteilungen/mehr-last-als-schutz-so-verfehlt-die-empfaengerueberpruefung-ihr-ziel"
+        },
+        {
+          "label": "IT Finanzmagazin, Von ruckelig bis problemlos: Erfahrungen bei der Einführung von VoP, March 2026",
+          "href": "https://www.it-finanzmagazin.de/von-ruckelig-bis-problemlos-erfahrungen-bei-der-einfuehrung-von-vop-241056/"
+        },
+        {
+          "label": "Qombo, Verification of Payee one year later, citing EPC data from August 2026, October 2026",
+          "href": "https://www.qombo.tech/en/blog/verification-of-payee-one-year-on"
+        },
+        {
+          "label": "European Central Bank, Instant Payments Regulation deadlines and obligations",
+          "href": "https://www.ecb.europa.eu/paym/retail/instant_payments/html/instant_payments_regulation.en.html"
+        },
+        {
+          "label": "The Paypers, Wero ecommerce is now live in Germany, November 2025",
+          "href": "https://thepaypers.com/payments/news/wero-ecommerce-is-now-live-in-germany"
+        },
+        {
+          "label": "EuroShop, Wero 2026: reticence in online retail, August 2026",
+          "href": "https://www.euroshop-tradefair.com/en/media-news/euroshopmag/retail-technology/wero-2026-reticence-in-online-retail"
+        },
+        {
+          "label": "EPC status update on payment schemes for the ERPB, June 2026",
+          "href": "https://www.ecb.europa.eu/paym/groups/erpb/shared/pdf/25th-ERPB%20meeting%20on%2018%20June%202026/Status_update_on_payment_and_payment-related_schemes.pdf"
+        },
+        {
+          "label": "Payment Systems Regulator, APP scams reimbursement dashboard, Q1 2026",
+          "href": "https://www.psr.org.uk/information-for-consumers/app-scams-reimbursement-dashboard/"
+        },
+        {
+          "label": "Bratby Law, APP fraud reimbursement: the evaluation verdict, on the Frontier Economics evaluation for the PSR, July 2026",
+          "href": "https://bratby.law/app-fraud-reimbursement-evaluation/"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: Payment fraud falls by £73m following PSR reimbursement scheme, July 2026",
+          "href": "https://www.regulationtomorrow.com/2026/07/payment-fraud-falls-by-73m-following-psr-reimbursement-scheme/"
+        },
+        {
+          "label": "Norton Rose Fulbright, Regulation Tomorrow: PSR publishes Specific Direction 17 (Confirmation of Payee), October 2026",
+          "href": "https://www.regulationtomorrow.com/2026/10/psr-publishes-specific-direction-17-confirmation-of-payee/"
+        },
+        {
+          "label": "The Paypers, UK banks now able to investigate suspicious transactions within four days, 2024",
+          "href": "https://thepaypers.com/fraud-and-fincrime/news/uk-banks-to-impose-four-day-hold-on-suspicious-transactions"
+        },
+        {
+          "label": "Financial Conduct Authority, Open banking takes next step forward with launch of UK Payments Initiative scheme, June 2026",
+          "href": "https://www.fca.org.uk/news/statements/open-banking-launch-uk-payments-initiative-scheme"
+        },
+        {
+          "label": "Bratby Law, Financial Services and Markets Bill 2026, updated October 2026",
+          "href": "https://bratby.law/financial-services-and-markets-bill-2026/"
+        },
+        {
+          "label": "Payment Systems Regulator, Unmasking how fraudsters target UK consumers in the digital age, December 2024",
+          "href": "https://www.psr.org.uk/media/u0vnq1ra/unmasking-how-fraudsters-target-uk-consumers-in-the-digital-age-dec-2024.pdf"
+        }
+      ],
+      "foot": "Durum 26 Ekim 2026'da kontrol edildi. PSD3 ve PSR için Parlamento oylaması, yayın ve uygulama tarihleri kurumların takvimlerinden ve hukuk bürolarının takiplerinden alınan öngörülen tarihlerdir. FiDA hâlâ müzakerede; aşamalar, kapsam ve büyük teknoloji şirketlerine yaklaşım değişebilir. Etki puanları, sektör değerlendirmeleri ve görüşümüz olarak işaretlenen kullanım örnekleri fspark9 analizidir ve hukuki tavsiye niteliği taşımaz."
+    }
+  }
+}

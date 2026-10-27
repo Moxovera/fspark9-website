@@ -40,6 +40,8 @@ import type {
   SparkReportBody,
   SparkDoraReport,
   SparkDoraReportBody,
+  SparkPsd3Report,
+  SparkPsd3ReportBody,
   SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
@@ -183,10 +185,12 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
 // göre yeniden eskiye. İlk kart büyük, kalanlar küçük; slice kart sayısı
 // (1 büyük + 2 küçük). Sığmayanlar ana sayfada görünmez, /spark'ta durur.
 // Henüz yayında olmayanlar ("coming") tarihsiz olduğu için kartlara girmez.
+// Aynı gün yayınlananlarda önce oluşturulan (önce yayına giren) büyük kartta
+// kalır (2026-10-27: PSD3 raporu, ardından Son Gün Nº 07 Xinja).
 export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
   && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))]
-  | order(coalesce(publishedAt, "9999-12-31") desc, format->orderRank asc, number desc)[0...3]{
-    number, subject, hook, cardLine, publishedAt,
+  | order(coalesce(publishedAt, "9999-12-31") desc, _createdAt asc, format->orderRank asc, number desc)[0...3]{
+    number, subject, hook, cardLine, cardLinkLabel, publishedAt,
     "status": select($preview && status in ["coming", "draft"] && previewLive == true => "published", status),
     "episodeSlug": slug,
     "format": format->{ name, singularName, slug, comingLabel }
@@ -225,7 +229,7 @@ export async function getHome(): Promise<Record<Locale, HomeContent>> {
       return {
         ...base,
         date: c.publishedAt ? formatShortDate(c.publishedAt, locale) : spark[locale].launchDateLabel,
-        linkLabel: page.spark.cardLinkLabel,
+        linkLabel: c.cardLinkLabel || page.spark.cardLinkLabel,
         href: {
           pathname: "/spark/[formatSlug]/[episodeSlug]",
           params: { formatSlug: c.format.slug[locale].current, episodeSlug: c.episodeSlug[locale].current },
@@ -487,7 +491,7 @@ export const SPARK_EPISODES_QUERY = defineQuery(`*[_type == "sparkEpisode"
     "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),
     "lessons": coalesce(lessons[]{ heading, body }, []),
     "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),
-    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country,
+    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,
     "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },
     "decisions": coalesce(decisions[]{
       date, when, label, title, record,
@@ -533,6 +537,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
       if (rest.layout === "dora") {
         const dora = toDora(rest, locale);
         return dora ? [{ ...base, layout: "dora", story: dora }] : [];
+      }
+      if (rest.layout === "psd3") {
+        const psd3 = toPsd3(rest, locale);
+        return psd3 ? [{ ...base, layout: "psd3", story: psd3 }] : [];
       }
       if (rest.layout === "radar") {
         const radar = toRadar(rest, locale, publishedAt ?? _createdAt.slice(0, 10));
@@ -633,6 +641,18 @@ function toReport(doc: EpisodeDoc, locale: Locale): SparkReport | null {
   if (!raw) return null;
   const { number, subject, hook, seo } = localize(doc, locale);
   return { number, subject, hook, seo, ...(JSON.parse(raw) as SparkReportBody) };
+}
+
+/**
+ * Sektör raporu Nº 03 PSD3, PSR ve FiDA: Bauspar ve DORA gibi dil başına
+ * JSON (`reportBody`), şekli SparkPsd3Report. Ana sayfa kartının link
+ * etiketi belgenin `cardLinkLabel` alanında.
+ */
+function toPsd3(doc: EpisodeDoc, locale: Locale): SparkPsd3Report | null {
+  const raw = doc.reportBody?.[locale];
+  if (!raw) return null;
+  const { number, subject, hook, seo, cardLinkLabel } = localize(doc, locale);
+  return { number, subject, hook, seo, cardLinkLabel: cardLinkLabel ?? "", ...(JSON.parse(raw) as SparkPsd3ReportBody) };
 }
 
 /** Sektör raporu Nº 02 DORA: Bauspar gibi dil başına JSON (`reportBody`), şekli SparkDoraReport. */

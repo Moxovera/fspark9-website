@@ -134,6 +134,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Sector report",
+          number: "Nº 03",
+          title: "The liability flip",
+          line: "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
+          date: "27 Oct 2026",
+          linkLabel: "Read the report",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "psd3-fida" },
+          },
+        },
+        {
           format: "The Last Day",
           number: "Nº 07",
           title: "Xinja Bank",
@@ -155,18 +167,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sector-reports", episodeSlug: "dora" },
-          },
-        },
-        {
-          format: "On the Radar",
-          number: "Nº 01",
-          title: "finmid",
-          line: "The Berlin firm that lends inside Wolt, Glovo and Bolt without showing its own name.",
-          date: "11 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
           },
         },
       ],
@@ -300,6 +300,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Sektör raporu",
+          number: "Nº 03",
+          title: "Fatura el değiştiriyor",
+          line: "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
+          date: "27 Eki 2026",
+          linkLabel: "Raporu okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "psd3-fida" },
+          },
+        },
+        {
           format: "Son Gün",
           number: "Nº 07",
           title: "Xinja Bank",
@@ -321,18 +333,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sektor-raporlari", episodeSlug: "dora" },
-          },
-        },
-        {
-          format: "On the Radar",
-          number: "Nº 01",
-          title: "finmid",
-          line: "Wolt, Glovo ve Bolt'un uygulamalarında kendi adını göstermeden kredi veren Berlin şirketi.",
-          date: "11 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
           },
         },
       ],

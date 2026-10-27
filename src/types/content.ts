@@ -700,6 +700,188 @@ export interface SparkDoraReport {
 
 export type SparkDoraReportBody = Omit<SparkDoraReport, 'number' | 'subject' | 'hook' | 'seo'>
 
+// Sektör raporları Nº 03 PSD3, PSR ve FiDA (layout "psd3"). Metin
+// src/content/sector/psd3-fida.json'da; "[n]" kaynak linki, "**...**" kalın.
+// "{n}", "{total}", "{score}" yer tutucuları kodda doldurulur.
+export interface Psd3Card {
+  tag: string
+  first: string
+  body: string
+}
+
+export interface Psd3View {
+  label: string
+  text: string
+}
+
+export interface Psd3Message {
+  app: string
+  text: string
+  sub?: string
+  /** Ink çerçeveli, iyi sonuçlanan mesaj (prototip `.msg.good`). */
+  good?: true
+}
+
+export interface Psd3StoryMoment {
+  year: string
+  title: string
+  rule: string
+  build: string
+  today: { text: string; messages: Psd3Message[] }
+  after: { text: string; messages: Psd3Message[] }
+}
+
+export interface Psd3Firm {
+  name: string
+  /** Uyum yükü, 0 ile 10. */
+  x: number
+  /** Yeni gelir alanı, 0 ile 10. */
+  y: number
+  tone: 'green' | 'amber' | 'red'
+  verdict: string
+  changes: string
+  next: string
+  useCase: string
+}
+
+export interface SparkPsd3Report {
+  number: number
+  subject: string
+  hook: string
+  /** Ana sayfa kartının link etiketi (belgede `cardLinkLabel`). */
+  cardLinkLabel: string
+  seo: PageSeo
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    sub: string
+    figures: ReportCountFigure[]
+  }
+  short: { head: ReportHead; cards: Psd3Card[]; view: Psd3View }
+  status: {
+    head: ReportHead
+    tabsLabel: string
+    tabs: { id: string; label: string; items: { date: string; text: string; state: 'done' | 'now' | 'future'; chip: string }[] }[]
+  }
+  live: {
+    head: ReportHead
+    checkHeading: string
+    checkNote: string
+    stackLabel: string
+    /** Payee check sonuçları: değer, açıklama ve çubuktaki pay (yüzde). */
+    stack: { value: string; text: string; share: number }[]
+    surveyHeading: string
+    surveyNote: string
+    survey: { value: string; text: string }[]
+    lessonsHeading: string
+    lessons: string[]
+    view: Psd3View
+    listHeading: string
+    list: { date: string; chip: string; state: 'done' | 'next'; text: string }[]
+  }
+  changes: {
+    head: ReportHead
+    oldLabel: string
+    newLabel: string
+    note: string
+    practiceLabel: string
+    items: { title: string; who: string; old: string; new: string; practice: string; sources: number[] }[]
+  }
+  fida: {
+    head: ReportHead
+    sliderLabel: string
+    monthTemplate: string
+    start: number
+    max: number
+    step: number
+    phases: { month: number; text: string }[]
+    /** month -1: kapsam dışı. */
+    cells: { name: string; month: number; phase: string }[]
+    mechanics: { key: string; text: string }[]
+  }
+  story: {
+    head: ReportHead
+    clock: string
+    modes: { id: 'today' | 'after'; label: string }[]
+    ruleLabel: string
+    buildLabel: string
+    moments: Psd3StoryMoment[]
+  }
+  game: {
+    head: ReportHead
+    scoreLabel: string
+    sideNote: string
+    caseTemplate: string
+    resultLabel: string
+    resultTemplate: string
+    /** 5 ve üstü, 3 ve üstü, altı. */
+    tiers: string[]
+    rightLabel: string
+    wrongLabel: string
+    nextLabel: string
+    seeResultLabel: string
+    againLabel: string
+    copyLabel: string
+    copiedLabel: string
+    shareTemplate: string
+    cases: { question: string; options: string[]; answer: number; explanation: string; sources: number[] }[]
+  }
+  impact: {
+    head: ReportHead
+    chartLabel: string
+    axisX: string
+    axisY: string
+    /** Sol üst, sağ üst, sol alt, sağ alt. */
+    quadrants: string[]
+    ofTemplate: string
+    loadLabel: string
+    roomLabel: string
+    changesLabel: string
+    nextLabel: string
+    useCaseLabel: string
+    firms: Psd3Firm[]
+  }
+  models: {
+    head: ReportHead
+    /** id "all" hepsini gösterir; diğerleri `builders` değerleri. */
+    filters: { id: string; label: string }[]
+    numberTemplate: string
+    triggerLabel: string
+    moneyLabel: string
+    useCaseLabel: string
+    items: { name: string; trigger: string; money: string; builders: string[]; builderLabels: string[]; useCase: string }[]
+  }
+  uk: {
+    head: ReportHead
+    table: { columns: string[]; rows: { label: string; eu: string; uk: string }[] }
+    figuresHeading: string
+    figures: { value: string; text: string; warn?: true }[]
+    figuresNote: string
+    cards: Psd3Card[]
+    journey: {
+      heading: string
+      note: string
+      stopsLabel: string
+      steps: { step: string; name: string; stops: string; defences: { title: string; text: string; field?: string }[] }[]
+    }
+    view: Psd3View
+  }
+  note: {
+    head: ReportHead
+    quote: string
+    paragraphs: string[]
+    signature: string
+    checklistLabel: string
+    checklist: string[]
+  }
+  close: { title: string; text: string; bookLabel: string; gameLabel: string }
+  sources: { head: ReportHead; sourceTemplate: string; items: { label: string; href: string }[]; foot: string }
+}
+
+export type SparkPsd3ReportBody = Omit<SparkPsd3Report, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -1508,6 +1690,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'decisions'; story: SparkDecisionEpisode }
     | { layout: 'report'; story: SparkReport }
     | { layout: 'dora'; story: SparkDoraReport }
+    | { layout: 'psd3'; story: SparkPsd3Report }
     | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
@@ -2488,6 +2671,63 @@ export interface DoraStoryProps {
 
 export interface DoraTimelineProps {
   timeline: SparkDoraReport['origin']['timeline']
+}
+
+// Sektör raporu Nº 03 PSD3 bileşenleri (components/spark/report/psd3)
+export interface Psd3EpisodeProps {
+  report: SparkPsd3Report
+  locale: Locale
+  portraitSrc?: string
+  portraitAlt: string
+}
+
+export interface Psd3TextProps {
+  text: string
+  /** "Source {n}" ya da "Kaynak {n}": kaynak linkinin adı. */
+  template: string
+}
+
+export interface Psd3RefsProps {
+  sources: number[]
+  template: string
+}
+
+export interface Psd3StatusProps {
+  status: SparkPsd3Report['status']
+  template: string
+}
+
+export interface Psd3ChangesProps {
+  changes: SparkPsd3Report['changes']
+  template: string
+}
+
+export interface Psd3FidaProps {
+  fida: SparkPsd3Report['fida']
+  template: string
+}
+
+export interface Psd3StoryProps {
+  story: SparkPsd3Report['story']
+  template: string
+}
+
+export interface Psd3GameProps {
+  game: SparkPsd3Report['game']
+  template: string
+}
+
+export interface Psd3ImpactProps {
+  impact: SparkPsd3Report['impact']
+  locale: Locale
+}
+
+export interface Psd3ModelsProps {
+  models: SparkPsd3Report['models']
+}
+
+export interface Psd3JourneyProps {
+  journey: SparkPsd3Report['uk']['journey']
 }
 
 export interface DoraDeskProps {

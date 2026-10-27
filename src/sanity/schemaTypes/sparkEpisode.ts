@@ -28,7 +28,9 @@ const hideUnlessStory: ConditionalPropertyCallback = ({ document }) => layoutOf(
 const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "decisions";
 // Sektör raporları Nº 02 (DORA, 2026-10-16): beşinci şablon, `dora`. Gövdesi
 // Bauspar gibi Report sekmesindeki reportBody (şekli SparkDoraReport).
-const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora"].includes(String(layoutOf(document)));
+// Sektör raporları Nº 03 (PSD3, PSR ve FiDA, 2026-10-27): altıncı şablon,
+// `psd3`. Gövde yine reportBody (şekli SparkPsd3Report).
+const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3"].includes(String(layoutOf(document)));
 const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
 
 export default defineType({
@@ -66,8 +68,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · radar: On the Radar",
-      options: { list: ["story", "decisions", "report", "dora", "radar"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · psd3: sektör raporu Nº 03 (PSD3, PSR ve FiDA) · radar: On the Radar",
+      options: { list: ["story", "decisions", "report", "dora", "psd3", "radar"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),
@@ -115,6 +117,13 @@ export default defineType({
       title: "Home card line (optional, falls back to hook)",
       type: "localeText",
       group: "meta",
+    }),
+    defineField({
+      name: "cardLinkLabel",
+      title: "Home card link label (optional)",
+      type: "localeString",
+      group: "meta",
+      description: "Boşsa ana sayfanın ortak etiketi (Read the episode). Ör. sektör raporunda \"Read the report\".",
     }),
     defineField({
       name: "publishedAt",

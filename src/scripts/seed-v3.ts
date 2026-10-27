@@ -61,6 +61,12 @@
  *   --only=dora     sadece DORA belgesi yazılır; diğerlerine dokunulmaz.
  *   --publish-dora  status published, previewLive kalkar (--only=dora ile birlikte).
  *
+ * Sektör raporları Nº 03 (PSD3, PSR ve FiDA, layout "psd3") DORA ile aynı.
+ * Gövde src/content/sector/psd3-fida.json; ana sayfa kartının link etiketi
+ * belgenin cardLinkLabel alanında.
+ *   --only=psd3-fida     sadece bu raporun belgesi yazılır; diğerlerine dokunulmaz.
+ *   --publish-psd3-fida  status published, previewLive kalkar (--only=psd3-fida ile birlikte).
+ *
  * Koruma: canlıda `published` olan bir bölümü geri çekecek (durumunu
  * değiştirecek, previewLive koyacak ya da createOrReplace ile ezecek) her
  * çalıştırma, hiçbir şey yazmadan hata verir. Bilerek geri çekmek için
@@ -78,6 +84,7 @@ import { about } from "../content/about";
 import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
 import { dora } from "../content/spark-dora";
+import { psd3 } from "../content/spark-psd3";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { xinja } from "../content/spark-xinja";
@@ -94,6 +101,7 @@ import type {
   SparkDecisionEpisode,
   SparkReport,
   SparkDoraReport,
+  SparkPsd3Report,
   SparkSourceLink,
   SparkStoryCard,
   SparkEpisodeStory,
@@ -118,6 +126,9 @@ const publishBauspar = process.argv.includes("--publish-bauspar");
 const onlyDora = process.argv.includes("--only=dora");
 const publishDora = process.argv.includes("--publish-dora");
 if (publishDora && !onlyDora) throw new Error("--publish-dora needs --only=dora.");
+const onlyPsd3 = process.argv.includes("--only=psd3-fida");
+const publishPsd3 = process.argv.includes("--publish-psd3-fida");
+if (publishPsd3 && !onlyPsd3) throw new Error("--publish-psd3-fida needs --only=psd3-fida.");
 const onlyOnTheRadar = process.argv.includes("--only=on-the-radar");
 const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
 const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
@@ -164,6 +175,8 @@ const XINJA_PUBLISHED = "2026-10-27";
 const BAUSPAR_PUBLISHED = "2026-10-05";
 /** DORA raporunun yayın tarihi (canlıya çıktığı gün). */
 const DORA_PUBLISHED = "2026-10-16";
+/** PSD3, PSR ve FiDA raporunun yayın tarihi (canlıya çıktığı gün; durum 26 Ekim 2026'da kontrol edildi). */
+const PSD3_PUBLISHED = "2026-10-27";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -367,7 +380,7 @@ function homeDoc(): SanityDocumentStub {
       portraitAlt: ls(e.withMe.portraitAlt, t.withMe.portraitAlt),
     },
     spark: {
-      cardLinkLabel: ls(sparkCard(e, "Nº 01").linkLabel ?? "", sparkCard(t, "Nº 01").linkLabel ?? ""),
+      cardLinkLabel: ls(sharedLinkLabel(e), sharedLinkLabel(t)),
     },
   };
 }
@@ -734,10 +747,14 @@ function storySet(e: SparkEpisodeStory, t: SparkEpisodeStory) {
 }
 
 /** Ana sayfa aynasında kartlar yayın tarihine göre sıralı; bölüm numarasıyla bulunur. */
-function sparkCard(h: typeof home.en, number: string, format?: string) {
-  const card = h.spark.cards.find((c) => c.number === number && !c.status && (!format || c.format === format));
-  if (!card) throw new Error(`home.spark.cards: ${number} yok`);
-  return card;
+/**
+ * Ana sayfa kartlarının ortak link etiketi: aynadaki kartların çoğunun
+ * kullandığı etiket. Bir bölüm kendi etiketini taşıyabilir
+ * (sparkEpisode.cardLinkLabel, ör. PSD3 raporunda "Read the report").
+ */
+function sharedLinkLabel(h: typeof home.en) {
+  const labels = h.spark.cards.flatMap((c) => (c.linkLabel ? [c.linkLabel] : []));
+  return labels.sort((a, b) => labels.filter((l) => l === b).length - labels.filter((l) => l === a).length)[0] ?? "";
 }
 
 /**
@@ -1003,8 +1020,8 @@ const BAUSPAR_ID = "sparkEpisode-sector-reports-bauspar";
 const BAUSPAR_COMING_ID = "sparkEpisode-sector-reports-01";
 
 /** Raporun gövdesi: sayı, konu, kanca ve SEO belgenin kendi alanlarında, gerisi dil başına JSON. */
-function reportBodyJson(report: SparkReport | SparkDoraReport) {
-  const own = ["number", "subject", "hook", "seo"];
+function reportBodyJson(report: SparkReport | SparkDoraReport | SparkPsd3Report) {
+  const own = ["number", "subject", "hook", "seo", "cardLinkLabel"];
   return JSON.stringify(Object.fromEntries(Object.entries(report).filter(([key]) => !own.includes(key))));
 }
 
@@ -1071,6 +1088,48 @@ function doraPatch() {
   };
 }
 /**
+ * Sektör raporları Nº 03 PSD3, PSR ve FiDA (layout "psd3"): DORA gibi ayrı
+ * belge, gövde reportBody'de dil başına JSON. Oluşturulurken draft +
+ * previewLive; durum sadece --publish-psd3-fida ile yazılır.
+ */
+const PSD3_ID = "sparkEpisode-sector-reports-psd3-fida";
+
+function psd3Stub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: PSD3_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[1] },
+    number: 3,
+    layout: "psd3",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function psd3Patch() {
+  const e = psd3.en;
+  const t = psd3.tr;
+  return {
+    id: PSD3_ID,
+    set: {
+      layout: "psd3",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      cardLinkLabel: ls(e.cardLinkLabel, t.cardLinkLabel),
+      reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
+      ...(publishPsd3 ? { status: "published" } : {}),
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "psd3-fida" }, tr: { _type: "slug", current: "psd3-fida" } },
+      publishedAt: PSD3_PUBLISHED,
+      lastCheckedAt: PSD3_PUBLISHED,
+      ...cardLineSet("Nº 03", "Sector report", "Sektör raporu"),
+    },
+    unset: publishPsd3 ? ["previewLive"] : [],
+  };
+}
+
+/**
  * On the Radar Nº 01 finmid. Gövde src/content/radar/finmid.json'un kendisi
  * (tek kaynak); sayı, şirket adı, kanca, SEO ve ülke de ondan. Durum sadece
  * --publish-radar-finmid ile yazılır: sonraki bir --only=spark yayındaki
@@ -1094,7 +1153,6 @@ function radarFinmidPatch() {
   const body = radarBodies.finmid;
   const e = radarDocFields(body, "en");
   const t = radarDocFields(body, "tr");
-  const card = [sparkCard(home.en, "Nº 01", "On the Radar"), sparkCard(home.tr, "Nº 01", "On the Radar")];
   return {
     id: RADAR_FINMID_ID,
     set: {
@@ -1110,7 +1168,7 @@ function radarFinmidPatch() {
       country: body.country,
       publishedAt: body.publishDate,
       lastCheckedAt: body.publishDate,
-      cardLine: lt(card[0].line, card[1].line),
+      ...cardLineSet("Nº 01", "On the Radar", "On the Radar"),
     },
     unset: publishRadarFinmid ? ["previewLive"] : [],
   };
@@ -1228,8 +1286,8 @@ async function guardPublished(
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
   const creates = only
     ? []
     : onlySpark
@@ -1246,6 +1304,7 @@ async function main() {
         ...(onlyXinja ? [xinjaPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
         ...(onlyDora ? [doraPatch()] : []),
+        ...(onlyPsd3 ? [psd3Patch()] : []),
         ...(onlyOnTheRadar ? [formatSets()[2]] : []),
         ...(onlyRadarFinmid ? [radarFinmidPatch()] : []),
       ]
@@ -1261,7 +1320,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1293,6 +1352,8 @@ async function main() {
     if (onlyRadarFinmid) tx.createIfNotExists(radarFinmidStub());
   } else if (onlyDora) {
     tx.createIfNotExists(doraStub());
+  } else if (onlyPsd3) {
+    tx.createIfNotExists(psd3Stub());
   } else {
     tx.createIfNotExists(fidorStub());
     tx.createIfNotExists(yoltStub());
@@ -1300,6 +1361,7 @@ async function main() {
     tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
     tx.createIfNotExists(radarFinmidStub());
     tx.createIfNotExists(doraStub());
+    tx.createIfNotExists(psd3Stub());
   }
   for (const id of formatIdsToCreate) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });

@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   const { main, unit } = entry.durationLabel
     ? splitFigureUnit(entry.durationLabel)
     : { main: days === null ? "" : String(days), unit: format.daysUnit };
-  if (entry.layout === "report" || entry.layout === "dora") {
+  if (entry.layout === "report" || entry.layout === "dora" || entry.layout === "psd3") {
     // Sektör raporu: etiket "Spark · 02 Sektör raporları", sayı yerine rapor numarası.
     const { meta } = entry.story.hero;
     return renderEpisodeOgImage({
