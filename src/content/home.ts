@@ -147,14 +147,14 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           format: "The Last Day",
-          number: "Nº 07",
+          number: "Nº 05",
           title: "Xinja Bank",
           line: "The bank that ran out of savings accounts.",
           date: "27 Oct 2026",
           linkLabel: "Read the episode",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "07-xinja" },
+            params: { formatSlug: "the-last-day", episodeSlug: "05-xinja" },
           },
         },
         {
@@ -313,14 +313,14 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           format: "Son Gün",
-          number: "Nº 07",
+          number: "Nº 05",
           title: "Xinja Bank",
           line: "Tasarruf hesabı tükenen banka.",
           date: "27 Eki 2026",
           linkLabel: "Bölümü okuyun",
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "07-xinja" },
+            params: { formatSlug: "son-gun", episodeSlug: "05-xinja" },
           },
         },
         {

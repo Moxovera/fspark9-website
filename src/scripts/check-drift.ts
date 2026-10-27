@@ -150,7 +150,7 @@ async function main() {
     // Yolt Fidor gibi: draft + previewLive iken sadece önizleme ortamında okunur.
     const yoltS = episodesS[l].find((e) => e.layout === "story" && e.story.number === 4);
     compare(`episode.yolt.${l}`, yoltS?.story, yolt[l]);
-    const xinjaS = episodesS[l].find((e) => e.layout === "story" && e.story.number === 7);
+    const xinjaS = episodesS[l].find((e) => e.layout === "story" && e.story.number === 5);
     compare(`episode.xinja.${l}`, xinjaS?.story, xinja[l]);
     // Bauspar (sektör raporu) draft + previewLive iken sadece önizleme ortamında okunur.
     const bausparS = episodesS[l].find((e) => e.layout === "report");

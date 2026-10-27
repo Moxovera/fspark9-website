@@ -1,7 +1,7 @@
 import type { Locale, SparkEpisodeStory } from "@/types/content";
 
 /**
- * Son Gün Nº 07 · Xinja Bank (hikâye şablonu, kart yerine gün saati).
+ * Son Gün Nº 05 · Xinja Bank (hikâye şablonu, kart yerine gün saati).
  * lastdayspark9 skill'inin derleyicisi episode.json'dan üretti; prototip
  * (son-gun-xinja.html) ve metin dosyası aynı kaynaktan geliyor. Elle
  * düzenleme: metin değişecekse episode.json'dan yeniden derlenir.
@@ -9,7 +9,7 @@ import type { Locale, SparkEpisodeStory } from "@/types/content";
  */
 export const xinja: Record<Locale, SparkEpisodeStory> = {
   en: {
-    number: 7,
+    number: 5,
     subject: "Xinja Bank",
     hook: "The bank that ran out of savings accounts.",
     seo: {
@@ -17,7 +17,7 @@ export const xinja: Record<Locale, SparkEpisodeStory> = {
       description: "It raised 100 million dollars in 19 days, almost a whole year's target. 464 days after its full banking licence, it stopped being a bank.",
     },
     hero: {
-      label: "The Last Day · Nº 07 · Xinja Bank · Australia",
+      label: "The Last Day · Nº 05 · Xinja Bank · Australia",
       title: "Everyone wanted to save here.",
       sub: "It raised 100 million dollars in 19 days, almost a whole year's target. 464 days after its full banking licence, it stopped being a bank.",
       invite: "In this story, you sit at the table. At four critical moments the last word is yours. Decide first, then we look at what happened together.",
@@ -684,7 +684,7 @@ export const xinja: Record<Locale, SparkEpisodeStory> = {
     closeHeading: "If your story is just beginning, let's build it together.",
   },
   tr: {
-    number: 7,
+    number: 5,
     subject: "Xinja Bank",
     hook: "Tasarruf hesabı tükenen banka.",
     seo: {
@@ -692,7 +692,7 @@ export const xinja: Record<Locale, SparkEpisodeStory> = {
       description: "19 günde 100 milyon dolar topladı, bir yıllık hedefin neredeyse tamamı. Tam banka lisansından 464 gün sonra banka olmayı bıraktı.",
     },
     hero: {
-      label: "Son Gün · Nº 07 · Xinja Bank · Avustralya",
+      label: "Son Gün · Nº 05 · Xinja Bank · Avustralya",
       title: "Herkes parasını buraya koymak istedi.",
       sub: "19 günde 100 milyon dolar topladı, bir yıllık hedefin neredeyse tamamı. Tam banka lisansından 464 gün sonra banka olmayı bıraktı.",
       invite: "Bu hikâyede masada siz oturuyorsunuz. Dört kritik anda son söz sizde. Önce siz karar verin, sonra ne olduğuna birlikte bakalım.",

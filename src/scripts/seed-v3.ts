@@ -35,7 +35,7 @@
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-yolt   status published, previewLive kalkar.
  *
- * Xinja (Nº 07) Fidor ile aynı:
+ * Xinja (Nº 05) Fidor ile aynı:
  *   --only=xinja      sadece Xinja belgesi yazılır (yoksa draft + previewLive
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-xinja   status published, previewLive kalkar.
@@ -973,7 +973,7 @@ function yoltPatch() {
   };
 }
 
-/** Nº 07 Xinja. Belge yoksa önizleme durumunda oluşturulur: draft + previewLive. */
+/** Nº 05 Xinja (2026-10-27'ye kadar Nº 07; belge kimliği eski numarayla kaldı). Belge yoksa önizleme durumunda oluşturulur: draft + previewLive. */
 const XINJA_ID = "sparkEpisode-the-last-day-07";
 
 function xinjaStub(): SanityDocumentStub & { _id: string } {
@@ -981,7 +981,7 @@ function xinjaStub(): SanityDocumentStub & { _id: string } {
     _id: XINJA_ID,
     _type: "sparkEpisode",
     format: { _type: "reference", _ref: FORMAT_IDS[0] },
-    number: 7,
+    number: 5,
     layout: "story",
     status: "draft",
     previewLive: true,
@@ -994,9 +994,9 @@ function xinjaPatch() {
     set: {
       ...storySet(xinja.en, xinja.tr),
       ...(publishXinja ? { status: "published" } : {}),
-      number: 7,
+      number: 5,
       layout: "story",
-      slug: { _type: "localeSlug", en: { _type: "slug", current: "07-xinja" }, tr: { _type: "slug", current: "07-xinja" } },
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "05-xinja" }, tr: { _type: "slug", current: "05-xinja" } },
       city: "Sydney",
       country: "Australia",
       launchDate: "2019-09-09",

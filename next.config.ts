@@ -56,6 +56,9 @@ const nextConfig: NextConfig = {
       // /book kalktı: eski linkler randevu penceresini açsın (BookingProvider ?book=1).
       { source: "/book", destination: "/?book=1", statusCode: 301 },
       { source: "/tr/book", destination: "/tr?book=1", statusCode: 301 },
+      // Xinja 2026-10-27'de Son Gün Nº 07'den Nº 05'e geçti; eski adres paylaşılmış olabilir.
+      { source: "/spark/the-last-day/07-xinja", destination: "/spark/the-last-day/05-xinja", statusCode: 301 },
+      { source: "/tr/spark/son-gun/07-xinja", destination: "/tr/spark/son-gun/05-xinja", statusCode: 301 },
     ];
   },
 };
