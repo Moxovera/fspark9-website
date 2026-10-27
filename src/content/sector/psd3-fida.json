@@ -8,6 +8,52 @@
       "title": "The liability flip · PSD3, PSR and FiDA",
       "description": "Europe is rewriting its payment rules. When a scam call empties someone's account, the bank will often be the one paying it back. And the data banks sit on is about to get a price. Here is what changes, who feels it first and what you can build on top."
     },
+    "nav": [
+      {
+        "id": "short",
+        "label": "Short version"
+      },
+      {
+        "id": "status",
+        "label": "Status"
+      },
+      {
+        "id": "live",
+        "label": "Already live"
+      },
+      {
+        "id": "changes",
+        "label": "What changes"
+      },
+      {
+        "id": "fida",
+        "label": "FiDA"
+      },
+      {
+        "id": "story",
+        "label": "User story"
+      },
+      {
+        "id": "whopays",
+        "label": "Who pays"
+      },
+      {
+        "id": "impact",
+        "label": "Impact finder"
+      },
+      {
+        "id": "models",
+        "label": "New models"
+      },
+      {
+        "id": "uk",
+        "label": "UK"
+      },
+      {
+        "id": "sources",
+        "label": "Sources"
+      }
+    ],
     "hero": {
       "meta": [
         "Spark",
@@ -1627,6 +1673,52 @@
       "title": "Fatura el değiştiriyor · PSD3, PSR ve FiDA",
       "description": "Avrupa ödeme kurallarını yeniden yazıyor. Bir dolandırıcı telefonu birinin hesabını boşalttığında, parayı geri ödeyen çoğu zaman banka olacak. Bankaların elinde duran veri de yakında bir fiyat kazanıyor. Neyin değiştiğini, kimin ilk hissedeceğini ve bunun üstüne ne kurabileceğinizi anlatıyoruz."
     },
+    "nav": [
+      {
+        "id": "short",
+        "label": "Kısaca"
+      },
+      {
+        "id": "status",
+        "label": "Durum"
+      },
+      {
+        "id": "live",
+        "label": "Zaten canlı"
+      },
+      {
+        "id": "changes",
+        "label": "Ne değişiyor"
+      },
+      {
+        "id": "fida",
+        "label": "FiDA"
+      },
+      {
+        "id": "story",
+        "label": "Kullanıcı hikayesi"
+      },
+      {
+        "id": "whopays",
+        "label": "Kim öder"
+      },
+      {
+        "id": "impact",
+        "label": "Etki haritası"
+      },
+      {
+        "id": "models",
+        "label": "Yeni modeller"
+      },
+      {
+        "id": "uk",
+        "label": "İngiltere"
+      },
+      {
+        "id": "sources",
+        "label": "Kaynaklar"
+      }
+    ],
     "hero": {
       "meta": [
         "Spark",

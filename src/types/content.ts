@@ -751,6 +751,8 @@ export interface SparkPsd3Report {
   /** Ana sayfa kartının link etiketi (belgede `cardLinkLabel`). */
   cardLinkLabel: string
   seo: PageSeo
+  /** Header altındaki yapışkan bölüm şeridi (ReportNav). */
+  nav: ReportNavProps['items']
   hero: {
     meta: string[]
     bigNo: string

@@ -1,6 +1,7 @@
 import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
 import Portrait from "@/components/brand/Portrait";
+import ReportNav from "@/components/spark/report/ReportNav";
 import Reveal from "@/components/ui/Reveal";
 import CountFigure from "@/components/spark/report/CountFigure";
 import { bandPad, wrap } from "@/components/spark/report/ReportParts";
@@ -16,7 +17,7 @@ import Psd3Text from "@/components/spark/report/psd3/Psd3Text";
 import { monoText } from "@/components/spark/decisions/styles";
 import type { Psd3Card, Psd3View, ReportHead, Psd3EpisodeProps } from "@/types/content";
 
-const band = (tone: "paper" | "white") => `scroll-mt-[96px] ${tone === "white" ? "bg-white" : "bg-paper"} ${bandPad}`;
+const band = (tone: "paper" | "white") => `scroll-mt-[150px] ${tone === "white" ? "bg-white" : "bg-paper"} ${bandPad}`;
 const small = "font-mono text-[11.5px] font-medium tracking-[0.08em] uppercase";
 
 /**
@@ -107,6 +108,8 @@ export default function Psd3Episode({ report, locale, portraitSrc, portraitAlt }
           </div>
         </div>
       </header>
+
+      <ReportNav items={report.nav} />
 
       {/* 01 The short version */}
       <section id="short" aria-labelledby="short-title" className={band("paper")}>
@@ -383,7 +386,7 @@ export default function Psd3Episode({ report, locale, portraitSrc, portraitAlt }
           {head(sources.head, "sources-title")}
           <ol className="m-0 list-none p-0 [column-gap:40px] [columns:2_380px]">
             {sources.items.map((s, i) => (
-              <li key={s.href} id={`source-${i + 1}`} className="grid scroll-mt-[96px] grid-cols-[34px_1fr] gap-2 border-b border-rule py-2.5 text-[14px] [break-inside:avoid]">
+              <li key={s.href} id={`source-${i + 1}`} className="grid scroll-mt-[150px] grid-cols-[34px_1fr] gap-2 border-b border-rule py-2.5 text-[14px] [break-inside:avoid]">
                 <span className="font-mono text-[12px] text-stone">[{i + 1}]</span>{" "}
                 <span>
                   {s.label}.{" "}
