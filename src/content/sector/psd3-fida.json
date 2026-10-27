@@ -1,7 +1,7 @@
 {
   "en": {
     "number": 3,
-    "subject": "The liability flip",
+    "subject": "PSD3 and FiDA: Who Pays for Fraud",
     "hook": "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
     "cardLinkLabel": "Read the report",
     "seo": {
@@ -1620,7 +1620,7 @@
   },
   "tr": {
     "number": 3,
-    "subject": "Fatura el değiştiriyor",
+    "subject": "PSD3 ve FiDA: Dolandırıcılığı Kim Öder",
     "hook": "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
     "cardLinkLabel": "Raporu okuyun",
     "seo": {

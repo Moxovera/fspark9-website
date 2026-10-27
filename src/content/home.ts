@@ -136,7 +136,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sector report",
           number: "Nº 03",
-          title: "The liability flip",
+          title: "PSD3 and FiDA: Who Pays for Fraud",
           line: "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
           date: "27 Oct 2026",
           linkLabel: "Read the report",
@@ -302,7 +302,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sektör raporu",
           number: "Nº 03",
-          title: "Fatura el değiştiriyor",
+          title: "PSD3 ve FiDA: Dolandırıcılığı Kim Öder",
           line: "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
           date: "27 Eki 2026",
           linkLabel: "Raporu okuyun",
