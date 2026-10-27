@@ -35,6 +35,11 @@
  *                    ile oluşturulur); diğer belgelere dokunulmaz.
  *   --publish-yolt   status published, previewLive kalkar.
  *
+ * Xinja (Nº 07) Fidor ile aynı:
+ *   --only=xinja      sadece Xinja belgesi yazılır (yoksa draft + previewLive
+ *                    ile oluşturulur); diğer belgelere dokunulmaz.
+ *   --publish-xinja   status published, previewLive kalkar.
+ *
  * Sektör raporları Nº 01 (Bauspar) Fidor ile aynı: belge yoksa draft +
  * previewLive ile oluşturulur, durum sadece --publish-bauspar ile yazılır.
  * (14 Ekim 2026: patch her çalıştırmada "draft" yazıyordu; 13 Ekim'deki tam
@@ -75,6 +80,7 @@ import { nuri } from "../content/spark-nuri";
 import { dora } from "../content/spark-dora";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
+import { xinja } from "../content/spark-xinja";
 import { bauspar } from "../content/spark-bauspar";
 import { radarBodies, radarDocFields } from "../content/spark-radar";
 import { legalSeo } from "../content/seo";
@@ -105,6 +111,8 @@ const onlyFidor = process.argv.includes("--only=fidor");
 const publishFidor = process.argv.includes("--publish-fidor");
 const onlyYolt = process.argv.includes("--only=yolt");
 const publishYolt = process.argv.includes("--publish-yolt");
+const onlyXinja = process.argv.includes("--only=xinja");
+const publishXinja = process.argv.includes("--publish-xinja");
 const onlyBauspar = process.argv.includes("--only=bauspar");
 const publishBauspar = process.argv.includes("--publish-bauspar");
 const onlyDora = process.argv.includes("--only=dora");
@@ -150,6 +158,8 @@ const NURI_PUBLISHED = "2026-09-29";
 const FIDOR_PUBLISHED = "2026-10-02";
 /** Yolt'un yayın tarihi (staging'e çıktığı gün). */
 const YOLT_PUBLISHED = "2026-10-07";
+/** Xinja'un yayın tarihi. */
+const XINJA_PUBLISHED = "2026-10-27";
 /** Bauspar raporunun yayın tarihi (staging'e çıktığı gün; veriler 5 Ekim 2026'da kontrol edildi). */
 const BAUSPAR_PUBLISHED = "2026-10-05";
 /** DORA raporunun yayın tarihi (canlıya çıktığı gün). */
@@ -946,6 +956,41 @@ function yoltPatch() {
   };
 }
 
+/** Nº 07 Xinja. Belge yoksa önizleme durumunda oluşturulur: draft + previewLive. */
+const XINJA_ID = "sparkEpisode-the-last-day-07";
+
+function xinjaStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: XINJA_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[0] },
+    number: 7,
+    layout: "story",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function xinjaPatch() {
+  return {
+    id: XINJA_ID,
+    set: {
+      ...storySet(xinja.en, xinja.tr),
+      ...(publishXinja ? { status: "published" } : {}),
+      number: 7,
+      layout: "story",
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "07-xinja" }, tr: { _type: "slug", current: "07-xinja" } },
+      city: "Sydney",
+      country: "Australia",
+      launchDate: "2019-09-09",
+      launchPrecision: "day",
+      closureDate: "2020-12-16",
+      publishedAt: XINJA_PUBLISHED,
+    },
+    unset: publishXinja ? ["previewLive"] : [],
+  };
+}
+
 /**
  * Sektör raporları Nº 01 Bauspar: ayrı belge, oluşturulurken draft + previewLive.
  * Durum sadece --publish-bauspar ile yazılır: sonraki bir seed yayındaki raporu geri çekmez.
@@ -1183,8 +1228,8 @@ async function guardPublished(
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
   const creates = only
     ? []
     : onlySpark
@@ -1198,6 +1243,7 @@ async function main() {
         ...(onlyNewsletter ? [...newsletterPatches(), ...legalPatches().filter((p) => p.id === "legalPage-privacy" && "blocks" in p.set)] : []),
         ...(onlyFidor ? [fidorPatch()] : []),
         ...(onlyYolt ? [yoltPatch()] : []),
+        ...(onlyXinja ? [xinjaPatch()] : []),
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
         ...(onlyDora ? [doraPatch()] : []),
         ...(onlyOnTheRadar ? [formatSets()[2]] : []),
@@ -1250,6 +1296,7 @@ async function main() {
   } else {
     tx.createIfNotExists(fidorStub());
     tx.createIfNotExists(yoltStub());
+    tx.createIfNotExists(xinjaStub());
     tx.createIfNotExists({ _id: BAUSPAR_ID, _type: "sparkEpisode", format: { _type: "reference", _ref: FORMAT_IDS[1] }, number: 1, status: "draft", previewLive: true });
     tx.createIfNotExists(radarFinmidStub());
     tx.createIfNotExists(doraStub());

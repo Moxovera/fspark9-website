@@ -134,6 +134,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "The Last Day",
+          number: "Nº 07",
+          title: "Xinja Bank",
+          line: "The bank that ran out of savings accounts.",
+          date: "27 Oct 2026",
+          linkLabel: "Read the episode",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "the-last-day", episodeSlug: "07-xinja" },
+          },
+        },
+        {
           format: "Sector report",
           number: "Nº 02",
           title: "DORA: EU Bank Resilience",
@@ -155,18 +167,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
-          },
-        },
-        {
-          format: "The Last Day",
-          number: "Nº 04",
-          title: "Yolt",
-          line: "ING's money app.",
-          date: "7 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "04-yolt" },
           },
         },
       ],
@@ -300,6 +300,18 @@ export const home: Record<Locale, HomeContent> = {
       // Yayın tarihine göre yeniden eskiye (ilk kart büyük), en yeni üç. Sanity'deki sıralamayla aynı.
       cards: [
         {
+          format: "Son Gün",
+          number: "Nº 07",
+          title: "Xinja Bank",
+          line: "Tasarruf hesabı tükenen banka.",
+          date: "27 Eki 2026",
+          linkLabel: "Bölümü okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "son-gun", episodeSlug: "07-xinja" },
+          },
+        },
+        {
           format: "Sektör raporu",
           number: "Nº 02",
           title: "DORA: AB Banka Dayanıklılığı",
@@ -321,18 +333,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "on-the-radar", episodeSlug: "finmid" },
-          },
-        },
-        {
-          format: "Son Gün",
-          number: "Nº 04",
-          title: "Yolt",
-          line: "ING'nin para uygulaması.",
-          date: "7 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "04-yolt" },
           },
         },
       ],
