@@ -185,11 +185,11 @@ export const HOME_PAGE_QUERY = defineQuery(`*[_type == "homePage" && _id == "hom
 // göre yeniden eskiye. İlk kart büyük, kalanlar küçük; slice kart sayısı
 // (1 büyük + 2 küçük). Sığmayanlar ana sayfada görünmez, /spark'ta durur.
 // Henüz yayında olmayanlar ("coming") tarihsiz olduğu için kartlara girmez.
-// Aynı gün yayınlananlarda önce oluşturulan (önce yayına giren) büyük kartta
-// kalır (2026-10-27: PSD3 raporu, ardından Son Gün Nº 07 Xinja).
+// Aynı gün yayınlananlarda en son oluşturulan büyük kartta (en yeni yayın
+// önde; 2026-10-27: PSD3 raporu Son Gün Nº 07 Xinja'dan sonra).
 export const SPARK_CARDS_QUERY = defineQuery(`*[_type == "sparkEpisode"
   && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))]
-  | order(coalesce(publishedAt, "9999-12-31") desc, _createdAt asc, format->orderRank asc, number desc)[0...3]{
+  | order(coalesce(publishedAt, "9999-12-31") desc, _createdAt desc, format->orderRank asc, number desc)[0...3]{
     number, subject, hook, cardLine, cardLinkLabel, publishedAt,
     "status": select($preview && status in ["coming", "draft"] && previewLive == true => "published", status),
     "episodeSlug": slug,
