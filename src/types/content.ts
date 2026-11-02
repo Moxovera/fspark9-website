@@ -884,6 +884,176 @@ export interface SparkPsd3Report {
 
 export type SparkPsd3ReportBody = Omit<SparkPsd3Report, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
 
+// Sektör raporları Nº 04 KYC ve KYB (layout "kyc"). Metin
+// src/content/sector/kyc-kyb.json'da; "[n]" kaynak linki, "**...**" kalın.
+// Kart, görüş kutusu ve satır içi metin PSD3 raporununkiyle aynı.
+export interface KycMessage {
+  app: string
+  text: string
+  sub?: string
+  /** Ink çerçeveli mesaj (referans `.msg.good`). */
+  good?: true
+  /** Negative çerçeveli mesaj (referans `.msg.bad`). */
+  bad?: true
+}
+
+/** Tablo: ilk sütun satır başlığı (`label`), kalanı hücreler. */
+export interface KycTable {
+  columns: string[]
+  rows: { label: string; cells: string[] }[]
+}
+
+/** Yöntem durumu: 1 ana yöntem, 0 yedek, -1 yok. */
+export type KycMethodState = 1 | 0 | -1
+
+export type KycTone = 'green' | 'red' | 'amber'
+
+export interface SparkKycReport {
+  number: number
+  subject: string
+  hook: string
+  cardLinkLabel: string
+  seo: PageSeo
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    sub: string
+    figures: { value: string; label: string }[]
+  }
+  short: { head: ReportHead; cards: Psd3Card[]; view: Psd3View }
+  market: {
+    head: ReportHead
+    layers: { key: string; title: string; text: string; question: string }[]
+    sizeHeading: string
+    sizeTable: KycTable
+    sizeNote: string
+    cards: { tag: string; body: string }[]
+  }
+  rules: {
+    head: ReportHead
+    todayLabel: string
+    afterLabel: string
+    legend: string
+    mainLabel: string
+    fallbackLabel: string
+    noneLabel: string
+    methods: { name: string; before: KycMethodState; after: KycMethodState; today: string; afterText: string; sources: number[] }[]
+    timelineHeading: string
+    timeline: { date: string; text: string; state: 'done' | 'now' | 'future'; chip: string }[]
+    cards: Psd3Card[]
+    view: Psd3View
+  }
+  map: {
+    head: ReportHead
+    chartLabel: string
+    /** Eksen etiketleri; sondaki ok SVG çizgi olarak kodda. */
+    axisX: string
+    axisY: string
+    /** Sol üst, sağ üst, sol alt, sağ alt. */
+    quadrants: string[]
+    strengthLabel: string
+    weaknessLabel: string
+    moveLabel: string
+    /** x: zincirin ne kadarı, y: 2027 kurallarına hazırlık; 0 ile 10. */
+    types: { name: string; x: number; y: number; verdict: string; tone: KycTone; players: string[]; strength: string; weakness: string; move: string }[]
+    tableHeading: string
+    table: KycTable
+  }
+  position: {
+    head: ReportHead
+    table: { columns: string[]; rows: { label: string; cells: string[]; chip: { text: string; tone: KycTone } }[] }
+    ways: { key: string; title: string; tag?: string; text: string }[]
+  }
+  kyb: {
+    head: ReportHead
+    stepLabel: string
+    daysLabel: string
+    ongoingLabel: string
+    todayLabel: string
+    whoLabel: string
+    nextLabel: string
+    /** days: bugünkü tahmin (0 sürekli); factor: çözümlerle kalan pay. */
+    steps: { name: string; days: number; factor: number; today: string; who: string; next: string }[]
+    barToday: string
+    barFast: string
+    /** Gün toplamının ondalık ayracı ("." ya da ","). */
+    decimal: string
+    note: string
+    ideasHeading: string
+    ideas: { stage: string; title: string; text: string }[]
+    view: Psd3View
+  }
+  marketing: { head: ReportHead; items: { key: string; title: string; text: string }[]; view: Psd3View }
+  money: {
+    head: ReportHead
+    volumeLabel: string
+    /** Kaydırıcının adımları (aylık doğrulama). */
+    volumes: number[]
+    startIndex: number
+    note: string
+    field: { label: string; text: string }
+    billLabel: string
+    sourcesLabel: string
+    billSources: number[]
+    currency: string
+    /** Fatura = max((hacim - free) × price, minimum); minimum kullanımı geçerse çubuk taralı. */
+    plans: { name: string; terms: string; price: number; minimum: number; free: number }[]
+    streamsHeading: string
+    streams: { title: string; text: string }[]
+    view: Psd3View
+  }
+  voices: {
+    head: ReportHead
+    items: { who: string; chip: string; tone: KycTone; quote: string; text: string }[]
+    gapsHeading: string
+    gaps: KycTable
+  }
+  story: {
+    head: ReportHead
+    clock: string
+    questionLabel: string
+    years: { year: string; title: string; messages: KycMessage[]; text: string; question: string }[]
+  }
+  uk: {
+    head: ReportHead
+    table: { columns: string[]; rows: { label: string; eu: string; uk: string }[] }
+    figures: { value: string; text: string }[]
+    paths: {
+      heading: string
+      note: string
+      euLabel: string
+      ukLabel: string
+      stepLabel: string
+      euClock: string
+      ukClock: string
+      backLabel: string
+      nextLabel: string
+      againLabel: string
+      steps: { eu: KycMessage[]; uk: KycMessage[]; euWhy: string; ukWhy: string }[]
+    }
+    view: Psd3View
+  }
+  next: {
+    head: ReportHead
+    items: { key: string; title: string; text: string; chip: string; level: 'high' | 'medium' }[]
+    risks: { tag: string; text: string }[]
+  }
+  note: {
+    head: ReportHead
+    quote: string
+    paragraphs: string[]
+    signature: string
+    checklistLabel: string
+    checklist: string[]
+  }
+  close: { title: string; text: string; bookLabel: string; storyLabel: string }
+  sources: { head: ReportHead; sourceTemplate: string; items: { label: string; href: string }[]; foot: string }
+}
+
+export type SparkKycReportBody = Omit<SparkKycReport, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -1693,6 +1863,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'report'; story: SparkReport }
     | { layout: 'dora'; story: SparkDoraReport }
     | { layout: 'psd3'; story: SparkPsd3Report }
+    | { layout: 'kyc'; story: SparkKycReport }
     | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
@@ -2753,6 +2924,53 @@ export interface Psd3ModelsProps {
 
 export interface Psd3JourneyProps {
   journey: SparkPsd3Report['uk']['journey']
+}
+
+// Sektör raporu Nº 04 KYC ve KYB bileşenleri (components/spark/report/kyc)
+export interface KycEpisodeProps {
+  report: SparkKycReport
+  locale: Locale
+  portraitSrc?: string
+  portraitAlt: string
+}
+
+export interface KycMethodsProps {
+  rules: SparkKycReport['rules']
+  template: string
+}
+
+export interface KycMapProps {
+  map: SparkKycReport['map']
+}
+
+export interface KycStepsProps {
+  kyb: SparkKycReport['kyb']
+  template: string
+}
+
+export interface KycCalculatorProps {
+  money: SparkKycReport['money']
+  locale: Locale
+  template: string
+}
+
+export interface KycPhoneProps {
+  clock: string
+  messages: KycMessage[]
+  /** Görünen mesaj sayısı; kalanlar gizli bekler. */
+  visible: number
+  /** Mesajların React anahtarı (sekme ya da adım değişince yeniden gelsinler). */
+  keyPrefix: string
+}
+
+export interface KycStoryProps {
+  story: SparkKycReport['story']
+  template: string
+}
+
+export interface KycPathsProps {
+  paths: SparkKycReport['uk']['paths']
+  template: string
 }
 
 export interface DoraDeskProps {

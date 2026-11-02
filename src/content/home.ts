@@ -135,6 +135,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sector report",
+          number: "Nº 04",
+          title: "Europe's KYC rules are changing",
+          line: "Europe's new rules put eID first. What it means for KYC and KYB providers, banks and fintechs, with the UK side by side.",
+          date: "2 Nov 2026",
+          linkLabel: "Read the report",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "kyc-kyb" },
+          },
+        },
+        {
+          format: "Sector report",
           number: "Nº 03",
           title: "PSD3 and FiDA: Who Pays for Fraud",
           line: "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
@@ -155,18 +167,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "the-last-day", episodeSlug: "05-xinja" },
-          },
-        },
-        {
-          format: "Sector report",
-          number: "Nº 02",
-          title: "DORA: EU Bank Resilience",
-          line: "When the cloud goes down, who answers?",
-          date: "16 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sector-reports", episodeSlug: "dora" },
           },
         },
       ],
@@ -301,6 +301,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sektör raporu",
+          number: "Nº 04",
+          title: "Avrupa'da KYC kuralları değişiyor",
+          line: "Avrupa'nın yeni kuralları eID'yi öne alıyor. KYC ve KYB sağlayıcıları, bankalar ve fintechler için ne değişiyor, İngiltere ile birlikte.",
+          date: "2 Kas 2026",
+          linkLabel: "Raporu okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "kyc-kyb" },
+          },
+        },
+        {
+          format: "Sektör raporu",
           number: "Nº 03",
           title: "PSD3 ve FiDA: Dolandırıcılığı Kim Öder",
           line: "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
@@ -321,18 +333,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "son-gun", episodeSlug: "05-xinja" },
-          },
-        },
-        {
-          format: "Sektör raporu",
-          number: "Nº 02",
-          title: "DORA: AB Banka Dayanıklılığı",
-          line: "Bulut düşerse kim sorumlu?",
-          date: "16 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sektor-raporlari", episodeSlug: "dora" },
           },
         },
       ],

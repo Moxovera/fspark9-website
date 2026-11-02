@@ -18,6 +18,7 @@ import RadarSources from "@/components/spark/radar/RadarSources";
 import ReportEpisode from "@/components/spark/report/ReportEpisode";
 import DoraEpisode from "@/components/spark/report/dora/DoraEpisode";
 import Psd3Episode from "@/components/spark/report/psd3/Psd3Episode";
+import KycEpisode from "@/components/spark/report/kyc/KycEpisode";
 import { formatShortDate } from "@/lib/format";
 import { radarEpisodeLabels, radarFormatCopy } from "@/content/spark-radar";
 import { getChrome, getHome, getSparkEpisodes, getSparkHub } from "@/sanity/lib/content";
@@ -43,6 +44,8 @@ import type { Locale, SparkEpisodeEntry } from "@/types/content";
 // psd3 (Sektör raporları Nº 03, referans Spark/sector reports/
 // fspark9-sector-report-psd3-fida-v1.html): geri link, Ink açılış, on bir
 // bölüm, Ink kapanış, en altta kaynaklar (Psd3Episode). Bölüm şeridi yok.
+// kyc (Sektör raporları Nº 04, referans Spark/sector reports/
+// fspark9-sector-report-kyc-kyb-v1.html): PSD3 düzeni, on üç bölüm (KycEpisode).
 // report (Sektör raporları Nº 01, prototip Spark/sector reports/
 // fspark9-sektor-raporu-bauspar.html): geri link, Ink açılış, yapışkan
 // bölüm şeridi, simülatör, grafik, tablo (ReportEpisode). Kendi kapanışı var.
@@ -167,6 +170,22 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
         <Psd3Episode report={entry.story} locale={locale} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
+      </main>
+    );
+  }
+
+  if (entry.layout === "kyc") {
+    // Uzman notunun portresi About'takiyle aynı (home.opening).
+    const { portraitSrc, portraitAlt } = home[locale].opening;
+    return (
+      <main className="pt-16 min-[900px]:pt-[84px]">
+        <JsonLd data={jsonLd} />
+        <SparkAltSlugRegistrar formatSlug={entry.altFormatSlug} episodeSlug={entry.altSlug} />
+        <SparkSubnav sparkLabel={hub.sparkLabel} formats={hub.formats} currentSlug={formatSlug} />
+        <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
+          <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
+        </div>
+        <KycEpisode report={entry.story} locale={locale} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
       </main>
     );
   }

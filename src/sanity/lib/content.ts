@@ -42,6 +42,8 @@ import type {
   SparkDoraReportBody,
   SparkPsd3Report,
   SparkPsd3ReportBody,
+  SparkKycReport,
+  SparkKycReportBody,
   SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
@@ -560,6 +562,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         const psd3 = toPsd3(rest, locale);
         return psd3 ? [{ ...base, layout: "psd3", story: psd3 }] : [];
       }
+      if (rest.layout === "kyc") {
+        const kyc = toKyc(rest, locale);
+        return kyc ? [{ ...base, layout: "kyc", story: kyc }] : [];
+      }
       if (rest.layout === "radar") {
         const radar = toRadar(rest, locale, publishedAt ?? _createdAt.slice(0, 10));
         return radar ? [{ ...base, layout: "radar", story: radar }] : [];
@@ -671,6 +677,14 @@ function toPsd3(doc: EpisodeDoc, locale: Locale): SparkPsd3Report | null {
   if (!raw) return null;
   const { number, subject, hook, seo, cardLinkLabel } = localize(doc, locale);
   return { number, subject, hook, seo, cardLinkLabel: cardLinkLabel ?? "", ...(JSON.parse(raw) as SparkPsd3ReportBody) };
+}
+
+/** Sektör raporu Nº 04 KYC ve KYB: PSD3 gibi dil başına JSON (`reportBody`), şekli SparkKycReport. */
+function toKyc(doc: EpisodeDoc, locale: Locale): SparkKycReport | null {
+  const raw = doc.reportBody?.[locale];
+  if (!raw) return null;
+  const { number, subject, hook, seo, cardLinkLabel } = localize(doc, locale);
+  return { number, subject, hook, seo, cardLinkLabel: cardLinkLabel ?? "", ...(JSON.parse(raw) as SparkKycReportBody) };
 }
 
 /** Sektör raporu Nº 02 DORA: Bauspar gibi dil başına JSON (`reportBody`), şekli SparkDoraReport. */

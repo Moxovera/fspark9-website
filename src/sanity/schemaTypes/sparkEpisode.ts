@@ -31,7 +31,9 @@ const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layou
 // Bauspar gibi Report sekmesindeki reportBody (şekli SparkDoraReport).
 // Sektör raporları Nº 03 (PSD3, PSR ve FiDA, 2026-10-27): altıncı şablon,
 // `psd3`. Gövde yine reportBody (şekli SparkPsd3Report).
-const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3"].includes(String(layoutOf(document)));
+// Sektör raporları Nº 04 (KYC ve KYB, 2026-11-02): yedinci şablon, `kyc`.
+// Gövde yine reportBody (şekli SparkKycReport).
+const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3", "kyc"].includes(String(layoutOf(document)));
 const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
 // Hazır görseller (2026-10-27): fotoğraf ve uygulama ekranları, hikâye ve
 // karar bloklarında. Bölüm alanlarının dışında ayrı dizi: seed chapters'ı
@@ -73,8 +75,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · psd3: sektör raporu Nº 03 (PSD3, PSR ve FiDA) · radar: On the Radar",
-      options: { list: ["story", "decisions", "report", "dora", "psd3", "radar"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · psd3: sektör raporu Nº 03 (PSD3, PSR ve FiDA) · kyc: sektör raporu Nº 04 (KYC ve KYB) · radar: On the Radar",
+      options: { list: ["story", "decisions", "report", "dora", "psd3", "kyc", "radar"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),

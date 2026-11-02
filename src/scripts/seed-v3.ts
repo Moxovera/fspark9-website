@@ -67,6 +67,11 @@
  *   --only=psd3-fida     sadece bu raporun belgesi yazılır; diğerlerine dokunulmaz.
  *   --publish-psd3-fida  status published, previewLive kalkar (--only=psd3-fida ile birlikte).
  *
+ * Sektör raporları Nº 04 (KYC ve KYB, layout "kyc") PSD3 ile aynı.
+ * Gövde src/content/sector/kyc-kyb.json.
+ *   --only=kyc-kyb     sadece bu raporun belgesi yazılır; diğerlerine dokunulmaz.
+ *   --publish-kyc-kyb  status published, previewLive kalkar (--only=kyc-kyb ile birlikte).
+ *
  * Koruma: canlıda `published` olan bir bölümü geri çekecek (durumunu
  * değiştirecek, previewLive koyacak ya da createOrReplace ile ezecek) her
  * çalıştırma, hiçbir şey yazmadan hata verir. Bilerek geri çekmek için
@@ -85,6 +90,7 @@ import { spark, sparkEpisodes } from "../content/spark";
 import { nuri } from "../content/spark-nuri";
 import { dora } from "../content/spark-dora";
 import { psd3 } from "../content/spark-psd3";
+import { kyc } from "../content/spark-kyc";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { xinja } from "../content/spark-xinja";
@@ -102,6 +108,7 @@ import type {
   SparkReport,
   SparkDoraReport,
   SparkPsd3Report,
+  SparkKycReport,
   SparkSourceLink,
   SparkStoryCard,
   SparkEpisodeStory,
@@ -129,6 +136,9 @@ if (publishDora && !onlyDora) throw new Error("--publish-dora needs --only=dora.
 const onlyPsd3 = process.argv.includes("--only=psd3-fida");
 const publishPsd3 = process.argv.includes("--publish-psd3-fida");
 if (publishPsd3 && !onlyPsd3) throw new Error("--publish-psd3-fida needs --only=psd3-fida.");
+const onlyKyc = process.argv.includes("--only=kyc-kyb");
+const publishKyc = process.argv.includes("--publish-kyc-kyb");
+if (publishKyc && !onlyKyc) throw new Error("--publish-kyc-kyb needs --only=kyc-kyb.");
 const onlyOnTheRadar = process.argv.includes("--only=on-the-radar");
 const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
 const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
@@ -177,6 +187,8 @@ const BAUSPAR_PUBLISHED = "2026-10-05";
 const DORA_PUBLISHED = "2026-10-16";
 /** PSD3, PSR ve FiDA raporunun yayın tarihi (canlıya çıktığı gün; durum 26 Ekim 2026'da kontrol edildi). */
 const PSD3_PUBLISHED = "2026-10-27";
+/** KYC ve KYB raporunun yayın tarihi (canlıya çıktığı gün; bilgiler 2 Kasım 2026'da kontrol edildi). */
+const KYC_PUBLISHED = "2026-11-02";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -1020,7 +1032,7 @@ const BAUSPAR_ID = "sparkEpisode-sector-reports-bauspar";
 const BAUSPAR_COMING_ID = "sparkEpisode-sector-reports-01";
 
 /** Raporun gövdesi: sayı, konu, kanca ve SEO belgenin kendi alanlarında, gerisi dil başına JSON. */
-function reportBodyJson(report: SparkReport | SparkDoraReport | SparkPsd3Report) {
+function reportBodyJson(report: SparkReport | SparkDoraReport | SparkPsd3Report | SparkKycReport) {
   const own = ["number", "subject", "hook", "seo", "cardLinkLabel"];
   return JSON.stringify(Object.fromEntries(Object.entries(report).filter(([key]) => !own.includes(key))));
 }
@@ -1126,6 +1138,48 @@ function psd3Patch() {
       ...cardLineSet("Nº 03", "Sector report", "Sektör raporu"),
     },
     unset: publishPsd3 ? ["previewLive"] : [],
+  };
+}
+
+/**
+ * Sektör raporları Nº 04 KYC ve KYB (layout "kyc"): PSD3 gibi ayrı belge,
+ * gövde reportBody'de dil başına JSON. Oluşturulurken draft + previewLive;
+ * durum sadece --publish-kyc-kyb ile yazılır.
+ */
+const KYC_ID = "sparkEpisode-sector-reports-kyc-kyb";
+
+function kycStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: KYC_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[1] },
+    number: 4,
+    layout: "kyc",
+    status: "draft",
+    previewLive: true,
+  };
+}
+
+function kycPatch() {
+  const e = kyc.en;
+  const t = kyc.tr;
+  return {
+    id: KYC_ID,
+    set: {
+      layout: "kyc",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      cardLinkLabel: ls(e.cardLinkLabel, t.cardLinkLabel),
+      reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
+      ...(publishKyc ? { status: "published" } : {}),
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "kyc-kyb" }, tr: { _type: "slug", current: "kyc-kyb" } },
+      publishedAt: KYC_PUBLISHED,
+      lastCheckedAt: KYC_PUBLISHED,
+      ...cardLineSet("Nº 04", "Sector report", "Sektör raporu"),
+    },
+    unset: publishKyc ? ["previewLive"] : [],
   };
 }
 
@@ -1286,8 +1340,8 @@ async function guardPublished(
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), kycPatch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || onlyKyc || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
   const creates = only
     ? []
     : onlySpark
@@ -1305,6 +1359,7 @@ async function main() {
         ...(onlyBauspar ? [{ ...formatSets()[1], unset: ["preparingLine"] }, bausparPatch()] : []),
         ...(onlyDora ? [doraPatch()] : []),
         ...(onlyPsd3 ? [psd3Patch()] : []),
+        ...(onlyKyc ? [kycPatch()] : []),
         ...(onlyOnTheRadar ? [formatSets()[2]] : []),
         ...(onlyRadarFinmid ? [radarFinmidPatch()] : []),
       ]
@@ -1320,7 +1375,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyKyc || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1354,6 +1409,8 @@ async function main() {
     tx.createIfNotExists(doraStub());
   } else if (onlyPsd3) {
     tx.createIfNotExists(psd3Stub());
+  } else if (onlyKyc) {
+    tx.createIfNotExists(kycStub());
   } else {
     tx.createIfNotExists(fidorStub());
     tx.createIfNotExists(yoltStub());
@@ -1362,6 +1419,7 @@ async function main() {
     tx.createIfNotExists(radarFinmidStub());
     tx.createIfNotExists(doraStub());
     tx.createIfNotExists(psd3Stub());
+    tx.createIfNotExists(kycStub());
   }
   for (const id of formatIdsToCreate) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });

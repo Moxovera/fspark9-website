@@ -1,0 +1,3298 @@
+{
+  "en": {
+    "number": 4,
+    "subject": "Europe's KYC rules are changing",
+    "hook": "Europe's new rules put eID first. What it means for KYC and KYB providers, banks and fintechs, with the UK side by side.",
+    "cardLinkLabel": "Read the report",
+    "seo": {
+      "title": "Europe's KYC rules are changing",
+      "description": "This autumn the regulator rewrote Europe's KYC rules. Checking a passport and a selfie moves to the back seat, and the digital ID issued by the state takes its place. We look at the market, the players, where the money goes and what products still miss, with the UK side by side."
+    },
+    "hero": {
+      "meta": [
+        "Spark",
+        "02 Sector reports",
+        "November 2026"
+      ],
+      "bigNo": "02",
+      "titleLead": "Europe's KYC rules are",
+      "titleCut": "changing.",
+      "sub": "This autumn the regulator rewrote Europe's KYC rules. Checking a passport and a selfie moves to the back seat, and the digital ID issued by the state takes its place. We look at the market, the players, where the money goes and what products still miss, with the UK side by side.",
+      "figures": [
+        {
+          "value": "$3.53bn",
+          "label": "European identity verification market in 2025, UK included [1]"
+        },
+        {
+          "value": "16.9%",
+          "label": "expected yearly growth until 2030 [1]"
+        },
+        {
+          "value": "10% → 28%",
+          "label": "share of advanced fraud attempts, in one year [12]"
+        },
+        {
+          "value": "6x",
+          "label": "gap between the cheapest and the most expensive full KYC list price [21] [23]"
+        }
+      ]
+    },
+    "short": {
+      "head": {
+        "index": "01",
+        "label": "Short version",
+        "title": "The rules are changing, prices are falling and the money is moving to KYB."
+      },
+      "cards": [
+        {
+          "tag": "Rules",
+          "first": "For remote onboarding, eID and the EUDI wallet now come first.",
+          "body": "Documents, selfies and video ident are not banned, but they can only be used with a recorded reason. Wallets arrive in December 2026, the new rules in July 2027. [6] [10]"
+        },
+        {
+          "tag": "Competition",
+          "first": "Selfie and document specialists are under pressure from two sides.",
+          "body": "The new rules favour eID providers, while newcomers sell full KYC for $0.33. Those who want to stay in the game are buying KYB and monitoring companies. [17] [23]"
+        },
+        {
+          "tag": "Money",
+          "first": "Growth is in KYB, ongoing monitoring and audit evidence.",
+          "body": "One time checks get cheaper, while knowing companies and watching customers over their whole life grows. One KYB data provider grew 46% in a year. [26]"
+        }
+      ],
+      "view": {
+        "label": "Our view",
+        "text": "The technology in this market is mostly ready. The hard part is the decision: which method, which provider, and how you defend it in an audit. In 2027 banks and fintechs will have to answer these questions again."
+      }
+    },
+    "market": {
+      "head": {
+        "index": "02",
+        "label": "Market",
+        "title": "KYC and KYB are not one product. They are a chain with five layers.",
+        "lede": "The stars of the first wave lived only in the first layer. Today the provider that sells the whole chain in one contract gets ahead."
+      },
+      "layers": [
+        {
+          "key": "L1",
+          "title": "Identity verification",
+          "text": "Documents, NFC chip, face match, liveness, eID, video ident",
+          "question": "Is this really the person?"
+        },
+        {
+          "key": "L2",
+          "title": "AML screening",
+          "text": "Sanctions lists, politically exposed persons, adverse media",
+          "question": "Can we work with this person?"
+        },
+        {
+          "key": "L3",
+          "title": "KYB",
+          "text": "Company register, real owners, representatives",
+          "question": "Is this company real, and who is behind it?"
+        },
+        {
+          "key": "L4",
+          "title": "Ongoing monitoring",
+          "text": "Updating the risk score, checking again when something changes",
+          "question": "Is yesterday's clean customer still clean?"
+        },
+        {
+          "key": "L5",
+          "title": "Orchestration",
+          "text": "Linking all checks in one flow, keeping the decision and the evidence",
+          "question": "Who approved this, and based on what?"
+        }
+      ],
+      "sizeHeading": "How big is the market",
+      "sizeTable": {
+        "columns": [
+          "Market",
+          "2025",
+          "2030",
+          "Yearly growth"
+        ],
+        "rows": [
+          {
+            "label": "Europe, UK included [1]",
+            "cells": [
+              "$3.53bn",
+              "$7.72bn",
+              "16.9%"
+            ]
+          },
+          {
+            "label": "UK [2]",
+            "cells": [
+              "$0.85bn",
+              "$1.83bn",
+              "16.5%"
+            ]
+          },
+          {
+            "label": "US [1]",
+            "cells": [
+              "$4.34bn",
+              "$8.16bn",
+              "13.5%"
+            ]
+          },
+          {
+            "label": "World [1]",
+            "cells": [
+              "$14.34bn",
+              "$29.32bn",
+              "15.4%"
+            ]
+          }
+        ]
+      },
+      "sizeNote": "Numbers vary by source; IMARC puts the same UK market at $521m [3]. The direction matters more than the exact value: Europe grows faster than the world average.",
+      "cards": [
+        {
+          "tag": "From the reports",
+          "body": "The biggest use case is KYC, KYB and onboarding, the biggest buyers are banks and insurers. The fastest growing sector is gaming and gambling, the fastest growing country is Italy. [1]"
+        },
+        {
+          "tag": "Easy to miss",
+          "body": "Services grow faster than software [1]. Companies buy setup, review teams and operations support on top of the API. Often the real competitor is not another software, it is Excel and people."
+        }
+      ]
+    },
+    "rules": {
+      "head": {
+        "index": "03",
+        "label": "Rules",
+        "title": "Flip the switch to see identity methods before and after 2027.",
+        "lede": "AMLA sent the final draft of its customer due diligence standards to the Commission on 30 September 2026. For remote onboarding the priority is eID, the EUDI wallet and qualified trust services. Other methods can only be used when the customer cannot come in person and has no eID, and the reason must be recorded. [6] [7]"
+      },
+      "todayLabel": "Today",
+      "afterLabel": "After AMLR",
+      "legend": "Black cards are main methods, white cards are fallbacks that need a reason.",
+      "mainLabel": "Main method",
+      "fallbackLabel": "Fallback",
+      "noneLabel": "None",
+      "methods": [
+        {
+          "name": "eID",
+          "before": 0,
+          "after": 1,
+          "today": "Germany has it on the ID card but few people use it. In the Nordics it is already the main method through BankID.",
+          "afterText": "Main method. Any eID with enough assurance is accepted.",
+          "sources": [
+            6,
+            7
+          ]
+        },
+        {
+          "name": "EUDI wallet",
+          "before": -1,
+          "after": 1,
+          "today": "Not there yet. Countries must offer it by December 2026.",
+          "afterText": "Main method. Banks must accept it by December 2027.",
+          "sources": [
+            9,
+            10
+          ]
+        },
+        {
+          "name": "Qualified e-signature",
+          "before": 0,
+          "after": 1,
+          "today": "Used for signing contracts.",
+          "afterText": "Main method. Can even be used in a branch.",
+          "sources": [
+            6
+          ]
+        },
+        {
+          "name": "NFC chip and selfie",
+          "before": 1,
+          "after": 0,
+          "today": "The safest form of document checks.",
+          "afterText": "Fallback. But more valuable against fraud.",
+          "sources": [
+            7,
+            13
+          ]
+        },
+        {
+          "name": "Document photo and selfie",
+          "before": 1,
+          "after": 0,
+          "today": "The standard fintech method since 2018.",
+          "afterText": "Fallback. Only if the customer has no eID, with the reason recorded.",
+          "sources": [
+            6,
+            7
+          ]
+        },
+        {
+          "name": "Video ident",
+          "before": 1,
+          "after": 0,
+          "today": "The main method in Germany for years.",
+          "afterText": "Fallback, with stricter conditions.",
+          "sources": [
+            8
+          ]
+        }
+      ],
+      "timelineHeading": "Timeline",
+      "timeline": [
+        {
+          "date": "1 Jul 2025",
+          "text": "**AMLA starts work.** [5]",
+          "state": "done",
+          "chip": "Done"
+        },
+        {
+          "date": "10 Jul 2025",
+          "text": "**Access to ownership registers is limited.** [15]",
+          "state": "done",
+          "chip": "Done"
+        },
+        {
+          "date": "19 Nov 2025",
+          "text": "**Commission proposes the European Business Wallet.** [37]",
+          "state": "done",
+          "chip": "Done"
+        },
+        {
+          "date": "30 Sep 2026",
+          "text": "**AMLA's final draft: eID first.** [6]",
+          "state": "done",
+          "chip": "Done"
+        },
+        {
+          "date": "24 Dec 2026",
+          "text": "**Countries offer the EUDI wallet.** [9]",
+          "state": "now",
+          "chip": "Next"
+        },
+        {
+          "date": "10 Jul 2027",
+          "text": "**AMLR applies in 27 countries.** [4]",
+          "state": "future",
+          "chip": "Expected"
+        },
+        {
+          "date": "Dec 2027",
+          "text": "**Banks must accept the wallet.** [10]",
+          "state": "future",
+          "chip": "Expected"
+        },
+        {
+          "date": "2028",
+          "text": "**AMLA directly supervises around 40 institutions.** [5]",
+          "state": "future",
+          "chip": "Expected"
+        }
+      ],
+      "cards": [
+        {
+          "tag": "One rulebook",
+          "first": "27 countries will apply the same text.",
+          "body": "AMLR applies from July 2027. From 2028 AMLA will directly supervise around 40 institutions. Providers can sell one product across the EU, which will push prices down. [4] [5]"
+        },
+        {
+          "tag": "Fraud",
+          "first": "Fewer attacks, but better ones.",
+          "body": "The share of advanced attacks went from 10% to 28% in one year. One in five biometric fraud attempts is a deepfake. A selfie on its own is no longer safe enough. [12] [13]"
+        },
+        {
+          "tag": "KYB data",
+          "first": "Finding a company's real owners got harder.",
+          "body": "Beneficial ownership registers are no longer open to everyone since 2022. France and Denmark limited access, Czechia closed its register. A bank with business customers from five countries deals with five different routes. [15] [16]"
+        }
+      ],
+      "view": {
+        "label": "Our view",
+        "text": "Providers that bring eID and wallets into one flow will get ahead. Identity companies coming from Türkiye have an edge here: Turkish banks have been onboarding remotely by reading the ID chip with NFC since 2021 [46]. Europe is only now moving to this model."
+      }
+    },
+    "map": {
+      "head": {
+        "index": "04",
+        "label": "Competition map",
+        "title": "There is no single leader. There are seven types of players.",
+        "lede": "We placed each type on two axes: how much of the chain it sells, and how ready it is for the 2027 rules. Scores go from 0 to 10 and are our estimate. Tap a square or a name."
+      },
+      "chartLabel": "Competition map",
+      "axisX": "SHARE OF THE CHAIN",
+      "axisY": "READY FOR 2027 RULES",
+      "quadrants": [
+        "SPECIALIST, READY",
+        "BROAD, READY",
+        "SPECIALIST, AT RISK",
+        "BROAD, AT RISK"
+      ],
+      "strengthLabel": "Strength",
+      "weaknessLabel": "Weakness",
+      "moveLabel": "Next move",
+      "types": [
+        {
+          "name": "eID and trust service companies",
+          "x": 5,
+          "y": 9,
+          "verdict": "Winning",
+          "tone": "green",
+          "players": [
+            "Signicat",
+            "IDnow",
+            "Namirial",
+            "WebID",
+            "Nect"
+          ],
+          "strength": "Many national eIDs, qualified e-signatures, methods BaFin accepts.",
+          "weakness": "Weak outside Europe, patchy products from acquisitions.",
+          "move": "Add KYB and ongoing monitoring and sell the whole chain."
+        },
+        {
+          "name": "Selfie and document specialists",
+          "x": 3.6,
+          "y": 3.8,
+          "verdict": "Squeezed",
+          "tone": "red",
+          "players": [
+            "Entrust (Onfido)",
+            "Veriff",
+            "Jumio",
+            "Au10tix",
+            "iProov"
+          ],
+          "strength": "High conversion, over 200 countries, tens of thousands of document types.",
+          "weakness": "Becoming a fallback in EU banking, under price pressure.",
+          "move": "Focus on fraud and on document based markets like the UK, buy a KYB company."
+        },
+        {
+          "name": "All in one platforms",
+          "x": 8.4,
+          "y": 6.4,
+          "verdict": "Strong",
+          "tone": "green",
+          "players": [
+            "Sumsub",
+            "Persona",
+            "Ondato",
+            "iDenfy",
+            "Shufti"
+          ],
+          "strength": "Selling KYC, KYB, AML and monitoring in one contract.",
+          "weakness": "User complaints, less depth than specialists.",
+          "move": "Add eID connections fast and fix the experience for rejected users."
+        },
+        {
+          "name": "Data companies and credit bureaus",
+          "x": 6.2,
+          "y": 5,
+          "verdict": "Changing",
+          "tone": "amber",
+          "players": [
+            "Experian",
+            "LexisNexis",
+            "Moody's",
+            "GBG",
+            "Equifax"
+          ],
+          "strength": "Their own data, relationships with big banks.",
+          "weakness": "Slow growth, old systems.",
+          "move": "Keep buying digital players, use their data in KYB and monitoring."
+        },
+        {
+          "name": "KYB and register data companies",
+          "x": 3,
+          "y": 7.4,
+          "verdict": "Winning",
+          "tone": "green",
+          "players": [
+            "Kyckr",
+            "kompany",
+            "Topograph",
+            "Dotfile",
+            "Ballerine"
+          ],
+          "strength": "Live register connections, working out ownership chains.",
+          "weakness": "Need someone else for verifying people.",
+          "move": "Their value grows as registers get harder to reach. Likely targets for the big players."
+        },
+        {
+          "name": "AML and customer lifecycle",
+          "x": 5.4,
+          "y": 6.2,
+          "verdict": "Strong",
+          "tone": "green",
+          "players": [
+            "ComplyAdvantage",
+            "LSEG World-Check",
+            "Fenergo",
+            "Napier",
+            "Hawk"
+          ],
+          "strength": "Screening lists, case management, audit trail.",
+          "weakness": "Far from the onboarding experience.",
+          "move": "Rules on periodic reviews and evidence bring them new revenue."
+        },
+        {
+          "name": "Low cost newcomers",
+          "x": 6.6,
+          "y": 3,
+          "verdict": "Setting prices",
+          "tone": "amber",
+          "players": [
+            "Didit",
+            "deepidv",
+            "Zyphe"
+          ],
+          "strength": "Open prices, free plans, fast integration.",
+          "weakness": "Not yet proven at scale or in audits.",
+          "move": "Collect certifications and references to win the trust of banks."
+        }
+      ],
+      "tableHeading": "A few players in numbers",
+      "table": {
+        "columns": [
+          "Player",
+          "What we know",
+          "What it means to us"
+        ],
+        "rows": [
+          {
+            "label": "Signicat",
+            "cells": [
+              "Revenue grew 35% in 2023 to over NOK 1bn. Bought NFC chip reading company Inverid. [27] [18]",
+              "The widest eID network. It may gain the most from the new rules."
+            ]
+          },
+          {
+            "label": "IDnow",
+            "cells": [
+              "2024 revenue of €79m. Corsair Capital took a majority stake in March 2025. [19] [20]",
+              "Strongly tied to video ident. It will need to change as that method becomes a fallback."
+            ]
+          },
+          {
+            "label": "Sumsub",
+            "cells": [
+              "One of the few big players that publishes its prices. Valued at over $1bn. [21] [17]",
+              "The strongest example of the everything in one contract model."
+            ]
+          },
+          {
+            "label": "Veriff",
+            "cells": [
+              "Prices start at $0.80. Bought KYB company Vespia in February 2026. [22] [24]",
+              "Trying to move from identity checks to a platform."
+            ]
+          },
+          {
+            "label": "GBG",
+            "cells": [
+              "£285m revenue in the year to March 2026, 3.2% growth. [25]",
+              "Data heavy incumbents grow slowly."
+            ]
+          },
+          {
+            "label": "Kyckr",
+            "cells": [
+              "Revenue up 46% in the year to June 2026. [26]",
+              "KYB data is the fastest growing part of the market."
+            ]
+          },
+          {
+            "label": "Didit",
+            "cells": [
+              "Full KYC for $0.33, 500 free checks a month. [23]",
+              "The player pulling prices down."
+            ]
+          }
+        ]
+      }
+    },
+    "position": {
+      "head": {
+        "index": "05",
+        "label": "Positioning",
+        "title": "Everyone promises roughly the same thing. There are four ways to stand out."
+      },
+      "table": {
+        "columns": [
+          "Promise",
+          "Who says it",
+          "Who they sell to",
+          "After 2027"
+        ],
+        "rows": [
+          {
+            "label": "We have the method the regulator approves",
+            "cells": [
+              "IDnow, Signicat, Namirial",
+              "Banks, insurers, investment firms"
+            ],
+            "chip": {
+              "text": "Strong on eID",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "Fastest decision, highest conversion",
+            "cells": [
+              "Veriff",
+              "Neobanks, gaming, platforms"
+            ],
+            "chip": {
+              "text": "Harder in EU banking",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "One contract, all of compliance",
+            "cells": [
+              "Sumsub, Persona, Ondato, iDenfy",
+              "Crypto, iGaming, payments, fintech"
+            ],
+            "chip": {
+              "text": "Strong",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "We catch the fraudster",
+            "cells": [
+              "Entrust, iProov, Au10tix",
+              "High risk sectors"
+            ],
+            "chip": {
+              "text": "Becoming a standard feature",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "We have the most data",
+            "cells": [
+              "Moody's, Experian, LexisNexis, GBG",
+              "Large banks"
+            ],
+            "chip": {
+              "text": "Safe but slow",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "We connect to registers live",
+            "cells": [
+              "Kyckr, Topograph, kompany",
+              "KYB platforms, banks"
+            ],
+            "chip": {
+              "text": "Value is rising",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "Open prices, start for free",
+            "cells": [
+              "Didit and the big players' self serve plans",
+              "Startups, low volume"
+            ],
+            "chip": {
+              "text": "No enterprise trust yet",
+              "tone": "amber"
+            }
+          }
+        ]
+      },
+      "ways": [
+        {
+          "key": "Way 1",
+          "title": "Reusable identity",
+          "text": "A user verified once does not start again in another app. Since the EUDI wallet will offer the same thing for free, the future of private players here is unclear."
+        },
+        {
+          "key": "Way 2",
+          "title": "KYC and KYB in one flow",
+          "text": "Verifying the company, its owners and its representatives on the same screen. This is why Veriff bought Vespia. [24]"
+        },
+        {
+          "key": "Way 3",
+          "title": "Recording the reason for a fallback",
+          "tag": "small but critical",
+          "text": "The new rules ask why eID was not used. A simple module that records this reason for every application will help compliance teams a lot in audits. A small job, but everyone will need it in 2027. [7] [50]"
+        },
+        {
+          "key": "Way 4",
+          "title": "Identity for AI agents",
+          "text": "Sumsub says the next step is verifying agents that act on behalf of a person. [43] When an agent opens an account or makes a payment for you, three questions come up: Who owns this agent? With what authority and up to what limit does it act? Can that authority be taken back? Today this is mostly a marketing line. As agents spread, a new product area that joins person, company and authority will appear."
+        }
+      ]
+    },
+    "kyb": {
+      "head": {
+        "index": "06",
+        "label": "KYB",
+        "title": "KYB is the fastest growing part of the market. The biggest pain is still collecting documents.",
+        "lede": "Onboarding a business customer can take three to four months [35]. Emails going back and forth for company documents, shareholder lists, papers of a parent company abroad and translations drag the process out [34]. Open a KYB file step by step."
+      },
+      "stepLabel": "Step",
+      "daysLabel": "days",
+      "ongoingLabel": "ongoing",
+      "todayLabel": "What happens today",
+      "whoLabel": "Who solves it today",
+      "nextLabel": "What could come",
+      "steps": [
+        {
+          "name": "Find the company",
+          "days": 2,
+          "factor": 0.1,
+          "today": "Asking for the register extract, waiting for a PDF, going to another country's register for a company abroad.",
+          "who": "Services that pull the official register record and documents through one API. Kyckr connects to over 300 registers. [26]",
+          "next": "With connected EU registers and the European Business Wallet, one query could be enough. [37]"
+        },
+        {
+          "name": "Find the owners",
+          "days": 5,
+          "factor": 0.5,
+          "today": "Shareholder lists, the structure of a parent company, ownership layer by layer. This step alone can add two weeks.",
+          "who": "Tools that build the ownership chain automatically and AI that reads documents. [36]",
+          "next": "Connected registers could give five years of ownership history in one place, but access rules still differ. [15]"
+        },
+        {
+          "name": "Verify the people",
+          "days": 4,
+          "factor": 0.3,
+          "today": "A separate identity check for every director and owner. One is abroad, another never opens the link.",
+          "who": "Platforms that combine KYC and KYB send everyone a link from the same flow. [24]",
+          "next": "Owners could be verified in minutes with the EUDI wallet. In the UK, Companies House already does this. [42]"
+        },
+        {
+          "name": "Screen",
+          "days": 1,
+          "factor": 0.05,
+          "today": "Sanctions and adverse media screening for the company and each person, clearing false matches one by one.",
+          "who": "Parallel screening and automatic clearing. Mostly solved.",
+          "next": "AI that closes a false match with a reason and records it in the file."
+        },
+        {
+          "name": "Missing documents",
+          "days": 6,
+          "factor": 0.4,
+          "today": "Translations, apostilles, an up to date list of signatories, \"one more document\" emails. The longest part.",
+          "who": "Document upload portals and AI that flags missing data right away.",
+          "next": "Our idea: a company passport or an accountant approved profile."
+        },
+        {
+          "name": "Monitor",
+          "days": 0,
+          "factor": 0,
+          "today": "If ownership changes after approval, often no one notices until the next review.",
+          "who": "Services that watch the register and send alerts. Lasting identifiers like the LEI make this easier. [39]",
+          "next": "With the new rules, checking right after a change becomes standard."
+        }
+      ],
+      "barToday": "Today",
+      "barFast": "With solutions",
+      "decimal": ".",
+      "note": "Day counts are our estimate for an EU company with two ownership layers. Sources only confirm the direction: manual KYB takes weeks, automated flows take hours or days. [34] [36]",
+      "ideasHeading": "Six ideas that could end document chasing",
+      "ideas": [
+        {
+          "stage": "Proposal stage",
+          "title": "European Business Wallet",
+          "text": "In November 2025 the Commission proposed a separate wallet for companies. It will hold company data and authorisations and make banks' KYB easier. [37] [38]"
+        },
+        {
+          "stage": "Live but not widespread",
+          "title": "Verifiable LEI",
+          "text": "A credential that digitally signs the company's identity and the representative's authority. Banks can even issue a customer's LEI during onboarding. [39]"
+        },
+        {
+          "stage": "Being built in the EU",
+          "title": "Connected registers",
+          "text": "Ownership registers are being connected and five years of ownership history is required. But access rules still differ by country. [15]"
+        },
+        {
+          "stage": "Available as a product",
+          "title": "AI that reads documents",
+          "text": "Tools that read the articles of association, build the ownership chain, screen in parallel and record the decision. Companies like Dotfile sell this. [36]"
+        },
+        {
+          "stage": "Our idea",
+          "title": "Company passport",
+          "text": "The profile of a company verified once moves from bank to bank with the company's consent. When something changes, everyone hears about it at the same time."
+        },
+        {
+          "stage": "Our idea",
+          "title": "Accountant approved profile",
+          "text": "The accountant or notary who knows the company best approves its data digitally. The bank checks this approval instead of asking for documents."
+        }
+      ],
+      "view": {
+        "label": "Our view",
+        "text": "The state gives people a digital identity. Companies do not have one yet. Whoever fills this gap will own not only the checks, but also the relationship between companies and their banks."
+      }
+    },
+    "marketing": {
+      "head": {
+        "index": "07",
+        "label": "Marketing",
+        "title": "Providers sell fear, deadlines and comparisons.",
+        "lede": "The products look very similar, so the one that tells the story best wins. Seven methods stand out:"
+      },
+      "items": [
+        {
+          "key": "01",
+          "title": "A yearly fraud report",
+          "text": "Sumsub and Entrust publish a report from their own data every year. The press quotes it, and you leave your email to download it. One piece of content brings brand, news and a lead list. [13] [43]"
+        },
+        {
+          "key": "02",
+          "title": "Content that follows the regulation calendar",
+          "text": "The week AMLA published its standards, IDnow, Signicat, Fourthline and Shufti all released guides on it. Every date on the calendar means a webinar and a checklist."
+        },
+        {
+          "key": "03",
+          "title": "Comparison pages",
+          "text": "Pages like \"best KYC providers\" and \"X vs Y\" are published in dozens of languages. The target is not only Google, but also the AI assistants buyers now ask. Open prices, tables and FAQs work well here. [23]"
+        },
+        {
+          "key": "04",
+          "title": "Free trials",
+          "text": "Veriff gives 15 days, Sumsub 14 days and 50 checks, Didit 500 free checks every month. Developers finish the integration without talking to sales. Banks still buy through tenders. [22] [21] [23]"
+        },
+        {
+          "key": "05",
+          "title": "Analyst rankings",
+          "text": "Sumsub shows Chartis and KuppingerCole badges even on its pricing page. Bank buying teams still look at these rankings. [21]"
+        },
+        {
+          "key": "06",
+          "title": "Partner channel",
+          "text": "Sumsub offers partners two options: refer customers for a commission, or resell under their own name. BaaS companies and consultants are a natural part of this channel. [45]"
+        },
+        {
+          "key": "07",
+          "title": "A brand for the end user",
+          "text": "When age checks became mandatory in the UK, Yoti ran a fun social media campaign. Its app passed 6 million downloads in the UK. [44]"
+        }
+      ],
+      "view": {
+        "label": "What is missing",
+        "text": "No provider talks to the end user. Rejected and stuck people complain in reviews, but providers only speak to companies."
+      }
+    },
+    "money": {
+      "head": {
+        "index": "08",
+        "label": "Revenue models",
+        "title": "Pick a monthly volume and see the bill at list prices.",
+        "lede": "Most providers charge per verification plus a monthly minimum. The calculation uses published list prices only. Add ons and enterprise discounts are not included."
+      },
+      "volumeLabel": "Verifications per month",
+      "volumes": [
+        0,
+        100,
+        250,
+        500,
+        750,
+        1000,
+        2000,
+        3000,
+        5000,
+        7500,
+        10000,
+        15000,
+        20000
+      ],
+      "startIndex": 5,
+      "note": "A striped bar means usage is below the minimum, so you pay the minimum. This is exactly where small companies get tied to a provider.",
+      "field": {
+        "label": "From the field",
+        "text": "Banks and large volumes get serious discounts. People in the industry also talk about providers working for free for a while to win a big reference customer. The list price is only where the negotiation starts."
+      },
+      "billLabel": "Monthly bill, list price",
+      "sourcesLabel": "Sources",
+      "billSources": [
+        23,
+        22,
+        21
+      ],
+      "currency": "$",
+      "plans": [
+        {
+          "name": "Didit",
+          "terms": "$0.33, 500 free a month",
+          "price": 0.33,
+          "minimum": 0,
+          "free": 500
+        },
+        {
+          "name": "Veriff Essential",
+          "terms": "$0.80, min $49",
+          "price": 0.8,
+          "minimum": 49,
+          "free": 0
+        },
+        {
+          "name": "Sumsub Basic",
+          "terms": "$1.35, min $149",
+          "price": 1.35,
+          "minimum": 149,
+          "free": 0
+        },
+        {
+          "name": "Sumsub Compliance",
+          "terms": "$1.85, min $299",
+          "price": 1.85,
+          "minimum": 299,
+          "free": 0
+        },
+        {
+          "name": "Veriff Premium",
+          "terms": "$1.89, min $209",
+          "price": 1.89,
+          "minimum": 209,
+          "free": 0
+        }
+      ],
+      "streamsHeading": "Where the money comes from",
+      "streams": [
+        {
+          "title": "Fee per verification",
+          "text": "What counts as a \"verification\" matters. Sumsub bills only completed ones, others count every attempt. [51]"
+        },
+        {
+          "title": "Minimums and yearly contracts",
+          "text": "IDnow, and Sumsub once volume grows, ask for yearly contracts and minimum spend. The top complaint of startups. [49] [33]"
+        },
+        {
+          "title": "Add ons",
+          "text": "Ongoing AML monitoring costs $0.09 at Veriff and $0.08 at Sumsub. Margin often comes from here. [22] [21]"
+        },
+        {
+          "title": "People",
+          "text": "Video ident and manual review. Expensive, but banks trust it in audits."
+        },
+        {
+          "title": "E-signature",
+          "text": "The qualified e-signature that comes right after identity verification."
+        },
+        {
+          "title": "KYB data",
+          "text": "A fee per register document or an enterprise data licence. The fastest growing item. [26]"
+        },
+        {
+          "title": "Platform fee",
+          "text": "Flow design, case management, keeping evidence. This will replace the shrinking check fee."
+        }
+      ],
+      "view": {
+        "label": "Where the money goes",
+        "text": "As the one time check gets cheaper, watching customers over their whole life and showing evidence in audits will be what makes money."
+      }
+    },
+    "voices": {
+      "head": {
+        "index": "09",
+        "label": "Customer voice",
+        "title": "Customers keep complaining about the same things.",
+        "lede": "Big data companies are buying digital players: Entrust bought Onfido, Experian KYC360, LexisNexis IDVerse, Moody's kompany [55]. But in the reviews the problem is always in the same place: no one takes care of the rejected user."
+      },
+      "items": [
+        {
+          "who": "End user",
+          "chip": "Rejected, no reason",
+          "tone": "red",
+          "quote": "Valid document, good light, rejected again. No explanation.",
+          "text": "Most complaints on one provider's review page look like this. Some users cannot even withdraw money they earned. [29]"
+        },
+        {
+          "who": "End user",
+          "chip": "No one owns it",
+          "tone": "red",
+          "quote": "The app sends me to the provider, the provider sends me back to the app.",
+          "text": "The company makes the decision, the provider designs the screen, and responsibility falls in between. [31]"
+        },
+        {
+          "who": "End user",
+          "chip": "Local documents",
+          "tone": "amber",
+          "quote": "Even my registration certificate from the city office was not accepted.",
+          "text": "A German Meldebestätigung example. Error messages asking users to switch off a VPN they don't have also come up often. [29]"
+        },
+        {
+          "who": "End user",
+          "chip": "Video ident",
+          "tone": "amber",
+          "quote": "I waited 40 minutes and the call dropped eight times.",
+          "text": "The experience depends a lot on the agent you get. One competitor entered the DACH market with exactly this problem in mind. [30] [54]"
+        },
+        {
+          "who": "Company",
+          "chip": "False rejections",
+          "tone": "red",
+          "quote": "Applications stuck in loops, wrong selfie rejections, rejections for people with no credit history.",
+          "text": "G2, Gartner and Reddit reviews show the same three complaints for all big providers. Young people and newcomers to a country are rejected the most. [28] [32]"
+        },
+        {
+          "who": "Company",
+          "chip": "Contracts",
+          "tone": "amber",
+          "quote": "Minimums don't fit our volume, and the invoice is hard to follow.",
+          "text": "In KYB, once volume grows, almost every provider asks for a custom contract and a yearly minimum. [33]"
+        }
+      ],
+      "gapsHeading": "Product gaps behind these complaints",
+      "gaps": {
+        "columns": [
+          "Gap",
+          "Who has it today",
+          "Opportunity"
+        ],
+        "rows": [
+          {
+            "label": "Explaining rejections and appeals",
+            "cells": [
+              "No one",
+              "A layer that tells users why and what they can do"
+            ]
+          },
+          {
+            "label": "Support for rejected users",
+            "cells": [
+              "Stuck between company and provider",
+              "Shared support, one ticket number"
+            ]
+          },
+          {
+            "label": "Newcomers to a country",
+            "cells": [
+              "Partly credit bureaus",
+              "Different data and documents for migrants, students and diaspora"
+            ]
+          },
+          {
+            "label": "Local documents",
+            "cells": [
+              "Bits and pieces",
+              "Wider document support by country and language"
+            ]
+          },
+          {
+            "label": "Reason for a fallback",
+            "cells": [
+              "Just starting",
+              "A module that records the reason automatically"
+            ]
+          },
+          {
+            "label": "Company passport",
+            "cells": [
+              "Almost no one",
+              "A company profile that moves from bank to bank"
+            ]
+          },
+          {
+            "label": "Fair pricing for small volume",
+            "cells": [
+              "Newcomers",
+              "Plans with no minimum and clear add ons"
+            ]
+          }
+        ]
+      }
+    },
+    "story": {
+      "head": {
+        "index": "10",
+        "label": "User story",
+        "title": "Deniz's eight years and eight identity checks.",
+        "lede": "Deniz is a software developer who moved from Izmir to Berlin. He is made up, but what happens to him comes from real reviews and real rules. Tap a year."
+      },
+      "clock": "Deniz's phone",
+      "questionLabel": "The real question",
+      "years": [
+        {
+          "year": "2019",
+          "title": "A 40 minute video call",
+          "messages": [
+            {
+              "app": "Bank app",
+              "text": "Video call queue: you are number 23",
+              "sub": "Estimated wait 40 min"
+            },
+            {
+              "app": "Bank app",
+              "text": "Connection lost. Please try again.",
+              "bad": true
+            },
+            {
+              "app": "Bank app",
+              "text": "Your account is open.",
+              "sub": "On the third try",
+              "good": true
+            }
+          ],
+          "text": "Deniz moves from Izmir to Berlin. To open a bank account he waits 40 minutes and the call drops twice. On the third call the agent asks him to show his passport to the camera, page by page.",
+          "question": "As long as video ident is the main method, waiting times stay a problem. After 2027 it becomes a fallback."
+        },
+        {
+          "year": "2021",
+          "title": "No one takes responsibility",
+          "messages": [
+            {
+              "app": "Investment app",
+              "text": "Your proof of address was not accepted.",
+              "sub": "Meldebestätigung",
+              "bad": true
+            },
+            {
+              "app": "Support",
+              "text": "Please contact our verification provider."
+            },
+            {
+              "app": "Provider",
+              "text": "Please contact the company you are signing up with."
+            }
+          ],
+          "text": "Signing up for an investment app, he uploads his registration certificate from the city office. It is rejected. The app sends him to the provider, the provider sends him back. Three weeks later he gives up.",
+          "question": "Who takes care of the rejected customer?"
+        },
+        {
+          "year": "2023",
+          "title": "19 days for a business account",
+          "messages": [
+            {
+              "app": "Bank",
+              "text": "Please send the articles of association with a certified translation."
+            },
+            {
+              "app": "Bank",
+              "text": "The list of signatories of your partner company in Istanbul is missing."
+            },
+            {
+              "app": "Bank",
+              "text": "Your business account is open.",
+              "sub": "After 19 days",
+              "good": true
+            }
+          ],
+          "text": "Deniz starts his own company. The bank asks for one more document every week. In the meantime he has to take his first client's payment into his personal account.",
+          "question": "Why does a company that was verified once start from zero at every bank?"
+        },
+        {
+          "year": "2025",
+          "title": "Verify again",
+          "messages": [
+            {
+              "app": "Bank app",
+              "text": "For your security, please verify your identity again."
+            },
+            {
+              "app": "Bank app",
+              "text": "Hold your ID card to the back of your phone."
+            },
+            {
+              "app": "Bank app",
+              "text": "Thank you, verification complete.",
+              "good": true
+            }
+          ],
+          "text": "This time his bank asks him to scan the chip of his ID card. That year he reads in the news that deepfake attacks are rising and thinks these checks may not be pointless after all.",
+          "question": "Why are chip and device checks safer against deepfakes?"
+        },
+        {
+          "year": "Dec 2026",
+          "title": "The wallet arrives",
+          "messages": [
+            {
+              "app": "News",
+              "text": "Germany launches the EUDI wallet."
+            },
+            {
+              "app": "Deniz",
+              "text": "I'm not a German citizen. Will I be able to get this wallet?"
+            },
+            {
+              "app": "Residence card",
+              "text": "Online ID function: never used"
+            }
+          ],
+          "text": "When the wallet launches, his first question is whether he can get one too. His residence card already has an online ID function, but no app has ever offered it to him.",
+          "question": "How will non citizens use the wallet?"
+        },
+        {
+          "year": "Jul 2027",
+          "title": "Same rule, different experience",
+          "messages": [
+            {
+              "app": "Bank",
+              "text": "Verify your identity with your wallet in 30 seconds.",
+              "good": true
+            },
+            {
+              "app": "Bank",
+              "text": "No wallet? ID photo and selfie.",
+              "sub": "Reason: no eID"
+            },
+            {
+              "app": "Bank",
+              "text": "Your new employee's application is under review."
+            }
+          ],
+          "text": "The new rules are in force. Deniz's bank offers the wallet first. The Brazilian developer Deniz just hired still goes the old way.",
+          "question": "Who will think about the experience of users who come through the fallback?"
+        }
+      ]
+    },
+    "uk": {
+      "head": {
+        "index": "11",
+        "label": "UK",
+        "title": "The EU is moving to the state's digital ID. The UK dropped its national ID plan.",
+        "lede": "The UK cancelled its national digital ID in July 2026 and left identity checks to private companies certified by the state."
+      },
+      "table": {
+        "columns": [
+          "EU",
+          "UK"
+        ],
+        "rows": [
+          {
+            "label": "Rules",
+            "eu": "AMLR, the same in 27 countries from July 2027 [4]",
+            "uk": "Its own money laundering rules"
+          },
+          {
+            "label": "Digital ID",
+            "eu": "Every country offers an EUDI wallet by December 2026 [9]",
+            "uk": "National ID plan cancelled on 21 July 2026 [40]"
+          },
+          {
+            "label": "Remote checks",
+            "eu": "eID and wallet first, documents and selfies as fallback [6]",
+            "uk": "Certified providers, documents and selfies stay the main method"
+          },
+          {
+            "label": "Certification",
+            "eu": "eIDAS assurance levels",
+            "uk": "65 certified services from 47 providers in September 2026 [41]"
+          },
+          {
+            "label": "Company register",
+            "eu": "Ownership registers are not open to everyone [15]",
+            "uk": "Register is open. Companies House has verified directors' identities since November 2025 [42]"
+          },
+          {
+            "label": "Local players",
+            "eu": "Signicat, IDnow, Namirial, WebID, Nect, Fourthline",
+            "uk": "GBG, Experian, Yoti, Credas, Thirdfort"
+          }
+        ]
+      },
+      "figures": [
+        {
+          "value": "$0.85bn",
+          "text": "UK identity verification market, 2025 [2]"
+        },
+        {
+          "value": "65",
+          "text": "certified verification services, September 2026 [41]"
+        },
+        {
+          "value": "69m",
+          "text": "age checks in the second half of 2025, 23 times the six months before [47]"
+        },
+        {
+          "value": "2x",
+          "text": "rise in deepfake attacks in one year [43]"
+        }
+      ],
+      "paths": {
+        "heading": "Deniz's two paths · 2028",
+        "note": "Deniz opens two accounts on the same day: one at a bank in Berlin, one at a fintech in London. Go step by step.",
+        "euLabel": "EU · Berlin",
+        "ukLabel": "UK · London",
+        "stepLabel": "Step",
+        "euClock": "EU",
+        "ukClock": "UK",
+        "backLabel": "Back",
+        "nextLabel": "Next step",
+        "againLabel": "Play again",
+        "steps": [
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Verify your identity to open an account.",
+                "sub": "Recommended: EUDI wallet"
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Verify your identity to open an account.",
+                "sub": "With an identity app or a document"
+              }
+            ],
+            "euWhy": "In the EU the first method offered is the wallet issued by the state.",
+            "ukWhy": "The UK has no state ID. The options are a certified app or a document."
+          },
+          {
+            "eu": [
+              {
+                "app": "Wallet",
+                "text": "Bank in Berlin asks for: name, date of birth, address.",
+                "sub": "Share"
+              }
+            ],
+            "uk": [
+              {
+                "app": "Identity app",
+                "text": "Scan your passport chip and take a selfie.",
+                "sub": "Done once, reused later"
+              }
+            ],
+            "euWhy": "Deniz sees what he shares and approves it. No document photo. [9]",
+            "ukWhy": "Documents and selfies are still the main method. The app is on the state's certified list. [41]"
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Identity verified. Assurance level: high.",
+                "good": true
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Identity verified. Provider is certified.",
+                "good": true
+              }
+            ],
+            "euWhy": "The bank trusts the state's signature. Deepfake risk is close to zero on this path.",
+            "ukWhy": "The fintech trusts the provider's certificate. Protecting against deepfakes is the provider's job."
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "For a business account we need the register extract and owner details.",
+                "sub": "Register access is limited"
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "We found your company at Companies House. Directors are verified.",
+                "good": true
+              }
+            ],
+            "euWhy": "In the EU, KYB still depends on collecting documents. [15]",
+            "ukWhy": "In the UK the register is open and directors are already verified. KYB is much faster. [42]"
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Personal account: 2 minutes. Business account: waiting for documents."
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Personal account: 5 minutes. Business account: same day.",
+                "good": true
+              }
+            ],
+            "euWhy": "The EU is faster for personal accounts and slower for business accounts.",
+            "ukWhy": "Personal accounts take a bit longer, business accounts are much faster."
+          }
+        ]
+      },
+      "view": {
+        "label": "Our view",
+        "text": "In the EU the provider that connects to eID gets ahead, in the UK the one certified by the state. Selfie and document checks become a fallback in the EU but stay the main method in the UK. Anyone selling to both markets will have to run two different products."
+      }
+    },
+    "next": {
+      "head": {
+        "index": "12",
+        "label": "What's next",
+        "title": "Seven expectations and three risks for 2027 to 2030.",
+        "lede": "Most banks will review their providers for the new rules at the same time, which makes the first half of 2027 very important for sales. Where there is no source, it is our estimate."
+      },
+      "items": [
+        {
+          "key": "01",
+          "title": "eID and wallets become the default.",
+          "text": "Selfies and documents won't disappear, but in EU banking they will stay as a fallback and a fraud check.",
+          "chip": "High",
+          "level": "high"
+        },
+        {
+          "key": "02",
+          "title": "Prices keep falling.",
+          "text": "Full KYC for $0.33 is the exception today and could be normal within two years.",
+          "chip": "High",
+          "level": "high"
+        },
+        {
+          "key": "03",
+          "title": "Acquisitions continue.",
+          "text": "Single product companies will either buy others or be sold.",
+          "chip": "High",
+          "level": "high"
+        },
+        {
+          "key": "04",
+          "title": "KYB drives growth.",
+          "text": "As registers get harder to reach and business onboarding still takes weeks, KYB becomes the fastest growing area.",
+          "chip": "High",
+          "level": "high"
+        },
+        {
+          "key": "05",
+          "title": "Banks may start issuing identity.",
+          "text": "If they can write their own KYC credentials into a customer's wallet, they become identity issuers, not just identity checkers. [52]",
+          "chip": "Medium",
+          "level": "medium"
+        },
+        {
+          "key": "06",
+          "title": "Chips and devices matter more against deepfakes.",
+          "text": "Attacks go around the camera, so NFC chips, device checks and behaviour signals become more important than the selfie.",
+          "chip": "High",
+          "level": "high"
+        },
+        {
+          "key": "07",
+          "title": "Agent identity becomes a new area.",
+          "text": "Products that join person, company and authority appear first in payments, then in account opening.",
+          "chip": "Medium",
+          "level": "medium"
+        }
+      ],
+      "risks": [
+        {
+          "tag": "Risk 1",
+          "text": "If people are slow to take up the EUDI wallet, fallback methods stay the main method in practice."
+        },
+        {
+          "tag": "Risk 2",
+          "text": "If the Commission softens AMLA's standards, document checks could be on equal terms again. [7]"
+        },
+        {
+          "tag": "Risk 3",
+          "text": "A large data leak or deepfake scandal could shake trust in the market overnight. A big provider was named in a data breach notice in January 2026. [53]"
+        }
+      ]
+    },
+    "note": {
+      "head": {
+        "index": "13",
+        "label": "Expert note",
+        "title": ""
+      },
+      "quote": "When we built insha on a BaaS platform, we were tied to one identity provider. There were times we were not happy, but adding a second provider was not in our hands.",
+      "paragraphs": [
+        "So when we launched RUUT in the UK, our first question was: which partner is strong in both KYC and KYB, works end to end and can handle different cases? Choosing an identity provider looks like a buying decision, but it is a product decision you live with for years.",
+        "2027 is a good time to make this decision again. The rules are changing, prices are falling, and you have a strong hand in the negotiation."
+      ],
+      "signature": "Mehmet Burak · fspark9",
+      "checklistLabel": "To do",
+      "checklist": [
+        "Map your onboarding flows today and mark which ones will change with eID.",
+        "Add a field that records the reason whenever a fallback method is used.",
+        "Check your contract with your identity provider: minimums, add ons, the right to add a second provider.",
+        "Find the three documents that slow your KYB files the most and look for a data source for each.",
+        "Try once yourself what a rejected customer sees and who they can reach."
+      ]
+    },
+    "close": {
+      "title": "The rules are set. Which way you go is up to you.",
+      "text": "fspark9 helps banks, fintechs and companies with customers choose the right partner and turn new rules into product decisions.",
+      "bookLabel": "Book a call",
+      "storyLabel": "Back to Deniz's story"
+    },
+    "sources": {
+      "head": {
+        "index": "",
+        "label": "Sources",
+        "title": "Where the numbers come from."
+      },
+      "sourceTemplate": "Source {n}",
+      "items": [
+        {
+          "label": "MarketsandMarkets, Europe Identity Verification Market, 2025-2030",
+          "href": "https://marketsandmarkets.com/Market-Reports/europe-identity-verification-market-8630841.html"
+        },
+        {
+          "label": "MarketsandMarkets, UK Identity Verification Market",
+          "href": "https://www.marketsandmarkets.com/Market-Reports/geography/identity-verification-market/uk"
+        },
+        {
+          "label": "IMARC Group, UK Identity Verification Market",
+          "href": "https://www.imarcgroup.com/uk-identity-verification-market"
+        },
+        {
+          "label": "Signicat, AMLR 2027 guide: from regulation to operational readiness",
+          "href": "https://www.signicat.com/blog/amlr-2027-guide-from-regulation-to-operational-readiness"
+        },
+        {
+          "label": "EY, How EU leaders can stay ahead of AMLA and AMLR",
+          "href": "https://www.ey.com/en_lu/insights/financial-services/how-eu-leaders-can-stay-ahead-of-amla-and-amlr"
+        },
+        {
+          "label": "IDnow, AMLR CDD RTS: what the final draft changes for onboarding, October 2026",
+          "href": "https://idnow.io/insights/blog/amlr-cdd-rts-final-draft/"
+        },
+        {
+          "label": "Paytechlaw, Final RTS on Customer Due Diligence under Article 28 AMLR, October 2026",
+          "href": "https://paytechlaw.com/en/final-rts-on-customer-due-diligence-under-article-28-amlr/"
+        },
+        {
+          "label": "Bird & Bird, Video identification only as a fallback: EBA is shifting to eIDAS, January 2026",
+          "href": "https://www.twobirds.com/en/insights/2026/germany/videoident-nur-noch-als-fallback-die-eba-setzt-auf-eidas"
+        },
+        {
+          "label": "Authologic, How to verify customers remotely under AMLR, October 2026",
+          "href": "https://authologic.com/blog/verify-customers-remotely-under-amlr"
+        },
+        {
+          "label": "Signicat, Strong Customer Authentication with EUDI wallets",
+          "href": "https://www.signicat.com/blog/strong-customer-authentication-sca-with-eudi-wallets-what-financial-services-need-to-know"
+        },
+        {
+          "label": "Infosecurity Magazine, AI and deepfake powered fraud skyrockets, on Sumsub Identity Fraud Report 2025-2026",
+          "href": "https://www.infosecurity-magazine.com/news/ai-deepfake-fraud-skyrockets/"
+        },
+        {
+          "label": "Sumsub, Top new identity fraud trends, December 2025",
+          "href": "https://sumsub.com/blog/top-new-identity-fraud-trends"
+        },
+        {
+          "label": "Entrust, 2026 Identity Fraud Report",
+          "href": "https://www.entrust.com/resources/reports/identity-fraud-report"
+        },
+        {
+          "label": "Financial IT, Fraudsters turning to EU and AI generated documents, 2025",
+          "href": "https://financialit.net/news/artificial-intelligence/new-data-fraudsters-turning-eu-and-traditional-forgery-ai-generated"
+        },
+        {
+          "label": "Kyckr, EU UBO register access for obliged entities",
+          "href": "https://kyckr.com/guides-and-reports/eu-ubo-register-access-for-obliged-entities"
+        },
+        {
+          "label": "Kyckr, EU UBO register access 2026: guide to 6AMLD compliance",
+          "href": "https://www.kyckr.com/blog/eu-ubo-register-access-6amld-guide-2026"
+        },
+        {
+          "label": "Tech Insider, iGaming KYC M&A: 11 deals, Veriff turns buyer, 2026",
+          "href": "https://tech-insider.org/igt-regtech-consolidation-2026-ma-in-igaming-kyc-vendors-en-d187/"
+        },
+        {
+          "label": "Signicat, Signicat acquires Inverid, 2025",
+          "href": "https://www.signicat.com/press-releases/signicat-acquires-inverid"
+        },
+        {
+          "label": "Sifted, IDnow 295m private equity deal, 2025",
+          "href": "https://sifted.eu/articles/idnow-295m-private-equity-deal"
+        },
+        {
+          "label": "IBS Intelligence, Corsair Capital acquires majority stake in IDnow, March 2025",
+          "href": "https://ibsintelligence.com/?p=567223"
+        },
+        {
+          "label": "Sumsub, Pricing and plans",
+          "href": "https://sumsub.com/pricing/"
+        },
+        {
+          "label": "Veriff, Self-serve plans",
+          "href": "https://www.veriff.com/demo"
+        },
+        {
+          "label": "Didit, IDnow alternative, published pricing",
+          "href": "https://didit.me/switch/idnow-alternative/"
+        },
+        {
+          "label": "deepidv, Sumsub vs Veriff in 2026, including the Vespia acquisition",
+          "href": "https://www.deepidv.com/media/articles/sumsub-vs-veriff-europe-kyc-comparison-2026"
+        },
+        {
+          "label": "Investegate, GB Group FY26 trading statement, April 2026",
+          "href": "https://www.investegate.co.uk/announcement/rns/gb-group--gbg/trading-statement/9531421"
+        },
+        {
+          "label": "Kyckr, Kyckr reports 46% revenue growth, July 2026",
+          "href": "https://kyckr.com/blog/kyckr-reports-46-revenue-growth-as-demand-for-live-company-register-data-accelerates"
+        },
+        {
+          "label": "Signicat via Mynewsdesk, Signicat exceeds the Rule of 40, 2024",
+          "href": "https://mynewsdesk.com/signicat/pressreleases/signicat-exceeds-the-rule-of-40-leading-in-both-market-position-and-profitable-growth-3343679"
+        },
+        {
+          "label": "Signzy, Where KYC onboarding drop-off actually happens, from real user reviews, 2026",
+          "href": "https://www.signzy.com/blogs/sumsub-vs-veriff-vs-signzy-kyc-drop-off"
+        },
+        {
+          "label": "Trustpilot, Sumsub reviews",
+          "href": "https://www.trustpilot.com/review/sumsub.com?page=3"
+        },
+        {
+          "label": "Trustpilot, IDnow reviews",
+          "href": "https://se.trustpilot.com/review/idnow.io"
+        },
+        {
+          "label": "Verifyir, Sumsub verification failed, 2026",
+          "href": "https://verifyir.com/sumsub-verification-failed-review/"
+        },
+        {
+          "label": "G2, Veriff, Sumsub and Entrust IDV comparison",
+          "href": "https://www.g2.com/compare/veriff-vs-sumsub-vs-onfido-vs-lightico"
+        },
+        {
+          "label": "Fintechspecs, KYB pricing breakdown, October 2026",
+          "href": "https://fintechspecs.com/blog/kyb-pricing-breakdown-middesk-persona-sumsub-alloy-baselayer/"
+        },
+        {
+          "label": "Binderr, 7 KYB challenges in business onboarding",
+          "href": "https://binderr.com/resources/kyb-challenges-in-business-onboarding-and-compliance"
+        },
+        {
+          "label": "Trulioo, KYB challenges and onboarding times",
+          "href": "https://www.trulioo.com/page/5?s=kyc"
+        },
+        {
+          "label": "Dotfile, Business onboarding (KYB)",
+          "href": "https://dotfile.com/solutions/business-onboarding"
+        },
+        {
+          "label": "cheqd, European Business Wallets proposal, December 2025",
+          "href": "https://cheqd.io/blog/2025/12"
+        },
+        {
+          "label": "iGrant.io, Executive summary: European Business Wallet Regulation, November 2025",
+          "href": "https://igrant.io/articles/executive-summary-european-business-wallet-regulation-2025"
+        },
+        {
+          "label": "RapidLEI, KYB just got easier with the LEI and vLEI",
+          "href": "https://rapidleidev.wpengine.com/kyb-made-easy/"
+        },
+        {
+          "label": "LexisNexis, Government cancels national Digital ID programme, September 2026",
+          "href": "https://www.lexisnexis.co.uk/legal/news/government-cancels-national-digital-id-programme-plans-for-mandatory-digital-right-to-work-checks"
+        },
+        {
+          "label": "Didit, UK digital identity trust framework: DVS register and AML use, October 2026",
+          "href": "https://didit.me/blog/uk-digital-identity-trust-framework/"
+        },
+        {
+          "label": "Scottish Financial News, Companies House to mandate director ID verification",
+          "href": "https://www.scottishfinancialnews.com/articles/companies-house-to-mandate-director-id-verification-from-november-2025"
+        },
+        {
+          "label": "Financial IT, Sophisticated fraud up 180% and UK deepfake attacks double, November 2025",
+          "href": "https://financialit.net/news/fraud-detection/sophisticated-fraud-180-globally-and-uk-deepfake-attacks-double-warns-sumsub"
+        },
+        {
+          "label": "Yoti, Thoughts from our CEO, July 2025",
+          "href": "https://www.yoti.com/blog/thoughts-from-our-ceo-july-2025/"
+        },
+        {
+          "label": "Sumsub, Partner programme",
+          "href": "https://sumsub.com/partners/"
+        },
+        {
+          "label": "Timeturk, BDDK uzaktan kimlik tespiti yönetmeliği, Nisan 2021",
+          "href": "https://www.timeturk.com/ekonomi/1-mayis-tan-itibaren-banka-subesine-gitmeden-islem-donemi/haber-1680687"
+        },
+        {
+          "label": "Lewis Silkin, Ofcom warns tougher action is needed on age assurance, July 2026",
+          "href": "https://www.lewissilkin.com/en/insights/2026/07/16/ofcom-warns-that-tougher-action-is-needed-on-age-assurance-following-publication-102nc4m"
+        },
+        {
+          "label": "Bloomberg HT, Tüzel kişiler de uzaktan görüşmeyle banka müşterisi olabilecek, 2023",
+          "href": "https://www.bloomberght.com/tuzel-kisiler-de-uzaktan-gorusmeyle-banka-musterisi-olabilecek-2331942"
+        },
+        {
+          "label": "KI Syndikat, IDnow profile and pricing model, 2026",
+          "href": "https://www.ki-syndikat.de/tools/idnow/"
+        },
+        {
+          "label": "Fourthline, Your AMLR checklist: what has to be done and by when",
+          "href": "https://www.fourthline.com/blog/your-amlr-checklist-what-has-to-be-done-and-by-when"
+        },
+        {
+          "label": "Start with Identity, Sumsub vendor profile, September 2026",
+          "href": "https://startwithidentity.com/vendors/identity-verification/sumsub.md"
+        },
+        {
+          "label": "walt.id, eIDAS 2 for financial services",
+          "href": "https://walt.id/eidas2/financial-services"
+        },
+        {
+          "label": "Verifyo, Identity verification solutions 2026: a buyer's guide",
+          "href": "https://verifyo.com/insights/identity-verification-solutions-2026-buyers-guide"
+        },
+        {
+          "label": "Business Wire, Shufti sets a new benchmark for VideoIdent in the DACH market, February 2026",
+          "href": "https://www.businesswire.com/news/home/20260218726361/en/Shufti-Sets-a-New-Benchmark-for-VideoIdent-in-the-DACH-Market"
+        },
+        {
+          "label": "Morning Mail, Cybersecurity industry brief, July 2026",
+          "href": "https://morningmail.ai/en/newsletter/cybersecurity-industry-brief-fn0HX9KJY0EfKaxWWqPh/2026-07-07"
+        }
+      ],
+      "foot": "Information checked on 2 November 2026. AMLA's standards are still a draft and the Commission can change them. Market sizes are estimates by research firms. Prices are published list prices. Competition map scores, KYB day counts, expectations and the sections marked Our view are fspark9 analysis, not legal advice."
+    }
+  },
+  "tr": {
+    "number": 4,
+    "subject": "Avrupa'da KYC kuralları değişiyor",
+    "hook": "Avrupa'nın yeni kuralları eID'yi öne alıyor. KYC ve KYB sağlayıcıları, bankalar ve fintechler için ne değişiyor, İngiltere ile birlikte.",
+    "cardLinkLabel": "Raporu okuyun",
+    "seo": {
+      "title": "Avrupa'da KYC kuralları değişiyor",
+      "description": "Avrupa'da KYC kurallarını bu sonbahar regülatör yeniden yazdı. Pasaport ve selfie ile kimlik doğrulama ikinci plana düşüyor, yerine devletin verdiği dijital kimlik geliyor. Pazarı, oyuncuları, paranın nereye gittiğini ve ürünlerde nelerin eksik olduğunu İngiltere ile karşılaştırarak anlattık."
+    },
+    "hero": {
+      "meta": [
+        "Spark",
+        "02 Sektör raporları",
+        "Kasım 2026"
+      ],
+      "bigNo": "02",
+      "titleLead": "Avrupa'da KYC kuralları",
+      "titleCut": "değişiyor.",
+      "sub": "Avrupa'da KYC kurallarını bu sonbahar regülatör yeniden yazdı. Pasaport ve selfie ile kimlik doğrulama ikinci plana düşüyor, yerine devletin verdiği dijital kimlik geliyor. Pazarı, oyuncuları, paranın nereye gittiğini ve ürünlerde nelerin eksik olduğunu İngiltere ile karşılaştırarak anlattık.",
+      "figures": [
+        {
+          "value": "3,53 mlr $",
+          "label": "2025'te Avrupa kimlik doğrulama pazarı, UK dahil [1]"
+        },
+        {
+          "value": "%16,9",
+          "label": "2030'a kadar beklenen yıllık büyüme [1]"
+        },
+        {
+          "value": "%10 → %28",
+          "label": "bir yılda gelişmiş dolandırıcılık girişimlerinin payı [12]"
+        },
+        {
+          "value": "6 kat",
+          "label": "en ucuz ve en pahalı tam KYC liste fiyatı arasındaki fark [21] [23]"
+        }
+      ]
+    },
+    "short": {
+      "head": {
+        "index": "01",
+        "label": "Kısaca",
+        "title": "Kurallar değişiyor, fiyatlar düşüyor, para KYB'ye kayıyor."
+      },
+      "cards": [
+        {
+          "tag": "Kurallar",
+          "first": "Uzaktan kimlik tespitinde artık önce eID ve EUDI cüzdanı geliyor.",
+          "body": "Belge, selfie ve video ident yasaklanmıyor ama ancak gerekçesi kaydedilirse kullanılabilecek. Cüzdanlar Aralık 2026'da, yeni kurallar Temmuz 2027'de geliyor. [6] [10]"
+        },
+        {
+          "tag": "Rekabet",
+          "first": "Selfie ve belge uzmanları iki taraftan baskı altında.",
+          "body": "Bir yanda yeni kurallar eID sağlayıcılarını öne çıkarıyor, diğer yanda yeni gelenler tam KYC'yi 0,33 dolara satıyor. Ayakta kalmak isteyenler KYB ve izleme şirketleri satın alıyor. [17] [23]"
+        },
+        {
+          "tag": "Para",
+          "first": "Büyüme KYB'de, sürekli izlemede ve denetim kanıtında.",
+          "body": "Tek seferlik kontrol ucuzlarken şirketleri tanımak ve müşteriyi hayatı boyunca izlemek büyüyor. Bir KYB veri sağlayıcısı bir yılda yüzde 46 büyüdü. [26]"
+        }
+      ],
+      "view": {
+        "label": "Görüşümüz",
+        "text": "Bu pazarda teknoloji büyük ölçüde hazır. Zor olan karar vermek: hangi yöntem, hangi sağlayıcı ve denetimde bunu nasıl savunacaksınız. 2027'de bankalar ve fintechler bu soruları yeniden cevaplamak zorunda kalacak."
+      }
+    },
+    "market": {
+      "head": {
+        "index": "02",
+        "label": "Pazar",
+        "title": "KYC ve KYB tek bir ürün değil, beş katmanlı bir zincir.",
+        "lede": "İlk dönemin yıldızları sadece ilk katmandaydı. Bugün zincirin tamamını tek sözleşmeyle satabilen öne geçiyor."
+      },
+      "layers": [
+        {
+          "key": "K1",
+          "title": "Kimlik doğrulama",
+          "text": "Belge, NFC çip, yüz eşleştirme, canlılık testi, eID, video ident",
+          "question": "Bu kişi gerçekten o mu?"
+        },
+        {
+          "key": "K2",
+          "title": "AML tarama",
+          "text": "Yaptırım listeleri, siyasi nüfuz sahipleri, olumsuz haber",
+          "question": "Bu kişiyle çalışabilir miyiz?"
+        },
+        {
+          "key": "K3",
+          "title": "KYB",
+          "text": "Şirket sicili, gerçek sahipler, yetkililer",
+          "question": "Bu şirket gerçek mi, arkasında kim var?"
+        },
+        {
+          "key": "K4",
+          "title": "Sürekli izleme",
+          "text": "Risk skorunu güncellemek, değişiklikte yeniden kontrol",
+          "question": "Dün temiz olan bugün de temiz mi?"
+        },
+        {
+          "key": "K5",
+          "title": "Orkestrasyon",
+          "text": "Tüm kontrolleri tek akışta bağlamak, kararı ve kanıtı saklamak",
+          "question": "Kim, neye bakarak onay verdi?"
+        }
+      ],
+      "sizeHeading": "Pazar ne kadar büyük",
+      "sizeTable": {
+        "columns": [
+          "Pazar",
+          "2025",
+          "2030",
+          "Yıllık büyüme"
+        ],
+        "rows": [
+          {
+            "label": "Avrupa, UK dahil [1]",
+            "cells": [
+              "3,53 mlr $",
+              "7,72 mlr $",
+              "%16,9"
+            ]
+          },
+          {
+            "label": "UK [2]",
+            "cells": [
+              "0,85 mlr $",
+              "1,83 mlr $",
+              "%16,5"
+            ]
+          },
+          {
+            "label": "ABD [1]",
+            "cells": [
+              "4,34 mlr $",
+              "8,16 mlr $",
+              "%13,5"
+            ]
+          },
+          {
+            "label": "Dünya [1]",
+            "cells": [
+              "14,34 mlr $",
+              "29,32 mlr $",
+              "%15,4"
+            ]
+          }
+        ]
+      },
+      "sizeNote": "Rakamlar kaynağa göre değişiyor, IMARC aynı UK pazarını 521 milyon dolar olarak veriyor [3]. Kesin değerden çok yönü önemli: Avrupa dünya ortalamasından hızlı büyüyor.",
+      "cards": [
+        {
+          "tag": "Raporlardan",
+          "body": "En büyük alan KYC, KYB ve onboarding, en büyük müşteri bankalar ve sigortacılar. En hızlı büyüyen sektör kumar ve oyun, en hızlı büyüyen ülke İtalya. [1]"
+        },
+        {
+          "tag": "Gözden kaçan",
+          "body": "Hizmetler yazılımdan hızlı büyüyor [1]. Şirketler API'nin yanında kurulum, inceleme ekibi ve operasyon desteği de satın alıyor. Çoğu zaman asıl rakip başka bir yazılım değil, Excel ve insan gücü."
+        }
+      ]
+    },
+    "rules": {
+      "head": {
+        "index": "03",
+        "label": "Kurallar",
+        "title": "Düğmeye bas, 2027 öncesi ve sonrası kimlik yöntemlerini gör.",
+        "lede": "AMLA, müşteri tanıma standartlarının son taslağını 30 Eylül 2026'da Komisyon'a gönderdi. Uzaktan kimlik tespitinde öncelik eID, EUDI cüzdanı ve nitelikli güven hizmetlerinde. Diğer yöntemler ancak müşteri şubeye gelemiyorsa ve eID'si yoksa, gerekçesi kaydedilerek kullanılabilecek. [6] [7]"
+      },
+      "todayLabel": "Bugün",
+      "afterLabel": "AMLR sonrası",
+      "legend": "Siyah kartlar ana yöntem, beyaz kartlar gerekçe isteyen yedek yöntem.",
+      "mainLabel": "Ana yöntem",
+      "fallbackLabel": "Yedek",
+      "noneLabel": "Yok",
+      "methods": [
+        {
+          "name": "eID",
+          "before": 0,
+          "after": 1,
+          "today": "Almanya'da kimlik kartında var ama az kullanılıyor. İskandinavya'da BankID ile zaten ana yöntem.",
+          "afterText": "Ana yöntem. Yeterli güvence seviyesi olan her eID kabul ediliyor.",
+          "sources": [
+            6,
+            7
+          ]
+        },
+        {
+          "name": "EUDI cüzdanı",
+          "before": -1,
+          "after": 1,
+          "today": "Henüz yok. Ülkeler Aralık 2026'ya kadar sunmak zorunda.",
+          "afterText": "Ana yöntem. Bankalar Aralık 2027'ye kadar kabul etmek zorunda.",
+          "sources": [
+            9,
+            10
+          ]
+        },
+        {
+          "name": "Nitelikli e-imza",
+          "before": 0,
+          "after": 1,
+          "today": "Sözleşme imzalamak için kullanılıyor.",
+          "afterText": "Ana yöntem. Şubede bile kullanılabiliyor.",
+          "sources": [
+            6
+          ]
+        },
+        {
+          "name": "NFC çip ve selfie",
+          "before": 1,
+          "after": 0,
+          "today": "Belge doğrulamanın en güvenli hali.",
+          "afterText": "Yedek. Ama dolandırıcılığa karşı değeri artıyor.",
+          "sources": [
+            7,
+            13
+          ]
+        },
+        {
+          "name": "Belge fotoğrafı ve selfie",
+          "before": 1,
+          "after": 0,
+          "today": "2018'den beri fintechlerin standart yöntemi.",
+          "afterText": "Yedek. Müşterinin eID'si yoksa, gerekçesi kaydedilerek.",
+          "sources": [
+            6,
+            7
+          ]
+        },
+        {
+          "name": "Video ident",
+          "before": 1,
+          "after": 0,
+          "today": "Almanya'da yıllarca ana yöntem.",
+          "afterText": "Yedek, daha sıkı şartlarla.",
+          "sources": [
+            8
+          ]
+        }
+      ],
+      "timelineHeading": "Takvim",
+      "timeline": [
+        {
+          "date": "1 Tem 2025",
+          "text": "**AMLA çalışmaya başlıyor.** [5]",
+          "state": "done",
+          "chip": "Tamam"
+        },
+        {
+          "date": "10 Tem 2025",
+          "text": "**Gerçek sahip sicillerine erişim kısıtlanıyor.** [15]",
+          "state": "done",
+          "chip": "Tamam"
+        },
+        {
+          "date": "19 Kas 2025",
+          "text": "**Komisyon Avrupa İş Cüzdanı'nı öneriyor.** [37]",
+          "state": "done",
+          "chip": "Tamam"
+        },
+        {
+          "date": "30 Eyl 2026",
+          "text": "**AMLA'nın son taslağı: önce eID.** [6]",
+          "state": "done",
+          "chip": "Tamam"
+        },
+        {
+          "date": "24 Ara 2026",
+          "text": "**Ülkeler EUDI cüzdanını sunuyor.** [9]",
+          "state": "now",
+          "chip": "Sırada"
+        },
+        {
+          "date": "10 Tem 2027",
+          "text": "**AMLR 27 ülkede yürürlüğe giriyor.** [4]",
+          "state": "future",
+          "chip": "Bekleniyor"
+        },
+        {
+          "date": "Ara 2027",
+          "text": "**Bankalar cüzdanı kabul etmek zorunda.** [10]",
+          "state": "future",
+          "chip": "Bekleniyor"
+        },
+        {
+          "date": "2028",
+          "text": "**AMLA yaklaşık 40 kurumu doğrudan denetliyor.** [5]",
+          "state": "future",
+          "chip": "Bekleniyor"
+        }
+      ],
+      "cards": [
+        {
+          "tag": "Tek kural kitabı",
+          "first": "27 ülke artık aynı metni uygulayacak.",
+          "body": "AMLR Temmuz 2027'de yürürlüğe giriyor. AMLA 2028'den itibaren yaklaşık 40 kurumu doğrudan denetleyecek. Sağlayıcılar tek ürünle tüm AB'ye satabilecek, bu da fiyat rekabetini artıracak. [4] [5]"
+        },
+        {
+          "tag": "Dolandırıcılık",
+          "first": "Saldırı sayısı düşüyor, saldırılar gelişiyor.",
+          "body": "Gelişmiş saldırıların payı bir yılda yüzde 10'dan 28'e çıktı. Biyometrik dolandırıcılık girişimlerinin beşte biri deepfake. Tek başına selfie artık yeterince güvenli değil. [12] [13]"
+        },
+        {
+          "tag": "KYB verisi",
+          "first": "Şirketlerin gerçek sahiplerine ulaşmak zorlaştı.",
+          "body": "Gerçek sahip sicilleri 2022'den beri herkese açık değil. Fransa ve Danimarka erişimi kısıtladı, Çekya sicili tamamen kapattı. Beş ülkeden şirket müşterisi olan banka beş ayrı yolla uğraşıyor. [15] [16]"
+        }
+      ],
+      "view": {
+        "label": "Görüşümüz",
+        "text": "eID ile cüzdanları tek akışta birleştiren sağlayıcılar öne geçecek. Türkiye'den gelen kimlik şirketleri burada avantajlı: Türkiye'de bankalar 2021'den beri çipli kimliği NFC ile okuyarak uzaktan müşteri ediniyor [46]. Avrupa bu modele yeni geçiyor."
+      }
+    },
+    "map": {
+      "head": {
+        "index": "04",
+        "label": "Rekabet haritası",
+        "title": "Pazarda tek bir lider yok, yedi farklı oyuncu tipi var.",
+        "lede": "Her tipi iki eksene yerleştirdik: zincirin ne kadarını satıyor ve 2027 kurallarına ne kadar hazır. Puanlar 0 ile 10 arasında ve bizim tahminimiz. Bir kareye ya da isme dokun."
+      },
+      "chartLabel": "Rekabet haritası",
+      "axisX": "ZİNCİR KAPSAMI",
+      "axisY": "2027 KURALLARINA HAZIRLIK",
+      "quadrants": [
+        "UZMAN, HAZIR",
+        "GENİŞ, HAZIR",
+        "UZMAN, RİSKTE",
+        "GENİŞ, RİSKTE"
+      ],
+      "strengthLabel": "Güçlü yanı",
+      "weaknessLabel": "Zayıf yanı",
+      "moveLabel": "Sıradaki adım",
+      "types": [
+        {
+          "name": "eID ve güven hizmeti şirketleri",
+          "x": 5,
+          "y": 9,
+          "verdict": "Kazanıyor",
+          "tone": "green",
+          "players": [
+            "Signicat",
+            "IDnow",
+            "Namirial",
+            "WebID",
+            "Nect"
+          ],
+          "strength": "Çok sayıda ulusal eID, nitelikli e-imza, BaFin'in tanıdığı yöntemler.",
+          "weakness": "Avrupa dışında zayıf, satın almalardan gelen parçalı ürünler.",
+          "move": "KYB ve sürekli izlemeyi ekleyip zincirin tamamını satmak."
+        },
+        {
+          "name": "Selfie ve belge uzmanları",
+          "x": 3.6,
+          "y": 3.8,
+          "verdict": "Sıkışıyor",
+          "tone": "red",
+          "players": [
+            "Entrust (Onfido)",
+            "Veriff",
+            "Jumio",
+            "Au10tix",
+            "iProov"
+          ],
+          "strength": "Yüksek dönüşüm, 200'den fazla ülke, on binlerce belge tipi.",
+          "weakness": "AB bankacılığında yedeğe düşüyor, fiyat baskısı altında.",
+          "move": "Dolandırıcılık tarafına ve İngiltere gibi belgeye dayalı pazarlara odaklanmak, KYB şirketi almak."
+        },
+        {
+          "name": "Hepsi bir arada platformlar",
+          "x": 8.4,
+          "y": 6.4,
+          "verdict": "Güçlü",
+          "tone": "green",
+          "players": [
+            "Sumsub",
+            "Persona",
+            "Ondato",
+            "iDenfy",
+            "Shufti"
+          ],
+          "strength": "KYC, KYB, AML ve izlemeyi tek sözleşmede satmak.",
+          "weakness": "Kullanıcı şikayetleri, uzmanlara göre daha yüzeysel ürünler.",
+          "move": "eID bağlantılarını hızla eklemek ve reddedilen kullanıcı deneyimini düzeltmek."
+        },
+        {
+          "name": "Veri şirketleri ve kredi büroları",
+          "x": 6.2,
+          "y": 5,
+          "verdict": "Değişiyor",
+          "tone": "amber",
+          "players": [
+            "Experian",
+            "LexisNexis",
+            "Moody's",
+            "GBG",
+            "Equifax"
+          ],
+          "strength": "Kendi verileri, büyük bankalarla ilişkileri.",
+          "weakness": "Yavaş büyüme, eski sistemler.",
+          "move": "Dijital şirketleri almaya devam etmek, veriyi KYB ve izlemede kullanmak."
+        },
+        {
+          "name": "KYB ve sicil verisi şirketleri",
+          "x": 3,
+          "y": 7.4,
+          "verdict": "Kazanıyor",
+          "tone": "green",
+          "players": [
+            "Kyckr",
+            "kompany",
+            "Topograph",
+            "Dotfile",
+            "Ballerine"
+          ],
+          "strength": "Sicillere canlı bağlantı, sahiplik zincirini çözmek.",
+          "weakness": "Kişi doğrulamayı başkasından almak zorunda.",
+          "move": "Sicillere erişim zorlaştıkça değerleri artıyor. Büyüklerin hedefi olabilirler."
+        },
+        {
+          "name": "AML ve müşteri yönetimi",
+          "x": 5.4,
+          "y": 6.2,
+          "verdict": "Güçlü",
+          "tone": "green",
+          "players": [
+            "ComplyAdvantage",
+            "LSEG World-Check",
+            "Fenergo",
+            "Napier",
+            "Hawk"
+          ],
+          "strength": "Tarama listeleri, vaka yönetimi, denetim kaydı.",
+          "weakness": "Onboarding deneyiminden uzak.",
+          "move": "Periyodik inceleme ve kanıt saklama kuralları bunlara yeni gelir getiriyor."
+        },
+        {
+          "name": "Ucuz yeni gelenler",
+          "x": 6.6,
+          "y": 3,
+          "verdict": "Fiyatı belirliyor",
+          "tone": "amber",
+          "players": [
+            "Didit",
+            "deepidv",
+            "Zyphe"
+          ],
+          "strength": "Açık fiyat, ücretsiz paket, hızlı entegrasyon.",
+          "weakness": "Ölçekte ve denetimde henüz kanıtlanmadılar.",
+          "move": "Bankaların güvenini kazanmak için sertifika ve referans toplamak."
+        }
+      ],
+      "tableHeading": "Rakamlarla birkaç oyuncu",
+      "table": {
+        "columns": [
+          "Oyuncu",
+          "Ne biliniyor",
+          "Bizce anlamı"
+        ],
+        "rows": [
+          {
+            "label": "Signicat",
+            "cells": [
+              "2023'te gelir yüzde 35 artışla 1 milyar NOK'u aştı. NFC çip okuma şirketi Inverid'i aldı. [27] [18]",
+              "En geniş eID ağı. Yeni kurallardan en çok o kazanabilir."
+            ]
+          },
+          {
+            "label": "IDnow",
+            "cells": [
+              "2024 geliri 79 milyon euro. Corsair Capital Mart 2025'te çoğunluk hissesini aldı. [19] [20]",
+              "Video ident'e çok bağlı. O yöntem yedeğe düştükçe değişmesi gerekecek."
+            ]
+          },
+          {
+            "label": "Sumsub",
+            "cells": [
+              "Fiyatını açıkça yayımlayan az sayıdaki büyük oyuncudan biri. Değerlemesi 1 milyar doları geçti. [21] [17]",
+              "Her şeyi tek sözleşmede satan modelin en güçlü örneği."
+            ]
+          },
+          {
+            "label": "Veriff",
+            "cells": [
+              "Fiyatlar 0,80 dolardan başlıyor. Şubat 2026'da KYB şirketi Vespia'yı aldı. [22] [24]",
+              "Sadece kimlik doğrulayan bir şirketten platforma geçmeye çalışıyor."
+            ]
+          },
+          {
+            "label": "GBG",
+            "cells": [
+              "Mart 2026'da biten yılda 285 milyon sterlin gelir, yüzde 3,2 büyüme. [25]",
+              "Veri ağırlıklı eski oyuncular yavaş büyüyor."
+            ]
+          },
+          {
+            "label": "Kyckr",
+            "cells": [
+              "Haziran 2026'da biten yılda geliri yüzde 46 arttı. [26]",
+              "KYB verisi pazarın en hızlı büyüyen kısmı."
+            ]
+          },
+          {
+            "label": "Didit",
+            "cells": [
+              "Tam KYC 0,33 dolar, ayda 500 kontrol ücretsiz. [23]",
+              "Fiyatları aşağı çeken oyuncu."
+            ]
+          }
+        ]
+      }
+    },
+    "position": {
+      "head": {
+        "index": "05",
+        "label": "Konumlanma",
+        "title": "Herkes aşağı yukarı aynı şeyi vaat ediyor. Fark yaratmanın dört yolu var."
+      },
+      "table": {
+        "columns": [
+          "Vaat",
+          "Kim söylüyor",
+          "Kime satıyor",
+          "2027 sonrası"
+        ],
+        "rows": [
+          {
+            "label": "Regülatörün onayladığı yöntem bizde",
+            "cells": [
+              "IDnow, Signicat, Namirial",
+              "Banka, sigorta, yatırım"
+            ],
+            "chip": {
+              "text": "eID tarafı güçlü",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "En hızlı karar, en yüksek dönüşüm",
+            "cells": [
+              "Veriff",
+              "Neobank, oyun, platform"
+            ],
+            "chip": {
+              "text": "AB bankacılığında zorlaşıyor",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "Tek sözleşme, tüm uyum",
+            "cells": [
+              "Sumsub, Persona, Ondato, iDenfy",
+              "Kripto, iGaming, ödeme, fintech"
+            ],
+            "chip": {
+              "text": "Güçlü",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "Dolandırıcıyı biz yakalarız",
+            "cells": [
+              "Entrust, iProov, Au10tix",
+              "Riskli sektörler"
+            ],
+            "chip": {
+              "text": "Herkesin sunduğu bir özellik oluyor",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "En çok veri bizde",
+            "cells": [
+              "Moody's, Experian, LexisNexis, GBG",
+              "Büyük bankalar"
+            ],
+            "chip": {
+              "text": "Güvenli ama yavaş",
+              "tone": "amber"
+            }
+          },
+          {
+            "label": "Sicile canlı bağlanırız",
+            "cells": [
+              "Kyckr, Topograph, kompany",
+              "KYB platformları, bankalar"
+            ],
+            "chip": {
+              "text": "Değeri artıyor",
+              "tone": "green"
+            }
+          },
+          {
+            "label": "Açık fiyat, ücretsiz başla",
+            "cells": [
+              "Didit ve büyüklerin self servis paketleri",
+              "Girişimler, küçük hacim"
+            ],
+            "chip": {
+              "text": "Kurumsal güven henüz yok",
+              "tone": "amber"
+            }
+          }
+        ]
+      },
+      "ways": [
+        {
+          "key": "Yol 1",
+          "title": "Tekrar kullanılabilen kimlik",
+          "text": "Bir kez doğrulanan kullanıcı başka bir uygulamada baştan başlamıyor. EUDI cüzdanı aynı şeyi ücretsiz sunacağı için özel şirketlerin bu alandaki geleceği belirsiz."
+        },
+        {
+          "key": "Yol 2",
+          "title": "KYC ve KYB'yi tek akışta yapmak",
+          "text": "Şirketi, sahiplerini ve yetkililerini aynı ekranda doğrulamak. Veriff'in Vespia'yı alması bunun için. [24]"
+        },
+        {
+          "key": "Yol 3",
+          "title": "Yedek yöntemin gerekçesini kaydetmek",
+          "tag": "küçük ama kritik",
+          "text": "Yeni kurallar, eID kullanılmadığında bunun nedenini istiyor. Her başvuruda bu nedeni otomatik kaydeden basit bir modül, uyum ekiplerinin denetimde çok işine yarayacak. Küçük bir iş, ama 2027'de herkesin ihtiyacı olacak. [7] [50]"
+        },
+        {
+          "key": "Yol 4",
+          "title": "Yapay zeka ajanlarının kimliği",
+          "text": "Sumsub, bir sonraki adımın kişi adına iş yapan ajanları doğrulamak olduğunu söylüyor. [43] Bir ajan senin adına hesap açtığında ya da ödeme yaptığında üç soru çıkıyor: Bu ajan kime ait? Hangi yetkiyle ve hangi limite kadar çalışıyor? Yetkisi geri alınabiliyor mu? Bugün daha çok bir pazarlama cümlesi. Ama ajanlar yaygınlaştıkça kişi, şirket ve yetki bilgisini birleştiren yeni bir ürün alanı doğacak."
+        }
+      ]
+    },
+    "kyb": {
+      "head": {
+        "index": "06",
+        "label": "KYB",
+        "title": "KYB pazarın en hızlı büyüyen tarafı. En büyük dert hâlâ belge toplamak.",
+        "lede": "Kurumsal bir müşteriyi almak üç dört ayı bulabiliyor [35]. Şirket belgeleri, hissedar listesi, yurt dışındaki ortak şirketin evrakları ve tercümeler için gidip gelen e-postalar süreci uzatıyor [34]. Bir KYB dosyasını adım adım aç."
+      },
+      "stepLabel": "Adım",
+      "daysLabel": "gün",
+      "ongoingLabel": "sürekli",
+      "todayLabel": "Bugün ne oluyor",
+      "whoLabel": "Bugün kim çözüyor",
+      "nextLabel": "Yarın neler olabilir",
+      "steps": [
+        {
+          "name": "Şirketi bul",
+          "days": 2,
+          "factor": 0.1,
+          "today": "Sicil kaydını istemek, PDF beklemek, yurt dışındaki şirket için o ülkenin siciline ayrıca gitmek.",
+          "who": "Tek API'den resmi sicil kaydını ve belgeleri çeken servisler. Kyckr 300'den fazla sicile bağlı. [26]",
+          "next": "Birbirine bağlı AB sicilleri ve Avrupa İş Cüzdanı ile tek sorgu yeterli olabilir. [37]"
+        },
+        {
+          "name": "Sahipleri bul",
+          "days": 5,
+          "factor": 0.5,
+          "today": "Hissedar listesi, ortak şirketin yapısı, katman katman sahiplik. Bu adım tek başına iki hafta ekleyebiliyor.",
+          "who": "Sahiplik zincirini otomatik çıkaran araçlar ve belgeyi okuyan yapay zeka. [36]",
+          "next": "Bağlı siciller beş yıllık sahiplik geçmişini tek yerden verebilir, ama erişim kuralları hâlâ farklı. [15]"
+        },
+        {
+          "name": "Kişileri doğrula",
+          "days": 4,
+          "factor": 0.3,
+          "today": "Her yetkili ve gerçek sahip için ayrı kimlik kontrolü. Biri yurt dışında, biri linki açmıyor.",
+          "who": "KYC ve KYB'yi birleştiren platformlar herkese aynı akıştan link gönderiyor. [24]",
+          "next": "Gerçek sahipler EUDI cüzdanıyla dakikalar içinde doğrulanabilir. İngiltere'de Companies House bunu zaten yapıyor. [42]"
+        },
+        {
+          "name": "Tara",
+          "days": 1,
+          "factor": 0.05,
+          "today": "Şirket ve her kişi için yaptırım ve olumsuz haber taraması, yanlış eşleşmeleri tek tek elemek.",
+          "who": "Aynı anda tarama ve otomatik eleme. Büyük ölçüde çözülmüş bir adım.",
+          "next": "Yapay zekanın yanlış eşleşmeyi gerekçesiyle kapatıp dosyaya kaydetmesi."
+        },
+        {
+          "name": "Eksik belge",
+          "days": 6,
+          "factor": 0.4,
+          "today": "Tercüme, apostil, güncel imza sirküleri, \"bir belge daha\" e-postaları. En uzun süren kısım.",
+          "who": "Belge yükleme portalları ve eksik bilgiyi hemen söyleyen yapay zeka.",
+          "next": "Bizim fikrimiz: şirket pasaportu ya da mali müşavir onaylı profil."
+        },
+        {
+          "name": "İzle",
+          "days": 0,
+          "factor": 0,
+          "today": "Şirket onaylandıktan sonra sahiplik değişirse çoğu zaman bir sonraki incelemeye kadar kimse fark etmiyor.",
+          "who": "Sicildeki değişiklikleri izleyip uyarı veren servisler. LEI gibi kalıcı numaralar bunu kolaylaştırıyor. [39]",
+          "next": "Yeni kurallarla değişiklik olduğunda anında kontrol standart olacak."
+        }
+      ],
+      "barToday": "Bugün",
+      "barFast": "Çözümlerle",
+      "decimal": ",",
+      "note": "Gün sayıları iki katmanlı bir AB şirketi için bizim tahminimiz. Kaynaklar sadece yönü doğruluyor: elle yapılan KYB haftalar, otomatik akış saatler ya da günler sürüyor. [34] [36]",
+      "ideasHeading": "Belge toplamayı bitirebilecek altı fikir",
+      "ideas": [
+        {
+          "stage": "Teklif aşamasında",
+          "title": "Avrupa İş Cüzdanı",
+          "text": "Komisyon Kasım 2025'te şirketler için ayrı bir cüzdan önerdi. Şirket bilgilerini ve yetki belgelerini taşıyacak, bankaların KYB'sini kolaylaştıracak. [37] [38]"
+        },
+        {
+          "stage": "Var ama yaygın değil",
+          "title": "Doğrulanabilir LEI",
+          "text": "Şirketin kimliğini ve yetkilinin yetkisini dijital olarak imzalayan bir belge. Bankalar müşterinin LEI'sini hesap açarken kendileri de çıkarabiliyor. [39]"
+        },
+        {
+          "stage": "AB'de kuruluyor",
+          "title": "Birbirine bağlı siciller",
+          "text": "Gerçek sahip sicilleri birbirine bağlanıyor ve beş yıllık sahiplik geçmişi isteniyor. Ama ülkelerin erişim kuralları hâlâ farklı. [15]"
+        },
+        {
+          "stage": "Ürün olarak var",
+          "title": "Belgeyi okuyan yapay zeka",
+          "text": "Ortaklık sözleşmesini okuyup sahiplik zincirini çıkaran, taramayı aynı anda yapan ve kararı kaydeden araçlar. Dotfile gibi şirketler bunu satıyor. [36]"
+        },
+        {
+          "stage": "Bizim fikrimiz",
+          "title": "Şirket pasaportu",
+          "text": "Bir kez doğrulanan şirketin profili, şirketin izniyle bankadan bankaya taşınıyor. Şirkette bir değişiklik olunca herkes aynı anda haberdar oluyor."
+        },
+        {
+          "stage": "Bizim fikrimiz",
+          "title": "Mali müşavir onaylı profil",
+          "text": "Şirketi en iyi tanıyan mali müşavir ya da noter, şirket bilgilerini dijital olarak onaylıyor. Banka belge istemek yerine bu onayı kontrol ediyor."
+        }
+      ],
+      "view": {
+        "label": "Görüşümüz",
+        "text": "İnsanlar için dijital kimliği devlet veriyor. Şirketler için böyle bir kimlik henüz yok. Bu boşluğu dolduran sadece kontrolleri değil, şirketlerin bankalarla ilişkisini de eline alır."
+      }
+    },
+    "marketing": {
+      "head": {
+        "index": "07",
+        "label": "Pazarlama",
+        "title": "Sağlayıcılar korkuyu, takvimi ve karşılaştırmayı satıyor.",
+        "lede": "Ürünler birbirine çok benzediği için iyi anlatan kazanıyor. Öne çıkan yedi yöntem:"
+      },
+      "items": [
+        {
+          "key": "01",
+          "title": "Yıllık dolandırıcılık raporu",
+          "text": "Sumsub ve Entrust her yıl kendi verilerinden bir rapor çıkarıyor. Basın alıntılıyor, indirmek için e-posta isteniyor. Tek içerikten hem marka, hem haber, hem müşteri listesi çıkıyor. [13] [43]"
+        },
+        {
+          "key": "02",
+          "title": "Regülasyon takvimine göre içerik",
+          "text": "AMLA standartları açıklandığı hafta IDnow, Signicat, Fourthline ve Shufti aynı konuda rehber yayımladı. Takvimdeki her tarih bir webinar ve bir kontrol listesi demek."
+        },
+        {
+          "key": "03",
+          "title": "Karşılaştırma sayfaları",
+          "text": "\"En iyi KYC sağlayıcıları\" ve \"X ile Y karşılaştırması\" gibi sayfalar onlarca dilde yayımlanıyor. Hedef sadece Google değil, alıcıların artık soru sorduğu yapay zeka asistanları. Açık fiyatlar, tablolar ve sık sorulan sorular burada çok işe yarıyor. [23]"
+        },
+        {
+          "key": "04",
+          "title": "Ücretsiz deneme",
+          "text": "Veriff 15 gün, Sumsub 14 gün ve 50 kontrol, Didit her ay 500 kontrol ücretsiz veriyor. Yazılımcı satış ekibiyle konuşmadan entegrasyonu bitiriyor. Bankalara ise ihaleyle satılıyor. [22] [21] [23]"
+        },
+        {
+          "key": "05",
+          "title": "Analist sıralamaları",
+          "text": "Sumsub fiyat sayfasında bile Chartis ve KuppingerCole rozetlerini gösteriyor. Bankaların satın alma ekipleri bu sıralamalara hâlâ bakıyor. [21]"
+        },
+        {
+          "key": "06",
+          "title": "Partner kanalı",
+          "text": "Sumsub partnerlerine iki seçenek sunuyor: müşteri yönlendirip komisyon almak ya da ürünü kendi adıyla satmak. BaaS şirketleri ve danışmanlar bu kanalın doğal parçası. [45]"
+        },
+        {
+          "key": "07",
+          "title": "Son kullanıcıya marka",
+          "text": "Yoti, İngiltere'de yaş doğrulama zorunlu olurken eğlenceli bir sosyal medya kampanyası yaptı. Uygulaması İngiltere'de 6 milyon indirmeyi geçti. [44]"
+        }
+      ],
+      "view": {
+        "label": "Eksik olan",
+        "text": "Hiçbir sağlayıcı son kullanıcıyla konuşmuyor. Reddedilen ve bekletilen insanlar yorumlarda şikayet ediyor, ama sağlayıcılar sadece şirketlere anlatıyor."
+      }
+    },
+    "money": {
+      "head": {
+        "index": "08",
+        "label": "Gelir modelleri",
+        "title": "Aylık hacmini seç, liste fiyatıyla faturayı gör.",
+        "lede": "Çoğu sağlayıcı doğrulama başına ücret ve aylık minimumla çalışıyor. Hesap sadece yayımlanmış liste fiyatlarıyla yapıldı. Ek ücretler ve kurumsal indirimler dahil değil."
+      },
+      "volumeLabel": "Aylık doğrulama",
+      "volumes": [
+        0,
+        100,
+        250,
+        500,
+        750,
+        1000,
+        2000,
+        3000,
+        5000,
+        7500,
+        10000,
+        15000,
+        20000
+      ],
+      "startIndex": 5,
+      "note": "Taralı çubuk, kullanım minimumun altında kaldığı için minimum tutarın ödendiği yer. Küçük şirketler tam burada sağlayıcıya bağlanıyor.",
+      "field": {
+        "label": "Sahadan",
+        "text": "Bankalara ve büyük hacimlere ciddi indirimler veriliyor. Bazı sağlayıcıların büyük bir referans müşteriyi kazanmak için bir süre ücretsiz çalıştığı da konuşulur. Liste fiyatı pazarlığın sadece başlangıcı."
+      },
+      "billLabel": "Aylık fatura, liste fiyatı",
+      "sourcesLabel": "Kaynaklar",
+      "billSources": [
+        23,
+        22,
+        21
+      ],
+      "currency": "$",
+      "plans": [
+        {
+          "name": "Didit",
+          "terms": "0,33 $, ayda 500 ücretsiz",
+          "price": 0.33,
+          "minimum": 0,
+          "free": 500
+        },
+        {
+          "name": "Veriff Essential",
+          "terms": "0,80 $, min 49 $",
+          "price": 0.8,
+          "minimum": 49,
+          "free": 0
+        },
+        {
+          "name": "Sumsub Basic",
+          "terms": "1,35 $, min 149 $",
+          "price": 1.35,
+          "minimum": 149,
+          "free": 0
+        },
+        {
+          "name": "Sumsub Compliance",
+          "terms": "1,85 $, min 299 $",
+          "price": 1.85,
+          "minimum": 299,
+          "free": 0
+        },
+        {
+          "name": "Veriff Premium",
+          "terms": "1,89 $, min 209 $",
+          "price": 1.89,
+          "minimum": 209,
+          "free": 0
+        }
+      ],
+      "streamsHeading": "Para nereden geliyor",
+      "streams": [
+        {
+          "title": "Doğrulama başına ücret",
+          "text": "\"Doğrulama\"nın tanımı önemli. Sumsub sadece tamamlananı faturalıyor, bazıları her denemeyi sayıyor. [51]"
+        },
+        {
+          "title": "Minimum ve yıllık sözleşme",
+          "text": "IDnow da, hacim büyüyünce Sumsub da yıllık sözleşme ve minimum alım istiyor. Girişimlerin en çok şikayet ettiği konu. [49] [33]"
+        },
+        {
+          "title": "Ek hizmetler",
+          "text": "Sürekli AML izleme Veriff'te 0,09, Sumsub'da 0,08 dolar. Kâr çoğu zaman buradan geliyor. [22] [21]"
+        },
+        {
+          "title": "İnsan emeği",
+          "text": "Video ident ve elle inceleme. Pahalı ama bankalar denetimde buna güveniyor."
+        },
+        {
+          "title": "E-imza",
+          "text": "Kimlik doğrulamanın hemen ardından gelen nitelikli e-imza."
+        },
+        {
+          "title": "KYB verisi",
+          "text": "Sicil belgesi başına ücret ya da kurumsal veri lisansı. En hızlı büyüyen kalem. [26]"
+        },
+        {
+          "title": "Platform ücreti",
+          "text": "Akış tasarımı, vaka yönetimi, kanıt saklama. Ucuzlayan kontrol ücretinin yerini bu alacak."
+        }
+      ],
+      "view": {
+        "label": "Para nereye gidiyor",
+        "text": "Tek seferlik kontrol ucuzladıkça, müşteriyi hayatı boyunca izlemek ve denetimde kanıt sunmak para kazandıracak."
+      }
+    },
+    "voices": {
+      "head": {
+        "index": "09",
+        "label": "Müşteri sesi",
+        "title": "Müşteriler hep aynı şeylerden şikayet ediyor.",
+        "lede": "Büyük veri şirketleri dijital oyuncuları satın alıyor: Entrust Onfido'yu, Experian KYC360'ı, LexisNexis IDVerse'i, Moody's kompany'yi aldı [55]. Ama yorumlara bakınca sorun hep aynı yerde: reddedilen kullanıcıyla kimse ilgilenmiyor."
+      },
+      "items": [
+        {
+          "who": "Son kullanıcı",
+          "chip": "Açıklamasız ret",
+          "tone": "red",
+          "quote": "Geçerli belge, iyi ışık, yine reddedildim. Açıklama yok.",
+          "text": "Bir sağlayıcının yorum sayfasındaki şikayetlerin çoğu bu. Bazı kullanıcılar kazandığı parayı bile çekemiyor. [29]"
+        },
+        {
+          "who": "Son kullanıcı",
+          "chip": "Kimse sahiplenmiyor",
+          "tone": "red",
+          "quote": "Uygulama sağlayıcıya, sağlayıcı uygulamaya yönlendiriyor.",
+          "text": "Kararı şirket veriyor, ekranı sağlayıcı tasarlıyor, sorumluluk arada kalıyor. [31]"
+        },
+        {
+          "who": "Son kullanıcı",
+          "chip": "Yerel belge",
+          "tone": "amber",
+          "quote": "Belediyeden aldığım ikamet belgesi bile kabul edilmedi.",
+          "text": "Almanya'daki Meldebestätigung örneği. Olmayan bir VPN'i kapatmayı isteyen hata mesajları da sık geçiyor. [29]"
+        },
+        {
+          "who": "Son kullanıcı",
+          "chip": "Video ident",
+          "tone": "amber",
+          "quote": "40 dakika bekledim, görüşme sekiz kez koptu.",
+          "text": "Deneyim büyük ölçüde karşına çıkan görevliye bağlı. Bir rakip DACH pazarına tam bu sorunla girdi. [30] [54]"
+        },
+        {
+          "who": "Şirket",
+          "chip": "Yanlış ret",
+          "tone": "red",
+          "quote": "Döngüye giren başvurular, selfie'de yanlış ret, kredi geçmişi olmayana ret.",
+          "text": "G2, Gartner ve Reddit yorumlarında büyük sağlayıcıların hepsinde aynı üç şikayet var. Gençler ve ülkeye yeni gelenler en çok reddedilenler. [28] [32]"
+        },
+        {
+          "who": "Şirket",
+          "chip": "Sözleşme",
+          "tone": "amber",
+          "quote": "Minimumlar hacmimize uymuyor, fatura anlaşılmıyor.",
+          "text": "KYB'de hacim büyüyünce neredeyse her sağlayıcı özel sözleşme ve yıllık minimum istiyor. [33]"
+        }
+      ],
+      "gapsHeading": "Bu şikayetlerden çıkan ürün boşlukları",
+      "gaps": {
+        "columns": [
+          "Boşluk",
+          "Bugün kimde",
+          "Fırsat"
+        ],
+        "rows": [
+          {
+            "label": "Reddin açıklanması ve itiraz",
+            "cells": [
+              "Kimsede",
+              "Kullanıcıya nedenini ve ne yapabileceğini söyleyen bir katman"
+            ]
+          },
+          {
+            "label": "Reddedilen kullanıcıya destek",
+            "cells": [
+              "Şirket ile sağlayıcı arasında",
+              "Ortak destek, tek bilet numarası"
+            ]
+          },
+          {
+            "label": "Ülkeye yeni gelen müşteri",
+            "cells": [
+              "Kısmen kredi büroları",
+              "Göçmen, öğrenci ve diaspora için farklı veri ve belgeler"
+            ]
+          },
+          {
+            "label": "Yerel belgeler",
+            "cells": [
+              "Parça parça",
+              "Ülke ve dil bazında daha geniş belge desteği"
+            ]
+          },
+          {
+            "label": "Yedek yöntem gerekçesi",
+            "cells": [
+              "Yeni yeni",
+              "Gerekçeyi otomatik kaydeden modül"
+            ]
+          },
+          {
+            "label": "Şirket pasaportu",
+            "cells": [
+              "Neredeyse kimsede",
+              "Bankadan bankaya taşınan şirket profili"
+            ]
+          },
+          {
+            "label": "Küçük hacme uygun fiyat",
+            "cells": [
+              "Yeni gelenler",
+              "Minimumu olmayan, ek ücretleri açık paketler"
+            ]
+          }
+        ]
+      }
+    },
+    "story": {
+      "head": {
+        "index": "10",
+        "label": "Kullanıcı hikayesi",
+        "title": "Deniz'in sekiz yılı ve sekiz kimlik kontrolü.",
+        "lede": "Deniz İzmir'den Berlin'e taşınan bir yazılımcı. Hayali bir karakter, ama yaşadıkları gerçek yorumlardan ve kurallardan derlendi. Bir yıla dokun."
+      },
+      "clock": "Deniz'in telefonu",
+      "questionLabel": "Asıl soru",
+      "years": [
+        {
+          "year": "2019",
+          "title": "40 dakikalık görüntülü görüşme",
+          "messages": [
+            {
+              "app": "Banka uygulaması",
+              "text": "Görüntülü görüşme sırası: 23. sıradasınız",
+              "sub": "Tahmini bekleme 40 dk"
+            },
+            {
+              "app": "Banka uygulaması",
+              "text": "Bağlantı koptu. Lütfen tekrar deneyin.",
+              "bad": true
+            },
+            {
+              "app": "Banka uygulaması",
+              "text": "Hesabınız açıldı.",
+              "sub": "Üçüncü denemede",
+              "good": true
+            }
+          ],
+          "text": "Deniz İzmir'den Berlin'e taşınıyor. Banka hesabı için 40 dakika bekliyor, görüşme iki kez kopuyor. Üçüncüsünde görevli pasaportunu kameraya tek tek göstermesini istiyor.",
+          "question": "Video ident ana yöntem oldukça bekleme süreleri sorun olmaya devam edecek. 2027'den sonra bu yöntem yedeğe düşüyor."
+        },
+        {
+          "year": "2021",
+          "title": "Kimse sorumluluk almıyor",
+          "messages": [
+            {
+              "app": "Yatırım uygulaması",
+              "text": "Adres belgeniz kabul edilmedi.",
+              "sub": "Meldebestätigung",
+              "bad": true
+            },
+            {
+              "app": "Destek",
+              "text": "Lütfen doğrulama sağlayıcımıza yazın."
+            },
+            {
+              "app": "Sağlayıcı",
+              "text": "Lütfen işlem yaptığınız şirkete yazın."
+            }
+          ],
+          "text": "Bir yatırım uygulamasına üye olurken belediyeden aldığı ikamet belgesini yüklüyor. Reddediliyor. Uygulama sağlayıcıya, sağlayıcı uygulamaya yönlendiriyor. Üç hafta sonra vazgeçiyor.",
+          "question": "Reddedilen müşteriyle kim ilgilenecek?"
+        },
+        {
+          "year": "2023",
+          "title": "19 günde şirket hesabı",
+          "messages": [
+            {
+              "app": "Banka",
+              "text": "Lütfen ortaklık sözleşmesini yeminli tercümeyle gönderin."
+            },
+            {
+              "app": "Banka",
+              "text": "İstanbul'daki ortak şirketin imza sirküleri eksik."
+            },
+            {
+              "app": "Banka",
+              "text": "Şirket hesabınız açıldı.",
+              "sub": "19 gün sonra",
+              "good": true
+            }
+          ],
+          "text": "Deniz kendi şirketini kuruyor. Banka her hafta bir belge daha istiyor. Bu sürede ilk müşterisinin ödemesini kişisel hesabına almak zorunda kalıyor.",
+          "question": "Bir kez doğrulanmış bir şirket neden her bankada baştan başlıyor?"
+        },
+        {
+          "year": "2025",
+          "title": "Tekrar doğrulama",
+          "messages": [
+            {
+              "app": "Banka uygulaması",
+              "text": "Güvenliğiniz için kimliğinizi tekrar doğrulayın."
+            },
+            {
+              "app": "Banka uygulaması",
+              "text": "Kimlik kartınızı telefonunuzun arkasına tutun."
+            },
+            {
+              "app": "Banka uygulaması",
+              "text": "Teşekkürler, doğrulama tamamlandı.",
+              "good": true
+            }
+          ],
+          "text": "Bankası bu kez kimlik kartının çipini okutmasını istiyor. Deniz o yıl haberlerde deepfake saldırılarının arttığını okuyor ve bu kontrollerin boşuna olmadığını düşünüyor.",
+          "question": "Çip ve cihaz kontrolü deepfake'e karşı neden daha güvenli?"
+        },
+        {
+          "year": "Ara 2026",
+          "title": "Cüzdan geliyor",
+          "messages": [
+            {
+              "app": "Haber",
+              "text": "Almanya EUDI cüzdanını yayına aldı."
+            },
+            {
+              "app": "Deniz",
+              "text": "Alman vatandaşı değilim. Bu cüzdanı ben de alabilecek miyim?"
+            },
+            {
+              "app": "Oturma kartı",
+              "text": "Çevrimiçi kimlik özelliği: hiç kullanılmadı"
+            }
+          ],
+          "text": "Cüzdan çıkınca Deniz'in ilk sorusu kendisinin de alıp alamayacağı. Oturma kartında zaten çevrimiçi kimlik özelliği var, ama bugüne kadar hiçbir uygulama bunu sunmamış.",
+          "question": "Vatandaş olmayanlar cüzdanı nasıl kullanacak?"
+        },
+        {
+          "year": "Tem 2027",
+          "title": "Aynı kural, farklı deneyim",
+          "messages": [
+            {
+              "app": "Banka",
+              "text": "Kimliğinizi cüzdanınızla 30 saniyede doğrulayın.",
+              "good": true
+            },
+            {
+              "app": "Banka",
+              "text": "Cüzdanınız yoksa: kimlik fotoğrafı ve selfie.",
+              "sub": "Gerekçe: eID yok"
+            },
+            {
+              "app": "Banka",
+              "text": "Yeni çalışanınızın başvurusu inceleniyor."
+            }
+          ],
+          "text": "Yeni kurallar yürürlükte. Deniz'in bankası önce cüzdanı öneriyor. Deniz'in yeni işe aldığı Brezilyalı yazılımcı ise hâlâ eski yoldan geçiyor.",
+          "question": "Yedek yöntemle gelen kullanıcının deneyimini kim düşünecek?"
+        }
+      ]
+    },
+    "uk": {
+      "head": {
+        "index": "11",
+        "label": "İngiltere",
+        "title": "AB devletin dijital kimliğine geçiyor, İngiltere ise ulusal kimlik planından vazgeçti.",
+        "lede": "İngiltere ulusal dijital kimliği Temmuz 2026'da iptal etti ve kimlik doğrulamayı devletin sertifikalandırdığı özel şirketlere bıraktı."
+      },
+      "table": {
+        "columns": [
+          "AB",
+          "İngiltere"
+        ],
+        "rows": [
+          {
+            "label": "Kurallar",
+            "eu": "AMLR, Temmuz 2027'den itibaren 27 ülkede aynı [4]",
+            "uk": "Kendi kara para kuralları"
+          },
+          {
+            "label": "Dijital kimlik",
+            "eu": "Her ülke Aralık 2026'ya kadar EUDI cüzdanı sunuyor [9]",
+            "uk": "Ulusal kimlik planı 21 Temmuz 2026'da iptal edildi [40]"
+          },
+          {
+            "label": "Uzaktan doğrulama",
+            "eu": "Önce eID ve cüzdan, belge ve selfie yedek [6]",
+            "uk": "Sertifikalı sağlayıcılar, belge ve selfie ana yöntem"
+          },
+          {
+            "label": "Sertifika",
+            "eu": "eIDAS güvence seviyeleri",
+            "uk": "Eylül 2026'da 47 sağlayıcıdan 65 sertifikalı hizmet [41]"
+          },
+          {
+            "label": "Şirket sicili",
+            "eu": "Gerçek sahip sicilleri herkese açık değil [15]",
+            "uk": "Sicil açık. Companies House Kasım 2025'ten beri yöneticilerin kimliğini doğruluyor [42]"
+          },
+          {
+            "label": "Yerel oyuncular",
+            "eu": "Signicat, IDnow, Namirial, WebID, Nect, Fourthline",
+            "uk": "GBG, Experian, Yoti, Credas, Thirdfort"
+          }
+        ]
+      },
+      "figures": [
+        {
+          "value": "0,85 mlr $",
+          "text": "İngiltere kimlik doğrulama pazarı, 2025 [2]"
+        },
+        {
+          "value": "65",
+          "text": "sertifikalı doğrulama hizmeti, Eylül 2026 [41]"
+        },
+        {
+          "value": "69 mn",
+          "text": "2025'in ikinci yarısında yapılan yaş kontrolü, önceki altı ayın 23 katı [47]"
+        },
+        {
+          "value": "2 kat",
+          "text": "bir yılda deepfake saldırılarındaki artış [43]"
+        }
+      ],
+      "paths": {
+        "heading": "Deniz'in iki yolu · 2028",
+        "note": "Deniz aynı gün iki hesap açıyor: biri Berlin'de bir bankada, biri Londra'da bir fintechte. Adım adım ilerle.",
+        "euLabel": "AB · Berlin",
+        "ukLabel": "İngiltere · Londra",
+        "stepLabel": "Adım",
+        "euClock": "AB",
+        "ukClock": "İngiltere",
+        "backLabel": "Geri",
+        "nextLabel": "Sonraki adım",
+        "againLabel": "Baştan oynat",
+        "steps": [
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Hesap açmak için kimliğinizi doğrulayın.",
+                "sub": "Önerilen: EUDI cüzdanı"
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Hesap açmak için kimliğinizi doğrulayın.",
+                "sub": "Kimlik uygulamasıyla ya da belgeyle"
+              }
+            ],
+            "euWhy": "AB'de ilk önerilen yöntem devletin verdiği cüzdan.",
+            "ukWhy": "İngiltere'de devlet kimliği yok. Seçenek sertifikalı bir uygulama ya da belge."
+          },
+          {
+            "eu": [
+              {
+                "app": "Cüzdan",
+                "text": "Bank in Berlin şu bilgileri istiyor: ad, doğum tarihi, adres.",
+                "sub": "Paylaş"
+              }
+            ],
+            "uk": [
+              {
+                "app": "Kimlik uygulaması",
+                "text": "Pasaportunuzun çipini okutun ve selfie çekin.",
+                "sub": "Bir kez yapılır, sonra tekrar kullanılır"
+              }
+            ],
+            "euWhy": "Deniz hangi bilgiyi paylaştığını görüp onaylıyor. Belge fotoğrafı yok. [9]",
+            "ukWhy": "Belge ve selfie hâlâ ana yöntem. Uygulama devletin sertifikalı listesinde. [41]"
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Kimlik doğrulandı. Güvence seviyesi: yüksek.",
+                "good": true
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Kimlik doğrulandı. Sağlayıcı sertifikalı.",
+                "good": true
+              }
+            ],
+            "euWhy": "Banka devletin imzasına güveniyor. Deepfake riski bu yolda neredeyse yok.",
+            "ukWhy": "Fintech sağlayıcının sertifikasına güveniyor. Deepfake'e karşı korumak sağlayıcının işi."
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Şirket hesabı için sicil kaydı ve gerçek sahip bilgisi gerekiyor.",
+                "sub": "Sicile erişim kısıtlı"
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Şirketiniz Companies House'ta bulundu. Yöneticiler doğrulanmış.",
+                "good": true
+              }
+            ],
+            "euWhy": "AB'de KYB hâlâ belge toplamaya dayanıyor. [15]",
+            "ukWhy": "İngiltere'de sicil açık ve yöneticiler zaten doğrulanmış. KYB çok daha hızlı. [42]"
+          },
+          {
+            "eu": [
+              {
+                "app": "Bank in Berlin",
+                "text": "Kişisel hesap: 2 dakika. Şirket hesabı: belgeler bekleniyor."
+              }
+            ],
+            "uk": [
+              {
+                "app": "London fintech",
+                "text": "Kişisel hesap: 5 dakika. Şirket hesabı: aynı gün.",
+                "good": true
+              }
+            ],
+            "euWhy": "Kişisel hesapta AB daha hızlı, şirket hesabında daha yavaş.",
+            "ukWhy": "Kişisel hesap biraz daha uzun, şirket hesabı çok daha hızlı."
+          }
+        ]
+      },
+      "view": {
+        "label": "Görüşümüz",
+        "text": "AB'de eID'ye bağlanabilen, İngiltere'de devletten sertifika alan sağlayıcı öne geçiyor. AB'de yedeğe düşen selfie ve belge doğrulama İngiltere'de ana yöntem olarak kalıyor. İki pazara birden satan iki farklı ürünle çalışmak zorunda kalacak."
+      }
+    },
+    "next": {
+      "head": {
+        "index": "12",
+        "label": "Gelecek",
+        "title": "2027-2030 için yedi beklenti ve üç risk.",
+        "lede": "Bankaların çoğu yeni kurallar için sağlayıcılarını aynı dönemde gözden geçirecek. 2027'nin ilk yarısı bu yüzden satış için çok önemli. Kaynak verilmeyenler bizim tahminimiz."
+      },
+      "items": [
+        {
+          "key": "01",
+          "title": "eID ve cüzdan varsayılan olacak.",
+          "text": "Selfie ve belge kalkmayacak ama AB bankacılığında yedek yöntem ve dolandırıcılık kontrolü olarak kalacak.",
+          "chip": "Yüksek",
+          "level": "high"
+        },
+        {
+          "key": "02",
+          "title": "Fiyatlar düşmeye devam edecek.",
+          "text": "0,33 dolarlık tam KYC bugün istisna, iki yıl içinde normal olabilir.",
+          "chip": "Yüksek",
+          "level": "high"
+        },
+        {
+          "key": "03",
+          "title": "Satın almalar sürecek.",
+          "text": "Tek ürünlü şirketler ya başkasını alacak ya da satılacak.",
+          "chip": "Yüksek",
+          "level": "high"
+        },
+        {
+          "key": "04",
+          "title": "Büyümeyi KYB getirecek.",
+          "text": "Sicillere ulaşmak zorlaştıkça ve şirket onboarding'i haftalar sürdükçe KYB en hızlı büyüyen alan olacak.",
+          "chip": "Yüksek",
+          "level": "high"
+        },
+        {
+          "key": "05",
+          "title": "Bankalar kimlik veren tarafa geçebilir.",
+          "text": "Müşterinin cüzdanına kendi KYC belgelerini yazabilirlerse, kimlik doğrulatan değil kimlik veren kurum olurlar. [52]",
+          "chip": "Orta",
+          "level": "medium"
+        },
+        {
+          "key": "06",
+          "title": "Deepfake'e karşı çip ve cihaz öne çıkacak.",
+          "text": "Saldırılar kamerayı atlattığı için NFC çip, cihaz kontrolü ve davranış sinyalleri selfie'den daha önemli olacak.",
+          "chip": "Yüksek",
+          "level": "high"
+        },
+        {
+          "key": "07",
+          "title": "Ajan kimliği yeni bir alan olacak.",
+          "text": "Kişi, şirket ve yetkiyi birleştiren ürünler önce ödemelerde, sonra hesap açılışında görülecek.",
+          "chip": "Orta",
+          "level": "medium"
+        }
+      ],
+      "risks": [
+        {
+          "tag": "Risk 1",
+          "text": "İnsanlar EUDI cüzdanını yavaş benimserse yedek yöntemler pratikte ana yöntem olarak kalır."
+        },
+        {
+          "tag": "Risk 2",
+          "text": "Komisyon AMLA'nın standartlarını yumuşatırsa belge ile doğrulama yeniden eşit hale gelebilir. [7]"
+        },
+        {
+          "tag": "Risk 3",
+          "text": "Büyük bir veri sızıntısı ya da deepfake skandalı pazara güveni bir gecede sarsabilir. Büyük bir sağlayıcının adı Ocak 2026'da bir veri ihlali bildiriminde geçti. [53]"
+        }
+      ]
+    },
+    "note": {
+      "head": {
+        "index": "13",
+        "label": "Uzman notu",
+        "title": ""
+      },
+      "quote": "insha'yı bir BaaS altyapısı üzerinde kurarken kimlik doğrulamada tek bir sağlayıcıya bağlıydık. Memnun olmadığımız zamanlar oldu ama ikinci bir sağlayıcı eklemek bizim elimizde değildi.",
+      "paragraphs": [
+        "Bu yüzden RUUT'u İngiltere'de açarken ilk sorumuz şuydu: KYC'de de KYB'de de uzman, uçtan uca çalışan ve farklı durumlara çözüm sunabilen partner kim? Kimlik sağlayıcısı seçmek bir satın alma kararı gibi görünüyor, ama yıllarca birlikte yaşayacağınız bir ürün kararı.",
+        "2027 bu kararı yeniden vermek için iyi bir zaman. Kurallar değişiyor, fiyatlar düşüyor, pazarlıkta eliniz güçlü."
+      ],
+      "signature": "Mehmet Burak · fspark9",
+      "checklistLabel": "Yapılacaklar",
+      "checklist": [
+        "Bugünkü onboarding akışlarınızı çıkarın ve hangisinin eID ile değişeceğini işaretleyin.",
+        "Yedek yöntem kullanıldığında gerekçeyi kaydedecek bir alan ekleyin.",
+        "Kimlik sağlayıcınızla sözleşmenize bakın: minimum, ek ücretler, ikinci sağlayıcı ekleme hakkı.",
+        "KYB dosyalarında en çok bekleten üç belgeyi bulun ve her biri için bir veri kaynağı arayın.",
+        "Reddedilen bir müşterinin ne gördüğünü ve kime ulaşabildiğini bir kez kendiniz deneyin."
+      ]
+    },
+    "close": {
+      "title": "Kurallar belli. Hangi yoldan gideceğiniz size kalmış.",
+      "text": "fspark9; bankaların, fintechlerin ve müşterisi olan şirketlerin doğru partneri seçmesine ve yeni kuralları ürün kararlarına çevirmesine yardım ediyor.",
+      "bookLabel": "Görüşme ayarla",
+      "storyLabel": "Deniz'in hikayesine dön"
+    },
+    "sources": {
+      "head": {
+        "index": "",
+        "label": "Kaynaklar",
+        "title": "Rakamların kaynakları."
+      },
+      "sourceTemplate": "Kaynak {n}",
+      "items": [
+        {
+          "label": "MarketsandMarkets, Europe Identity Verification Market, 2025-2030",
+          "href": "https://marketsandmarkets.com/Market-Reports/europe-identity-verification-market-8630841.html"
+        },
+        {
+          "label": "MarketsandMarkets, UK Identity Verification Market",
+          "href": "https://www.marketsandmarkets.com/Market-Reports/geography/identity-verification-market/uk"
+        },
+        {
+          "label": "IMARC Group, UK Identity Verification Market",
+          "href": "https://www.imarcgroup.com/uk-identity-verification-market"
+        },
+        {
+          "label": "Signicat, AMLR 2027 guide: from regulation to operational readiness",
+          "href": "https://www.signicat.com/blog/amlr-2027-guide-from-regulation-to-operational-readiness"
+        },
+        {
+          "label": "EY, How EU leaders can stay ahead of AMLA and AMLR",
+          "href": "https://www.ey.com/en_lu/insights/financial-services/how-eu-leaders-can-stay-ahead-of-amla-and-amlr"
+        },
+        {
+          "label": "IDnow, AMLR CDD RTS: what the final draft changes for onboarding, October 2026",
+          "href": "https://idnow.io/insights/blog/amlr-cdd-rts-final-draft/"
+        },
+        {
+          "label": "Paytechlaw, Final RTS on Customer Due Diligence under Article 28 AMLR, October 2026",
+          "href": "https://paytechlaw.com/en/final-rts-on-customer-due-diligence-under-article-28-amlr/"
+        },
+        {
+          "label": "Bird & Bird, Video identification only as a fallback: EBA is shifting to eIDAS, January 2026",
+          "href": "https://www.twobirds.com/en/insights/2026/germany/videoident-nur-noch-als-fallback-die-eba-setzt-auf-eidas"
+        },
+        {
+          "label": "Authologic, How to verify customers remotely under AMLR, October 2026",
+          "href": "https://authologic.com/blog/verify-customers-remotely-under-amlr"
+        },
+        {
+          "label": "Signicat, Strong Customer Authentication with EUDI wallets",
+          "href": "https://www.signicat.com/blog/strong-customer-authentication-sca-with-eudi-wallets-what-financial-services-need-to-know"
+        },
+        {
+          "label": "Infosecurity Magazine, AI and deepfake powered fraud skyrockets, on Sumsub Identity Fraud Report 2025-2026",
+          "href": "https://www.infosecurity-magazine.com/news/ai-deepfake-fraud-skyrockets/"
+        },
+        {
+          "label": "Sumsub, Top new identity fraud trends, December 2025",
+          "href": "https://sumsub.com/blog/top-new-identity-fraud-trends"
+        },
+        {
+          "label": "Entrust, 2026 Identity Fraud Report",
+          "href": "https://www.entrust.com/resources/reports/identity-fraud-report"
+        },
+        {
+          "label": "Financial IT, Fraudsters turning to EU and AI generated documents, 2025",
+          "href": "https://financialit.net/news/artificial-intelligence/new-data-fraudsters-turning-eu-and-traditional-forgery-ai-generated"
+        },
+        {
+          "label": "Kyckr, EU UBO register access for obliged entities",
+          "href": "https://kyckr.com/guides-and-reports/eu-ubo-register-access-for-obliged-entities"
+        },
+        {
+          "label": "Kyckr, EU UBO register access 2026: guide to 6AMLD compliance",
+          "href": "https://www.kyckr.com/blog/eu-ubo-register-access-6amld-guide-2026"
+        },
+        {
+          "label": "Tech Insider, iGaming KYC M&A: 11 deals, Veriff turns buyer, 2026",
+          "href": "https://tech-insider.org/igt-regtech-consolidation-2026-ma-in-igaming-kyc-vendors-en-d187/"
+        },
+        {
+          "label": "Signicat, Signicat acquires Inverid, 2025",
+          "href": "https://www.signicat.com/press-releases/signicat-acquires-inverid"
+        },
+        {
+          "label": "Sifted, IDnow 295m private equity deal, 2025",
+          "href": "https://sifted.eu/articles/idnow-295m-private-equity-deal"
+        },
+        {
+          "label": "IBS Intelligence, Corsair Capital acquires majority stake in IDnow, March 2025",
+          "href": "https://ibsintelligence.com/?p=567223"
+        },
+        {
+          "label": "Sumsub, Pricing and plans",
+          "href": "https://sumsub.com/pricing/"
+        },
+        {
+          "label": "Veriff, Self-serve plans",
+          "href": "https://www.veriff.com/demo"
+        },
+        {
+          "label": "Didit, IDnow alternative, published pricing",
+          "href": "https://didit.me/switch/idnow-alternative/"
+        },
+        {
+          "label": "deepidv, Sumsub vs Veriff in 2026, including the Vespia acquisition",
+          "href": "https://www.deepidv.com/media/articles/sumsub-vs-veriff-europe-kyc-comparison-2026"
+        },
+        {
+          "label": "Investegate, GB Group FY26 trading statement, April 2026",
+          "href": "https://www.investegate.co.uk/announcement/rns/gb-group--gbg/trading-statement/9531421"
+        },
+        {
+          "label": "Kyckr, Kyckr reports 46% revenue growth, July 2026",
+          "href": "https://kyckr.com/blog/kyckr-reports-46-revenue-growth-as-demand-for-live-company-register-data-accelerates"
+        },
+        {
+          "label": "Signicat via Mynewsdesk, Signicat exceeds the Rule of 40, 2024",
+          "href": "https://mynewsdesk.com/signicat/pressreleases/signicat-exceeds-the-rule-of-40-leading-in-both-market-position-and-profitable-growth-3343679"
+        },
+        {
+          "label": "Signzy, Where KYC onboarding drop-off actually happens, from real user reviews, 2026",
+          "href": "https://www.signzy.com/blogs/sumsub-vs-veriff-vs-signzy-kyc-drop-off"
+        },
+        {
+          "label": "Trustpilot, Sumsub reviews",
+          "href": "https://www.trustpilot.com/review/sumsub.com?page=3"
+        },
+        {
+          "label": "Trustpilot, IDnow reviews",
+          "href": "https://se.trustpilot.com/review/idnow.io"
+        },
+        {
+          "label": "Verifyir, Sumsub verification failed, 2026",
+          "href": "https://verifyir.com/sumsub-verification-failed-review/"
+        },
+        {
+          "label": "G2, Veriff, Sumsub and Entrust IDV comparison",
+          "href": "https://www.g2.com/compare/veriff-vs-sumsub-vs-onfido-vs-lightico"
+        },
+        {
+          "label": "Fintechspecs, KYB pricing breakdown, October 2026",
+          "href": "https://fintechspecs.com/blog/kyb-pricing-breakdown-middesk-persona-sumsub-alloy-baselayer/"
+        },
+        {
+          "label": "Binderr, 7 KYB challenges in business onboarding",
+          "href": "https://binderr.com/resources/kyb-challenges-in-business-onboarding-and-compliance"
+        },
+        {
+          "label": "Trulioo, KYB challenges and onboarding times",
+          "href": "https://www.trulioo.com/page/5?s=kyc"
+        },
+        {
+          "label": "Dotfile, Business onboarding (KYB)",
+          "href": "https://dotfile.com/solutions/business-onboarding"
+        },
+        {
+          "label": "cheqd, European Business Wallets proposal, December 2025",
+          "href": "https://cheqd.io/blog/2025/12"
+        },
+        {
+          "label": "iGrant.io, Executive summary: European Business Wallet Regulation, November 2025",
+          "href": "https://igrant.io/articles/executive-summary-european-business-wallet-regulation-2025"
+        },
+        {
+          "label": "RapidLEI, KYB just got easier with the LEI and vLEI",
+          "href": "https://rapidleidev.wpengine.com/kyb-made-easy/"
+        },
+        {
+          "label": "LexisNexis, Government cancels national Digital ID programme, September 2026",
+          "href": "https://www.lexisnexis.co.uk/legal/news/government-cancels-national-digital-id-programme-plans-for-mandatory-digital-right-to-work-checks"
+        },
+        {
+          "label": "Didit, UK digital identity trust framework: DVS register and AML use, October 2026",
+          "href": "https://didit.me/blog/uk-digital-identity-trust-framework/"
+        },
+        {
+          "label": "Scottish Financial News, Companies House to mandate director ID verification",
+          "href": "https://www.scottishfinancialnews.com/articles/companies-house-to-mandate-director-id-verification-from-november-2025"
+        },
+        {
+          "label": "Financial IT, Sophisticated fraud up 180% and UK deepfake attacks double, November 2025",
+          "href": "https://financialit.net/news/fraud-detection/sophisticated-fraud-180-globally-and-uk-deepfake-attacks-double-warns-sumsub"
+        },
+        {
+          "label": "Yoti, Thoughts from our CEO, July 2025",
+          "href": "https://www.yoti.com/blog/thoughts-from-our-ceo-july-2025/"
+        },
+        {
+          "label": "Sumsub, Partner programme",
+          "href": "https://sumsub.com/partners/"
+        },
+        {
+          "label": "Timeturk, BDDK uzaktan kimlik tespiti yönetmeliği, Nisan 2021",
+          "href": "https://www.timeturk.com/ekonomi/1-mayis-tan-itibaren-banka-subesine-gitmeden-islem-donemi/haber-1680687"
+        },
+        {
+          "label": "Lewis Silkin, Ofcom warns tougher action is needed on age assurance, July 2026",
+          "href": "https://www.lewissilkin.com/en/insights/2026/07/16/ofcom-warns-that-tougher-action-is-needed-on-age-assurance-following-publication-102nc4m"
+        },
+        {
+          "label": "Bloomberg HT, Tüzel kişiler de uzaktan görüşmeyle banka müşterisi olabilecek, 2023",
+          "href": "https://www.bloomberght.com/tuzel-kisiler-de-uzaktan-gorusmeyle-banka-musterisi-olabilecek-2331942"
+        },
+        {
+          "label": "KI Syndikat, IDnow profile and pricing model, 2026",
+          "href": "https://www.ki-syndikat.de/tools/idnow/"
+        },
+        {
+          "label": "Fourthline, Your AMLR checklist: what has to be done and by when",
+          "href": "https://www.fourthline.com/blog/your-amlr-checklist-what-has-to-be-done-and-by-when"
+        },
+        {
+          "label": "Start with Identity, Sumsub vendor profile, September 2026",
+          "href": "https://startwithidentity.com/vendors/identity-verification/sumsub.md"
+        },
+        {
+          "label": "walt.id, eIDAS 2 for financial services",
+          "href": "https://walt.id/eidas2/financial-services"
+        },
+        {
+          "label": "Verifyo, Identity verification solutions 2026: a buyer's guide",
+          "href": "https://verifyo.com/insights/identity-verification-solutions-2026-buyers-guide"
+        },
+        {
+          "label": "Business Wire, Shufti sets a new benchmark for VideoIdent in the DACH market, February 2026",
+          "href": "https://www.businesswire.com/news/home/20260218726361/en/Shufti-Sets-a-New-Benchmark-for-VideoIdent-in-the-DACH-Market"
+        },
+        {
+          "label": "Morning Mail, Cybersecurity industry brief, July 2026",
+          "href": "https://morningmail.ai/en/newsletter/cybersecurity-industry-brief-fn0HX9KJY0EfKaxWWqPh/2026-07-07"
+        }
+      ],
+      "foot": "Bilgiler 2 Kasım 2026'da kontrol edildi. AMLA'nın standartları henüz taslak ve Komisyon tarafından değiştirilebilir. Pazar büyüklükleri araştırma şirketlerinin tahminleridir. Fiyatlar yayımlanmış liste fiyatlarıdır. Rekabet haritası puanları, KYB süreleri, beklentiler ve görüşümüz bölümleri fspark9 analizidir, hukuki tavsiye değildir."
+    }
+  }
+}

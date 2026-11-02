@@ -8,7 +8,7 @@
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×3, legalPage ×4 (metin ve SEO),
  * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor), karar blokları (Nuri),
- * sektör raporları (Bauspar, DORA, PSD3: src/content/sector/psd3-fida.json) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
+ * sektör raporları (Bauspar, DORA, PSD3: src/content/sector/psd3-fida.json, KYC ve KYB: src/content/sector/kyc-kyb.json) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
  * Ayrıca canlıdaki bölümlerin (LIVE_EPISODE_IDS) Sanity'de hâlâ `published` olduğu.
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
@@ -32,6 +32,7 @@ import { xinja } from "../content/spark-xinja";
 import { bauspar } from "../content/spark-bauspar";
 import { dora } from "../content/spark-dora";
 import { psd3 } from "../content/spark-psd3";
+import { kyc } from "../content/spark-kyc";
 import { radarEpisodes } from "../content/spark-radar";
 import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
@@ -59,6 +60,7 @@ const LIVE_EPISODE_IDS = [
   "sparkEpisode-sector-reports-bauspar",
   "sparkEpisode-sector-reports-dora",
   "sparkEpisode-sector-reports-psd3-fida",
+  "sparkEpisode-sector-reports-kyc-kyb",
   "sparkEpisode-on-the-radar-01",
 ];
 const diffs: string[] = [];
@@ -161,6 +163,9 @@ async function main() {
     // Sektör raporu Nº 03 PSD3, PSR ve FiDA (layout "psd3").
     const psd3S = episodesS[l].find((e) => e.layout === "psd3");
     compare(`episode.psd3-fida.${l}`, psd3S?.story, psd3[l]);
+    // Sektör raporu Nº 04 KYC ve KYB (layout "kyc").
+    const kycS = episodesS[l].find((e) => e.layout === "kyc");
+    compare(`episode.kyc-kyb.${l}`, kycS?.story, kyc[l]);
     // On the Radar Nº 01 finmid: gövde src/content/radar/finmid.json'un kendisi.
     const finmidS = episodesS[l].find((e) => e.layout === "radar");
     compare(`episode.radar-finmid.${l}`, finmidS?.story, radarEpisodes[l].finmid);
