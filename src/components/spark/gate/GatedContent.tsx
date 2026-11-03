@@ -20,6 +20,7 @@ export default function GatedContent({ newsletter, locale, children }: GatedCont
   const [freshOpen, setFreshOpen] = useState(true);
   const [animate, setAnimate] = useState(false);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Hidrasyon bitene kadar kilitli say (SSR de böyle); depolama okununca karar verilir.
   const locked = !ready || (available && !reader);
@@ -34,6 +35,26 @@ export default function GatedContent({ newsletter, locale, children }: GatedCont
     const body = bodyRef.current;
     if (body) body.inert = locked;
   }, [locked]);
+
+  // Kilitliyken bölüm menüsü (ve adresteki #bölüm) kırpık alana atlamasın: kartı gösterir.
+  useEffect(() => {
+    if (!ready || !locked) return;
+    const showCard = () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      cardRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+    };
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+      const id = link?.getAttribute("href")?.slice(1);
+      if (!id || !bodyRef.current?.querySelector(`[id="${CSS.escape(id)}"]`)) return;
+      event.preventDefault();
+      showCard();
+    };
+    document.addEventListener("click", onClick);
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (hash && bodyRef.current?.querySelector(`[id="${CSS.escape(hash)}"]`)) showCard();
+    return () => document.removeEventListener("click", onClick);
+  }, [ready, locked]);
 
   useEffect(() => {
     if (remind) countReminderVisit();
@@ -61,7 +82,7 @@ export default function GatedContent({ newsletter, locale, children }: GatedCont
         </div>
         <div aria-hidden="true" className="gate-veil" />
         {locked && (
-          <div className="gate-card-wrap">
+          <div ref={cardRef} className="gate-card-wrap">
             <GateCard content={newsletter} locale={locale} onOpened={opened} />
           </div>
         )}

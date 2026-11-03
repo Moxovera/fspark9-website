@@ -1005,7 +1005,7 @@ html:not(.js) .video-only { display: none; }
    kilit sadece görsel ve `.js` sınıfına bağlı; JS kapalıysa rapor açık. */
 .gate-veil,
 .gate-card-wrap { display: none; }
-.js [data-gate="locked"] .gate-stage { max-height: 620px; overflow: hidden; }
+.js [data-gate="locked"] .gate-stage { max-height: 620px; overflow: hidden; overflow: clip; }
 .js [data-gate="locked"] .gate-body {
   filter: blur(6px);
   user-select: none;
