@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import ReaderMark from "@/components/spark/gate/ReaderMark";
 import ThankYouView from "@/components/blocks/ThankYouView";
 import { newsletterEn, newsletterTr } from "@/content/thank-you";
 
@@ -15,5 +16,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function NewsletterThankYouRoute({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ThankYouView page={locale === "tr" ? newsletterTr : newsletterEn} />;
+  return (
+    <>
+      <ReaderMark status="pending" />
+      <ThankYouView page={locale === "tr" ? newsletterTr : newsletterEn} />
+    </>
+  );
 }

@@ -8,6 +8,7 @@ import SparkSubscribe from "@/components/spark/newsletter/SparkSubscribe";
 import { useBooking } from "@/hooks/useBooking";
 import { useMobileMenu } from "@/components/chrome/MobileMenuContext";
 import { useVideoOpen } from "@/components/ui/VideoOpenContext";
+import { useGateLocked, useSparkReader } from "@/hooks/useSparkReader";
 import { NEWSLETTER_ID } from "@/lib/newsletter";
 import type { NewsletterBoxProps } from "@/types/content";
 
@@ -29,6 +30,8 @@ export default function NewsletterBox({ content, locale }: NewsletterBoxProps) {
   const { isOpen: bookingOpen } = useBooking();
   const { isOpen: menuOpen } = useMobileMenu();
   const videoOpen = useVideoOpen();
+  const gateLocked = useGateLocked();
+  const { reader } = useSparkReader();
   const [phase, setPhase] = useState<Phase>("pending");
   const [stripVisible, setStripVisible] = useState(false);
 
@@ -79,7 +82,8 @@ export default function NewsletterBox({ content, locale }: NewsletterBoxProps) {
     setPhase("open");
   }, [remember]);
 
-  if (!onSpark || phase === "pending") return null;
+  // Kayıtlı (onay bekleyen ya da onaylı) okura ve kilitli raporda kutu hiç çıkmaz.
+  if (!onSpark || phase === "pending" || reader || gateLocked) return null;
 
   const hidden = stripVisible || bookingOpen || menuOpen || videoOpen;
 

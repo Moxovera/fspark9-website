@@ -143,6 +143,16 @@ export default defineType({
     }),
     defineField({ name: "lastCheckedAt", title: "Last checked at", type: "date", group: "meta" }),
     defineField({
+      name: "gated",
+      title: "Gate the rest behind the newsletter",
+      type: "boolean",
+      group: "meta",
+      initialValue: false,
+      hidden: hideUnlessReport,
+      description:
+        "Devamı bültenle açılsın: özet açık, devamı bulanık, kart ortada. Kayıt olan okur sayfa yenilenmeden raporu okur. Metin HTML'de durur (arama motoru okur). Kapalıysa rapor tamamen açık.",
+    }),
+    defineField({
       name: "previewLive",
       title: "Live on preview deployments",
       type: "boolean",

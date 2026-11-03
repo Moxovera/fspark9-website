@@ -1,6 +1,10 @@
+"use client";
+
 import { useId } from "react";
+import type { FormEvent } from "react";
 import { ArrowRightIcon } from "@/components/icons";
 import { kitFormAction } from "@/lib/newsletter";
+import { rememberSubmittedEmail } from "@/lib/sparkReader";
 import type { SparkSubscribeProps } from "@/types/content";
 
 /**
@@ -15,6 +19,10 @@ export default function SparkSubscribe({ variant, locale, content, className, si
   const inputId = useId();
   const action = kitFormAction(locale);
   const dark = variant === "inline-dark";
+  // Kit'e düz POST gider; teşekkür sayfası okurun durumunu yazabilsin diye adres oturumda kalır.
+  const remember = (event: FormEvent<HTMLFormElement>) => {
+    rememberSubmittedEmail(String(new FormData(event.currentTarget).get("email_address") ?? ""));
+  };
 
   if (variant === "quiet") {
     return (
@@ -23,7 +31,7 @@ export default function SparkSubscribe({ variant, locale, content, className, si
           {content.quietPrompt}
           <span className="font-sans text-[14px] leading-[1.4] font-bold text-ink underline underline-offset-4">{content.quietLink}</span>
         </summary>
-        <form method="post" action={action} className="pt-2">
+        <form method="post" action={action} onSubmit={remember} className="pt-2">
           <p className="m-0 mb-3 max-w-[56ch] text-[14px] leading-[1.5] text-stone">{content.quietText}</p>
           <div className="flex items-end gap-3">
             <label htmlFor={inputId} className="sr-only">
@@ -57,7 +65,7 @@ export default function SparkSubscribe({ variant, locale, content, className, si
 
   // card ve inline-dark: alan ile buton bitişik, tek parça.
   return (
-    <form method="post" action={action} className={className}>
+    <form method="post" action={action} onSubmit={remember} className={className}>
       <div className="flex w-full items-stretch">
         <label htmlFor={inputId} className="sr-only">
           {content.emailLabel}

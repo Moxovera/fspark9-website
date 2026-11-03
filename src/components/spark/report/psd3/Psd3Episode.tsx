@@ -1,3 +1,4 @@
+import ReportGate from "@/components/spark/gate/ReportGate";
 import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
 import Portrait from "@/components/brand/Portrait";
@@ -28,7 +29,7 @@ const small = "font-mono text-[11.5px] font-medium tracking-[0.08em] uppercase";
  * bölümler client yapraklar; geri kalanı server. Kaynaklar Ink
  * kapanışın altında.
  */
-export default function Psd3Episode({ report, locale, portraitSrc, portraitAlt }: Psd3EpisodeProps) {
+export default function Psd3Episode({ report, locale, gate, portraitSrc, portraitAlt }: Psd3EpisodeProps) {
   const { hero, short, status, live, changes, fida, story, game, impact, models, uk, note, close, sources } = report;
   const t = sources.sourceTemplate;
   const text = (s: string) => <Psd3Text text={s} template={t} />;
@@ -126,6 +127,7 @@ export default function Psd3Episode({ report, locale, portraitSrc, portraitAlt }
         </div>
       </section>
 
+      <ReportGate gate={gate} locale={locale}>
       {/* 02 Where things stand */}
       <section id="status" aria-labelledby="status-title" className={band("white")}>
         <div className={wrap}>
@@ -400,6 +402,7 @@ export default function Psd3Episode({ report, locale, portraitSrc, portraitAlt }
           <p className="mt-7 mb-0 max-w-[80ch] text-[13.5px] text-stone">{sources.foot}</p>
         </div>
       </section>
+      </ReportGate>
     </div>
   );
 }

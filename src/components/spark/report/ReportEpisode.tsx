@@ -1,3 +1,4 @@
+import ReportGate from "@/components/spark/gate/ReportGate";
 import type { CSSProperties, ReactNode } from "react";
 import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
@@ -25,7 +26,7 @@ const subHeading = "mb-3.5 mt-0 font-display text-[21px] leading-[1.15] font-ext
  * küçük client yapraklarda. Yapışkan şeridin hiçbir atasında transform ya
  * da overflow yok: Reveal sadece bölümlerin içindeki bloklarda.
  */
-export default function ReportEpisode({ report, locale, footnoteTemplate }: ReportEpisodeProps) {
+export default function ReportEpisode({ report, locale, footnoteTemplate, gate }: ReportEpisodeProps) {
   const { hero, short, simulator, market, model, consumers, players, uses, compare, lessons, proposals, view, close, sources } = report;
   const refs = (text: string) => <ReportRefs text={text} template={footnoteTemplate} />;
 
@@ -101,6 +102,7 @@ export default function ReportEpisode({ report, locale, footnoteTemplate }: Repo
         </div>
       </section>
 
+      <ReportGate gate={gate} locale={locale}>
       <section id="kullanici" aria-labelledby="kullanici-title" className={section("white")}>
         <div className={wrap}>
           <SectionHead head={simulator.head} id="kullanici-title" />
@@ -398,6 +400,7 @@ export default function ReportEpisode({ report, locale, footnoteTemplate }: Repo
           <p className="mt-7 mb-0 max-w-[80ch] text-[13.5px] text-stone">{sources.note}</p>
         </div>
       </section>
+      </ReportGate>
     </>
   );
 }

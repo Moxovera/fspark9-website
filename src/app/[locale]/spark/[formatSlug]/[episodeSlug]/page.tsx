@@ -139,7 +139,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
-        <ReportEpisode report={entry.story} locale={locale} footnoteTemplate={hub.episode.footnoteTemplate} />
+        <ReportEpisode report={entry.story} locale={locale} gate={entry.gated ? { newsletter: hub.newsletter } : undefined} footnoteTemplate={hub.episode.footnoteTemplate} />
       </main>
     );
   }
@@ -153,7 +153,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
-        <DoraEpisode report={entry.story} locale={locale} />
+        <DoraEpisode report={entry.story} locale={locale} gate={entry.gated ? { newsletter: hub.newsletter } : undefined} />
       </main>
     );
   }
@@ -169,7 +169,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
-        <Psd3Episode report={entry.story} locale={locale} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
+        <Psd3Episode report={entry.story} locale={locale} gate={entry.gated ? { newsletter: hub.newsletter } : undefined} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
       </main>
     );
   }
@@ -185,7 +185,7 @@ export default async function SparkEpisodePage({ params }: { params: Params }) {
         <div className="on-ink bg-ink px-5 pt-4 min-[900px]:px-8 min-[1280px]:px-16">
           <BackLink href={{ pathname: "/spark/[formatSlug]", params: { formatSlug } }} label={format.name} ground="ink" />
         </div>
-        <KycEpisode report={entry.story} locale={locale} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
+        <KycEpisode report={entry.story} locale={locale} gate={entry.gated ? { newsletter: hub.newsletter } : undefined} portraitSrc={portraitSrc} portraitAlt={portraitAlt} />
       </main>
     );
   }

@@ -1000,3 +1000,33 @@ html:not(.js) .video-only { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .newsletter-box-in { animation: none; }
 }
+
+/* Sektör raporu kilidi (CLAUDE.md "Spark sektör raporları"): metin HTML'de durur,
+   kilit sadece görsel ve `.js` sınıfına bağlı; JS kapalıysa rapor açık. */
+.gate-veil,
+.gate-card-wrap { display: none; }
+.js [data-gate="locked"] .gate-stage { max-height: 620px; overflow: hidden; }
+.js [data-gate="locked"] .gate-body {
+  filter: blur(6px);
+  user-select: none;
+  pointer-events: none;
+}
+.js [data-gate="locked"] .gate-veil {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 40%, var(--paper) 100%);
+}
+.js [data-gate="locked"] .gate-card-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+[data-gate-animate] .gate-body { transition: filter 600ms var(--ease-brand); }
+@media (prefers-reduced-motion: reduce) {
+  [data-gate-animate] .gate-body { transition: none; }
+}

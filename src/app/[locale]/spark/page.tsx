@@ -7,6 +7,7 @@ import CutButton from "@/components/brand/CutButton";
 import Label from "@/components/brand/Label";
 import NextStep from "@/components/blocks/NextStep";
 import FormatBlock from "@/components/spark/hub/FormatBlock";
+import ConfirmReturn from "@/components/spark/gate/ConfirmReturn";
 import SparkFilmCard from "@/components/spark/hub/SparkFilmCard";
 import SparkFilmRow from "@/components/spark/newsletter/SparkFilmRow";
 import SparkTicker from "@/components/spark/hub/SparkTicker";
@@ -49,6 +50,7 @@ export default async function SparkPage({ params }: { params: Promise<{ locale: 
     <main>
       <JsonLd data={breadcrumbJsonLd(locale, chrome, [{ name: hub.sparkLabel, path: getPathname({ href: "/spark", locale }) }])} />
       <section className="on-ink bg-ink pt-16 min-[900px]:pt-[84px]">
+        <ConfirmReturn content={hub.newsletter} />
         {hasFilm ? (
           // Film kimliği varsa: sol sütunda bağlantı, "Spark" ve alt başlık; sağda 4:5 film kartı (400x500, aralık 80, dikeyde ortalı).
           // Dar ekranlarda tek sütun, kart altta. Kimlik boşsa aşağıdaki bugünkü açılış.

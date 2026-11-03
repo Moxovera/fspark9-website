@@ -123,7 +123,7 @@ export const en: LegalPage = {
     { type: "h", text: "5. When you subscribe to the Spark newsletter" },
     {
       type: "b",
-      text: "The newsletter forms on this site send your email address to Kit, the service that sends the newsletter. Nothing is sent until you submit a form. You then get an email with a confirmation link, and you are on the list only after you click it.",
+      text: "The newsletter forms on this site send your email address to Kit, the service that sends the newsletter. Nothing is sent until you submit a form. You then get an email with a confirmation link, and you are on the list only after you click it. To avoid asking again, this site keeps your newsletter sign-up and its confirmation status in your browser. It does not send this to a server.",
     },
     {
       type: "field",
@@ -374,7 +374,7 @@ export const tr: LegalPage = {
     { type: "h", text: "5. Spark bültenine abone olduğunuzda" },
     {
       type: "b",
-      text: "Bu sitedeki bülten formları e-posta adresinizi bülteni gönderen servis Kit’e iletiyor. Bir formu göndermeden hiçbir şey iletilmiyor. Ardından size onay linki olan bir mail geliyor, linke tıklayınca listeye giriyorsunuz.",
+      text: "Bu sitedeki bülten formları e-posta adresinizi bülteni gönderen servis Kit’e iletiyor. Bir formu göndermeden hiçbir şey iletilmiyor. Ardından size onay linki olan bir mail geliyor, linke tıklayınca listeye giriyorsunuz. Sizi tekrar sormamak için site, bülten kaydınızı ve onay durumunuzu tarayıcınızda saklıyor, sunucuya göndermiyor.",
     },
     {
       type: "field",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
+import ReaderMark from "@/components/spark/gate/ReaderMark";
 import ThankYouView from "@/components/blocks/ThankYouView";
 import { confirmedEn, confirmedTr } from "@/content/thank-you";
 
@@ -15,5 +16,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function NewsletterConfirmedRoute({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ThankYouView page={locale === "tr" ? confirmedTr : confirmedEn} />;
+  return (
+    <>
+      <ReaderMark status="confirmed" />
+      <ThankYouView page={locale === "tr" ? confirmedTr : confirmedEn} />
+    </>
+  );
 }

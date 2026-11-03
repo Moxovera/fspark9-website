@@ -1,3 +1,4 @@
+import ReportGate from "@/components/spark/gate/ReportGate";
 import type { ReactNode } from "react";
 import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
@@ -36,7 +37,7 @@ const rowList = "grid border-b border-rule first:border-t-2 first:border-t-ink";
  * header'ı ve dil anahtarı alıyor. On üç bölüm, Ink kapanış, en altta
  * kaynaklar. Etkileşimli bölümler client yapraklar; geri kalanı server.
  */
-export default function KycEpisode({ report, locale, portraitSrc, portraitAlt }: KycEpisodeProps) {
+export default function KycEpisode({ report, locale, gate, portraitSrc, portraitAlt }: KycEpisodeProps) {
   const { hero, short, market, rules, map, position, kyb, marketing, money, voices, story, uk, next, note, close, sources } = report;
   const t = sources.sourceTemplate;
   const text = (s: string) => <Psd3Text text={s} template={t} />;
@@ -171,6 +172,7 @@ export default function KycEpisode({ report, locale, portraitSrc, portraitAlt }:
         </div>
       </section>
 
+      <ReportGate gate={gate} locale={locale}>
       {/* 02 Market */}
       <section id="market" aria-labelledby="market-title" className={band("white")}>
         <div className={wrap}>
@@ -522,6 +524,7 @@ export default function KycEpisode({ report, locale, portraitSrc, portraitAlt }:
           <p className="mt-7 mb-0 max-w-[80ch] text-[13.5px] text-stone">{sources.foot}</p>
         </div>
       </section>
+      </ReportGate>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import ReportGate from "@/components/spark/gate/ReportGate";
 import CutButton from "@/components/brand/CutButton";
 import CutWord from "@/components/brand/CutWord";
 import ReportNav from "@/components/spark/report/ReportNav";
@@ -21,7 +22,7 @@ const section = (tone: "paper" | "white") => `scroll-mt-[150px] ${tone === "whit
  * Reveal, sayan rakam ya da parallax yok. Yapışkan şeridin ve telefonun
  * hiçbir atasında transform ya da overflow yok.
  */
-export default function DoraEpisode({ report, locale }: DoraEpisodeProps) {
+export default function DoraEpisode({ report, locale, gate }: DoraEpisodeProps) {
   const { hero, origin, domino, story, desks, close, sources } = report;
   const plain = (s: DoraSection, tone: "paper" | "white") => (
     <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className={section(tone)}>
@@ -66,6 +67,7 @@ export default function DoraEpisode({ report, locale }: DoraEpisodeProps) {
 
       <ReportNav items={report.nav} />
 
+      <ReportGate gate={gate} locale={locale}>
       <section id={origin.id} aria-labelledby={`${origin.id}-title`} className={section("paper")}>
         <div className={wrap}>
           <SectionHead head={origin.head} id={`${origin.id}-title`} />
@@ -177,6 +179,7 @@ export default function DoraEpisode({ report, locale }: DoraEpisodeProps) {
           <p className="mt-7 mb-0 max-w-[80ch] text-[13.5px] text-stone italic">{sources.note}</p>
         </div>
       </section>
+      </ReportGate>
     </>
   );
 }

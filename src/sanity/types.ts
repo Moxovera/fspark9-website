@@ -170,6 +170,7 @@ export type SparkEpisode = {
   cardLinkLabel?: LocaleString;
   publishedAt?: string;
   lastCheckedAt?: string;
+  gated?: boolean;
   previewLive?: boolean;
   hero?: {
     label?: LocaleString;
@@ -492,6 +493,33 @@ export type SparkSection = {
     menuPhoneLabel?: LocaleString;
     footerHeading?: LocaleString;
     footerLabel?: LocaleString;
+    gateTitle?: LocaleString;
+    gateText?: LocaleString;
+    gateEmailLabel?: LocaleString;
+    gateButton?: LocaleString;
+    gateNote?: LocaleString;
+    gateSending?: LocaleString;
+    gateErrorInvalid?: LocaleString;
+    gateErrorGeneric?: LocaleString;
+    gateFreshStrong?: LocaleString;
+    gateFreshRest?: LocaleString;
+    gateReminderStrong?: LocaleString;
+    gateReminderRest?: LocaleString;
+    gateResend?: LocaleString;
+    gateChange?: LocaleString;
+    gateNewEmailLabel?: LocaleString;
+    gateUpdate?: LocaleString;
+    gateResent?: LocaleString;
+    gateChanged?: LocaleString;
+    gateConfirmed?: LocaleString;
+    gateMemberPrompt?: LocaleString;
+    gateMemberButton?: LocaleString;
+    gateMemberTitle?: LocaleString;
+    gateMemberText?: LocaleString;
+    gateMemberNote?: LocaleString;
+    gateBackPrompt?: LocaleString;
+    gateBackButton?: LocaleString;
+    gateClose?: LocaleString;
   };
   episode?: {
     yourPickTemplate?: LocaleString;
@@ -1538,6 +1566,33 @@ export type SPARK_HUB_QUERYResult = {
       menuPhoneLabel?: LocaleString;
       footerHeading?: LocaleString;
       footerLabel?: LocaleString;
+      gateTitle?: LocaleString;
+      gateText?: LocaleString;
+      gateEmailLabel?: LocaleString;
+      gateButton?: LocaleString;
+      gateNote?: LocaleString;
+      gateSending?: LocaleString;
+      gateErrorInvalid?: LocaleString;
+      gateErrorGeneric?: LocaleString;
+      gateFreshStrong?: LocaleString;
+      gateFreshRest?: LocaleString;
+      gateReminderStrong?: LocaleString;
+      gateReminderRest?: LocaleString;
+      gateResend?: LocaleString;
+      gateChange?: LocaleString;
+      gateNewEmailLabel?: LocaleString;
+      gateUpdate?: LocaleString;
+      gateResent?: LocaleString;
+      gateChanged?: LocaleString;
+      gateConfirmed?: LocaleString;
+      gateMemberPrompt?: LocaleString;
+      gateMemberButton?: LocaleString;
+      gateMemberTitle?: LocaleString;
+      gateMemberText?: LocaleString;
+      gateMemberNote?: LocaleString;
+      gateBackPrompt?: LocaleString;
+      gateBackButton?: LocaleString;
+      gateClose?: LocaleString;
     } | null;
     episode: {
       yourPickTemplate: LocaleString | null;
@@ -1583,7 +1638,7 @@ export type SPARK_HUB_QUERYResult = {
   }>;
 };
 // Variable: SPARK_EPISODES_QUERY
-// Query: *[_type == "sparkEpisode"  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,    launchDate, closureDate, durationLabel,    "slug": slug, "formatSlug": format->slug,    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "note": note{ label, "paragraphs": coalesce(paragraphs, []) },    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },    "images": coalesce(images[defined(image.asset)]{      at, alt, caption, credit, href,      "url": image.asset->url,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height,      "lqip": image.asset->metadata.lqip    }, []),    "decisions": coalesce(decisions[]{      date, when, label, title, record,      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),      "options": coalesce(options[]{ key, text }, []),      "sources": coalesce(sources[]{ label, href }, [])    }, []),    "records": coalesce(records[]{      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])    }, []),    "twist": twist{      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])    }  }
+// Query: *[_type == "sparkEpisode"  && (status == "published" || ($preview && status in ["coming", "draft"] && previewLive == true))  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,    launchDate, closureDate, durationLabel, gated,    "slug": slug, "formatSlug": format->slug,    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,    "note": note{ label, "paragraphs": coalesce(paragraphs, []) },    "chapters": coalesce(chapters[]{ id, label, title, lead, "paragraphs": coalesce(paragraphs, []), card, decision }, []),    "lessons": coalesce(lessons[]{ heading, body }, []),    "sources": coalesce(sources[]{ n, "links": coalesce(links[]{ label, href }, []) }, []),    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,    "ruler": ruler{ after, "ticks": coalesce(ticks[]{ date, label, caption }, []) },    "images": coalesce(images[defined(image.asset)]{      at, alt, caption, credit, href,      "url": image.asset->url,      "width": image.asset->metadata.dimensions.width,      "height": image.asset->metadata.dimensions.height,      "lqip": image.asset->metadata.lqip    }, []),    "decisions": coalesce(decisions[]{      date, when, label, title, record,      "paragraphs": coalesce(paragraphs, []), "reveal": coalesce(reveal, []),      "options": coalesce(options[]{ key, text }, []),      "sources": coalesce(sources[]{ label, href }, [])    }, []),    "records": coalesce(records[]{      date, when, label, "paragraphs": coalesce(paragraphs, []), "sources": coalesce(sources[]{ label, href }, [])    }, []),    "twist": twist{      ..., "paragraphs": coalesce(paragraphs, []), "options": coalesce(options[]{ key, text }, [])    }  }
 export type SPARK_EPISODES_QUERYResult = Array<{
   number: number;
   subject: LocaleString | null;
@@ -1600,6 +1655,7 @@ export type SPARK_EPISODES_QUERYResult = Array<{
   launchDate: string | null;
   closureDate: string | null;
   durationLabel: LocaleString | null;
+  gated: boolean | null;
   slug: LocaleSlug | null;
   formatSlug: LocaleSlug | null;
   hero: {
@@ -1945,7 +2001,7 @@ declare module "@sanity/client" {
     "*[_type == \"caseStudy\"] | order(order asc){\n  slug, seo{ title, description }, name, subtitle, market, tags,\n  \"publishedAt\": _createdAt, \"modifiedAt\": _updatedAt,\n  \"services\": services[]->slug,\n  problem, actions, delivered, figures, proof, sources,\n  \"screens\": screens[0...2]{ \"url\": asset->url, alt, \"width\": asset->metadata.dimensions.width, \"height\": asset->metadata.dimensions.height }\n}": CASES_QUERYResult;
     "*[_type == \"aboutPage\" && _id == \"aboutPage\"][0]{\n  seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,\n  \"portraitUrl\": portrait.asset->url\n}": ABOUT_PAGE_QUERYResult;
     "{\n  \"section\": *[_type == \"sparkSection\" && _id == \"sparkSection\"][0]{\n    seo{ title, description }, bigWord, heading, tickerItems, tickerTail, readLabel,\n    backLabel, sparkLabel, formatsLabel, exploreLabel, launchDateLabel,\n    sparkFilm, newsletter,\n    episode{ yourPickTemplate, roadTemplate, otherRoadsLabel, noteLabel, dayTemplate, nextTemplate, footnoteTemplate, sourceJoiner }\n  },\n  \"formats\": *[_type == \"sparkFormat\"] | order(orderRank asc){\n    number, name, slug, status, seo{ title, description }, description, openLabel, preparingLine,\n    comingLabel, allIssuesLabel, daysUnit, line, startLabel, howLabel, howHeading,\n    \"howSteps\": coalesce(howSteps[]{ title, body }, []), episodesLabel, closeHeading,\n    \"coming\": *[_type == \"sparkEpisode\" && references(^._id) && status == \"coming\"\n      && !($preview && previewLive == true)] | order(number asc){\n      number, subject, hook\n    }\n  }\n}": SPARK_HUB_QUERYResult;
-    "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status in [\"coming\", \"draft\"] && previewLive == true))\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,\n    launchDate, closureDate, durationLabel,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"note\": note{ label, \"paragraphs\": coalesce(paragraphs, []) },\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, []),\n    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,\n    \"ruler\": ruler{ after, \"ticks\": coalesce(ticks[]{ date, label, caption }, []) },\n    \"images\": coalesce(images[defined(image.asset)]{\n      at, alt, caption, credit, href,\n      \"url\": image.asset->url,\n      \"width\": image.asset->metadata.dimensions.width,\n      \"height\": image.asset->metadata.dimensions.height,\n      \"lqip\": image.asset->metadata.lqip\n    }, []),\n    \"decisions\": coalesce(decisions[]{\n      date, when, label, title, record,\n      \"paragraphs\": coalesce(paragraphs, []), \"reveal\": coalesce(reveal, []),\n      \"options\": coalesce(options[]{ key, text }, []),\n      \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"records\": coalesce(records[]{\n      date, when, label, \"paragraphs\": coalesce(paragraphs, []), \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"twist\": twist{\n      ..., \"paragraphs\": coalesce(paragraphs, []), \"options\": coalesce(options[]{ key, text }, [])\n    }\n  }": SPARK_EPISODES_QUERYResult;
+    "*[_type == \"sparkEpisode\"\n  && (status == \"published\" || ($preview && status in [\"coming\", \"draft\"] && previewLive == true))\n  && defined(slug.en.current) && defined(slug.tr.current)] | order(number asc){\n    number, subject, hook, seo{ title, description }, publishedAt, lastCheckedAt, _createdAt, _updatedAt, layout,\n    launchDate, closureDate, durationLabel, gated,\n    \"slug\": slug, \"formatSlug\": format->slug,\n    hero, dayClock, interlude, lastDay, finalQuestion, next, sourcesLabel, correctionLine, closeHeading,\n    \"note\": note{ label, \"paragraphs\": coalesce(paragraphs, []) },\n    \"chapters\": coalesce(chapters[]{ id, label, title, lead, \"paragraphs\": coalesce(paragraphs, []), card, decision }, []),\n    \"lessons\": coalesce(lessons[]{ heading, body }, []),\n    \"sources\": coalesce(sources[]{ n, \"links\": coalesce(links[]{ label, href }, []) }, []),\n    opening, standfirst, provenance, clock, intro, labels, view, service, reportBody, radarBody, country, cardLinkLabel,\n    \"ruler\": ruler{ after, \"ticks\": coalesce(ticks[]{ date, label, caption }, []) },\n    \"images\": coalesce(images[defined(image.asset)]{\n      at, alt, caption, credit, href,\n      \"url\": image.asset->url,\n      \"width\": image.asset->metadata.dimensions.width,\n      \"height\": image.asset->metadata.dimensions.height,\n      \"lqip\": image.asset->metadata.lqip\n    }, []),\n    \"decisions\": coalesce(decisions[]{\n      date, when, label, title, record,\n      \"paragraphs\": coalesce(paragraphs, []), \"reveal\": coalesce(reveal, []),\n      \"options\": coalesce(options[]{ key, text }, []),\n      \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"records\": coalesce(records[]{\n      date, when, label, \"paragraphs\": coalesce(paragraphs, []), \"sources\": coalesce(sources[]{ label, href }, [])\n    }, []),\n    \"twist\": twist{\n      ..., \"paragraphs\": coalesce(paragraphs, []), \"options\": coalesce(options[]{ key, text }, [])\n    }\n  }": SPARK_EPISODES_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0]{\n    \"hero\": hero{\n      \"eyebrow\": select($locale == \"tr\" => coalesce(eyebrow.tr, eyebrow.en), eyebrow.en),\n      \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n      \"intro\": select($locale == \"tr\" => coalesce(intro.tr, intro.en), intro.en)\n    },\n    \"blocks\": blocks[]{\n      _type,\n      \"text\": select($locale == \"tr\" => coalesce(text.tr, text.en), text.en),\n      \"label\": select($locale == \"tr\" => coalesce(label.tr, label.en), label.en),\n      \"lines\": select($locale == \"tr\" => coalesce(lines.tr, lines.en), lines.en),\n      \"items\": select($locale == \"tr\" => coalesce(items.tr, items.en), items.en),\n      \"head\": select($locale == \"tr\" => coalesce(head.tr, head.en), head.en),\n      \"rows\": select($locale == \"tr\" => coalesce(rows.tr, rows.en), rows.en)\n    }\n  }\n": LEGAL_PAGE_QUERYResult;
     "\n  *[_type == \"siteSettings\"][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": select($locale == \"tr\" && defined(ogImageTr.asset) => ogImageTr, ogImage){\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": SITE_SEO_QUERYResult;
     "\n  *[_type == \"legalPage\" && slug == $slug][0].seo{\n    \"title\": select($locale == \"tr\" => coalesce(title.tr, title.en), title.en),\n    \"description\": select($locale == \"tr\" => coalesce(description.tr, description.en), description.en),\n    \"ogImage\": ogImage{\n      \"url\": asset->url,\n      \"alt\": coalesce(alt, \"\"),\n      \"width\": asset->metadata.dimensions.width,\n      \"height\": asset->metadata.dimensions.height,\n      \"lqip\": asset->metadata.lqip\n    },\n    noIndex\n  }\n": LEGAL_PAGE_SEO_QUERYResult;

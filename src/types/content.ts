@@ -1825,6 +1825,34 @@ export interface SparkNewsletterContent {
   /** Footer şeridi. */
   footerHeading: string
   footerLabel: string
+  /** Sektör raporunun kilitli devamı (kart, şeritler, "zaten üyeyim"). "{email}" kodda doldurulur. */
+  gateTitle: string
+  gateText: string
+  gateEmailLabel: string
+  gateButton: string
+  gateNote: string
+  gateSending: string
+  gateErrorInvalid: string
+  gateErrorGeneric: string
+  gateFreshStrong: string
+  gateFreshRest: string
+  gateReminderStrong: string
+  gateReminderRest: string
+  gateResend: string
+  gateChange: string
+  gateNewEmailLabel: string
+  gateUpdate: string
+  gateResent: string
+  gateChanged: string
+  gateConfirmed: string
+  gateMemberPrompt: string
+  gateMemberButton: string
+  gateMemberTitle: string
+  gateMemberText: string
+  gateMemberNote: string
+  gateBackPrompt: string
+  gateBackButton: string
+  gateClose: string
 }
 
 export interface SparkHubContent {
@@ -1868,6 +1896,8 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
   )
 
 interface SparkEpisodeEntryBase {
+  /** Sektör raporunda özetten sonrası bültenle açılır (Studio: "Devamı bültenle açılsın"). */
+  gated: boolean
   launchDate: string | null
   closureDate: string | null
   /** "7 years"; boşsa gün sayısı tarihlerden. */
@@ -2209,6 +2239,21 @@ export interface NewsletterStripProps {
   locale: Locale;
   id?: string;
   className?: string;
+}
+
+/** Kilitli sektör raporu: kart ve şeritlerin metni (hub.newsletter). */
+export interface ReportGateInfo {
+  newsletter: SparkNewsletterContent;
+}
+
+export interface ReportGateProps {
+  gate?: ReportGateInfo;
+  locale: Locale;
+  children: ReactNode;
+}
+
+export interface ConfirmReturnProps {
+  content: SparkNewsletterContent;
 }
 
 export interface NewsletterBoxProps {
@@ -2809,6 +2854,8 @@ export interface TsdBlockRendererProps {
 export interface ReportEpisodeProps {
   report: SparkReport
   locale: Locale
+  /** Verilirse özetten sonrası bültenle açılır. */
+  gate?: ReportGateInfo
   /** "Source {n}" dipnot linkinin erişilebilir adı. */
   footnoteTemplate: string
 }
@@ -2836,6 +2883,7 @@ export interface ReportCountFigureProps {
 export interface DoraEpisodeProps {
   report: SparkDoraReport
   locale: Locale
+  gate?: ReportGateInfo
 }
 
 export interface DoraInlineProps {
@@ -2873,6 +2921,7 @@ export interface DoraTimelineProps {
 export interface Psd3EpisodeProps {
   report: SparkPsd3Report
   locale: Locale
+  gate?: ReportGateInfo
   portraitSrc?: string
   portraitAlt: string
 }
@@ -2930,6 +2979,7 @@ export interface Psd3JourneyProps {
 export interface KycEpisodeProps {
   report: SparkKycReport
   locale: Locale
+  gate?: ReportGateInfo
   portraitSrc?: string
   portraitAlt: string
 }
@@ -3436,4 +3486,27 @@ export interface RadarNetProps {
 export interface RadarIssueListProps {
   issues: RadarIssue[]
   copy: RadarFormatCopy
+}
+
+// Sektör raporu kilidi: şeritler (components/spark/gate)
+export interface GateStripProps {
+  content: SparkNewsletterContent;
+  email: string;
+  onClose: () => void;
+}
+
+export interface GateReminderProps extends GateStripProps {
+  locale: Locale;
+}
+
+export interface GatedContentProps {
+  newsletter: SparkNewsletterContent;
+  locale: Locale;
+  children: ReactNode;
+}
+
+export interface GateCardProps {
+  content: SparkNewsletterContent;
+  locale: Locale;
+  onOpened: (email: string, member: boolean) => void;
 }

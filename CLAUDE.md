@@ -154,6 +154,14 @@ Metinler Sanity Spark → Newsletter (`sparkSection.newsletter`, aynası `src/co
 
 ---
 
+## Spark sektör raporları: bültenle açılan devam
+
+Sektör raporu belgesinde `gated` (boolean, Studio: "Devamı bültenle açılsın", varsayılan kapalı; sadece report/dora/psd3/kyc düzenlerinde görünür). Hangi raporun kilitleneceğini Studio'dan seçilir, kodda rapor bazında bir şey yok. Açıkken sayfa `ReportGate` (`components/spark/gate/`) ile özetten sonrasını `GatedContent`'e sarar: Bauspar ve DORA'da `ReportNav`'dan sonrası, PSD3 ve KYC'de `#short` bölümünden sonrası. Metin HTML'de durur (arama motoru okur); kilit sadece görsel ve `.js` sınıfına bağlı (`globals.css`, `[data-gate]`): bulanık, 620px'e kırpık, seçilemez, `inert`. Kart ve şerit metinleri Sanity Spark → Newsletter'da `gate*` alanları (mirror `src/content/spark.ts`; yazmak: `npm run seed:v3 -- --only=newsletter`).
+
+Okurun durumu `localStorage["fspark9_spark_reader"]`: `{ email, status: "pending" | "confirmed", since, reminders, snoozedUntil }` (`lib/sparkReader.ts`, `hooks/useSparkReader.ts`). Yok ya da depolama kapalıysa durum sorulmaz; kilit sadece depolama çalışıyor ve durum yokken görünür. Kilitli kart formu aynı Kit formuna `fetch` ile (`Accept: application/json`, alan `email_address`) arka planda gönderir, sayfa değişmez; Kit adresi CORS'a açık, route handler yok. Başarıda `pending` yazılır, yeni kayıt şeridi çıkar. "Zaten üyeyim" aynı formu gönderir ve doğrudan `confirmed` yazar, şerit yok. Düz HTML formlar (footer, sabit kutu, bölüm sonu) adresi sessionStorage'a bırakır; teşekkür sayfaları (`ReaderMark`) `pending`, `/newsletter-confirmed` `confirmed` yazar. Onay dönüşü: Kit'te onay sonrası adresi TR `https://fspark9.com/tr/spark?onay=1`, EN `https://fspark9.com/spark?confirmed=1`; `ConfirmReturn` (Spark girişi) durumu `confirmed` yapar, parametreyi `history.replaceState` ile siler ve bir kez onay şeridini gösterir. Hatırlatma (onay bekleyen okura kilitli raporda, `GateReminderStrip`): en fazla 3 ziyaret (oturum başına bir sayım), kapatılınca 14 gün yok, kayıttan 60 gün sonra yok. Sabit bülten kutusu (`NewsletterBox`) kayıtlı okura ve kilitli rapor açıkken hiç görünmez.
+
+---
+
 ## Analytics
 
 Vercel Web Analytics (`@vercel/analytics/next`) ve Speed Insights (`@vercel/speed-insights/next`). Üç ayrı kök HTML var ve üçünde de ikisi birden duruyor: `src/app/[locale]/layout.tsx`, `src/app/global-not-found.tsx`, `src/app/(locked)/layout.tsx`. Yeni bir kök HTML dosyası eklenirse oraya da eklenir.
