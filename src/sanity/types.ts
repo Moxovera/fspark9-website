@@ -157,7 +157,7 @@ export type SparkEpisode = {
   slug?: LocaleSlug;
   seo?: Seo;
   subject?: LocaleString;
-  layout?: "story" | "decisions" | "report" | "dora" | "psd3" | "kyc" | "radar";
+  layout?: "story" | "decisions" | "report" | "dora" | "psd3" | "kyc" | "sme" | "radar";
   city?: string;
   country?: string;
   launchDate?: string;
@@ -1651,7 +1651,7 @@ export type SPARK_EPISODES_QUERYResult = Array<{
   lastCheckedAt: string | null;
   _createdAt: string;
   _updatedAt: string;
-  layout: "decisions" | "dora" | "kyc" | "psd3" | "radar" | "report" | "story" | null;
+  layout: "decisions" | "dora" | "kyc" | "psd3" | "radar" | "report" | "sme" | "story" | null;
   launchDate: string | null;
   closureDate: string | null;
   durationLabel: LocaleString | null;

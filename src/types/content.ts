@@ -1054,6 +1054,193 @@ export interface SparkKycReport {
 
 export type SparkKycReportBody = Omit<SparkKycReport, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
 
+// Sektör raporları Nº 05 Almanya KOBİ bankacılığı (layout "sme"). Metin
+// src/content/sector/de-sme.json'da; "[n]" kaynak linki, "**...**" kalın.
+// `reading` alanları fspark9 yorumu: sayfada "Bizim okumamız" işaretiyle ayrılır.
+export type SmeGroup = 'traditional' | 'digital' | 'licensed' | 'credit'
+export type SmePath = 'sparkasse' | 'digital'
+
+export interface SmePlayer {
+  key: string
+  name: string
+  group: SmeGroup
+  /** Platform genişliği, 0 ile 10. */
+  x: number
+  /** Bilanço gücü, 0 ile 10. */
+  y: number
+  /** Etiketin noktaya göre yeri. */
+  side: 'l' | 'r' | 't' | 'b'
+  pitch: string
+  edge: string
+  weak: string
+}
+
+export interface SmeAccount {
+  name: string
+  base: number
+  free: number
+  per: number
+  /** Fiyat KDV hariç yazılıyor (Qonto, Holvi, Kontist). */
+  vat: boolean
+}
+
+export interface SmeChoice {
+  key: string
+  label: string
+  result: string
+}
+
+export interface SmeDoor {
+  key: string
+  name: string
+  /** Kumbaraya koyabildiği tutar (euro). */
+  amount: number
+  /** half: yarım açılıyor, closed: açılmıyor. */
+  state: 'half' | 'closed'
+  verdict: string
+  text: string
+  /** Yola göre değişen metin; yoksa `text`. */
+  textBy?: Partial<Record<SmePath, string>>
+}
+
+export interface SmeTimelineEvent {
+  /** "2025-10": konum ve geçmiş/gelecek ayrımı. */
+  at: string
+  date: string
+  title: string
+  text: string
+  who: string
+}
+
+export interface SparkSmeReport {
+  number: number
+  subject: string
+  hook: string
+  cardLinkLabel: string
+  seo: PageSeo
+  readingLabel: string
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    titleTail: string
+    sub: string
+    twins: ReportCountFigure[]
+    twinsLine: string
+  }
+  ticker: string[]
+  short: {
+    head: ReportHead
+    items: { title: string; text: string; reading?: string }[]
+    questionLabel: string
+    question: string
+  }
+  map: {
+    head: ReportHead
+    chartLabel: string
+    axisX: string
+    axisY: string
+    gapLabel: string
+    legend: Record<SmeGroup, string>
+    labels: { pitch: string; edge: string; weak: string }
+    hint: string
+    players: SmePlayer[]
+    note: string
+    qonto: { button: string; reset: string; x: number; y: number; text: string; reading: string }
+  }
+  cost: {
+    head: ReportHead
+    sliderLabel: string
+    unit: string
+    listLabel: string
+    perMonth: string
+    currency: string
+    termsTemplate: string
+    termsNoneTemplate: string
+    vatLabel: string
+    vatTag: string
+    vatNote: string
+    accounts: SmeAccount[]
+    sparkasse: { label: string; text: string }
+    lesson: string
+    note: string
+  }
+  story: {
+    head: ReportHead
+    intro: string
+    stickyTitle: string
+    monthLabel: string
+    pathLabels: Record<SmePath, string>
+    pickFirst: string
+    changeLabel: string
+    questionLabel: string
+    resultLabel: string
+    found: { month: number; title: string; text: string; question: string; options: { key: SmePath; label: string; sub: string; result: string }[] }
+    cash: { month: number; title: string; text: string; results: Record<SmePath, string> }
+    crisis: { month: number; title: string; texts: Record<SmePath, string>; question: string; choices: Record<SmePath, SmeChoice[]> }
+    credit: {
+      month: number
+      title: string
+      text: string
+      goal: number
+      barLabel: string
+      missingTemplate: string
+      bestTemplate: string
+      doorsLabel: string
+      triedLabel: string
+      doors: SmeDoor[]
+      finalLine: string
+      finalNote: string
+    }
+    invoice: { month: number; title: string; text: string; deadline: string; countdownTemplate: string; question: string }
+  }
+  mirror: {
+    head: ReportHead
+    toggleLabel: string
+    sides: Record<SmePath, string>
+    columns: { stage: string; complaint: string; want: string }
+    rows: { stage: string; digital: string; traditional: string; want: string }[]
+    refs: string
+    scoresLabel: string
+    scores: { name: string; score: number; count: string }[]
+    scoreRefs: string
+    scoreReading: string
+    caveat: string
+  }
+  timeline: {
+    head: ReportHead
+    today: string
+    todayLabel: string
+    whoLabel: string
+    years: string[]
+    events: SmeTimelineEvent[]
+    effectsHeading: string
+    effects: { title: string; text: string }[]
+  }
+  gaps: {
+    head: ReportHead
+    evidenceLabel: string
+    chanceLabel: string
+    items: { key: string; title: string; evidence: string; chance: string }[]
+  }
+  note: {
+    head: ReportHead
+    intro: string
+    questions: string[]
+    linksLabel: string
+    links: { label: string; slug: string }[]
+  }
+  sources: {
+    head: ReportHead
+    sourceTemplate: string
+    groups: { title: string; items: { label: string; href: string }[] }[]
+    foot: string
+  }
+}
+
+export type SparkSmeReportBody = Omit<SparkSmeReport, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -1892,6 +2079,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'dora'; story: SparkDoraReport }
     | { layout: 'psd3'; story: SparkPsd3Report }
     | { layout: 'kyc'; story: SparkKycReport }
+    | { layout: 'sme'; story: SparkSmeReport }
     | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
@@ -3020,6 +3208,58 @@ export interface KycStoryProps {
 
 export interface KycPathsProps {
   paths: SparkKycReport['uk']['paths']
+  template: string
+}
+
+// Sektör raporu Nº 05 Almanya KOBİ bankacılığı bileşenleri (components/spark/report/sme)
+export interface SmeEpisodeProps {
+  report: SparkSmeReport
+  locale: Locale
+  gate?: ReportGateInfo
+}
+
+export interface SmeReadingProps {
+  label: string
+  text: string
+  template: string
+  ground?: BrandGround
+  className?: string
+}
+
+export interface SmeTwinsProps {
+  twins: ReportCountFigure[]
+  locale: Locale
+  template: string
+}
+
+export interface SmeMapProps {
+  map: SparkSmeReport['map']
+  readingLabel: string
+  template: string
+}
+
+export interface SmeCostProps {
+  cost: SparkSmeReport['cost']
+  locale: Locale
+  template: string
+}
+
+export interface SmeStoryProps {
+  story: SparkSmeReport['story']
+  locale: Locale
+  template: string
+}
+
+export interface SmeMirrorProps {
+  mirror: SparkSmeReport['mirror']
+  readingLabel: string
+  template: string
+  locale: Locale
+}
+
+export interface SmeTimelineProps {
+  timeline: SparkSmeReport['timeline']
+  readingLabel: string
   template: string
 }
 

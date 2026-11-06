@@ -135,6 +135,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sector report",
+          number: "Nº 05",
+          title: "The account moved online. The loan stayed at the branch.",
+          line: "Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
+          date: "6 Nov 2026",
+          linkLabel: "Read the report",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "de-sme" },
+          },
+        },
+        {
+          format: "Sector report",
           number: "Nº 04",
           title: "Europe's KYC rules are changing",
           line: "Europe's new rules put eID first. What it means for KYC and KYB providers, banks and fintechs, with the UK side by side.",
@@ -155,18 +167,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sector-reports", episodeSlug: "psd3-fida" },
-          },
-        },
-        {
-          format: "The Last Day",
-          number: "Nº 05",
-          title: "Xinja Bank",
-          line: "The bank that ran out of savings accounts.",
-          date: "27 Oct 2026",
-          linkLabel: "Read the episode",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "the-last-day", episodeSlug: "05-xinja" },
           },
         },
       ],
@@ -301,6 +301,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sektör raporu",
+          number: "Nº 05",
+          title: "Hesap dijitale geçti, kredi şubede kaldı",
+          line: "Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
+          date: "6 Kas 2026",
+          linkLabel: "Raporu okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "de-sme" },
+          },
+        },
+        {
+          format: "Sektör raporu",
           number: "Nº 04",
           title: "Avrupa'da KYC kuralları değişiyor",
           line: "Avrupa'nın yeni kuralları eID'yi öne alıyor. KYC ve KYB sağlayıcıları, bankalar ve fintechler için ne değişiyor, İngiltere ile birlikte.",
@@ -321,18 +333,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sektor-raporlari", episodeSlug: "psd3-fida" },
-          },
-        },
-        {
-          format: "Son Gün",
-          number: "Nº 05",
-          title: "Xinja Bank",
-          line: "Tasarruf hesabı tükenen banka.",
-          date: "27 Eki 2026",
-          linkLabel: "Bölümü okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "son-gun", episodeSlug: "05-xinja" },
           },
         },
       ],

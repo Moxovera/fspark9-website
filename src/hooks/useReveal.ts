@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // CLAUDE.md: "Observer tek bir hook'ta toplanır... Her bölüm kendi
 // observer'ını kurmaz." — bu yüzden IntersectionObserver modül seviyesinde
@@ -64,4 +64,32 @@ export function useReveal<T extends HTMLElement>(threshold?: number) {
   }, [threshold])
 
   return ref
+}
+
+/**
+ * useReveal ile aynı gözlemci: eleman bir kez görünür olunca `true` döner
+ * (sayaçlar gibi bir kez oynayan hareketler için). Reduced-motion'da
+ * hemen `true`; hareketi çağıran taraf ayrıca reduced-motion'a bakar.
+ */
+export function useInView<T extends HTMLElement>(threshold?: number) {
+  const ref = useRef<T>(null)
+  const [seen, setSeen] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setSeen(true)
+      return
+    }
+    const observer = getObserver(threshold)
+    revealCallbacks.set(el, () => setSeen(true))
+    observer.observe(el)
+    return () => {
+      revealCallbacks.delete(el)
+      observer.unobserve(el)
+    }
+  }, [threshold])
+
+  return { ref, seen }
 }

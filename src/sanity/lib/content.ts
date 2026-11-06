@@ -44,6 +44,8 @@ import type {
   SparkPsd3ReportBody,
   SparkKycReport,
   SparkKycReportBody,
+  SparkSmeReport,
+  SparkSmeReportBody,
   SparkEpisodeStory,
   SparkHubContent,
   WorkPageContent,
@@ -594,6 +596,10 @@ export async function getSparkEpisodes(): Promise<Record<Locale, SparkEpisodeEnt
         const kyc = toKyc(rest, locale);
         return kyc ? [{ ...base, layout: "kyc", story: kyc }] : [];
       }
+      if (rest.layout === "sme") {
+        const sme = toSme(rest, locale);
+        return sme ? [{ ...base, layout: "sme", story: sme }] : [];
+      }
       if (rest.layout === "radar") {
         const radar = toRadar(rest, locale, publishedAt ?? _createdAt.slice(0, 10));
         return radar ? [{ ...base, layout: "radar", story: radar }] : [];
@@ -713,6 +719,14 @@ function toKyc(doc: EpisodeDoc, locale: Locale): SparkKycReport | null {
   if (!raw) return null;
   const { number, subject, hook, seo, cardLinkLabel } = localize(doc, locale);
   return { number, subject, hook, seo, cardLinkLabel: cardLinkLabel ?? "", ...(JSON.parse(raw) as SparkKycReportBody) };
+}
+
+/** Sektör raporu Nº 05 Almanya KOBİ bankacılığı: PSD3 gibi dil başına JSON (`reportBody`), şekli SparkSmeReport. */
+function toSme(doc: EpisodeDoc, locale: Locale): SparkSmeReport | null {
+  const raw = doc.reportBody?.[locale];
+  if (!raw) return null;
+  const { number, subject, hook, seo, cardLinkLabel } = localize(doc, locale);
+  return { number, subject, hook, seo, cardLinkLabel: cardLinkLabel ?? "", ...(JSON.parse(raw) as SparkSmeReportBody) };
 }
 
 /** Sektör raporu Nº 02 DORA: Bauspar gibi dil başına JSON (`reportBody`), şekli SparkDoraReport. */
