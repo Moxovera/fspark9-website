@@ -1,21 +1,21 @@
 {
   "tr": {
     "number": 5,
-    "subject": "Hesap dijitale geçti, kredi şubede kaldı",
+    "subject": "Almanya KOBİ bankacılığı",
     "hook": "Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
     "cardLinkLabel": "Raporu okuyun",
     "seo": {
-      "title": "Almanya KOBİ bankacılığı: hesap dijitale geçti, kredi şubede kaldı",
+      "title": "Almanya KOBİ bankacılığı",
       "description": "Almanya'da 3,87 milyon KOBİ'nin günlük parasını uygulamalar, kredisini Sparkasse yönetiyor. Rekabet haritası, hesap ücreti hesaplayıcısı, bir kurucunun 30 ayı ve pazardaki sekiz boşluk."
     },
     "readingLabel": "Bizim okumamız",
     "hero": {
       "meta": ["Spark", "02 Sektör raporları", "Kasım 2026"],
       "bigNo": "05",
-      "titleLead": "Hesap dijitale geçti, kredi",
-      "titleCut": "şubede",
-      "titleTail": "kaldı",
-      "sub": "Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
+      "titleLead": "Almanya KOBİ",
+      "titleCut": "bankacılığı",
+      "titleTail": "",
+      "sub": "Hesap dijitale geçti, kredi şubede kaldı. Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
       "twins": [
         { "value": "12.900", "to": 12900, "decimals": 0, "template": "{n}", "label": "şirket iflası, 2026'nın ilk yarısında. 2013'ten beri en yüksek sayı.[2]" },
         { "value": "5", "to": 5, "decimals": 0, "template": "{n}", "label": "üst üste artış. KOBİ iş iklimi Eylül 2026'da beşinci kez yükseldi.[3]" }
@@ -328,21 +328,21 @@
   },
   "en": {
     "number": 5,
-    "subject": "The account moved online. The loan stayed at the branch.",
+    "subject": "Germany SME banking",
     "hook": "Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
     "cardLinkLabel": "Read the report",
     "seo": {
-      "title": "German SME banking: the account moved online, the loan stayed at the branch",
+      "title": "Germany SME banking",
       "description": "Apps run the daily money of Germany's 3.87 million SMEs, Sparkassen still hold their loans. A competition map, an account fee calculator, one founder's 30 months and eight gaps in the market."
     },
     "readingLabel": "Our reading",
     "hero": {
       "meta": ["Spark", "02 Sector reports", "November 2026"],
       "bigNo": "05",
-      "titleLead": "The account moved online. The loan stayed at the",
-      "titleCut": "branch.",
+      "titleLead": "Germany SME",
+      "titleCut": "banking",
       "titleTail": "",
-      "sub": "Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
+      "sub": "The account moved online, the loan stayed at the branch. Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
       "twins": [
         { "value": "12,900", "to": 12900, "decimals": 0, "template": "{n}", "label": "company insolvencies in the first half of 2026. The most since 2013.[2]" },
         { "value": "5", "to": 5, "decimals": 0, "template": "{n}", "label": "rises in a row. SME business sentiment went up again in September 2026.[3]" }

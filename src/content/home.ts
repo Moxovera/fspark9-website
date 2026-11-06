@@ -136,7 +136,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sector report",
           number: "Nº 05",
-          title: "The account moved online. The loan stayed at the branch.",
+          title: "Germany SME banking",
           line: "Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
           date: "6 Nov 2026",
           linkLabel: "Read the report",
@@ -302,7 +302,7 @@ export const home: Record<Locale, HomeContent> = {
         {
           format: "Sektör raporu",
           number: "Nº 05",
-          title: "Hesap dijitale geçti, kredi şubede kaldı",
+          title: "Almanya KOBİ bankacılığı",
           line: "Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
           date: "6 Kas 2026",
           linkLabel: "Raporu okuyun",
