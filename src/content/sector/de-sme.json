@@ -10,15 +10,31 @@
     },
     "readingLabel": "Bizim okumamız",
     "hero": {
-      "meta": ["Spark", "02 Sektör raporları", "Kasım 2026"],
+      "meta": [
+        "Spark",
+        "02 Sektör raporları",
+        "Kasım 2026"
+      ],
       "bigNo": "05",
       "titleLead": "Almanya KOBİ",
       "titleCut": "bankacılığı",
       "titleTail": "",
       "sub": "Hesap dijitale geçti, kredi şubede kaldı. Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
       "twins": [
-        { "value": "12.900", "to": 12900, "decimals": 0, "template": "{n}", "label": "şirket iflası, 2026'nın ilk yarısında. 2013'ten beri en yüksek sayı.[2]" },
-        { "value": "5", "to": 5, "decimals": 0, "template": "{n}", "label": "üst üste artış. KOBİ iş iklimi Eylül 2026'da beşinci kez yükseldi.[3]" }
+        {
+          "value": "12.900",
+          "to": 12900,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "şirket iflası, 2026'nın ilk yarısında. 2013'ten beri en yüksek sayı.[2]"
+        },
+        {
+          "value": "5",
+          "to": 5,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "üst üste artış. KOBİ iş iklimi Eylül 2026'da beşinci kez yükseldi.[3]"
+        }
       ],
       "twinsLine": "İki ekonomi aynı anda yaşanıyor. Biri batıyor, öteki toparlanıyor."
     },
@@ -33,22 +49,56 @@
       "E-fatura herkese Ocak 2028"
     ],
     "short": {
-      "head": { "index": "01", "label": "Kısa versiyon", "title": "Günlük para dijitalde, büyük para şubede." },
+      "head": {
+        "index": "01",
+        "label": "Kısa versiyon",
+        "title": "Raporun özeti"
+      },
       "items": [
-        { "title": "Ayakta ama yorgun.", "text": "3,87 milyon KOBİ 33 milyon kişiye iş veriyor. İflaslar 2013'ten beri en yüksekte, iş iklimi ise beş kez üst üste yükseldi.[1][2][3]" },
-        { "title": "Kredi hiç bu kadar zor olmadı.", "text": "Kredi görüşmesine giren KOBİ'lerin %40,5'i bankasını kısıtlayıcı buluyor. Ölçüm 2017'de başladı, bu en yüksek oran.[4]" },
-        { "title": "Kredinin kapısı şubede.", "text": "Şirket kredisinin yaklaşık %40'ı Sparkassen ve Landesbanken'de. KfW'nin teşvikli kredisi yalnızca Hausbank üzerinden geliyor.[5]" },
-        { "title": "En hızlı büyüyenler platformlar.", "text": "Finom yaklaşık 15 ayda 125 binden 300 binin üstüne çıktı. Qonto 750 binden fazla müşteriyle en büyüğü ve banka lisansını bekliyor.[6][7]" },
-        { "title": "Hepsi bir arada artık standart.", "text": "Dijitallerin hepsi hesabın yanına fatura, muhasebe ve kart koydu. Fark krediyi ve mevduat getirisini ekleyebilmekte.[8]" },
-        { "title": "En çok kriz anı acıtıyor.", "text": "Dijitalde hesap donuyor ve destek ulaşılmaz oluyor. Gelenekselde hesap haftalarca açılmıyor, teşvikli kredi bankada takılıyor." },
-        { "title": "Kurallar değişiyor.", "text": "E-fatura 2028'de bütün B2B faturalarını makinece okunur yapıyor. PSD3 ve PSR dolandırıcılıkta sorumluluğu sağlayıcıya yüklüyor.[25][30]", "reading": "Fatura verisi kredi verisine dönüşecek. Sağlayıcılar riskten kaçarken hesap dondurmaları artabilir." },
-        { "title": "En büyük boşluk.", "text": "15.000-250.000 euro arasında hızlı, veriyle karar veren ve teşvike bağlanabilen kredi." }
+        {
+          "title": "Ayakta ama yorgun.",
+          "text": "3,87 milyon KOBİ 33 milyon kişiye iş veriyor. İflaslar 2013'ten beri en yüksekte, iş iklimi ise beş kez üst üste yükseldi.[1][2][3]"
+        },
+        {
+          "title": "Kredi hiç bu kadar zor olmadı.",
+          "text": "Kredi görüşmesine giren KOBİ'lerin %40,5'i bankasını kısıtlayıcı buluyor. Ölçüm 2017'de başladı, bu en yüksek oran.[4]"
+        },
+        {
+          "title": "Kredinin kapısı şubede.",
+          "text": "Şirket kredisinin yaklaşık %40'ı Sparkassen ve Landesbanken'de. KfW'nin teşvikli kredisi yalnızca Hausbank üzerinden geliyor.[5]"
+        },
+        {
+          "title": "En hızlı büyüyenler platformlar.",
+          "text": "Finom yaklaşık 15 ayda 125 binden 300 binin üstüne çıktı. Qonto 750 binden fazla müşteriyle en büyüğü ve banka lisansını bekliyor.[6][7]"
+        },
+        {
+          "title": "Hepsi bir arada artık standart.",
+          "text": "Dijitallerin hepsi hesabın yanına fatura, muhasebe ve kart koydu. Fark krediyi ve mevduat getirisini ekleyebilmekte.[8]"
+        },
+        {
+          "title": "En çok kriz anı acıtıyor.",
+          "text": "Dijitalde hesap donuyor ve destek ulaşılmaz oluyor. Gelenekselde hesap haftalarca açılmıyor, teşvikli kredi bankada takılıyor."
+        },
+        {
+          "title": "Kurallar değişiyor.",
+          "text": "E-fatura 2028'de bütün B2B faturalarını makinece okunur yapıyor. PSD3 ve PSR dolandırıcılıkta sorumluluğu sağlayıcıya yüklüyor.[25][30]",
+          "reading": "Fatura verisi kredi verisine dönüşecek. Sağlayıcılar riskten kaçarken hesap dondurmaları artabilir."
+        },
+        {
+          "title": "En büyük boşluk.",
+          "text": "15.000-250.000 euro arasında hızlı, veriyle karar veren ve teşvike bağlanabilen kredi."
+        }
       ],
       "questionLabel": "Bu raporun sorusu",
       "question": "Hesap ile kredi arasındaki köprüyü kim kuracak?"
     },
     "map": {
-      "head": { "index": "02", "label": "Harita", "title": "Sağ üst köşe boş.", "lede": "Dikey eksen bilanço ve kredi gücü, yatay eksen platformun genişliği. Gelenekseller sol üstte, dijitaller sağ altta. Hem bilançosu hem geniş platformu olan oyuncu yok." },
+      "head": {
+        "index": "02",
+        "label": "Harita",
+        "title": "Rekabet haritası",
+        "lede": "Dikey eksen bilanço ve kredi gücü, yatay eksen platformun genişliği. Gelenekseller sol üstte, dijitaller sağ altta. Hem bilançosu hem geniş platformu olan oyuncu yok."
+      },
       "chartLabel": "Rekabet haritası: on dört oyuncu, bilanço gücüne ve platform genişliğine göre. Sağ üst köşe boş.",
       "axisX": "Platform genişliği",
       "axisY": "Bilanço gücü",
@@ -59,23 +109,167 @@
         "licensed": "Dijital, banka lisansı",
         "credit": "Alternatif kredi"
       },
-      "labels": { "pitch": "Kendini nasıl anlatıyor", "edge": "Kozu", "weak": "Zayıf karnı" },
+      "labels": {
+        "pitch": "Kendini nasıl anlatıyor",
+        "edge": "Kozu",
+        "weak": "Zayıf karnı"
+      },
       "hint": "Bir oyuncuya dokun.",
       "players": [
-        { "key": "sparkassen", "name": "Sparkassen", "group": "traditional", "x": 1.4, "y": 9.0, "side": "r", "pitch": "Bölgenin bankası, KOBİ'nin doğal Hausbank'ı.", "edge": "6.810 şube, şirket kredisinin yaklaşık %40'ı, uygulamada Lexware Office bağlantısı.[10][5]", "weak": "Her Sparkasse kendi fiyatını koyuyor, deneyim şubeden şubeye değişiyor. Trustpilot puanı 1,6.[11]" },
-        { "key": "volksbanken", "name": "Volksbanken", "group": "traditional", "x": 1.0, "y": 7.3, "side": "r", "pitch": "Üyesi olduğun, kararı yerelde veren banka.", "edge": "Kooperatif aidiyeti. Esnaf ve tarımda derin ilişki.", "weak": "Fiyat ve dijital deneyim bankadan bankaya değişiyor. Birleşmelerle IBAN ve danışman değişiyor.[21]" },
-        { "key": "commerzbank", "name": "Commerzbank", "group": "traditional", "x": 2.9, "y": 8.0, "side": "r", "pitch": "Mittelstand'ın özel bankası, dış ticaretin ortağı.", "edge": "Ülke çapında kurumsal ağ, dış ticaret ve nakit yönetimi.", "weak": "UniCredit kontrolü 2027 başında almayı hedefliyor, müşteri tarafında belirsizlik var. Küçük KOBİ'de fiyat avantajı yok.[13]" },
-        { "key": "deutsche", "name": "Deutsche Bank", "group": "traditional", "x": 3.3, "y": 9.4, "side": "r", "pitch": "Tek grupta üç marka: Deutsche Bank, Postbank ve Fyrst.", "edge": "Postbank ile nakit kabul ağı, Fyrst ile dijital yan marka.", "weak": "Business Basic hesabı 300 işlemde ayda 104,90 euro, listenin en pahalısı.[8]" },
-        { "key": "fyrst", "name": "Fyrst", "group": "licensed", "x": 5.6, "y": 5.5, "side": "l", "pitch": "Deutsche Bank'ın dijital yan markası: 7 dakikada hesap.", "edge": "3.000-250.000 euro kredi hattı. 300 işlemde ayda 28 euro, listenin en ucuzu.[8]", "weak": "Banka lisansı var ama Almanya'da KOBİ kredisinde ciddi bir payı yok. DATEV bağlantısı ayrıca ücretli.[8]" },
-        { "key": "n26", "name": "N26 Business", "group": "licensed", "x": 6.6, "y": 4.6, "side": "b", "pitch": "Freelancer ve dijital KOBİ için banka lisanslı mobil hesap.", "edge": "Tam banka lisansı. Wero Ağustos 2026'dan beri uygulamada.[31]", "weak": "Almanya'da KOBİ kredisinde ciddi bir payı yok. Shopify satıcıları ödeme hesabı olarak sorun yaşadıklarını yazıyor.[15]" },
-        { "key": "revolut", "name": "Revolut Business", "group": "licensed", "x": 7.7, "y": 5.4, "side": "r", "pitch": "Çok para birimli, global işletme hesabı.", "edge": "Döviz, çoklu IBAN, alt hesaplar.", "weak": "Yerel muhasebe bağlantısı zayıf. Basic pakette API yok.[8]" },
-        { "key": "iwoca", "name": "iwoca", "group": "credit", "x": 4.4, "y": 3.5, "side": "l", "pitch": "Hızlı işletme kredisi, bankanın yavaşlığına alternatif.", "edge": "Dakikalar içinde karar. Almanya'da 275 milyon euronun üstünde kredi, 10 binden fazla KOBİ. Tide'ın içinde de duruyor.[16][12]", "weak": "Maliyeti yüksek, bilinirliği düşük." },
-        { "key": "banxware", "name": "Banxware", "group": "credit", "x": 3.4, "y": 4.4, "side": "l", "pitch": "Platformun içine gömülü kredi.", "edge": "HypoVereinsbank'ın kurumsal müşterilerine anlık finansman sunuyor.[14]", "weak": "Maliyeti yüksek, bilinirliği düşük." },
-        { "key": "kontist", "name": "Kontist", "group": "digital", "x": 5.0, "y": 1.7, "side": "l", "pitch": "Serbest meslek sahibinin vergi asistanı.", "edge": "Her gelirden KDV ve gelir vergisi payını otomatik ayırıyor.", "weak": "Solo segmentle sınırlı, Solaris altyapısına bağlı.[8]" },
-        { "key": "holvi", "name": "Holvi", "group": "digital", "x": 6.1, "y": 0.9, "side": "l", "pitch": "Freelancer ve küçük ekip için sade hesap.", "edge": "Sınırsız işlemli paketler, e-fatura.", "weak": "Mevduat güvencesi yok, kredi yok.[8]" },
-        { "key": "tide", "name": "Tide", "group": "digital", "x": 7.2, "y": 1.3, "side": "b", "pitch": "Ücretsiz başla, her şey uygulamada.", "edge": "iwoca kredisi uygulamanın içinde. Nakit bonus ve %4,5 getiri.[12]", "weak": "Almanya'da hâlâ erken aşamada. 2026'ya kadar sadece şahıs şirketlerini alıyordu.[12]" },
-        { "key": "finom", "name": "Finom", "group": "digital", "x": 8.2, "y": 2.0, "side": "r", "pitch": "Hepsi bir arada ve ucuz: banka, fatura, muhasebe.", "edge": "%3'e varan cashback, %5 faizli hesap, fon üzerinden kredi hattı.[9][36]", "weak": "Hacme göre ücret küçük işletmeyi şaşırtabiliyor. Kredi kendi bilançosunda değil.[28]" },
-        { "key": "qonto", "name": "Qonto", "group": "digital", "x": 8.9, "y": 3.0, "side": "t", "pitch": "KOBİ'nin yapay zekâ destekli Avrupa şampiyonu, \"İsviçre çakısı\".[6]", "edge": "Şirket kuruluşunu hesapla birleştiriyor. Almanya'da her on kuruluştan biri onun aracından geçiyor.[6]", "weak": "Henüz banka değil, nakit almıyor, kredi 15.000 euro ve 60 günle sınırlı. Hesap dondurma şikayetleri var.[8][18]" }
+        {
+          "key": "sparkassen",
+          "name": "Sparkassen",
+          "group": "traditional",
+          "x": 1.4,
+          "y": 9.0,
+          "side": "r",
+          "pitch": "Bölgenin bankası, KOBİ'nin doğal Hausbank'ı.",
+          "edge": "6.810 şube, şirket kredisinin yaklaşık %40'ı, uygulamada Lexware Office bağlantısı.[10][5]",
+          "weak": "Her Sparkasse kendi fiyatını koyuyor, deneyim şubeden şubeye değişiyor. Trustpilot puanı 1,6.[11]"
+        },
+        {
+          "key": "volksbanken",
+          "name": "Volksbanken",
+          "group": "traditional",
+          "x": 1.0,
+          "y": 7.3,
+          "side": "r",
+          "pitch": "Üyesi olduğun, kararı yerelde veren banka.",
+          "edge": "Kooperatif aidiyeti. Esnaf ve tarımda derin ilişki.",
+          "weak": "Fiyat ve dijital deneyim bankadan bankaya değişiyor. Birleşmelerle IBAN ve danışman değişiyor.[21]"
+        },
+        {
+          "key": "commerzbank",
+          "name": "Commerzbank",
+          "group": "traditional",
+          "x": 2.9,
+          "y": 8.0,
+          "side": "r",
+          "pitch": "Mittelstand'ın özel bankası, dış ticaretin ortağı.",
+          "edge": "Ülke çapında kurumsal ağ, dış ticaret ve nakit yönetimi.",
+          "weak": "UniCredit kontrolü 2027 başında almayı hedefliyor, müşteri tarafında belirsizlik var. Küçük KOBİ'de fiyat avantajı yok.[13]"
+        },
+        {
+          "key": "deutsche",
+          "name": "Deutsche Bank",
+          "group": "traditional",
+          "x": 3.3,
+          "y": 9.4,
+          "side": "r",
+          "pitch": "Tek grupta üç marka: Deutsche Bank, Postbank ve Fyrst.",
+          "edge": "Postbank ile nakit kabul ağı, Fyrst ile dijital yan marka.",
+          "weak": "Business Basic hesabı 300 işlemde ayda 104,90 euro, listenin en pahalısı.[8]"
+        },
+        {
+          "key": "fyrst",
+          "name": "Fyrst",
+          "group": "licensed",
+          "x": 5.6,
+          "y": 5.5,
+          "side": "l",
+          "pitch": "Deutsche Bank'ın dijital yan markası: 7 dakikada hesap.",
+          "edge": "3.000-250.000 euro kredi hattı. 300 işlemde ayda 28 euro, listenin en ucuzu.[8]",
+          "weak": "Banka lisansı var ama Almanya'da KOBİ kredisinde ciddi bir payı yok. DATEV bağlantısı ayrıca ücretli.[8]"
+        },
+        {
+          "key": "n26",
+          "name": "N26 Business",
+          "group": "licensed",
+          "x": 6.6,
+          "y": 4.6,
+          "side": "b",
+          "pitch": "Freelancer ve dijital KOBİ için banka lisanslı mobil hesap.",
+          "edge": "Tam banka lisansı. Wero Ağustos 2026'dan beri uygulamada.[31]",
+          "weak": "Almanya'da KOBİ kredisinde ciddi bir payı yok. Shopify satıcıları ödeme hesabı olarak sorun yaşadıklarını yazıyor.[15]"
+        },
+        {
+          "key": "revolut",
+          "name": "Revolut Business",
+          "group": "licensed",
+          "x": 7.7,
+          "y": 5.4,
+          "side": "r",
+          "pitch": "Çok para birimli, global işletme hesabı.",
+          "edge": "Döviz, çoklu IBAN, alt hesaplar.",
+          "weak": "Yerel muhasebe bağlantısı zayıf. Basic pakette API yok.[8]"
+        },
+        {
+          "key": "iwoca",
+          "name": "iwoca",
+          "group": "credit",
+          "x": 4.4,
+          "y": 3.5,
+          "side": "l",
+          "pitch": "Hızlı işletme kredisi, bankanın yavaşlığına alternatif.",
+          "edge": "Dakikalar içinde karar. Almanya'da 275 milyon euronun üstünde kredi, 10 binden fazla KOBİ. Tide'ın içinde de duruyor.[16][12]",
+          "weak": "Maliyeti yüksek, bilinirliği düşük."
+        },
+        {
+          "key": "banxware",
+          "name": "Banxware",
+          "group": "credit",
+          "x": 3.4,
+          "y": 4.4,
+          "side": "l",
+          "pitch": "Platformun içine gömülü kredi.",
+          "edge": "HypoVereinsbank'ın kurumsal müşterilerine anlık finansman sunuyor.[14]",
+          "weak": "Maliyeti yüksek, bilinirliği düşük."
+        },
+        {
+          "key": "kontist",
+          "name": "Kontist",
+          "group": "digital",
+          "x": 5.0,
+          "y": 1.7,
+          "side": "l",
+          "pitch": "Serbest meslek sahibinin vergi asistanı.",
+          "edge": "Her gelirden KDV ve gelir vergisi payını otomatik ayırıyor.",
+          "weak": "Solo segmentle sınırlı, Solaris altyapısına bağlı.[8]"
+        },
+        {
+          "key": "holvi",
+          "name": "Holvi",
+          "group": "digital",
+          "x": 6.1,
+          "y": 0.9,
+          "side": "l",
+          "pitch": "Freelancer ve küçük ekip için sade hesap.",
+          "edge": "Sınırsız işlemli paketler, e-fatura.",
+          "weak": "Mevduat güvencesi yok, kredi yok.[8]"
+        },
+        {
+          "key": "tide",
+          "name": "Tide",
+          "group": "digital",
+          "x": 7.2,
+          "y": 1.3,
+          "side": "b",
+          "pitch": "Ücretsiz başla, her şey uygulamada.",
+          "edge": "iwoca kredisi uygulamanın içinde. Nakit bonus ve %4,5 getiri.[12]",
+          "weak": "Almanya'da hâlâ erken aşamada. 2026'ya kadar sadece şahıs şirketlerini alıyordu.[12]"
+        },
+        {
+          "key": "finom",
+          "name": "Finom",
+          "group": "digital",
+          "x": 8.2,
+          "y": 2.0,
+          "side": "r",
+          "pitch": "Hepsi bir arada ve ucuz: banka, fatura, muhasebe.",
+          "edge": "%3'e varan cashback, %5 faizli hesap, fon üzerinden kredi hattı.[9][36]",
+          "weak": "Hacme göre ücret küçük işletmeyi şaşırtabiliyor. Kredi kendi bilançosunda değil.[28]"
+        },
+        {
+          "key": "qonto",
+          "name": "Qonto",
+          "group": "digital",
+          "x": 8.9,
+          "y": 3.0,
+          "side": "t",
+          "pitch": "KOBİ'nin yapay zekâ destekli Avrupa şampiyonu, \"İsviçre çakısı\".[6]",
+          "edge": "Şirket kuruluşunu hesapla birleştiriyor. Almanya'da her on kuruluştan biri onun aracından geçiyor.[6]",
+          "weak": "Henüz banka değil, nakit almıyor, kredi 15.000 euro ve 60 günle sınırlı. Hesap dondurma şikayetleri var.[8][18]"
+        }
       ],
       "note": "Fyrst, N26 ve Revolut sağ üste en yakın olanlar, çünkü banka lisansları var. Ama hiçbiri Almanya'da KOBİ kredisinde ciddi bir pay almış değil.",
       "qonto": {
@@ -88,7 +282,12 @@
       }
     },
     "cost": {
-      "head": { "index": "03", "label": "Hesap ücreti", "title": "Hesap sana ayda kaça patlıyor?", "lede": "Asıl maliyet temel ücrette değil, işlem sayısında. Kaydırıcıyı kendi aylık işlem sayına getir." },
+      "head": {
+        "index": "03",
+        "label": "Hesaplayıcı",
+        "title": "Hesap ücretleri",
+        "lede": "Asıl maliyet temel ücrette değil, işlem sayısında. Kaydırıcıyı kendi aylık işlem sayına getir."
+      },
       "sliderLabel": "Aylık işlem sayısı",
       "unit": "işlem",
       "listLabel": "Aylık maliyet, ucuzdan pahalıya",
@@ -100,26 +299,91 @@
       "vatTag": "+%19 KDV",
       "vatNote": "Qonto, Holvi ve Kontist fiyatı KDV hariç yazıyor. İndirim yapamıyorsan %19 ekle: 11 euro, 13,09 euro olur.[8]",
       "accounts": [
-        { "name": "Fyrst Complete", "base": 10, "free": 75, "per": 0.08, "vat": false },
-        { "name": "Qonto Premium", "base": 45, "free": 200, "per": 0.1, "vat": true },
-        { "name": "Tide Smart", "base": 9.99, "free": 75, "per": 0.2, "vat": false },
-        { "name": "Holvi Lite", "base": 9, "free": 100, "per": 0.25, "vat": true },
-        { "name": "Qonto Basic", "base": 11, "free": 30, "per": 0.2, "vat": true },
-        { "name": "Commerzbank Klassik", "base": 15.9, "free": 10, "per": 0.2, "vat": false },
-        { "name": "Kontist Start", "base": 11, "free": 30, "per": 0.25, "vat": true },
-        { "name": "Postbank Business Giro", "base": 12.9, "free": 0, "per": 0.28, "vat": false },
-        { "name": "Deutsche Bank Business Basic", "base": 14.9, "free": 0, "per": 0.3, "vat": false }
+        {
+          "name": "Fyrst Complete",
+          "base": 10,
+          "free": 75,
+          "per": 0.08,
+          "vat": false
+        },
+        {
+          "name": "Qonto Premium",
+          "base": 45,
+          "free": 200,
+          "per": 0.1,
+          "vat": true
+        },
+        {
+          "name": "Tide Smart",
+          "base": 9.99,
+          "free": 75,
+          "per": 0.2,
+          "vat": false
+        },
+        {
+          "name": "Holvi Lite",
+          "base": 9,
+          "free": 100,
+          "per": 0.25,
+          "vat": true
+        },
+        {
+          "name": "Qonto Basic",
+          "base": 11,
+          "free": 30,
+          "per": 0.2,
+          "vat": true
+        },
+        {
+          "name": "Commerzbank Klassik",
+          "base": 15.9,
+          "free": 10,
+          "per": 0.2,
+          "vat": false
+        },
+        {
+          "name": "Kontist Start",
+          "base": 11,
+          "free": 30,
+          "per": 0.25,
+          "vat": true
+        },
+        {
+          "name": "Postbank Business Giro",
+          "base": 12.9,
+          "free": 0,
+          "per": 0.28,
+          "vat": false
+        },
+        {
+          "name": "Deutsche Bank Business Basic",
+          "base": 14.9,
+          "free": 0,
+          "per": 0.3,
+          "vat": false
+        }
       ],
-      "sparkasse": { "label": "Sparkassen", "text": "Giriş paketi ayda 9,90-12,95 euro. Her Sparkasse kendi fiyatını koyuyor, bu yüzden listede yok.[17]" },
+      "sparkasse": {
+        "label": "Sparkassen",
+        "text": "Giriş paketi ayda 9,90-12,95 euro. Her Sparkasse kendi fiyatını koyuyor, bu yüzden listede yok.[17]"
+      },
       "lesson": "Küçük hacimde dijital ucuz, büyük hacimde fark kapanıyor.",
       "note": "Liste fiyatları, 24 Eylül 2026. Kampanyalar hariç.[8]"
     },
     "story": {
-      "head": { "index": "04", "label": "Kaan'ın 30 ayı", "title": "Bir kurucu, beş an, bir boşluk.", "lede": "Kaan kurgu bir karakter. Yaşadıkları rapordaki gerçek şikayetlerden ve verilerden derlendi." },
+      "head": {
+        "index": "04",
+        "label": "Hikâye",
+        "title": "Kaan'ın 30 ayı",
+        "lede": "Kaan kurgu bir karakter. Yaşadıkları rapordaki gerçek şikayetlerden ve verilerden derlendi."
+      },
       "intro": "Kaan 34 yaşında, Leipzig'de küçük bir kahve kavurma atölyesi kuruyor. Kararları sen veriyorsun. Doğru ya da yanlış yok, sadece sonuç var.",
       "stickyTitle": "Kaan'ın 30 ayı",
       "monthLabel": "Ay",
-      "pathLabels": { "sparkasse": "Sparkasse yolu", "digital": "Dijital yol" },
+      "pathLabels": {
+        "sparkasse": "Sparkasse yolu",
+        "digital": "Dijital yol"
+      },
       "pickFirst": "Hikâye Ay 0'daki seçiminle devam ediyor.",
       "changeLabel": "Baştan başla",
       "questionLabel": "Karar",
@@ -130,8 +394,18 @@
         "text": "Noter randevusu alındı, kavurma makinesi sipariş edildi. Şirketin sermayesini yatırmak için bir hesap lazım. İlk müşteri, küçük bir kafe zinciri, faturasını ödemek için IBAN bekliyor.",
         "question": "Hesabı nereden açarsın?",
         "options": [
-          { "key": "sparkasse", "label": "Sparkasse", "sub": "Köşedeki şube, bir danışman", "result": "Randevu iki hafta sonra. Bir evrak kayboluyor. Altı hafta geçiyor, hesap hâlâ açık değil ve kafe zincirinin ödemesi bekliyor. Aynısını yaşayıp yazan kurucular var.[19]" },
-          { "key": "digital", "label": "Neobanka", "sub": "Uygulamada kuruluş aracı, noterle birlikte", "result": "Şirket ve IBAN bir haftada hazır. Qonto bu yolla kuruluşu sekiz haftadan bir haftaya indirdiğini söylüyor. Finom'da hesap açanların %55'i ilk ödemeyi aynı gün alıyor.[6][7]" }
+          {
+            "key": "sparkasse",
+            "label": "Sparkasse",
+            "sub": "Köşedeki şube, bir danışman",
+            "result": "Randevu iki hafta sonra. Bir evrak kayboluyor. Altı hafta geçiyor, hesap hâlâ açık değil ve kafe zincirinin ödemesi bekliyor. Aynısını yaşayıp yazan kurucular var.[19]"
+          },
+          {
+            "key": "digital",
+            "label": "Neobanka",
+            "sub": "Uygulamada kuruluş aracı, noterle birlikte",
+            "result": "Şirket ve IBAN bir haftada hazır. Qonto bu yolla kuruluşu sekiz haftadan bir haftaya indirdiğini söylüyor. Finom'da hesap açanların %55'i ilk ödemeyi aynı gün alıyor.[6][7]"
+          }
         ]
       },
       "cash": {
@@ -153,14 +427,38 @@
         "question": "Ne yapardın?",
         "choices": {
           "digital": [
-            { "key": "wait", "label": "Belgeyi yeniden yükle, bekle", "result": "Günler, bazen haftalar sürüyor. Bir Finom müşterisi bu arada ofis kirasını ödeyemedi, 418 euro zararı kabullendi ve BaFin'e şikayet etti.[20]" },
-            { "key": "lawyer", "label": "Avukata git", "result": "Yalnız değilsin. Bir hukuk bürosu Mayıs 2026'da bu konuda çok sayıda yeni başvuru aldığını duyurdu. Ama hukuk zaman ister, kira cuma günü.[18]" },
-            { "key": "second", "label": "Hemen ikinci bir hesap aç", "result": "Başka bir neobankada bir hafta, Sparkasse'de haftalar. Kira yine gecikiyor. Ders alınıyor: tek hesap, tek arıza noktası." }
+            {
+              "key": "wait",
+              "label": "Belgeyi yeniden yükle, bekle",
+              "result": "Günler, bazen haftalar sürüyor. Bir Finom müşterisi bu arada ofis kirasını ödeyemedi, 418 euro zararı kabullendi ve BaFin'e şikayet etti.[20]"
+            },
+            {
+              "key": "lawyer",
+              "label": "Avukata git",
+              "result": "Yalnız değilsin. Bir hukuk bürosu Mayıs 2026'da bu konuda çok sayıda yeni başvuru aldığını duyurdu. Ama hukuk zaman ister, kira cuma günü.[18]"
+            },
+            {
+              "key": "second",
+              "label": "Hemen ikinci bir hesap aç",
+              "result": "Başka bir neobankada bir hafta, Sparkasse'de haftalar. Kira yine gecikiyor. Ders alınıyor: tek hesap, tek arıza noktası."
+            }
           ],
           "sparkasse": [
-            { "key": "notify", "label": "Yeni IBAN'ı herkese tek tek yaz", "result": "Bir hafta e-posta ve telefon. Birkaç ödeme gecikiyor ama para kaybolmuyor. İş yavaşlıyor, durmuyor." },
-            { "key": "advisor", "label": "Yeni danışmanla tanış", "result": "Birleşmede müşterilerin ilk sorusu bu: danışmanım kim olacak? Yeni danışman Kaan'ı tanımıyor. İlişki baştan kuruluyor.[21]" },
-            { "key": "backup", "label": "Yanına dijital bir hesap aç", "result": "Bir haftada IBAN hazır. Artık iki banka, iki ücret, iki uygulama. Ama bir yedek var." }
+            {
+              "key": "notify",
+              "label": "Yeni IBAN'ı herkese tek tek yaz",
+              "result": "Bir hafta e-posta ve telefon. Birkaç ödeme gecikiyor ama para kaybolmuyor. İş yavaşlıyor, durmuyor."
+            },
+            {
+              "key": "advisor",
+              "label": "Yeni danışmanla tanış",
+              "result": "Birleşmede müşterilerin ilk sorusu bu: danışmanım kim olacak? Yeni danışman Kaan'ı tanımıyor. İlişki baştan kuruluyor.[21]"
+            },
+            {
+              "key": "backup",
+              "label": "Yanına dijital bir hesap aç",
+              "result": "Bir haftada IBAN hazır. Artık iki banka, iki ücret, iki uygulama. Ama bir yedek var."
+            }
           ]
         }
       },
@@ -175,11 +473,53 @@
         "doorsLabel": "Kapılar",
         "triedLabel": "Denendi",
         "doors": [
-          { "key": "qonto", "name": "Qonto", "amount": 15000, "state": "half", "verdict": "Yarım", "text": "Kapı açılıyor ama en fazla 15.000 euro ve en fazla 60 gün. Makine 60 günde ödenmez.[8]" },
-          { "key": "finom", "name": "Finom", "amount": 50000, "state": "half", "verdict": "Yarım", "text": "Kredi bir fon üzerinden geliyor, 2.000-50.000 euro. Kapı yarıya kadar açılıyor, 30.000 euro eksik kalıyor.[24]" },
-          { "key": "iwoca", "name": "iwoca", "amount": 0, "state": "half", "verdict": "Hızlı, pahalı", "text": "Karar dakikalar içinde. Ama bu kısa vadeli işletme sermayesi ve pahalı. Yıllarca çalışacak bir makine için doğru para değil.[16]" },
-          { "key": "sparkasse", "name": "Sparkasse", "amount": 0, "state": "closed", "verdict": "Haftalar", "text": "Teminat istiyor ve karar haftalar sürüyor.", "textBy": { "sparkasse": "Danışman Kaan'ı tanıyor ama teminat istiyor. Atölye kirada, ev yok. Karar haftalar sürecek.", "digital": "Kaan müşterisi değil. Önce hesap, sonra dosya, sonra teminat. Haftalar." } },
-          { "key": "kfw", "name": "KfW", "amount": 0, "state": "closed", "verdict": "Bankaya bağlı", "text": "KfW'ye doğrudan gidilmiyor, kredi Hausbank üzerinden geliyor. Bankalar 20.000 ya da 50.000 euronun altını işlemeye isteksiz. Bir banka teşvik yerine %9,99 faizli kendi kredisini önermiş.[22][23]", "textBy": { "digital": "Dijital hesap Hausbank sayılmıyor ve KfW'ye doğrudan gidilmiyor. Bankalar da 20.000 ya da 50.000 euronun altını işlemeye isteksiz. Bir banka teşvik yerine %9,99 faizli kendi kredisini önermiş.[22][23]" } }
+          {
+            "key": "qonto",
+            "name": "Qonto",
+            "amount": 15000,
+            "state": "half",
+            "verdict": "Yarım",
+            "text": "Kapı açılıyor ama en fazla 15.000 euro ve en fazla 60 gün. Makine 60 günde ödenmez.[8]"
+          },
+          {
+            "key": "finom",
+            "name": "Finom",
+            "amount": 50000,
+            "state": "half",
+            "verdict": "Yarım",
+            "text": "Kredi bir fon üzerinden geliyor, 2.000-50.000 euro. Kapı yarıya kadar açılıyor, 30.000 euro eksik kalıyor.[24]"
+          },
+          {
+            "key": "iwoca",
+            "name": "iwoca",
+            "amount": 0,
+            "state": "half",
+            "verdict": "Hızlı, pahalı",
+            "text": "Karar dakikalar içinde. Ama bu kısa vadeli işletme sermayesi ve pahalı. Yıllarca çalışacak bir makine için doğru para değil.[16]"
+          },
+          {
+            "key": "sparkasse",
+            "name": "Sparkasse",
+            "amount": 0,
+            "state": "closed",
+            "verdict": "Haftalar",
+            "text": "Teminat istiyor ve karar haftalar sürüyor.",
+            "textBy": {
+              "sparkasse": "Danışman Kaan'ı tanıyor ama teminat istiyor. Atölye kirada, ev yok. Karar haftalar sürecek.",
+              "digital": "Kaan müşterisi değil. Önce hesap, sonra dosya, sonra teminat. Haftalar."
+            }
+          },
+          {
+            "key": "kfw",
+            "name": "KfW",
+            "amount": 0,
+            "state": "closed",
+            "verdict": "Bankaya bağlı",
+            "text": "KfW'ye doğrudan gidilmiyor, kredi Hausbank üzerinden geliyor. Bankalar 20.000 ya da 50.000 euronun altını işlemeye isteksiz. Bir banka teşvik yerine %9,99 faizli kendi kredisini önermiş.[22][23]",
+            "textBy": {
+              "digital": "Dijital hesap Hausbank sayılmıyor ve KfW'ye doğrudan gidilmiyor. Bankalar da 20.000 ya da 50.000 euronun altını işlemeye isteksiz. Bir banka teşvik yerine %9,99 faizli kendi kredisini önermiş.[22][23]"
+            }
+          }
         ],
         "finalLine": "15.000 ile 250.000 euro arasında hızlı kredi veren kimse yok.",
         "finalNote": "Raporun en büyük boşluğu bu."
@@ -194,68 +534,236 @@
       }
     },
     "mirror": {
-      "head": { "index": "05", "label": "Ayna", "title": "İki tarafın acısı birbirinin tersi.", "lede": "Dijital müşteri \"hızlıydı ama kriz anında kimseyi bulamadım\" diyor. Geleneksel müşteri \"birisi var ama hiçbir şey ilerlemiyor\" diyor. Anahtarı çevir, son sütuna bak." },
+      "head": {
+        "index": "05",
+        "label": "Ayna",
+        "title": "Müşteri şikayetleri",
+        "lede": "Dijital müşteri \"hızlıydı ama kriz anında kimseyi bulamadım\" diyor. Geleneksel müşteri \"birisi var ama hiçbir şey ilerlemiyor\" diyor. Anahtarı çevir, son sütuna bak."
+      },
       "toggleLabel": "Taraf",
-      "sides": { "digital": "Dijital", "sparkasse": "Geleneksel" },
-      "columns": { "stage": "Aşama", "complaint": "En sık şikayet", "want": "Müşterinin asıl istediği" },
+      "sides": {
+        "digital": "Dijital",
+        "sparkasse": "Geleneksel"
+      },
+      "columns": {
+        "stage": "Aşama",
+        "complaint": "En sık şikayet",
+        "want": "Müşterinin asıl istediği"
+      },
       "rows": [
-        { "stage": "Kuruluş", "digital": "Kimlik doğrulama gerekçesiz reddediliyor.", "traditional": "Hesap haftalarca açılmıyor, evrak kayboluyor.", "want": "Aynı gün IBAN ve sermaye yatırma belgesi." },
-        { "stage": "Günlük işlem", "digital": "İşlem başı ücret sürprizi. Etsy ve Shopify ile uyumsuzluk.", "traditional": "Yardım hattına ulaşılamıyor, uygulama arızalı, ücret şeffaf değil.", "want": "Tahmin edilebilir fiyat, çalışan bağlantılar." },
-        { "stage": "Büyüme ve kredi", "digital": "Kredi limiti düşük.", "traditional": "KfW kredisi işlenmiyor, yerine pahalı kendi kredisi geliyor. Talepler yanıtsız kalıyor.", "want": "Hızlı karar, teşvike erişim." },
-        { "stage": "Kriz", "digital": "Hesap donuyor, destek yok, bakiye kilitli.", "traditional": "Kredi feshediliyor, ilişki gerekçesiz bitiyor.", "want": "Önceden uyarı, isimli muhatap, gerekçe." },
-        { "stage": "Yapısal değişim", "digital": "Altyapı göçünde kesinti, örneğin Solaris'ten kendi lisansına geçerken.", "traditional": "Birleşmeyle IBAN ve danışman değişiyor.", "want": "Kesintisiz süreklilik." }
+        {
+          "stage": "Kuruluş",
+          "digital": "Kimlik doğrulama gerekçesiz reddediliyor.",
+          "traditional": "Hesap haftalarca açılmıyor, evrak kayboluyor.",
+          "want": "Aynı gün IBAN ve sermaye yatırma belgesi."
+        },
+        {
+          "stage": "Günlük işlem",
+          "digital": "İşlem başı ücret sürprizi. Etsy ve Shopify ile uyumsuzluk.",
+          "traditional": "Yardım hattına ulaşılamıyor, uygulama arızalı, ücret şeffaf değil.",
+          "want": "Tahmin edilebilir fiyat, çalışan bağlantılar."
+        },
+        {
+          "stage": "Büyüme ve kredi",
+          "digital": "Kredi limiti düşük.",
+          "traditional": "KfW kredisi işlenmiyor, yerine pahalı kendi kredisi geliyor. Talepler yanıtsız kalıyor.",
+          "want": "Hızlı karar, teşvike erişim."
+        },
+        {
+          "stage": "Kriz",
+          "digital": "Hesap donuyor, destek yok, bakiye kilitli.",
+          "traditional": "Kredi feshediliyor, ilişki gerekçesiz bitiyor.",
+          "want": "Önceden uyarı, isimli muhatap, gerekçe."
+        },
+        {
+          "stage": "Yapısal değişim",
+          "digital": "Altyapı göçünde kesinti, örneğin Solaris'ten kendi lisansına geçerken.",
+          "traditional": "Birleşmeyle IBAN ve danışman değişiyor.",
+          "want": "Kesintisiz süreklilik."
+        }
       ],
       "refs": "[18][19][20][22][26][28]",
       "scoresLabel": "Trustpilot puanı",
       "scores": [
-        { "name": "Finom", "score": 4.8, "count": "15.062 yorum" },
-        { "name": "Sparkasse", "score": 1.6, "count": "2.581 yorum" }
+        {
+          "name": "Finom",
+          "score": 4.8,
+          "count": "15.062 yorum"
+        },
+        {
+          "name": "Sparkasse",
+          "score": 1.6,
+          "count": "2.581 yorum"
+        }
       ],
       "scoreRefs": "[27][11]",
       "scoreReading": "Ortalama yanıltıyor. Dijitalde günlük deneyim iyi olduğu için puan yüksek, ama şikayet tek bir anda toplanıyor: hesabın kilitlendiği anda. Gelenekselde şikayet her yere yayılıyor.",
       "caveat": "Yorum siteleri ve forumlar olumsuz deneyimi büyütür. Bu tablo neyin acıttığını gösteriyor, ne kadar yaygın olduğunu değil."
     },
     "timeline": {
-      "head": { "index": "06", "label": "Takvim", "title": "Kuralları değiştiren 24 ay.", "lede": "Önümüzdeki iki yılda bu pazarı en çok bir banka değil, e-fatura değiştirecek. Bir olaya dokun." },
+      "head": {
+        "index": "06",
+        "label": "Takvim",
+        "title": "Regülasyon takvimi 2025-2029",
+        "lede": "Önümüzdeki iki yılda bu pazarı en çok bir banka değil, e-fatura değiştirecek. Bir olaya dokun."
+      },
       "today": "2026-11",
       "todayLabel": "Bugün",
       "whoLabel": "Kim kazanır",
-      "years": ["2025", "2026", "2027", "2028", "2029"],
+      "years": [
+        "2025",
+        "2026",
+        "2027",
+        "2028",
+        "2029"
+      ],
       "events": [
-        { "at": "2025-01", "date": "Oca 2025", "title": "E-fatura alma zorunluluğu", "text": "Bütün şirketler e-fatura alabilmek zorunda. Fatura verisi yapılandırılmış hale geliyor.[25]", "who": "Faturayı hesapla tek yerde birleştiren." },
-        { "at": "2025-10", "date": "Eki 2025", "title": "Anlık ödeme ve alıcı adı kontrolü", "text": "Anlık havale normal havaleden pahalı olamaz. Alıcının adı IBAN ile karşılaştırılıyor.[30]", "who": "Müşteri. Anlık ödeme artık fark yaratmıyor, rekabet başka yere kayıyor." },
-        { "at": "2025-11", "date": "Kas 2025", "title": "Wero e-ticarette", "text": "Avrupa'nın ortak cüzdanı önce Sparkassen ve Volksbanken müşterileri için açıldı.[32]", "who": "Üye bankalar ve onların işyeri müşterileri." },
-        { "at": "2026-08", "date": "Ağu 2026", "title": "N26 Wero'yu ekledi", "text": "Commerzbank da katılacağını söyledi. Wero banka tarafında neredeyse tamam.[31]", "who": "Üye bankalar. Dijital KOBİ hesaplarının bu ağdaki yeri belirsiz." },
-        { "at": "2026-12", "date": "Ara 2026", "title": "PSD3 ve PSR genel kurulda", "text": "E-para kuruluşları ödeme kuruluşu sayılıyor, dolandırıcılıkta sorumluluk sağlayıcıya kayıyor, sanal IBAN tanınıyor. Yayımdan sonra çoğu kural için 21 ay geçiş var.[29][30]", "who": "Uyum altyapısı güçlü, dolandırıcılığı iyi yakalayan." },
-        { "at": "2027-01", "date": "Oca 2027", "title": "E-fatura gönderme, büyük şirketler", "text": "2026 cirosu 800.000 euronun üstündeki şirketler e-fatura göndermek zorunda.[25]", "who": "Faturaya ödeme ve finansmanı ekleyen platform." },
-        { "at": "2027-06", "date": "2027", "title": "Wero mağazada", "text": "Fiziksel mağazada kullanım 2026 ile 2027 arasında planlanıyor. Tarih belli değil.[31]", "who": "Kart ağlarına karşı kendi tahsilat ürünü olan bankalar." },
-        { "at": "2028-01", "date": "Oca 2028", "title": "E-fatura herkese", "text": "Gönderme zorunluluğu bütün B2B şirketlere yayılıyor. Muhasebe ile banka hesabı arasındaki çizgi neredeyse kalkıyor.[25]", "who": "Faturayı ilk gören. Fatura bazlı kredi bankadan önce gelebilir." },
-        { "at": "2029-01", "date": "2029", "title": "Dijital euro, en erken", "text": "Ödeme hesaplarında yeni bir rekabet katmanı.[33]", "who": "Henüz söylemek için erken." }
+        {
+          "at": "2025-01",
+          "date": "Oca 2025",
+          "title": "E-fatura alma zorunluluğu",
+          "text": "Bütün şirketler e-fatura alabilmek zorunda. Fatura verisi yapılandırılmış hale geliyor.[25]",
+          "who": "Faturayı hesapla tek yerde birleştiren."
+        },
+        {
+          "at": "2025-10",
+          "date": "Eki 2025",
+          "title": "Anlık ödeme ve alıcı adı kontrolü",
+          "text": "Anlık havale normal havaleden pahalı olamaz. Alıcının adı IBAN ile karşılaştırılıyor.[30]",
+          "who": "Müşteri. Anlık ödeme artık fark yaratmıyor, rekabet başka yere kayıyor."
+        },
+        {
+          "at": "2025-11",
+          "date": "Kas 2025",
+          "title": "Wero e-ticarette",
+          "text": "Avrupa'nın ortak cüzdanı önce Sparkassen ve Volksbanken müşterileri için açıldı.[32]",
+          "who": "Üye bankalar ve onların işyeri müşterileri."
+        },
+        {
+          "at": "2026-08",
+          "date": "Ağu 2026",
+          "title": "N26 Wero'yu ekledi",
+          "text": "Commerzbank da katılacağını söyledi. Wero banka tarafında neredeyse tamam.[31]",
+          "who": "Üye bankalar. Dijital KOBİ hesaplarının bu ağdaki yeri belirsiz."
+        },
+        {
+          "at": "2026-12",
+          "date": "Ara 2026",
+          "title": "PSD3 ve PSR genel kurulda",
+          "text": "E-para kuruluşları ödeme kuruluşu sayılıyor, dolandırıcılıkta sorumluluk sağlayıcıya kayıyor, sanal IBAN tanınıyor. Yayımdan sonra çoğu kural için 21 ay geçiş var.[29][30]",
+          "who": "Uyum altyapısı güçlü, dolandırıcılığı iyi yakalayan."
+        },
+        {
+          "at": "2027-01",
+          "date": "Oca 2027",
+          "title": "E-fatura gönderme, büyük şirketler",
+          "text": "2026 cirosu 800.000 euronun üstündeki şirketler e-fatura göndermek zorunda.[25]",
+          "who": "Faturaya ödeme ve finansmanı ekleyen platform."
+        },
+        {
+          "at": "2027-06",
+          "date": "2027",
+          "title": "Wero mağazada",
+          "text": "Fiziksel mağazada kullanım 2026 ile 2027 arasında planlanıyor. Tarih belli değil.[31]",
+          "who": "Kart ağlarına karşı kendi tahsilat ürünü olan bankalar."
+        },
+        {
+          "at": "2028-01",
+          "date": "Oca 2028",
+          "title": "E-fatura herkese",
+          "text": "Gönderme zorunluluğu bütün B2B şirketlere yayılıyor. Muhasebe ile banka hesabı arasındaki çizgi neredeyse kalkıyor.[25]",
+          "who": "Faturayı ilk gören. Fatura bazlı kredi bankadan önce gelebilir."
+        },
+        {
+          "at": "2029-01",
+          "date": "2029",
+          "title": "Dijital euro, en erken",
+          "text": "Ödeme hesaplarında yeni bir rekabet katmanı.[33]",
+          "who": "Henüz söylemek için erken."
+        }
       ],
       "effectsHeading": "Üç ikinci derece etki",
       "effects": [
-        { "title": "Dondurma artacak, azalmayacak.", "text": "PSD3 ve PSR sorumluluğu sağlayıcıya yükleyince en kolay savunma, şüpheli görünen her işlemi durdurmak olur. Kriz anını iyi tasarlayan, bu dönemde güveni kazanır." },
-        { "title": "Fatura verisi kredi verisine dönüşecek.", "text": "2028'den sonra her B2B faturası makinece okunur. Faturayı kesen platform alacağı ilk görür ve bankadan önce kredi teklif edebilir." },
-        { "title": "Lisans sınıfı değil, uyum kapasitesi belirleyecek.", "text": "E-para ile ödeme kuruluşu ayrımı kalkıyor, DORA ve dolandırıcılık sorumluluğu sabit maliyeti artırıyor. Küçük kooperatif bankalar ve küçük fintekler birleşmeye ya da beyaz etiket ortaklığına itilecek." }
+        {
+          "title": "Dondurma artacak, azalmayacak.",
+          "text": "PSD3 ve PSR sorumluluğu sağlayıcıya yükleyince en kolay savunma, şüpheli görünen her işlemi durdurmak olur. Kriz anını iyi tasarlayan, bu dönemde güveni kazanır."
+        },
+        {
+          "title": "Fatura verisi kredi verisine dönüşecek.",
+          "text": "2028'den sonra her B2B faturası makinece okunur. Faturayı kesen platform alacağı ilk görür ve bankadan önce kredi teklif edebilir."
+        },
+        {
+          "title": "Lisans sınıfı değil, uyum kapasitesi belirleyecek.",
+          "text": "E-para ile ödeme kuruluşu ayrımı kalkıyor, DORA ve dolandırıcılık sorumluluğu sabit maliyeti artırıyor. Küçük kooperatif bankalar ve küçük fintekler birleşmeye ya da beyaz etiket ortaklığına itilecek."
+        }
       ]
     },
     "gaps": {
-      "head": { "index": "07", "label": "Sekiz boşluk", "title": "Hepsi hesap ile bilanço arasında.", "lede": "Hesabı iyi yapanın bilançosu yok, bilançosu olanın hesap deneyimi zayıf. Sekiz boşluk, en büyüğü önde." },
+      "head": {
+        "index": "07",
+        "label": "Fırsatlar",
+        "title": "Pazardaki sekiz boşluk",
+        "lede": "Hesabı iyi yapanın bilançosu yok, bilançosu olanın hesap deneyimi zayıf. Sekiz boşluk, en büyüğü önde."
+      },
       "evidenceLabel": "Kanıt",
       "chanceLabel": "Fırsat",
       "items": [
-        { "key": "01", "title": "Orta boy kredi", "evidence": "Qonto 15.000 euroda, Finom 50.000 euroda duruyor. Bankalar küçük KfW kredisini işlemeye isteksiz, KOBİ'lerin %40,5'i bankasını kısıtlayıcı buluyor.[8][24][22][4]", "chance": "Hesap verisiyle karar veren, KfW ya da Bürgschaftsbank garantisini dijital olarak bağlayan kredi." },
-        { "key": "02", "title": "Teşvikli kredinin dijital kapısı", "evidence": "KfW yalnızca Hausbank üzerinden çalışıyor. Dijital hesap sahibinin Hausbank'ı yok.[22]", "chance": "Neobankalar ile teşvik bankaları arasında bir aracılık katmanı." },
-        { "key": "03", "title": "Kriz anında insan", "evidence": "Dijitallerin puanı yüksek ama şikayet hesabın dondurulduğu anda toplanıyor.[18][27]", "chance": "Dondurmadan önce uyaran, gerekçe veren, isimli muhatap atayan bir hizmet katmanı." },
-        { "key": "04", "title": "Faturadan finansmana", "evidence": "Ankete katılan şirketlerin yalnızca %42'si düzenli e-fatura gönderiyor.[34]", "chance": "Fatura oluştuğu anda ödeme linki, otomatik eşleştirme ve fatura bazlı anlık finansman." },
-        { "key": "05", "title": "Nakitle çalışan işletme", "evidence": "Qonto, Finom, Holvi ve Tide nakit almıyor. Esnaf, lokanta ve dükkan hâlâ kasayla çalışıyor.[8]", "chance": "Market, postane ya da ATM ağıyla nakit yatırma ortaklığı." },
-        { "key": "06", "title": "KOBİ hazinesi", "evidence": "Finom %5, Tide %4,5 getiriyle mevduat topluyor. Qonto'da alt hesaplar ana hesapla tek bakiye sayılıyor.[36][12]", "chance": "Vergi ve sosyal güvenlik payını otomatik ayıran, korumalı ve faiz getiren rezerv hesabı." },
-        { "key": "07", "title": "Dijital dış ticaret", "evidence": "İhracat beklentisi Eylül 2026'da uzun dönem ortalamasının üstüne çıktı. Dijitallerin ürün listesinde akreditif ve kur koruması yok.[3]", "chance": "İhracat yapan küçük Mittelstand için dijital akreditif ve kur koruması." },
-        { "key": "08", "title": "Devir finansmanı", "evidence": "2029'a kadar her yıl yaklaşık 109.000 şirket devir planlıyor. İşletme sahiplerinin %57'si 55 yaşın üstünde.[35]", "chance": "Devralana kredi, değerleme, hesap ve muhasebe geçişini tek pakette sunan ürün." }
+        {
+          "key": "01",
+          "title": "Orta boy kredi",
+          "evidence": "Qonto 15.000 euroda, Finom 50.000 euroda duruyor. Bankalar küçük KfW kredisini işlemeye isteksiz, KOBİ'lerin %40,5'i bankasını kısıtlayıcı buluyor.[8][24][22][4]",
+          "chance": "Hesap verisiyle karar veren, KfW ya da Bürgschaftsbank garantisini dijital olarak bağlayan kredi."
+        },
+        {
+          "key": "02",
+          "title": "Teşvikli kredinin dijital kapısı",
+          "evidence": "KfW yalnızca Hausbank üzerinden çalışıyor. Dijital hesap sahibinin Hausbank'ı yok.[22]",
+          "chance": "Neobankalar ile teşvik bankaları arasında bir aracılık katmanı."
+        },
+        {
+          "key": "03",
+          "title": "Kriz anında insan",
+          "evidence": "Dijitallerin puanı yüksek ama şikayet hesabın dondurulduğu anda toplanıyor.[18][27]",
+          "chance": "Dondurmadan önce uyaran, gerekçe veren, isimli muhatap atayan bir hizmet katmanı."
+        },
+        {
+          "key": "04",
+          "title": "Faturadan finansmana",
+          "evidence": "Ankete katılan şirketlerin yalnızca %42'si düzenli e-fatura gönderiyor.[34]",
+          "chance": "Fatura oluştuğu anda ödeme linki, otomatik eşleştirme ve fatura bazlı anlık finansman."
+        },
+        {
+          "key": "05",
+          "title": "Nakitle çalışan işletme",
+          "evidence": "Qonto, Finom, Holvi ve Tide nakit almıyor. Esnaf, lokanta ve dükkan hâlâ kasayla çalışıyor.[8]",
+          "chance": "Market, postane ya da ATM ağıyla nakit yatırma ortaklığı."
+        },
+        {
+          "key": "06",
+          "title": "KOBİ hazinesi",
+          "evidence": "Finom %5, Tide %4,5 getiriyle mevduat topluyor. Qonto'da alt hesaplar ana hesapla tek bakiye sayılıyor.[36][12]",
+          "chance": "Vergi ve sosyal güvenlik payını otomatik ayıran, korumalı ve faiz getiren rezerv hesabı."
+        },
+        {
+          "key": "07",
+          "title": "Dijital dış ticaret",
+          "evidence": "İhracat beklentisi Eylül 2026'da uzun dönem ortalamasının üstüne çıktı. Dijitallerin ürün listesinde akreditif ve kur koruması yok.[3]",
+          "chance": "İhracat yapan küçük Mittelstand için dijital akreditif ve kur koruması."
+        },
+        {
+          "key": "08",
+          "title": "Devir finansmanı",
+          "evidence": "2029'a kadar her yıl yaklaşık 109.000 şirket devir planlıyor. İşletme sahiplerinin %57'si 55 yaşın üstünde.[35]",
+          "chance": "Devralana kredi, değerleme, hesap ve muhasebe geçişini tek pakette sunan ürün."
+        }
       ]
     },
     "note": {
-      "head": { "index": "", "label": "fspark9 notu", "title": "Köprüyü kim kuracak?" },
+      "head": {
+        "index": "",
+        "label": "fspark9 notu",
+        "title": "Açık sorular"
+      },
       "intro": "Cevabı bu rapor vermiyor. Biz olsak şu üç soruyla başlardık:",
       "questions": [
         "Bilançosu olan banka ile platformu olan fintek krediyi nasıl paylaşır?",
@@ -264,64 +772,203 @@
       ],
       "linksLabel": "Bu sorular üzerinde çalışıyorsanız",
       "links": [
-        { "label": "Embedded Finance", "slug": "embedded-finance" },
-        { "label": "Product & Strategy", "slug": "product-strategy" }
+        {
+          "label": "Embedded Finance",
+          "slug": "embedded-finance"
+        },
+        {
+          "label": "Product & Strategy",
+          "slug": "product-strategy"
+        }
       ]
     },
     "sources": {
-      "head": { "index": "", "label": "Kaynaklar", "title": "Rakamların kaynakları." },
+      "head": {
+        "index": "",
+        "label": "Kaynaklar",
+        "title": "Bölümlere göre kaynaklar"
+      },
       "sourceTemplate": "Kaynak {n}",
       "groups": [
-        { "title": "Açılış ve kısa versiyon", "items": [
-          { "label": "KfW Mittelstandspanel 2025", "href": "https://www.presseportal.de/pm/41193/6151083" },
-          { "label": "Creditreform, iflaslar 2026 ilk yarı", "href": "https://www.creditreform.de/aktuelles-wissen/pressemeldungen-fachbeitraege/news-details/show/insolvenzen-in-deutschland-1-halbjahr-2026" },
-          { "label": "KfW ve ifo Mittelstandsbarometer, 29 Eylül 2026", "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_908608.html" },
-          { "label": "KfW ve ifo Kredithürde, Temmuz 2026", "href": "https://www.finanznachrichten.de/nachrichten-2026-07/68959891-kfw-research-vier-von-zehn-mittelstaendlern-beklagen-schweren-zugang-zu-krediten-007.htm" },
-          { "label": "DSGV, Zahlen und Fakten 2024", "href": "https://www.dsgv.de/uploads/Flyer_2025_3013807d14.pdf" },
-          { "label": "Börsen-Zeitung, Qonto, 25 Eylül 2026", "href": "https://www.boersen-zeitung.de/banken-finanzen/qonto-erweitert-produktpalette-fuer-unternehmen" },
-          { "label": "StartingUp, Finom ve firma.de", "href": "https://www.starting-up.de/news/news-investments/finom-firmade-partnerschaft.html" }
-        ] },
-        { "title": "Harita", "items": [
-          { "label": "Handelsblatt, Geschäftskonto karşılaştırması, Eylül 2026", "href": "https://www.handelsblatt.com/geschaeftskonto/vergleich/" },
-          { "label": "Börsen-Zeitung, Finom", "href": "https://www.boersen-zeitung.de/banken-finanzen/finom-koedert-selbstaendige-und-kmu-mit-buchhaltungsangebot" },
-          { "label": "Bundesbank, şube gelişimi 2025", "href": "https://www.bundesbank.de/de/presse/pressenotizen/bankstellenentwicklung-im-jahr-2025-951792" },
-          { "label": "Capitalo, Sparkasse, Haziran 2026", "href": "https://www.capitalo.de/anbieter/sparkasse" },
-          { "label": "IT Finanzmagazin, Tide ve iwoca", "href": "https://www.it-finanzmagazin.de/?p=234394" },
-          { "label": "finanzen.ch, UniCredit ve Commerzbank, 29 Eylül 2026", "href": "https://www.finanzen.ch/nachrichten/aktien/unicredit-will-kontrolle-ueber-commerzbank-in-wenigen-monaten-1036580254" },
-          { "label": "SIX, Banxware ve HypoVereinsbank", "href": "https://www.six-group.com/de/products-services/banking-services/blink/obm-archiv/2024/mai.html" },
-          { "label": "Shopify topluluğu, N26", "href": "https://community.shopify.com/t/n26-bank-fur-shopify-payments/263366" },
-          { "label": "startupvalley, iwoca röportajı", "href": "https://startupvalley.news/de/iwoca-kredite-kmu/" }
-        ] },
-        { "title": "Hesap ücreti", "items": [
-          { "label": "Vivid Blog, işletme hesapları", "href": "https://vivid.money/de-de/blog/die-besten-geschaeftskonten/" }
-        ] },
-        { "title": "Kaan'ın 30 ayı", "items": [
-          { "label": "anwalt.de, Qonto hesap dondurma, Mayıs 2026", "href": "https://www.anwalt.de/rechtstipps/geschaeftskonto-bei-qonto-gesperrt-oder-gekuendigt-eser-law-meldet-zahlreiche-anfragen-von-betroffenen-unternehmern-271394.html" },
-          { "label": "Trustpilot, Sparkasse Karlsruhe", "href": "https://de.trustpilot.com/review/sparkasse-karlsruhe.de" },
-          { "label": "Trustpilot, Finom", "href": "https://at.trustpilot.com/review/finom.co?page=5" },
-          { "label": "Volksbank Düsseldorf Neuss, birleşme", "href": "https://www.deine-volksbank.de/fusioni.html" },
-          { "label": "VGSD forumu, Hausbank ve teşvikli kredi", "href": "https://www.vgsd.de/frage/hausbank-und-foerderkredite-kfw-lfa" },
-          { "label": "HaustechnikDialog, KfW kredisi", "href": "https://www.haustechnikdialog.de/Forum/t/276539/KFW-Kredit-358-nicht-abrufbar-" },
-          { "label": "IT Finanzmagazin, Finom kredi hattı", "href": "https://www.it-finanzmagazin.de/finom-ki-gestuetzte-kreditlinie-fuer-kmu-236962/" },
-          { "label": "e-rechnungen.org, e-fatura takvimi", "href": "https://www.e-rechnungen.org/e-rechnung-pflicht-fristen" }
-        ] },
-        { "title": "Ayna", "items": [
-          { "label": "Trustpilot, Sparkasse Münsterland Ost", "href": "https://de.trustpilot.com/review/www.sparkasse-muensterland-ost.de" },
-          { "label": "Capitalo, Finom", "href": "https://www.capitalo.de/anbieter/finom" },
-          { "label": "Etsy topluluğu, işletme hesapları", "href": "https://community.etsy.com/t5/Etsys-deutsche-Community/Wo-habt-ihr-euer-Gesch%C3%A4ftskonto/td-p/147855995" }
-        ] },
-        { "title": "Takvim", "items": [
-          { "label": "yagemi, PSD3 ve PSR, Ağustos 2026", "href": "https://www.yagemi.de/blog/recht-compliance/psd3-psr-zahlungsdiensterecht/" },
-          { "label": "FinanceMalta, PSD3 ve PSR uzlaşısı", "href": "https://financemalta.org/industry-updates/eu-reaches-compromise-on-psd3-and-psr" },
-          { "label": "EuroShop, Wero 2026", "href": "https://www.euroshop.de/de/media-news/euroshopmag/retail-technology/wero-2026-akzeptanz-und-implementierung-im-handel" },
-          { "label": "EPI, Almanya'da ilk Wero işyerleri", "href": "https://epicompany.eu/media-insights/wero-announces-first-merchants-in-germany/" },
-          { "label": "neuebanken, PSD3, PSR ve dijital euro", "href": "https://www.neuebanken.de/psd3-psr-eu-zahlungsregeln/" },
-          { "label": "ad-hoc-news, YouGov e-fatura anketi", "href": "https://www.ad-hoc-news.de/wirtschaft/e-rechnung-neue-pflicht-fuer-800-000-euro-firmen-ab-januar-2027/69486469" }
-        ] },
-        { "title": "Sekiz boşluk", "items": [
-          { "label": "KfW Nachfolge-Monitoring, Ocak 2026", "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_876800.html" },
-          { "label": "IT Finanzmagazin, Finom %5 faizli hesap, Mart 2026", "href": "https://www.it-finanzmagazin.de/finom-started-mifid-reguliertes-zinskonto-mit-5-fuer-kmu-241289/" }
-        ] }
+        {
+          "title": "Açılış ve kısa versiyon",
+          "items": [
+            {
+              "label": "KfW Mittelstandspanel 2025",
+              "href": "https://www.presseportal.de/pm/41193/6151083"
+            },
+            {
+              "label": "Creditreform, iflaslar 2026 ilk yarı",
+              "href": "https://www.creditreform.de/aktuelles-wissen/pressemeldungen-fachbeitraege/news-details/show/insolvenzen-in-deutschland-1-halbjahr-2026"
+            },
+            {
+              "label": "KfW ve ifo Mittelstandsbarometer, 29 Eylül 2026",
+              "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_908608.html"
+            },
+            {
+              "label": "KfW ve ifo Kredithürde, Temmuz 2026",
+              "href": "https://www.finanznachrichten.de/nachrichten-2026-07/68959891-kfw-research-vier-von-zehn-mittelstaendlern-beklagen-schweren-zugang-zu-krediten-007.htm"
+            },
+            {
+              "label": "DSGV, Zahlen und Fakten 2024",
+              "href": "https://www.dsgv.de/uploads/Flyer_2025_3013807d14.pdf"
+            },
+            {
+              "label": "Börsen-Zeitung, Qonto, 25 Eylül 2026",
+              "href": "https://www.boersen-zeitung.de/banken-finanzen/qonto-erweitert-produktpalette-fuer-unternehmen"
+            },
+            {
+              "label": "StartingUp, Finom ve firma.de",
+              "href": "https://www.starting-up.de/news/news-investments/finom-firmade-partnerschaft.html"
+            }
+          ]
+        },
+        {
+          "title": "Harita",
+          "items": [
+            {
+              "label": "Handelsblatt, Geschäftskonto karşılaştırması, Eylül 2026",
+              "href": "https://www.handelsblatt.com/geschaeftskonto/vergleich/"
+            },
+            {
+              "label": "Börsen-Zeitung, Finom",
+              "href": "https://www.boersen-zeitung.de/banken-finanzen/finom-koedert-selbstaendige-und-kmu-mit-buchhaltungsangebot"
+            },
+            {
+              "label": "Bundesbank, şube gelişimi 2025",
+              "href": "https://www.bundesbank.de/de/presse/pressenotizen/bankstellenentwicklung-im-jahr-2025-951792"
+            },
+            {
+              "label": "Capitalo, Sparkasse, Haziran 2026",
+              "href": "https://www.capitalo.de/anbieter/sparkasse"
+            },
+            {
+              "label": "IT Finanzmagazin, Tide ve iwoca",
+              "href": "https://www.it-finanzmagazin.de/?p=234394"
+            },
+            {
+              "label": "finanzen.ch, UniCredit ve Commerzbank, 29 Eylül 2026",
+              "href": "https://www.finanzen.ch/nachrichten/aktien/unicredit-will-kontrolle-ueber-commerzbank-in-wenigen-monaten-1036580254"
+            },
+            {
+              "label": "SIX, Banxware ve HypoVereinsbank",
+              "href": "https://www.six-group.com/de/products-services/banking-services/blink/obm-archiv/2024/mai.html"
+            },
+            {
+              "label": "Shopify topluluğu, N26",
+              "href": "https://community.shopify.com/t/n26-bank-fur-shopify-payments/263366"
+            },
+            {
+              "label": "startupvalley, iwoca röportajı",
+              "href": "https://startupvalley.news/de/iwoca-kredite-kmu/"
+            }
+          ]
+        },
+        {
+          "title": "Hesap ücreti",
+          "items": [
+            {
+              "label": "Vivid Blog, işletme hesapları",
+              "href": "https://vivid.money/de-de/blog/die-besten-geschaeftskonten/"
+            }
+          ]
+        },
+        {
+          "title": "Kaan'ın 30 ayı",
+          "items": [
+            {
+              "label": "anwalt.de, Qonto hesap dondurma, Mayıs 2026",
+              "href": "https://www.anwalt.de/rechtstipps/geschaeftskonto-bei-qonto-gesperrt-oder-gekuendigt-eser-law-meldet-zahlreiche-anfragen-von-betroffenen-unternehmern-271394.html"
+            },
+            {
+              "label": "Trustpilot, Sparkasse Karlsruhe",
+              "href": "https://de.trustpilot.com/review/sparkasse-karlsruhe.de"
+            },
+            {
+              "label": "Trustpilot, Finom",
+              "href": "https://at.trustpilot.com/review/finom.co?page=5"
+            },
+            {
+              "label": "Volksbank Düsseldorf Neuss, birleşme",
+              "href": "https://www.deine-volksbank.de/fusioni.html"
+            },
+            {
+              "label": "VGSD forumu, Hausbank ve teşvikli kredi",
+              "href": "https://www.vgsd.de/frage/hausbank-und-foerderkredite-kfw-lfa"
+            },
+            {
+              "label": "HaustechnikDialog, KfW kredisi",
+              "href": "https://www.haustechnikdialog.de/Forum/t/276539/KFW-Kredit-358-nicht-abrufbar-"
+            },
+            {
+              "label": "IT Finanzmagazin, Finom kredi hattı",
+              "href": "https://www.it-finanzmagazin.de/finom-ki-gestuetzte-kreditlinie-fuer-kmu-236962/"
+            },
+            {
+              "label": "e-rechnungen.org, e-fatura takvimi",
+              "href": "https://www.e-rechnungen.org/e-rechnung-pflicht-fristen"
+            }
+          ]
+        },
+        {
+          "title": "Ayna",
+          "items": [
+            {
+              "label": "Trustpilot, Sparkasse Münsterland Ost",
+              "href": "https://de.trustpilot.com/review/www.sparkasse-muensterland-ost.de"
+            },
+            {
+              "label": "Capitalo, Finom",
+              "href": "https://www.capitalo.de/anbieter/finom"
+            },
+            {
+              "label": "Etsy topluluğu, işletme hesapları",
+              "href": "https://community.etsy.com/t5/Etsys-deutsche-Community/Wo-habt-ihr-euer-Gesch%C3%A4ftskonto/td-p/147855995"
+            }
+          ]
+        },
+        {
+          "title": "Takvim",
+          "items": [
+            {
+              "label": "yagemi, PSD3 ve PSR, Ağustos 2026",
+              "href": "https://www.yagemi.de/blog/recht-compliance/psd3-psr-zahlungsdiensterecht/"
+            },
+            {
+              "label": "FinanceMalta, PSD3 ve PSR uzlaşısı",
+              "href": "https://financemalta.org/industry-updates/eu-reaches-compromise-on-psd3-and-psr"
+            },
+            {
+              "label": "EuroShop, Wero 2026",
+              "href": "https://www.euroshop.de/de/media-news/euroshopmag/retail-technology/wero-2026-akzeptanz-und-implementierung-im-handel"
+            },
+            {
+              "label": "EPI, Almanya'da ilk Wero işyerleri",
+              "href": "https://epicompany.eu/media-insights/wero-announces-first-merchants-in-germany/"
+            },
+            {
+              "label": "neuebanken, PSD3, PSR ve dijital euro",
+              "href": "https://www.neuebanken.de/psd3-psr-eu-zahlungsregeln/"
+            },
+            {
+              "label": "ad-hoc-news, YouGov e-fatura anketi",
+              "href": "https://www.ad-hoc-news.de/wirtschaft/e-rechnung-neue-pflicht-fuer-800-000-euro-firmen-ab-januar-2027/69486469"
+            }
+          ]
+        },
+        {
+          "title": "Sekiz boşluk",
+          "items": [
+            {
+              "label": "KfW Nachfolge-Monitoring, Ocak 2026",
+              "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_876800.html"
+            },
+            {
+              "label": "IT Finanzmagazin, Finom %5 faizli hesap, Mart 2026",
+              "href": "https://www.it-finanzmagazin.de/finom-started-mifid-reguliertes-zinskonto-mit-5-fuer-kmu-241289/"
+            }
+          ]
+        }
       ],
       "foot": "Bilgiler 1 Ekim 2026 itibarıyla açık kaynaklardan derlendi. Oyuncuların müşteri sayıları şirketlerin kendi açıklamaları ve çoğu Avrupa toplamı. Fiyatlar kampanyasız liste fiyatları. Harita konumları, Kaan'ın hikâyesi ve \"Bizim okumamız\" işaretli cümleler fspark9 analizidir, yatırım ya da hukuki tavsiye değildir."
     }
@@ -337,15 +984,31 @@
     },
     "readingLabel": "Our reading",
     "hero": {
-      "meta": ["Spark", "02 Sector reports", "November 2026"],
+      "meta": [
+        "Spark",
+        "02 Sector reports",
+        "November 2026"
+      ],
       "bigNo": "05",
       "titleLead": "Germany SME",
       "titleCut": "banking",
       "titleTail": "",
       "sub": "The account moved online, the loan stayed at the branch. Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
       "twins": [
-        { "value": "12,900", "to": 12900, "decimals": 0, "template": "{n}", "label": "company insolvencies in the first half of 2026. The most since 2013.[2]" },
-        { "value": "5", "to": 5, "decimals": 0, "template": "{n}", "label": "rises in a row. SME business sentiment went up again in September 2026.[3]" }
+        {
+          "value": "12,900",
+          "to": 12900,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "company insolvencies in the first half of 2026. The most since 2013.[2]"
+        },
+        {
+          "value": "5",
+          "to": 5,
+          "decimals": 0,
+          "template": "{n}",
+          "label": "rises in a row. SME business sentiment went up again in September 2026.[3]"
+        }
       ],
       "twinsLine": "Two economies are running at once. One is going under, the other is getting back up."
     },
@@ -360,22 +1023,56 @@
       "E-invoicing for all January 2028"
     ],
     "short": {
-      "head": { "index": "01", "label": "Short version", "title": "Daily money went digital. Big money stayed at the branch." },
+      "head": {
+        "index": "01",
+        "label": "Short version",
+        "title": "Summary"
+      },
       "items": [
-        { "title": "Standing, but tired.", "text": "3.87 million SMEs employ 33 million people. Insolvencies are at their highest since 2013, yet business sentiment has risen five times in a row.[1][2][3]" },
-        { "title": "Credit has never been this hard.", "text": "40.5% of SMEs in loan talks call their bank restrictive. That is the highest share since the survey began in 2017.[4]" },
-        { "title": "The loan door is at the branch.", "text": "Sparkassen and Landesbanken hold about 40% of business lending. KfW's subsidised loans only come through a Hausbank.[5]" },
-        { "title": "Platforms grow fastest.", "text": "Finom went from 125,000 to over 300,000 customers in about 15 months. Qonto is the largest with more than 750,000 and is waiting for a banking licence.[6][7]" },
-        { "title": "All in one is now the baseline.", "text": "Every digital player put invoicing, bookkeeping and cards next to the account. The difference is who can add lending and interest on deposits.[8]" },
-        { "title": "The worst moment is the crisis.", "text": "Digital customers get frozen accounts and support that never answers. Traditional customers wait weeks for an account and watch subsidised loans stall at the bank." },
-        { "title": "The rules are moving.", "text": "By 2028 every B2B invoice in Germany is machine readable. PSD3 and PSR shift fraud liability onto the provider.[25][30]", "reading": "Invoice data turns into credit data. Providers playing it safe may freeze more accounts, not fewer." },
-        { "title": "The biggest gap.", "text": "Fast, data driven lending between €15,000 and €250,000 that can plug into public subsidies." }
+        {
+          "title": "Standing, but tired.",
+          "text": "3.87 million SMEs employ 33 million people. Insolvencies are at their highest since 2013, yet business sentiment has risen five times in a row.[1][2][3]"
+        },
+        {
+          "title": "Credit has never been this hard.",
+          "text": "40.5% of SMEs in loan talks call their bank restrictive. That is the highest share since the survey began in 2017.[4]"
+        },
+        {
+          "title": "The loan door is at the branch.",
+          "text": "Sparkassen and Landesbanken hold about 40% of business lending. KfW's subsidised loans only come through a Hausbank.[5]"
+        },
+        {
+          "title": "Platforms grow fastest.",
+          "text": "Finom went from 125,000 to over 300,000 customers in about 15 months. Qonto is the largest with more than 750,000 and is waiting for a banking licence.[6][7]"
+        },
+        {
+          "title": "All in one is now the baseline.",
+          "text": "Every digital player put invoicing, bookkeeping and cards next to the account. The difference is who can add lending and interest on deposits.[8]"
+        },
+        {
+          "title": "The worst moment is the crisis.",
+          "text": "Digital customers get frozen accounts and support that never answers. Traditional customers wait weeks for an account and watch subsidised loans stall at the bank."
+        },
+        {
+          "title": "The rules are moving.",
+          "text": "By 2028 every B2B invoice in Germany is machine readable. PSD3 and PSR shift fraud liability onto the provider.[25][30]",
+          "reading": "Invoice data turns into credit data. Providers playing it safe may freeze more accounts, not fewer."
+        },
+        {
+          "title": "The biggest gap.",
+          "text": "Fast, data driven lending between €15,000 and €250,000 that can plug into public subsidies."
+        }
       ],
       "questionLabel": "The question behind this report",
       "question": "Who builds the bridge between the account and the loan?"
     },
     "map": {
-      "head": { "index": "02", "label": "The map", "title": "The top right corner is empty.", "lede": "Up is balance sheet and lending power, right is how broad the platform is. Traditional banks sit top left, digital players bottom right. Nobody has both." },
+      "head": {
+        "index": "02",
+        "label": "The map",
+        "title": "Competition map",
+        "lede": "Up is balance sheet and lending power, right is how broad the platform is. Traditional banks sit top left, digital players bottom right. Nobody has both."
+      },
       "chartLabel": "Competition map: fourteen players by balance sheet strength and platform breadth. The top right corner is empty.",
       "axisX": "Platform breadth",
       "axisY": "Balance sheet strength",
@@ -386,23 +1083,167 @@
         "licensed": "Digital, banking licence",
         "credit": "Alternative lender"
       },
-      "labels": { "pitch": "How it sells itself", "edge": "Its edge", "weak": "Its soft spot" },
+      "labels": {
+        "pitch": "How it sells itself",
+        "edge": "Its edge",
+        "weak": "Its soft spot"
+      },
       "hint": "Tap a player.",
       "players": [
-        { "key": "sparkassen", "name": "Sparkassen", "group": "traditional", "x": 1.4, "y": 9.0, "side": "r", "pitch": "The local bank, the default Hausbank for small business.", "edge": "6,810 branches, about 40% of business lending, Lexware Office inside the business app.[10][5]", "weak": "Every Sparkasse sets its own prices, so the experience changes from branch to branch. Trustpilot score 1.6.[11]" },
-        { "key": "volksbanken", "name": "Volksbanken", "group": "traditional", "x": 1.0, "y": 7.3, "side": "r", "pitch": "The bank you are a member of, deciding locally.", "edge": "Co-operative belonging. Deep ties with trades and farming.", "weak": "Prices and digital experience vary bank by bank. Mergers change your IBAN and your adviser.[21]" },
-        { "key": "commerzbank", "name": "Commerzbank", "group": "traditional", "x": 2.9, "y": 8.0, "side": "r", "pitch": "The Mittelstand's private bank, the partner for trade abroad.", "edge": "Nationwide corporate network, trade finance and cash management.", "weak": "UniCredit aims to take control in early 2027, which leaves customers unsure. No price edge for small firms.[13]" },
-        { "key": "deutsche", "name": "Deutsche Bank", "group": "traditional", "x": 3.3, "y": 9.4, "side": "r", "pitch": "Three brands in one group: Deutsche Bank, Postbank and Fyrst.", "edge": "Cash deposits through Postbank, a digital side brand in Fyrst.", "weak": "Business Basic costs €104.90 a month at 300 transactions, the most expensive on the list.[8]" },
-        { "key": "fyrst", "name": "Fyrst", "group": "licensed", "x": 5.6, "y": 5.5, "side": "l", "pitch": "Deutsche Bank's digital side brand: an account in seven minutes.", "edge": "Credit lines from €3,000 to €250,000. €28 a month at 300 transactions, the cheapest on the list.[8]", "weak": "It has a banking licence but no real share of SME lending in Germany. DATEV export costs extra.[8]" },
-        { "key": "n26", "name": "N26 Business", "group": "licensed", "x": 6.6, "y": 4.6, "side": "b", "pitch": "A licensed mobile account for freelancers and digital small firms.", "edge": "Full banking licence. Wero in the app since August 2026.[31]", "weak": "No real share of SME lending in Germany. Shopify sellers report trouble using it as a payout account.[15]" },
-        { "key": "revolut", "name": "Revolut Business", "group": "licensed", "x": 7.7, "y": 5.4, "side": "r", "pitch": "A multi-currency account for businesses that work across borders.", "edge": "FX, several IBANs, sub-accounts.", "weak": "Weak links to German bookkeeping tools. No API on the Basic plan.[8]" },
-        { "key": "iwoca", "name": "iwoca", "group": "credit", "x": 4.4, "y": 3.5, "side": "l", "pitch": "Fast working capital for when the bank is too slow.", "edge": "Decisions in minutes. Over €275 million lent to more than 10,000 German SMEs. Also built into Tide.[16][12]", "weak": "Costs more, and few people know the name." },
-        { "key": "banxware", "name": "Banxware", "group": "credit", "x": 3.4, "y": 4.4, "side": "l", "pitch": "Lending built into someone else's platform.", "edge": "Instant financing for HypoVereinsbank's business clients.[14]", "weak": "Costs more, and few people know the name." },
-        { "key": "kontist", "name": "Kontist", "group": "digital", "x": 5.0, "y": 1.7, "side": "l", "pitch": "The freelancer's tax assistant.", "edge": "Sets aside VAT and income tax from every payment, automatically.", "weak": "Built for solo workers only and tied to Solaris infrastructure.[8]" },
-        { "key": "holvi", "name": "Holvi", "group": "digital", "x": 6.1, "y": 0.9, "side": "l", "pitch": "A simple account for freelancers and small teams.", "edge": "Plans with unlimited transactions, e-invoicing.", "weak": "No deposit protection, no lending.[8]" },
-        { "key": "tide", "name": "Tide", "group": "digital", "x": 7.2, "y": 1.3, "side": "b", "pitch": "Start free, do everything in the app.", "edge": "iwoca credit inside the app. Cash bonus and 4.5% on balances.[12]", "weak": "Still early in Germany. Until 2026 it only took sole traders.[12]" },
-        { "key": "finom", "name": "Finom", "group": "digital", "x": 8.2, "y": 2.0, "side": "r", "pitch": "All in one and cheap: banking, invoicing, bookkeeping.", "edge": "Up to 3% cashback, a 5% interest account, a credit line through a fund.[9][36]", "weak": "Volume based fees can surprise a small business. The loans are not on its own balance sheet.[28]" },
-        { "key": "qonto", "name": "Qonto", "group": "digital", "x": 8.9, "y": 3.0, "side": "t", "pitch": "Europe's AI powered champion for small business, a \"Swiss army knife\".[6]", "edge": "It bundles company formation with the account. More than one in ten German start-ups is formed through its tool.[6]", "weak": "Not a bank yet, no cash, credit capped at €15,000 for 60 days. Complaints about frozen accounts.[8][18]" }
+        {
+          "key": "sparkassen",
+          "name": "Sparkassen",
+          "group": "traditional",
+          "x": 1.4,
+          "y": 9.0,
+          "side": "r",
+          "pitch": "The local bank, the default Hausbank for small business.",
+          "edge": "6,810 branches, about 40% of business lending, Lexware Office inside the business app.[10][5]",
+          "weak": "Every Sparkasse sets its own prices, so the experience changes from branch to branch. Trustpilot score 1.6.[11]"
+        },
+        {
+          "key": "volksbanken",
+          "name": "Volksbanken",
+          "group": "traditional",
+          "x": 1.0,
+          "y": 7.3,
+          "side": "r",
+          "pitch": "The bank you are a member of, deciding locally.",
+          "edge": "Co-operative belonging. Deep ties with trades and farming.",
+          "weak": "Prices and digital experience vary bank by bank. Mergers change your IBAN and your adviser.[21]"
+        },
+        {
+          "key": "commerzbank",
+          "name": "Commerzbank",
+          "group": "traditional",
+          "x": 2.9,
+          "y": 8.0,
+          "side": "r",
+          "pitch": "The Mittelstand's private bank, the partner for trade abroad.",
+          "edge": "Nationwide corporate network, trade finance and cash management.",
+          "weak": "UniCredit aims to take control in early 2027, which leaves customers unsure. No price edge for small firms.[13]"
+        },
+        {
+          "key": "deutsche",
+          "name": "Deutsche Bank",
+          "group": "traditional",
+          "x": 3.3,
+          "y": 9.4,
+          "side": "r",
+          "pitch": "Three brands in one group: Deutsche Bank, Postbank and Fyrst.",
+          "edge": "Cash deposits through Postbank, a digital side brand in Fyrst.",
+          "weak": "Business Basic costs €104.90 a month at 300 transactions, the most expensive on the list.[8]"
+        },
+        {
+          "key": "fyrst",
+          "name": "Fyrst",
+          "group": "licensed",
+          "x": 5.6,
+          "y": 5.5,
+          "side": "l",
+          "pitch": "Deutsche Bank's digital side brand: an account in seven minutes.",
+          "edge": "Credit lines from €3,000 to €250,000. €28 a month at 300 transactions, the cheapest on the list.[8]",
+          "weak": "It has a banking licence but no real share of SME lending in Germany. DATEV export costs extra.[8]"
+        },
+        {
+          "key": "n26",
+          "name": "N26 Business",
+          "group": "licensed",
+          "x": 6.6,
+          "y": 4.6,
+          "side": "b",
+          "pitch": "A licensed mobile account for freelancers and digital small firms.",
+          "edge": "Full banking licence. Wero in the app since August 2026.[31]",
+          "weak": "No real share of SME lending in Germany. Shopify sellers report trouble using it as a payout account.[15]"
+        },
+        {
+          "key": "revolut",
+          "name": "Revolut Business",
+          "group": "licensed",
+          "x": 7.7,
+          "y": 5.4,
+          "side": "r",
+          "pitch": "A multi-currency account for businesses that work across borders.",
+          "edge": "FX, several IBANs, sub-accounts.",
+          "weak": "Weak links to German bookkeeping tools. No API on the Basic plan.[8]"
+        },
+        {
+          "key": "iwoca",
+          "name": "iwoca",
+          "group": "credit",
+          "x": 4.4,
+          "y": 3.5,
+          "side": "l",
+          "pitch": "Fast working capital for when the bank is too slow.",
+          "edge": "Decisions in minutes. Over €275 million lent to more than 10,000 German SMEs. Also built into Tide.[16][12]",
+          "weak": "Costs more, and few people know the name."
+        },
+        {
+          "key": "banxware",
+          "name": "Banxware",
+          "group": "credit",
+          "x": 3.4,
+          "y": 4.4,
+          "side": "l",
+          "pitch": "Lending built into someone else's platform.",
+          "edge": "Instant financing for HypoVereinsbank's business clients.[14]",
+          "weak": "Costs more, and few people know the name."
+        },
+        {
+          "key": "kontist",
+          "name": "Kontist",
+          "group": "digital",
+          "x": 5.0,
+          "y": 1.7,
+          "side": "l",
+          "pitch": "The freelancer's tax assistant.",
+          "edge": "Sets aside VAT and income tax from every payment, automatically.",
+          "weak": "Built for solo workers only and tied to Solaris infrastructure.[8]"
+        },
+        {
+          "key": "holvi",
+          "name": "Holvi",
+          "group": "digital",
+          "x": 6.1,
+          "y": 0.9,
+          "side": "l",
+          "pitch": "A simple account for freelancers and small teams.",
+          "edge": "Plans with unlimited transactions, e-invoicing.",
+          "weak": "No deposit protection, no lending.[8]"
+        },
+        {
+          "key": "tide",
+          "name": "Tide",
+          "group": "digital",
+          "x": 7.2,
+          "y": 1.3,
+          "side": "b",
+          "pitch": "Start free, do everything in the app.",
+          "edge": "iwoca credit inside the app. Cash bonus and 4.5% on balances.[12]",
+          "weak": "Still early in Germany. Until 2026 it only took sole traders.[12]"
+        },
+        {
+          "key": "finom",
+          "name": "Finom",
+          "group": "digital",
+          "x": 8.2,
+          "y": 2.0,
+          "side": "r",
+          "pitch": "All in one and cheap: banking, invoicing, bookkeeping.",
+          "edge": "Up to 3% cashback, a 5% interest account, a credit line through a fund.[9][36]",
+          "weak": "Volume based fees can surprise a small business. The loans are not on its own balance sheet.[28]"
+        },
+        {
+          "key": "qonto",
+          "name": "Qonto",
+          "group": "digital",
+          "x": 8.9,
+          "y": 3.0,
+          "side": "t",
+          "pitch": "Europe's AI powered champion for small business, a \"Swiss army knife\".[6]",
+          "edge": "It bundles company formation with the account. More than one in ten German start-ups is formed through its tool.[6]",
+          "weak": "Not a bank yet, no cash, credit capped at €15,000 for 60 days. Complaints about frozen accounts.[8][18]"
+        }
       ],
       "note": "Fyrst, N26 and Revolut sit closest to the top right because they hold banking licences. None of them has a real share of SME lending in Germany.",
       "qonto": {
@@ -415,7 +1256,12 @@
       }
     },
     "cost": {
-      "head": { "index": "03", "label": "Account fees", "title": "What does your account really cost a month?", "lede": "The real cost is not the base fee. It is the number of transactions. Slide to your own monthly count." },
+      "head": {
+        "index": "03",
+        "label": "Calculator",
+        "title": "Account fees",
+        "lede": "The real cost is not the base fee. It is the number of transactions. Slide to your own monthly count."
+      },
       "sliderLabel": "Transactions per month",
       "unit": "transactions",
       "listLabel": "Monthly cost, cheapest first",
@@ -427,26 +1273,91 @@
       "vatTag": "+19% VAT",
       "vatNote": "Qonto, Holvi and Kontist quote prices before VAT. If you can't reclaim it, add 19%: €11 becomes €13.09.[8]",
       "accounts": [
-        { "name": "Fyrst Complete", "base": 10, "free": 75, "per": 0.08, "vat": false },
-        { "name": "Qonto Premium", "base": 45, "free": 200, "per": 0.1, "vat": true },
-        { "name": "Tide Smart", "base": 9.99, "free": 75, "per": 0.2, "vat": false },
-        { "name": "Holvi Lite", "base": 9, "free": 100, "per": 0.25, "vat": true },
-        { "name": "Qonto Basic", "base": 11, "free": 30, "per": 0.2, "vat": true },
-        { "name": "Commerzbank Klassik", "base": 15.9, "free": 10, "per": 0.2, "vat": false },
-        { "name": "Kontist Start", "base": 11, "free": 30, "per": 0.25, "vat": true },
-        { "name": "Postbank Business Giro", "base": 12.9, "free": 0, "per": 0.28, "vat": false },
-        { "name": "Deutsche Bank Business Basic", "base": 14.9, "free": 0, "per": 0.3, "vat": false }
+        {
+          "name": "Fyrst Complete",
+          "base": 10,
+          "free": 75,
+          "per": 0.08,
+          "vat": false
+        },
+        {
+          "name": "Qonto Premium",
+          "base": 45,
+          "free": 200,
+          "per": 0.1,
+          "vat": true
+        },
+        {
+          "name": "Tide Smart",
+          "base": 9.99,
+          "free": 75,
+          "per": 0.2,
+          "vat": false
+        },
+        {
+          "name": "Holvi Lite",
+          "base": 9,
+          "free": 100,
+          "per": 0.25,
+          "vat": true
+        },
+        {
+          "name": "Qonto Basic",
+          "base": 11,
+          "free": 30,
+          "per": 0.2,
+          "vat": true
+        },
+        {
+          "name": "Commerzbank Klassik",
+          "base": 15.9,
+          "free": 10,
+          "per": 0.2,
+          "vat": false
+        },
+        {
+          "name": "Kontist Start",
+          "base": 11,
+          "free": 30,
+          "per": 0.25,
+          "vat": true
+        },
+        {
+          "name": "Postbank Business Giro",
+          "base": 12.9,
+          "free": 0,
+          "per": 0.28,
+          "vat": false
+        },
+        {
+          "name": "Deutsche Bank Business Basic",
+          "base": 14.9,
+          "free": 0,
+          "per": 0.3,
+          "vat": false
+        }
       ],
-      "sparkasse": { "label": "Sparkassen", "text": "Entry packages run €9.90-12.95 a month. Every Sparkasse sets its own price, so they are not on the list.[17]" },
+      "sparkasse": {
+        "label": "Sparkassen",
+        "text": "Entry packages run €9.90-12.95 a month. Every Sparkasse sets its own price, so they are not on the list.[17]"
+      },
       "lesson": "At low volume digital is cheaper. At high volume the gap closes.",
       "note": "List prices as of 24 September 2026, promotions excluded.[8]"
     },
     "story": {
-      "head": { "index": "04", "label": "Kaan's 30 months", "title": "One founder, five moments, one gap.", "lede": "Kaan is made up. Everything that happens in the story is pieced together from real complaints and data in this report." },
+      "head": {
+        "index": "04",
+        "label": "Story",
+        "title": "Kaan's 30 months",
+        "lede": "Kaan is made up. Everything that happens in the story is pieced together from real complaints and data in this report."
+      },
       "intro": "Kaan is 34 and is opening a small coffee roastery in Leipzig. You make the calls. There is no right or wrong, only what happens next.",
       "stickyTitle": "Kaan's 30 months",
       "monthLabel": "Month",
-      "pathLabels": { "sparkasse": "Sparkasse path", "digital": "Digital path" },
+      "pathLabels": {
+        "sparkasse": "Sparkasse path",
+        "digital": "Digital path"
+      },
       "pickFirst": "The story carries on from your choice in month 0.",
       "changeLabel": "Start over",
       "questionLabel": "Your call",
@@ -457,8 +1368,18 @@
         "text": "The notary is booked and the roaster is on order. The company needs an account to pay in its share capital. The first customer, a small café chain, is waiting for an IBAN to pay the first invoice.",
         "question": "Where do you open the account?",
         "options": [
-          { "key": "sparkasse", "label": "Sparkasse", "sub": "The branch round the corner, a real adviser", "result": "The appointment is two weeks out. A document goes missing. Six weeks later the account still isn't open and the café's payment is stuck. Founders have written about exactly this.[19]" },
-          { "key": "digital", "label": "Neobank", "sub": "A formation tool in the app, notary included", "result": "Company and IBAN are ready within a week. Qonto says its tool cuts formation from eight weeks to one. At Finom, 55% of new accounts receive their first payment on day one.[6][7]" }
+          {
+            "key": "sparkasse",
+            "label": "Sparkasse",
+            "sub": "The branch round the corner, a real adviser",
+            "result": "The appointment is two weeks out. A document goes missing. Six weeks later the account still isn't open and the café's payment is stuck. Founders have written about exactly this.[19]"
+          },
+          {
+            "key": "digital",
+            "label": "Neobank",
+            "sub": "A formation tool in the app, notary included",
+            "result": "Company and IBAN are ready within a week. Qonto says its tool cuts formation from eight weeks to one. At Finom, 55% of new accounts receive their first payment on day one.[6][7]"
+          }
         ]
       },
       "cash": {
@@ -480,14 +1401,38 @@
         "question": "What would you do?",
         "choices": {
           "digital": [
-            { "key": "wait", "label": "Upload the document again and wait", "result": "Days, sometimes weeks. One Finom customer couldn't pay the office rent in the meantime, swallowed a €418 loss and complained to BaFin.[20]" },
-            { "key": "lawyer", "label": "Call a lawyer", "result": "Kaan isn't alone. A law firm said in May 2026 it was getting a wave of new cases like this. But the law takes time, and rent is due Friday.[18]" },
-            { "key": "second", "label": "Open a second account now", "result": "A week at another neobank, weeks at a Sparkasse. Rent is late either way. Lesson learned: one account is one point of failure." }
+            {
+              "key": "wait",
+              "label": "Upload the document again and wait",
+              "result": "Days, sometimes weeks. One Finom customer couldn't pay the office rent in the meantime, swallowed a €418 loss and complained to BaFin.[20]"
+            },
+            {
+              "key": "lawyer",
+              "label": "Call a lawyer",
+              "result": "Kaan isn't alone. A law firm said in May 2026 it was getting a wave of new cases like this. But the law takes time, and rent is due Friday.[18]"
+            },
+            {
+              "key": "second",
+              "label": "Open a second account now",
+              "result": "A week at another neobank, weeks at a Sparkasse. Rent is late either way. Lesson learned: one account is one point of failure."
+            }
           ],
           "sparkasse": [
-            { "key": "notify", "label": "Email the new IBAN to everyone", "result": "A week of emails and calls. A few payments arrive late, none get lost. Business slows down, it doesn't stop." },
-            { "key": "advisor", "label": "Go and meet the new adviser", "result": "It's what everyone asks in a merger: who is my adviser now? The new one doesn't know Kaan. The relationship starts from zero.[21]" },
-            { "key": "backup", "label": "Open a digital account on the side", "result": "IBAN ready in a week. Now it's two banks, two fees, two apps. But there's a backup." }
+            {
+              "key": "notify",
+              "label": "Email the new IBAN to everyone",
+              "result": "A week of emails and calls. A few payments arrive late, none get lost. Business slows down, it doesn't stop."
+            },
+            {
+              "key": "advisor",
+              "label": "Go and meet the new adviser",
+              "result": "It's what everyone asks in a merger: who is my adviser now? The new one doesn't know Kaan. The relationship starts from zero.[21]"
+            },
+            {
+              "key": "backup",
+              "label": "Open a digital account on the side",
+              "result": "IBAN ready in a week. Now it's two banks, two fees, two apps. But there's a backup."
+            }
           ]
         }
       },
@@ -502,11 +1447,53 @@
         "doorsLabel": "Doors",
         "triedLabel": "Tried",
         "doors": [
-          { "key": "qonto", "name": "Qonto", "amount": 15000, "state": "half", "verdict": "Half open", "text": "The door opens, but only to €15,000 for at most 60 days. A roaster doesn't pay for itself in 60 days.[8]" },
-          { "key": "finom", "name": "Finom", "amount": 50000, "state": "half", "verdict": "Half open", "text": "Credit comes through a fund, €2,000 to €50,000. The door opens halfway and leaves Kaan €30,000 short.[24]" },
-          { "key": "iwoca", "name": "iwoca", "amount": 0, "state": "half", "verdict": "Fast, costly", "text": "A decision in minutes. But this is short term working capital and it is expensive. Wrong money for a machine that has to run for years.[16]" },
-          { "key": "sparkasse", "name": "Sparkasse", "amount": 0, "state": "closed", "verdict": "Weeks", "text": "It wants collateral and the decision takes weeks.", "textBy": { "sparkasse": "The adviser knows Kaan but wants collateral. The roastery is rented, there's no house. The decision will take weeks.", "digital": "Kaan isn't a customer. First an account, then a file, then collateral. Weeks." } },
-          { "key": "kfw", "name": "KfW", "amount": 0, "state": "closed", "verdict": "Bank only", "text": "You can't go to KfW directly. Its loans come through your Hausbank, and banks are reluctant below €20,000 or €50,000. One bank offered its own 9.99% loan instead of the subsidised one.[22][23]", "textBy": { "digital": "A digital account doesn't count as a Hausbank, and you can't go to KfW directly. Banks are reluctant below €20,000 or €50,000 anyway. One offered its own 9.99% loan instead of the subsidised one.[22][23]" } }
+          {
+            "key": "qonto",
+            "name": "Qonto",
+            "amount": 15000,
+            "state": "half",
+            "verdict": "Half open",
+            "text": "The door opens, but only to €15,000 for at most 60 days. A roaster doesn't pay for itself in 60 days.[8]"
+          },
+          {
+            "key": "finom",
+            "name": "Finom",
+            "amount": 50000,
+            "state": "half",
+            "verdict": "Half open",
+            "text": "Credit comes through a fund, €2,000 to €50,000. The door opens halfway and leaves Kaan €30,000 short.[24]"
+          },
+          {
+            "key": "iwoca",
+            "name": "iwoca",
+            "amount": 0,
+            "state": "half",
+            "verdict": "Fast, costly",
+            "text": "A decision in minutes. But this is short term working capital and it is expensive. Wrong money for a machine that has to run for years.[16]"
+          },
+          {
+            "key": "sparkasse",
+            "name": "Sparkasse",
+            "amount": 0,
+            "state": "closed",
+            "verdict": "Weeks",
+            "text": "It wants collateral and the decision takes weeks.",
+            "textBy": {
+              "sparkasse": "The adviser knows Kaan but wants collateral. The roastery is rented, there's no house. The decision will take weeks.",
+              "digital": "Kaan isn't a customer. First an account, then a file, then collateral. Weeks."
+            }
+          },
+          {
+            "key": "kfw",
+            "name": "KfW",
+            "amount": 0,
+            "state": "closed",
+            "verdict": "Bank only",
+            "text": "You can't go to KfW directly. Its loans come through your Hausbank, and banks are reluctant below €20,000 or €50,000. One bank offered its own 9.99% loan instead of the subsidised one.[22][23]",
+            "textBy": {
+              "digital": "A digital account doesn't count as a Hausbank, and you can't go to KfW directly. Banks are reluctant below €20,000 or €50,000 anyway. One offered its own 9.99% loan instead of the subsidised one.[22][23]"
+            }
+          }
         ],
         "finalLine": "Nobody lends fast between €15,000 and €250,000.",
         "finalNote": "That is the biggest gap in this report."
@@ -521,68 +1508,236 @@
       }
     },
     "mirror": {
-      "head": { "index": "05", "label": "The mirror", "title": "Each side hurts in the opposite place.", "lede": "Digital customers say: \"it was fast, but when it went wrong there was nobody\". Traditional customers say: \"there's somebody, but nothing moves\". Flip the switch and watch the last column." },
+      "head": {
+        "index": "05",
+        "label": "The mirror",
+        "title": "Customer complaints",
+        "lede": "Digital customers say: \"it was fast, but when it went wrong there was nobody\". Traditional customers say: \"there's somebody, but nothing moves\". Flip the switch and watch the last column."
+      },
       "toggleLabel": "Side",
-      "sides": { "digital": "Digital", "sparkasse": "Traditional" },
-      "columns": { "stage": "Stage", "complaint": "Top complaint", "want": "What the customer really wants" },
+      "sides": {
+        "digital": "Digital",
+        "sparkasse": "Traditional"
+      },
+      "columns": {
+        "stage": "Stage",
+        "complaint": "Top complaint",
+        "want": "What the customer really wants"
+      },
       "rows": [
-        { "stage": "Setting up", "digital": "ID checks rejected without a reason.", "traditional": "Accounts take weeks to open, papers get lost.", "want": "An IBAN and a capital deposit certificate the same day." },
-        { "stage": "Day to day", "digital": "Surprise per-transaction fees. Trouble with Etsy and Shopify.", "traditional": "Helplines nobody answers, apps that break, fees nobody explains.", "want": "Predictable prices and connections that work." },
-        { "stage": "Growth and credit", "digital": "Credit limits are low.", "traditional": "KfW loans aren't processed, a pricier in-house loan is offered instead. Requests go unanswered.", "want": "Fast decisions and access to subsidies." },
-        { "stage": "Crisis", "digital": "Frozen account, no support, balance locked.", "traditional": "Loans cancelled, relationships ended without a reason.", "want": "Warning in advance, a named contact, a reason." },
-        { "stage": "Structural change", "digital": "Outages during platform moves, like Solaris to an own licence.", "traditional": "Mergers change your IBAN and your adviser.", "want": "Continuity without breaks." }
+        {
+          "stage": "Setting up",
+          "digital": "ID checks rejected without a reason.",
+          "traditional": "Accounts take weeks to open, papers get lost.",
+          "want": "An IBAN and a capital deposit certificate the same day."
+        },
+        {
+          "stage": "Day to day",
+          "digital": "Surprise per-transaction fees. Trouble with Etsy and Shopify.",
+          "traditional": "Helplines nobody answers, apps that break, fees nobody explains.",
+          "want": "Predictable prices and connections that work."
+        },
+        {
+          "stage": "Growth and credit",
+          "digital": "Credit limits are low.",
+          "traditional": "KfW loans aren't processed, a pricier in-house loan is offered instead. Requests go unanswered.",
+          "want": "Fast decisions and access to subsidies."
+        },
+        {
+          "stage": "Crisis",
+          "digital": "Frozen account, no support, balance locked.",
+          "traditional": "Loans cancelled, relationships ended without a reason.",
+          "want": "Warning in advance, a named contact, a reason."
+        },
+        {
+          "stage": "Structural change",
+          "digital": "Outages during platform moves, like Solaris to an own licence.",
+          "traditional": "Mergers change your IBAN and your adviser.",
+          "want": "Continuity without breaks."
+        }
       ],
       "refs": "[18][19][20][22][26][28]",
       "scoresLabel": "Trustpilot score",
       "scores": [
-        { "name": "Finom", "score": 4.8, "count": "15,062 reviews" },
-        { "name": "Sparkasse", "score": 1.6, "count": "2,581 reviews" }
+        {
+          "name": "Finom",
+          "score": 4.8,
+          "count": "15,062 reviews"
+        },
+        {
+          "name": "Sparkasse",
+          "score": 1.6,
+          "count": "2,581 reviews"
+        }
       ],
       "scoreRefs": "[27][11]",
       "scoreReading": "The average misleads. Digital scores high because the daily experience is good, but the anger piles up in one moment: when the account locks. On the traditional side the complaints spread everywhere.",
       "caveat": "Review sites and forums amplify bad experiences. This shows what hurts, not how common it is."
     },
     "timeline": {
-      "head": { "index": "06", "label": "The calendar", "title": "24 months that rewrite the rules.", "lede": "Over the next two years, the biggest change in this market won't come from a bank. It comes from e-invoicing. Tap an event." },
+      "head": {
+        "index": "06",
+        "label": "The calendar",
+        "title": "Regulation calendar 2025-2029",
+        "lede": "Over the next two years, the biggest change in this market won't come from a bank. It comes from e-invoicing. Tap an event."
+      },
       "today": "2026-11",
       "todayLabel": "Today",
       "whoLabel": "Who wins",
-      "years": ["2025", "2026", "2027", "2028", "2029"],
+      "years": [
+        "2025",
+        "2026",
+        "2027",
+        "2028",
+        "2029"
+      ],
       "events": [
-        { "at": "2025-01", "date": "Jan 2025", "title": "Duty to receive e-invoices", "text": "Every company must be able to receive e-invoices. Invoice data becomes structured.[25]", "who": "Whoever joins invoice and account in one place." },
-        { "at": "2025-10", "date": "Oct 2025", "title": "Instant payments and payee check", "text": "Instant transfers may not cost more than normal ones. The payee's name is checked against the IBAN.[30]", "who": "The customer. Instant is now table stakes, so competition moves elsewhere." },
-        { "at": "2025-11", "date": "Nov 2025", "title": "Wero goes live online", "text": "Europe's shared wallet opened to Sparkassen and Volksbanken customers first.[32]", "who": "Member banks and their merchants." },
-        { "at": "2026-08", "date": "Aug 2026", "title": "N26 adds Wero", "text": "Commerzbank has promised to join. On the bank side Wero is almost complete.[31]", "who": "Member banks. Where digital SME accounts fit is still open." },
-        { "at": "2026-12", "date": "Dec 2026", "title": "PSD3 and PSR in plenary", "text": "E-money firms fold into the payment institution category, fraud liability moves to the provider, virtual IBANs are recognised. Most rules then get 21 months to apply.[29][30]", "who": "Whoever has strong compliance and catches fraud well." },
-        { "at": "2027-01", "date": "Jan 2027", "title": "Sending e-invoices, larger firms", "text": "Firms with 2026 turnover above €800,000 must send e-invoices.[25]", "who": "The platform that adds payment and financing to the invoice." },
-        { "at": "2027-06", "date": "2027", "title": "Wero in shops", "text": "In-store use is planned for 2026 to 2027. No firm date yet.[31]", "who": "Banks that own a checkout product against the card networks." },
-        { "at": "2028-01", "date": "Jan 2028", "title": "E-invoicing for everyone", "text": "The duty to send reaches every B2B company. The line between bookkeeping and the bank account almost disappears.[25]", "who": "Whoever sees the invoice first. Invoice based credit could arrive before the bank does." },
-        { "at": "2029-01", "date": "2029", "title": "Digital euro, at the earliest", "text": "A new layer of competition for payment accounts.[33]", "who": "Too early to say." }
+        {
+          "at": "2025-01",
+          "date": "Jan 2025",
+          "title": "Duty to receive e-invoices",
+          "text": "Every company must be able to receive e-invoices. Invoice data becomes structured.[25]",
+          "who": "Whoever joins invoice and account in one place."
+        },
+        {
+          "at": "2025-10",
+          "date": "Oct 2025",
+          "title": "Instant payments and payee check",
+          "text": "Instant transfers may not cost more than normal ones. The payee's name is checked against the IBAN.[30]",
+          "who": "The customer. Instant is now table stakes, so competition moves elsewhere."
+        },
+        {
+          "at": "2025-11",
+          "date": "Nov 2025",
+          "title": "Wero goes live online",
+          "text": "Europe's shared wallet opened to Sparkassen and Volksbanken customers first.[32]",
+          "who": "Member banks and their merchants."
+        },
+        {
+          "at": "2026-08",
+          "date": "Aug 2026",
+          "title": "N26 adds Wero",
+          "text": "Commerzbank has promised to join. On the bank side Wero is almost complete.[31]",
+          "who": "Member banks. Where digital SME accounts fit is still open."
+        },
+        {
+          "at": "2026-12",
+          "date": "Dec 2026",
+          "title": "PSD3 and PSR in plenary",
+          "text": "E-money firms fold into the payment institution category, fraud liability moves to the provider, virtual IBANs are recognised. Most rules then get 21 months to apply.[29][30]",
+          "who": "Whoever has strong compliance and catches fraud well."
+        },
+        {
+          "at": "2027-01",
+          "date": "Jan 2027",
+          "title": "Sending e-invoices, larger firms",
+          "text": "Firms with 2026 turnover above €800,000 must send e-invoices.[25]",
+          "who": "The platform that adds payment and financing to the invoice."
+        },
+        {
+          "at": "2027-06",
+          "date": "2027",
+          "title": "Wero in shops",
+          "text": "In-store use is planned for 2026 to 2027. No firm date yet.[31]",
+          "who": "Banks that own a checkout product against the card networks."
+        },
+        {
+          "at": "2028-01",
+          "date": "Jan 2028",
+          "title": "E-invoicing for everyone",
+          "text": "The duty to send reaches every B2B company. The line between bookkeeping and the bank account almost disappears.[25]",
+          "who": "Whoever sees the invoice first. Invoice based credit could arrive before the bank does."
+        },
+        {
+          "at": "2029-01",
+          "date": "2029",
+          "title": "Digital euro, at the earliest",
+          "text": "A new layer of competition for payment accounts.[33]",
+          "who": "Too early to say."
+        }
       ],
       "effectsHeading": "Three knock-on effects",
       "effects": [
-        { "title": "More freezes, not fewer.", "text": "Once PSD3 and PSR put liability on the provider, the easiest defence is to stop anything that looks odd. Whoever designs the crisis moment well wins trust in this period." },
-        { "title": "Invoice data becomes credit data.", "text": "After 2028 every B2B invoice is machine readable. The platform that issues it sees the receivable first and can offer credit before the bank." },
-        { "title": "Compliance capacity, not licence type, decides.", "text": "The line between e-money and payment firms goes, while DORA and fraud liability raise fixed costs. Small co-operative banks and small fintechs will be pushed into mergers or white label deals." }
+        {
+          "title": "More freezes, not fewer.",
+          "text": "Once PSD3 and PSR put liability on the provider, the easiest defence is to stop anything that looks odd. Whoever designs the crisis moment well wins trust in this period."
+        },
+        {
+          "title": "Invoice data becomes credit data.",
+          "text": "After 2028 every B2B invoice is machine readable. The platform that issues it sees the receivable first and can offer credit before the bank."
+        },
+        {
+          "title": "Compliance capacity, not licence type, decides.",
+          "text": "The line between e-money and payment firms goes, while DORA and fraud liability raise fixed costs. Small co-operative banks and small fintechs will be pushed into mergers or white label deals."
+        }
       ]
     },
     "gaps": {
-      "head": { "index": "07", "label": "Eight gaps", "title": "All of them sit between the account and the balance sheet.", "lede": "The ones who do accounts well have no balance sheet. The ones with a balance sheet do accounts badly. Eight gaps, the biggest first." },
+      "head": {
+        "index": "07",
+        "label": "Opportunities",
+        "title": "Eight gaps in the market",
+        "lede": "The ones who do accounts well have no balance sheet. The ones with a balance sheet do accounts badly. Eight gaps, the biggest first."
+      },
       "evidenceLabel": "Evidence",
       "chanceLabel": "Opportunity",
       "items": [
-        { "key": "01", "title": "Mid-sized loans", "evidence": "Qonto stops at €15,000, Finom at €50,000. Banks are reluctant to process small KfW loans, and 40.5% of SMEs call their bank restrictive.[8][24][22][4]", "chance": "Credit decided on account data, with KfW or Bürgschaftsbank guarantees plugged in digitally." },
-        { "key": "02", "title": "A digital door to subsidised loans", "evidence": "KfW only works through a Hausbank. A digital account holder has no Hausbank.[22]", "chance": "A layer that connects neobanks to public development banks." },
-        { "key": "03", "title": "A human in the crisis", "evidence": "Digital players score high, but complaints cluster at the moment an account freezes.[18][27]", "chance": "A service layer that warns before a freeze, gives a reason and assigns a named contact." },
-        { "key": "04", "title": "From invoice to financing", "evidence": "Only 42% of surveyed companies send e-invoices regularly.[34]", "chance": "A payment link the moment an invoice is created, automatic matching and instant invoice financing." },
-        { "key": "05", "title": "Businesses that run on cash", "evidence": "Qonto, Finom, Holvi and Tide don't take cash. Trades, restaurants and shops still run on the till.[8]", "chance": "Cash deposits through supermarkets, post offices or ATM networks." },
-        { "key": "06", "title": "SME treasury", "evidence": "Finom pays 5% and Tide 4.5% to win deposits. At Qonto, sub-accounts count as one balance with the main account.[36][12]", "chance": "A protected, interest bearing reserve that sets aside tax and social security automatically." },
-        { "key": "07", "title": "Digital trade finance", "evidence": "Export expectations rose above their long-term average in September 2026. Digital players offer no letters of credit and no FX hedging.[3]", "chance": "Digital letters of credit and FX hedging for small exporting firms." },
-        { "key": "08", "title": "Succession finance", "evidence": "About 109,000 firms a year plan a handover until 2029. 57% of owners are over 55.[35]", "chance": "One package for the buyer: loan, valuation, account and bookkeeping handover." }
+        {
+          "key": "01",
+          "title": "Mid-sized loans",
+          "evidence": "Qonto stops at €15,000, Finom at €50,000. Banks are reluctant to process small KfW loans, and 40.5% of SMEs call their bank restrictive.[8][24][22][4]",
+          "chance": "Credit decided on account data, with KfW or Bürgschaftsbank guarantees plugged in digitally."
+        },
+        {
+          "key": "02",
+          "title": "A digital door to subsidised loans",
+          "evidence": "KfW only works through a Hausbank. A digital account holder has no Hausbank.[22]",
+          "chance": "A layer that connects neobanks to public development banks."
+        },
+        {
+          "key": "03",
+          "title": "A human in the crisis",
+          "evidence": "Digital players score high, but complaints cluster at the moment an account freezes.[18][27]",
+          "chance": "A service layer that warns before a freeze, gives a reason and assigns a named contact."
+        },
+        {
+          "key": "04",
+          "title": "From invoice to financing",
+          "evidence": "Only 42% of surveyed companies send e-invoices regularly.[34]",
+          "chance": "A payment link the moment an invoice is created, automatic matching and instant invoice financing."
+        },
+        {
+          "key": "05",
+          "title": "Businesses that run on cash",
+          "evidence": "Qonto, Finom, Holvi and Tide don't take cash. Trades, restaurants and shops still run on the till.[8]",
+          "chance": "Cash deposits through supermarkets, post offices or ATM networks."
+        },
+        {
+          "key": "06",
+          "title": "SME treasury",
+          "evidence": "Finom pays 5% and Tide 4.5% to win deposits. At Qonto, sub-accounts count as one balance with the main account.[36][12]",
+          "chance": "A protected, interest bearing reserve that sets aside tax and social security automatically."
+        },
+        {
+          "key": "07",
+          "title": "Digital trade finance",
+          "evidence": "Export expectations rose above their long-term average in September 2026. Digital players offer no letters of credit and no FX hedging.[3]",
+          "chance": "Digital letters of credit and FX hedging for small exporting firms."
+        },
+        {
+          "key": "08",
+          "title": "Succession finance",
+          "evidence": "About 109,000 firms a year plan a handover until 2029. 57% of owners are over 55.[35]",
+          "chance": "One package for the buyer: loan, valuation, account and bookkeeping handover."
+        }
       ]
     },
     "note": {
-      "head": { "index": "", "label": "fspark9 note", "title": "Who builds the bridge?" },
+      "head": {
+        "index": "",
+        "label": "fspark9 note",
+        "title": "Open questions"
+      },
       "intro": "This report doesn't answer that. If it were us, we'd start with three questions:",
       "questions": [
         "How do a bank with a balance sheet and a fintech with a platform share the loan?",
@@ -591,64 +1746,203 @@
       ],
       "linksLabel": "If you're working on these questions",
       "links": [
-        { "label": "Embedded Finance", "slug": "embedded-finance" },
-        { "label": "Product & Strategy", "slug": "product-strategy" }
+        {
+          "label": "Embedded Finance",
+          "slug": "embedded-finance"
+        },
+        {
+          "label": "Product & Strategy",
+          "slug": "product-strategy"
+        }
       ]
     },
     "sources": {
-      "head": { "index": "", "label": "Sources", "title": "Where the numbers come from." },
+      "head": {
+        "index": "",
+        "label": "Sources",
+        "title": "Sources by section"
+      },
       "sourceTemplate": "Source {n}",
       "groups": [
-        { "title": "Opening and short version", "items": [
-          { "label": "KfW Mittelstandspanel 2025", "href": "https://www.presseportal.de/pm/41193/6151083" },
-          { "label": "Creditreform, insolvencies first half 2026", "href": "https://www.creditreform.de/aktuelles-wissen/pressemeldungen-fachbeitraege/news-details/show/insolvenzen-in-deutschland-1-halbjahr-2026" },
-          { "label": "KfW and ifo Mittelstandsbarometer, 29 September 2026", "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_908608.html" },
-          { "label": "KfW and ifo Kredithürde, July 2026", "href": "https://www.finanznachrichten.de/nachrichten-2026-07/68959891-kfw-research-vier-von-zehn-mittelstaendlern-beklagen-schweren-zugang-zu-krediten-007.htm" },
-          { "label": "DSGV, Zahlen und Fakten 2024", "href": "https://www.dsgv.de/uploads/Flyer_2025_3013807d14.pdf" },
-          { "label": "Börsen-Zeitung, Qonto, 25 September 2026", "href": "https://www.boersen-zeitung.de/banken-finanzen/qonto-erweitert-produktpalette-fuer-unternehmen" },
-          { "label": "StartingUp, Finom and firma.de", "href": "https://www.starting-up.de/news/news-investments/finom-firmade-partnerschaft.html" }
-        ] },
-        { "title": "The map", "items": [
-          { "label": "Handelsblatt, business account comparison, September 2026", "href": "https://www.handelsblatt.com/geschaeftskonto/vergleich/" },
-          { "label": "Börsen-Zeitung, Finom", "href": "https://www.boersen-zeitung.de/banken-finanzen/finom-koedert-selbstaendige-und-kmu-mit-buchhaltungsangebot" },
-          { "label": "Bundesbank, branch network 2025", "href": "https://www.bundesbank.de/de/presse/pressenotizen/bankstellenentwicklung-im-jahr-2025-951792" },
-          { "label": "Capitalo, Sparkasse, June 2026", "href": "https://www.capitalo.de/anbieter/sparkasse" },
-          { "label": "IT Finanzmagazin, Tide and iwoca", "href": "https://www.it-finanzmagazin.de/?p=234394" },
-          { "label": "finanzen.ch, UniCredit and Commerzbank, 29 September 2026", "href": "https://www.finanzen.ch/nachrichten/aktien/unicredit-will-kontrolle-ueber-commerzbank-in-wenigen-monaten-1036580254" },
-          { "label": "SIX, Banxware and HypoVereinsbank", "href": "https://www.six-group.com/de/products-services/banking-services/blink/obm-archiv/2024/mai.html" },
-          { "label": "Shopify community, N26", "href": "https://community.shopify.com/t/n26-bank-fur-shopify-payments/263366" },
-          { "label": "startupvalley, iwoca interview", "href": "https://startupvalley.news/de/iwoca-kredite-kmu/" }
-        ] },
-        { "title": "Account fees", "items": [
-          { "label": "Vivid Blog, business accounts", "href": "https://vivid.money/de-de/blog/die-besten-geschaeftskonten/" }
-        ] },
-        { "title": "Kaan's 30 months", "items": [
-          { "label": "anwalt.de, frozen Qonto accounts, May 2026", "href": "https://www.anwalt.de/rechtstipps/geschaeftskonto-bei-qonto-gesperrt-oder-gekuendigt-eser-law-meldet-zahlreiche-anfragen-von-betroffenen-unternehmern-271394.html" },
-          { "label": "Trustpilot, Sparkasse Karlsruhe", "href": "https://de.trustpilot.com/review/sparkasse-karlsruhe.de" },
-          { "label": "Trustpilot, Finom", "href": "https://at.trustpilot.com/review/finom.co?page=5" },
-          { "label": "Volksbank Düsseldorf Neuss, merger", "href": "https://www.deine-volksbank.de/fusioni.html" },
-          { "label": "VGSD forum, Hausbank and subsidised loans", "href": "https://www.vgsd.de/frage/hausbank-und-foerderkredite-kfw-lfa" },
-          { "label": "HaustechnikDialog, KfW loan", "href": "https://www.haustechnikdialog.de/Forum/t/276539/KFW-Kredit-358-nicht-abrufbar-" },
-          { "label": "IT Finanzmagazin, Finom credit line", "href": "https://www.it-finanzmagazin.de/finom-ki-gestuetzte-kreditlinie-fuer-kmu-236962/" },
-          { "label": "e-rechnungen.org, e-invoicing deadlines", "href": "https://www.e-rechnungen.org/e-rechnung-pflicht-fristen" }
-        ] },
-        { "title": "The mirror", "items": [
-          { "label": "Trustpilot, Sparkasse Münsterland Ost", "href": "https://de.trustpilot.com/review/www.sparkasse-muensterland-ost.de" },
-          { "label": "Capitalo, Finom", "href": "https://www.capitalo.de/anbieter/finom" },
-          { "label": "Etsy community, business accounts", "href": "https://community.etsy.com/t5/Etsys-deutsche-Community/Wo-habt-ihr-euer-Gesch%C3%A4ftskonto/td-p/147855995" }
-        ] },
-        { "title": "The calendar", "items": [
-          { "label": "yagemi, PSD3 and PSR, August 2026", "href": "https://www.yagemi.de/blog/recht-compliance/psd3-psr-zahlungsdiensterecht/" },
-          { "label": "FinanceMalta, PSD3 and PSR compromise", "href": "https://financemalta.org/industry-updates/eu-reaches-compromise-on-psd3-and-psr" },
-          { "label": "EuroShop, Wero 2026", "href": "https://www.euroshop.de/de/media-news/euroshopmag/retail-technology/wero-2026-akzeptanz-und-implementierung-im-handel" },
-          { "label": "EPI, first Wero merchants in Germany", "href": "https://epicompany.eu/media-insights/wero-announces-first-merchants-in-germany/" },
-          { "label": "neuebanken, PSD3, PSR and the digital euro", "href": "https://www.neuebanken.de/psd3-psr-eu-zahlungsregeln/" },
-          { "label": "ad-hoc-news, YouGov e-invoicing survey", "href": "https://www.ad-hoc-news.de/wirtschaft/e-rechnung-neue-pflicht-fuer-800-000-euro-firmen-ab-januar-2027/69486469" }
-        ] },
-        { "title": "Eight gaps", "items": [
-          { "label": "KfW Nachfolge-Monitoring, January 2026", "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_876800.html" },
-          { "label": "IT Finanzmagazin, Finom 5% interest account, March 2026", "href": "https://www.it-finanzmagazin.de/finom-started-mifid-reguliertes-zinskonto-mit-5-fuer-kmu-241289/" }
-        ] }
+        {
+          "title": "Opening and short version",
+          "items": [
+            {
+              "label": "KfW Mittelstandspanel 2025",
+              "href": "https://www.presseportal.de/pm/41193/6151083"
+            },
+            {
+              "label": "Creditreform, insolvencies first half 2026",
+              "href": "https://www.creditreform.de/aktuelles-wissen/pressemeldungen-fachbeitraege/news-details/show/insolvenzen-in-deutschland-1-halbjahr-2026"
+            },
+            {
+              "label": "KfW and ifo Mittelstandsbarometer, 29 September 2026",
+              "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_908608.html"
+            },
+            {
+              "label": "KfW and ifo Kredithürde, July 2026",
+              "href": "https://www.finanznachrichten.de/nachrichten-2026-07/68959891-kfw-research-vier-von-zehn-mittelstaendlern-beklagen-schweren-zugang-zu-krediten-007.htm"
+            },
+            {
+              "label": "DSGV, Zahlen und Fakten 2024",
+              "href": "https://www.dsgv.de/uploads/Flyer_2025_3013807d14.pdf"
+            },
+            {
+              "label": "Börsen-Zeitung, Qonto, 25 September 2026",
+              "href": "https://www.boersen-zeitung.de/banken-finanzen/qonto-erweitert-produktpalette-fuer-unternehmen"
+            },
+            {
+              "label": "StartingUp, Finom and firma.de",
+              "href": "https://www.starting-up.de/news/news-investments/finom-firmade-partnerschaft.html"
+            }
+          ]
+        },
+        {
+          "title": "The map",
+          "items": [
+            {
+              "label": "Handelsblatt, business account comparison, September 2026",
+              "href": "https://www.handelsblatt.com/geschaeftskonto/vergleich/"
+            },
+            {
+              "label": "Börsen-Zeitung, Finom",
+              "href": "https://www.boersen-zeitung.de/banken-finanzen/finom-koedert-selbstaendige-und-kmu-mit-buchhaltungsangebot"
+            },
+            {
+              "label": "Bundesbank, branch network 2025",
+              "href": "https://www.bundesbank.de/de/presse/pressenotizen/bankstellenentwicklung-im-jahr-2025-951792"
+            },
+            {
+              "label": "Capitalo, Sparkasse, June 2026",
+              "href": "https://www.capitalo.de/anbieter/sparkasse"
+            },
+            {
+              "label": "IT Finanzmagazin, Tide and iwoca",
+              "href": "https://www.it-finanzmagazin.de/?p=234394"
+            },
+            {
+              "label": "finanzen.ch, UniCredit and Commerzbank, 29 September 2026",
+              "href": "https://www.finanzen.ch/nachrichten/aktien/unicredit-will-kontrolle-ueber-commerzbank-in-wenigen-monaten-1036580254"
+            },
+            {
+              "label": "SIX, Banxware and HypoVereinsbank",
+              "href": "https://www.six-group.com/de/products-services/banking-services/blink/obm-archiv/2024/mai.html"
+            },
+            {
+              "label": "Shopify community, N26",
+              "href": "https://community.shopify.com/t/n26-bank-fur-shopify-payments/263366"
+            },
+            {
+              "label": "startupvalley, iwoca interview",
+              "href": "https://startupvalley.news/de/iwoca-kredite-kmu/"
+            }
+          ]
+        },
+        {
+          "title": "Account fees",
+          "items": [
+            {
+              "label": "Vivid Blog, business accounts",
+              "href": "https://vivid.money/de-de/blog/die-besten-geschaeftskonten/"
+            }
+          ]
+        },
+        {
+          "title": "Kaan's 30 months",
+          "items": [
+            {
+              "label": "anwalt.de, frozen Qonto accounts, May 2026",
+              "href": "https://www.anwalt.de/rechtstipps/geschaeftskonto-bei-qonto-gesperrt-oder-gekuendigt-eser-law-meldet-zahlreiche-anfragen-von-betroffenen-unternehmern-271394.html"
+            },
+            {
+              "label": "Trustpilot, Sparkasse Karlsruhe",
+              "href": "https://de.trustpilot.com/review/sparkasse-karlsruhe.de"
+            },
+            {
+              "label": "Trustpilot, Finom",
+              "href": "https://at.trustpilot.com/review/finom.co?page=5"
+            },
+            {
+              "label": "Volksbank Düsseldorf Neuss, merger",
+              "href": "https://www.deine-volksbank.de/fusioni.html"
+            },
+            {
+              "label": "VGSD forum, Hausbank and subsidised loans",
+              "href": "https://www.vgsd.de/frage/hausbank-und-foerderkredite-kfw-lfa"
+            },
+            {
+              "label": "HaustechnikDialog, KfW loan",
+              "href": "https://www.haustechnikdialog.de/Forum/t/276539/KFW-Kredit-358-nicht-abrufbar-"
+            },
+            {
+              "label": "IT Finanzmagazin, Finom credit line",
+              "href": "https://www.it-finanzmagazin.de/finom-ki-gestuetzte-kreditlinie-fuer-kmu-236962/"
+            },
+            {
+              "label": "e-rechnungen.org, e-invoicing deadlines",
+              "href": "https://www.e-rechnungen.org/e-rechnung-pflicht-fristen"
+            }
+          ]
+        },
+        {
+          "title": "The mirror",
+          "items": [
+            {
+              "label": "Trustpilot, Sparkasse Münsterland Ost",
+              "href": "https://de.trustpilot.com/review/www.sparkasse-muensterland-ost.de"
+            },
+            {
+              "label": "Capitalo, Finom",
+              "href": "https://www.capitalo.de/anbieter/finom"
+            },
+            {
+              "label": "Etsy community, business accounts",
+              "href": "https://community.etsy.com/t5/Etsys-deutsche-Community/Wo-habt-ihr-euer-Gesch%C3%A4ftskonto/td-p/147855995"
+            }
+          ]
+        },
+        {
+          "title": "The calendar",
+          "items": [
+            {
+              "label": "yagemi, PSD3 and PSR, August 2026",
+              "href": "https://www.yagemi.de/blog/recht-compliance/psd3-psr-zahlungsdiensterecht/"
+            },
+            {
+              "label": "FinanceMalta, PSD3 and PSR compromise",
+              "href": "https://financemalta.org/industry-updates/eu-reaches-compromise-on-psd3-and-psr"
+            },
+            {
+              "label": "EuroShop, Wero 2026",
+              "href": "https://www.euroshop.de/de/media-news/euroshopmag/retail-technology/wero-2026-akzeptanz-und-implementierung-im-handel"
+            },
+            {
+              "label": "EPI, first Wero merchants in Germany",
+              "href": "https://epicompany.eu/media-insights/wero-announces-first-merchants-in-germany/"
+            },
+            {
+              "label": "neuebanken, PSD3, PSR and the digital euro",
+              "href": "https://www.neuebanken.de/psd3-psr-eu-zahlungsregeln/"
+            },
+            {
+              "label": "ad-hoc-news, YouGov e-invoicing survey",
+              "href": "https://www.ad-hoc-news.de/wirtschaft/e-rechnung-neue-pflicht-fuer-800-000-euro-firmen-ab-januar-2027/69486469"
+            }
+          ]
+        },
+        {
+          "title": "Eight gaps",
+          "items": [
+            {
+              "label": "KfW Nachfolge-Monitoring, January 2026",
+              "href": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_876800.html"
+            },
+            {
+              "label": "IT Finanzmagazin, Finom 5% interest account, March 2026",
+              "href": "https://www.it-finanzmagazin.de/finom-started-mifid-reguliertes-zinskonto-mit-5-fuer-kmu-241289/"
+            }
+          ]
+        }
       ],
       "foot": "Compiled from public sources as of 1 October 2026. Customer numbers are the companies' own and mostly cover Europe as a whole. Prices are list prices without promotions. Map positions, Kaan's story and sentences marked \"Our reading\" are fspark9 analysis, not investment or legal advice."
     }
