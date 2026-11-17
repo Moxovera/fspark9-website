@@ -378,14 +378,27 @@ export async function getCases(): Promise<Record<Locale, CaseContent[]>> {
 
 export const ABOUT_PAGE_QUERY = defineQuery(`*[_type == "aboutPage" && _id == "aboutPage"][0]{
   seo{ title, description }, backLabel, label, hero, pair, result, whyNine, portraitAlt,
-  "portraitUrl": portrait.asset->url
+  "portraitUrl": portrait.asset->url,
+  introVideo
 }`);
 
 export async function getAbout(): Promise<Record<Locale, AboutContent>> {
   const raw = await sanityFetch<ABOUT_PAGE_QUERYResult>({ query: ABOUT_PAGE_QUERY, tags: ["aboutPage"] });
   return perLocale((locale) => {
-    const { portraitUrl, ...page } = localize(raw, locale);
-    return { ...page, portraitSrc: portraitUrl || undefined };
+    const { portraitUrl, introVideo: iv, ...page } = localize(raw, locale);
+    return {
+      ...page,
+      portraitSrc: portraitUrl || undefined,
+      introVideo: {
+        youtubeId: ((locale === "tr" ? raw?.introVideo?.youtubeIdTr : raw?.introVideo?.youtubeIdEn) ?? "").trim() || HERO_VIDEO_PREVIEW_ID,
+        durationLabel: iv?.durationLabel ?? "",
+        buttonLabel: iv?.buttonLabel ?? "",
+        ariaLabel: iv?.ariaLabel ?? "",
+        title: iv?.title ?? "",
+        caption: iv?.caption ?? "",
+        closeLabel: iv?.closeLabel ?? "",
+      },
+    };
   });
 }
 

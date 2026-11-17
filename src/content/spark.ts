@@ -19,7 +19,7 @@ export const lastDayFormatCopy: Record<Locale, { latest: string }> = {
 export const spark: Record<Locale, SparkHubContent> = {
   en: {
     seo: {
-      title: "Spark: fintech postmortems and sector reports | fspark9",
+      title: "Spark: fintech postmortems, sector reports and on the radar | fspark9",
       description:
         "Short, sharp formats that get companies moving. The Last Day and sector reports, numbered and dated.",
     },
@@ -29,7 +29,7 @@ export const spark: Record<Locale, SparkHubContent> = {
     film: {
       youtubeId: "6thCAqIHRyc",
       durationLabel: "0:28",
-      buttonLabel: "Watch Spark",
+      buttonLabel: "What is Spark? ",
       ariaLabel: "Watch the Spark film, 28 seconds",
       modalTitle: "Short, sharp formats that get companies moving.",
       closeLabel: "Close",
@@ -198,7 +198,7 @@ export const spark: Record<Locale, SparkHubContent> = {
     film: {
       youtubeId: "3OO8d3qkEKE",
       durationLabel: "0:28",
-      buttonLabel: "Spark’ı izleyin",
+      buttonLabel: "Spark Nedir?",
       ariaLabel: "Spark filmini izle, 28 saniye",
       modalTitle: "Şirketleri harekete geçiren kısa ve net formatlar.",
       closeLabel: "Kapat",
@@ -605,7 +605,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             service: "zero-to-live",
             serviceName: "Zero to Live",
             heading: "From idea to the first live product.",
-            body: "I work with your team from structure, licence and partner choice through to launch. The first decision in this story becomes our first week.",
+            body: "We work with your team from structure, licence and partner choice through to launch. The first decision in this story becomes our first week.",
           },
           {
             text: "We're launching a new product at our bank or fintech.",
@@ -879,7 +879,7 @@ export const sparkEpisodes: Record<Locale, Record<string, SparkEpisodeStory>> = 
             service: "zero-to-live",
             serviceName: "Zero to Live",
             heading: "Fikirden ilk canlı ürüne.",
-            body: "Yapı, lisans ve partner seçiminden lansmana kadar ekibinizle birlikte çalışırım. Bu hikâyedeki ilk karar, bizim ilk haftamız olur.",
+            body: "Yapı, lisans ve partner seçiminden lansmana kadar ekibinizle birlikte çalışırız. Bu hikâyedeki ilk karar, bizim ilk haftamız olur.",
           },
           {
             text: "Mevcut bankamızda ya da fintech'imizde yeni bir ürün çıkarıyoruz.",

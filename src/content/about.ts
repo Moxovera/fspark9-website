@@ -41,6 +41,15 @@ export const about: Record<Locale, AboutContent> = {
       text: "A launch has nine slices. Most teams get through eight. The ninth is the day it goes live, and that’s the one I care about.",
     },
     portraitAlt: "Mehmet Burak Dikmen",
+    introVideo: {
+      youtubeId: "B8RtGn529Lc",
+      durationLabel: "1:28",
+      buttonLabel: "What is fspark9 and who am I?",
+      ariaLabel: "Watch the short intro video",
+      title: "Why isn’t your financial product live yet?",
+      caption: "Hey, I’m Burak.",
+      closeLabel: "Close",
+    },
   },
   tr: {
     seo: {
@@ -76,5 +85,14 @@ export const about: Record<Locale, AboutContent> = {
       text: "Bir lansmanın dokuz dilimi var. Çoğu ekip sekizini geçiyor. Dokuzuncusu ürünün canlıya çıktığı gün, benim önemsediğim de o.",
     },
     portraitAlt: "Mehmet Burak Dikmen",
+    introVideo: {
+      youtubeId: "i1gkulhd0wg",
+      durationLabel: "1:28",
+      buttonLabel: "1 dkkada ben ve fspark9",
+      ariaLabel: "Tanıtım videosunu izle",
+      title: "Finansal ürününüz neden hâlâ canlıda değil?",
+      caption: "Merhaba, ben Burak.",
+      closeLabel: "Kapat",
+    },
   },
 };

@@ -64,7 +64,7 @@ export const servicePages: Record<Locale, ServicePageContent[]> = {
         { title: "Business model and first product", line: "What launches first and what waits.", slices: [2] },
         {
           title: "Compliance bridge",
-          line: "I sit between the business, your lawyers and the regulator, so legal requirements shape the product from day one and stop surprising you at the end.",
+          line: "We sit between the business, your lawyers and the regulator, so legal requirements shape the product from day one and stop surprising you at the end.",
           slices: [3],
         },
         { title: "Partners", line: "Choose the bank, BaaS and card partners, and run those conversations.", slices: [4] },
@@ -186,7 +186,7 @@ export const servicePages: Record<Locale, ServicePageContent[]> = {
         { title: "İş modeli ve ilk ürün", line: "Önce ne çıkacak, ne bekleyecek.", slices: [2] },
         {
           title: "Uyum köprüsü",
-          line: "İş tarafı, avukatlarınız ve regülatör arasında duruyorum. Böylece hukuki gereklilikler ilk günden ürüne yön veriyor, son anda sürpriz çıkarmıyor.",
+          line: "İş tarafı, avukatlarınız ve regülatör arasında duruyoruz. Böylece hukuki gereklilikler ilk günden ürüne yön veriyor, son anda sürpriz çıkarmıyor.",
           slices: [3],
         },
         { title: "Partnerler", line: "Banka, BaaS ve kart partnerlerini seçiyoruz, görüşmeleri yürütüyoruz.", slices: [4] },

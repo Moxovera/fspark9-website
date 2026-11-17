@@ -114,3 +114,22 @@ export const portraitField = defineField({
   type: "image",
   options: { hotspot: true },
 });
+
+/**
+ * Portre üstündeki tanıtım filmi alanları (ana sayfa heroVideo, About introVideo).
+ * Önizleme klipleri repoda (public/video), burada değil.
+ */
+export const introFilmFields = () => [
+  str("youtubeIdTr", "YouTube ID (Turkish film)", {
+    description: "Sadece kimlik, ör. youtube.com/watch?v=XXXXXXXXXXX adresindeki XXXXXXXXXXX. Boşsa TR sayfada video düğmesi ve önizleme görünmez.",
+  }),
+  str("youtubeIdEn", "YouTube ID (English film)", {
+    description: "Sadece kimlik. Boşsa EN sayfada video düğmesi ve önizleme görünmez.",
+  }),
+  str("durationLabel", "Duration", { description: "Düğmedeki süre, ör. 1:30. Film değişirse bu da değişir." }),
+  ls("buttonLabel", "Button"),
+  ls("ariaLabel", "Button label for screen readers", { description: "Süreyi yazıyla içerir, ör. 1 dakika 30 saniye." }),
+  ls("title", "Window title"),
+  ls("caption", "Preview caption", { description: "Sessiz önizlemede portrenin altında görünen satır." }),
+  ls("closeLabel", "Close button"),
+];

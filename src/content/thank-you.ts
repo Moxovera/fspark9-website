@@ -8,11 +8,11 @@ export const en: ThankYouPage = {
   label: "Confirmed",
   heading: "You are on the calendar.",
   paragraphs: [
-    "The invite is in your inbox. Two things that make the call more useful: reply to the invite with two or three lines about where you are, it saves us ten minutes. And if there is a deck, a flow or a partner proposal you would like me to look at, send it over. I will read it before we talk.",
+    "The invite is in your inbox. Two things that make the call more useful: reply to the invite with two or three lines about where you are, it saves us ten minutes. And if there is a deck, a flow or a partner proposal you would like us to look at, send it over. We will read it before we talk.",
     "If something comes up, move it from the invite. No need to apologise, it happens.",
   ],
   links: [
-    { label: "Two minutes on why I do this", sublabel: "About", href: "/about" },
+    { label: "Who is behind fspark9", sublabel: "About", href: "/about" },
     { label: "What was actually built", sublabel: "Work", href: "/work" },
   ],
 };
@@ -22,11 +22,11 @@ export const tr: ThankYouPage = {
   label: "Onaylandı",
   heading: "Görüşme ayarlandı.",
   paragraphs: [
-    "Davet e-postanıza düştü. Görüşmeyi daha verimli yapacak iki şey: davete cevap olarak nerede olduğunuzu iki üç satır yazın, bize on dakika kazandırır. Bakmamı istediğiniz bir sunum, akış ya da partner teklifi varsa gönderin, görüşmeden önce okurum.",
+    "Davet e-postanıza düştü. Görüşmeyi daha verimli yapacak iki şey: davete cevap olarak nerede olduğunuzu iki üç satır yazın, bize on dakika kazandırır. Bakmamızı istediğiniz bir sunum, akış ya da partner teklifi varsa gönderin, görüşmeden önce okuruz.",
     "Bir şey çıkarsa daveti oradan öteleyebilirsiniz.",
   ],
   links: [
-    { label: "Bunu neden yaptığım üzerine iki dakika", sublabel: "Hakkımda", href: "/about" },
+    { label: "fspark9’un arkasında kim var", sublabel: "Hakkımda", href: "/about" },
     { label: "Gerçekte ne kuruldu", sublabel: "İşler", href: "/work" },
   ],
 };

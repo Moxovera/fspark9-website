@@ -47,7 +47,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
     <main>
       <JsonLd data={breadcrumbJsonLd(locale, chrome, [])} />
       <HomeScrollMemory locale={locale} />
-      <HomeOpening content={content.opening} video={content.heroVideo} locale={locale} />
+      <HomeOpening content={content.opening} video={content.heroVideo} />
       <StartWhereYouAre content={content.startWhereYouAre} />
       <FourServices
         content={content.fourServices}

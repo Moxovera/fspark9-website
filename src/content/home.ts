@@ -13,18 +13,18 @@ export const home: Record<Locale, HomeContent> = {
     seo: {
       title: "fspark9 · Fintech and digital banking advisory",
       description:
-        "I help teams get financial products live. I’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
+        "We help teams get financial products live. We’ve built two digital banks and work with fintechs, banks and companies from the first decision to launch day.",
     },
     opening: {
-      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech and digital banking advisory"],
-      headlineSentences: ["I help you get financial products live."],
+      eyebrowParts: ["fspark9", "Fintech and digital banking advisory"],
+      headlineSentences: ["We help you get financial products live."],
       cutWord: "live.",
       intro:
-        "I work with fintechs, banks and companies that want to launch a financial product. I join your team and stay until it’s live.",
+        "We work with fintechs, banks and companies that want to launch a financial product. We join your team and stay until it’s live.",
       ctaLabel: "Book a call",
-      secondaryLinkLabel: "See what I do",
+      secondaryLinkLabel: "See what we do",
       portraitAlt: "Mehmet Burak Dikmen",
-      heroTextMobile: "I work with fintechs, banks and companies launching a financial product. I stay in your team until it’s live.",
+      heroTextMobile: "We work with fintechs, banks and companies launching a financial product. We stay in your team until it’s live.",
       proof: [
         { value: "2", label: "Digital banks built" },
         { value: "65,000+", label: "Users · Germany" },
@@ -32,25 +32,25 @@ export const home: Record<Locale, HomeContent> = {
       ],
     },
     heroVideo: {
-      youtubeId: "",
-      durationLabel: "1:30",
-      buttonLabel: "Meet me in 90 seconds",
-      ariaLabel: "Watch the intro video, 1 minute 30 seconds",
-      title: "Why isn’t your financial product live yet?",
-      caption: "Hey, I’m Burak.",
+      youtubeId: "mHTk5Mw1UBQ",
+      durationLabel: "1:31",
+      buttonLabel: "fspark9 in one minute",
+      ariaLabel: "Watch the fspark9 film, 1 minute 31 seconds",
+      title: "When does your financial product go live?",
+      caption: "When do you go live?",
       closeLabel: "Close",
     },
     servicesVideo: {
       youtubeId: "Pr4kIn4GgPg",
       durationLabel: "0:30",
-      buttonLabel: "Watch the services",
-      ariaLabel: "Watch the services video, 30 seconds",
+      buttonLabel: "Explore the services",
+      ariaLabel: "Explore the services, 30 seconds",
       title: "One ring. Four offers",
     },
     startWhereYouAre: {
       label: "01 · Which one are you?",
       heading: "Start where you are.",
-      text: "Most people who call me are in one of three places.",
+      text: "Most people who call us are in one of three places.",
       items: [
         {
           title: "Fintech",
@@ -107,17 +107,17 @@ export const home: Record<Locale, HomeContent> = {
       ],
     },
     withMe: {
-      label: "04 · What you get with me",
+      label: "04 · What you get with us",
       heading: "Money can’t be sold like chocolate. It’s earned through trust.",
       text: "We've built banks in a countries where nobody knew the brands. The team went to people’s weddings before anyone handed over their money. Grilled with them. No deck teaches you this part. ",
       points: [
         {
           title: "+10 years intense experience",
-          text: "I’ve spent more than ten years building fintech and digital banking products. You get that straight from me.",
+          text: "We’ve spent more than ten years building fintech and digital banking products. You get that experience first hand.",
         },
         {
-          title: "I’ve had the same headaches",
-          text: "The wrong partner, a flow sent back by compliance, a launch date that keeps slipping. I’ve lived through all of them.",
+          title: "We’ve had the same headaches",
+          text: "The wrong partner, a flow sent back by compliance, a launch date that keeps slipping. We’ve lived through all of them.",
         },
         {
           title: "A recommendation with every decision",
@@ -125,7 +125,7 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           title: "Inside your team until it’s live",
-          text: "I work from inside the team and clear what’s stuck. I stay until the product is out.",
+          text: "We work from inside the team and clear what’s stuck. We stay until the product is out.",
         },
       ],
       portraitAlt: "Mehmet Burak Dikmen",
@@ -176,45 +176,45 @@ export const home: Record<Locale, HomeContent> = {
     seo: {
       title: "fspark9 · Fintech ve dijital bankacılık danışmanlığı",
       description:
-        "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyorum. İki dijital banka kurdum. Fintechler, bankalar ve şirketlerle lansmana kadar çalışıyorum.",
+        "Ekiplerin finansal ürünlerini canlıya çıkarmasına yardım ediyoruz. İki dijital banka kurduk. Fintechler, bankalar ve şirketlerle lansmana kadar çalışıyoruz.",
     },
     opening: {
-      eyebrowParts: ["Mehmet Burak Dikmen", "Fintech ve dijital bankacılık danışmanlığı"],
-      headlineSentences: ["Finansal ürünleri canlıya çıkarmanıza yardım ediyorum."],
+      eyebrowParts: ["fspark9", "Fintech ve dijital bankacılık danışmanlığı"],
+      headlineSentences: ["Finansal ürünleri canlıya çıkarmanıza yardım ediyoruz."],
       cutWord: "canlıya",
       intro:
-        "Finansal ürün çıkarmak isteyen fintechler, bankalar ve şirketlerle çalışıyorum. Ekibinize katılıyorum ve ürün canlıya çıkana kadar kalıyorum.",
+        "Finansal ürün çıkarmak isteyen fintechler, bankalar ve şirketlerle çalışıyoruz. Ekibinize katılıyor, ürün canlıya çıkana kadar kalıyoruz.",
       ctaLabel: "Görüşme ayarla",
-      secondaryLinkLabel: "Neler yaptığıma bakın",
+      secondaryLinkLabel: "Neler yaptığımıza bakın",
       portraitAlt: "Mehmet Burak Dikmen",
       heroTextMobile:
-        "Fintechler, bankalar ve finansal ürün çıkarmak isteyen şirketlerle çalışıyorum. Ürün canlıya çıkana kadar ekibinizde kalıyorum.",
+        "Fintechler, bankalar ve finansal ürün çıkarmak isteyen şirketlerle çalışıyoruz. Ürün canlıya çıkana kadar ekibinizde kalıyoruz.",
       proof: [
-        { value: "2", label: "Dijital banka kurdum" },
+        { value: "2", label: "Dijital banka kurduk" },
         { value: "65.000+", label: "Kullanıcı · Almanya" },
         { value: "6 ay", label: "Sıfırdan canlıya" },
       ],
     },
     heroVideo: {
-      youtubeId: "",
-      durationLabel: "1:30",
-      buttonLabel: "Beni 90 saniyede tanıyın",
-      ariaLabel: "Tanıtım videosunu izle, 1 dakika 30 saniye",
-      title: "Finansal ürününüz neden hâlâ canlıda değil?",
-      caption: "Merhaba, ben Burak.",
+      youtubeId: "Khy5smJWi6E",
+      durationLabel: "1:31",
+      buttonLabel: "1 dakikada fspark9",
+      ariaLabel: "fspark9 tanıtım filmini izle, 1 dakika 31 saniye",
+      title: "Finansal ürününüz ne zaman canlıda?",
+      caption: "Ne zaman canlıdasınız?",
       closeLabel: "Kapat",
     },
     servicesVideo: {
       youtubeId: "cDtyn01dpGM",
       durationLabel: "0:30",
-      buttonLabel: "Hizmetleri izleyin",
-      ariaLabel: "Hizmetler videosunu izle, 30 saniye",
+      buttonLabel: "Hizmetleri inceleyin",
+      ariaLabel: "Hizmetleri inceleyin, 30 saniye",
       title: "Tek halka. Dört teklif.",
     },
     startWhereYouAre: {
       label: "01 · Hangisi sizsiniz?",
       heading: "Bulunduğunuz yerden başlayalım.",
-      text: "Beni arayanların çoğu şu üç durumdan birinde oluyor.",
+      text: "Bizi arayanların çoğu şu üç durumdan birinde oluyor.",
       items: [
         {
           title: "Fintech",
@@ -273,17 +273,17 @@ export const home: Record<Locale, HomeContent> = {
       ],
     },
     withMe: {
-      label: "04 · Benimle çalışınca",
+      label: "04 · Bizimle çalışınca",
       heading: "Para çikolata gibi satılmaz. Güvenle kazanılır.",
       text: "Adını kimsenin bilmediği ülkelerde bankalar kurduk. İnsanlar paralarını bize emanet etmeden önce ekip onların düğünlerine gitti. Onlarla mangal yaptık. Bu detayları size hiçbir sunum öğretemez.",
       points: [
         {
           title: "+10 yıllık yoğun tecrübe",
-          text: "On yılı aşkın süredir fintech ve dijital bankacılık ürünleri kuruyorum. Bu tecrübe size doğrudan benden geliyor.",
+          text: "On yılı aşkın süredir fintech ve dijital bankacılık ürünleri kuruyoruz. Bu tecrübe size doğrudan geliyor.",
         },
         {
-          title: "Aynı dertleri ben de yaşadım",
-          text: "Yanlış partner, uyumdan geri dönen akış, sürekli kayan lansman tarihi. Hepsini bizzat yaşadım.",
+          title: "Aynı dertleri biz de yaşadık",
+          text: "Yanlış partner, uyumdan geri dönen akış, sürekli kayan lansman tarihi. Hepsini bizzat yaşadık.",
         },
         {
           title: "Her kararın yanında bir öneri",
@@ -291,7 +291,7 @@ export const home: Record<Locale, HomeContent> = {
         },
         {
           title: "Canlıya çıkana kadar ekibinizin içinde",
-          text: "Ekibin içinden çalışıyorum, tıkanan yeri açıyorum. Ürün çıkana kadar kalıyorum.",
+          text: "Ekibin içinden çalışıyor, tıkanan yeri açıyoruz. Ürün çıkana kadar kalıyoruz.",
         },
       ],
       portraitAlt: "Mehmet Burak Dikmen",

@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { figureList, group, ls, lsList, lt, singletonTitle, str, titleTextList, portraitField } from "./fields";
+import { figureList, group, introFilmFields, ls, lsList, lt, singletonTitle, str, titleTextList, portraitField } from "./fields";
 
 // Ana sayfa. Dört hizmet servicePage belgelerinden, Spark kartları
 // bölümlerden (sparkEpisode) geliyor; burada sadece bölüm metinleri.
@@ -57,21 +57,8 @@ export default defineType({
     group(
       "heroVideo",
       "Hero video",
-      [
-        str("youtubeIdTr", "YouTube ID (Turkish film)", {
-          description: "Sadece kimlik, ör. youtube.com/watch?v=XXXXXXXXXXX adresindeki XXXXXXXXXXX. Boşsa TR sayfada video düğmesi ve önizleme görünmez.",
-        }),
-        str("youtubeIdEn", "YouTube ID (English film)", {
-          description: "Sadece kimlik. Boşsa EN sayfada video düğmesi ve önizleme görünmez.",
-        }),
-        str("durationLabel", "Duration", { description: "Düğmedeki süre, ör. 1:30. Film değişirse bu da değişir." }),
-        ls("buttonLabel", "Button"),
-        ls("ariaLabel", "Button label for screen readers", { description: "Süreyi yazıyla içerir, ör. 1 dakika 30 saniye." }),
-        ls("title", "Window title"),
-        ls("caption", "Preview caption", { description: "Sessiz önizlemede görünen satır: önizlemenin 4 saniyesinde Burak'ın gerçekten söylediği kelimeler." }),
-        ls("closeLabel", "Close button"),
-      ],
-      { group: "opening", description: "Açılıştaki tanıtım filmi. Önizleme klipleri repoda (public/video), burada değil." },
+      introFilmFields(),
+      { group: "opening", description: "Açılıştaki fspark9 imaj filmi. About sayfasının kendi filmi var (About → Intro video)." },
     ),
     group(
       "startWhereYouAre",

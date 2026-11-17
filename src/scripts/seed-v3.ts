@@ -107,6 +107,7 @@ import { legalSeo } from "../content/seo";
 import { en as enPrivacy, tr as trPrivacy } from "../content/legal/privacy";
 import { en as enCookies, tr as trCookies } from "../content/legal/cookies";
 import type {
+  HeroVideoContent,
   LegalBlock,
   LegalPage,
   PageSeoCopy,
@@ -180,6 +181,12 @@ function newsletterPatches() {
 /** Sadece Spark filminin metin alanları (YouTube kimliklerine dokunmaz). */
 const onlySparkFilm = process.argv.includes("--only=spark-film");
 const onlyNewsletter = process.argv.includes("--only=newsletter");
+/**
+ * Ana sayfa fspark9 imaj filmi + "biz" dili (--only=brand-voice): ana sayfa
+ * filmi (kimliklerle), About'un kendi tanıtım filmi (kimliklerle) ve "ben"den
+ * "biz"e geçen metin alanları. Kanıt satırına ve görsellere dokunmaz.
+ */
+const onlyBrandVoice = process.argv.includes("--only=brand-voice");
 const client = createClient({ projectId, dataset, apiVersion, token, useCdn: false });
 
 /** Canlıya çıkış günü: Bó'nun yayın tarihi (brief §6.2). */
@@ -335,6 +342,47 @@ function homeServicesVideoPatch() {
   const set: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(homeServicesVideo())) set[`servicesVideo.${k}`] = v;
   return { id: "homePage", set };
+}
+
+/** Tanıtım filmi alanları, YouTube kimlikleriyle birlikte. */
+function introFilm(e: HeroVideoContent, t: HeroVideoContent) {
+  return {
+    youtubeIdEn: e.youtubeId,
+    youtubeIdTr: t.youtubeId,
+    durationLabel: e.durationLabel,
+    buttonLabel: ls(e.buttonLabel, t.buttonLabel),
+    ariaLabel: ls(e.ariaLabel, t.ariaLabel),
+    title: ls(e.title, t.title),
+    caption: ls(e.caption, t.caption),
+    closeLabel: ls(e.closeLabel, t.closeLabel),
+  };
+}
+
+function brandVoicePatches() {
+  const e = home[EN];
+  const t = home[TR];
+  const zeroToLive = servicePageDocs().find((d) => d._id === "servicePage-zero-to-live");
+  if (!zeroToLive) throw new Error("servicePage-zero-to-live missing");
+  return [
+    {
+      id: "homePage",
+      set: {
+        "seo.description": lt(e.seo.description, t.seo.description),
+        "opening.eyebrowParts": lsList(e.opening.eyebrowParts, t.opening.eyebrowParts),
+        "opening.headlineSentences": lsList(e.opening.headlineSentences, t.opening.headlineSentences),
+        "opening.intro": lt(e.opening.intro, t.opening.intro),
+        "opening.secondaryLinkLabel": ls(e.opening.secondaryLinkLabel, t.opening.secondaryLinkLabel),
+        "opening.heroTextMobile": lt(e.opening.heroTextMobile, t.opening.heroTextMobile),
+        heroVideo: introFilm(e.heroVideo, t.heroVideo),
+        "startWhereYouAre.text": lt(e.startWhereYouAre.text, t.startWhereYouAre.text),
+        "withMe.label": ls(e.withMe.label, t.withMe.label),
+        "withMe.points": titleTexts(e.withMe.points, t.withMe.points),
+      },
+    },
+    { id: "aboutPage", set: { introVideo: introFilm(about[EN].introVideo, about[TR].introVideo) } },
+    { id: "servicePage-zero-to-live", set: { steps: zeroToLive.steps } },
+    { id: "sparkEpisode-01-bo", set: { "finalQuestion.options": storySet(sparkEpisodes.en["01-bo"], sparkEpisodes.tr["01-bo"]).finalQuestion.options } },
+  ];
 }
 
 function homeHeroPatch() {
@@ -543,6 +591,7 @@ function aboutDoc(): SanityDocumentStub {
     result: card(e.result, t.result),
     whyNine: { label: ls(e.whyNine.label, t.whyNine.label), text: lt(e.whyNine.text, t.whyNine.text) },
     portraitAlt: ls(e.portraitAlt, t.portraitAlt),
+    introVideo: introFilm(e.introVideo, t.introVideo),
   };
 }
 
@@ -1398,7 +1447,7 @@ async function guardPublished(
 
 async function main() {
   const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), kycPatch(), smePatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || onlyKyc || onlySme || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter;
+  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || onlyKyc || onlySme || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice;
   const creates = only
     ? []
     : onlySpark
@@ -1407,6 +1456,7 @@ async function main() {
   const patches: { id: string; set: Record<string, unknown>; unset?: string[] }[] = only
     ? [
         ...(onlyHomeHero ? [homeHeroPatch()] : []),
+        ...(onlyBrandVoice ? brandVoicePatches() : []),
         ...(onlyServicesVideo ? [homeServicesVideoPatch()] : []),
         ...(onlySparkFilm ? [sparkFilmPatch()] : []),
         ...(onlyNewsletter ? [...newsletterPatches(), ...legalPatches().filter((p) => p.id === "legalPage-privacy" && "blocks" in p.set)] : []),
@@ -1433,7 +1483,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyKyc || onlySme || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyKyc || onlySme || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 

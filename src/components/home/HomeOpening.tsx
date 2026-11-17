@@ -29,7 +29,7 @@ const PHONE_RING_INNER = (50 * 120) / 146;
  * satırının içinde duruyor; telefonda o satır `display: contents` olup
  * sütunun sırasına (order-first) katılıyor. Tek portre, tek görsel isteği.
  */
-export default function HomeOpening({ content, video, locale }: HomeOpeningProps) {
+export default function HomeOpening({ content, video }: HomeOpeningProps) {
   const [first, ...rest] = content.eyebrowParts;
   const last = rest[rest.length - 1];
   // Uzun başlık (ör. TR tek cümle) bir kademe küçük: masaüstünde 78px.
@@ -70,7 +70,7 @@ export default function HomeOpening({ content, video, locale }: HomeOpeningProps
               <RingOutline animate className="absolute inset-0 hidden size-full min-[900px]:block" />
               <div className="absolute inset-[34px] z-[2] min-[900px]:inset-[17%]">
                 {hasVideo ? (
-                  <HeroVideo video={video} preview={heroPreviewSources(locale)}>
+                  <HeroVideo video={video} preview={heroPreviewSources()}>
                     {portrait}
                   </HeroVideo>
                 ) : (

@@ -1,5 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
-import { group, ls, lsList, lt, singletonTitle, portraitField } from "./fields";
+import { group, introFilmFields, ls, lsList, lt, singletonTitle, portraitField } from "./fields";
 
 // /about. storyPage'in yerini aldı.
 
@@ -26,6 +26,9 @@ export default defineType({
     group("whyNine", "Why nine", [ls("label", "Label"), lt("text", "Text")]),
     ls("portraitAlt", "Portrait alt text"),
     portraitField,
+    group("introVideo", "Intro video", introFilmFields(), {
+      description: "Açılıştaki kişisel tanıtım filmi (ana sayfadaki fspark9 filminden ayrı). Önizleme klipleri repoda (public/video).",
+    }),
   ],
   preview: { prepare: () => ({ title: "About page" }) },
 });

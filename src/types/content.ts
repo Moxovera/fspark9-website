@@ -1750,7 +1750,7 @@ export interface HeroVideoContent {
   buttonLabel: string
   ariaLabel: string
   title: string
-  /** Sessiz önizleme sırasında portrenin altındaki satır (Burak'ın o 4 saniyede söylediği). */
+  /** Sessiz önizleme sırasında portrenin altındaki satır (önizlemenin 4 saniyesine ait). */
   caption: string
   closeLabel: string
 }
@@ -1915,6 +1915,8 @@ export interface AboutContent {
   whyNine: { label: string; text: string }
   portraitAlt: string
   portraitSrc?: string
+  /** Açılıştaki kişisel tanıtım filmi (ana sayfadaki fspark9 filminden ayrı). `youtubeId` boşsa düz portre. */
+  introVideo: HeroVideoContent
 }
 
 /**
@@ -2340,8 +2342,6 @@ export interface ServicesRingProps {
 export interface HomeOpeningProps {
   content: HomeContent["opening"];
   video: HeroVideoContent;
-  /** Önizleme kliplerinin dili (public/video/hero-preview-{locale}.*). */
-  locale: string;
 }
 
 /** Önizleme klibinin dosyaları (sitenin kendi sunucusundan, YouTube'dan değil). */

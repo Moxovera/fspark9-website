@@ -21,8 +21,8 @@ const CAPTION_OUT_S = 0.4;
 const CROSSFADE_MS = 600;
 
 /**
- * Ana sayfa portresinin tanıtım filmi katmanı: portrenin alt kenarına oturan
- * "Beni 90 saniyede tanıyın" düğmesi, portreyi saran ilerleme halkası ve bir
+ * Portrenin tanıtım filmi katmanı (ana sayfa ve About): portrenin alt kenarına
+ * oturan film düğmesi, portreyi saran ilerleme halkası ve bir
  * kez oynayan 4 saniyelik sessiz önizleme. Düğme ya da portre filmi pencerede
  * (VideoModal) sesli açar.
  *
