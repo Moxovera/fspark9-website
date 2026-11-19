@@ -35,7 +35,9 @@ const hideUnlessDecisions: ConditionalPropertyCallback = ({ document }) => layou
 // Gövde yine reportBody (şekli SparkKycReport).
 // Sektör raporları Nº 05 (Almanya KOBİ bankacılığı, 2026-11-06): sekizinci
 // şablon, `sme`. Gövde yine reportBody (şekli SparkSmeReport).
-const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3", "kyc", "sme"].includes(String(layoutOf(document)));
+// Sektör raporları Nº 06 (İngiltere KOBİ bankacılığı, 2026-11-19): dokuzuncu
+// şablon, `uksme`. Gövde yine reportBody (şekli SparkUkReport).
+const hideUnlessReport: ConditionalPropertyCallback = ({ document }) => !["report", "dora", "psd3", "kyc", "sme", "uksme"].includes(String(layoutOf(document)));
 const hideUnlessRadar: ConditionalPropertyCallback = ({ document }) => layoutOf(document) !== "radar";
 // Hazır görseller (2026-10-27): fotoğraf ve uygulama ekranları, hikâye ve
 // karar bloklarında. Bölüm alanlarının dışında ayrı dizi: seed chapters'ı
@@ -77,8 +79,8 @@ export default defineType({
       title: "Page layout",
       type: "string",
       group: "meta",
-      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · psd3: sektör raporu Nº 03 (PSD3, PSR ve FiDA) · kyc: sektör raporu Nº 04 (KYC ve KYB) · sme: sektör raporu Nº 05 (Almanya KOBİ bankacılığı) · radar: On the Radar",
-      options: { list: ["story", "decisions", "report", "dora", "psd3", "kyc", "sme", "radar"], layout: "radio" },
+      description: "story: Bó gibi hikâye ve kart · decisions: Nuri gibi karar blokları · report: sektör raporu · dora: sektör raporu Nº 02 (Domino, Elif) · psd3: sektör raporu Nº 03 (PSD3, PSR ve FiDA) · kyc: sektör raporu Nº 04 (KYC ve KYB) · sme: sektör raporu Nº 05 (Almanya KOBİ bankacılığı) · uksme: sektör raporu Nº 06 (İngiltere KOBİ bankacılığı) · radar: On the Radar",
+      options: { list: ["story", "decisions", "report", "dora", "psd3", "kyc", "sme", "uksme", "radar"], layout: "radio" },
       initialValue: "story",
     }),
     defineField({ name: "city", title: "City", type: "string", group: "meta" }),

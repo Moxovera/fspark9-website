@@ -78,6 +78,13 @@
  *   --only=de-sme     sadece bu raporun belgesi yazılır; diğerlerine dokunulmaz.
  *   --publish-de-sme  status published, previewLive kalkar (--only=de-sme ile birlikte).
  *
+ * Sektör raporları Nº 06 (İngiltere KOBİ bankacılığı, layout "uksme") Nº 05 ile aynı.
+ * Gövde src/content/sector/uk-sme.json. Belge ilk oluşturulurken draft +
+ * previewLive + `gated: true` (02 Oyuncular'dan sonrası bülten kapısının
+ * arkasında): canlı kod draft'ı hiç okumaz, staging yayındaki gibi gösterir.
+ *   --only=uk-sme     sadece bu raporun belgesi yazılır; diğerlerine dokunulmaz.
+ *   --publish-uk-sme  status published, previewLive kalkar (--only=uk-sme ile birlikte).
+ *
  * Koruma: canlıda `published` olan bir bölümü geri çekecek (durumunu
  * değiştirecek, previewLive koyacak ya da createOrReplace ile ezecek) her
  * çalıştırma, hiçbir şey yazmadan hata verir. Bilerek geri çekmek için
@@ -98,6 +105,7 @@ import { dora } from "../content/spark-dora";
 import { psd3 } from "../content/spark-psd3";
 import { kyc } from "../content/spark-kyc";
 import { sme } from "../content/spark-sme";
+import { uk } from "../content/spark-uk";
 import { fidor } from "../content/spark-fidor";
 import { yolt } from "../content/spark-yolt";
 import { xinja } from "../content/spark-xinja";
@@ -118,6 +126,7 @@ import type {
   SparkPsd3Report,
   SparkKycReport,
   SparkSmeReport,
+  SparkUkReport,
   SparkSourceLink,
   SparkStoryCard,
   SparkEpisodeStory,
@@ -151,6 +160,9 @@ if (publishKyc && !onlyKyc) throw new Error("--publish-kyc-kyb needs --only=kyc-
 const onlySme = process.argv.includes("--only=de-sme");
 const publishSme = process.argv.includes("--publish-de-sme");
 if (publishSme && !onlySme) throw new Error("--publish-de-sme needs --only=de-sme.");
+const onlyUk = process.argv.includes("--only=uk-sme");
+const publishUk = process.argv.includes("--publish-uk-sme");
+if (publishUk && !onlyUk) throw new Error("--publish-uk-sme needs --only=uk-sme.");
 const onlyOnTheRadar = process.argv.includes("--only=on-the-radar");
 const onlyRadarFinmid = process.argv.includes("--only=radar-finmid");
 const publishRadarFinmid = process.argv.includes("--publish-radar-finmid");
@@ -209,6 +221,8 @@ const PSD3_PUBLISHED = "2026-10-27";
 const KYC_PUBLISHED = "2026-11-02";
 /** Almanya KOBİ bankacılığı raporunun yayın tarihi (canlıya çıktığı gün; taslak 1 Ekim 2026 verisi). */
 const SME_PUBLISHED = "2026-11-06";
+/** İngiltere KOBİ bankacılığı raporunun yayın tarihi (prompt: 2026-11-19; veriler 19 Kasım 2026 itibarıyla). */
+const UK_PUBLISHED = "2026-11-19";
 
 // ─── Yardımcılar ──────────────────────────────────────────────────
 
@@ -1094,7 +1108,7 @@ const BAUSPAR_ID = "sparkEpisode-sector-reports-bauspar";
 const BAUSPAR_COMING_ID = "sparkEpisode-sector-reports-01";
 
 /** Raporun gövdesi: sayı, konu, kanca ve SEO belgenin kendi alanlarında, gerisi dil başına JSON. */
-function reportBodyJson(report: SparkReport | SparkDoraReport | SparkPsd3Report | SparkKycReport | SparkSmeReport) {
+function reportBodyJson(report: SparkReport | SparkDoraReport | SparkPsd3Report | SparkKycReport | SparkSmeReport | SparkUkReport) {
   const own = ["number", "subject", "hook", "seo", "cardLinkLabel"];
   return JSON.stringify(Object.fromEntries(Object.entries(report).filter(([key]) => !own.includes(key))));
 }
@@ -1290,6 +1304,50 @@ function smePatch() {
 }
 
 /**
+ * Sektör raporları Nº 06 İngiltere KOBİ bankacılığı (layout "uksme"): Nº 05
+ * gibi ayrı belge, gövde reportBody'de dil başına JSON. Oluşturulurken draft
+ * + previewLive + gated; durum sadece --publish-uk-sme ile yazılır.
+ */
+const UK_ID = "sparkEpisode-sector-reports-uk-sme";
+
+function ukStub(): SanityDocumentStub & { _id: string } {
+  return {
+    _id: UK_ID,
+    _type: "sparkEpisode",
+    format: { _type: "reference", _ref: FORMAT_IDS[1] },
+    number: 6,
+    layout: "uksme",
+    status: "draft",
+    previewLive: true,
+    gated: true,
+  };
+}
+
+function ukPatch() {
+  const e = uk.en;
+  const t = uk.tr;
+  return {
+    id: UK_ID,
+    set: {
+      layout: "uksme",
+      number: e.number,
+      subject: ls(e.subject, t.subject),
+      hook: lt(e.hook, t.hook),
+      seo: seo(e.seo, t.seo),
+      cardLinkLabel: ls(e.cardLinkLabel, t.cardLinkLabel),
+      reportBody: { en: reportBodyJson(e), tr: reportBodyJson(t) },
+      ...(publishUk ? { status: "published" } : {}),
+      // Tek slug iki dilde (Nº 05 gibi): NEXT_LOCALE çerezi EN adresini /tr'ye yönlendirince de bulunsun.
+      slug: { _type: "localeSlug", en: { _type: "slug", current: "uk-sme" }, tr: { _type: "slug", current: "uk-sme" } },
+      publishedAt: UK_PUBLISHED,
+      lastCheckedAt: UK_PUBLISHED,
+      ...cardLineSet("Nº 06", "Sector report", "Sektör raporu"),
+    },
+    unset: publishUk ? ["previewLive"] : [],
+  };
+}
+
+/**
  * On the Radar Nº 01 finmid. Gövde src/content/radar/finmid.json'un kendisi
  * (tek kaynak); sayı, şirket adı, kanca, SEO ve ülke de ondan. Durum sadece
  * --publish-radar-finmid ile yazılır: sonraki bir --only=spark yayındaki
@@ -1446,8 +1504,8 @@ async function guardPublished(
 }
 
 async function main() {
-  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), kycPatch(), smePatch(), radarFinmidPatch()];
-  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || onlyKyc || onlySme || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice;
+  const sparkPatches = [sparkSectionPatch(), ...formatSets(), boPatch(), nuriPatch(), fidorPatch(), yoltPatch(), xinjaPatch(), bausparPatch(), doraPatch(), psd3Patch(), kycPatch(), smePatch(), ukPatch(), radarFinmidPatch()];
+  const only = onlyFidor || onlyYolt || onlyXinja || onlyBauspar || onlyDora || onlyPsd3 || onlyKyc || onlySme || onlyUk || radarOnly || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice;
   const creates = only
     ? []
     : onlySpark
@@ -1468,6 +1526,7 @@ async function main() {
         ...(onlyPsd3 ? [psd3Patch()] : []),
         ...(onlyKyc ? [kycPatch()] : []),
         ...(onlySme ? [smePatch()] : []),
+        ...(onlyUk ? [ukPatch()] : []),
         ...(onlyOnTheRadar ? [formatSets()[2]] : []),
         ...(onlyRadarFinmid ? [radarFinmidPatch()] : []),
       ]
@@ -1483,7 +1542,7 @@ async function main() {
   // Formatlar yoksa önce boş olarak oluşturuluyor, sonra patch'le dolduruluyor.
   // On the Radar bayrakları sadece kendi belgesini oluşturabilir.
   const existingFormats = await client.fetch<string[]>(`*[_type == "sparkFormat"]._id`);
-  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyKyc || onlySme || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
+  const formatIdsToCreate = (onlyOnTheRadar ? [FORMAT_IDS[2]] : radarOnly || onlyDora || onlyPsd3 || onlyKyc || onlySme || onlyUk || onlyHomeHero || onlyServicesVideo || onlySparkFilm || onlyNewsletter || onlyBrandVoice ? [] : FORMAT_IDS).filter((id) => !existingFormats.includes(id));
 
   await guardPublished(creates, patches);
 
@@ -1522,6 +1581,8 @@ async function main() {
     tx.createIfNotExists(smeStub());
   } else if (onlySme) {
     tx.createIfNotExists(smeStub());
+  } else if (onlyUk) {
+    tx.createIfNotExists(ukStub());
   } else {
     tx.createIfNotExists(fidorStub());
     tx.createIfNotExists(yoltStub());
@@ -1531,6 +1592,8 @@ async function main() {
     tx.createIfNotExists(doraStub());
     tx.createIfNotExists(psd3Stub());
     tx.createIfNotExists(kycStub());
+    tx.createIfNotExists(smeStub());
+    tx.createIfNotExists(ukStub());
   }
   for (const id of formatIdsToCreate) {
     tx.createIfNotExists({ _id: id, _type: "sparkFormat" });

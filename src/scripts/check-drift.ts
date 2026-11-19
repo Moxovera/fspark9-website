@@ -8,7 +8,7 @@
  * homePage, servicesPage, servicePage ×4, workPage, caseStudy ×2,
  * aboutPage, sparkSection, sparkFormat ×3, legalPage ×4 (metin ve SEO),
  * yayındaki Spark bölümlerinin hikâyesi (Bó, Fidor), karar blokları (Nuri),
- * sektör raporları (Bauspar, DORA, PSD3: src/content/sector/psd3-fida.json, KYC ve KYB: src/content/sector/kyc-kyb.json, Almanya KOBİ: src/content/sector/de-sme.json) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
+ * sektör raporları (Bauspar, DORA, PSD3: src/content/sector/psd3-fida.json, KYC ve KYB: src/content/sector/kyc-kyb.json, Almanya KOBİ: src/content/sector/de-sme.json, İngiltere KOBİ: src/content/sector/uk-sme.json) ve On the Radar bölümü (finmid: src/content/radar/finmid.json).
  * Ayrıca canlıdaki bölümlerin (LIVE_EPISODE_IDS) Sanity'de hâlâ `published` olduğu.
  *
  * Sadece Sanity'de olanlar karşılaştırılmaz: görseller (vaka ekranları,
@@ -34,6 +34,7 @@ import { dora } from "../content/spark-dora";
 import { psd3 } from "../content/spark-psd3";
 import { kyc } from "../content/spark-kyc";
 import { sme } from "../content/spark-sme";
+import { uk } from "../content/spark-uk";
 import { radarEpisodes } from "../content/spark-radar";
 import { legalSeo } from "../content/seo";
 import * as impressum from "../content/legal/impressum";
@@ -171,6 +172,9 @@ async function main() {
     // Sektör raporu Nº 05 Almanya KOBİ bankacılığı (layout "sme").
     const smeS = episodesS[l].find((e) => e.layout === "sme");
     compare(`episode.de-sme.${l}`, smeS?.story, sme[l]);
+    // Sektör raporu Nº 06 İngiltere KOBİ bankacılığı (layout "uksme"); canlıya çıkana kadar sadece önizlemede.
+    const ukS = episodesS[l].find((e) => e.layout === "uksme");
+    compare(`episode.uk-sme.${l}`, ukS?.story, uk[l]);
     // On the Radar Nº 01 finmid: gövde src/content/radar/finmid.json'un kendisi.
     const finmidS = episodesS[l].find((e) => e.layout === "radar");
     compare(`episode.radar-finmid.${l}`, finmidS?.story, radarEpisodes[l].finmid);

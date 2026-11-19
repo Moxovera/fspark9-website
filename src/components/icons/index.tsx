@@ -82,3 +82,13 @@ export function CheckIcon(props: IconProps) {
 export function LockIcon(props: IconProps) {
   return <Icon d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" {...props} />;
 }
+
+/** Sektör raporu Nº 06: açılır panel kapalıyken. */
+export function PlusIcon(props: IconProps) {
+  return <Icon d="M12 5v14M5 12h14" {...props} />;
+}
+
+/** Sektör raporu Nº 06: açılır panel açıkken. */
+export function MinusIcon(props: IconProps) {
+  return <Icon d="M5 12h14" {...props} />;
+}

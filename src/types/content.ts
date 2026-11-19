@@ -1241,6 +1241,208 @@ export interface SparkSmeReport {
 
 export type SparkSmeReportBody = Omit<SparkSmeReport, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
 
+// Sektör raporları Nº 06 İngiltere KOBİ bankacılığı (layout "uksme"). Metin
+// src/content/sector/uk-sme.json'da (Spark/sector reports/spark-uk-sme.html
+// DATA'sından betikle çıkarıldı, her cümle spark-uk-sme-icerik-tr-en.md'ye
+// karşı doğrulandı). "[n]" kaynak linki; kaynak numaraları 1 ile 153, iki dilde aynı.
+export type UkGroup = 'big' | 'rel' | 'dig' | 'plat' | 'spec' | 'nonbank'
+export type UkMetric = 'deposits' | 'loans' | 'ldr' | 'pbt'
+
+export interface UkStat {
+  value: string
+  label: string
+}
+
+export interface UkMapPlayer {
+  key: string
+  name: string
+  group: UkGroup
+  /** Yüzde, soldan. */
+  x: number
+  /** Yüzde, alttan. */
+  y: number
+  text: string
+  /** Bilanço satırının anahtarı (harita kartında dört rakam, tabloda vurgulu satır). */
+  bank?: string
+}
+
+export interface UkBalanceRow {
+  key: string
+  name: string
+  group: UkGroup
+  /** Milyar sterlin. */
+  deposits: number
+  loans: number
+  /** Yüzde. */
+  ldr: number
+  pbt: number
+  sme: string
+  refs: string
+}
+
+export type UkBlock =
+  | { type: 'stats'; items: UkStat[] }
+  | {
+      type: 'table'
+      title?: string
+      columns: string[]
+      rows: string[][]
+      /** Kart tablosu: "n" satırlar sadece şahıs filtresiyle gizlenir. */
+      filter?: { all: string; only: string }
+      flags?: ('y' | 'n' | 'm')[]
+    }
+  | { type: 'accordion'; title: string; items: { title: string; text: string }[] }
+  | { type: 'cards'; title?: string; columns: number; verdicts?: boolean; items: { title: string; tag?: string; who?: string; text: string }[] }
+  | { type: 'note'; text: string }
+  | { type: 'chips'; title: string; items: { label: string; detail?: string }[] }
+  | { type: 'tabs'; items: { label: string; title: string; text: string; list: string[] }[] }
+
+export interface UkBoardTab {
+  key: string
+  label: string
+  rows: { rank: number | null; name: string; value: number; group: UkGroup }[]
+}
+
+export interface SparkUkReport {
+  number: number
+  subject: string
+  hook: string
+  cardLinkLabel: string
+  seo: PageSeo
+  readingLabel: string
+  hero: {
+    meta: string[]
+    bigNo: string
+    titleLead: string
+    titleCut: string
+    sub: string
+    lead: string
+    stats: UkStat[]
+    cta: string
+  }
+  ticker: string[]
+  short: {
+    head: ReportHead
+    items: { title: string; text: string }[]
+    questionLabel: string
+    question: string
+    /** Özetin altında, PDF sayfasına giden sessiz satır. */
+    pdfLabel: string
+  }
+  players: {
+    head: ReportHead
+    stats: UkStat[]
+    labels: { who: string; what: string; status: string; examples: string; more: string }
+    groups: { group: UkGroup; name: string; count: string; what: string; who: string; status: string }[]
+    termsTitle: string
+    terms: { term: string; text: string }[]
+  }
+  map: {
+    head: ReportHead
+    /** [sol, sağ] */
+    axisX: string[]
+    /** [alt, üst] */
+    axisY: string[]
+    emptyLabel: string
+    emptyTitle: string
+    empty: string
+    hint: string
+    legend: Record<UkGroup, string>
+    players: UkMapPlayer[]
+  }
+  balance: {
+    head: ReportHead
+    ask: string
+    metrics: { key: UkMetric; question: string; label: string; explain: string }[]
+    unit: string
+    ldrUnit: string
+    fullTitle: string
+    fullHint: string
+    columns: string[]
+    nonbankTitle: string
+    nonbankIntro: string
+    nonbankColumns: string[]
+    readingTitle: string
+    readings: { title: string; text: string }[]
+    detailLabels: Record<UkMetric, string>
+    rows: UkBalanceRow[]
+    nonbank: { name: string; group: UkGroup; what: string; scale: string; money: string }[]
+  }
+  board: {
+    head: ReportHead
+    note: string
+    rankLabel: string
+    tabs: UkBoardTab[]
+  }
+  /** 06 ile 11: ortak bloklardan kurulan bölümler. */
+  sections: { id: string; head: ReportHead; blocks: UkBlock[] }[]
+  money: {
+    head: ReportHead
+    barsTitle: string
+    bars: { year: string; value: number }[]
+    stat: string
+    statLabel: string
+    modelsTitle: string
+    models: { name: string; who: string; text: string }[]
+    note: string
+  }
+  story: {
+    head: ReportHead
+    yourCall: string
+    whatHappened: string
+    next: string
+    doorsLabel: string
+    endTitle: string
+    endBody: string
+    endNote: string
+    restart: string
+    stages: {
+      when: string
+      title: string
+      text: string
+      question: string
+      /** door: bitiş kartındaki kısa kapı adı. */
+      options: { label: string; result: string; door: string }[]
+      happened: string
+    }[]
+  }
+  mirror: {
+    head: ReportHead
+    /** [söylenen, arkasındaki boşluk, çözüme en yakın] */
+    columns: string[]
+    items: { quote: string; evidence: string; gap: string; fix: string }[]
+  }
+  calendar: {
+    head: ReportHead
+    pastLabel: string
+    futureLabel: string
+    impactLabel: string
+    events: { date: string; past: boolean; title: string; what: string; impact: string }[]
+  }
+  gaps: {
+    head: ReportHead
+    evidenceLabel: string
+    readingLabel: string
+    items: { title: string; evidence: string; reading: string }[]
+  }
+  note: {
+    head: ReportHead
+    intro: string
+    questions: string[]
+    linksLabel: string
+    links: { label: string; slug: string }[]
+    disclaimer: string
+  }
+  sources: {
+    /** label: "19 Kasım 2026 itibarıyla" */
+    head: ReportHead
+    sourceTemplate: string
+    groups: { title: string; items: { n: number; label: string; href: string }[] }[]
+  }
+}
+
+export type SparkUkReportBody = Omit<SparkUkReport, 'number' | 'subject' | 'hook' | 'seo' | 'cardLinkLabel'>
+
 export interface PageSeo {
   title: string
   description: string
@@ -2082,6 +2284,7 @@ export type SparkEpisodeEntry = SparkEpisodeEntryBase &
     | { layout: 'psd3'; story: SparkPsd3Report }
     | { layout: 'kyc'; story: SparkKycReport }
     | { layout: 'sme'; story: SparkSmeReport }
+    | { layout: 'uksme'; story: SparkUkReport }
     | { layout: 'radar'; story: SparkRadarEpisode }
   )
 
@@ -3209,6 +3412,119 @@ export interface KycStoryProps {
 export interface KycPathsProps {
   paths: SparkKycReport['uk']['paths']
   template: string
+}
+
+// Sektör raporu Nº 06 İngiltere KOBİ bankacılığı bileşenleri (components/spark/report/uk)
+export interface UkEpisodeProps {
+  report: SparkUkReport
+  locale: Locale
+  gate?: ReportGateInfo
+}
+
+export interface UkHeadProps {
+  head: ReportHead
+  id: string
+  template: string
+  ground?: BrandGround
+}
+
+export interface UkTextProps {
+  text: string
+  template: string
+}
+
+export interface UkPlayersProps {
+  players: SparkUkReport['players']
+  template: string
+  tone: UkTone
+}
+
+export interface UkMapProps {
+  map: SparkUkReport['map']
+  balance: SparkUkReport['balance']
+  locale: Locale
+  template: string
+}
+
+export interface UkBalanceProps {
+  balance: SparkUkReport['balance']
+  players: UkMapPlayer[]
+  legend: SparkUkReport['map']['legend']
+  locale: Locale
+  template: string
+  tone: UkTone
+}
+
+export interface UkBoardProps {
+  board: SparkUkReport['board']
+  locale: Locale
+}
+
+/** Bölümün zemini: kartlar ve tablo başlıkları karşı tonda. */
+export type UkTone = 'paper' | 'white'
+
+export interface UkBlocksProps {
+  blocks: UkBlock[]
+  readingLabel: string
+  template: string
+  tone: UkTone
+}
+
+export interface UkStatsProps {
+  items: UkStat[]
+  template: string
+  ground?: BrandGround
+}
+
+export interface UkTableBlockProps {
+  block: Extract<UkBlock, { type: 'table' }>
+  template: string
+  tone: UkTone
+}
+
+export interface UkTabsBlockProps {
+  block: Extract<UkBlock, { type: 'tabs' }>
+  template: string
+  tone: UkTone
+}
+
+export interface UkAccordionProps {
+  items: { title: string; text: string }[]
+  template: string
+}
+
+export interface UkMoneyBarsProps {
+  bars: SparkUkReport['money']['bars']
+  title: string
+  locale: Locale
+}
+
+export interface UkStoryProps {
+  story: SparkUkReport['story']
+  gapsHref: string
+  gapsLabel: string
+  template: string
+}
+
+export interface UkCalendarProps {
+  calendar: SparkUkReport['calendar']
+  locale: Locale
+  template: string
+}
+
+export interface UkPanelProps {
+  title: string
+  tone: UkTone
+  children: ReactNode
+}
+
+export interface UkSelectionProviderProps {
+  children: ReactNode
+}
+
+export interface UkGroupDotProps {
+  group: UkGroup
+  className?: string
 }
 
 // Sektör raporu Nº 05 Almanya KOBİ bankacılığı bileşenleri (components/spark/report/sme)

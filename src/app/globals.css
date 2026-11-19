@@ -18,6 +18,13 @@
   /* Sektör raporu simülatörünün sonuç rakamı (prototip --green, --red): artı yeşil, eksi kırmızı. */
   --positive: #2F6B3A;
   --negative: #9B2C1F;
+  /* Sektör raporu Nº 06 (İngiltere KOBİ) oyuncu grupları: harita noktası, çubuk, tablo noktası. Metin rengi değil. */
+  --group-big: var(--ink);
+  --group-rel: #8C5A2B;
+  --group-dig: #3B5BA9;
+  --group-plat: #3E7A62;
+  --group-spec: #7A4E8C;
+  --group-nonbank: #B5482E;
 
   /* MobileBookingBar yüksekliği (900px altı): 1px çizgi + 12px üst + 49px buton + 12px alt + iOS güvenli alan. */
   --booking-bar-h: calc(74px + env(safe-area-inset-bottom, 0px));
@@ -41,6 +48,12 @@
   --color-track: var(--track);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-group-big: var(--group-big);
+  --color-group-rel: var(--group-rel);
+  --color-group-dig: var(--group-dig);
+  --color-group-plat: var(--group-plat);
+  --color-group-spec: var(--group-spec);
+  --color-group-nonbank: var(--group-nonbank);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -1043,4 +1056,20 @@ html:not(.js) .video-only { display: none; }
   .lead-sticky {
     transition: none;
   }
+}
+
+/* Sektör raporu Nº 06 (İngiltere KOBİ): çubuklar ve sütunlar bir kez büyür (hooks/useGrow.ts). */
+.uk-grow { transition: width 700ms var(--ease-brand), height 1000ms var(--ease-brand); }
+.js .uk-grow[data-grow="off"] { transition: none; }
+.js .uk-grow-w[data-grow="off"] { width: 0 !important; }
+.js .uk-grow-h[data-grow="off"] { height: 0 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .uk-grow { transition: none; }
+}
+.uk-appear { animation: uk-appear 320ms var(--ease-brand) both; }
+@keyframes uk-appear {
+  from { opacity: 0; transform: translateY(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uk-appear { animation: none; }
 }

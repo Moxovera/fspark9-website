@@ -135,6 +135,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sector report",
+          number: "Nº 06",
+          title: "UK SME banking",
+          line: "The account now opens in an app. Credit, cards and the books still sit behind other doors.",
+          date: "19 Nov 2026",
+          linkLabel: "Read the report",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sector-reports", episodeSlug: "uk-sme" },
+          },
+        },
+        {
+          format: "Sector report",
           number: "Nº 05",
           title: "Germany SME banking",
           line: "Germany has 3.87 million SMEs. Apps run their daily money, Sparkassen still hold their loans. Nobody stands in between.",
@@ -155,18 +167,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sector-reports", episodeSlug: "kyc-kyb" },
-          },
-        },
-        {
-          format: "Sector report",
-          number: "Nº 03",
-          title: "PSD3 and FiDA: Who Pays for Fraud",
-          line: "PSD3, PSR and FiDA change who pays for fraud and what customer data is worth.",
-          date: "27 Oct 2026",
-          linkLabel: "Read the report",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sector-reports", episodeSlug: "psd3-fida" },
           },
         },
       ],
@@ -301,6 +301,18 @@ export const home: Record<Locale, HomeContent> = {
       cards: [
         {
           format: "Sektör raporu",
+          number: "Nº 06",
+          title: "İngiltere KOBİ bankacılığı",
+          line: "Hesap artık bir uygulamada açılıyor. Kredi, kart ve defter hâlâ ayrı kapılarda.",
+          date: "19 Kas 2026",
+          linkLabel: "Raporu okuyun",
+          href: {
+            pathname: "/spark/[formatSlug]/[episodeSlug]",
+            params: { formatSlug: "sektor-raporlari", episodeSlug: "uk-sme" },
+          },
+        },
+        {
+          format: "Sektör raporu",
           number: "Nº 05",
           title: "Almanya KOBİ bankacılığı",
           line: "Almanya'da 3,87 milyon KOBİ var. Günlük parasını uygulamalar yönetiyor, kredisini hâlâ Sparkasse veriyor. Arada kimse yok.",
@@ -321,18 +333,6 @@ export const home: Record<Locale, HomeContent> = {
           href: {
             pathname: "/spark/[formatSlug]/[episodeSlug]",
             params: { formatSlug: "sektor-raporlari", episodeSlug: "kyc-kyb" },
-          },
-        },
-        {
-          format: "Sektör raporu",
-          number: "Nº 03",
-          title: "PSD3 ve FiDA: Dolandırıcılığı Kim Öder",
-          line: "PSD3, PSR ve FiDA dolandırıcılığın faturasını kimin ödediğini ve müşteri verisinin değerini değiştiriyor.",
-          date: "27 Eki 2026",
-          linkLabel: "Raporu okuyun",
-          href: {
-            pathname: "/spark/[formatSlug]/[episodeSlug]",
-            params: { formatSlug: "sektor-raporlari", episodeSlug: "psd3-fida" },
           },
         },
       ],
