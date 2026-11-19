@@ -1,21 +1,16 @@
 import { track } from "@vercel/analytics";
 import { kitFormAction } from "@/lib/newsletter";
-import { WEB3FORMS_ENDPOINT } from "@/lib/sparkAnswer";
 import type { LeadFormPlacement, Locale } from "@/types/content";
 
 /**
- * Lead sayfası (/uk-sme) gönderimi. Sunucu yok, sitenin iki mevcut
- * gönderim yolu tarayıcıdan:
+ * Lead sayfası (/uk-sme) gönderimi. Sunucu yok, her lead tarayıcıdan sitenin
+ * Kit formuna gider (Spark kilidi ve footer şeridiyle aynı form, `fetch` +
+ * `Accept: application/json`). Kit onay mailini her zamanki gibi yollar ama
+ * PDF onayı beklemez. Ek alanlar `fields[...]` olarak gider; Kit'te aynı
+ * anahtarla bir özel alan varsa abonenin üstüne yazılır, yoksa yok sayılır.
+ * Onay kutusu `fields[spark_consent]` (yes / no) olarak kaydedilir.
  *
- * - Onay kutusu işaretliyse aynı Kit formu (Spark kilidi ve footer şeridiyle
- *   ortak, `submitToKit` gibi `fetch` + `Accept: application/json`). Ek
- *   alanlar Kit'in form uç noktasına `fields[...]` olarak gider; Kit'te aynı
- *   anahtarla bir özel alan varsa abonenin üstüne yazılır, yoksa yok sayılır.
- * - Her lead (onaylı ya da değil) Web3Forms'a (Nº 02 okur anketinin
- *   kullandığı anahtar) tek satır kayıt olarak: e-posta, kaynak, form, dil,
- *   onay, UTM. Onaysız lead sadece burada durur, Spark listesine girmez.
- *
- * İkisi de `keepalive` ile ve beklenmeden gönderilir: okur PDF için hiçbir
+ * İstek `keepalive` ile ve beklenmeden gönderilir: okur PDF için hiçbir
  * cevabı beklemez, hata sadece konsola yazılır.
  */
 export const LEAD_SOURCE = "leadmagnet-uk-sme";
@@ -68,6 +63,7 @@ async function sendToKit(payload: LeadPayload) {
   body.set("fields[source]", payload.source);
   body.set("fields[lead_form]", payload.form);
   body.set("fields[lead_lang]", payload.lang);
+  body.set("fields[spark_consent]", payload.consent ? "yes" : "no");
   for (const key of UTM_KEYS) if (payload[key]) body.set(`fields[${key}]`, payload[key]);
   const response = await fetch(action, { method: "POST", body, headers: { Accept: "application/json" }, keepalive: true });
   if (!response.ok) throw new Error(`Kit responded ${response.status}`);
@@ -77,31 +73,6 @@ async function sendToKit(payload: LeadPayload) {
   }
 }
 
-async function sendToLog(payload: LeadPayload) {
-  const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
-  if (!key) throw new Error("NEXT_PUBLIC_WEB3FORMS_KEY is not set");
-  const response = await fetch(WEB3FORMS_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    keepalive: true,
-    body: JSON.stringify({
-      access_key: key,
-      subject: `Lead ${payload.source} · ${payload.lang} · ${payload.form} · consent ${payload.consent ? "yes" : "no"}`,
-      from_name: "fspark9 lead page",
-      botcheck: "",
-      ...payload,
-      consent: payload.consent ? "yes" : "no",
-    }),
-  });
-  if (!response.ok) throw new Error(`Web3Forms responded ${response.status}`);
-}
-
 export function submitLead(payload: LeadPayload) {
-  const jobs: Promise<void>[] = [sendToLog(payload)];
-  if (payload.consent) jobs.push(sendToKit(payload));
-  void Promise.allSettled(jobs).then((results) => {
-    results.forEach((result) => {
-      if (result.status === "rejected") console.error("lead: signup call failed", result.reason);
-    });
-  });
+  sendToKit(payload).catch((error: unknown) => console.error("lead: signup call failed", error));
 }

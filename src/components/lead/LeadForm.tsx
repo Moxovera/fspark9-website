@@ -45,7 +45,7 @@ export default function LeadForm({ copy, placement, locale, pdf, ground }: LeadF
     setError("");
     trackLead("lead_submit", locale, { form: placement });
     submitLead({ email, lang: locale, consent, source: LEAD_SOURCE, form: placement, ...readUtm() });
-    if (consent) markPending(email);
+    markPending(email);
     markDone(placement);
   }
 
