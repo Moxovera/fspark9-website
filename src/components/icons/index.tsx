@@ -72,3 +72,13 @@ export function MenuIcon(props: IconProps) {
 export function PlayIcon(props: IconProps) {
   return <Icon d="M9 7.2v9.6l7.6-4.8z" fill="currentColor" {...props} />;
 }
+
+/** Lead sayfası: madde işareti ve onay dairesi. */
+export function CheckIcon(props: IconProps) {
+  return <Icon d="M5 12.5l4.5 4.5L19 7.5" {...props} />;
+}
+
+/** Lead sayfası: PDF'te kalan kilitli içerik. */
+export function LockIcon(props: IconProps) {
+  return <Icon d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" {...props} />;
+}

@@ -1030,3 +1030,17 @@ html:not(.js) .video-only { display: none; }
 @media (prefers-reduced-motion: reduce) {
   [data-gate-animate] .gate-body { transition: none; }
 }
+
+/* Lead sayfası (/uk-sme): sabit mobil düğme alttan gelir. */
+.lead-sticky {
+  transform: translateY(130%);
+  transition: transform 300ms var(--ease-brand), visibility 300ms;
+}
+.lead-sticky.is-on {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lead-sticky {
+    transition: none;
+  }
+}

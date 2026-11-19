@@ -21,6 +21,7 @@ const STATIC_HREFS = [
   "/work",
   "/about",
   "/spark",
+  "/uk-sme",
   "/impressum",
   "/terms",
   "/privacy",

@@ -11,6 +11,7 @@ import { routing } from "@/i18n/routing";
 import { getPathname } from "@/i18n/navigation";
 import Header from "@/components/chrome/Header";
 import Footer from "@/components/chrome/Footer";
+import ChromeGate from "@/components/chrome/ChromeGate";
 import MobileBookingBar from "@/components/chrome/MobileBookingBar";
 import BookingProvider from "@/components/booking/BookingProvider";
 import BookingOverlay from "@/components/booking/BookingOverlay";
@@ -122,11 +123,15 @@ export default async function LocaleLayout({
             <BookingProvider>
               <MobileMenuProvider>
                 <VideoOpenProvider>
-                  <Header chrome={chrome} newsletter={newsletter} services={services} locale={locale} />
+                  <ChromeGate>
+                    <Header chrome={chrome} newsletter={newsletter} services={services} locale={locale} />
+                  </ChromeGate>
                   {children}
                   <Footer chrome={chrome} newsletter={newsletter} locale={locale} />
-                  <MobileBookingBar label={chrome.bookLabel} />
-                  <NewsletterBox content={newsletter} locale={locale} />
+                  <ChromeGate>
+                    <MobileBookingBar label={chrome.bookLabel} />
+                    <NewsletterBox content={newsletter} locale={locale} />
+                  </ChromeGate>
                   <BookingOverlay calLink={calLink} labels={chrome.booking} />
                 </VideoOpenProvider>
               </MobileMenuProvider>

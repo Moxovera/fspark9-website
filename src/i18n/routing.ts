@@ -31,6 +31,8 @@ export const routing = defineRouting({
     // Kit onay mailindeki linke tıklandıktan sonra.
     '/newsletter-confirmed': { en: '/newsletter-confirmed', tr: '/bulten-onaylandi' },
     '/newsletter-thank-you': { en: '/newsletter-thank-you', tr: '/bulten-tesekkurler' },
+    // Lead sayfası: İngiltere KOBİ raporu PDF'i (iki dilde aynı yol).
+    '/uk-sme': '/uk-sme',
     '/impressum': '/impressum',
     '/terms': { en: '/terms', tr: '/kullanim-sartlari' },
     '/privacy': { en: '/privacy', tr: '/gizlilik' },

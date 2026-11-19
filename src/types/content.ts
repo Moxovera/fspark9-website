@@ -3750,3 +3750,112 @@ export interface GateCardProps {
   locale: Locale;
   onOpened: (email: string, member: boolean) => void;
 }
+
+// ---------------------------------------------------------------------------
+// Lead sayfası: İngiltere KOBİ bankacılığı raporu PDF'i (/uk-sme, /tr/uk-sme).
+// Metin `src/content/uk-sme-lead.ts` (referans HTML'in T.tr / T.en'i, statik).
+// ---------------------------------------------------------------------------
+
+export interface LeadStat {
+  value: string;
+  label: string;
+}
+
+export interface LeadGalleryItem {
+  /** Görsel anahtarı: /reports/lp-{locale}-{key}.png */
+  key: "ldr" | "map" | "board" | "matrix";
+  number: string;
+  tag: string;
+  heading: string;
+  text: string;
+  width: number;
+  height: number;
+  /** Bulanık, aşağı doğru solan görsel ve forma kaydıran düğme. */
+  locked?: boolean;
+}
+
+export interface LeadFinding {
+  number: string;
+  heading: string;
+  text: string;
+}
+
+export interface LeadFormCopy {
+  button: string;
+  placeholder: string;
+  error: string;
+  consent: string;
+  doneTitle: string;
+  doneText: string;
+  download: string;
+}
+
+export interface LeadPageContent {
+  seo: { title: string; description: string; ogTitle: string; ogDescription: string; ogImageAlt: string };
+  navCta: string;
+  pillA: string;
+  pillB: string;
+  h1Lead: string;
+  h1Flare: string;
+  hookBold: string;
+  hookRest: string;
+  checks: string[];
+  facts: LeadStat[];
+  cardTitle: string;
+  cardText: string;
+  form: LeadFormCopy;
+  trust: string[];
+  band: LeadStat[];
+  galleryKicker: string;
+  galleryTitle: string;
+  galleryText: string;
+  gallery: LeadGalleryItem[];
+  lockedButton: string;
+  findingsKicker: string;
+  findingsTitle: string;
+  findings: LeadFinding[];
+  lockedFindingsLabel: string;
+  lockedFindings: string[];
+  lockedFindingsButton: string;
+  authorKicker: string;
+  authorName: string;
+  authorInitials: string;
+  authorText: string;
+  whoKicker: string;
+  whoTitle: string;
+  who: string[];
+  finalTitle: string;
+  finalText: string;
+  sticky: string;
+  /** /reports altındaki PDF dosyasının adı. */
+  pdf: string;
+}
+
+export type LeadFormPlacement = "hero" | "bottom";
+
+export interface LeadFormProps {
+  copy: LeadFormCopy;
+  placement: LeadFormPlacement;
+  locale: Locale;
+  pdf: string;
+  /** Kart ya da kapanış bloğu: renk ve yerleşim. */
+  ground: "paper" | "ink";
+}
+
+export interface LeadHeaderProps {
+  homeLabel: string;
+  brandName: string;
+  navCta: string;
+  locale: Locale;
+}
+
+export interface LeadStickyProps {
+  label: string;
+}
+
+export interface LeadPageViewProps {
+  page: LeadPageContent;
+  locale: Locale;
+  brandName: string;
+  homeLabel: string;
+}
