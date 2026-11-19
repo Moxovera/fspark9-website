@@ -14,8 +14,8 @@ const MAX_ISSUES = 3;
  */
 export default function FormatBlock({ format, issues, readLabel }: FormatBlockProps) {
   const href = { pathname: "/spark/[formatSlug]" as const, params: { formatSlug: format.slug } };
-  // Hub en son üç sayıyı artan sırayla gösteriyor (board: Nº 01 üstte).
-  const shown = issues.slice(0, MAX_ISSUES).reverse();
+  // Hub en son üç sayıyı gösteriyor, en yeni üstte.
+  const shown = issues.slice(0, MAX_ISSUES);
   const number = (
     <span
       className={`format-number block font-display text-[88px] leading-[0.8] font-extrabold tracking-[-0.06em] min-[900px]:text-[clamp(140px,13.9vw,200px)] min-[900px]:leading-[0.78] ${

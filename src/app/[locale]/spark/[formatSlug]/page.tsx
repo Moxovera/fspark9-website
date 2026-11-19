@@ -103,11 +103,11 @@ export default async function SparkFormatPage({ params }: { params: Params }) {
   }
 
   const { issues } = await loadFormatIssues(locale, format, hub);
+  // Bütün formatlarda bölümler en yeni üstte (issues zaten azalan sırada).
   // Son Gün (nasıl okunur adımları olan format): On the Radar akışı, yani son
-  // bölüm, tüm bölümler (en yeni üstte), en altta "Nasıl okunur". Diğer
-  // formatlarda prototip sırası: Nº 01 üstte, sıradakiler altta.
+  // bölüm, tüm bölümler, en altta "Nasıl okunur".
   const latestFirst = format.howSteps.length > 0;
-  const rows = latestFirst ? issues : [...issues].sort((a, b) => a.number - b.number);
+  const rows = issues;
   const latest = latestFirst ? issues.find((issue) => issue.status === "published") : undefined;
   const latestLabel = lastDayFormatCopy[locale].latest;
 
