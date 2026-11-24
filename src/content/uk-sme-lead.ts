@@ -13,10 +13,10 @@ export const en: LeadPageContent = {
   seo: {
     title: "UK SME banking report · free PDF · fspark9",
     description:
-      "Monzo lends out 10% of its deposits. Lloyds lends 97%. The account has moved into an app, while credit, cards and the books still sit behind other doors. Fourteen balance sheets and six kinds of players in one report.",
+      "Across the whole bank, Monzo lends out 10% of its deposits. Lloyds lends 97%. The account has moved into an app, while credit, cards and the books still sit behind other doors. Fourteen balance sheets and six kinds of players in one report.",
     ogTitle: "UK SME banking report · free PDF · fspark9",
     ogDescription:
-      "Monzo lends out 10% of its deposits. Lloyds lends 97%. The account has moved into an app, while credit, cards and the books still sit behind other doors. Fourteen balance sheets and six kinds of players in one report.",
+      "Across the whole bank, Monzo lends out 10% of its deposits. Lloyds lends 97%. The account has moved into an app, while credit, cards and the books still sit behind other doors. Fourteen balance sheets and six kinds of players in one report.",
     ogImageAlt: "UK SME banking report · free PDF · fspark9",
   },
   navCta: "Free PDF",
@@ -24,7 +24,7 @@ export const en: LeadPageContent = {
   pillB: "Spark report Nº 06 · 32 pages",
   h1Lead: "Who is winning",
   h1Flare: "UK SME banking?",
-  hookBold: "Monzo lends out 10% of its deposits. Lloyds lends 97%.",
+  hookBold: "Across the whole bank, Monzo lends out 10% of its deposits. Lloyds lends 97%.",
   hookRest:
     "The account has moved into an app, while credit, cards and the books still sit behind other doors. Fourteen balance sheets and six kinds of players in one report.",
   checks: [
@@ -65,7 +65,7 @@ export const en: LeadPageContent = {
       number: "04",
       tag: "Balance sheet",
       heading: "Who turns money into loans?",
-      text: "Loan to deposit ratios for fourteen banks. Big and specialist banks sit near 100%, digital banks under 10%.",
+      text: "Whole bank loan to deposit ratios for fourteen banks, retail included. Big and specialist banks sit near 100%, digital banks at 41% or below.",
       width: 680,
       height: 618,
     },
@@ -151,7 +151,7 @@ export const tr: LeadPageContent = {
   seo: {
     title: "İngiltere KOBİ bankacılığı raporu · ücretsiz PDF · fspark9",
     description:
-      "Monzo mevduatının %10'unu krediye çeviriyor, Lloyds %97'sini. 14 bankanın bilançosu ve altı tür oyuncu, 32 sayfalık ücretsiz raporda.",
+      "Banka genelinde Monzo mevduatının %10'unu krediye çeviriyor, Lloyds %97'sini. 14 bankanın bilançosu ve altı tür oyuncu, 32 sayfalık ücretsiz raporda.",
     ogTitle: "İngiltere KOBİ bankacılığı · Spark Sektör Raporu Nº 06",
     ogDescription: "14 bankanın bilançosu, altı tür oyuncu, tek pazar. 32 sayfalık ücretsiz PDF.",
     ogImageAlt: "İngiltere KOBİ bankacılığı · Spark Sektör Raporu Nº 06",
@@ -161,7 +161,7 @@ export const tr: LeadPageContent = {
   pillB: "Spark rapor Nº 06 · 32 sayfa",
   h1Lead: "İngiltere'de KOBİ bankacılığını",
   h1Flare: "kim kazanıyor?",
-  hookBold: "Monzo mevduatının %10'unu krediye çeviriyor, Lloyds %97'sini.",
+  hookBold: "Banka genelinde Monzo mevduatının %10'unu krediye çeviriyor, Lloyds %97'sini.",
   hookRest:
     "Hesap uygulamaya geçti, kredi, kart ve defter hâlâ başka kapılarda. 14 bankanın bilançosu ve altı tür oyuncu tek raporda.",
   checks: [
@@ -202,9 +202,9 @@ export const tr: LeadPageContent = {
       number: "04",
       tag: "Bilanço",
       heading: "Parayı kim krediye çeviriyor?",
-      text: "On dört bankanın kredi / mevduat oranı. Büyük ve uzman bankalar %100 civarında, dijitaller %10'un altında.",
+      text: "On dört bankanın banka geneli kredi / mevduat oranı, bireysel dahil. Büyük ve uzman bankalar %100 civarında, dijitaller %41 ve altında.",
       width: 680,
-      height: 770,
+      height: 772,
     },
     {
       key: "map",
