@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import LeadPageView from "@/components/lead/LeadPageView";
 import { en, tr } from "@/content/uk-sme-lead";
 import { getPathname } from "@/i18n/navigation";
+import { LEAD_ASSET_VERSION } from "@/lib/lead";
 import { SITE_URL } from "@/lib/site";
 import { getChrome } from "@/sanity/lib/content";
 import type { Locale } from "@/types/content";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const page = locale === "tr" ? tr : en;
   const paths = { en: getPathname({ href: "/uk-sme", locale: "en" }), tr: getPathname({ href: "/uk-sme", locale: "tr" }) };
   const canonical = locale === "tr" ? paths.tr : paths.en;
-  const image = { url: `/og/og-uk-sme-${locale === "tr" ? "tr" : "en"}.jpg`, width: 1200, height: 630, alt: page.seo.ogImageAlt };
+  const image = { url: `/og/og-uk-sme-${locale === "tr" ? "tr" : "en"}.jpg?v=${LEAD_ASSET_VERSION}`, width: 1200, height: 630, alt: page.seo.ogImageAlt };
 
   return {
     metadataBase: new URL(SITE_URL),

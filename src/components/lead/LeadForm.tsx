@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { ArrowDownIcon, CheckIcon } from "@/components/icons";
 import { useLeadState } from "@/components/lead/LeadProvider";
-import { LEAD_SOURCE, isValidEmail, readUtm, submitLead, trackLead } from "@/lib/lead";
+import { LEAD_ASSET_VERSION, LEAD_SOURCE, isValidEmail, readUtm, submitLead, trackLead } from "@/lib/lead";
 import { markPending } from "@/lib/sparkReader";
 import type { LeadFormProps } from "@/types/content";
 
@@ -23,7 +23,7 @@ export default function LeadForm({ copy, placement, locale, pdf, ground }: LeadF
   const [error, setError] = useState("");
   const [consent, setConsent] = useState(true);
   const downloadRef = useRef<HTMLAnchorElement>(null);
-  const href = `/reports/${pdf}`;
+  const href = `/reports/${pdf}?v=${LEAD_ASSET_VERSION}`;
   const ink = ground === "ink";
 
   // Gönderen formun kutusu açılınca indirme kendiliğinden başlar.

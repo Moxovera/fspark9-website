@@ -15,6 +15,8 @@ import type { LeadFormPlacement, Locale } from "@/types/content";
  */
 export const LEAD_SOURCE = "leadmagnet-uk-sme";
 export const LEAD_FORM_ID = "lead-form";
+/** PDF ve paylaşım görseli değişince artar: tarayıcı ve LinkedIn yenisini çeker (dosya adı aynı kalır). */
+export const LEAD_ASSET_VERSION = "2";
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const;
 type UtmKey = (typeof UTM_KEYS)[number];
