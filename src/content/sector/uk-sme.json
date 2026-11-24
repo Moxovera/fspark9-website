@@ -151,7 +151,7 @@
           "count": "5",
           "what": "Şubesiz, uygulamadan çalışan, banka lisanslı kurumlar. Mevduat kendi bilançolarında, FSCS güvencesi var.",
           "who": "Monzo, Starling, Revolut, Zempler, Mettle (NatWest'in dijital markası)",
-          "status": "2025'te yeni kurulan şirketlerin %43'ü hesabını dijital bir oyuncuda açtı [2]. Krediye pek çevirmiyorlar: Monzo'da kredi / mevduat oranı %10 (04. bölüm)."
+          "status": "2025'te yeni kurulan şirketlerin %43'ü hesabını dijital bir oyuncuda açtı [2]. Krediye pek çevirmiyorlar: banka genelinde Monzo'nun kredi / mevduat oranı %10 (04. bölüm)."
         },
         {
           "group": "plat",
@@ -365,7 +365,7 @@
         "index": "04",
         "label": "Bilanço",
         "title": "Bilançoya göre: kim ne kadar para taşıyor",
-        "lede": "Haritadaki konum müşteriyi neyin tuttuğunu söylüyor. Bilanço iki şeyi daha gösteriyor: kimin elinde ne kadar mevduat var ve o parayı ne kadar krediye çeviriyor. On dört bankanın hepsi için aynı dört rakamı topladık. Dönem 2025 yıl sonu; Monzo ve Starling için Mart 2026'da biten mali yıl."
+        "lede": "Haritadaki konum müşteriyi neyin tuttuğunu söylüyor. Bilanço iki şeyi daha gösteriyor: kimin elinde ne kadar mevduat var ve o parayı ne kadar krediye çeviriyor. On dört bankanın hepsi için aynı dört rakamı topladık. Dönem 2025 yıl sonu; Monzo ve Starling için Mart 2026'da biten mali yıl. Önemli not: bu rakamlar bankanın tamamına ait, bireysel müşteriler de içinde. Bankaların çoğu KOBİ mevduatını ve kredisini ayrı açıklamıyor; açıklananları tablodaki not sütununa koyduk. Bu yüzden bu bölüm bankaların gücünü ve tercihlerini gösteriyor, KOBİ pazar payını değil."
       },
       "ask": "Bir soru seçin",
       "metrics": [
@@ -394,17 +394,17 @@
           "explain": "Bir yıllık vergi öncesi kâr. Ölçekler çok farklı olduğu için kâr tek başına verimlilik söylemiyor; mevduatla yan yana okumak gerekiyor."
         }
       ],
-      "unit": "milyar £",
-      "ldrUnit": "Müşteri kredileri / mevduat · %100 çizgisi: toplanan her sterlin krediye gidiyor",
-      "fullTitle": "Tablonun tamamı: 14 banka, aynı 4 rakam",
-      "fullHint": "Sütun başlığına dokunun, tablo o sütuna göre sıralansın.",
+      "unit": "milyar £ · banka geneli, bireysel müşteriler dahil",
+      "ldrUnit": "Müşteri kredileri / mevduat · banka geneli, bireysel dahil · %100: toplanan her sterlin krediye gidiyor",
+      "fullTitle": "Tablonun tamamı: 14 banka, aynı 4 rakam, banka geneli",
+      "fullHint": "Sütun başlığına dokunun, tablo o sütuna göre sıralansın. Yıldızlı sütunlar bankanın tamamı için, bireysel dahil.",
       "columns": [
         "Banka",
         "Grup",
-        "Mevduat",
-        "Krediler",
-        "Kredi / mevduat",
-        "Vergi öncesi kâr",
+        "Mevduat*",
+        "Krediler*",
+        "Kredi / mevduat*",
+        "Vergi öncesi kâr*",
         "KOBİ tarafında"
       ],
       "nonbankTitle": "Banka olmayanlar: bilanço yerine başka ölçüler",
@@ -419,11 +419,11 @@
       "readings": [
         {
           "title": "Ölçek uçurumu.",
-          "text": "Lloyds tek başına 496,5 milyar sterlin mevduat taşıyor. Monzo, Starling, Metro, Handelsbanken, Allica ve OakNorth'un toplamı yaklaşık 85 milyar."
+          "text": "Bireysel müşteriler dahil, Lloyds tek başına 496,5 milyar sterlin mevduat taşıyor. Monzo, Starling, Metro, Handelsbanken, Allica ve OakNorth'un toplamı yaklaşık 85 milyar."
         },
         {
           "title": "Asıl fark kredi / mevduat oranında.",
-          "text": "Büyük ve uzman bankalar mevduatın neredeyse tamamını krediye çeviriyor: Lloyds %97, Santander %105, Shawbrook %104. Monzo'da oran %10, Revolut'ta %4. Dijitaller parayı tutuyor, krediye pek çevirmiyor."
+          "text": "Büyük ve uzman bankalar mevduatın neredeyse tamamını krediye çeviriyor: Lloyds %97, Santander %105, Shawbrook %104. Monzo'da oran %10, Revolut'ta %4. Oranlar bankanın tamamı için, ama yön net: dijital bankalar topladığı parayı, bireysel olsun işletme olsun, krediye pek çevirmiyor."
         },
         {
           "title": "Kredi veren dijital banka da KOBİ'ye vermiyor.",
@@ -431,8 +431,8 @@
         }
       ],
       "detailLabels": {
-        "deposits": "Mevduat",
-        "loans": "Kredi",
+        "deposits": "Mevduat, banka geneli",
+        "loans": "Kredi, banka geneli",
         "pbt": "Vergi öncesi kâr",
         "ldr": "Kredi / mevduat"
       },
@@ -2927,7 +2927,7 @@
           "count": "5",
           "what": "Licensed banks with no branches that run through an app. Deposits sit on their own balance sheet with FSCS protection.",
           "who": "Monzo, Starling, Revolut, Zempler, Mettle (NatWest's digital brand)",
-          "status": "43% of companies founded in 2025 opened their account with a digital provider [2]. They lend little of it: Monzo's loan to deposit ratio is 10% (section 04)."
+          "status": "43% of companies founded in 2025 opened their account with a digital provider [2]. They lend little of it: across the whole bank, Monzo's loan to deposit ratio is 10% (section 04)."
         },
         {
           "group": "plat",
@@ -3141,7 +3141,7 @@
         "index": "04",
         "label": "Balance sheet",
         "title": "By balance sheet: who carries how much money",
-        "lede": "Position on the map shows what keeps the customer. The balance sheet shows two more things: who holds how much in deposits, and how much of it they turn into loans. We collected the same four numbers for all fourteen banks. The period is year end 2025; for Monzo and Starling, the financial year to March 2026."
+        "lede": "Position on the map shows what keeps the customer. The balance sheet shows two more things: who holds how much in deposits, and how much of it they turn into loans. We collected the same four numbers for all fourteen banks. The period is year end 2025; for Monzo and Starling, the financial year to March 2026. An important note: these figures cover the whole bank, retail customers included. Most banks do not report SME deposits and loans separately; where they do, we put the figure in the notes column. So this section shows each bank's strength and choices, not SME market share."
       },
       "ask": "Pick a question",
       "metrics": [
@@ -3170,17 +3170,17 @@
           "explain": "Profit before tax for one year. Scale differs so much that profit alone says little about efficiency; read it next to deposits."
         }
       ],
-      "unit": "£bn",
-      "ldrUnit": "Customer loans / deposits · the 100% line: every pound collected goes out as a loan",
-      "fullTitle": "The full table: 14 banks, the same 4 numbers",
-      "fullHint": "Tap a column header to sort the table by it.",
+      "unit": "£bn · whole bank, retail customers included",
+      "ldrUnit": "Customer loans / deposits · whole bank, retail included · 100%: every pound collected goes out as a loan",
+      "fullTitle": "The full table: 14 banks, the same 4 numbers, whole bank",
+      "fullHint": "Tap a column header to sort the table by it. Starred columns cover the whole bank, retail included.",
       "columns": [
         "Bank",
         "Group",
-        "Deposits",
-        "Loans",
-        "Loan to deposit",
-        "Profit before tax",
+        "Deposits*",
+        "Loans*",
+        "Loan to deposit*",
+        "Profit before tax*",
         "On the SME side"
       ],
       "nonbankTitle": "Non banks: other measures instead of a balance sheet",
@@ -3195,11 +3195,11 @@
       "readings": [
         {
           "title": "A gap in scale.",
-          "text": "Lloyds alone carries £496.5bn of deposits. Monzo, Starling, Metro, Handelsbanken, Allica and OakNorth together hold about £85bn."
+          "text": "Retail included, Lloyds alone carries £496.5bn of deposits. Monzo, Starling, Metro, Handelsbanken, Allica and OakNorth together hold about £85bn."
         },
         {
           "title": "The real difference is the loan to deposit ratio.",
-          "text": "Big and specialist banks turn almost all deposits into loans: Lloyds 97%, Santander 105%, Shawbrook 104%. At Monzo it is 10%, at Revolut 4%. Digital players hold the money and lend little of it."
+          "text": "Big and specialist banks turn almost all deposits into loans: Lloyds 97%, Santander 105%, Shawbrook 104%. At Monzo it is 10%, at Revolut 4%. These ratios cover the whole bank, but the direction is clear: digital banks lend little of the money they hold, retail or business."
         },
         {
           "title": "Even the digital bank that lends does not lend to SMEs.",
@@ -3207,8 +3207,8 @@
         }
       ],
       "detailLabels": {
-        "deposits": "Deposits",
-        "loans": "Loans",
+        "deposits": "Deposits, whole bank",
+        "loans": "Loans, whole bank",
         "pbt": "Profit before tax",
         "ldr": "Loan to deposit"
       },
